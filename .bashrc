@@ -23,7 +23,10 @@ alias cd=cdls
 alias cdp='cd ../'
 alias cdpp='cd ../../'
 
-alias enable_bashrc=". ~/.bashrc"
+alias enable_bashrc="source ~/.bashrc"
+alias enable_emacs="source ~/.bashrc"
+alias reboot_emacs="emacsclient -e \'\(kill-emacs\)\';emacs --daemon"
+
 
 ############
 # Function #
