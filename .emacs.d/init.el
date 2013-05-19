@@ -12,7 +12,7 @@
 
 ;; load-pathに追加するフォルダ
 ;; 2つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
-(add-to-load-path "elisp" "conf" "public_repos")
+(add-to-load-path "elisp" "conf" "public_repos" "elisp/ruby")
 
 ; ------------------------------------------------------------------------
 ; face-display Setting
