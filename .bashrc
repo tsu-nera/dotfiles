@@ -46,6 +46,16 @@ export LD_LIBRARY_PATH=/usr/local/lib
 export LIBRARY_PATH=/usr/local/lib
 export CPATH=/usr/local/include
 
+
+
+# screen実行中にemacsで閉じた場合の対策
+stty ixany
+stty ixoff -ixon
+
+#initial exec
+#screen -xR
+#export LANG=ja_JP.utf8
+
 PATH=$PATH:$HOME/bin
 PATH=$PATH:/home/TSUNEMICHI/src/unity/auto
 

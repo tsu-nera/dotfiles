@@ -11,7 +11,7 @@ do
   test $file == ".git" && continue
   test $file == "." && continue
   test $file == ".." && continue
-  
+
   # .hogehogeが存在しなければ、シンボリックリンクを作成
   if [ ! -e "${homefile}" ]; then
      echo "${file} not exis, make symbolic link to ${homefile}"

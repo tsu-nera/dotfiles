@@ -4,14 +4,16 @@
 
 # Except
 # Emacs
-!/.emacs.d/init.el
-!/.emacs.d/conf/
-!/.emacs.d/elisp/*.el
-!/.emacs.d/elisp/ruby
-!/.emacs.d/public_repos/
+#!/.emacs.d/init.el
+#!/.emacs.d/conf/
+#!*.el
+#!*.org
+#!*.txt
+#!/.emacs.d/elisp/ruby
+#!/.emacs.d/public_repos/
 
-!/.bashrc
-!/.gitconfig
-!/.gitignore
-!/.screenrc
-!/.minttyrc
+#!/.bashrc
+#!/.gitconfig
+#!/.gitignore
+#!/.screenrc
+#!/.minttyrc
