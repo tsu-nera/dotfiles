@@ -153,6 +153,10 @@ setopt long_list_jobs
 ## ビープを鳴らさない
 setopt nobeep
 
+## zawを読み込む
+## git://github.com/zsh-users/zaw.git
+source ${PWD}/.zsh/zaw/zaw.zsh
+
 #########
 # Alias 
 #########
