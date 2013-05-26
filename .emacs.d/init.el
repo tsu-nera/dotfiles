@@ -38,10 +38,11 @@
 ; http://www.emacswiki.org/emacs/download/auto-install.el
 ; ------------------------------------------------------------------------
 (when(require 'auto-install nil t)
-  ;;インストールディレクトリを設定する　初期値は~/.emacs.d/auto-install/
+  ;;インストールディレクトリを設定する  初期値は~/.emacs.d/auto-install/
   (setq auto-install-directory "~/.emacs.d/elisp/")
   ;;EmacsWikiに登録されているelispの名前を取得する
-  (auto-install-update-emacswiki-package-name t)
+  ;; 起動時にnetwork unreachableってでるので、とりあえず封印 13/05/26
+  ;; (auto-install-update-emacswiki-package-name t)
   ;;必要であればプロキシの設定を行う
   ;;(setq url-proxy-services '(("http" . "localhost:8339")))
   ;;install-elispの関数を利用可能にする
@@ -101,10 +102,12 @@
 (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 
+;; エラーして} が入力できない。とりあえず封印
+;; Symbol's value as variable is void: last-command-char
 ;; ruby-electric.el --- electric editing commands for ruby files
-(require 'ruby-electric)
-(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
-(setq ruby-electric-expand-delimiters-list nil)
+;;(require 'ruby-electric)
+;;(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
+;;(setq ruby-electric-expand-delimiters-list nil)
 
 ;;; ruby-block.el --- highlight matching block
 (require 'ruby-block)

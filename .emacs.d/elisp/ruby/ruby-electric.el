@@ -171,7 +171,7 @@ strings. Note that you must have Font Lock enabled."
                    (newline))
                (insert "}")))
             ((ruby-electric-string-at-point-p)
-             (if (eq last-command-event ?{)
+             (if (eq last-command-char ?{)
                  (save-excursion
                    (when (not (char-equal ?\# (preceding-char)))
                        (delete-backward-char)
