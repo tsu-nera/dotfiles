@@ -1,6 +1,8 @@
 # All Ignore
 #*
 *~
+.emacs.d/#init.el#
+
 
 # Except
 # Emacs

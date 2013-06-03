@@ -155,7 +155,7 @@ setopt nobeep
 
 ## zawを読み込む
 ## git://github.com/zsh-users/zaw.git
-source ${PWD}/.zsh/zaw/zaw.zsh
+source $HOME/dotfiles/.zsh/zaw/zaw.zsh
 
 #########
 # Alias 
@@ -223,3 +223,11 @@ stty ixoff -ixon
 # export EDITOR=emacs
 # EmacsClient起動
 export EDITOR='emacsclient -nw'
+
+# rvenv設定 .rbenvがあるときだけ設定させる
+# http://mukaer.com/archives/2012/03/12/rubyrbenv/
+if [ -d ${HOME}/.rbenv  ] ; then
+    PATH=${HOME}/.rbenv/bin:${PATH}
+    export PATH
+    eval "$(rbenv init -)"
+fi

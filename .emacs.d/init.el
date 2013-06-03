@@ -102,12 +102,10 @@
 (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 
-;; エラーして} が入力できない。とりあえず封印
-;; Symbol's value as variable is void: last-command-char
 ;; ruby-electric.el --- electric editing commands for ruby files
-;;(require 'ruby-electric)
-;;(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
-;;(setq ruby-electric-expand-delimiters-list nil)
+(require 'ruby-electric)
+(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
+(setq ruby-electric-expand-delimiters-list nil)
 
 ;;; ruby-block.el --- highlight matching block
 (require 'ruby-block)
@@ -153,3 +151,12 @@
          :username "admin" ;; ユーザ名 
 	 ;; :password "hoge" ;; パスワードは封印
          :default-categories ("daily") )))
+
+
+; ------------------------------------------------------------------------
+; others
+; ------------------------------------------------------------------------
+; git管理のシンボリックリンクで質問されないためのおまじない。
+; 参考: http://openlab.dino.co.jp/2008/10/30/212934368.html
+;; avoid "Symbolic link to Git-controlled source file; follow link? (yes or no)"
+; (setq git-follow-symlinks t)

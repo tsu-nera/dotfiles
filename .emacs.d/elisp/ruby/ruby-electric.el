@@ -142,7 +142,7 @@ strings. Note that you must have Font Lock enabled."
 
 (defun ruby-electric-is-last-command-char-expandable-punct-p()
   (or (memq 'all ruby-electric-expand-delimiters-list)
-      (memq last-command-char ruby-electric-expand-delimiters-list)))
+      (memq last-command-event ruby-electric-expand-delimiters-list)))
 
 (defun ruby-electric-space-can-be-expanded-p()
   (if (ruby-electric-code-at-point-p)
@@ -171,7 +171,7 @@ strings. Note that you must have Font Lock enabled."
                    (newline))
                (insert "}")))
             ((ruby-electric-string-at-point-p)
-             (if (eq last-command-char ?{)
+             (if (eq last-command-event ?{)
                  (save-excursion
                    (when (not (char-equal ?\# (preceding-char)))
                        (delete-backward-char)
@@ -188,7 +188,7 @@ strings. Note that you must have Font Lock enabled."
   (and (ruby-electric-is-last-command-char-expandable-punct-p)
        (ruby-electric-code-at-point-p)
        (save-excursion
-         (insert (cdr (assoc last-command-char
+         (insert (cdr (assoc last-command-event
                              ruby-electric-matching-delimeter-alist))))))
 
 (defun ruby-electric-bar(arg)
