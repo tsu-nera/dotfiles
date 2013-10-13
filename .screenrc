@@ -1,1 +1,55 @@
+# エンコーディング
+defencodig utf-8
+
+## Prefixキーの設定
+## Ctrl + Tに設定する
 escape ^Tt
+
+# スタートアップメニューの削除
+startup_message off
+
+# プロセス番号の確認
+## $ screen -ls
+
+# オートデタッチ
+autodetach on
+
+# コピーモード
+# C-z [ とタイプすると、screenはコピーモードになる。
+# viなキーバインドでカーソル移動可能
+# スペースキーを1度押せばmark set 二度目でコピー。
+# C-z [ でコピーモードを抜ける。
+# emacs keybind for copy mode
+markkeys h=^b:l=^f:$=^e:^d=^v:^D=^V
+
+# Emacs key bind
+# bind 2 split などとするとデフォルトの
+# ウインドウ切り替えコマンドを上書きしてしまう場合がある
+bind x eval 'echo "2: split / 1: only / 0: remove / o: focus r: resize"' 'command -c REGION'
+bind -c REGION 2 split
+bind -c REGION 1 only
+bind -c REGION 0 remove
+bind -c REGION o focus
+bind -c REGION r eval 'echo "j: -1 / k: +1 / other: quit"' 'command -c RESIZE'
+bind -c RESIZE = eval 'resize ='  'command -c RESIZE'
+bind -c RESIZE J eval 'resize +5' 'command -c RESIZE'
+bind -c RESIZE K eval 'resize -5' 'command -c RESIZE'
+bind -c RESIZE j eval 'resize +1' 'command -c RESIZE'
+bind -c RESIZE k eval 'resize -1' 'command -c RESIZE'
+
+# logging
+log on
+deflog on
+logfile "/Users/hogehoge/log/screen-%Y%m%d-%n.log"
+
+# copy/scrollback mode (C-t esc)で戻れるhistory bufferを増やす。
+defscrollback 3000
+
+# ビジュアルベルをoffにする。
+vbell off
+
+# 色つきでのハードステータス表示
+hardstatus alwayslastline "%{= rw} %H %{= wk}%-Lw%{= bw}%n%f* %t%{= wk}%+Lw %{= wk}%=%{= gk} %y/%m/%d %c "
+
+# lessで見たあとに、閉じたらlessも画é# minttyでスクロールバー有効
+termcapinfo * ti@:te@
