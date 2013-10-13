@@ -2,9 +2,9 @@
 ;;------------------------------------------------------------------------
 ; ------------------------------------------------------------------------
 ; Name     :
-; URL      :
 ; Function : 
 ; History  :
+; Install  :
 ; ------------------------------------------------------------------------
 ;; @ load-path
 ;; for Emacs 23 under
@@ -58,10 +58,27 @@
 
 ; ------------------------------------------------------------------------
 ; Name     : Anything
-; URL      : http://www.emacswiki.org/emacs/anything.el
+; Install  : (auto-install-bitch "anything")
 ; Function : 自動補完
 ; History  : 13/10/14 Install
 ; ------------------------------------------------------------------------
+; TODO 使い方がわからないので、封印しておく。
+;(when (require 'anything nui t)
+;  (setq 
+   ;; 候補を表示するまでの時間
+;   anything-idle-delay 0.3
+   ;; タイプして再描写するまでの時間
+;   anything-input-idle-delay 0.2
+   ;; 候補の最大表示数
+;   anything-candidate-number-limit 100
+   ;; 体感速度アップ
+;   anything-quick-update t
+   ;; 候補選択をアルファベット順
+;   anything-enable-shortcuts 'alphabet)
+
+  ; anything の補間強化
+;  (require 'anything-match-plugin nil t)
+;)
 
 ; ------------------------------------------------------------------------
 ; emacs-evernote-mode
