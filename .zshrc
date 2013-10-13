@@ -155,7 +155,11 @@ setopt nobeep
 
 ## zawを読み込む
 ## git://github.com/zsh-users/zaw.git
-source $HOME/dotfiles/.zsh/zaw/zaw.zsh
+# source $HOME/dotfiles/.zsh/zaw/zaw.zsh
+if [ -d ${HOME}/.zsh/zaw/zaw.zsh ] ; then
+    source $HOME/dotfiles/.zsh/zaw/zaw.zsh
+fi
+
 
 #########
 # Alias 

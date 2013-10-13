@@ -160,3 +160,6 @@
 ; 参考: http://openlab.dino.co.jp/2008/10/30/212934368.html
 ;; avoid "Symbolic link to Git-controlled source file; follow link? (yes or no)"
 ; (setq git-follow-symlinks t)
+
+;; C-c c で compile コマンドを呼び出す
+(define-key mode-specific-map "c" 'compile)
