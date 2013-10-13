@@ -1,6 +1,15 @@
 ;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 ;;------------------------------------------------------------------------
+; ------------------------------------------------------------------------
+; Name     :
+; URL      :
+; Function : 
+; History  :
+; ------------------------------------------------------------------------
 ;; @ load-path
+;; for Emacs 23 under
+(when (> emacs-major-version 23)
+  (defvar user-emacs-directory "~/.emacs.d"))
 ;; load-pathの追加関数
 (defun add-to-load-path (&rest paths)
   (let (path)
@@ -9,7 +18,6 @@
         (add-to-list 'load-path default-directory)
         (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
             (normal-top-level-add-subdirs-to-load-path))))))
-
 ;; load-pathに追加するフォルダ
 ;; 2つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
 (add-to-load-path "elisp" "conf" "public_repos" "elisp/ruby")
@@ -42,11 +50,18 @@
   (setq auto-install-directory "~/.emacs.d/elisp/")
   ;;EmacsWikiに登録されているelispの名前を取得する
   ;; 起動時にnetwork unreachableってでるので、とりあえず封印 13/05/26
-  ;; (auto-install-update-emacswiki-package-name t)
+  ;;(auto-install-update-emacswiki-package-name t)
   ;;必要であればプロキシの設定を行う
   ;;(setq url-proxy-services '(("http" . "localhost:8339")))
   ;;install-elispの関数を利用可能にする
   (auto-install-compatibility-setup))
+
+; ------------------------------------------------------------------------
+; Name     : Anything
+; URL      : http://www.emacswiki.org/emacs/anything.el
+; Function : 自動補完
+; History  : 13/10/14 Install
+; ------------------------------------------------------------------------
 
 ; ------------------------------------------------------------------------
 ; emacs-evernote-mode
@@ -92,6 +107,52 @@
 (unless (server-running-p)
   (server-start))
 
+
+; ------------------------------------------------------------------------
+; org2blog
+; ------------------------------------------------------------------------
+; Emacs から WordPressに投稿するLisp
+; https://github.com/punchagan/org2blog
+; xml-rspも入れた
+; http://launchpadlibrarian.net/40270196/xml-rpc.el
+; metaweblogも入れた
+; git://github.com/punchagan/metaweblog.el.git
+(require 'metaweblog)
+(require 'org2blog-autoloads)
+(setq org2blog/wp-blog-alist
+       '(("SternStunden" ;; ブログの名前
+          :url "http://hmi-me.ciao.jp/sternstunden/xmlrpc.php";; xmlrcp path
+         :username "admin" ;; ユーザ名 
+	 ;; :password "hoge" ;; パスワードは封印
+         :default-categories ("daily") )))
+
+
+; ------------------------------------------------------------------------
+; others
+; ------------------------------------------------------------------------
+; git管理のシンボリックリンクで質問されないためのおまじない。
+; 参考: http://openlab.dino.co.jp/2008/10/30/212934368.html
+;; avoid "Symbolic link to Git-controlled source file; follow link? (yes or no)"
+; (setq git-follow-symlinks t)
+
+; ------------------------------------------------------------------------
+; Name     : auto-complete
+; URL      : http://www.emacswiki.org/emacs/auto-complete-extension.el
+; Function : 自動補完を実現するelisp
+; History  : 13/10/14
+; ------------------------------------------------------------------------
+(when (require 'auto-complete-config nil t)
+  (add-to-list 'ac-dictionary-directories
+     "~/.emacs.d/elisp/ac-dict")
+  (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
+  (ac-config-default))
+
+; ------------------------------------------------------------------------
+; C/C++
+; ------------------------------------------------------------------------
+;; C-c c で compile コマンドを呼び出す
+(define-key mode-specific-map "c" 'compile)
+
 ; ------------------------------------------------------------------------
 ; Ruby 
 ; ------------------------------------------------------------------------
@@ -133,33 +194,3 @@
 (define-key ruby-mode-map (kbd "C-c c") 'smart-compile)
 (define-key ruby-mode-map (kbd "C-c C-c") (kbd "C-c c C-m"))
 (setq compilation-window-height 15) ; default window height is 15
-
-; ------------------------------------------------------------------------
-; org2blog
-; ------------------------------------------------------------------------
-; Emacs から WordPressに投稿するLisp
-; https://github.com/punchagan/org2blog
-; xml-rspも入れた
-; http://launchpadlibrarian.net/40270196/xml-rpc.el
-; metaweblogも入れた
-; git://github.com/punchagan/metaweblog.el.git
-(require 'metaweblog)
-(require 'org2blog-autoloads)
-(setq org2blog/wp-blog-alist
-       '(("SternStunden" ;; ブログの名前
-          :url "http://hmi-me.ciao.jp/sternstunden/xmlrpc.php";; xmlrcp path
-         :username "admin" ;; ユーザ名 
-	 ;; :password "hoge" ;; パスワードは封印
-         :default-categories ("daily") )))
-
-
-; ------------------------------------------------------------------------
-; others
-; ------------------------------------------------------------------------
-; git管理のシンボリックリンクで質問されないためのおまじない。
-; 参考: http://openlab.dino.co.jp/2008/10/30/212934368.html
-;; avoid "Symbolic link to Git-controlled source file; follow link? (yes or no)"
-; (setq git-follow-symlinks t)
-
-;; C-c c で compile コマンドを呼び出す
-(define-key mode-specific-map "c" 'compile)
