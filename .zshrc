@@ -120,7 +120,6 @@ bindkey -e
 # 色有効
 autoload -U colors
 colors
-
 ## 色を使う
 setopt prompt_subst
 
@@ -133,7 +132,8 @@ local DEFAULT=$'%{\e[1;m%}'
 #PROMPT=$BLUE'[%n@%m] %(!.#.$) '$WHITE
 PROMPT=$BLUE'[%n]%# '$WHITE
 # 右側のプロンプト。ここでカレントディレクトリを出す。
-RPROMPT=$GREEN'[%~]'$WHITE
+#RPROMPT=$GREEN'[%~]'$WHITE
+RPROMPT=$DEFAULT'[%~]'$WHITE
 setopt transient_rprompt
 
 ##############
