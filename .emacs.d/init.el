@@ -20,7 +20,8 @@
             (normal-top-level-add-subdirs-to-load-path))))))
 ;; load-pathに追加するフォルダ
 ;; 2つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
-(add-to-load-path "elisp" "conf" "public_repos" "elisp/ruby")
+;;(add-to-load-path "elisp" "conf" "public_repos" "elisp/ruby")
+;;(add-to-load-path "elisp" "conf" "public_repos")
 
 ; ------------------------------------------------------------------------
 ; face-display Setting
@@ -83,15 +84,15 @@
 ; ------------------------------------------------------------------------
 ; emacs-evernote-mode
 ; ------------------------------------------------------------------------
-(require 'evernote-mode)
-(global-set-key "\C-cec" 'evernote-create-note)
-(global-set-key "\C-ceo" 'evernote-open-note)
-(global-set-key "\C-ces" 'evernote-search-notes)
-(global-set-key "\C-ceS" 'evernote-do-saved-search)
-(global-set-key "\C-cew" 'evernote-write-note)
-(global-set-key "\C-cep" 'evernote-post-region)
-(global-set-key "\C-ceb" 'evernote-browser)
-(setq evernote-username "fox10225fox")  ; Evernote アカウント名
+;(require 'evernote-mode)
+;(global-set-key "\C-cec" 'evernote-create-note)
+;(global-set-key "\C-ceo" 'evernote-open-note)
+;(global-set-key "\C-ces" 'evernote-search-notes)
+;(global-set-key "\C-ceS" 'evernote-do-saved-search)
+;(global-set-key "\C-cew" 'evernote-write-note)
+;(global-set-key "\C-cep" 'evernote-post-region)
+;(global-set-key "\C-ceb" 'evernote-browser)
+;(setq evernote-username "fox10225fox")  ; Evernote アカウント名
 
 ; ------------------------------------------------------------------------
 ; Rst-mode (for Sphinx)
@@ -134,14 +135,14 @@
 ; http://launchpadlibrarian.net/40270196/xml-rpc.el
 ; metaweblogも入れた
 ; git://github.com/punchagan/metaweblog.el.git
-(require 'metaweblog)
-(require 'org2blog-autoloads)
-(setq org2blog/wp-blog-alist
-       '(("SternStunden" ;; ブログの名前
-          :url "http://hmi-me.ciao.jp/sternstunden/xmlrpc.php";; xmlrcp path
-         :username "admin" ;; ユーザ名 
+;(require 'metaweblog)
+;(require 'org2blog-autoloads)
+;(setq org2blog/wp-blog-alist
+;       '(("SternStunden" ;; ブログの名前
+;          :url "http://hmi-me.ciao.jp/sternstunden/xmlrpc.php";; xmlrcp path
+;         :username "admin" ;; ユーザ名 
 	 ;; :password "hoge" ;; パスワードは封印
-         :default-categories ("daily") )))
+;         :default-categories ("daily") )))
 
 
 ; ------------------------------------------------------------------------
@@ -154,7 +155,7 @@
 
 ; ------------------------------------------------------------------------
 ; Name     : auto-complete
-; URL      : http://www.emacswiki.org/emacs/auto-complete-extension.el
+;u URL      : http://www.emacswiki.org/emacs/auto-complete-extension.el
 ; Function : 自動補完を実現するelisp
 ; History  : 13/10/14
 ; ------------------------------------------------------------------------
@@ -175,30 +176,30 @@
 ; ------------------------------------------------------------------------
 ;;  ruby-mode 
 ; http://shibayu36.hatenablog.com/entry/2013/03/18/192651
-(autoload 'ruby-mode "ruby-mode" "Mode for editing ruby source files" t)
-(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+;;(autoload 'ruby-mode "ruby-mode" "Mode for editing ruby source files" t)
+;;(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
+;;(add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
+;;(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 
 ;; ruby-electric.el --- electric editing commands for ruby files
-(require 'ruby-electric)
-(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
-(setq ruby-electric-expand-delimiters-list nil)
+;;(require 'ruby-electric)
+;;(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
+;;(setq ruby-electric-expand-delimiters-list nil)
 
 ;;; ruby-block.el --- highlight matching block
-(require 'ruby-block)
-(ruby-block-mode t)
-(setq ruby-block-highlight-toggle t)
+;;(require 'ruby-block)
+;;(ruby-block-mode t)
+;;(setq ruby-block-highlight-toggle t)
 
 ;; rcodetools
-(require 'rcodetools)
-(setq rct-find-tag-if-available nil)
-(defun ruby-mode-hook-rcodetools ()
-  (define-key ruby-mode-map "\M-\C-i" 'rct-complete-symbol)
-  (define-key ruby-mode-map "\C-c\C-t" 'ruby-toggle-buffer)
-  (define-key ruby-mode-map "\C-c\C-d" 'xmp)
-  (define-key ruby-mode-map "\C-c\C-f" 'rct-ri))
-(add-hook 'ruby-mode-hook 'ruby-mode-hook-rcodetools)
+;;(require 'rcodetools)
+;;(setq rct-find-tag-if-available nil)
+;;(defun ruby-mode-hook-rcodetools ()
+;;  (define-key ruby-mode-map "\M-\C-i" 'rct-complete-symbol)
+;;  (define-key ruby-mode-map "\C-c\C-t" 'ruby-toggle-buffer)
+;;  (define-key ruby-mode-map "\C-c\C-d" 'xmp)
+;;  (define-key ruby-mode-map "\C-c\C-f" 'rct-ri))
+;;(add-hook 'ruby-mode-hook 'ruby-mode-hook-rcodetools)
 
 ;(require 'anything-rcodetools)
 ;(setq rct-get-all-methods-command "PAGER=cat fri -l")
@@ -207,7 +208,7 @@
 
 ;; smart-compile                                
 ;; http://www.emacswiki.org/emacs/download/smart-compile.el
-(require 'smart-compile) 
-(define-key ruby-mode-map (kbd "C-c c") 'smart-compile)
-(define-key ruby-mode-map (kbd "C-c C-c") (kbd "C-c c C-m"))
-(setq compilation-window-height 15) ; default window height is 15
+;;(require 'smart-compile) 
+;;(define-key ruby-mode-map (kbd "C-c c") 'smart-compile)
+;;(define-key ruby-mode-map (kbd "C-c C-c") (kbd "C-c c C-m"))
+;;(setq compilation-window-height 15) ; default window height is 15
