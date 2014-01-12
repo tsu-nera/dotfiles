@@ -180,8 +180,7 @@ alias cdpp='cd ../../'
 
 # short function
 alias enable_bashrc="source ~/.bashrc"
-alias enable_emacs="source ~/.bashrc"
-alias reboot_emacs="emacsclient -e \'\(kill-emacs\)\';emacs --daemon"
+alias reboot_emacs="emacsclient -e \"(kill-emacs)\""
 
 # screen実行中にemacsで保存が効かない場合の対策
 stty ixany
@@ -214,13 +213,11 @@ export LD_LIBRARY_PATH=/usr/local/lib
 export LIBRARY_PATH=/usr/local/lib
 export CPATH=/usr/local/include
 
-# screen実行中にemacsで閉じた場合の対策
-stty ixany
-stty ixoff -ixon
-
-#initial exec
-#screen -xR
-#export LANG=ja_JP.utf8
+# screen実行中にEmacs保存ができない
+# stty ixany
+# stty ixoff -ixon
+# screen -xR
+# export LANG=ja_JP.utf8
 
 
 # less vのときにemacs起動

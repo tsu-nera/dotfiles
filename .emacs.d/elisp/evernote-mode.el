@@ -149,18 +149,41 @@
 ;; User options
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defvar evernote-username nil
-  "*An username of your evernote")
+(defgroup evernote nil
+  "Emacs evernote mode offers functions to refer and edit
+   Evernote notes directly from Emacs. OAuth enabled fork of
+   code.google.com repository."
+  :link '(url-link "https://github.com/pymander/evernote-mode")
+  :prefix "evernote-"
+  :group 'external)
 
-(defvar evernote-enml-formatter-command nil
-  "*Formatter for xhtml")
+(defcustom evernote-username nil
+  "*An username of your evernote"
+  :group 'evernote
+  :type '(list string))
 
-(defvar evernote-ruby-command "ruby"
-  "*Path of the ruby command")
+(defcustom evernote-enml-formatter-command 
+  '("w3m" "-dump" "-I" "UTF8" "-O" "UTF8")
+  "*Formatter for xhtml"
+  :group 'evernote)
 
-(defvar evernote-password-cache nil
+(defcustom evernote-ruby-command "ruby"
+  "*Path of the ruby command"
+  :group 'evernote
+  :type '(list string))
+
+(defcustom evernote-password-cache nil
   "*Non-nil means that password cache is enabled.
-It is recommended to encrypt the file with EasyPG.")
+   It is recommended to encrypt the file with EasyPG."
+    :group 'evernote
+  :type '(list string))
+
+(defcustom evernote-developer-token nil
+  "*An developer token of your evernote."
+  :link '(url-link 
+          "http://dev.evernote.com/doc/articles/authentication.php#devtoken")
+  :group 'evernote
+  :type '(list string))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Interface for evernote-browsing-mode.
@@ -289,7 +312,8 @@ It is recommended to encrypt the file with EasyPG.")
     (enh-browsing-push-page
      (enh-browsing-create-page 'note-list
                                (format "Query Result of: %s" query)
-                               note-attrs))))
+                               note-attrs
+                               `(lambda () (enh-command-get-note-attrs-from-query ,query))))))
 
 
 (defun evernote-browsing-prev-page ()
@@ -334,6 +358,8 @@ It is recommended to encrypt the file with EasyPG.")
   (interactive)
   (if (called-interactively-p) (enh-clear-onmem-cache))
   (when (eq major-mode 'evernote-browsing-mode)
+    (when enh-browsing-page-data-refresh-closure
+      (setq enh-browsing-page-data nil))
     (funcall enh-browsing-page-setup-func)))
 
 
@@ -547,25 +573,26 @@ It is recommended to encrypt the file with EasyPG.")
   "Login"
   (interactive)
   (if (called-interactively-p) (enh-clear-onmem-cache))
-  (unwind-protect
-      (let* ((cache (enh-password-cache-load))
-             (usernames (mapcar #'car cache))
-             (username (or evernote-username
-                           (read-string "Evernote user name:"
-                                        (car usernames) 'usernames)))
-             (cache-passwd (enutil-aget username cache)))
-        (unless (and cache-passwd
-                     (eq (catch 'error 
-                           (progn 
-                             (enh-command-login username cache-passwd)
-                             t))
-                         t))
-          (let* ((passwd (read-passwd "Passwd:")))
-            (enh-command-login username passwd)
-            (setq evernote-username username)
-            (enh-password-cache-save (enutil-aset username cache passwd)))))
-    (enh-password-cache-close)))
-
+  (if evernote-developer-token
+      (enh-command-login-token evernote-developer-token) 
+    (unwind-protect
+        (let* ((cache (enh-password-cache-load))
+               (usernames (mapcar #'car cache))
+               (username (or evernote-username
+                             (read-string "Evernote user name:"
+                                          (car usernames) 'usernames)))
+               (cache-passwd (enutil-aget username cache)))
+          (unless (and cache-passwd
+                       (eq (catch 'error 
+                             (progn 
+                               (enh-command-login username cache-passwd)
+                               t))
+                           t))
+            (let* ((passwd (read-passwd "Passwd:")))
+              (enh-command-login username passwd)
+              (setq evernote-username username)
+              (enh-password-cache-save (enutil-aset username cache passwd)))))
+      (enh-password-cache-close))))
 
 (defun evernote-open-note (&optional ask-notebook)
   "Open a note"
@@ -586,7 +613,9 @@ It is recommended to encrypt the file with EasyPG.")
                                     (format "Notes with tag: %s"
                                             (enh-tag-guids-to-comma-separated-names tag-guids))
                                   "All notes")
-                                note-attrs)
+                                note-attrs
+                                `(lambda () (enh-command-get-note-attrs-from-notebook-and-tag-guids
+                                             ,notebook-guid ',tag-guids)))
       t))))
 
 
@@ -611,7 +640,8 @@ It is recommended to encrypt the file with EasyPG.")
        (enh-browsing-push-page
         (enh-browsing-create-page 'note-list
                                   (format "Query Result of: %s" query)
-                                  note-attrs)
+                                  note-attrs
+                                  `(lambda () (enh-command-get-note-attrs-from-query ,query)))
         t)))))
 
 
@@ -630,7 +660,9 @@ It is recommended to encrypt the file with EasyPG.")
       (enh-browsing-create-page 'note-list
                                 (format "Query Result of Saved Search: %s"
                                         (enutil-aget 'name search-attr))
-                                note-attrs)
+                                note-attrs
+                                `(lambda () (enh-command-get-note-attrs-from-query
+                                             ,(enutil-aget 'query search-attr))))
       t))))
 
 
@@ -1365,6 +1397,9 @@ It is recommended to encrypt the file with EasyPG.")
 (defvar enh-browsing-page-data nil)
 (make-variable-buffer-local 'enh-browsing-page-data)
 
+(defvar enh-browsing-page-data-refresh-closure nil)
+(make-variable-buffer-local 'enh-browsing-page-data-refresh-closure)
+
 (defvar enh-browsing-page-widget-title nil)
 (make-variable-buffer-local 'enh-browsing-page-widget-title)
 
@@ -1388,7 +1423,9 @@ It is recommended to encrypt the file with EasyPG.")
                                (format "Notes in Notebook: %s"
                                        (enutil-aget 'name
                                                     (enh-get-notebook-attr guid)))
-                               note-attrs))))
+                               note-attrs
+                               `(lambda () (enh-command-get-note-attrs-from-notebook-and-tag-guids
+                                            ,guid nil))))))
 
 
 (defun enh-browsing-open-tag (widget &rest ignored)
@@ -1410,7 +1447,11 @@ It is recommended to encrypt the file with EasyPG.")
                                            (enutil-aget 'name
                                                         (enh-get-tag-attr guid)))
                                  "All notes")
-                               note-attrs))))
+                               note-attrs
+                               `(lambda () (enh-command-get-note-attrs-from-notebook-and-tag-guids
+                                            nil ',(if guid
+                                                      (list guid)
+                                                    nil)))))))
 
 
 (defun enh-browsing-open-search (widget &rest ignored)
@@ -1428,7 +1469,10 @@ It is recommended to encrypt the file with EasyPG.")
                                (format "Query Result of Saved Search: %s"
                                        (enutil-aget 'name
                                                     (enh-get-search-attr guid)))
-                               note-attrs))))
+                               note-attrs
+                               `(lambda () (enh-command-get-note-attrs-from-query
+                                            ,(enutil-aget 'query
+                                                          (enh-get-search-attr guid))))))))
 
 
 (defun enh-browsing-open-note (widget &rest ignored)
@@ -1460,14 +1504,15 @@ It is recommended to encrypt the file with EasyPG.")
      (funcall enh-browsing-page-setup-func))))
 
 
-(defun enh-browsing-create-page (type description &optional note-attrs)
+(defun enh-browsing-create-page (type description &optional note-attrs refresh-closure)
   "Create a page structure of the attr-list"
   (let ((buf (generate-new-buffer (format "*ENB %s* " description))))
     (save-excursion
       (set-buffer buf)
       (setq enh-browsing-page-type type
             enh-browsing-page-description description
-            enh-browsing-page-data note-attrs)
+            enh-browsing-page-data note-attrs
+            enh-browsing-page-data-refresh-closure refresh-closure)
       (cond
        ((eq type 'notebook-list)
         (setq enh-browsing-page-setup-func
@@ -1596,6 +1641,9 @@ It is recommended to encrypt the file with EasyPG.")
   (when enh-browsing-page-widget-root
     (widget-delete enh-browsing-page-widget-root)
     (setq enh-browsing-page-widget-root nil))
+  (when (and (null enh-browsing-page-data)
+             enh-browsing-page-data-refresh-closure)
+    (setq enh-browsing-page-data (funcall enh-browsing-page-data-refresh-closure)))
   (let ((note-attrs enh-browsing-page-data)
         (note-list nil))
     (mapc
@@ -1677,8 +1725,10 @@ It is recommended to encrypt the file with EasyPG.")
   (save-excursion
     (mapcar (lambda (page)
               (set-buffer page)
-              (if (eq enh-browsing-page-type type)
-                  (funcall enh-browsing-page-setup-func)))
+              (when (eq enh-browsing-page-type type)
+                (when enh-browsing-page-data-refresh-closure
+                  (setq enh-browsing-page-data nil))
+                (funcall enh-browsing-page-setup-func)))
             evernote-browsing-page-list)))
 
 ;
@@ -1698,13 +1748,7 @@ It is recommended to encrypt the file with EasyPG.")
 ;; Functions for executing the external command (enh-command-xxx)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defvar enh-enclient-command
-  (concat 
-   (with-output-to-string
-     (call-process evernote-ruby-command nil standard-output nil
-;                   "-rrbconfig" "-e" "print Config::CONFIG['bindir']"))
-                   "-rrbconfig" "-e" "print RbConfig::CONFIG['bindir']"))
-   "/enclient.rb")
+(defvar enh-enclient-command "/usr/bin/enclient.rb"
   "Name of the enclient.rb command")
 (defconst enh-command-process-name "Evernote-Client")
 (defconst enh-command-output-buffer-name "*Evernote-Client-Output*")
@@ -1743,12 +1787,19 @@ It is recommended to encrypt the file with EasyPG.")
            (enutil-to-ruby-string user)
            (enutil-to-ruby-string passwd))))
 
+(defun enh-command-login-token (token)
+  "Issue login command"
+  (enh-command-issue
+   (format ":class => %s, :auth_token => %s"
+           (enutil-to-ruby-string "AuthCommand")
+           (enutil-to-ruby-string token))))
+
 
 (defun enh-command-get-notebook-attrs ()
   "Issue listnotebooks command"
   (let ((reply (enh-command-issue
                 (format ":class => %s"
-                        (enutil-to-ruby-string "ListNotebookCommand")))))
+                        (enutil-to-ruby-string "ListNotebooksCommand")))))
     (enutil-aget 'notebooks reply)))
 
 
@@ -1811,6 +1862,16 @@ It is recommended to encrypt the file with EasyPG.")
                         (enutil-to-ruby-string (enutil-buffer-string inbuf))))))
     (enutil-aget 'note reply)))
 
+
+(defun enh-command-update-note-tags (note tag-names)
+  "Update a note and change just the tag guids"
+  (let ((reply (enh-command-issue
+                (format ":class => %s, :guid => %s, :title => %s, :tag_names => %s"
+                        (enutil-to-ruby-string "UpdateNoteCommand")
+                        (enutil-to-ruby-string (enutil-aget 'guid note))
+                        (enutil-to-ruby-string (enutil-aget 'title note))
+                        (enutil-to-ruby-string-list tag-names t)))))
+    (enutil-aget 'note reply)))
 
 (defun enh-command-update-note (inbuf guid name notebook-guid is-tag-updated tag-names edit-mode)
   "Issue updatenote command specified by the guid and the parameters for updating."
@@ -2254,6 +2315,13 @@ It is recommended to encrypt the file with EasyPG.")
   (when (get-buffer enh-password-cache-buffer)
     (kill-buffer enh-password-cache-buffer)))
 
+;;; Programmatic functions for use in other libraries.
+(defun enh-get-notebook-by-name (name)
+  (let ((nb-list (enh-command-get-notebook-attrs)))
+    (loop for nb in nb-list
+          if (and (assq 'name nb)
+                  (string= (cdr (assq 'name nb)) "Captures"))
+          return nb)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; General util functions (enutil-xxx)

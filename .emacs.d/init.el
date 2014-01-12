@@ -21,7 +21,7 @@
 ;; load-pathに追加するフォルダ
 ;; 2つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
 ;;(add-to-load-path "elisp" "conf" "public_repos" "elisp/ruby")
-;;(add-to-load-path "elisp" "conf" "public_repos")
+(add-to-load-path "elisp" "conf" "public_repos")
 
 ; ------------------------------------------------------------------------
 ; face-display Setting
@@ -40,6 +40,8 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(font-lock-function-name-face ((t (:foreground "cyan"))))
+ '(markdown-inline-code-face ((t (:inherit font-lock-constant-face))))
+ '(markdown-pre-face ((t (:foreground "brightmagenta"))))
  '(minibuffer-prompt ((t (:foreground "brightblue")))))
 
 ; ------------------------------------------------------------------------
@@ -84,15 +86,15 @@
 ; ------------------------------------------------------------------------
 ; emacs-evernote-mode
 ; ------------------------------------------------------------------------
-;(require 'evernote-mode)
-;(global-set-key "\C-cec" 'evernote-create-note)
-;(global-set-key "\C-ceo" 'evernote-open-note)
-;(global-set-key "\C-ces" 'evernote-search-notes)
-;(global-set-key "\C-ceS" 'evernote-do-saved-search)
-;(global-set-key "\C-cew" 'evernote-write-note)
-;(global-set-key "\C-cep" 'evernote-post-region)
-;(global-set-key "\C-ceb" 'evernote-browser)
-;(setq evernote-username "fox10225fox")  ; Evernote アカウント名
+(require 'evernote-mode)
+(global-set-key "\C-cec" 'evernote-create-note)
+(global-set-key "\C-ceo" 'evernote-open-note)
+(global-set-key "\C-ces" 'evernote-search-notes)
+(global-set-key "\C-ceS" 'evernote-do-saved-search)
+(global-set-key "\C-cew" 'evernote-write-note)
+(global-set-key "\C-cep" 'evernote-post-region)
+(global-set-key "\C-ceb" 'evernote-browser)
+(setq evernote-username "fox10225fox")  ; Evernote アカウント名
 
 ; ------------------------------------------------------------------------
 ; Rst-mode (for Sphinx)
@@ -212,3 +214,13 @@
 ;;(define-key ruby-mode-map (kbd "C-c c") 'smart-compile)
 ;;(define-key ruby-mode-map (kbd "C-c C-c") (kbd "C-c c C-m"))
 ;;(setq compilation-window-height 15) ; default window height is 15
+
+; ------------------------------------------------------------------------
+; Name     : Markdown Mode
+; Function : Use Markdown 
+; History  : 2014.1.11 Add
+; Install  : http://jblevins.org/projects/markdown-mode/markdown-mode.el
+; ------------------------------------------------------------------------
+(autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
+; associate .md file to markdown-mode
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
