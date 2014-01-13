@@ -149,7 +149,6 @@ setopt long_list_jobs
 ## コアダンプサイズを制限
 # limit coredumpsize 102400
 
-
 ## ビープを鳴らさない
 setopt nobeep
 
@@ -160,7 +159,6 @@ if [ -d ${HOME}/.zsh/zaw/zaw.zsh ] ; then
     source $HOME/dotfiles/.zsh/zaw/zaw.zsh
 fi
 
-
 #########
 # Alias 
 #########
@@ -169,7 +167,6 @@ alias ll='ls -ltr'
 alias la='ls -a'
 alias lal='ls -al'
 
-alias c='cygstart'
 alias r='ruby'
 alias l='less'
 alias m='emacsclient -nw'
@@ -180,7 +177,7 @@ alias cdpp='cd ../../'
 
 # short function
 alias enable_bashrc="source ~/.bashrc"
-alias reboot_emacs="emacsclient -e \"(kill-emacs)\""
+alias enable_zshrc="source ~/.bashrc"
 
 # screen実行中にemacsで保存が効かない場合の対策
 stty ixany
@@ -213,17 +210,21 @@ export LD_LIBRARY_PATH=/usr/local/lib
 export LIBRARY_PATH=/usr/local/lib
 export CPATH=/usr/local/include
 
+# EmacsClient起動
+export EDITOR='emacsclient -nw'
+# zsh起動時にemacs --daemon起動
+if pgrep emacs >/dev/null 2>&1; then
+    # echo "Emacs server is already running..."
+  else
+    `emacs --daemon`
+fi
+alias reboot_emacs="emacsclient -e \"(kill-emacs)\";emacs --daemon"
+
 # screen実行中にEmacs保存ができない
 # stty ixany
 # stty ixoff -ixon
 # screen -xR
 # export LANG=ja_JP.utf8
-
-
-# less vのときにemacs起動
-# export EDITOR=emacs
-# EmacsClient起動
-export EDITOR='emacsclient -nw'
 
 # rvenv設定 .rbenvがあるときだけ設定させる
 # http://mukaer.com/archives/2012/03/12/rubyrbenv/
@@ -232,3 +233,4 @@ if [ -d ${HOME}/.rbenv  ] ; then
   export PATH="${HOME}/.rbenv/bin:${HOME}/.rbenv/shims:${PATH}"
   eval "$(rbenv init - zsh)"
 fi
+
