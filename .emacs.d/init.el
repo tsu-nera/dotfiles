@@ -1,4 +1,4 @@
-;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
+;;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
 ;;------------------------------------------------------------------------
 ; ------------------------------------------------------------------------
 ; Name     :
@@ -21,10 +21,44 @@
 ;; load-pathに追加するフォルダ
 ;; 2つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
 ;;(add-to-load-path "elisp" "conf" "public_repos" "elisp/ruby")
-(add-to-load-path "elisp" "conf" "public_repos")
+(add-to-load-path "elisp" "conf" "public_repos" "elpa")
 
-; 行番号の表示
-(global-linum-mode t)
+; 行番号の表示 
+; -> themeのなかで設定しているので、ここでは封印
+; (global-linum-mode t)
+
+; ------------------------------------------------------------------------
+; Name     : auto-install
+; Function : 
+; History  :
+; Install  : http://www.emacswiki.org/emacs/download/auto-install.el
+; ------------------------------------------------------------------------
+(when(require 'auto-install nil t)
+  ;;インストールディレクトリを設定する  初期値は~/.emacs.d/auto-install/
+  (setq auto-install-directory "~/.emacs.d/elisp/")
+  ;;EmacsWikiに登録されているelispの名前を取得する
+  ;; 起動時にnetwork unreachableってでるので、とりあえず封印 13/05/26
+  ;;(auto-install-update-emacswiki-package-name t)
+  ;;必要であればプロキシの設定を行う
+  ;;(setq url-proxy-services '(("http" . "localhost:8339")))
+  ;;install-elispの関数を利用可能にす
+  (auto-install-compatibility-setup))
+
+; ------------------------------------------------------------------------
+; Name     : package.el
+; Function : 
+; History  : 2014/01/16 add
+; Install  : http://www.emacswiki.org/emacs/download/auto-install.el
+; ------------------------------------------------------------------------
+(require 'package)
+; Add package-archives
+; Melpa: githubからelispを落とすリポジトリを追加
+; これで、 M-x list-packagesで melpaが利用できる。
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/")) 
+
+; Initialize
+(package-initialize)
 
 ; ------------------------------------------------------------------------
 ; face-display Setting
@@ -47,20 +81,6 @@
  '(markdown-pre-face ((t (:foreground "brightmagenta"))))
  '(minibuffer-prompt ((t (:foreground "brightblue")))))
 
-; ------------------------------------------------------------------------
-; auto-install
-; http://www.emacswiki.org/emacs/download/auto-install.el
-; ------------------------------------------------------------------------
-(when(require 'auto-install nil t)
-  ;;インストールディレクトリを設定する  初期値は~/.emacs.d/auto-install/
-  (setq auto-install-directory "~/.emacs.d/elisp/")
-  ;;EmacsWikiに登録されているelispの名前を取得する
-  ;; 起動時にnetwork unreachableってでるので、とりあえず封印 13/05/26
-  ;;(auto-install-update-emacswiki-package-name t)
-  ;;必要であればプロキシの設定を行う
-  ;;(setq url-proxy-services '(("http" . "localhost:8339")))
-  ;;install-elispの関数を利用可能にする
-  (auto-install-compatibility-setup))
 
 ; ------------------------------------------------------------------------
 ; Name     : Anything
@@ -264,3 +284,53 @@
 ; Install  : http://www.emacswiki.org/emacs/powerline.el
 ; ------------------------------------------------------------------------
 (require 'powerline)
+
+; ------------------------------------------------------------------------
+; Name     : helm
+; Function : 置換機能
+; History  : 2014.1.15 Add
+; Install  : https://github.com/emacs-helm/helm
+; ------------------------------------------------------------------------
+(eval-when-compile (require 'cl))
+
+;; ミニバッファで C-h でヘルプでないようにする
+(load "term/bobcat")
+(when (fboundp 'terminal-init-bobcat)
+  (terminal-init-bobcat))
+
+(require 'helm-config)
+(require 'helm-command)
+(require 'helm-descbinds)
+
+(setq helm-idle-delay             0.3
+      helm-input-idle-delay       0.3
+      helm-candidate-number-limit 200)
+
+(global-set-key (kbd "C-x b") 'helm-mini)
+(helm-mode 1)
+
+;(let ((key-and-func
+;       `((,(kbd "C-r")   helm-for-files)
+;         (,(kbd "C-^")   helm-c-apropos)
+;         (,(kbd "C-;")   helm-resume)
+;         (,(kbd "M-s")   helm-occur)
+;         (,(kbd "M-x")   helm-M-x)
+;         (,(kbd "M-y")   helm-show-kill-ring)
+;         (,(kbd "M-z")   helm-do-grep)
+;         (,(kbd "C-S-h") helm-descbinds)
+;        )))
+;  (loop for (key func) in key-and-func
+;        do (global-set-key key func)))
+
+; ------------------------------------------------------------------------
+; Name     : popwin
+; Function : ポップアップ表示
+; History  : 2014.1.15 Add
+; Install  : package.el経由
+; ------------------------------------------------------------------------
+(when (require 'popwin)
+  (setq helm-samewindow nil)
+  (setq display-buffer-function 'popwin:display-buffer)
+  (setq popwin:special-display-config '(("*compilatoin*" :noselect t)
+                                        ("helm" :regexp t :height 0.4)
+                                       )))

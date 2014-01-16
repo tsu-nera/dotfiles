@@ -2,6 +2,8 @@
 #*
 *~
 /.emacs.d/elisp/*.elc
+/.emacs.d/elpa
+/.emacs.d/elisp/color-theme
 
 # Except
 # Emacs
