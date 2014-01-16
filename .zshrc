@@ -234,10 +234,9 @@ if [ -d ${HOME}/.rbenv  ] ; then
   eval "$(rbenv init - zsh)"
 fi
 
-
 # z ディレクトリ移動を簡単に
 # https://github.com/rupa/z
-source ${HOME}/bin/z
+source ${HOME}/bin/z/z.sh
 function precmd () {
    z --add "$(pwd -P)"
 }
