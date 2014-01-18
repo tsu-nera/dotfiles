@@ -4,7 +4,8 @@
 /.emacs.d/elisp/*.elc
 /.emacs.d/elpa
 /.emacs.d/elisp/color-theme
-
+/.xmonad/*
+!/.xmonad/xmonad.hs
 # Except
 # Emacs
 #!/.emacs.d/init.el
