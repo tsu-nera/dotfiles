@@ -35,7 +35,7 @@ main = do
           , focusedBorderColor = "#0033dd" -- blue
 
           -- Rebind Mod to the Hiragana_Katakana key
-          , modMask = mod3Mask
+          -- , modMask = mod3Mask
 
      	  -- use rxvt-unicode 
 	  , terminal = "urxvt" 
@@ -45,5 +45,5 @@ main = do
           ((modm, xK_e), runOrRaise "emacs" (className =? "Emacs"))
           , ((modm, xK_t), runOrRaise "urxvt" (className =? "URxvt"))
           , ((modm, xK_g), runOrRaise "chrome" (className =? "Google-chrome"))
-	  , ((mod3Mask, xK_f), sendMessage (Toggle FULL))
+	  , ((modm, xK_f), sendMessage (Toggle FULL))
           ]

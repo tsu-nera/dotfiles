@@ -1,5 +1,21 @@
 ;;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
-;;------------------------------------------------------------------------
+; ------------------------------------------------------------------------
+;; general key bind
+;;______________________________________________________________________
+(global-set-key (kbd "C-c a")   'align)
+(global-set-key (kbd "C-c M-a") 'align-regexp)
+(global-set-key (kbd "C-h")     'backward-delete-char)
+(global-set-key (kbd "C-c d")   'delete-indentation)
+(global-set-key (kbd "M-g")     'goto-line)
+(global-set-key (kbd "C-S-i")   'indent-region)
+(global-set-key (kbd "C-m")     'newline-and-indent)
+(global-set-key (kbd "C-t")     'next-multiframe-window)
+(global-set-key (kbd "M-<RET>") 'ns-toggle-fullscreen)
+(global-set-key (kbd "C-S-t")   'previous-multiframe-window)
+(global-set-key (kbd "C-M-r")   'replace-regexp)
+(global-set-key (kbd "C-r")     'replace-string)
+(global-set-key (kbd "C-/")     'undo)
+
 ; ------------------------------------------------------------------------
 ; Name     :
 ; Function : 
@@ -24,8 +40,7 @@
 (add-to-load-path "elisp" "conf" "public_repos" "elpa")
 
 ; 行番号の表示 
-; -> themeのなかで設定しているので、ここでは封印
-; (global-linum-mode t)
+(global-linum-mode t)
 
 ; ------------------------------------------------------------------------
 ; Name     : auto-install
@@ -200,16 +215,16 @@
 ; Ruby 
 ; ------------------------------------------------------------------------
 ;;  ruby-mode 
-; http://shibayu36.hatenablog.com/entry/2013/03/18/192651
-;;(autoload 'ruby-mode "ruby-mode" "Mode for editing ruby source files" t)
-;;(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
-;;(add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
-;;(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+;http://shibayu36.hatenablog.com/entry/2013/03/18/192651
+(autoload 'ruby-mode "ruby-mode" "Mode for editing ruby source files" t)
+  (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 
 ;; ruby-electric.el --- electric editing commands for ruby files
-;;(require 'ruby-electric)
-;;(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
-;;(setq ruby-electric-expand-delimiters-list nil)
+(require 'ruby-electric)
+(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
+(setq ruby-electric-expand-delimiters-list nil)
 
 ;;; ruby-block.el --- highlight matching block
 ;;(require 'ruby-block)
@@ -233,10 +248,10 @@
 
 ;; smart-compile                                
 ;; http://www.emacswiki.org/emacs/download/smart-compile.el
-;;(require 'smart-compile) 
-;;(define-key ruby-mode-map (kbd "C-c c") 'smart-compile)
-;;(define-key ruby-mode-map (kbd "C-c C-c") (kbd "C-c c C-m"))
-;;(setq compilation-window-height 15) ; default window height is 15
+(require 'smart-compile) 
+ (define-key ruby-mode-map (kbd "C-c c") 'smart-compile)
+ (define-key ruby-mode-map (kbd "C-c C-c") (kbd "C-c c C-m"))
+ (setq compilation-window-height 15) ; default window height is 15
 
 ; ------------------------------------------------------------------------
 ; Name     : Markdown Mode
@@ -306,7 +321,10 @@
       helm-input-idle-delay       0.3
       helm-candidate-number-limit 200)
 
-(global-set-key (kbd "C-x b") 'helm-mini)
+(global-set-key (kbd "C-x b") 'helm-buffers-list)
+(global-set-key (kbd "C-x C-r") 'helm-recentf)
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
+(global-set-key (kbd "M-s") 'helm-occur)
 (helm-mode 1)
 
 ;(let ((key-and-func
