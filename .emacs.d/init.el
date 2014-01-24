@@ -69,8 +69,9 @@
 ; Add package-archives
 ; Melpa: githubからelispを落とすリポジトリを追加
 ; これで、 M-x list-packagesで melpaが利用できる。
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/")) 
+(add-to-list 'package-archives
+         '("marmalade" . "http://marmalade-repo.org/packages/")
+         '("melpa" . "http://melpa.milkbox.net/packages/"))
 
 ; Initialize
 (package-initialize)
@@ -121,6 +122,29 @@
 ;  (require 'anything-match-plugin nil t)
 ;)
 
+;;; color-moccur.elの設定
+(require 'color-moccur)
+;; 複数の検索語や、特定のフェイスのみマッチ等の機能を有効にする
+;; 詳細は http://www.bookshelf.jp/soft/meadow_50.html#SEC751
+(setq moccur-split-word t)
+;; migemoがrequireできる環境ならmigemoを使う
+(when (require 'migemo nil t) ;第三引数がnon-nilだとloadできなかった場合にエラーではなくnilを返す
+  (setq moccur-use-migemo t))
+
+;;; anything-c-moccurの設定
+(require 'anything-c-moccur)
+;; カスタマイズ可能変数の設定(M-x customize-group anything-c-moccur でも設定可能)
+(setq anything-c-moccur-anything-idle-delay 0.2 ;`anything-idle-delay'
+      anything-c-moccur-higligt-info-line-flag t ; `anything-c-moccur-dmoccur'などのコマンドでバッファの情報をハイライトする
+      anything-c-moccur-enable-auto-look-flag t ; 現在選択中の候補の位置を他のwindowに表示する
+      anything-c-moccur-enable-initial-pattern t) ; `anything-c-moccur-occur-by-moccur'の起動時にポイントの位置の単語を初期パターンにする
+
+;;; キーバインドの割当(好みに合わせて設定してください)
+(global-set-key (kbd "M-o") 'anything-c-moccur-occur-by-moccur) ;バッファ内検索
+(global-set-key (kbd "C-M-o") 'anything-c-moccur-dmoccur) ;ディレクトリ
+(add-hook 'dired-mode-hook ;dired
+	  '(lambda ()
+	     (local-set-key (kbd "O") 'anything-c-moccur-dired-do-moccur-by-moccur)))
 ; ------------------------------------------------------------------------
 ; emacs-evernote-mode
 ; ------------------------------------------------------------------------
@@ -316,6 +340,8 @@
 (require 'helm-config)
 (require 'helm-command)
 (require 'helm-descbinds)
+;(require 'helm-c-moccur)
+;(require 'helm-migemo)
 
 (setq helm-idle-delay             0.3
       helm-input-idle-delay       0.3
@@ -324,7 +350,9 @@
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
 (global-set-key (kbd "C-x C-r") 'helm-recentf)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "M-s") 'helm-occur)
+(global-set-key (kbd "M-r") 'helm-occur)
+(global-set-key (kbd "C-x r") 'helm-resentf)
+(global-set-key (kbd "M-x") 'helm-M-x)
 (helm-mode 1)
 
 ;(let ((key-and-func
@@ -350,5 +378,35 @@
   (setq helm-samewindow nil)
   (setq display-buffer-function 'popwin:display-buffer)
   (setq popwin:special-display-config '(("*compilatoin*" :noselect t)
-                                        ("helm" :regexp t :height 0.4)
+;                                        ("helm" :regexp t :height 0.4)
+                                         ("anything" :regexp t :height 0.4)
                                        )))
+; ------------------------------------------------------------------------
+; Name     : conkeror
+; Function : web browser based on emacs key bind
+; History  : 2014.1.24 Add
+; Install  : http://www.emacswiki.org/emacs/Conkeror
+; ------------------------------------------------------------------------
+(setq browse-url-generic-program (executable-find "conkeror"))
+(setq browse-url-browser-function 'browse-url-generic)
+
+
+; ------------------------------------------------------------------------
+; Name     : migemo
+; Function : 日本語をロ-マ字検索
+; History  : 2014.1.25 Add
+; Install  : sudo apt-get install cmigemo
+;            
+; ------------------------------------------------------------------------
+(when (and (executable-find "cmigemo")
+           (require 'migemo nil t))
+  (setq migemo-options '("-q" "--emacs"))
+
+  (setq migemo-user-dictionary nil)
+  (setq migemo-regex-dictionary nil)
+  (setq migemo-coding-system 'utf-8-unix)
+  (load-library "migemo")
+  (migemo-init)
+)
+(setq migemo-command "cmigemo")
+(setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
