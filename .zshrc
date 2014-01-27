@@ -170,6 +170,7 @@ alias lal='ls -al'
 alias r='ruby'
 alias l='less'
 alias m='emacsclient -nw'
+alias t='task'
 
 #alias cd=cdls
 alias cdp='cd ../'
@@ -191,6 +192,8 @@ alias -g H='| head'
 alias -g T='| tail'
 alias -g G='| grep'
 alias -g GI='| grep -i'
+alias -g P='| percol'
+alias -g PM='| percol --match-method migemo'
 
 ############
 # Function 
@@ -240,3 +243,22 @@ source ${HOME}/bin/z/z.sh
 function precmd () {
    z --add "$(pwd -P)"
 }
+
+# ------------------------------------------------------------------------
+# Name     : auto-suggestion
+# History  : 2014/01/25 add
+# Install  : git clone git://github.com/tarruda/zsh-autosuggestions
+# Function : フィッシュ形式でオススメコマンドを推薦してくれる
+#            source .zshrcをするとエラーがでるため、
+#            起動の設定は .zloginに記入
+# ------------------------------------------------------------------------
+
+# Template
+# ------------------------------------------------------------------------
+# Name     :
+# History  :
+# Install  :
+# Function : 
+# ------------------------------------------------------------------------
+
+
