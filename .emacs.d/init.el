@@ -1,4 +1,4 @@
-;;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
+
 ;; ------------------------------------------------------------------------
 ;; general key bind
 ;;______________________________________________________________________
@@ -419,8 +419,13 @@
 ;;; ------------------------------------------------------------------------
 (require 'keisen)
 ;;; Control+矢印キーで罫線を引く場合
-(global-set-key (kbd "\S-f") 'keisen-right-move)
-(global-set-key (kbd "\S-b") 'keisen-left-move)
-(global-set-key (kbd "\S-p") 'keisen-up-move)
-(global-set-key (kbd "\S-n") 'keisen-down-move)
-			  
+;; (global-set-key (kbd "C-M-f") 'keisen-right-move)
+;;(global-set-key (kbd "C-M-b") 'keisen-left-move)
+;;(global-set-key (kbd "C-M-p") 'keisen-up-move)
+;;(global-set-key (kbd "C-M-n") 'keisen-down-move)
+
+(global-set-key [(C-right)] 'keisen-right-move)
+(global-set-key [(C-left)] 'keisen-left-move)
+(global-set-key [(C-up)] 'keisen-up-move)
+(global-set-key [(C-down)] 'keisen-down-move)
+
