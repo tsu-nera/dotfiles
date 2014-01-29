@@ -20,4 +20,5 @@ percol.import_keymap({
 })
 
 
-percol.view.PROMPT  = ur"<bold><yellow>[tsu-nera] %</yellow></bold> %q"
+percol.view.PROMPT  = ur"<bold><yellow>[tsu-nera]% </yellow></bold> %q"
+percol.view.CANDIDATES_LINE_SELECTED = ("underline", "green", "write")

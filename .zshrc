@@ -171,6 +171,8 @@ alias r='ruby'
 alias l='less'
 alias m='emacsclient -nw'
 alias t='task'
+alias o='xdg-open'
+alias lock='gnome-screensaver-command --lock'
 
 #alias cd=cdls
 alias cdp='cd ../'
@@ -245,13 +247,13 @@ function precmd () {
 }
 
 # ------------------------------------------------------------------------
-# Name     : auto-suggestion
-# History  : 2014/01/25 add
-# Install  : git clone git://github.com/tarruda/zsh-autosuggestions
-# Function : フィッシュ形式でオススメコマンドを推薦してくれる
-#            source .zshrcをするとエラーがでるため、
-#            起動の設定は .zloginに記入
+# Name     : percol
+# History  : 2014/01/25
+# Install  : pip install percol
+# Function : consoleで anythingライクなインタフェースを提供する
 # ------------------------------------------------------------------------
+source ~/.zsh/percol.zsh
+bindkey '^[x' percol-M-x
 
 # Template
 # ------------------------------------------------------------------------

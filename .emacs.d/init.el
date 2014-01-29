@@ -1,21 +1,5 @@
 ;;; -*- Mode: Emacs-Lisp ; Coding: utf-8 -*-
-; ------------------------------------------------------------------------
-;; general key bind
-;;______________________________________________________________________
-(global-set-key (kbd "C-c a")   'align)
-(global-set-key (kbd "C-c M-a") 'align-regexp)
-(global-set-key (kbd "C-h")     'backward-delete-char)
-(global-set-key (kbd "C-c d")   'delete-indentation)
-(global-set-key (kbd "M-g")     'goto-line)
-(global-set-key (kbd "C-S-i")   'indent-region)
-(global-set-key (kbd "C-m")     'newline-and-indent)
-(global-set-key (kbd "C-t")     'next-multiframe-window)
-(global-set-key (kbd "M-<RET>") 'ns-toggle-fullscreen)
-(global-set-key (kbd "C-S-t")   'previous-multiframe-window)
-(global-set-key (kbd "C-M-r")   'replace-regexp)
-(global-set-key (kbd "C-r")     'replace-string)
-(global-set-key (kbd "C-/")     'undo)
-
+;;------------------------------------------------------------------------
 ; ------------------------------------------------------------------------
 ; Name     :
 ; Function : 
@@ -40,7 +24,8 @@
 (add-to-load-path "elisp" "conf" "public_repos" "elpa")
 
 ; 行番号の表示 
-(global-linum-mode t)
+; -> themeのなかで設定しているので、ここでは封印
+; (global-linum-mode t)
 
 ; ------------------------------------------------------------------------
 ; Name     : auto-install
@@ -69,9 +54,8 @@
 ; Add package-archives
 ; Melpa: githubからelispを落とすリポジトリを追加
 ; これで、 M-x list-packagesで melpaが利用できる。
-(add-to-list 'package-archives
-         '("marmalade" . "http://marmalade-repo.org/packages/")
-         '("melpa" . "http://melpa.milkbox.net/packages/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/")) 
 
 ; Initialize
 (package-initialize)
@@ -122,29 +106,6 @@
 ;  (require 'anything-match-plugin nil t)
 ;)
 
-;;; color-moccur.elの設定
-(require 'color-moccur)
-;; 複数の検索語や、特定のフェイスのみマッチ等の機能を有効にする
-;; 詳細は http://www.bookshelf.jp/soft/meadow_50.html#SEC751
-(setq moccur-split-word t)
-;; migemoがrequireできる環境ならmigemoを使う
-(when (require 'migemo nil t) ;第三引数がnon-nilだとloadできなかった場合にエラーではなくnilを返す
-  (setq moccur-use-migemo t))
-
-;;; anything-c-moccurの設定
-(require 'anything-c-moccur)
-;; カスタマイズ可能変数の設定(M-x customize-group anything-c-moccur でも設定可能)
-(setq anything-c-moccur-anything-idle-delay 0.2 ;`anything-idle-delay'
-      anything-c-moccur-higligt-info-line-flag t ; `anything-c-moccur-dmoccur'などのコマンドでバッファの情報をハイライトする
-      anything-c-moccur-enable-auto-look-flag t ; 現在選択中の候補の位置を他のwindowに表示する
-      anything-c-moccur-enable-initial-pattern t) ; `anything-c-moccur-occur-by-moccur'の起動時にポイントの位置の単語を初期パターンにする
-
-;;; キーバインドの割当(好みに合わせて設定してください)
-(global-set-key (kbd "M-o") 'anything-c-moccur-occur-by-moccur) ;バッファ内検索
-(global-set-key (kbd "C-M-o") 'anything-c-moccur-dmoccur) ;ディレクトリ
-(add-hook 'dired-mode-hook ;dired
-	  '(lambda ()
-	     (local-set-key (kbd "O") 'anything-c-moccur-dired-do-moccur-by-moccur)))
 ; ------------------------------------------------------------------------
 ; emacs-evernote-mode
 ; ------------------------------------------------------------------------
@@ -239,16 +200,16 @@
 ; Ruby 
 ; ------------------------------------------------------------------------
 ;;  ruby-mode 
-;http://shibayu36.hatenablog.com/entry/2013/03/18/192651
+; http://shibayu36.hatenablog.com/entry/2013/03/18/192651
 (autoload 'ruby-mode "ruby-mode" "Mode for editing ruby source files" t)
-  (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
-  (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
-  (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 
 ;; ruby-electric.el --- electric editing commands for ruby files
-(require 'ruby-electric)
-(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
-(setq ruby-electric-expand-delimiters-list nil)
+;;(require 'ruby-electric)
+;;(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
+;;(setq ruby-electric-expand-delimiters-list nil)
 
 ;;; ruby-block.el --- highlight matching block
 ;;(require 'ruby-block)
@@ -273,9 +234,9 @@
 ;; smart-compile                                
 ;; http://www.emacswiki.org/emacs/download/smart-compile.el
 (require 'smart-compile) 
- (define-key ruby-mode-map (kbd "C-c c") 'smart-compile)
- (define-key ruby-mode-map (kbd "C-c C-c") (kbd "C-c c C-m"))
- (setq compilation-window-height 15) ; default window height is 15
+(define-key ruby-mode-map (kbd "C-c c") 'smart-compile)
+(define-key ruby-mode-map (kbd "C-c C-c") (kbd "C-c c C-m"))
+(setq compilation-window-height 15) ; default window height is 15
 
 ; ------------------------------------------------------------------------
 ; Name     : Markdown Mode
@@ -340,19 +301,12 @@
 (require 'helm-config)
 (require 'helm-command)
 (require 'helm-descbinds)
-;(require 'helm-c-moccur)
-;(require 'helm-migemo)
 
 (setq helm-idle-delay             0.3
       helm-input-idle-delay       0.3
       helm-candidate-number-limit 200)
 
-(global-set-key (kbd "C-x b") 'helm-buffers-list)
-(global-set-key (kbd "C-x C-r") 'helm-recentf)
-(global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "M-r") 'helm-occur)
-(global-set-key (kbd "C-x r") 'helm-resentf)
-(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "C-x b") 'helm-mini)
 (helm-mode 1)
 
 ;(let ((key-and-func
@@ -378,35 +332,6 @@
   (setq helm-samewindow nil)
   (setq display-buffer-function 'popwin:display-buffer)
   (setq popwin:special-display-config '(("*compilatoin*" :noselect t)
-;                                        ("helm" :regexp t :height 0.4)
-                                         ("anything" :regexp t :height 0.4)
+                                        ("helm" :regexp t :height 0.4)
                                        )))
-; ------------------------------------------------------------------------
-; Name     : conkeror
-; Function : web browser based on emacs key bind
-; History  : 2014.1.24 Add
-; Install  : http://www.emacswiki.org/emacs/Conkeror
-; ------------------------------------------------------------------------
-(setq browse-url-generic-program (executable-find "conkeror"))
-(setq browse-url-browser-function 'browse-url-generic)
 
-
-; ------------------------------------------------------------------------
-; Name     : migemo
-; Function : 日本語をロ-マ字検索
-; History  : 2014.1.25 Add
-; Install  : sudo apt-get install cmigemo
-;            
-; ------------------------------------------------------------------------
-(when (and (executable-find "cmigemo")
-           (require 'migemo nil t))
-  (setq migemo-options '("-q" "--emacs"))
-
-  (setq migemo-user-dictionary nil)
-  (setq migemo-regex-dictionary nil)
-  (setq migemo-coding-system 'utf-8-unix)
-  (load-library "migemo")
-  (migemo-init)
-)
-(setq migemo-command "cmigemo")
-(setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")

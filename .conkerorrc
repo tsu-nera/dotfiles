@@ -1,0 +1,40 @@
+//allow for 'contrib' stuff
+load_paths.unshift("chrome://conkeror-contrib/content/");
+
+// teach me something whenever I start my browser
+homepage = "http://www.google.co.jp";
+
+// give me new tabs; open buffers (tabs) in the background
+require("new-tabs.js");
+require("clicks-in-new-buffer.js");
+clicks_in_new_buffer_target = OPEN_NEW_BUFFER_BACKGROUND;
+clicks_in_new_buffer_button = 1; //  midclick links in new buffers with
+
+// auto completion in the minibuffer
+minibuffer_auto_complete_default = true;
+url_completion_use_history = true; // should work since bf05c87405
+url_completion_use_bookmarks = true;
+
+require("mode-line.js");
+// funky icons in the modeline
+require("mode-line-buttons.js");
+mode_line_add_buttons(standard_mode_line_buttons, true);
+
+// we'd like to see the # of buffers being loaded
+add_hook("mode_line_hook", mode_line_adder(loading_count_widget), true);
+// we don't need a clock
+remove_hook("mode_line_hook", mode_line_adder(clock_widget));
+
+//set emacs as external editor
+editor_shell_command = "emacsclient";
+
+// view source in your editor.
+view_source_use_external_editor = true;
+
+
+// webjump
+// evernote 
+define_webjump("clip",
+"javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title);}})();");
+
+
