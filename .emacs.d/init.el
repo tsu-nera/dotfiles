@@ -97,7 +97,6 @@
  '(markdown-pre-face ((t (:foreground "brightmagenta"))))
  '(minibuffer-prompt ((t (:foreground "brightblue")))))
 
-
 ;; ------------------------------------------------------------------------
 ;; Name     : Anything
 ;; Install  : (auto-install-bitch "anything")
@@ -239,16 +238,17 @@
 ;; Ruby
 ;; ------------------------------------------------------------------------
 ;;;  ruby-mode
-					;http://shibayu36.hatenablog.com/entry/2013/03/18/192651
+;; http://shibayu36.hatenablog.com/entry/2013/03/18/192651
 (autoload 'ruby-mode "ruby-mode" "Mode for editing ruby source files" t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 
 ;;; ruby-electric.el --- electric editing commands for ruby files
-(require 'ruby-electric)
-(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
-(setq ruby-electric-expand-delimiters-list nil)
+;; Emacs24ではうまく動かない。。 ruby-insert-endがなくなったそう。
+;; (require 'ruby-electric)
+;; (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
+;; (setq ruby-electric-expand-delimiters-list nil)
 
 ;;;; ruby-block.el --- highlight matching block
 ;;(require 'ruby-block)
@@ -264,18 +264,17 @@
 ;;;  (define-key ruby-mode-map "\C-c\C-d" 'xmp)
 ;;;  (define-key ruby-mode-map "\C-c\C-f" 'rct-ri))
 ;;(add-hook 'ruby-mode-hook 'ruby-mode-hook-rcodetools)
-
-					;(require 'anything-rcodetools)
-					;(setq rct-get-all-methods-command "PAGER=cat fri -l")
+;;(require 'anything-rcodetools)
+;;(setq rct-get-all-methods-command "PAGER=cat fri -l")
 ;;; See docs
-					;(define-key anything-map [(control ?)] 'anything-execute-persistent-action)
+;;(define-key anything-map [(control ?)] 'anything-execute-persistent-action)
 
 ;;; smart-compile
 ;;; http://www.emacswiki.org/emacs/download/smart-compile.el
-(require 'smart-compile)
-(define-key ruby-mode-map (kbd "C-c c") 'smart-compile)
-(define-key ruby-mode-map (kbd "C-c C-c") (kbd "C-c c C-m"))
-(setq compilation-window-height 15) ;; default window height is 15
+;; (require 'smart-compile)
+;; (define-key ruby-mode-map (kbd "C-c c") 'smart-compile)
+;; (define-key ruby-mode-map (kbd "C-c C-c") (kbd "C-c c C-m"))
+;; (setq compilation-window-height 15) ;; default window height is 15
 
 ;; ------------------------------------------------------------------------
 ;; Name     : Markdown Mode
@@ -428,4 +427,3 @@
 (global-set-key [(C-left)] 'keisen-left-move)
 (global-set-key [(C-up)] 'keisen-up-move)
 (global-set-key [(C-down)] 'keisen-down-move)
-

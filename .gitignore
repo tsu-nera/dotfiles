@@ -2,9 +2,13 @@
 #*
 *~
 /.emacs.d/elisp/*.elc
+/.emacs.d/elisp/*.el
 /.emacs.d/elpa
 /.emacs.d/elisp/color-theme
 /.xmonad/*
+/.emacs.d/url
+/.emacs.d/elisp/*
+
 !/.xmonad/xmonad.hs
 # Except
 # Emacs
