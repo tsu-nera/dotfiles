@@ -1,27 +1,3 @@
-
-;; ------------------------------------------------------------------------
-;; general key bind
-;;______________________________________________________________________
-(global-set-key (kbd "C-c a")   'align)
-(global-set-key (kbd "C-c M-a") 'align-regexp)
-(global-set-key (kbd "C-h")     'backward-delete-char)
-(global-set-key (kbd "C-c d")   'delete-indentation)
-(global-set-key (kbd "M-g")     'goto-line)
-(global-set-key (kbd "C-S-i")   'indent-region)
-(global-set-key (kbd "C-m")     'newline-and-indent)
-(global-set-key (kbd "C-t")     'next-multiframe-window)
-(global-set-key (kbd "M-<RET>") 'ns-toggle-fullscreen)
-(global-set-key (kbd "C-S-t")   'previous-multiframe-window)
-(global-set-key (kbd "C-M-r")   'replace-regexp)
-(global-set-key (kbd "C-r")     'replace-string)
-(global-set-key (kbd "C-/")     'undo)
-
-;; -----------------------------------------------------------------------
-;; Name     :
-;; Function :
-;; History  :
-;; Install  :
-;; ------------------------------------------------------------------------
 ;; @ load-path
 ;; for Emacs 23 under
 (when (> emacs-major-version 23)
@@ -39,8 +15,26 @@
 ;;(add-to-load-path "elisp" "conf" "public_repos" "elisp/ruby")
 (add-to-load-path "elisp" "conf" "public_repos" "elpa")
 
-					; 行番号の表示
-(global-linum-mode t)
+;;------------------------------------------------------------------------
+;; Global settigngs 
+;;------------------------------------------------------------------------
+(global-linum-mode t)   ;; 行番号の表示
+;; (global-hl-line-mode 1) ;; 現在行に色をつける
+
+;; general key bind
+(global-set-key (kbd "C-c a")   'align)
+(global-set-key (kbd "C-c M-a") 'align-regexp)
+(global-set-key (kbd "C-h")     'backward-delete-char)
+(global-set-key (kbd "C-c d")   'delete-indentation)
+(global-set-key (kbd "M-g")     'goto-line)
+(global-set-key (kbd "C-S-i")   'indent-region)
+(global-set-key (kbd "C-m")     'newline-and-indent)
+(global-set-key (kbd "C-t")     'next-multiframe-window)
+(global-set-key (kbd "M-<RET>") 'ns-toggle-fullscreen)
+(global-set-key (kbd "C-S-t")   'previous-multiframe-window)
+(global-set-key (kbd "C-M-r")   'replace-regexp)
+(global-set-key (kbd "C-r")     'replace-string)
+(global-set-key (kbd "C-/")     'undo)
 
 ;; ------------------------------------------------------------------------
 ;; Name     : auto-install
@@ -147,15 +141,15 @@
 ;; ------------------------------------------------------------------------
 ;; emacs-evernote-mode
 ;; ------------------------------------------------------------------------
-(require 'evernote-mode)
-(global-set-key "\C-cec" 'evernote-create-note)
-(global-set-key "\C-ceo" 'evernote-open-note)
-(global-set-key "\C-ces" 'evernote-search-notes)
-(global-set-key "\C-ceS" 'evernote-do-saved-search)
-(global-set-key "\C-cew" 'evernote-write-note)
-(global-set-key "\C-cep" 'evernote-post-region)
-(global-set-key "\C-ceb" 'evernote-browser)
-(setq evernote-username "fox10225fox")  ;; Evernote アカウント名
+;; (require 'evernote-mode)
+;; (global-set-key "\C-cec" 'evernote-create-note)
+;; (global-set-key "\C-ceo" 'evernote-open-note)
+;; (global-set-key "\C-ces" 'evernote-search-notes)
+;; (global-set-key "\C-ceS" 'evernote-do-saved-search)
+;; (global-set-key "\C-cew" 'evernote-write-note)
+;; (global-set-key "\C-cep" 'evernote-post-region)
+;; (global-set-key "\C-ceb" 'evernote-browser)
+;; (setq evernote-username "fox10225fox")  ;; Evernote アカウント名
 
 ;; ------------------------------------------------------------------------
 ;; Rst-mode (for Sphinx)
@@ -218,15 +212,13 @@
 
 ;; ------------------------------------------------------------------------
 ;; Name     : auto-complete
-					;u URL      : http://www.emacswiki.org/emacs/auto-complete-extension.el
+;; URL      : http://www.emacswiki.org/emacs/auto-complete-extension.el
 ;; Function : 自動補完を実現するelisp
 ;; History  : 13/10/14
 ;; ------------------------------------------------------------------------
-(when (require 'auto-complete-config nil t)
-  (add-to-list 'ac-dictionary-directories
-	       "~/.emacs.d/elisp/ac-dict")
-  (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
-  (ac-config-default))
+;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/dict")
+(require 'auto-complete-config)
+(ac-config-default)
 
 ;; ------------------------------------------------------------------------
 ;; C/C++
@@ -427,3 +419,29 @@
 (global-set-key [(C-left)] 'keisen-left-move)
 (global-set-key [(C-up)] 'keisen-up-move)
 (global-set-key [(C-down)] 'keisen-down-move)
+
+;; -----------------------------------------------------------------------
+;; Name     : ffap.el
+;; Function : 現在の位置のファイル・URLを開く
+;; History  : 2014/02/02 add
+;; Install  : build-in
+;; ------------------------------------------------------------------------
+(ffap-bindings)
+
+;; -----------------------------------------------------------------------
+;; Name     : tempbuf.el
+;; Function : 使っていないバッファを削除
+;; History  : 2014/02/02 add
+;; Install  : emacs wiki
+;; ------------------------------------------------------------------------
+(require 'tempbuf)
+;; ファイルを開いたら有効
+(add-hook 'find-file-hooks 'turn-on-tempbuf-mode)
+;; Dired modeならば有効
+(add-hook 'dired-mode-hook 'turn-on-tempbuf-mode)
+;; -----------------------------------------------------------------------
+;; Name     :
+;; Function :
+;; History  :
+;; Install  :
+;; ------------------------------------------------------------------------
