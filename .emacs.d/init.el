@@ -192,15 +192,14 @@
 ;; http://launchpadlibrarian.net/40270196/xml-rpc.el
 ;; metaweblogも入れた
 ;; git://github.com/punchagan/metaweblog.el.git
-					;(require 'metaweblog)
-					;(require 'org2blog-autoloads)
-					;(setq org2blog/wp-blog-alist
-;;       '(("SternStunden" ;;; ブログの名前
-;;          :url "http://hmi-me.ciao.jp/sternstunden/xmlrpc.php";;; xmlrcp path
-;;         :username "admin" ;;; ユーザ名
-;;; :password "hoge" ;;; パスワードは封印
-;;         :default-categories ("daily") )))
-
+(require 'metaweblog)
+(require 'org2blog-autoloads)
+(setq org2blog/wp-blog-alist
+       '(("Futurismo" ;;; ブログの名前
+          :url "http://futurismo.biz/xmlrpc.php";;; xmlrcp path
+         :username "admin" ;;; ユーザ名
+	;; :password "hoge" ;;; パスワードは封印
+         :default-categories ("技術メモ") )))
 
 ;; ------------------------------------------------------------------------
 ;; others
@@ -331,18 +330,18 @@
 (require 'helm-config)
 (require 'helm-command)
 (require 'helm-descbinds)
-					;(require 'helm-c-moccur)
-					;(require 'helm-migemo)
+;(require 'helm-recentf)
+;(require 'helm-c-moccur)
+;(require 'helm-migemo)
 
 (setq helm-idle-delay             0.3
       helm-input-idle-delay       0.3
       helm-candidate-number-limit 200)
 
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
-(global-set-key (kbd "C-x C-r") 'helm-recentf)
+(global-set-key (kbd "C-x r") 'helm-recentf)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "M-r") 'helm-occur)
-(global-set-key (kbd "C-x r") 'helm-resentf)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (helm-mode 1)
 

@@ -4,12 +4,13 @@
 /.emacs.d/elisp/*.elc
 /.emacs.d/elisp/*.el
 /.emacs.d/elpa
-/.emacs.d/elisp/color-theme
 /.xmonad/*
+!/.xmonad/xmonad.hs
 /.emacs.d/url
 /.emacs.d/elisp/*
+/.emacs.d/public_repos/*
+/.emacs.d/ac-comphist.dat
 
-!/.xmonad/xmonad.hs
 # Except
 # Emacs
 #!/.emacs.d/init.el
@@ -18,7 +19,7 @@
 #!*.org
 #!*.txt
 #!/.emacs.d/elisp/ruby
-#!/.emacs.d/public_repos/
+
 
 #!/.bashrc
 #!/.gitconfig
