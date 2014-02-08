@@ -1,3 +1,30 @@
+; -----------------------------------------------------------------------
+;; Name     : CEDET
+;; Function : 統合開発環境
+;; History  : 2014/02/04 add 
+;; Install  : http://www.logilab.org/blogentry/173886
+;; ------------------------------------------------------------------------
+;; Load CEDET.
+;; See cedet/common/cedet.info for configuration details.
+;; IMPORTANT: Tou must place this *before* any CEDET component (including
+;; EIEIO) gets activated by another package (Gnus, auth-source, ...).
+(load-file "/home/tsu-nera/.emacs.d/cedet-bzr/trunk/cedet-devel-load.el")
+
+(semantic-mode 1)  ;; Enable Semantic
+(global-ede-mode 1);; Enable EDE (Project Management) features
+(semantic-load-enable-code-helpers)      ; Enable prototype help and smart completion
+
+(setq semantic-default-submodes
+            '(
+	      global-semantic-idle-scheduler-mode
+	      global-semantic-idle-completions-mode
+	      global-semanticdb-minor-mode
+	      global-semantic-decoration-mode
+	      global-semantic-highlight-func-mode
+	      global-semantic-stickyfunc-mode
+	      global-semantic-mru-bookmark-mode
+	      ))
+		
 ;; @ load-path
 ;; for Emacs 23 under
 (when (> emacs-major-version 23)
@@ -76,19 +103,20 @@
 ;;; 色を設定する
 ;;; 設定自体は M-x list-face-displaysから.emacsに自動生成されたものをcopy
 (custom-set-variables
- ;;; custom-set-variables was added by Custom.
- ;;; If you edit it by hand, you could mess it up, so be careful.
- ;;; Your init file should contain only one such instance.
- ;;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("2b484c630af2578060ee43827f4785e480e19bab336d1ccb2bce5c9d3acfb652" "ea4035bd249cc84f038158d1eb17493623c55b0ca92d9f5a1d036d2837af2e11" "9fd20670758db15cc4d0b4442a74543888d2e445646b25f2755c65dcd6f1504b" default))))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes (quote ("2b484c630af2578060ee43827f4785e480e19bab336d1ccb2bce5c9d3acfb652" "ea4035bd249cc84f038158d1eb17493623c55b0ca92d9f5a1d036d2837af2e11" "9fd20670758db15cc4d0b4442a74543888d2e445646b25f2755c65dcd6f1504b" default)))
+ '(ecb-options-version "2.40"))
 (custom-set-faces
- ;;; custom-set-faces was added by Custom.
- ;;; If you edit it by hand, you could mess it up, so be careful.
- ;;; Your init file should contain only one such instance.
- ;;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(font-lock-function-name-face ((t (:foreground "cyan"))))
- '(markdown-inline-code-face ((t (:inherit font-lock-constant-face))))
- '(markdown-pre-face ((t (:foreground "brightmagenta"))))
+ '(markdown-inline-code-face ((t (:inherit font-lock-constant-face))) t)
+ '(markdown-pre-face ((t (:foreground "brightmagenta"))) t)
  '(minibuffer-prompt ((t (:foreground "brightblue")))))
 
 ;; ------------------------------------------------------------------------
@@ -120,7 +148,7 @@
 ;;; 複数の検索語や、特定のフェイスのみマッチ等の機能を有効にする
 ;;; 詳細は http://www.bookshelf.jp/soft/meadow_50.html#SEC751
 (setq moccur-split-word t)
-;;; migemoがrequireできる環境ならmigemoを使う
+;; migemoがrequireできる環境ならmigemoを使う
 (when (require 'migemo nil t) ;第三引数がnon-nilだとloadできなかった場合にエラーではなくnilを返す
   (setq moccur-use-migemo t))
 
@@ -182,11 +210,13 @@
 (unless (server-running-p)
   (server-start))
 
-
 ;; ------------------------------------------------------------------------
-;; org2blog
+;; Name     : org2blog
+;; Function : Emacsからブログ投稿
+;:            Emacs から WordPressに投稿するLisp
+;; Install  :
+;; History  : 2014.02.09 パスワードレスにした
 ;; ------------------------------------------------------------------------
-;; Emacs から WordPressに投稿するLisp
 ;; https://github.com/punchagan/org2blog
 ;; xml-rspも入れた
 ;; http://launchpadlibrarian.net/40270196/xml-rpc.el
@@ -194,12 +224,13 @@
 ;; git://github.com/punchagan/metaweblog.el.git
 (require 'metaweblog)
 (require 'org2blog-autoloads)
+(require 'netrc) ;; or nothing if already in the load-path
+(setq blog (netrc-machine (netrc-parse "~/.netrc") "Futurismo" t))
 (setq org2blog/wp-blog-alist
-       '(("Futurismo" ;;; ブログの名前
-          :url "http://futurismo.biz/xmlrpc.php";;; xmlrcp path
-         :username "admin" ;;; ユーザ名
-	;; :password "hoge" ;;; パスワードは封印
-         :default-categories ("技術メモ") )))
+    '(("Futurismo"
+	 :url "http://futurismo.biz/xmlrpc.php"
+	 :username (netrc-get blog "login")
+	 :password (netrc-get blog "password"))))
 
 ;; ------------------------------------------------------------------------
 ;; others
@@ -207,7 +238,7 @@
 ;; git管理のシンボリックリンクで質問されないためのおまじない。
 ;; 参考: http://openlab.dino.co.jp/2008/10/30/212934368.html
 ;;; avoid "Symbolic link to Git-controlled source file;; follow link? (yes or no)"
-;; (setq git-follow-symlinks t)
+(setq git-follow-symlinks t)
 
 ;; ------------------------------------------------------------------------
 ;; Name     : auto-complete
@@ -292,8 +323,8 @@
 ;; History  : 2014.1.14 Add
 ;; Install  : https://raw2.github.com/zanson/color-theme-almost-monokai/master/color-theme-almost-monokai.el
 ;; ------------------------------------------------------------------------
-					;(load-file "~/.emacs.d/elisp/color-theme/themes/color-theme-almost-monokai.el")
-					;(color-theme-almost-monokai)
+;;(load-file "~/.emacs.d/elisp/color-theme/themes/color-theme-almost-monokai.el")
+;;(color-theme-almost-monokai)
 
 ;; ------------------------------------------------------------------------
 ;; Name     : Molokai
@@ -368,9 +399,10 @@
   (setq helm-samewindow nil)
   (setq display-buffer-function 'popwin:display-buffer)
   (setq popwin:special-display-config '(("*compilatoin*" :noselect t)
-					;;                                        ("helm" :regexp t :height 0.4)
+					;;("helm" :regexp t :height 0.4)
 					("anything" :regexp t :height 0.4)
 					)))
+(push '("^\*helm .+\*$" :regexp t) popwin:special-display-config)
 ;; ------------------------------------------------------------------------
 ;; Name     : conkeror
 ;; Function : web browser based on emacs key bind
@@ -425,7 +457,7 @@
 ;; History  : 2014/02/02 add
 ;; Install  : build-in
 ;; ------------------------------------------------------------------------
-(ffap-bindings)
+;;(ffap-bindings)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : tempbuf.el
@@ -438,6 +470,64 @@
 (add-hook 'find-file-hooks 'turn-on-tempbuf-mode)
 ;; Dired modeならば有効
 (add-hook 'dired-mode-hook 'turn-on-tempbuf-mode)
+
+;; -----------------------------------------------------------------------
+;; Name     : Emacs Code Browser
+;; Function : 
+;; History  : 2014/02/05
+;; Install  : github
+;;            git clone https://github.com/emacsmirror/ecb
+;; ------------------------------------------------------------------------
+(require 'ecb)
+;;(require 'ecb-autoloads)
+
+;;(require 'xrefactory)
+(defvar xref-current-project nil) ;; can be also "my_project_name"
+(defvar xref-key-binding 'global) ;; can be also 'local or 'none
+(setq load-path (cons "/home/tsu-nera/repo/xref/emacs" load-path))
+(setq exec-path (cons "/home/tsu-nera/repo/xref" exec-path))
+(load "xrefactory")
+
+;; -----------------------------------------------------------------------
+;; Name     : flymake
+;; Function : 静的文法チェック
+;; History  : 2014/02/06
+;; Install  : package.el
+;; ------------------------------------------------------------------------
+(require 'flymake)
+
+;; GUIの警告は表示しない
+(setq flymake-gui-warnings-enabled nil)
+
+;; 全てのファイルで flymakeを有効化
+(add-hook 'find-file-hook 'flymake-find-file-hook)
+
+;; M-p/M-n で警告/エラー行の移動
+(global-set-key "\M-p" 'flymake-goto-prev-error)
+(global-set-key "\M-n" 'flymake-goto-next-error)
+
+;; 警告エラー行の表示
+(global-set-key "\C-cd" 'flymake-display-err-menu-for-current-line)
+
+(defun flymake-cc-init ()
+  (let* ((temp-file   (flymake-init-create-temp-buffer-copy
+		       'flymake-create-temp-inplace))
+	 (local-file  (file-relative-name
+		       temp-file
+		       (file-name-directory buffer-file-name))))
+    (list "g++" (list "-Wall" "-Wextra" "-fsyntax-only" local-file))))
+
+(push '("\\.c$" flymake-cc-init) flymake-allowed-file-name-masks)
+(push '("\\.cpp$" flymake-cc-init) flymake-allowed-file-name-masks)
+
+(add-hook 'c++-mode-hook
+	  '(lambda ()
+	     (flymake-mode t)))(require 'flymake)
+
+(add-hook 'c-mode-hook
+	  '(lambda ()
+	     (flymake-mode t)))(require 'flymake)
+
 ;; -----------------------------------------------------------------------
 ;; Name     :
 ;; Function :
