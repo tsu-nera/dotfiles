@@ -35,3 +35,17 @@ view_source_use_external_editor = true;
 // evernote 
 define_webjump("clip",
 "javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title);}})();");
+
+//////////////////////////////////////////
+// shortcut
+//////////////////////////////////////////
+interactive("open-google", "Go to google.com", "follow",
+	    $browser_object = "http://www.google.com/");
+interactive("open-gmail", "Go to gmail", "follow",
+            $browser_object = "http://gmail.com/");
+interactive("open-calendar", "Go to calendar.google.com", "follow",
+            $browser_object = "http://calendar.google.com/");
+
+define_key(content_buffer_normal_keymap, "f1", "open-google");
+define_key(content_buffer_normal_keymap, "f2", "open-gmail");
+define_key(content_buffer_normal_keymap, "f3", "open-calendar");
