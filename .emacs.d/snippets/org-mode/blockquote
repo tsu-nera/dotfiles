@@ -3,7 +3,7 @@
 # key: blockquate
 # --
 #+BEGIN_HTML
-<blockquate>
+<blockquote>
 $0
-</blockquate>
+</blockquote>
 #+END_HTML
