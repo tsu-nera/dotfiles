@@ -2,6 +2,7 @@
 #*
 *~
 *\#$
+
 /.emacs.d/elisp/*.elc
 /.emacs.d/elisp/*.el
 /.emacs.d/elpa
@@ -11,19 +12,5 @@
 /.emacs.d/elisp/*
 /.emacs.d/public_repos/*
 /.emacs.d/ac-comphist.dat
+/.emacs.d/cedet-bzr
 
-# Except
-# Emacs
-#!/.emacs.d/init.el
-#!/.emacs.d/conf/
-#!*.el
-#!*.org
-#!*.txt
-#!/.emacs.d/elisp/ruby
-
-
-#!/.bashrc
-#!/.gitconfig
-#!/.gitignore
-#!/.screenrc
-#!/.minttyrc

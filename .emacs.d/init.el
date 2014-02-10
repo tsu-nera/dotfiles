@@ -48,7 +48,7 @@
 (global-linum-mode t)   ;; 行番号の表示
 ;; (global-hl-line-mode 1) ;; 現在行に色をつける
 
-(setq x-select-enable-clipboard t) ;; OSとのクリップボード共有
+(setq x-select-enable-clipboard t);; OSとのクリップボード共有
 
 ;; general key bind
 (global-set-key (kbd "C-c a")   'align)
