@@ -42,13 +42,34 @@
 ;;(add-to-load-path "elisp" "conf" "public_repos" "elisp/ruby")
 (add-to-load-path "elisp" "conf" "public_repos" "elpa")
 
+;; -----------------------------------------------------------------------
+;; Name     : 
+;; Function : EmacsとXのクリップポードを共有
+;; Install  : http://tubo028.hatenablog.jp/entry/2013/09/01/142238
+;; ------------------------------------------------------------------------
+(if (display-graphic-p)
+    (progn
+      ;; if on window-system
+      (setq x-select-enable-clipboard t)
+      (global-set-key "\C-y" 'x-clipboard-yank))
+  ;; else (on terminal)
+  (setq interprogram-paste-function
+	(lambda ()
+	  (shell-command-to-string "xsel -b -o")))
+  (setq interprogram-cut-function
+	(lambda (text &optional rest)
+	  (let* ((process-connection-type nil)
+		 (proc (start-process "xsel" "*Messages*" "xsel" "-b" "-i")))
+	    (process-send-string proc text)
+	    (process-send-eof proc)))))
+
+(setq x-select-enable-clipboard t);; OSとのクリップボード共有
+
 ;;------------------------------------------------------------------------
 ;; Global settigngs 
 ;;------------------------------------------------------------------------
 (global-linum-mode t)   ;; 行番号の表示
 ;; (global-hl-line-mode 1) ;; 現在行に色をつける
-
-(setq x-select-enable-clipboard t);; OSとのクリップボード共有
 
 ;; general key bind
 (global-set-key (kbd "C-c a")   'align)
