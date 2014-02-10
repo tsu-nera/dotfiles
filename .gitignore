@@ -1,6 +1,7 @@
 # All Ignore
 #*
 *~
+*\#$
 /.emacs.d/elisp/*.elc
 /.emacs.d/elisp/*.el
 /.emacs.d/elpa

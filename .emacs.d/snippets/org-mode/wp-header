@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: wp-header
+# key: wp-header
+# --
+#+DATE: [2014-02-10 月 14:14]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Uncategorized, Hello
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: Hello, World
