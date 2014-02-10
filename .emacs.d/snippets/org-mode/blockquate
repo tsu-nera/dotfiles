@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: blockquate
+# key: blockquate
+# --
+#+BEGIN_HTML
+<blockquate>
+$0
+</blockquate>
+#+END_HTML

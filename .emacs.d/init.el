@@ -11,7 +11,7 @@
 (load-file "/home/tsu-nera/.emacs.d/cedet-bzr/trunk/cedet-devel-load.el")
 
 (semantic-mode 1)  ;; Enable Semantic
-(global-ede-mode 1);; Enable EDE (Project Management) features
+;; (global-ede-mode 1);; Enable EDE (Project Management) features
 (semantic-load-enable-code-helpers)      ; Enable prototype help and smart completion
 
 (setq semantic-default-submodes
