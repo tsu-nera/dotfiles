@@ -13,4 +13,4 @@
 /.emacs.d/public_repos/*
 /.emacs.d/ac-comphist.dat
 /.emacs.d/cedet-bzr
-
+/.emacs.d/srecode-map.el
