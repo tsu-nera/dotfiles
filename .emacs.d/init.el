@@ -1,4 +1,4 @@
-; -----------------------------------------------------------------------
+;; -----------------------------------------------------------------------
 ;; Name     : CEDET
 ;; Function : 統合開発環境
 ;; History  : 2014/02/04 add 
@@ -134,7 +134,7 @@
        "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
     (goto-char (point-max))
     (eval-print-last-sexp)))
-(el-get 'sync)
+(el-get 'sync 'helm 'yasnippet)
 ;; ------------------------------------------------------------------------
 ;; face-display Setting
 ;; ------------------------------------------------------------------------
@@ -182,28 +182,28 @@
 					;)
 
 ;;;; color-moccur.elの設定
-(require 'color-moccur)
+;; (require 'color-moccur)
 ;;; 複数の検索語や、特定のフェイスのみマッチ等の機能を有効にする
 ;;; 詳細は http://www.bookshelf.jp/soft/meadow_50.html#SEC751
-(setq moccur-split-word t)
+;;(setq moccur-split-word t)
 ;; migemoがrequireできる環境ならmigemoを使う
-(when (require 'migemo nil t) ;第三引数がnon-nilだとloadできなかった場合にエラーではなくnilを返す
-  (setq moccur-use-migemo t))
+;;(when (require 'migemo nil t) ;第三引数がnon-nilだとloadできなかった場合にエラーではなくnilを返す
+;;  (setq moccur-use-migemo t))
 
 ;;;; anything-c-moccurの設定
-(require 'anything-c-moccur)
+;;(require 'anything-c-moccur)
 ;;; カスタマイズ可能変数の設定(M-x customize-group anything-c-moccur でも設定可能)
-(setq anything-c-moccur-anything-idle-delay 0.2 ;`anything-idle-delay'
-      anything-c-moccur-higligt-info-line-flag t ;; `anything-c-moccur-dmoccur'などのコマンドでバッファの情報をハイライトする
-      anything-c-moccur-enable-auto-look-flag t ;; 現在選択中の候補の位置を他のwindowに表示する
-      anything-c-moccur-enable-initial-pattern t) ;; `anything-c-moccur-occur-by-moccur'の起動時にポイントの位置の単語を初期パターンにする
+;;(setq anything-c-moccur-anything-idle-delay 0.2 ;`anything-idle-delay'
+;;      anything-c-moccur-higligt-info-line-flag t ;; `anything-c-moccur-dmoccur'などのコマンドでバッファの情報をハイライトする
+;;      anything-c-moccur-enable-auto-look-flag t ;; 現在選択中の候補の位置を他のwindowに表示する
+;;      anything-c-moccur-enable-initial-pattern t) ;; `anything-c-moccur-occur-by-moccur'の起動時にポイントの位置の単語を初期パターンにする
 
 ;;;; キーバインドの割当(好みに合わせて設定してください)
-(global-set-key (kbd "M-o") 'anything-c-moccur-occur-by-moccur) ;バッファ内検索
-(global-set-key (kbd "C-M-o") 'anything-c-moccur-dmoccur) ;ディレクトリ
-(add-hook 'dired-mode-hook ;dired
-	  '(lambda ()
-	     (local-set-key (kbd "O") 'anything-c-moccur-dired-do-moccur-by-moccur)))
+;;(global-set-key (kbd "M-o") 'anything-c-moccur-occur-by-moccur) ;バッファ内検索
+;;(global-set-key (kbd "C-M-o") 'anything-c-moccur-dmoccur) ;ディレクトリ
+;;(add-hook 'dired-mode-hook ;dired
+;;	  '(lambda ()
+;;	     (local-set-key (kbd "O") 'anything-c-moccur-dired-do-moccur-by-moccur)))
 ;; ------------------------------------------------------------------------
 ;; emacs-evernote-mode
 ;; ------------------------------------------------------------------------
@@ -297,7 +297,7 @@
 ;; ------------------------------------------------------------------------
 ;; Ruby
 ;; ------------------------------------------------------------------------
-;;;  ruby-mode
+;; ruby-mode
 ;; http://shibayu36.hatenablog.com/entry/2013/03/18/192651
 (autoload 'ruby-mode "ruby-mode" "Mode for editing ruby source files" t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
@@ -617,9 +617,3 @@
 ;; 既存スニペットを閲覧・編集する
 (define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file)
 
-;; -----------------------------------------------------------------------
-;; Name     :
-;; Function :
-;; History  :
-;; Install  :
-;; ------------------------------------------------------------------------

@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: pre_code
+# key: pre_code
+# --
+#+BEGIN_HTML
+<pre><code>
+$0
+</code>/<pre>
+#+END_HTML

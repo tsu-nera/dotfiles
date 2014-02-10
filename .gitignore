@@ -14,3 +14,5 @@
 /.emacs.d/ac-comphist.dat
 /.emacs.d/cedet-bzr
 /.emacs.d/srecode-map.el
+/.emacs.d/#init.el#
+/.emacs.d/.#init.el
