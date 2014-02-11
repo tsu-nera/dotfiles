@@ -15,16 +15,16 @@
 (semantic-load-enable-code-helpers)      ; Enable prototype help and smart completion
 
 (setq semantic-default-submodes
-            '(
-	      global-semantic-idle-scheduler-mode
-	      global-semantic-idle-completions-mode
-	      global-semanticdb-minor-mode
-	      global-semantic-decoration-mode
-	      global-semantic-highlight-func-mode
-	      global-semantic-stickyfunc-mode
-	      global-semantic-mru-bookmark-mode
-	      ))
-		
+      '(
+	global-semantic-idle-scheduler-mode
+	global-semantic-idle-completions-mode
+	global-semanticdb-minor-mode
+	global-semantic-decoration-mode
+	global-semantic-highlight-func-mode
+	global-semantic-stickyfunc-mode
+	global-semantic-mru-bookmark-mode
+	))
+
 ;; @ load-path
 ;; for Emacs 23 under
 (when (> emacs-major-version 23)
@@ -219,6 +219,12 @@
 ;;(add-hook 'dired-mode-hook ;dired
 ;;	  '(lambda ()
 ;;	     (local-set-key (kbd "O") 'anything-c-moccur-dired-do-moccur-by-moccur)))
+
+(require 'anything)
+(require 'anything-rdefs)
+(add-hook 'enh-ruby-mode-hook
+	  (lambda ()
+	    (define-key enh-ruby-mode (kbd "C-@") 'anything-rdefs)))
 ;; ------------------------------------------------------------------------
 ;; emacs-evernote-mode
 ;; ------------------------------------------------------------------------
@@ -266,7 +272,7 @@
 ;; ------------------------------------------------------------------------
 ;; Name     : org2blog
 ;; Function : Emacsからブログ投稿
-;:            Emacs から WordPressに投稿するLisp
+					;:            Emacs から WordPressに投稿するLisp
 ;; Install  :
 ;; History  : 2014.02.09 パスワードレスにした
 ;; ------------------------------------------------------------------------
@@ -280,7 +286,7 @@
 (require 'netrc) ;; or nothing if already in the load-path
 (setq blog (netrc-machine (netrc-parse "~/.netrc") "Futurismo" t))
 (setq org2blog/wp-blog-alist
-    '(("Futurismo"
+      '(("Futurismo"
 	 :url "http://futurismo.biz/xmlrpc.php"
 	 :username (netrc-get blog "login")
 	 :password (netrc-get blog "password"))))
@@ -306,8 +312,8 @@
 (when (require 'auto-complete nil t)
   (global-auto-complete-mode t)
   (setq ac-dwim nil)
-;;  (set-face-background 'ac-selection-face "steelblue")
-;;  (set-face-background 'ac-menu-face "skyblue")
+  ;;  (set-face-background 'ac-selection-face "steelblue")
+  ;;  (set-face-background 'ac-menu-face "skyblue")
   (setq ac-auto-start t)
   (global-set-key "\M-/" 'ac-start)
   (setq ac-sources '(ac-source-abbrev ac-source-words-in-buffer))
@@ -387,9 +393,9 @@
 (require 'helm-config)
 (require 'helm-command)
 (require 'helm-descbinds)
-;(require 'helm-recentf)
-;(require 'helm-c-moccur)
-;(require 'helm-migemo)
+					;(require 'helm-recentf)
+					;(require 'helm-c-moccur)
+					;(require 'helm-migemo)
 
 (setq helm-idle-delay             0.3
       helm-input-idle-delay       0.3
@@ -504,7 +510,7 @@
 ;; Install  : github
 ;;            git clone https://github.com/emacsmirror/ecb
 ;; ------------------------------------------------------------------------
-(require 'ecb)
+;;(require 'ecb)
 ;;(require 'ecb-autoloads)
 
 ;; -----------------------------------------------------------------------
@@ -550,10 +556,8 @@
 ;;(require 'flymake-ruby)
 ;;(add-hook 'enh-ruby-mode-hook 'flymake-ruby-load)
 
-
-
 ;; -----------------------------------------------------------------------
-;; Name     : flymake
+;; Name     : flycheck
 ;; Function : 静的文法チェック
 ;; History  : 2014/02/06
 ;; Install  : package.el
@@ -566,7 +570,37 @@
 
 (require 'flycheck-color-mode-line)
 (eval-after-load "flycheck"
-    '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
+  '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
+
+;; definition for flycheck
+(flycheck-define-checker ruby-rubocop
+  "A Ruby syntax and style checker using the RuboCop tool.
+   See URL `http://batsov.com/rubocop/'."
+  :command ("rubocop" "--format" "emacs" "--silent"
+	    (config-file "--config" flycheck-rubocoprc)
+	    source)
+  :error-patterns
+  ((warning line-start
+	    (file-name) ":" line ":" column ": " (or "C" "W") ": " (message)
+	    line-end)
+   (error line-start
+	  (file-name) ":" line ":" column ": " (or "E" "F") ": " (message)
+	  line-end))
+  :modes (enh-ruby-mode ruby-mode))
+
+;; definition for flycheck
+(flycheck-define-checker ruby-rubylint
+  "A Ruby syntax and style checker using the rubylint tool."
+  :command ("ruby-lint" source)
+  :error-patterns
+  ((warning line-start
+	    (file-name) ":" line ":" column ": " (or "C" "W") ": " (message)
+	    line-end)
+   (error line-start
+	  (file-name) ":" line ":" column ": " (or "E" "F") ": " (message)
+	  line-end))
+  :modes (enh-ruby-mode ruby-mode))
+
 ;; -----------------------------------------------------------------------
 ;; Name     : org-capture
 ;; Function : アイデアをキャプチャーする
@@ -576,12 +610,12 @@
 (require 'org-capture)
 (setq org-capture-templates
       '(
-;;	("t" "Task" entry (file+headline nil "Inbox")
-;;	 "** TODO %?\n %T\n %a\n %i\n")
-;;	("b" "Bug" entry (file+headline nil "Inbox")
-;;	 "** TODO %?   :bug:\n  %T\n %a\n %i\n")
-;;	("m" "Meeting" entry (file+headline nil "Meeting")
-;;	 "** %?\n %U\n %a\n %i\n")
+	;;	("t" "Task" entry (file+headline nil "Inbox")
+	;;	 "** TODO %?\n %T\n %a\n %i\n")
+	;;	("b" "Bug" entry (file+headline nil "Inbox")
+	;;	 "** TODO %?   :bug:\n  %T\n %a\n %i\n")
+	;;	("m" "Meeting" entry (file+headline nil "Meeting")
+	;;	 "** %?\n %U\n %a\n %i\n")
 	("i" "Idea" entry (file+headline nil "~/diary/org/idea.org")
 	 "** %?\n %U\n %i\n %a\n %i\n")
 	("w" "Twitter" entry (file+datetree "~/diary/org/twitter.org")
@@ -634,6 +668,6 @@
 ;; Install  :
 ;; Function : 
 ;; ------------------------------------------------------------------------
-(setq rsense-home "/home/tsu-nera/.emacs.d/public_repos/rsense-0.3")
-(add-to-list 'load-path (concat rsense-home "/etc"))
-(require 'rsense)
+;;(setq rsense-home "/home/tsu-nera/.emacs.d/public_repos/rsense-0.3")
+;;(add-to-list 'load-path (concat rsense-home "/etc"))
+;;(require 'rsense)

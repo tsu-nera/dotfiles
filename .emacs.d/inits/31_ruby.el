@@ -82,3 +82,14 @@
 ;; ------------------------------------------------------------------------
 (autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby process" t)
 (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode)
+
+
+;; -----------------------------------------------------------------------
+;; Name     : robocop 
+;; Install  : checkstyleのようなスタイルの解析
+;; Function : gem install rubocop
+;;            
+;; ------------------------------------------------------------------------
+(require 'rubocop)
+(add-hook 'enh-ruby-modek 'rubocop-mode)
+

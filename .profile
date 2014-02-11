@@ -35,3 +35,6 @@ trayer --edge top --align right --SetDockType true --SetPartialStrut false --exp
 
 # ネットワーク
 nm-applet &
+
+# サウンド
+cinnamon-sound-applet &
