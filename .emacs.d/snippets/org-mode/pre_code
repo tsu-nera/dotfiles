@@ -3,7 +3,6 @@
 # key: pre_code
 # --
 #+BEGIN_HTML
-<pre><code>
-$0
-</code>/<pre>
+<pre><code>$0
+</code></pre>
 #+END_HTML

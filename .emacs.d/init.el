@@ -39,8 +39,20 @@
 	    (normal-top-level-add-subdirs-to-load-path))))))
 ;; load-pathに追加するフォルダ
 ;; 2つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
-;;(add-to-load-path "elisp" "conf" "public_repos" "elisp/ruby")
-(add-to-load-path "elisp" "conf" "public_repos" "elpa")
+(add-to-load-path "elisp" "conf" "public_repos" "elpa" "inits")
+
+;; -----------------------------------------------------------------------
+;; Name     : init-loader
+;; Install  : M-x install-elisp
+;;     http://coderepos.org/share/browser/lang/elisp/init-loader/init-loader.el
+;; Function : init.el分割管理
+;; ------------------------------------------------------------------------
+;; init-loader
+(require 'init-loader)
+;; 設定ディレクトリ
+(init-loader-load "~/.emacs.d/inits")
+;; ログファイルを表示
+(setq init-loader-show-log-after-init t)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : 
@@ -135,6 +147,7 @@
     (goto-char (point-max))
     (eval-print-last-sexp)))
 (el-get 'sync 'helm 'yasnippet)
+
 ;; ------------------------------------------------------------------------
 ;; face-display Setting
 ;; ------------------------------------------------------------------------
@@ -146,7 +159,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes (quote ("2b484c630af2578060ee43827f4785e480e19bab336d1ccb2bce5c9d3acfb652" "ea4035bd249cc84f038158d1eb17493623c55b0ca92d9f5a1d036d2837af2e11" "9fd20670758db15cc4d0b4442a74543888d2e445646b25f2755c65dcd6f1504b" default)))
- '(ecb-options-version "2.40"))
+ '(ecb-options-version "2.40")
+ '(safe-local-variable-values (quote ((require-final-newline . t))))
+ '(yas-trigger-key "TAB"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -288,53 +303,26 @@
 (require 'auto-complete-config)
 (ac-config-default)
 
+(when (require 'auto-complete nil t)
+  (global-auto-complete-mode t)
+  (setq ac-dwim nil)
+;;  (set-face-background 'ac-selection-face "steelblue")
+;;  (set-face-background 'ac-menu-face "skyblue")
+  (setq ac-auto-start t)
+  (global-set-key "\M-/" 'ac-start)
+  (setq ac-sources '(ac-source-abbrev ac-source-words-in-buffer))
+  (add-hook 'enh-ruby-mode-hook
+	    (lambda ()
+	      (require 'rcodetools)
+	      (require 'auto-complete-ruby)
+	      (make-local-variable 'ac-omni-completion-sources)
+	      (setq ac-omni-completion-sources '(("\\.\\=" . (ac-source-rcodetools)))))))
+
 ;; ------------------------------------------------------------------------
 ;; C/C++
 ;; ------------------------------------------------------------------------
 ;;; C-c c で compile コマンドを呼び出す
 (define-key mode-specific-map "c" 'compile)
-
-;; ------------------------------------------------------------------------
-;; Ruby
-;; ------------------------------------------------------------------------
-;; ruby-mode
-;; http://shibayu36.hatenablog.com/entry/2013/03/18/192651
-(autoload 'ruby-mode "ruby-mode" "Mode for editing ruby source files" t)
-(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
-
-;;; ruby-electric.el --- electric editing commands for ruby files
-;; Emacs24ではうまく動かない。。 ruby-insert-endがなくなったそう。
-;; (require 'ruby-electric)
-;; (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
-;; (setq ruby-electric-expand-delimiters-list nil)
-
-;;;; ruby-block.el --- highlight matching block
-;;(require 'ruby-block)
-;;(ruby-block-mode t)
-;;(setq ruby-block-highlight-toggle t)
-
-;;; rcodetools
-;;(require 'rcodetools)
-;;(setq rct-find-tag-if-available nil)
-;;(defun ruby-mode-hook-rcodetools ()
-;;;  (define-key ruby-mode-map "\M-\C-i" 'rct-complete-symbol)
-;;;  (define-key ruby-mode-map "\C-c\C-t" 'ruby-toggle-buffer)
-;;;  (define-key ruby-mode-map "\C-c\C-d" 'xmp)
-;;;  (define-key ruby-mode-map "\C-c\C-f" 'rct-ri))
-;;(add-hook 'ruby-mode-hook 'ruby-mode-hook-rcodetools)
-;;(require 'anything-rcodetools)
-;;(setq rct-get-all-methods-command "PAGER=cat fri -l")
-;;; See docs
-;;(define-key anything-map [(control ?)] 'anything-execute-persistent-action)
-
-;;; smart-compile
-;;; http://www.emacswiki.org/emacs/download/smart-compile.el
-;; (require 'smart-compile)
-;; (define-key ruby-mode-map (kbd "C-c c") 'smart-compile)
-;; (define-key ruby-mode-map (kbd "C-c C-c") (kbd "C-c c C-m"))
-;; (setq compilation-window-height 15) ;; default window height is 15
 
 ;; ------------------------------------------------------------------------
 ;; Name     : Markdown Mode
@@ -519,13 +507,6 @@
 (require 'ecb)
 ;;(require 'ecb-autoloads)
 
-;;(require 'xrefactory)
-(defvar xref-current-project nil) ;; can be also "my_project_name"
-(defvar xref-key-binding 'global) ;; can be also 'local or 'none
-(setq load-path (cons "/home/tsu-nera/repo/xref/emacs" load-path))
-(setq exec-path (cons "/home/tsu-nera/repo/xref" exec-path))
-(load "xrefactory")
-
 ;; -----------------------------------------------------------------------
 ;; Name     : flymake
 ;; Function : 静的文法チェック
@@ -566,7 +547,26 @@
 	  '(lambda ()
 	     (flymake-mode t)))(require 'flymake)
 
+;;(require 'flymake-ruby)
+;;(add-hook 'enh-ruby-mode-hook 'flymake-ruby-load)
 
+
+
+;; -----------------------------------------------------------------------
+;; Name     : flymake
+;; Function : 静的文法チェック
+;; History  : 2014/02/06
+;; Install  : package.el
+;; ------------------------------------------------------------------------
+(require 'flycheck)
+(setq flycheck-check-syntax-automatically '(mode-enabled save))
+;; Ruby
+(add-hook 'enh-ruby-mode-hook 'flycheck-mode)
+
+
+(require 'flycheck-color-mode-line)
+(eval-after-load "flycheck"
+    '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
 ;; -----------------------------------------------------------------------
 ;; Name     : org-capture
 ;; Function : アイデアをキャプチャーする
@@ -600,15 +600,8 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (require 'yasnippet)
-;;(setq yas-snippet-dirs
-;;      '("~/.emacs.d/snippets"
-;;        ))
+(yas/load-directory "~/.emacs.d/snippets")
 (yas-global-mode 1)
-
-;; 単語展開キーバインド (ver8.0から明記しないと機能しない)
-;; (setqだとtermなどで干渉問題ありでした)
-;; もちろんTAB以外でもOK 例えば "C-;"とか
-(custom-set-variables '(yas-trigger-key "TAB"))
 
 ;; 既存スニペットを挿入する
 (define-key yas-minor-mode-map (kbd "C-x i i") 'yas-insert-snippet)
@@ -617,3 +610,30 @@
 ;; 既存スニペットを閲覧・編集する
 (define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file)
 
+;; -----------------------------------------------------------------------
+;; Name     : anzu
+;; Install  : el-get
+;; Function : インタラクティブ検索、置換
+;;            http://qiita.com/syohex/items/56cf3b7f7d9943f7a7ba
+;;            https://github.com/syohex/emacs-anzu
+;; ------------------------------------------------------------------------
+(require 'anzu)
+(global-anzu-mode +1)
+
+(set-face-attribute 'anzu-mode-line nil
+		    :foreground "yellow" :weight 'bold)
+(custom-set-variables
+ '(anzu-mode-lighter "")
+ '(anzu-deactivate-region t)
+ '(anzu-search-threshold 1000)
+ '(anzu-use-mimego t)
+ '(anzu-replace-to-string-separator " => "))
+
+;; -----------------------------------------------------------------------
+;; Name     : 
+;; Install  :
+;; Function : 
+;; ------------------------------------------------------------------------
+(setq rsense-home "/home/tsu-nera/.emacs.d/public_repos/rsense-0.3")
+(add-to-list 'load-path (concat rsense-home "/etc"))
+(require 'rsense)
