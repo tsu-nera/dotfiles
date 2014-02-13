@@ -98,6 +98,13 @@
 (global-set-key (kbd "C-r")     'replace-string)
 (global-set-key (kbd "C-/")     'undo)
 
+;; Setting rbenv path
+;; emacs から rbenv でいれたRubyを利用する。
+(setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:"
+		       (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
+(setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims")
+		(cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
+
 ;; ------------------------------------------------------------------------
 ;; Name     : auto-install
 ;; Function :
@@ -272,7 +279,7 @@
 ;; ------------------------------------------------------------------------
 ;; Name     : org2blog
 ;; Function : Emacsからブログ投稿
-					;:            Emacs から WordPressに投稿するLisp
+;:            Emacs から WordPressに投稿するLisp
 ;; Install  :
 ;; History  : 2014.02.09 パスワードレスにした
 ;; ------------------------------------------------------------------------

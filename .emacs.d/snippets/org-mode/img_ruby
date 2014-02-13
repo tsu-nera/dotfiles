@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: img_ruby
+# key: img_ruby
+# --
+#+BEGIN_HTML
+<a href="https://picasaweb.google.com/lh/photo/Tu2VEkVYqYsV04cIb3i5qTyD6hjDXGH6XyE6iLrzolo?feat=embedwebsite"><img alt="" src="https://lh3.googleusercontent.com/-Zf4rF4KLaKQ/UvpByiJqSvI/AAAAAAAABCA/lvJgohfEmdo/s800/ruby1.png" width="256" height="256" /></a>
+#+END_HTML
