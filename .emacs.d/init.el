@@ -292,9 +292,15 @@
 (require 'org2blog-autoloads)
 (require 'netrc) ;; or nothing if already in the load-path
 (setq blog (netrc-machine (netrc-parse "~/.netrc") "Futurismo" t))
+(setq blog (netrc-machine (netrc-parse "~/.netrc") "EverClassic" t))
 (setq org2blog/wp-blog-alist
       '(("Futurismo"
 	 :url "http://futurismo.biz/xmlrpc.php"
+	 :username (netrc-get blog "login")
+	 :password (netrc-get blog "password"))))
+(setq org2blog/wp-blog-alist
+      '(("EverClassic"
+	 :url "http://everclassic.biz/xmlrpc.php"
 	 :username (netrc-get blog "login")
 	 :password (netrc-get blog "password"))))
 

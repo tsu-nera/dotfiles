@@ -83,13 +83,19 @@
 (autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby process" t)
 (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode)
 
-
 ;; -----------------------------------------------------------------------
 ;; Name     : robocop 
 ;; Install  : checkstyleのようなスタイルの解析
 ;; Function : gem install rubocop
-;;            
 ;; ------------------------------------------------------------------------
 (require 'rubocop)
 (add-hook 'enh-ruby-modek 'rubocop-mode)
 
+;; -----------------------------------------------------------------------
+;; Name     : rspec-mode
+;; Install  : el-get
+;; Function : rspec拡張
+;; ------------------------------------------------------------------------
+(require 'rspec-mode)
+(eval-after-load 'rspec-mode
+  '(rspec-install-snippets))
