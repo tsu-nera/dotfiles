@@ -1,30 +1,6 @@
-;; -----------------------------------------------------------------------
-;; Name     : CEDET
-;; Function : 統合開発環境
-;; History  : 2014/02/04 add 
-;; Install  : http://www.logilab.org/blogentry/173886
-;; ------------------------------------------------------------------------
-;; Load CEDET.
-;; See cedet/common/cedet.info for configuration details.
-;; IMPORTANT: Tou must place this *before* any CEDET component (including
-;; EIEIO) gets activated by another package (Gnus, auth-source, ...).
-(load-file "/home/tsu-nera/.emacs.d/cedet-bzr/trunk/cedet-devel-load.el")
-
-(semantic-mode 1)  ;; Enable Semantic
-;; (global-ede-mode 1);; Enable EDE (Project Management) features
-(semantic-load-enable-code-helpers)      ; Enable prototype help and smart completion
-
-(setq semantic-default-submodes
-      '(
-	global-semantic-idle-scheduler-mode
-	global-semantic-idle-completions-mode
-	global-semanticdb-minor-mode
-	global-semantic-decoration-mode
-	global-semantic-highlight-func-mode
-	global-semantic-stickyfunc-mode
-	global-semantic-mru-bookmark-mode
-	))
-
+;;------------------------------------------------------------------------
+;; Global settigngs 
+;;------------------------------------------------------------------------
 ;; @ load-path
 ;; for Emacs 23 under
 (when (> emacs-major-version 23)
@@ -41,21 +17,34 @@
 ;; 2つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
 (add-to-load-path "elisp" "conf" "public_repos" "elpa" "inits")
 
-;; -----------------------------------------------------------------------
-;; Name     : init-loader
-;; Install  : M-x install-elisp
-;;     http://coderepos.org/share/browser/lang/elisp/init-loader/init-loader.el
-;; Function : init.el分割管理
+(global-linum-mode t)   ;; 行番号の表示
+;; (global-hl-line-mode 1) ;; 現在行に色をつける
+
+;; general key bind
+(global-set-key (kbd "C-c a")   'align)
+(global-set-key (kbd "C-c M-a") 'align-regexp)
+(global-set-key (kbd "C-h")     'backward-delete-char)
+(global-set-key (kbd "C-c d")   'delete-indentation)
+(global-set-key (kbd "M-g")     'goto-line)
+(global-set-key (kbd "C-S-i")   'indent-region)
+(global-set-key (kbd "C-m")     'newline-and-indent)
+(global-set-key (kbd "C-t")     'next-multiframe-window)
+(global-set-key (kbd "M-<RET>") 'ns-toggle-fullscreen)
+(global-set-key (kbd "C-S-t")   'previous-multiframe-window)
+(global-set-key (kbd "C-M-r")   'replace-regexp)
+(global-set-key (kbd "C-r")     'replace-string)
+(global-set-key (kbd "C-/")     'undo)
+
 ;; ------------------------------------------------------------------------
-;; init-loader
-(require 'init-loader)
-;; 設定ディレクトリ
-(init-loader-load "~/.emacs.d/inits")
-;; ログファイルを表示
-(setq init-loader-show-log-after-init t)
+;; Emacs Client
+;; ------------------------------------------------------------------------
+;; server start for emacs-client
+;; http://d.hatena.ne.jp/syohex/20101224/1293206906
+(require 'server)
+(unless (server-running-p)
+  (server-start))
 
 ;; -----------------------------------------------------------------------
-;; Name     : 
 ;; Function : EmacsとXのクリップポードを共有
 ;; Install  : http://tubo028.hatenablog.jp/entry/2013/09/01/142238
 ;; ------------------------------------------------------------------------
@@ -76,162 +65,20 @@
 	    (process-send-eof proc)))))
 
 (setq x-select-enable-clipboard t);; OSとのクリップボード共有
-
-;;------------------------------------------------------------------------
-;; Global settigngs 
-;;------------------------------------------------------------------------
-(global-linum-mode t)   ;; 行番号の表示
-;; (global-hl-line-mode 1) ;; 現在行に色をつける
-
-;; general key bind
-(global-set-key (kbd "C-c a")   'align)
-(global-set-key (kbd "C-c M-a") 'align-regexp)
-(global-set-key (kbd "C-h")     'backward-delete-char)
-(global-set-key (kbd "C-c d")   'delete-indentation)
-(global-set-key (kbd "M-g")     'goto-line)
-(global-set-key (kbd "C-S-i")   'indent-region)
-(global-set-key (kbd "C-m")     'newline-and-indent)
-(global-set-key (kbd "C-t")     'next-multiframe-window)
-(global-set-key (kbd "M-<RET>") 'ns-toggle-fullscreen)
-(global-set-key (kbd "C-S-t")   'previous-multiframe-window)
-(global-set-key (kbd "C-M-r")   'replace-regexp)
-(global-set-key (kbd "C-r")     'replace-string)
-(global-set-key (kbd "C-/")     'undo)
-
-;; Setting rbenv path
-;; emacs から rbenv でいれたRubyを利用する。
-(setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:"
-		       (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
-(setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims")
-		(cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
-
+;; -----------------------------------------------------------------------
+;; Name     : init-loader
+;; Install  : M-x install-elisp
+;;     http://coderepos.org/share/browser/lang/elisp/init-loader/init-loader.el
+;; Function : init.el分割管理
 ;; ------------------------------------------------------------------------
-;; Name     : auto-install
-;; Function :
-;; History  :
-;; Install  : http://www.emacswiki.org/emacs/download/auto-install.el
-;; ------------------------------------------------------------------------
-(when(require 'auto-install nil t)
-  ;;インストールディレクトリを設定する  初期値は~/.emacs.d/auto-install/
-  (setq auto-install-directory "~/.emacs.d/elisp/")
-  ;;EmacsWikiに登録されているelispの名前を取得する
-  ;;; 起動時にnetwork unreachableってでるので、とりあえず封印 13/05/26
-  ;;(auto-install-update-emacswiki-package-name t)
-  ;;必要であればプロキシの設定を行う
-  ;;(setq url-proxy-services '(("http" . "localhost:8339")))
-  ;;install-elispの関数を利用可能にす
-  (auto-install-compatibility-setup))
+;; init-loader
+(require 'init-loader)
+;; 設定ディレクトリ
+(init-loader-load "~/.emacs.d/inits")
+;; ログファイルを表示
+(setq init-loader-show-log-after-init t)
 
-;; ------------------------------------------------------------------------
-;; Name     : package.el
-;; Function :
-;; History  : 2014/01/16 add
-;; Install  : http://www.emacswiki.org/emacs/download/auto-install.el
-;; ------------------------------------------------------------------------
-(require 'package)
-;; Add package-archives
-;; Melpa: githubからelispを落とすリポジトリを追加
-;; これで、 M-x list-packagesで melpaが利用できる。
-(add-to-list 'package-archives
-	     '("marmalade" . "http://marmalade-repo.org/packages/")
-	     '("melpa" . "http://melpa.milkbox.net/packages/"))
 
-;; Initialize
-(package-initialize)
-
-;; ------------------------------------------------------------------------
-;; Name     : el-get.el
-;; Function : eLisp管理
-;; Install  : cd public_repos 
-;;            git clone git@github.com:dimitri/el-get.git
-;; ------------------------------------------------------------------------
-(setq el-get-dir "~/.emacs.d/elisp/el-get/")
-
-(unless (require 'el-get nil 'noerror)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
-(el-get 'sync 'helm 'yasnippet)
-
-;; ------------------------------------------------------------------------
-;; face-display Setting
-;; ------------------------------------------------------------------------
-;;; 色を設定する
-;;; 設定自体は M-x list-face-displaysから.emacsに自動生成されたものをcopy
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("2b484c630af2578060ee43827f4785e480e19bab336d1ccb2bce5c9d3acfb652" "ea4035bd249cc84f038158d1eb17493623c55b0ca92d9f5a1d036d2837af2e11" "9fd20670758db15cc4d0b4442a74543888d2e445646b25f2755c65dcd6f1504b" default)))
- '(ecb-options-version "2.40")
- '(safe-local-variable-values (quote ((require-final-newline . t))))
- '(yas-trigger-key "TAB"))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(font-lock-function-name-face ((t (:foreground "cyan"))))
- '(markdown-inline-code-face ((t (:inherit font-lock-constant-face))) t)
- '(markdown-pre-face ((t (:foreground "brightmagenta"))) t)
- '(minibuffer-prompt ((t (:foreground "brightblue")))))
-
-;; ------------------------------------------------------------------------
-;; Name     : Anything
-;; Install  : (auto-install-bitch "anything")
-;; Function : 自動補完
-;; History  : 13/10/14 Install
-;; ------------------------------------------------------------------------
-;; TODO 使い方がわからないので、封印しておく。
-					;(when (require 'anything nui t)
-;;  (setq
-;;; 候補を表示するまでの時間
-;;   anything-idle-delay 0.3
-;;; タイプして再描写するまでの時間
-;;   anything-input-idle-delay 0.2
-;;; 候補の最大表示数
-;;   anything-candidate-number-limit 100
-;;; 体感速度アップ
-;;   anything-quick-update t
-;;; 候補選択をアルファベット順
-;;   anything-enable-shortcuts 'alphabet)
-
-;; anything の補間強化
-;;  (require 'anything-match-plugin nil t)
-					;)
-
-;;;; color-moccur.elの設定
-;; (require 'color-moccur)
-;;; 複数の検索語や、特定のフェイスのみマッチ等の機能を有効にする
-;;; 詳細は http://www.bookshelf.jp/soft/meadow_50.html#SEC751
-;;(setq moccur-split-word t)
-;; migemoがrequireできる環境ならmigemoを使う
-;;(when (require 'migemo nil t) ;第三引数がnon-nilだとloadできなかった場合にエラーではなくnilを返す
-;;  (setq moccur-use-migemo t))
-
-;;;; anything-c-moccurの設定
-;;(require 'anything-c-moccur)
-;;; カスタマイズ可能変数の設定(M-x customize-group anything-c-moccur でも設定可能)
-;;(setq anything-c-moccur-anything-idle-delay 0.2 ;`anything-idle-delay'
-;;      anything-c-moccur-higligt-info-line-flag t ;; `anything-c-moccur-dmoccur'などのコマンドでバッファの情報をハイライトする
-;;      anything-c-moccur-enable-auto-look-flag t ;; 現在選択中の候補の位置を他のwindowに表示する
-;;      anything-c-moccur-enable-initial-pattern t) ;; `anything-c-moccur-occur-by-moccur'の起動時にポイントの位置の単語を初期パターンにする
-
-;;;; キーバインドの割当(好みに合わせて設定してください)
-;;(global-set-key (kbd "M-o") 'anything-c-moccur-occur-by-moccur) ;バッファ内検索
-;;(global-set-key (kbd "C-M-o") 'anything-c-moccur-dmoccur) ;ディレクトリ
-;;(add-hook 'dired-mode-hook ;dired
-;;	  '(lambda ()
-;;	     (local-set-key (kbd "O") 'anything-c-moccur-dired-do-moccur-by-moccur)))
-
-(require 'anything)
-(require 'anything-rdefs)
-(add-hook 'enh-ruby-mode-hook
-	  (lambda ()
-	    (define-key enh-ruby-mode (kbd "C-@") 'anything-rdefs)))
 ;; ------------------------------------------------------------------------
 ;; emacs-evernote-mode
 ;; ------------------------------------------------------------------------
@@ -266,15 +113,6 @@
 	  (lambda ()
 	    (setq rst-slides-program "open -a Firefox")
 	    ))
-
-;; ------------------------------------------------------------------------
-;; Emacs Client
-;; ------------------------------------------------------------------------
-;; server start for emacs-client
-;; http://d.hatena.ne.jp/syohex/20101224/1293206906
-(require 'server)
-(unless (server-running-p)
-  (server-start))
 
 ;; ------------------------------------------------------------------------
 ;; Name     : org2blog
@@ -330,16 +168,13 @@
   (setq ac-auto-start t)
   (global-set-key "\M-/" 'ac-start)
   (setq ac-sources '(ac-source-abbrev ac-source-words-in-buffer))
-  (add-hook 'enh-ruby-mode-hook
+  (add-hook 'ruby-mode-hook
 	    (lambda ()
 	      (require 'rcodetools)
 	      (require 'auto-complete-ruby)
 	      (make-local-variable 'ac-omni-completion-sources)
 	      (setq ac-omni-completion-sources '(("\\.\\=" . (ac-source-rcodetools)))))))
 
-;; ------------------------------------------------------------------------
-;; C/C++
-;; ------------------------------------------------------------------------
 ;;; C-c c で compile コマンドを呼び出す
 (define-key mode-specific-map "c" 'compile)
 
@@ -352,87 +187,6 @@
 (autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
 ;; associate .md file to markdown-mode
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-
-;; ------------------------------------------------------------------------
-;; Name     : Emacs Color theme
-;; Function :
-;; History  : 2014.1.14 Add
-;; Install  : https://code.google.com/p/gnuemacscolorthemetest/
-;; ------------------------------------------------------------------------
-(require 'color-theme)
-(color-theme-initialize)
-
-;; ------------------------------------------------------------------------
-;; Name     : Almost Monokai
-;; Function : Beautiful Color theme
-;; History  : 2014.1.14 Add
-;; Install  : https://raw2.github.com/zanson/color-theme-almost-monokai/master/color-theme-almost-monokai.el
-;; ------------------------------------------------------------------------
-;;(load-file "~/.emacs.d/elisp/color-theme/themes/color-theme-almost-monokai.el")
-;;(color-theme-almost-monokai)
-
-;; ------------------------------------------------------------------------
-;; Name     : Molokai
-;; Function : Most popular color theme
-;; History  : 2014.1.14 Add
-;; Install  : https://raw2.github.com/hbin/molokai-theme/master/molokai-theme-kit.el
-;; ------------------------------------------------------------------------
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(setq molokai-theme-kit t)
-(load-theme 'molokai t)
-
-
-;; ------------------------------------------------------------------------
-;; Name     : PowerLine
-;; Function : Most popular color theme
-;; History  : 2014.1.14 Add
-;; Install  : http://www.emacswiki.org/emacs/powerline.el
-;; ------------------------------------------------------------------------
-(require 'powerline)
-
-;; ------------------------------------------------------------------------
-;; Name     : helm
-;; Function : 置換機能
-;; History  : 2014.1.15 Add
-;; Install  : https://github.com/emacs-helm/helm
-;; ------------------------------------------------------------------------
-(eval-when-compile (require 'cl))
-
-;;; ミニバッファで C-h でヘルプでないようにする
-(load "term/bobcat")
-(when (fboundp 'terminal-init-bobcat)
-  (terminal-init-bobcat))
-
-(require 'helm-config)
-(require 'helm-command)
-(require 'helm-descbinds)
-					;(require 'helm-recentf)
-					;(require 'helm-c-moccur)
-					;(require 'helm-migemo)
-
-(setq helm-idle-delay             0.3
-      helm-input-idle-delay       0.3
-      helm-candidate-number-limit 200)
-
-(global-set-key (kbd "C-x b") 'helm-buffers-list)
-(global-set-key (kbd "C-x r") 'helm-recentf)
-(global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "M-r") 'helm-occur)
-(global-set-key (kbd "M-x") 'helm-M-x)
-(helm-mode 1)
-
-					;(let ((key-and-func
-;;       `((,(kbd "C-r")   helm-for-files)
-;;         (,(kbd "C-^")   helm-c-apropos)
-;;         (,(kbd "C-;")   helm-resume)
-;;         (,(kbd "M-s")   helm-occur)
-;;         (,(kbd "M-x")   helm-M-x)
-;;         (,(kbd "M-y")   helm-show-kill-ring)
-;;         (,(kbd "M-z")   helm-do-grep)
-;;         (,(kbd "C-S-h") helm-descbinds)
-;;        )))
-;;  (loop for (key func) in key-and-func
-;;        do (global-set-key key func)))
 
 ;; ------------------------------------------------------------------------
 ;; Name     : popwin
@@ -456,7 +210,6 @@
 ;; ------------------------------------------------------------------------
 (setq browse-url-generic-program (executable-find "conkeror"))
 (setq browse-url-browser-function 'browse-url-generic)
-
 
 ;; ------------------------------------------------------------------------
 ;; Name     : migemo
@@ -517,16 +270,6 @@
 (add-hook 'dired-mode-hook 'turn-on-tempbuf-mode)
 
 ;; -----------------------------------------------------------------------
-;; Name     : Emacs Code Browser
-;; Function : 
-;; History  : 2014/02/05
-;; Install  : github
-;;            git clone https://github.com/emacsmirror/ecb
-;; ------------------------------------------------------------------------
-;;(require 'ecb)
-;;(require 'ecb-autoloads)
-
-;; -----------------------------------------------------------------------
 ;; Name     : flymake
 ;; Function : 静的文法チェック
 ;; History  : 2014/02/06
@@ -578,7 +321,7 @@
 (require 'flycheck)
 (setq flycheck-check-syntax-automatically '(mode-enabled save))
 ;; Ruby
-(add-hook 'enh-ruby-mode-hook 'flycheck-mode)
+(add-hook 'ruby-mode-hook 'flycheck-mode)
 
 
 (require 'flycheck-color-mode-line)
@@ -636,13 +379,13 @@
 	)
       )
 (global-set-key (kbd "C-c c") 'org-capture)
+
 ;; -----------------------------------------------------------------------
 ;; Name     : yasnippet
 ;; Function : スニペット管理
 ;; History  : 2014/02/11
 ;; Install  : elpa
 ;; ------------------------------------------------------------------------
-(require 'cl)
 ;; 問い合わせを簡略化 yes/no を y/n
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -676,11 +419,3 @@
  '(anzu-use-mimego t)
  '(anzu-replace-to-string-separator " => "))
 
-;; -----------------------------------------------------------------------
-;; Name     : 
-;; Install  :
-;; Function : 
-;; ------------------------------------------------------------------------
-;;(setq rsense-home "/home/tsu-nera/.emacs.d/public_repos/rsense-0.3")
-;;(add-to-list 'load-path (concat rsense-home "/etc"))
-;;(require 'rsense)

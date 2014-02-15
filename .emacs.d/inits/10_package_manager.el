@@ -51,6 +51,6 @@
 	     (concat (file-name-directory load-file-name) "/el-get/recipes"))
 ;; 追加のレシピ置き場
 (add-to-list 'el-get-recipe-path
-	     "~/.emacs.d/elisp/el-get/el-get/user-recipes")))
+	     "~/.emacs.d/elisp/el-get/el-get/user-recipes")
 
 (el-get 'sync 'helm 'yasnippet)
