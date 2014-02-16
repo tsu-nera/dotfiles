@@ -17,54 +17,6 @@
 ;; 2つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
 (add-to-load-path "elisp" "conf" "public_repos" "elpa" "inits")
 
-(global-linum-mode t)   ;; 行番号の表示
-;; (global-hl-line-mode 1) ;; 現在行に色をつける
-
-;; general key bind
-(global-set-key (kbd "C-c a")   'align)
-(global-set-key (kbd "C-c M-a") 'align-regexp)
-(global-set-key (kbd "C-h")     'backward-delete-char)
-(global-set-key (kbd "C-c d")   'delete-indentation)
-(global-set-key (kbd "M-g")     'goto-line)
-(global-set-key (kbd "C-S-i")   'indent-region)
-(global-set-key (kbd "C-m")     'newline-and-indent)
-(global-set-key (kbd "C-t")     'next-multiframe-window)
-(global-set-key (kbd "M-<RET>") 'ns-toggle-fullscreen)
-(global-set-key (kbd "C-S-t")   'previous-multiframe-window)
-(global-set-key (kbd "C-M-r")   'replace-regexp)
-(global-set-key (kbd "C-r")     'replace-string)
-(global-set-key (kbd "C-/")     'undo)
-
-;; ------------------------------------------------------------------------
-;; Emacs Client
-;; ------------------------------------------------------------------------
-;; server start for emacs-client
-;; http://d.hatena.ne.jp/syohex/20101224/1293206906
-(require 'server)
-(unless (server-running-p)
-  (server-start))
-
-;; -----------------------------------------------------------------------
-;; Function : EmacsとXのクリップポードを共有
-;; Install  : http://tubo028.hatenablog.jp/entry/2013/09/01/142238
-;; ------------------------------------------------------------------------
-(if (display-graphic-p)
-    (progn
-      ;; if on window-system
-      (setq x-select-enable-clipboard t)
-      (global-set-key "\C-y" 'x-clipboard-yank))
-  ;; else (on terminal)
-  (setq interprogram-paste-function
-	(lambda ()
-	  (shell-command-to-string "xsel -b -o")))
-  (setq interprogram-cut-function
-	(lambda (text &optional rest)
-	  (let* ((process-connection-type nil)
-		 (proc (start-process "xsel" "*Messages*" "xsel" "-b" "-i")))
-	    (process-send-string proc text)
-	    (process-send-eof proc)))))
-
-(setq x-select-enable-clipboard t);; OSとのクリップボード共有
 ;; -----------------------------------------------------------------------
 ;; Name     : init-loader
 ;; Install  : M-x install-elisp
@@ -378,7 +330,7 @@
 	 "** %U %?\n")
 	)
       )
-(global-set-key (kbd "C-c c") 'org-capture)
+;;(global-set-key (kbd "C-c c") 'org-capture)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : yasnippet
