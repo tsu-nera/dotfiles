@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: concentrate
+# key: concentrate
+# --
+集中:$1 効率:$2 $0

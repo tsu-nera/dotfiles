@@ -80,19 +80,21 @@
 ;; git://github.com/punchagan/metaweblog.el.git
 (require 'metaweblog)
 (require 'org2blog-autoloads)
-(require 'netrc) ;; or nothing if already in the load-path
-(setq blog (netrc-machine (netrc-parse "~/.netrc") "Futurismo" t))
-(setq blog (netrc-machine (netrc-parse "~/.netrc") "EverClassic" t))
-(setq org2blog/wp-blog-alist
-      '(("Futurismo"
-	 :url "http://futurismo.biz/xmlrpc.php"
-	 :username (netrc-get blog "login")
-	 :password (netrc-get blog "password"))))
+;;(require 'netrc) ;; or nothing if already in the load-path
+;;(setq blog (netrc-machine (netrc-parse "~/.netrc") "EverClassic" t))
+;;(setq blog (netrc-machine (netrc-parse "~/.netrc") "Futurismo" t))
 (setq org2blog/wp-blog-alist
       '(("EverClassic"
 	 :url "http://everclassic.biz/xmlrpc.php"
 	 :username (netrc-get blog "login")
 	 :password (netrc-get blog "password"))))
+(setq org2blog/wp-blog-alist
+      '(("Futurismo"
+	 :url "http://futurismo.biz/xmlrpc.php"
+	 :username "admin"
+	 ;;:username (netrc-get blog "login")
+	 ;;:password (netrc-get blog "password")
+	 )))
 
 ;; ------------------------------------------------------------------------
 ;; others
@@ -370,4 +372,43 @@
  '(anzu-search-threshold 1000)
  '(anzu-use-mimego t)
  '(anzu-replace-to-string-separator " => "))
+
+;; -----------------------------------------------------------------------
+;; Name     : highight-symbol/auto-highlight-symbol
+;; Install  : el-get
+;; Function : シンボルをハイライト
+;; http://shibayu36.hatenablog.com/entry/2013/12/30/190354
+;; ------------------------------------------------------------------------
+(require 'auto-highlight-symbol-config)
+(require 'highlight-symbol)
+(setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1"))
+
+(global-set-key (kbd "<f3>") 'highlight-symbol-at-point)
+(global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
+
+;; -----------------------------------------------------------------------
+;; Name     : expand-region
+;; Install  : el-get
+;; Function : リージョンを広げる
+;; http://d.hatena.ne.jp/syohex/20120117/1326814127
+;; ------------------------------------------------------------------------
+(require 'expand-region)
+(global-set-key (kbd "C-@") 'er/expand-region)
+(global-set-key (kbd "C-M-@") 'er/contract-region)
+
+;; transient-mark-modeが nilでは動作しませんので注意
+(transient-mark-mode t)
+;; -----------------------------------------------------------------------
+;; Name     : multiple-cursors
+;; Install  : el-get
+;; Function : sublime textみたいに、複数行を編集
+;; http://shibayu36.hatenablog.com/entry/2013/12/30/190354
+;; ------------------------------------------------------------------------
+(require 'multiple-cursors)
+
+(global-set-key (kbd "C-c C-c") 'mc/edit-lines)
+(global-set-key (kbd "C-M-r") 'mc/mark-all-in-region)
+
+(global-set-key (kbd "C-c >") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-c <") 'mc/mark-previous-like-this)
 
