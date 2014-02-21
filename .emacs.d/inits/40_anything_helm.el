@@ -14,9 +14,9 @@
 (require 'helm-config)
 (require 'helm-command)
 (require 'helm-descbinds)
-					;(require 'helm-recentf)
-					;(require 'helm-c-moccur)
-					;(require 'helm-migemo)
+;(require 'helm-recentf)
+;(require 'helm-c-moccur)
+;(require 'helm-migemo)
 
 (setq helm-idle-delay             0.3
       helm-input-idle-delay       0.3
@@ -27,6 +27,7 @@
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "M-r") 'helm-occur)
 (global-set-key (kbd "M-x") 'helm-M-x)
+(define-key enh-ruby-mode-map "F3" 'anything-rdefs)
 (helm-mode 1)
 					;(let ((key-and-func
 ;;       `((,(kbd "C-r")   helm-for-files)
@@ -65,9 +66,10 @@
 					;)
 (require 'anything)
 (require 'anything-rdefs)
-(add-hook 'enh-ruby-mode-hook
-	  (lambda ()
-	    (define-key enh-ruby-mode (kbd "C-@") 'anything-rdefs)))
+(define-key enh-ruby-mode-map "\C-o" 'anything-rdefs)
+
+
+;;(require 'anything-rake) 動かない。
 
 ;;;; color-moccur.elの設定
 ;; (require 'color-moccur)

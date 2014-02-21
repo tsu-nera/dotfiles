@@ -76,3 +76,58 @@
 
 ;; Undo の時に確定した位置まで戻る
 (setq ibus-undo-by-committed-string t)
+
+
+;; -----------------------------------------------------------------------
+;; Name     :  パスの設定
+;; Install  :
+;; Function : http://sakito.jp/emacs/emacsshell.html#emacs
+;; ------------------------------------------------------------------------
+(let* ((zshpath (shell-command-to-string
+		          "/usr/bin/env zsh -c 'printenv PATH'"))
+              (pathlst (split-string zshpath ":")))
+    (setq exec-path pathlst)
+      (setq eshell-path-env zshpath)
+        (setenv "PATH" zshpath))
+;; -----------------------------------------------------------------------
+;; Name     :  シェルの設定
+;; Install  :
+;; Function : http://sakito.jp/emacs/emacsshell.html#emacs
+;; ------------------------------------------------------------------------
+;;(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
+;;(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
+;; http://d.hatena.ne.jp/mooz/20090613/p1
+;; コントロールシーケンスを利用した色指定が使えるように
+(require 'ansi-color)
+(autoload 'ansi-color-for-comint-mode-on "ansi-color"
+    "Set `ansi-color-for-comint-mode' to t." t)
+
+(add-hook 'shell-mode-hook
+	  '(lambda ()
+	     ;; zsh のヒストリファイル名を設定
+	     (setq comint-input-ring-file-name "~/.histfile")
+	     ;; ヒストリの最大数
+	     (setq comint-input-ring-size 1024)
+	     ;; 既存の zsh ヒストリファイルを読み込み
+	     (comint-read-input-ring t)
+	     ;; zsh like completion (history-beginning-search)
+	     (local-set-key "\M-p" 'comint-previous-matching-input-from-input)
+	     (local-set-key "\M-n" 'comint-next-matching-input-from-input)
+	     ;; 色の設定
+	     (setq ansi-color-names-vector
+		   ["#000000"           ; black
+		    "#ff6565"           ; red
+		    "#93d44f"           ; green
+		    "#eab93d"           ; yellow
+		    "#204a87"           ; blue
+		    "#ce5c00"           ; magenta
+		    "#89b6e2"           ; cyan
+		    "#ffffff"]          ; white
+		   )
+	     (ansi-color-for-comint-mode-on)
+	     )
+	  )
+;; utf-8
+(set-language-environment  'utf-8)
+(prefer-coding-system 'utf-8)

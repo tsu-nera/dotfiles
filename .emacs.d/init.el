@@ -114,6 +114,9 @@
 (require 'auto-complete-config)
 (ac-config-default)
 
+(setq ac-auto-show-menu 0.5)
+(setq ac-menu-height 20)
+
 (when (require 'auto-complete nil t)
   (global-auto-complete-mode t)
   (setq ac-dwim nil)
@@ -122,15 +125,16 @@
   (setq ac-auto-start t)
   (global-set-key "\M-/" 'ac-start)
   (setq ac-sources '(ac-source-abbrev ac-source-words-in-buffer))
-  (add-hook 'ruby-mode-hook
+  (add-hook 'enh-ruby-mode-hook
 	    (lambda ()
 	      (require 'rcodetools)
 	      (require 'auto-complete-ruby)
+	      ;; (load-auto-complete)
 	      (make-local-variable 'ac-omni-completion-sources)
 	      (setq ac-omni-completion-sources '(("\\.\\=" . (ac-source-rcodetools)))))))
 
 ;;; C-c c で compile コマンドを呼び出す
-(define-key mode-specific-map "c" 'compile)
+(define-key mode-specific-map "" 'compile)
 
 ;; ------------------------------------------------------------------------
 ;; Name     : Markdown Mode
@@ -156,6 +160,7 @@
 					("anything" :regexp t :height 0.4)
 					)))
 (push '("^\*helm .+\*$" :regexp t) popwin:special-display-config)
+(push '("*rspec-compilation*" :regexp t) popwin:special-display-config)
 ;; ------------------------------------------------------------------------
 ;; Name     : conkeror
 ;; Function : web browser based on emacs key bind
@@ -264,7 +269,7 @@
 	     (flymake-mode t)))(require 'flymake)
 
 ;;(require 'flymake-ruby)
-;;(add-hook 'enh-ruby-mode-hook 'flymake-ruby-load)
+;;(add-hook 'enh-enh-ruby-mode-hook 'flymake-ruby-load)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : flycheck
@@ -275,7 +280,7 @@
 (require 'flycheck)
 (setq flycheck-check-syntax-automatically '(mode-enabled save))
 ;; Ruby
-(add-hook 'ruby-mode-hook 'flycheck-mode)
+(add-hook 'enh-ruby-mode-hook 'flycheck-mode)
 
 
 (require 'flycheck-color-mode-line)
@@ -296,7 +301,7 @@
    (error line-start
 	  (file-name) ":" line ":" column ": " (or "E" "F") ": " (message)
 	  line-end))
-  :modes (enh-ruby-mode ruby-mode))
+  :modes (enh-enh-ruby-mode ruby-mode))
 
 ;; definition for flycheck
 (flycheck-define-checker ruby-rubylint
@@ -383,8 +388,8 @@
 (require 'highlight-symbol)
 (setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1"))
 
-(global-set-key (kbd "<f3>") 'highlight-symbol-at-point)
-(global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
+;;(global-set-key (kbd "<f3>") 'highlight-symbol-at-point)
+;;(global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : expand-region
