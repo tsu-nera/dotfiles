@@ -319,28 +319,6 @@
 	  line-end))
   :modes (ruby-mode))
 
-;; -----------------------------------------------------------------------
-;; Name     : org-capture
-;; Function : アイデアをキャプチャーする
-;; History  : 2014/02/25
-;; Install  : build-in
-;; ------------------------------------------------------------------------
-(require 'org-capture)
-(setq org-capture-templates
-      '(
-	;;	("t" "Task" entry (file+headline nil "Inbox")
-	;;	 "** TODO %?\n %T\n %a\n %i\n")
-	;;	("b" "Bug" entry (file+headline nil "Inbox")
-	;;	 "** TODO %?   :bug:\n  %T\n %a\n %i\n")
-	;;	("m" "Meeting" entry (file+headline nil "Meeting")
-	;;	 "** %?\n %U\n %a\n %i\n")
-	("i" "Idea" entry (file+headline nil "~/diary/org/idea.org")
-	 "** %?\n %U\n %i\n %a\n %i\n")
-	("w" "Twitter" entry (file+datetree "~/diary/org/twitter.org")
-	 "** %U %?\n")
-	)
-      )
-;;(global-set-key (kbd "C-c c") 'org-capture)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : yasnippet
@@ -419,3 +397,21 @@
 
 (global-set-key (kbd "C-c >") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-c <") 'mc/mark-previous-like-this)
+
+
+;; -----------------------------------------------------------------------
+;; Name     : wanderlust
+;; Install  :el-get
+;; Function : emacsのメーラ
+;; ------------------------------------------------------------------------
+(autoload 'wl "wl" "Wanderlust" t)
+(autoload 'wl-other-frame "wl" "Wanderlust on new frame." t)
+(autoload 'wl-draft "wl-draft" "Write draft with Wanderlust." t)
+
+(require 'starttls)
+(require 'ssl)
+(setq ssl-certificate-verification-policy 1) 
+(setq ssl-program-name "openssl")
+(setq starttls-negotiation-by-kill-program t)
+
+

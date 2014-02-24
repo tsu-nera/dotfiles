@@ -13,7 +13,7 @@
 ;; Function : Ruby開発環境を提供
 ;; ------------------------------------------------------------------------
 (require 'ruby-mode)
-(autoload 'ruby-mode "ruby-mode"p
+(autoload 'ruby-mode "ruby-mode"
     "Mode for editing ruby source files" t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
