@@ -1,0 +1,11 @@
+#-*- require-final-newline: nil -*-
+#contributor: gary <ge.iams@gmail.com>
+#name : describe (String)
+# --
+describe '${1:description}', :given => '${2:a}' do
+
+  it 'should ${3:description}' do
+    $0
+  end
+
+end

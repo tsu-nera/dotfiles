@@ -2,7 +2,7 @@
 ;; (global-hl-line-mode 1) ;; 現在行に色をつける
 
 ;; general key bind
-(global-set-key (kbd "C-c a")   'align)
+;;(global-set-key (kbd "C-c a")   'align)
 (global-set-key (kbd "C-c M-a") 'align-regexp)
 (global-set-key (kbd "C-h")     'backward-delete-char)
 (global-set-key (kbd "C-c d")   'delete-indentation)
@@ -131,3 +131,7 @@
 ;; utf-8
 (set-language-environment  'utf-8)
 (prefer-coding-system 'utf-8)
+
+
+;;; 対応する括弧を光らせる。
+(show-paren-mode 1)

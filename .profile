@@ -29,6 +29,7 @@ feh --bg-scale ~/Pictures/wallpaper/moonlight.png &
 
 # tmux
 tmux-session restore
+tmux a
 
 # trayer タスクトレイ
 trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --width 10 --transparent true --tint 0x000000 --height 14 &

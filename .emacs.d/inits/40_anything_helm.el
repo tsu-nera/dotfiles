@@ -27,7 +27,6 @@
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "M-r") 'helm-occur)
 (global-set-key (kbd "M-x") 'helm-M-x)
-(define-key enh-ruby-mode-map "F3" 'anything-rdefs)
 (helm-mode 1)
 					;(let ((key-and-func
 ;;       `((,(kbd "C-r")   helm-for-files)
@@ -66,8 +65,7 @@
 					;)
 (require 'anything)
 (require 'anything-rdefs)
-(define-key enh-ruby-mode-map "\C-o" 'anything-rdefs)
-
+(define-key ruby-mode-map "\C-\M-o" 'anything-rdefs)
 
 ;;(require 'anything-rake) 動かない。
 

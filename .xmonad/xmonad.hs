@@ -35,7 +35,7 @@ main = do
           , focusedBorderColor = "#0033dd" -- blue
 
           -- Rebind Mod to the Hiragana_Katakana key
-          -- , modMask = mod3Mask
+          , modMask = mod3Mask
 
      	  -- use rxvt-unicode 
 	  , terminal = "urxvt" 

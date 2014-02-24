@@ -12,13 +12,13 @@
 ;; Install  :
 ;; Function : Ruby開発環境を提供
 ;; ------------------------------------------------------------------------
-;;(require 'ruby-mode)
-;;(autoload 'ruby-mode "ruby-mode"p
-;;    "Mode for editing ruby source files" t)
-;;(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
-;;(add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
-;;(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
-;;(add-to-list 'auto-mode-alist '("[Rr]akefile$" . ruby-mode))
+(require 'ruby-mode)
+(autoload 'ruby-mode "ruby-mode"p
+    "Mode for editing ruby source files" t)
+(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("[Rr]akefile$" . ruby-mode))
 
 ;; -----------------------------------------------------------------------
 ;; Name     : enhanced-ruby-mode
@@ -26,18 +26,18 @@
 ;; Function : Ruby開発環境を提供
 ;; ------------------------------------------------------------------------
 ; must be added after any path containing old ruby-mode
-(require 'enh-ruby-mode)
+;;(require 'enh-ruby-mode)
 ;;(autoload 'enh-ruby-mode "enh-ruby-mode" "Major mode for ruby files" t)
 ;;(add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
 
-(add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("Capfile$" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("Gemfile$" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("[Rr]akefile$" . enh-ruby-mode))
-(add-to-list 'load-path "~/.emacs.d/elips/el-get/enh-ruby-mode")
-(add-to-list 'interpreter-mode-alist '("ruby" enh-ruby-mode))
+;;(add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
+;;(add-to-list 'auto-mode-alist '("Capfile$" . enh-ruby-mode))
+;;(add-to-list 'auto-mode-alist '("Gemfile$" . enh-ruby-mode))
+;;(add-to-list 'auto-mode-alist '("[Rr]akefile$" . enh-ruby-mode))
+;;(add-to-list 'load-path "~/.emacs.d/elips/el-get/enh-ruby-mode")
+;;(add-to-list 'interpreter-mode-alist '("ruby" enh-ruby-mode))
 
-(remove-hook 'enh-ruby-mode-hook 'erm-define-faces)
+;;(remove-hook 'enh-ruby-mode-hook 'erm-define-faces)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : SmartCompile
@@ -45,8 +45,8 @@
 ;; Function : コマンドからコンパイル実行
 ;; ------------------------------------------------------------------------
  (require 'smart-compile)
- (define-key enh-ruby-mode-map (kbd "C-c c") 'smart-compile)
- (define-key enh-ruby-mode-map (kbd "C-c C-c") (kbd "C-c c C-m"))
+ (define-key ruby-mode-map (kbd "C-c c") 'smart-compile)
+ (define-key ruby-mode-map (kbd "C-c C-c") (kbd "C-c c C-m"))
  (setq compilation-window-height 15) ;; default window height is 15
 
 ;; -----------------------------------------------------------------------
@@ -55,7 +55,7 @@
 ;; Function : かっこやdo endなどの対応関係を自動で補正してくれる
 ;; ------------------------------------------------------------------------
 (require ' ruby-electric)
-  (add-hook 'enh-ruby-mode-hook '(lambda () (ruby-electric-mode t)))
+  (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
   (setq ruby-electric-expand-delimiters-list nil)
 
 ;; -----------------------------------------------------------------------
@@ -74,13 +74,13 @@
 ;; ------------------------------------------------------------------------
 (require 'rcodetools)
 (setq rct-find-tag-if-available nil)
-(defun enh-ruby-mode-hook-rcodetools ()
-  (define-key enh-ruby-mode-map "\C-c\C-t" 'ruby-toggle-buffer)
-  (define-key enh-ruby-mode-map "\C-c\C-d" 'xmp)
-  (define-key enh-ruby-mode-map "\M-\C-i" 'rct-complete-symbol)
-  (define-key enh-ruby-mode-map "\C-c\C-f" 'rct-ri)
+(defun ruby-mode-hook-rcodetools ()
+  (define-key ruby-mode-map "\C-c\C-t" 'ruby-toggle-buffer)
+  (define-key ruby-mode-map "\C-c\C-d" 'xmp)
+  (define-key ruby-mode-map "\M-\C-i" 'rct-complete-symbol)
+  (define-key ruby-mode-map "\C-c\C-f" 'rct-ri)
   )
-(add-hook 'enh-ruby-mode-hook 'enh-ruby-mode-hook-rcodetools)
+(add-hook 'ruby-mode-hook 'ruby-mode-hook-rcodetools)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : ruby-refactor
@@ -89,7 +89,7 @@
 ;; Function : Ruby用リファクタリングツール
 ;; ------------------------------------------------------------------------
 (require 'ruby-refactor)
-(add-hook 'enh-ruby-mode-hook 'ruby-refactor-mode-launch)
+(add-hook 'ruby-mode-hook 'ruby-refactor-mode-launch)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : inf-ruby
@@ -97,7 +97,7 @@
 ;; Function : emacsからirbを操作
 ;; ------------------------------------------------------------------------
 (autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby process" t)
-(add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode)
+(add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : robocop 
@@ -105,7 +105,7 @@
 ;; Function : gem install rubocop
 ;; ------------------------------------------------------------------------
 ;;(require 'rubocop)
-;;(add-hook 'enh-ruby-mode 'rubocop-mode)
+;;(add-hook 'ruby-mode 'rubocop-mode)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : autotest
@@ -121,7 +121,7 @@
 ;; Function : rspec拡張
 ;; ------------------------------------------------------------------------
 (require 'rspec-mode)
-(add-hook 'enh-ruby-mode-hook 'rspec-mode)
+(add-hook 'ruby-mode-hook 'rspec-mode)
 (eval-after-load 'rspec-mode
   '(rspec-install-snippets))
 (custom-set-variables '(rspec-use-rake-flag nil))
@@ -143,7 +143,7 @@
  ; robe
 (autoload 'robe-mode "robe" "Code navigation, documentation lookup and completion for Ruby" t nil)
 (autoload 'robe-ac-setup "robe-ac" "robe auto-complete" nil nil)
-(add-hook 'enh-ruby-mode-hook
+(add-hook 'ruby-mode-hook
 	            '(lambda ()
 		       (robe-mode)
 		       (robe-ac-setup)

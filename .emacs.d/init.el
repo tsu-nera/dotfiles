@@ -125,7 +125,7 @@
   (setq ac-auto-start t)
   (global-set-key "\M-/" 'ac-start)
   (setq ac-sources '(ac-source-abbrev ac-source-words-in-buffer))
-  (add-hook 'enh-ruby-mode-hook
+  (add-hook 'ruby-mode-hook
 	    (lambda ()
 	      (require 'rcodetools)
 	      (require 'auto-complete-ruby)
@@ -160,7 +160,9 @@
 					("anything" :regexp t :height 0.4)
 					)))
 (push '("^\*helm .+\*$" :regexp t) popwin:special-display-config)
+(push '("^\*Org .+\*$" :regexp t) popwin:special-display-config)
 (push '("*rspec-compilation*" :regexp t) popwin:special-display-config)
+(push '("*Oz Compiler*" :regexp t) popwin:special-display-config)
 ;; ------------------------------------------------------------------------
 ;; Name     : conkeror
 ;; Function : web browser based on emacs key bind
@@ -196,17 +198,17 @@
 ;; History  : 2014.1.29 Add
 ;; Install  : www.pitecan.com/Keisen/keisen.el
 ;;; ------------------------------------------------------------------------
-(require 'keisen)
+;;(require 'keisen)
 ;;; Control+矢印キーで罫線を引く場合
 ;; (global-set-key (kbd "C-M-f") 'keisen-right-move)
 ;;(global-set-key (kbd "C-M-b") 'keisen-left-move)
 ;;(global-set-key (kbd "C-M-p") 'keisen-up-move)
 ;;(global-set-key (kbd "C-M-n") 'keisen-down-move)
 
-(global-set-key [(C-right)] 'keisen-right-move)
-(global-set-key [(C-left)] 'keisen-left-move)
-(global-set-key [(C-up)] 'keisen-up-move)
-(global-set-key [(C-down)] 'keisen-down-move)
+;;(global-set-key [(C-right)] 'keisen-right-move)
+;;(global-set-key [(C-left)] 'keisen-left-move)
+;;(global-set-key [(C-up)] 'keisen-up-move)
+;;(global-set-key [(C-down)] 'keisen-down-move)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : ffap.el
@@ -269,7 +271,7 @@
 	     (flymake-mode t)))(require 'flymake)
 
 ;;(require 'flymake-ruby)
-;;(add-hook 'enh-enh-ruby-mode-hook 'flymake-ruby-load)
+;;(add-hook 'enh-ruby-mode-hook 'flymake-ruby-load)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : flycheck
@@ -278,9 +280,10 @@
 ;; Install  : package.el
 ;; ------------------------------------------------------------------------
 (require 'flycheck)
-(setq flycheck-check-syntax-automatically '(mode-enabled save))
+;;(setq flycheck-check-syntax-automatically '(mode-enabled save))
+
 ;; Ruby
-(add-hook 'enh-ruby-mode-hook 'flycheck-mode)
+(add-hook 'ruby-mode-hook 'flycheck-mode)
 
 
 (require 'flycheck-color-mode-line)
@@ -301,7 +304,7 @@
    (error line-start
 	  (file-name) ":" line ":" column ": " (or "E" "F") ": " (message)
 	  line-end))
-  :modes (enh-enh-ruby-mode ruby-mode))
+  :modes (ruby-mode))
 
 ;; definition for flycheck
 (flycheck-define-checker ruby-rubylint
@@ -314,7 +317,7 @@
    (error line-start
 	  (file-name) ":" line ":" column ": " (or "E" "F") ": " (message)
 	  line-end))
-  :modes (enh-ruby-mode ruby-mode))
+  :modes (ruby-mode))
 
 ;; -----------------------------------------------------------------------
 ;; Name     : org-capture
@@ -397,12 +400,12 @@
 ;; Function : リージョンを広げる
 ;; http://d.hatena.ne.jp/syohex/20120117/1326814127
 ;; ------------------------------------------------------------------------
-(require 'expand-region)
-(global-set-key (kbd "C-@") 'er/expand-region)
-(global-set-key (kbd "C-M-@") 'er/contract-region)
+;;(require 'expand-region)
+;;(global-set-key (kbd "C-@") 'er/expand-region)
+;;(global-set-key (kbd "C-M-@") 'er/contract-region)
 
 ;; transient-mark-modeが nilでは動作しませんので注意
-(transient-mark-mode t)
+;;(transient-mark-mode t)
 ;; -----------------------------------------------------------------------
 ;; Name     : multiple-cursors
 ;; Install  : el-get
@@ -416,4 +419,3 @@
 
 (global-set-key (kbd "C-c >") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-c <") 'mc/mark-previous-like-this)
-

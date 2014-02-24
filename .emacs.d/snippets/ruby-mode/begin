@@ -1,0 +1,9 @@
+#name : begin ... rescue ... end
+#group : Blocks
+# key: begin
+# --
+begin
+  $3
+rescue ${1:Exception} => ${2:e}
+  $0
+end

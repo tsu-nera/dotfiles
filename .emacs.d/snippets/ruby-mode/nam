@@ -1,0 +1,6 @@
+# This was cloned from a TextMate bundle for yasnippet.
+# key: nam
+# --
+namespace :${1:${TM_FILENAME/\.\w+//}} do
+  $0
+end

@@ -1,0 +1,8 @@
+# -*- mode: yasnippet -*-
+#name : unless ... end
+#group : Conditions
+# key: unless
+# --
+unless ${1:condition}
+  $0
+end

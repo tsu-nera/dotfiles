@@ -1,0 +1,9 @@
+#name : if ... else ... end
+#group : Conditions
+# key: ife
+# --
+if ${1:condition}
+  $2
+else
+  $3
+end

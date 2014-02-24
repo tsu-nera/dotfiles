@@ -1,0 +1,6 @@
+#name : before (rspec)
+# key: befm
+# --
+before(:each) do
+  @${1:model} = ${1:$(replace-regexp-in-string "_" "" (upcase-initials text))}.new$0
+end
