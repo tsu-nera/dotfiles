@@ -16,7 +16,6 @@
 ;; load-pathに追加するフォルダ
 ;; 2つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
 (add-to-load-path "elisp" "conf" "public_repos" "elpa" "inits")
-
 ;; -----------------------------------------------------------------------
 ;; Name     : init-loader
 ;; Install  : M-x install-elisp
@@ -155,7 +154,7 @@
 (when (require 'popwin)
   (setq helm-samewindow nil)
   (setq display-buffer-function 'popwin:display-buffer)
-  (setq popwin:special-display-config '(("*compilatoin*" :noselect t)
+  (setq popwin:special-display-config '(("*compilation*" :noselect t)
 					;;("helm" :regexp t :height 0.4)
 					("anything" :regexp t :height 0.4)
 					)))
@@ -398,7 +397,6 @@
 (global-set-key (kbd "C-c >") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-c <") 'mc/mark-previous-like-this)
 
-
 ;; -----------------------------------------------------------------------
 ;; Name     : wanderlust
 ;; Install  :el-get
@@ -414,4 +412,12 @@
 (setq ssl-program-name "openssl")
 (setq starttls-negotiation-by-kill-program t)
 
-
+;; -----------------------------------------------------------------------
+;; Name     : EmacsでTODOをハイライト
+;; Install  : http://stackoverflow.com/questions/8551320/
+;;            highlighting-todos-in-all-programming-modes
+;; ------------------------------------------------------------------------
+(add-hook 'prog-mode-hook
+               (lambda ()
+                (font-lock-add-keywords nil
+                 '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))

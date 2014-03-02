@@ -56,6 +56,6 @@
 ;; History  : 2014.1.14 Add
 ;; Install  : http://www.emacswiki.org/emacs/powerline.el
 ;; ------------------------------------------------------------------------
-(require 'cl)
-(require 'powerline)
+;;(require 'cl)
+;;(require 'powerline)
 

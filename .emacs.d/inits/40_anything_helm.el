@@ -17,6 +17,8 @@
 ;(require 'helm-recentf)
 ;(require 'helm-c-moccur)
 ;(require 'helm-migemo)
+(require 'gist)
+(require 'helm-gist)
 
 (setq helm-idle-delay             0.3
       helm-input-idle-delay       0.3

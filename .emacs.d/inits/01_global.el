@@ -1,5 +1,3 @@
-(global-linum-mode t)   ;; 行番号の表示
-;; (global-hl-line-mode 1) ;; 現在行に色をつける
 
 ;; general key bind
 ;;(global-set-key (kbd "C-c a")   'align)
@@ -16,6 +14,41 @@
 (global-set-key (kbd "C-r")     'replace-string)
 (global-set-key (kbd "C-/")     'undo)
 
+;;; ツールバーを消す
+(tool-bar-mode 0)
+
+;;; emacs -nw で起動した時にメニューバーを消す
+(if window-system (menu-bar-mode 1) (menu-bar-mode -1))
+
+;;; 対応する括弧を光らせる。
+(show-paren-mode 1)
+
+;;; モードラインに時間を表示する
+(display-time)
+(setq display-time-day-and-date t)
+;;; 現在の関数名をモードラインに表示
+(which-function-mode 1)
+
+(global-linum-mode t)   ;; 行番号の表示
+;;(global-hl-line-mode 1) ;; 現在行に色をつける
+
+;; (setq-default mode-line-format
+;; 	      '("-"
+;; 		mode-line-mule-info
+;; 		mode-line-modified
+;; 		" "
+;; 		mode-line-buffer-identification
+;; 		" "
+;; 		global-mode-string
+;; 		" %[("
+;; 		mode-name
+;; 		mode-line-process
+;; 		minor-mode-alist
+;; 		"%n" ")%]"
+;; 		(which-func-mode ("" which-func-format "-"))
+;; 		"-%-"
+;; 		)
+;; 	      )
 ;; ------------------------------------------------------------------------
 ;; Emacs Client
 ;; ------------------------------------------------------------------------
@@ -132,6 +165,3 @@
 (set-language-environment  'utf-8)
 (prefer-coding-system 'utf-8)
 
-
-;;; 対応する括弧を光らせる。
-(show-paren-mode 1)

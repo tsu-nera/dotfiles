@@ -1,4 +1,5 @@
 (require 'org-install)
+(require 'org-pomodoro)
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
 ;; アジェンダ表示の対象ファイル
@@ -9,34 +10,37 @@
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
-
-;; C-oの置き換え tmuxで c-oは使っているので
-(define-key org-mode-map "\C-co" 'org-open-at-point)
-(define-key org-mode-map "\C-c\C-x\C-l" 'org-clock-out)
-
+(global-set-key "\C-c\C-x\C-@" 'org-clock-out)
 
 ;; リンクをconkerorで開く
 (setq browse-url-browser-function 'browse-url-generic
             browse-url-generic-program "/home/tsu-nera/bin/conkeror")
 
 ;; TODO状態
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d)" "SOMEDAY(s)")))
+;;(setq org-todo-keywords
+;;      '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d)" "SOMEDAY(s)")))
 
 ;; DONEの時刻を記録
 (setq org-log-done 'time)
 
-;; -----------------------------------------------------------------------
-;; NextActionの設定
-;; http://qiita.com/takaxp/items/4dfa11a81e18b29143ec
-;; ------------------------------------------------------------------------
-;; タグの色変更
-(setq org-tag-faces '(("next" :foreground "#FF0000")))
-(defun my-sparse-doing-tree ()
-    (interactive)
-      (org-tags-view nil "next"))
-(define-key org-mode-map (kbd "C-c 3") 'my-sparse-doing-tree)
 
+;;; org-clock configuration
+(setq org-clock-out-remove-zero-time-clocks t
+      org-clock-out-when-done t
+      org-clock-modeline-total 'today
+      org-clock-persist t
+      org-clock-persistence-insinuate)
+;;(setq org-clock-clocked-in-display 'both)
+
+;(eval-after-load "org-faces"
+;  '(set-face-attribute 'org-mode-line-clock nil
+;		       :inherit nil))
+
+;;(setq org-clock-heading-function
+;;             (lambda ()
+;	       (replace-regexp-in-string
+;;		 "\\[\\[.*?\\]\\[\\(.*?\\)\\]\\]" "\\1"
+;;		  (nth 4 org-heading-components))))
 ;;(org-defkey org-agenda-mode-map [(tab)]
 ;;	    '(lambda () (interactive)
 ;;	       (org-agenda-goto)
@@ -89,4 +93,17 @@
 	 "** %U %?\n")
 	)
       )
-;;(global-set-key (kbd "C-c c") 'org-capture)
+
+;; C-oの置き換え tmuxで c-oは使っているので
+(define-key org-mode-map "\C-co" 'org-open-at-point)
+
+;; -----------------------------------------------------------------------
+;; NextActionの設定
+;; http://qiita.com/takaxp/items/4dfa11a81e18b29143ec
+;; ------------------------------------------------------------------------
+;; タグの色変更
+(setq org-tag-faces '(("next" :foreground "#FF0000")))
+(defun my-sparse-doing-tree ()
+    (interactive)
+      (org-tags-view nil "next"))
+(define-key org-mode-map (kbd "C-c 3") 'my-sparse-doing-tree)
