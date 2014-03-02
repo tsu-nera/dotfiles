@@ -83,7 +83,8 @@
                                                   'help-echo "Buffer is read-only"))))
                "] "
 
-	       global-mode-string
+	       ;;global-mode-string
+	       org-mode-line-string
 	       
                ;; add the time, with the date and the emacs uptime in the tooltip
                ;;'(:eval (propertize (format-time-string "%H:%M")
