@@ -47,7 +47,8 @@
 ;; Install  : https://raw2.github.com/hbin/molokai-theme/master/molokai-theme-kit.el
 ;; ------------------------------------------------------------------------
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-;;(setq molokai-theme-kit t)
+(setq molokai-theme-kit t)
+;;(require 'molokai-theme)
 (load-theme 'molokai t)
 
 ;; ------------------------------------------------------------------------
@@ -56,5 +57,5 @@
 ;; History  : 2014.1.14 Add
 ;; Install  : http://www.emacswiki.org/emacs/powerline.el
 ;; ------------------------------------------------------------------------
-(require 'cl)
-(require 'powerline)
+;;(require 'cl)
+;;(require 'powerline)

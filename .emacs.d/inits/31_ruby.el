@@ -85,7 +85,7 @@
 ;; -----------------------------------------------------------------------
 ;; Name     : ruby-refactor
 ;; Install  : github(el-get 登録済み)
-;;              https://github.com/ajvargo/ruby-refactor.git
+;;            https://github.com/ajvargo/ruby-refactor.git
 ;; Function : Ruby用リファクタリングツール
 ;; ------------------------------------------------------------------------
 (require 'ruby-refactor)

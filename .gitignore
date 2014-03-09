@@ -11,6 +11,7 @@
 /.emacs.d/url
 /.emacs.d/elisp/*
 /.emacs.d/public_repos/*
+/.emacs.d/public_repos/github
 /.emacs.d/ac-comphist.dat
 /.emacs.d/cedet-bzr
 /.emacs.d/srecode-map.el

@@ -15,7 +15,7 @@
 	    (normal-top-level-add-subdirs-to-load-path))))))
 ;; load-pathに追加するフォルダ
 ;; 2つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
-(add-to-load-path "elisp" "conf" "public_repos" "elpa" "inits")
+(add-to-load-path "elisp" "conf" "public_repos" "elpa" "inits" "el-get")
 ;; -----------------------------------------------------------------------
 ;; Name     : init-loader
 ;; Install  : M-x install-elisp
@@ -402,15 +402,15 @@
 ;; Install  :el-get
 ;; Function : emacsのメーラ
 ;; ------------------------------------------------------------------------
-(autoload 'wl "wl" "Wanderlust" t)
-(autoload 'wl-other-frame "wl" "Wanderlust on new frame." t)
-(autoload 'wl-draft "wl-draft" "Write draft with Wanderlust." t)
+;; (autoload 'wl "wl" "Wanderlust" t)
+;; (autoload 'wl-other-frame "wl" "Wanderlust on new frame." t)
+;; (autoload 'wl-draft "wl-draft" "Write draft with Wanderlust." t)
 
-(require 'starttls)
-(require 'ssl)
-(setq ssl-certificate-verification-policy 1) 
-(setq ssl-program-name "openssl")
-(setq starttls-negotiation-by-kill-program t)
+;; (require 'starttls)
+;; (require 'ssl)
+;; (setq ssl-certificate-verification-policy 1) 
+;; (setq ssl-program-name "openssl")
+;; (setq starttls-negotiation-by-kill-program t)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : EmacsでTODOをハイライト
@@ -421,3 +421,12 @@
                (lambda ()
                 (font-lock-add-keywords nil
                  '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
+
+;; -----------------------------------------------------------------------
+;; Name     : plantuml
+;; Install  : 
+;; ------------------------------------------------------------------------
+;; (require 'plantuml-mode)
+;; (add-to-list 'auto-mode-alist '("\\.puml$" . plantuml-mode))
+;; (add-to-list 'auto-mode-alist '("\\.plantuml$" . plantuml-mode))
+

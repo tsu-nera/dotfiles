@@ -1,3 +1,9 @@
 [submodule ".zsh/zaw"]
 	path = .zsh/zaw
 	url = git://github.com/zsh-users/zaw.git
+[submodule ".emacs.d/public_repos/github/init-loader"]
+	path = .emacs.d/public_repos/github/init-loader
+	url = https://github.com/emacs-jp/init-loader.git
+[submodule ".emacs.d/public_repos/github/el-get"]
+	path = .emacs.d/public_repos/github/el-get
+	url = https://github.com/dimitri/el-get.git

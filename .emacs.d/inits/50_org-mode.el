@@ -107,3 +107,19 @@
     (interactive)
       (org-tags-view nil "next"))
 (define-key org-mode-map (kbd "C-c 3") 'my-sparse-doing-tree)
+
+;; -----------------------------------------------------------------------
+;; Name     : plantuml
+;; Install  : http://www.emacswiki.org/emacs/IanYang
+;; ------------------------------------------------------------------------
+;; (require 'org-exp-blocks)
+;; (require 'org-export-blocks-format-plantuml)
+;;(require 'ob-plantuml)
+(setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
+(defun org-mode-init ()
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   (add-to-list 'org-babel-load-languages '(plantuml . t))))
+(add-hook 'org-mode-hook 'org-mode-init)
+
+

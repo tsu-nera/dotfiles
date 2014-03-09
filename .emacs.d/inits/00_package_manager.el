@@ -37,8 +37,7 @@
 ;; Install  : cd public_repos 
 ;;            git clone git@github.com:dimitri/el-get.git
 ;; ------------------------------------------------------------------------
-(setq el-get-dir "~/.emacs.d/elisp/el-get/")
-
+;; ダウンロードしていないときはダウンロード
 (unless (require 'el-get nil 'noerror)
   (with-current-buffer
       (url-retrieve-synchronously
@@ -46,11 +45,59 @@
     (goto-char (point-max))
     (eval-print-last-sexp)))
 
-;; レシピ置き場
-(add-to-list 'el-get-recipe-path
-	     (concat (file-name-directory load-file-name) "/el-get/recipes"))
-;; 追加のレシピ置き場
-(add-to-list 'el-get-recipe-path
-	     "~/.emacs.d/elisp/el-get/el-get/user-recipes")
+;; ダウンロードしたelisp置き場
+(setq el-get-dir "~/.emacs.d/el-get/repo")
 
-(el-get 'sync 'helm 'yasnippet)
+;; レシピ置き場
+;;(setq el-get-recipe-path (list "~/.emacs.d/el-get/recipes/emacswiki"
+;;			       "~/.emacs.d/el-get/recipes"))
+;; 追加のレシピ置き場
+(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get/user-recipes")
+
+;; 一時temp
+(setq el-get-user-package-directory "~/.emacs.d/el-get/init-files")
+
+(el-get 'sync)
+
+;;(require 'el-get)
+;;(require 'el-get-emacswiki)
+
+;; 自動でインストールするものたち
+(el-get 'helm
+	'yasnippet
+	'metaweblog
+	'xml-rpc-el
+	'org2blog
+	'auto-complete
+	'popwin
+	'tempbuf
+	'flycheck
+	'flycheck-color-mode-line
+	'anzu
+	'auto-highlight-symbol
+	'highlight-symbol
+	'multiple-cursors
+	'plantuml-mode
+	'color-theme
+	'org-mode
+	'smart-compile
+	'org-pomodoro
+	'helm-descbinds
+	'auto-install
+	'ruby-block
+	'auto-complete-ruby
+	'robe-mode
+	'gist
+	'yaml-mode
+	'flymake
+	'helm-gist
+	'inf-ruby
+	'helm-c-yasnippet
+	'markdown-mode
+	'expand-region
+	'ruby-electric
+	'rspec-mode
+	'ruby-refactor
+	'powerline
+	;;'molokai-theme オリジナルを利用するので
+	)

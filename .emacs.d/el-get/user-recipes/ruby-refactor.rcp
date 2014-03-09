@@ -1,0 +1,5 @@
+(:name ruby-refactor
+       :type git
+       :website "https://github.com/ajvargo/ruby-refactor"
+       :description "Ruby Refactoring tool"
+       :url "https://github.com/ajvargo/ruby-refactor.git")

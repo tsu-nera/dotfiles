@@ -15,10 +15,11 @@
 (global-set-key (kbd "C-/")     'undo)
 
 ;;; ツールバーを消す
-(tool-bar-mode 0)
+(tool-bar-mode -1)
 
+(menu-bar-mode -1)
 ;;; emacs -nw で起動した時にメニューバーを消す
-(if window-system (menu-bar-mode 1) (menu-bar-mode -1))
+;; (if window-system (menu-bar-mode 1) (menu-bar-mode -1))
 
 ;;; 対応する括弧を光らせる。
 (show-paren-mode 1)
@@ -32,6 +33,8 @@
 (global-linum-mode t)   ;; 行番号の表示
 ;;(global-hl-line-mode 1) ;; 現在行に色をつける
 
+;;; 画像ファイルを表示
+(auto-image-file-mode t)
 ;; (setq-default mode-line-format
 ;; 	      '("-"
 ;; 		mode-line-mule-info
@@ -89,26 +92,26 @@
 ;;  sudo apt-get install ibus-el
 ;;  いれたけど、うまく動かない。
 ;; ------------------------------------------------------------------------
-(require 'ibus)
-(add-hook 'after-init-hook 'ibus-mode-on)
+;; (require 'ibus)
+;; (add-hook 'after-init-hook 'ibus-mode-on)
 
-;; IBusの状態によってカーソル色を変化させる
-(setq ibus-cursor-color '("red" "blue" "limegreen"))
+;; ;; IBusの状態によってカーソル色を変化させる
+;; (setq ibus-cursor-color '("red" "blue" "limegreen"))
 
-;; isearch 時はオフに
-(add-hook 'isearch-mode-hook 'ibus-disable)
+;; ;; isearch 時はオフに
+;; (add-hook 'isearch-mode-hook 'ibus-disable)
 
-;; mini buffer ではオフに
-(add-hook 'minibuffer-setup-hook 'ibus-disable)
+;; ;; mini buffer ではオフに
+;; (add-hook 'minibuffer-setup-hook 'ibus-disable)
 
-;; インクリメンタル検索中のカーソル形状を変更する
-(setq ibus-isearch-cursor-type 'hollow)
+;; ;; インクリメンタル検索中のカーソル形状を変更する
+;; (setq ibus-isearch-cursor-type 'hollow)
 
-;; カーソルの位置に予測候補を表示
-(setq ibus-prediction-window-position t)
+;; ;; カーソルの位置に予測候補を表示
+;; (setq ibus-prediction-window-position t)
 
-;; Undo の時に確定した位置まで戻る
-(setq ibus-undo-by-committed-string t)
+;; ;; Undo の時に確定した位置まで戻る
+;; (setq ibus-undo-by-committed-string t)
 
 
 ;; -----------------------------------------------------------------------

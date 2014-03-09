@@ -1,0 +1,5 @@
+(:name plantuml-mode
+       :type git
+       :website "https://github.com/skuro/plantuml-mode"
+       :description "Use PlantUML in Emacs"
+       :url "https://github.com/skuro/plantuml-mode.git")
