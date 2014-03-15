@@ -64,13 +64,20 @@
         (org-reveal)))))
 (global-set-key (kbd "<f11>") 'my-toggle-doing-tag)
 
+; 時間になったら音をならす
+(setq org-clock-sound "/usr/share/sounds/LinuxMint/stereo/desktop-login.ogg")
+
+;; wanderlustのメールを追跡できる
+(setq org-return-follows-link t)
+
 ;; -----------------------------------------------------------------------
 ;; Function ; 見積り設定
 ;; ------------------------------------------------------------------------
 ; Set default column view headings: Task Effort Clock_Summary
 (setq org-columns-default-format "%40ITEM(Task) %17Effort(Effort){:} %10CLOCKSUM")
 ; global Effort estimate values
-(setq org-global-properties (quote (("Effort_ALL" . "0:10 0:30 1:00 2:00 3:00 4:00 5:00 6:00 7:00 8:00"))))
+(setq org-global-properties (quote ((
+      "Effort_ALL" . "0:15 0:30 0:45 1:00 2:00 3:00"))))
 
 ;; -----------------------------------------------------------------------
 ;; Name     : org-capture

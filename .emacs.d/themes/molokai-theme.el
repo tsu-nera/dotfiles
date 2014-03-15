@@ -72,7 +72,7 @@
    'molokai
 
    ;; base
-;;   `(default ((t (:background ,molokai-bg :foreground ,molokai-fg))))
+   ;;   `(default ((t (:background ,molokai-bg :foreground ,molokai-fg))))
    `(default ((t (:foreground ,molokai-fg))))
    `(cursor ((t (:background ,molokai-fg :foreground ,molokai-bg))))
    `(fringe ((t (:foreground ,molokai-base02 :background ,molokai-bg))))
@@ -83,8 +83,10 @@
 
    ;; font lock
    `(font-lock-builtin-face ((t (:foreground ,molokai-chartreuse))))
-   `(font-lock-comment-face ((t (:foreground ,molokai-base01))))
-   `(font-lock-comment-delimiter-face ((t (:foreground ,molokai-base01))))
+;;   `(font-lock-comment-face ((t (:foreground ,molokai-base01))))
+;;   `(font-lock-comment-delimiter-face ((t (:foreground ,molokai-base01))))
+   `(font-lock-comment-face ((t (:foreground ,molokai-grey-1))))
+   `(font-lock-comment-delimiter-face ((t (:foreground ,molokai-grey-1))))
    `(font-lock-constant-face ((t (:foreground ,molokai-purple))))
    `(font-lock-doc-string-face ((t (:foreground ,molokai-darkgoldenrod))))
    `(font-lock-function-name-face ((t (:foreground ,molokai-chartreuse))))

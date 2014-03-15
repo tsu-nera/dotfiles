@@ -59,3 +59,13 @@
 ;; ------------------------------------------------------------------------
 ;;(require 'cl)
 ;;(require 'powerline)
+
+;; ------------------------------------------------------------------------
+;; Name     : rainbow-mode
+;; Function : 色つけしてくれる 
+;; History  : 2014.3.13 Add
+;; ------------------------------------------------------------------------
+(require 'rainbow-mode)
+(add-hook 'css-mode-hook 'rainbow-mode)
+(add-hook 'html-mode-hook 'rainbow-mode)
+(add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
