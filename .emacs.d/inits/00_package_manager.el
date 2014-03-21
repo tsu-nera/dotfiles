@@ -5,12 +5,20 @@
 ;;            git clone git@github.com:dimitri/el-get.git
 ;; ------------------------------------------------------------------------
 ;; ダウンロードしていないときはダウンロード
-(unless (require 'el-get nil 'noerror)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
+;; (unless (require 'el-get nil 'noerror)
+;;   (with-current-buffer
+;;       (url-retrieve-synchronously
+;;        "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+;;     (goto-char (point-max))
+;;     (eval-print-last-sexp)))
+
+(unless (require 'el-get nil t)
+  (url-retrieve
+   "https://raw.github.com/dimitri/el-get/master/el-get-install.el"
+   (lambda (s)
+     (goto-char (point-max))
+     (eval-print-last-sexp))))
+
 
 ;; ダウンロードしたelisp置き場
 (setq el-get-dir "~/.emacs.d/el-get/repo")
@@ -24,13 +32,12 @@
 ;; 一時temp
 (setq el-get-user-package-directory "~/.emacs.d/el-get/init-files")
 
-(el-get 'sync)
-
-;;(require 'el-get)
-;;(require 'el-get-emacswiki)
+(require 'el-get)
+(require 'el-get-emacswiki)
 
 ;; 自動でインストールするものたち
-(el-get 'helm
+(el-get 'sync
+	'helm
 	'yasnippet
 	'metaweblog
 	'xml-rpc-el
@@ -67,6 +74,8 @@
 	'ruby-refactor
 	'powerline
 	;;'molokai-theme オリジナルを利用するので
+	'anything
+	'rcodetools
 	)
 
 ;; ------------------------------------------------------------------------
@@ -101,4 +110,3 @@
 	     '("melpa" . "http://melpa.milkbox.net/packages/"))
 ;; Initialize
 (package-initialize)
-
