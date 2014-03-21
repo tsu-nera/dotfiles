@@ -1,37 +1,4 @@
 ;; ------------------------------------------------------------------------
-;; Name     : auto-install
-;; Function :
-;; History  :
-;; Install  : http://www.emacswiki.org/emacs/download/auto-install.el
-;; ------------------------------------------------------------------------
-(when(require 'auto-install nil t)
-  ;;インストールディレクトリを設定する  初期値は~/.emacs.d/auto-install/
-  (setq auto-install-directory "~/.emacs.d/elisp/")
-  ;;EmacsWikiに登録されているelispの名前を取得する
-  ;;; 起動時にnetwork unreachableってでるので、とりあえず封印 13/05/26
-  ;;(auto-install-update-emacswiki-package-name t)
-  ;;必要であればプロキシの設定を行う
-  ;;(setq url-proxy-services '(("http" . "localhost:8339")))
-  ;;install-elispの関数を利用可能にす
-  (auto-install-compatibility-setup))
-
-;; ------------------------------------------------------------------------
-;; Name     : package.el
-;; Function :
-;; History  : 2014/01/16 add
-;; Install  : http://www.emacswiki.org/emacs/download/auto-install.el
-;; ------------------------------------------------------------------------
-(require 'package)
-;; Add package-archives
-;; Melpa: githubからelispを落とすリポジトリを追加
-;; これで、 M-x list-packagesで melpaが利用できる。
-(add-to-list 'package-archives
-	     '("marmalade" . "http://marmalade-repo.org/packages/")
-	     '("melpa" . "http://melpa.milkbox.net/packages/"))
-;; Initialize
-(package-initialize)
-
-;; ------------------------------------------------------------------------
 ;; Name     : el-get.el
 ;; Function : eLisp管理
 ;; Install  : cd public_repos 
@@ -101,3 +68,37 @@
 	'powerline
 	;;'molokai-theme オリジナルを利用するので
 	)
+
+;; ------------------------------------------------------------------------
+;; Name     : auto-install
+;; Function :
+;; History  :
+;; Install  : http://www.emacswiki.org/emacs/download/auto-install.el
+;; ------------------------------------------------------------------------
+(when(require 'auto-install nil t)
+  ;;インストールディレクトリを設定する  初期値は~/.emacs.d/auto-install/
+  (setq auto-install-directory "~/.emacs.d/elisp/")
+  ;;EmacsWikiに登録されているelispの名前を取得する
+  ;;; 起動時にnetwork unreachableってでるので、とりあえず封印 13/05/26
+  ;;(auto-install-update-emacswiki-package-name t)
+  ;;必要であればプロキシの設定を行う
+  ;;(setq url-proxy-services '(("http" . "localhost:8339")))
+  ;;install-elispの関数を利用可能にす
+  (auto-install-compatibility-setup))
+
+;; ------------------------------------------------------------------------
+;; Name     : package.el
+;; Function :
+;; History  : 2014/01/16 add
+;; Install  : http://www.emacswiki.org/emacs/download/auto-install.el
+;; ------------------------------------------------------------------------
+(require 'package)
+;; Add package-archives
+;; Melpa: githubからelispを落とすリポジトリを追加
+;; これで、 M-x list-packagesで melpaが利用できる。
+(add-to-list 'package-archives
+	     '("marmalade" . "http://marmalade-repo.org/packages/")
+	     '("melpa" . "http://melpa.milkbox.net/packages/"))
+;; Initialize
+(package-initialize)
+
