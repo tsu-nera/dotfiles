@@ -69,20 +69,6 @@
 	  (lambda ()
 	    (setq rst-slides-program "open -a Firefox")
 	    ))
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
-=======
->>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
-=======
->>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
-=======
->>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 
 ;; ------------------------------------------------------------------------
 ;; Name     : org2blog
@@ -105,28 +91,16 @@
       '(("EverClassic"
 	 :url "http://everclassic.biz/xmlrpc.php"
 	 :username (netrc-get blog "login")
-	 :password (netrc-get blog "password"))))
-(setq org2blog/wp-blog-alist
-      '(("Futurismo"
+	 :password (netrc-get blog "password"))
+	("Futurismo"
 	 :url "http://futurismo.biz/xmlrpc.php"
 	 :username "admin"
 	 ;;:username (netrc-get blog "login")
 	 ;;:password (netrc-get blog "password")
-	 )))
+	)
+       )
+)
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
-=======
->>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
-=======
->>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
-=======
->>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
-=======
->>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 ;; ------------------------------------------------------------------------
 ;; others
 ;; ------------------------------------------------------------------------
@@ -162,28 +136,8 @@
 	      (require 'auto-complete-ruby)
 	      ;; (load-auto-complete)
 	      (make-local-variable 'ac-omni-completion-sources)
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	      (setq ac-omni-completion-sources
 		    '(("\\.\\=" . (ac-source-rcodetools)))))))
-=======
-	      (setq ac-omni-completion-sources '(("\\.\\=" . (ac-source-rcodetools)))))))
->>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
-=======
-	      (setq ac-omni-completion-sources '(("\\.\\=" . (ac-source-rcodetools)))))))
->>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
-=======
-	      (setq ac-omni-completion-sources '(("\\.\\=" . (ac-source-rcodetools)))))))
->>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
-=======
-	      (setq ac-omni-completion-sources '(("\\.\\=" . (ac-source-rcodetools)))))))
->>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
-=======
-	      (setq ac-omni-completion-sources '(("\\.\\=" . (ac-source-rcodetools)))))))
->>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 
 ;;; C-c c で compile コマンドを呼び出す
 (define-key mode-specific-map "" 'compile)
@@ -194,28 +148,8 @@
 ;; History  : 2014.1.11 Add
 ;; Install  : http://jblevins.org/projects/markdown-mode/markdown-mode.el
 ;; ------------------------------------------------------------------------
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 (autoload
   'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
-=======
-(autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
->>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
-=======
-(autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
->>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
-=======
-(autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
->>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
-=======
-(autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
->>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
-=======
-(autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
->>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 ;; associate .md file to markdown-mode
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
