@@ -3,6 +3,9 @@
 *~
 *\#$
 
+/.emacs.d/el-get/recipes
+/.emacs.d/el-get/repo
+
 /.emacs.d/elisp/*.elc
 /.emacs.d/elisp/*.el
 /.xmonad/*
