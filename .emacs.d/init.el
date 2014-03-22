@@ -15,20 +15,25 @@
 	    (normal-top-level-add-subdirs-to-load-path))))))
 ;; load-pathに追加するフォルダ
 ;; 2つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
-(add-to-load-path "elisp" "conf" "public_repos" "elpa" "inits" "el-get")
+(add-to-load-path "elisp" "public_repos" "elpa" "inits" "el-get")
 ;; -----------------------------------------------------------------------
 ;; Name     : init-loader
 ;; Install  : M-x install-elisp
 ;;     http://coderepos.org/share/browser/lang/elisp/init-loader/init-loader.el
 ;; Function : init.el分割管理
 ;; ------------------------------------------------------------------------
+;; このエラーメッセージがでないようにするおまじない
+;; gnutls.c: [1] Note that the security level 
+;; http://whiteanthrax.pkf.jp/emacs/75/
+(setq gnutls-min-prime-bits 1024)
+
 ;; init-loader
+;; init-loader は git submoduleで入れる。
 (require 'init-loader)
 ;; 設定ディレクトリ
 (init-loader-load "~/.emacs.d/inits")
 ;; ログファイルを表示
 (setq init-loader-show-log-after-init t)
-
 
 ;; ------------------------------------------------------------------------
 ;; emacs-evernote-mode
@@ -64,7 +69,6 @@
 	  (lambda ()
 	    (setq rst-slides-program "open -a Firefox")
 	    ))
-
 ;; ------------------------------------------------------------------------
 ;; others
 ;; ------------------------------------------------------------------------
@@ -100,7 +104,8 @@
 	      (require 'auto-complete-ruby)
 	      ;; (load-auto-complete)
 	      (make-local-variable 'ac-omni-completion-sources)
-	      (setq ac-omni-completion-sources '(("\\.\\=" . (ac-source-rcodetools)))))))
+	      (setq ac-omni-completion-sources
+		    '(("\\.\\=" . (ac-source-rcodetools)))))))
 
 ;;; C-c c で compile コマンドを呼び出す
 (define-key mode-specific-map "" 'compile)
@@ -111,7 +116,8 @@
 ;; History  : 2014.1.11 Add
 ;; Install  : http://jblevins.org/projects/markdown-mode/markdown-mode.el
 ;; ------------------------------------------------------------------------
-(autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
+(autoload
+  'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
 ;; associate .md file to markdown-mode
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 

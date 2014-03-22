@@ -241,10 +241,12 @@ fi
 
 # z ディレクトリ移動を簡単に
 # https://github.com/rupa/z
-source ${HOME}/bin/z/z.sh
-function precmd () {
-   z --add "$(pwd -P)"
-}
+# if [ -d ${HOME}/bin/z  ] ; then
+#     source ${HOME}/bin/z/z.sh
+#     function precmd () {
+# 	z --add "$(pwd -P)"
+#     }
+# fi
 
 # ------------------------------------------------------------------------
 # Name     : percol
@@ -252,8 +254,10 @@ function precmd () {
 # Install  : pip install percol
 # Function : consoleで anythingライクなインタフェースを提供する
 # ------------------------------------------------------------------------
-source ~/.zsh/percol.zsh
-bindkey '^[x' percol-M-x
+if [ -d ${HOME}/.zsh  ] ; then
+    source ~/.zsh/percol.zsh
+    bindkey '^[x' percol-M-x
+fi
 
 # Template
 # ------------------------------------------------------------------------

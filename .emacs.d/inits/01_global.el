@@ -1,4 +1,3 @@
-
 ;; general key bind
 ;;(global-set-key (kbd "C-c a")   'align)
 (global-set-key (kbd "C-c M-a") 'align-regexp)
@@ -62,11 +61,44 @@
   (server-start))
 
 ;; -----------------------------------------------------------------------
+;; Function : 環境による場合分けの方法
+;;   http://d.hatena.ne.jp/tomoya/20090811/1250006208
+;; ------------------------------------------------------------------------
+(defun x->bool (elt) (not (not elt)))
+
+;; emacs-version predicates
+(setq emacs22-p (string-match "^22" emacs-version)
+      emacs23-p (string-match "^23" emacs-version)
+      emacs23.0-p (string-match "^23\.0" emacs-version)
+      emacs23.1-p (string-match "^23\.1" emacs-version)
+      emacs23.2-p (string-match "^23\.2" emacs-version))
+
+;; system-type predicates
+(setq darwin-p  (eq system-type 'darwin)
+      ns-p      (eq window-system 'ns)
+      carbon-p  (eq window-system 'mac)
+      linux-p   (eq system-type 'gnu/linux)
+      colinux-p (when linux-p
+		  (let ((file "/proc/modules"))
+		    (and
+		     (file-readable-p file)
+		     (x->bool
+		      (with-temp-buffer
+			(insert-file-contents file)
+			(goto-char (point-min))
+			(re-search-forward "^cofuse\.+" nil t))))))
+      cygwin-p  (eq system-type 'cygwin)
+      nt-p      (eq system-type 'windows-nt)
+      meadow-p  (featurep 'meadow)
+      windows-p (or cygwin-p nt-p meadow-p))
+
+;; -----------------------------------------------------------------------
 ;; Function : EmacsとXのクリップポードを共有
 ;; Install  : http://tubo028.hatenablog.jp/entry/2013/09/01/142238
 ;; ------------------------------------------------------------------------
+(when linux-p
 (if (display-graphic-p)
-    (progn
+    ((progn )
       ;; if on window-system
       (setq x-select-enable-clipboard t)
       (global-set-key "\C-y" 'x-clipboard-yank))
@@ -82,6 +114,7 @@
 	    (process-send-eof proc)))))
 
 (setq x-select-enable-clipboard t);; OSとのクリップボード共有
+)
 
 ;; -----------------------------------------------------------------------
 ;; Function : ミニバッファに入るときに日本語入力無効にする

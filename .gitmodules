@@ -1,6 +1,11 @@
-[submodule ".zsh/zaw"]
-	path = .zsh/zaw
-	url = git://github.com/zsh-users/zaw.git
+# in cygwin
+# download Devel/gettext, curl, libsasl2 ca-certificates
+# https://www.mail-archive.com/cygwin@cygwin.com/msg131833.html
+
+# git submodule foreach 'git pull origin master'
+# git submodule init
+# git submodule update
+
 [submodule ".emacs.d/public_repos/github/init-loader"]
 	path = .emacs.d/public_repos/github/init-loader
 	url = https://github.com/emacs-jp/init-loader.git

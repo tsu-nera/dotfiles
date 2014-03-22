@@ -153,10 +153,12 @@
 	 :username "admin"
 	 ;;:username (netrc-get blog "login")
 	 ;;:password (netrc-get blog "password")
-	 ))
-      '(("EverClassic"
+	 )
+	("EverClassic"
 	 :url "http://everclassic.biz/xmlrpc.php"
 	 :username "admin"
 	 ;;:username (netrc-get blog "login")
 	 ;;:password (netrc-get blog "password"))
-	 )))
+	 )
+	)
+ )

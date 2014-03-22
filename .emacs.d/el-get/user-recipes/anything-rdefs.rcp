@@ -1,0 +1,5 @@
+(:name anything-rdefs
+       :type git
+       :website "https://github.com/mori-dev/anything-rdefs"
+       :description "Ruby show method tool"
+       :url "https://github.com/mori-dev/anything-rdefs.git")

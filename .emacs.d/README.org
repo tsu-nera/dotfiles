@@ -1,0 +1,15 @@
+* Setupメモ
+** OS環境
+以下をインストール
+
+- bzr
+- gettext
+- libsasl2
+- ca-certificates
+
+** el-get init-loaderを入れる
+$ git submodule init
+$ git submodule update
+
+** emacswikiのレシピを入れる
+M-x el-get-emacswiki-build-local-recipes

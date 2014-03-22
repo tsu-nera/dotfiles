@@ -1,49 +1,23 @@
 ;; ------------------------------------------------------------------------
-;; Name     : auto-install
-;; Function :
-;; History  :
-;; Install  : http://www.emacswiki.org/emacs/download/auto-install.el
-;; ------------------------------------------------------------------------
-(when(require 'auto-install nil t)
-  ;;インストールディレクトリを設定する  初期値は~/.emacs.d/auto-install/
-  (setq auto-install-directory "~/.emacs.d/elisp/")
-  ;;EmacsWikiに登録されているelispの名前を取得する
-  ;;; 起動時にnetwork unreachableってでるので、とりあえず封印 13/05/26
-  ;;(auto-install-update-emacswiki-package-name t)
-  ;;必要であればプロキシの設定を行う
-  ;;(setq url-proxy-services '(("http" . "localhost:8339")))
-  ;;install-elispの関数を利用可能にす
-  (auto-install-compatibility-setup))
-
-;; ------------------------------------------------------------------------
-;; Name     : package.el
-;; Function :
-;; History  : 2014/01/16 add
-;; Install  : http://www.emacswiki.org/emacs/download/auto-install.el
-;; ------------------------------------------------------------------------
-(require 'package)
-;; Add package-archives
-;; Melpa: githubからelispを落とすリポジトリを追加
-;; これで、 M-x list-packagesで melpaが利用できる。
-(add-to-list 'package-archives
-	     '("marmalade" . "http://marmalade-repo.org/packages/")
-	     '("melpa" . "http://melpa.milkbox.net/packages/"))
-;; Initialize
-(package-initialize)
-
-;; ------------------------------------------------------------------------
 ;; Name     : el-get.el
 ;; Function : eLisp管理
 ;; Install  : cd public_repos 
 ;;            git clone git@github.com:dimitri/el-get.git
 ;; ------------------------------------------------------------------------
 ;; ダウンロードしていないときはダウンロード
-(unless (require 'el-get nil 'noerror)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
+;; (unless (require 'el-get nil 'noerror)
+;;   (with-current-buffer
+;;       (url-retrieve-synchronously
+;;        "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+;;     (goto-char (point-max))
+;;     (eval-print-last-sexp)))
+
+(unless (require 'el-get nil t)
+  (url-retrieve
+   "https://raw.github.com/dimitri/el-get/master/el-get-install.el"
+   (lambda (s)
+     (goto-char (point-max))
+     (eval-print-last-sexp))))
 
 ;; ダウンロードしたelisp置き場
 (setq el-get-dir "~/.emacs.d/el-get/repo")
@@ -57,13 +31,12 @@
 ;; 一時temp
 (setq el-get-user-package-directory "~/.emacs.d/el-get/init-files")
 
-(el-get 'sync)
-
-;;(require 'el-get)
-;;(require 'el-get-emacswiki)
+(require 'el-get)
+(require 'el-get-emacswiki)
 
 ;; 自動でインストールするものたち
-(el-get 'helm
+(el-get 'sync
+	'helm
 	'yasnippet
 	'metaweblog
 	'xml-rpc-el
@@ -100,4 +73,40 @@
 	'ruby-refactor
 	'powerline
 	;;'molokai-theme オリジナルを利用するので
+	'anything
+	'rcodetools
+	'anything-rdefs
 	)
+
+;; ------------------------------------------------------------------------
+;; Name     : auto-install
+;; Function :
+;; History  :
+;; Install  : http://www.emacswiki.org/emacs/download/auto-install.el
+;; ------------------------------------------------------------------------
+(when(require 'auto-install nil t)
+  ;;インストールディレクトリを設定する  初期値は~/.emacs.d/auto-install/
+  (setq auto-install-directory "~/.emacs.d/elisp/")
+  ;;EmacsWikiに登録されているelispの名前を取得する
+  ;;; 起動時にnetwork unreachableってでるので、とりあえず封印 13/05/26
+  ;;(auto-install-update-emacswiki-package-name t)
+  ;;必要であればプロキシの設定を行う
+  ;;(setq url-proxy-services '(("http" . "localhost:8339")))
+  ;;install-elispの関数を利用可能にす
+  (auto-install-compatibility-setup))
+
+;; ------------------------------------------------------------------------
+;; Name     : package.el
+;; Function :
+;; History  : 2014/01/16 add
+;; Install  : http://www.emacswiki.org/emacs/download/auto-install.el
+;; ------------------------------------------------------------------------
+(require 'package)
+;; Add package-archives
+;; Melpa: githubからelispを落とすリポジトリを追加
+;; これで、 M-x list-packagesで melpaが利用できる。
+(add-to-list 'package-archives
+	     '("marmalade" . "http://marmalade-repo.org/packages/")
+	     '("melpa" . "http://melpa.milkbox.net/packages/"))
+;; Initialize
+(package-initialize)

@@ -154,7 +154,7 @@
 ;; Install  : git@github.com:jacott/emacs-pry.git
 ;; Function : 高機能irb
 ;; ------------------------------------------------------------------------
-(require 'pry)
+;; (require 'pry)
 ;; optional suggestions
 ;;(global-set-key [S-f9] 'pry-intercept)
 ;;(global-set-key [f9] 'pry-intercept-rerun)
