@@ -72,7 +72,10 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 =======
 >>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 =======
@@ -110,6 +113,9 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
+=======
 >>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 =======
 >>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
@@ -153,8 +159,12 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	      (setq ac-omni-completion-sources
 		    '(("\\.\\=" . (ac-source-rcodetools)))))))
+=======
+	      (setq ac-omni-completion-sources '(("\\.\\=" . (ac-source-rcodetools)))))))
+>>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 =======
 	      (setq ac-omni-completion-sources '(("\\.\\=" . (ac-source-rcodetools)))))))
 >>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
@@ -177,8 +187,12 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 (autoload
   'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
+=======
+(autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
+>>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 =======
 (autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
 >>>>>>> 4470c724dede7b905611a286407e2b0987c595bf

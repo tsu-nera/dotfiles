@@ -242,6 +242,7 @@ fi
 # z ディレクトリ移動を簡単に
 # https://github.com/rupa/z
 <<<<<<< HEAD
+<<<<<<< HEAD
 # if [ -d ${HOME}/bin/z  ] ; then
 #     source ${HOME}/bin/z/z.sh
 #     function precmd () {
@@ -249,12 +250,17 @@ fi
 #     }
 # fi
 =======
+=======
+>>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 if [ -d ${HOME}/bin/z  ] ; then
     source ${HOME}/bin/z/z.sh
     function precmd () {
 	z --add "$(pwd -P)"
     }
 fi
+<<<<<<< HEAD
+>>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
+=======
 >>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 
 # ------------------------------------------------------------------------

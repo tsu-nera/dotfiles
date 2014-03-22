@@ -3,9 +3,12 @@
 *~
 *\#$
 
+<<<<<<< HEAD
 /.emacs.d/el-get/recipes
 /.emacs.d/el-get/repo
 
+=======
+>>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 /.emacs.d/elisp/*.elc
 /.emacs.d/elisp/*.el
 /.xmonad/*
