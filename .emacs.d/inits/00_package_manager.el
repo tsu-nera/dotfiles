@@ -20,6 +20,10 @@
      (eval-print-last-sexp))))
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 =======
 
 >>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
@@ -80,7 +84,10 @@
 	'anything
 	'rcodetools
 <<<<<<< HEAD
+<<<<<<< HEAD
 	'anything-rdefs
+=======
+>>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 =======
 >>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 	)

@@ -70,7 +70,10 @@
 	    (setq rst-slides-program "open -a Firefox")
 	    ))
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 
 ;; ------------------------------------------------------------------------
 ;; Name     : org2blog
@@ -102,6 +105,9 @@
 	 ;;:password (netrc-get blog "password")
 	 )))
 
+<<<<<<< HEAD
+>>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
+=======
 >>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 ;; ------------------------------------------------------------------------
 ;; others
@@ -139,8 +145,12 @@
 	      ;; (load-auto-complete)
 	      (make-local-variable 'ac-omni-completion-sources)
 <<<<<<< HEAD
+<<<<<<< HEAD
 	      (setq ac-omni-completion-sources
 		    '(("\\.\\=" . (ac-source-rcodetools)))))))
+=======
+	      (setq ac-omni-completion-sources '(("\\.\\=" . (ac-source-rcodetools)))))))
+>>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 =======
 	      (setq ac-omni-completion-sources '(("\\.\\=" . (ac-source-rcodetools)))))))
 >>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
@@ -155,8 +165,12 @@
 ;; Install  : http://jblevins.org/projects/markdown-mode/markdown-mode.el
 ;; ------------------------------------------------------------------------
 <<<<<<< HEAD
+<<<<<<< HEAD
 (autoload
   'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
+=======
+(autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
+>>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 =======
 (autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
 >>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
