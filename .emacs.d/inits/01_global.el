@@ -1,23 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
-=======
-
->>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
-=======
-
->>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
-=======
-
->>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
-=======
-
->>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 ;; general key bind
 ;;(global-set-key (kbd "C-c a")   'align)
 (global-set-key (kbd "C-c M-a") 'align-regexp)
