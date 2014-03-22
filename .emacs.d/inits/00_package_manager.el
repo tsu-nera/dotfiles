@@ -19,6 +19,10 @@
      (goto-char (point-max))
      (eval-print-last-sexp))))
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 ;; ダウンロードしたelisp置き場
 (setq el-get-dir "~/.emacs.d/el-get/repo")
 
@@ -75,7 +79,10 @@
 	;;'molokai-theme オリジナルを利用するので
 	'anything
 	'rcodetools
+<<<<<<< HEAD
 	'anything-rdefs
+=======
+>>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 	)
 
 ;; ------------------------------------------------------------------------

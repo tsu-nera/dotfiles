@@ -129,6 +129,7 @@
    (add-to-list 'org-babel-load-languages '(plantuml . t))))
 (add-hook 'org-mode-hook 'org-mode-init)
 
+<<<<<<< HEAD
 ;; ------------------------------------------------------------------------
 ;; Name     : org2blog
 ;; Function : Emacsからブログ投稿
@@ -162,3 +163,6 @@
 	 )
 	)
  )
+=======
+
+>>>>>>> 4470c724dede7b905611a286407e2b0987c595bf

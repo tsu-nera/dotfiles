@@ -69,6 +69,40 @@
 	  (lambda ()
 	    (setq rst-slides-program "open -a Firefox")
 	    ))
+<<<<<<< HEAD
+=======
+
+;; ------------------------------------------------------------------------
+;; Name     : org2blog
+;; Function : Emacsからブログ投稿
+;:            Emacs から WordPressに投稿するLisp
+;; Install  :
+;; History  : 2014.02.09 パスワードレスにした
+;; ------------------------------------------------------------------------
+;; https://github.com/punchagan/org2blog
+;; xml-rspも入れた
+;; http://launchpadlibrarian.net/40270196/xml-rpc.el
+;; metaweblogも入れた
+;; git://github.com/punchagan/metaweblog.el.git
+(require 'metaweblog)
+(require 'org2blog-autoloads)
+;;(require 'netrc) ;; or nothing if already in the load-path
+;;(setq blog (netrc-machine (netrc-parse "~/.netrc") "EverClassic" t))
+;;(setq blog (netrc-machine (netrc-parse "~/.netrc") "Futurismo" t))
+(setq org2blog/wp-blog-alist
+      '(("EverClassic"
+	 :url "http://everclassic.biz/xmlrpc.php"
+	 :username (netrc-get blog "login")
+	 :password (netrc-get blog "password"))))
+(setq org2blog/wp-blog-alist
+      '(("Futurismo"
+	 :url "http://futurismo.biz/xmlrpc.php"
+	 :username "admin"
+	 ;;:username (netrc-get blog "login")
+	 ;;:password (netrc-get blog "password")
+	 )))
+
+>>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 ;; ------------------------------------------------------------------------
 ;; others
 ;; ------------------------------------------------------------------------
@@ -104,8 +138,12 @@
 	      (require 'auto-complete-ruby)
 	      ;; (load-auto-complete)
 	      (make-local-variable 'ac-omni-completion-sources)
+<<<<<<< HEAD
 	      (setq ac-omni-completion-sources
 		    '(("\\.\\=" . (ac-source-rcodetools)))))))
+=======
+	      (setq ac-omni-completion-sources '(("\\.\\=" . (ac-source-rcodetools)))))))
+>>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 
 ;;; C-c c で compile コマンドを呼び出す
 (define-key mode-specific-map "" 'compile)
@@ -116,8 +154,12 @@
 ;; History  : 2014.1.11 Add
 ;; Install  : http://jblevins.org/projects/markdown-mode/markdown-mode.el
 ;; ------------------------------------------------------------------------
+<<<<<<< HEAD
 (autoload
   'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
+=======
+(autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
+>>>>>>> 4470c724dede7b905611a286407e2b0987c595bf
 ;; associate .md file to markdown-mode
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
