@@ -13,3 +13,4 @@
 (autoload 'cool-mode "cool-mode" "Major mode for editing COOL programs" t)
 (setq auto-mode-alist
             (append '(("\\.cl\\'" . cool-mode)) auto-mode-alist))
+	  

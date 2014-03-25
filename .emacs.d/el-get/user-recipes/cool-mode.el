@@ -1,5 +1,7 @@
 (:name cool-mode
-       :type git
-       :website "https://github.com/markxnelson/cool-mode"
+       :type hg
+;;       :website "https://github.com/markxnelson/cool-mode"
+       :website "https://bitbucket.org/srirampc/cool-mode/src"
        :description "Major Mode for Cool"
-       :url "https://github.com/markxnelson/cool-mode.git")
+       :url "https://bitbucket.org/srirampc/cool-mode")
+;;       :url "https://github.com/markxnelson/cool-mode.git")
