@@ -9,7 +9,7 @@
 
 /.emacs.d/*.el
 !/.emacs.d/init.el
-
+/.gitconfig.local
 /.emacs.d/el-get/el-get
 /.emacs.d/el-get/recipes
 /.emacs.d/el-get/repo
