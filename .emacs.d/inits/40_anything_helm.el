@@ -67,6 +67,8 @@
 					;)
 (require 'anything)
 (require 'anything-rdefs)
+
+(setq ar:command "~/.rbenv/shims/rdefs")
 (define-key ruby-mode-map "\C-\M-o" 'anything-rdefs)
 
 ;;(require 'anything-rake) 動かない。
