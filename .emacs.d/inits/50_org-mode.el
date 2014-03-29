@@ -14,7 +14,7 @@
 
 ;; リンクをconkerorで開く
 (setq browse-url-browser-function 'browse-url-generic
-            browse-url-generic-program "/home/tsu-nera/bin/conkeror")
+      browse-url-generic-program "/home/tsu-nera/bin/conkeror")
 
 ;; TODO状態
 ;;(setq org-todo-keywords
@@ -154,11 +154,11 @@
 	 ;;:username (netrc-get blog "login")
 	 ;;:password (netrc-get blog "password")
 	 )
-	("EverClassic"
-	 :url "http://everclassic.biz/xmlrpc.php"
-	 :username "admin"
-	 ;;:username (netrc-get blog "login")
-	 ;;:password (netrc-get blog "password"))
-	 )
+	;; ("EverClassic"
+	;;  :url "http://everclassic.biz/xmlrpc.php"
+	;;  :username "admin"
+	;;  ;;:username (netrc-get blog "login")
+	;;  ;;:password (netrc-get blog "password"))
+	;;  )
 	)
- )
+      )

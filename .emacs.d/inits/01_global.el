@@ -201,3 +201,14 @@
 (set-language-environment  'utf-8)
 (prefer-coding-system 'utf-8)
 
+
+;; -----------------------------------------------------------------------
+;; Name     : whitespace
+;; Install  : build-in
+;; Function : 80行めを光らせる
+;; ------------------------------------------------------------------------
+(require 'whitespace)
+(setq whitespace-line-column 80) ;; limit line length
+(setq whitespace-style '(face lines-tail))
+
+(add-hook 'ruby-mode-hook 'whitespace-mode)

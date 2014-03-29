@@ -71,37 +71,6 @@
 	    ))
 
 ;; ------------------------------------------------------------------------
-;; Name     : org2blog
-;; Function : Emacsからブログ投稿
-;:            Emacs から WordPressに投稿するLisp
-;; Install  :
-;; History  : 2014.02.09 パスワードレスにした
-;; ------------------------------------------------------------------------
-;; https://github.com/punchagan/org2blog
-;; xml-rspも入れた
-;; http://launchpadlibrarian.net/40270196/xml-rpc.el
-;; metaweblogも入れた
-;; git://github.com/punchagan/metaweblog.el.git
-(require 'metaweblog)
-(require 'org2blog-autoloads)
-;;(require 'netrc) ;; or nothing if already in the load-path
-;;(setq blog (netrc-machine (netrc-parse "~/.netrc") "EverClassic" t))
-;;(setq blog (netrc-machine (netrc-parse "~/.netrc") "Futurismo" t))
-(setq org2blog/wp-blog-alist
-      '(("EverClassic"
-	 :url "http://everclassic.biz/xmlrpc.php"
-	 :username (netrc-get blog "login")
-	 :password (netrc-get blog "password"))
-	("Futurismo"
-	 :url "http://futurismo.biz/xmlrpc.php"
-	 :username "admin"
-	 ;;:username (netrc-get blog "login")
-	 ;;:password (netrc-get blog "password")
-	)
-       )
-)
-
-;; ------------------------------------------------------------------------
 ;; others
 ;; ------------------------------------------------------------------------
 ;; git管理のシンボリックリンクで質問されないためのおまじない。
