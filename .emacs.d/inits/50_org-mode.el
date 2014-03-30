@@ -129,12 +129,11 @@
    (add-to-list 'org-babel-load-languages '(plantuml . t))))
 (add-hook 'org-mode-hook 'org-mode-init)
 
-;; ------------------------------------------------------------------------
+b;; ------------------------------------------------------------------------
 ;; Name     : org2blog
 ;; Function : Emacsからブログ投稿
 ;:            Emacs から WordPressに投稿するLisp
 ;; Install  :
-;; History  : 2014.02.09 パスワードレスにした
 ;; ------------------------------------------------------------------------
 ;; https://github.com/punchagan/org2blog
 ;; xml-rspも入れた
@@ -162,3 +161,8 @@
 	;;  )
 	)
       )
+
+;; DONEをすべてアーカイブ
+(defun my-org-archive-done-tasks ()
+  (interactive)
+  (org-map-entries 'org-archive-subtree "/DONE" 'file))
