@@ -129,7 +129,7 @@
    (add-to-list 'org-babel-load-languages '(plantuml . t))))
 (add-hook 'org-mode-hook 'org-mode-init)
 
-b;; ------------------------------------------------------------------------
+;; ------------------------------------------------------------------------
 ;; Name     : org2blog
 ;; Function : Emacsからブログ投稿
 ;:            Emacs から WordPressに投稿するLisp
