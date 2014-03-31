@@ -19,7 +19,7 @@
 /.emacs.d/image-dired/
 /.emacs.d/var
 /.emacs.d/elisp/*.elc
-/.emacs.d/elisp/*.el
+#/.emacs.d/elisp/*.el
 /.emacs.d/url
 /.emacs.d/ac-comphist.dat
 /.emacs.d/cedet-bzr
