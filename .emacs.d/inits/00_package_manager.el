@@ -38,47 +38,45 @@
 (el-get 'sync
 	'helm
 	'yasnippet
-	'metaweblog
-	'xml-rpc-el
-	'org2blog
+	'ruby-block
+	'robe-mode
+	'ruby-electric
+	'rspec-mode
+	'ruby-refactor
+	'rcodetools
+	'anything-rdefs
+	'inf-ruby
 	'auto-complete
+	'auto-complete-ruby
+	'yaml-mode
 	'popwin
-	'tempbuf
 	'flycheck
 	'flycheck-color-mode-line
 	'anzu
 	'auto-highlight-symbol
 	'highlight-symbol
 	'multiple-cursors
-	'plantuml-mode
 	'color-theme
-	'org-mode
 	'smart-compile
-	'org-pomodoro
 	'helm-descbinds
 	'auto-install
-	'ruby-block
-	'auto-complete-ruby
-	'robe-mode
+	'anything
 	'gist
-	'yaml-mode
 	'flymake
 	'helm-gist
-	'inf-ruby
 	'helm-c-yasnippet
 	'markdown-mode
 	'expand-region
-	'ruby-electric
-	'rspec-mode
-	'ruby-refactor
-	'powerline
+	'powerline 
 	;;'molokai-theme オリジナルを利用するので
-	'anything
-	'rcodetools
-	'anything-rdefs
 	'cool-mode
-	'webkit
-	'epc
+	'plantuml-mode
+	'metaweblog
+	'xml-rpc-el
+	'tempbuf
+	'org2blog
+	'org-mode
+	'org-pomodoro
 	)
 
 ;; ------------------------------------------------------------------------
