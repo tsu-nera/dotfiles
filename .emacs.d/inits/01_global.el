@@ -14,11 +14,10 @@
 (global-set-key (kbd "C-/")     'undo)
 
 ;;; ツールバーを消す
-(tool-bar-mode -1)
+;;; (tool-bar-mode -1)
 
-(menu-bar-mode -1)
-;;; emacs -nw で起動した時にメニューバーを消す
-;; (if window-system (menu-bar-mode 1) (menu-bar-mode -1))
+;; emacs -nw で起動した時にメニューバーを消す
+(if window-system (menu-bar-mode 1) (menu-bar-mode -1))
 
 ;;; 対応する括弧を光らせる。
 (show-paren-mode 1)

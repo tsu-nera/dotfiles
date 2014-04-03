@@ -77,6 +77,8 @@
 	'org2blog
 	'org-mode
 	'org-pomodoro
+	'rainbow-mode
+	'vbasense
 	)
 
 ;; ------------------------------------------------------------------------
