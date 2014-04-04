@@ -79,6 +79,7 @@
 	'org-pomodoro
 	'rainbow-mode
 	'vbasense
+	'visual-basic-mode
 	)
 
 ;; ------------------------------------------------------------------------
