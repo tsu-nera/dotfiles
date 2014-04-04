@@ -1,6 +1,6 @@
 ;; -----------------------------------------------------------------------
 ;; Name     :  Oz
-;; Function :  マルチパラダイム言語
+;; Function :  multi-paradium language
 ;; ------------------------------------------------------------------------
 (add-hook 'oz-mode-hook
 	  (lambda ()
@@ -19,12 +19,14 @@
 ;; ------------------------------------------------------------------------
 (require 'vbasense)
 
-;; キーバインド
 (setq vbasense-popup-help-key "C-:")
 (setq vbasense-jump-to-definition-key "C->")
 
-;; 必要に応じて適宜カスタマイズして下さい。以下のS式を評価することで項目についての情報が得られます。
 ;; (customize-group "vbasense")
 
-;; 推奨設定を行う
+;; use recommmended setting
 (vbasense-config-default)(require 'vbasense)
+
+;; visual-basic-mode
+(autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode" t)
+(add-to-list 'auto-mode-alist '("\\.\\(vbs\\|vb\\|wsf\\|frm\\|bas\\|cls\\)$" . visual-basic-mode))

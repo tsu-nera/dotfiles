@@ -50,6 +50,17 @@
 ;; 		"-%-"
 ;; 		)
 ;; 	      )
+
+;; file名の補間で大文字小文字を区別しない
+(setq completion-ignore-case t)
+
+;; 同名ファイルの区別
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+
+;; バッファ再読み込み
+(global-auto-revert-mode 1)
+
 ;; ------------------------------------------------------------------------
 ;; Emacs Client
 ;; ------------------------------------------------------------------------
