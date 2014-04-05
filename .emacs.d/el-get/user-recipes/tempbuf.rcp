@@ -1,0 +1,4 @@
+(:name tempbuf
+       :auto-generated t
+       :type git
+       :url "https://github.com/emacsmirror/tempbuf")

@@ -1,6 +1,7 @@
 (:name visual-basic-mode
-:auto-generated t
-:type git
-:description "A mode for editing Visual Basic programs."
-:url "https://github.com/emacsmirror/visual-basic-mode"
-:website "https://raw.github.com/emacsmirror/emacswiki.org/master/visual-basic-mode.el")
+;;       :auto-generated t
+       :type git
+       :website "https://raw.github.com/emacsmirror/emacswiki.org/master/visual-basic-mode.el"
+       :description "A mode for editing Visual Basic programs."
+       :url "http://github.com/emacsmirror/visual-basic-mode"
+       )

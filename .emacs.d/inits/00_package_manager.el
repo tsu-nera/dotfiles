@@ -27,12 +27,12 @@
 ;;			       "~/.emacs.d/el-get/recipes"))
 ;; 追加のレシピ置き場
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get/user-recipes")
+;;(add-to-list 'el-get-recipe-path '("~/.emacs.d/el-get/user-recipes/myemacswiki"))
+;;(add-to-list 'el-get-recipe-path '("~/.emacs.d/el-get/user-recipes"))
 
-;; 一時temp
 (setq el-get-user-package-directory "~/.emacs.d/el-get/init-files")
 
 (require 'el-get)
-(require 'el-get-emacswiki)
 
 ;; 自動でインストールするものたち
 (el-get 'sync
@@ -59,7 +59,7 @@
 	'highlight-symbol
 	'multiple-cursors
 	'color-theme
-	'smart-compile
+	;; 'smart-compile 独自改造したものをelispにおいた
 	'helm-descbinds
 	'anything
 	'gist
