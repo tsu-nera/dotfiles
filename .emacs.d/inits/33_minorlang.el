@@ -17,16 +17,26 @@
 ;; -----------------------------------------------------------------------
 ;; Name     :  VBA
 ;; ------------------------------------------------------------------------
-(require 'vbasense)
-
+(autoload 'vbasense "vbasense" "Visual Basic Mode" t)
+(add-to-list 'auto-mode-alist '("\\.\\(vbs\\|vb\\|wsf\\|frm\\|bas\\|cls\\)$" .
+				vbasense))
 (setq vbasense-popup-help-key "C-:")
 (setq vbasense-jump-to-definition-key "C->")
 
-;; (customize-group "vbasense")
+(customize-group "vbasense")
 
 ;; use recommmended setting
-(vbasense-config-default)(require 'vbasense)
+(vbasense-config-default)
 
+;;(custom-set-variables '(vbasense-tli-files "C:/Program Files (x86)/Common Files/microsoft shared/VBA/VBA7/VBE7.DLL"))
+
+;; (custom-set-variables '(vbasense-tli-files "C:/Program Files/Microsoft Office/OFFICE11/EXCEL.EXE"))
+				;; "c:/Program Files/Common Files/Microsoft Shared/VBA/VBA6/VBE6.DLL"
+				;; "c:/Program Files/Common Files/Microsoft Shared/VBA/VBA6/VBE6EXT.OLB"
+				;; "c:/Program Files/Common Files/Microsoft Shared/OFFICE11/MSO.DLL"
+				;; "c:/WINDOWS/system32/stdole2.tlb")
+				;; 	   )
 ;; visual-basic-mode
 (autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode" t)
-(add-to-list 'auto-mode-alist '("\\.\\(vbs\\|vb\\|wsf\\|frm\\|bas\\|cls\\)$" . visual-basic-mode))
+(add-to-list 'auto-mode-alist '("\\.\\(vbs\\|vb\\|wsf\\|frm\\|bas\\|cls\\)$" .
+				visual-basic-mode))
