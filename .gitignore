@@ -17,6 +17,7 @@
 /.emacs.d/el-get/*.el
 /.emacs.d/el-get/*.elc
 /.emacs.d/image-dired/
+/.emacs.d/.org-id-locations 
 /.emacs.d/var
 /.emacs.d/elisp/*.elc
 #/.emacs.d/elisp/*.el

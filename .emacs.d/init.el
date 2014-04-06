@@ -15,7 +15,7 @@
 	    (normal-top-level-add-subdirs-to-load-path))))))
 ;; load-pathに追加するフォルダ
 ;; 2つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
-(add-to-load-path "elisp" "public_repos" "elpa" "inits" "el-get")
+(add-to-load-path "elisp" "public_repos" "elpa" "inits" "el-get" "themes")
 ;; -----------------------------------------------------------------------
 ;; Name     : init-loader
 ;; Install  : M-x install-elisp
