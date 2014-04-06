@@ -166,3 +166,15 @@
 (defun my-org-archive-done-tasks ()
   (interactive)
   (org-map-entries 'org-archive-subtree "/DONE" 'file))
+
+;; ------------------------------------------------------------------------
+;; Name     : mobileOrg
+;; Function : iphoneとorg-modeの同期。Dropboxを利用
+;; Install  :
+;; ------------------------------------------------------------------------
+;; Set to the location of your Org files on your local system
+(setq org-directory "~/org")
+;; Set to the name of the file where new notes will be stored
+(setq org-mobile-inbox-for-pull "~/org/flagged.org")
+;; Set to <your Dropbox root directory>/MobileOrg.
+(setq org-mobile-directory "~/dropbox/アプリ/MobileOrg")
