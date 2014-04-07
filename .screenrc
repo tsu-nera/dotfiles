@@ -53,3 +53,7 @@ hardstatus alwayslastline "%{= rw} %H %{= wk}%-Lw%{= bw}%n%f* %t%{= wk}%+Lw %{= 
 
 # lessで見たあとに、閉じたらlessも画é# minttyでスクロールバー有効
 termcapinfo * ti@:te@
+
+# 256対応
+defbce "on"
+term xterm-256color
