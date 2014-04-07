@@ -218,11 +218,12 @@ export CPATH=/usr/local/include
 # EmacsClient起動
 export EDITOR='emacsclient -nw'
 # zsh起動時にemacs --daemon起動
-if pgrep emacs >/dev/null 2>&1; then
-    # echo "Emacs server is already running..."
-  else
-    `emacs --daemon`
-fi
+# この機能は封印 cygwin上だとemacsの起動時間が遅いので。
+# if pgrep emacs >/dev/null 2>&1; then
+#     # echo "Emacs server is already running..."
+#   else
+#     `emacs --daemon`
+# fi
 alias reboot_emacs="emacsclient -e \"(kill-emacs)\";emacs --daemon"
 
 # screen実行中にEmacs保存ができない
