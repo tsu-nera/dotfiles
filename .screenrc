@@ -2,8 +2,8 @@
 defencodig utf-8
 
 ## Prefixキーの設定
-## Ctrl + Tに設定する
-escape ^Tt
+## Ctrl + oに設定する
+escape ^Ot
 
 # スタートアップメニューの削除
 startup_message off
