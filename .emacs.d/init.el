@@ -36,41 +36,6 @@
 (setq init-loader-show-log-after-init t)
 
 ;; ------------------------------------------------------------------------
-;; emacs-evernote-mode
-;; ------------------------------------------------------------------------
-;; (require 'evernote-mode)
-;; (global-set-key "\C-cec" 'evernote-create-note)
-;; (global-set-key "\C-ceo" 'evernote-open-note)
-;; (global-set-key "\C-ces" 'evernote-search-notes)
-;; (global-set-key "\C-ceS" 'evernote-do-saved-search)
-;; (global-set-key "\C-cew" 'evernote-write-note)
-;; (global-set-key "\C-cep" 'evernote-post-region)
-;; (global-set-key "\C-ceb" 'evernote-browser)
-;; (setq evernote-username "fox10225fox")  ;; Evernote アカウント名
-
-;; ------------------------------------------------------------------------
-;; Rst-mode (for Sphinx)
-;; ------------------------------------------------------------------------
-;;; RSTモードを見やすくする。
-(setq frame-background-mode 'dark)
-
-;;; rst.elを読み込み
-(require 'rst)
-;;; *.rst, *.restファイルをrst-modeでOpen
-(setq auto-mode-alist
-      (append '(("\\.rst$" . rst-mode)
-		("\\.rest$" . rst-mode)
-		) auto-mode-alist))
-
-;;; 全部スペースでインデントしましょう
-(add-hook 'rst-mode-hook '(lambda() (setq indent-tabs-mode nil)))
-
-(add-hook 'rst-mode-hook
-	  (lambda ()
-	    (setq rst-slides-program "open -a Firefox")
-	    ))
-
-;; ------------------------------------------------------------------------
 ;; others
 ;; ------------------------------------------------------------------------
 ;; git管理のシンボリックリンクで質問されないためのおまじない。
@@ -110,17 +75,6 @@
 
 ;;; C-c c で compile コマンドを呼び出す
 (define-key mode-specific-map "" 'compile)
-
-;; ------------------------------------------------------------------------
-;; Name     : Markdown Mode
-;; Function : Use Markdown
-;; History  : 2014.1.11 Add
-;; Install  : http://jblevins.org/projects/markdown-mode/markdown-mode.el
-;; ------------------------------------------------------------------------
-(autoload
-  'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
-;; associate .md file to markdown-mode
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 ;; ------------------------------------------------------------------------
 ;; Name     : popwin
@@ -389,47 +343,7 @@
 ;;            highlighting-todos-in-all-programming-modes
 ;; ------------------------------------------------------------------------
 (add-hook 'prog-mode-hook
-               (lambda ()
-                (font-lock-add-keywords nil
-                 '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
+	  (lambda ()
+	    (font-lock-add-keywords nil
+           '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
 
-;; -----------------------------------------------------------------------
-;; Name     : plantuml
-;; Install  : 
-;; ------------------------------------------------------------------------
-;; (require 'plantuml-mode)
-;; (add-to-list 'auto-mode-alist '("\\.puml$" . plantuml-mode))
-;; (add-to-list 'auto-mode-alist '("\\.plantuml$" . plantuml-mode))
-
-
-;; -----------------------------------------------------------------------
-;; Name     : custom
-;; Install  : 
-;; ------------------------------------------------------------------------
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(font-lock-function-name-face ((t (:foreground "cyan"))))
- '(markdown-inline-code-face ((t (:inherit font-lock-constant-face))) t)
- '(markdown-pre-face ((t (:foreground "brightmagenta"))) t)
- '(minibuffer-prompt ((t (:foreground "brightblue")))))
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(anzu-deactivate-region t)
- '(anzu-mode-lighter "")
- '(anzu-replace-to-string-separator " => ")
- '(anzu-search-threshold 1000)
- '(anzu-use-mimego t)
- '(custom-safe-themes (quote ("2b484c630af2578060ee43827f4785e480e19bab336d1ccb2bce5c9d3acfb652" "ea4035bd249cc84f038158d1eb17493623c55b0ca92d9f5a1d036d2837af2e11" "9fd20670758db15cc4d0b4442a74543888d2e445646b25f2755c65dcd6f1504b" default)))
- '(ecb-options-version "2.40")
- '(org-agenda-files (quote ("~/gtd/main.org")))
- '(rspec-use-rake-when-possible nil)
- '(safe-local-variable-values (quote ((require-final-newline . t))))
- '(vbasense-tli-files (quote ("c:\\Program Files (x86)\\Microsoft Office\\OFFICE14\\EXCEL.EXE" "c:/Program Files (x86)/Common Files/Microsoft Shared/VBA/VBA7/VBE7.DLL" "c:/Program Files (x86)/Common Files/Microsoft Shared/VBA/VBA6/VBE6EXT.OLB" "c:/Program Files (x86)/Common Files/Microsoft Shared/OFFICE14/MSO.DLL" "C:\\Windows\\SysWOW64\\stdole2.tlb")))
- '(yas-trigger-key "TAB"))

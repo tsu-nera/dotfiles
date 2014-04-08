@@ -69,7 +69,7 @@
 	'markdown-mode
 	'expand-region
 	'powerline 
-	;;'molokai-theme オリジナルを利用するので
+	'molokai-theme
 	'cool-mode
 	'plantuml-mode
 	'metaweblog

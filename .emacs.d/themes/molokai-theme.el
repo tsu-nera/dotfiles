@@ -152,7 +152,7 @@
                   (file-name-as-directory
                    (file-name-directory load-file-name))))
 
-(provide-theme 'molokai)
+(provide-theme 'my-molokai)
 
 ;; Local Variables:
 ;; no-byte-compile: t

@@ -28,15 +28,56 @@
 ;; use recommmended setting
 (vbasense-config-default)
 
-;;(custom-set-variables '(vbasense-tli-files "C:/Program Files (x86)/Common Files/microsoft shared/VBA/VBA7/VBE7.DLL"))
+;; (custom-set-variables
+;; '(vbasense-tli-files "C:/Program Files/Microsoft Office/OFFICE11/EXCEL.EXE"))
+;; "c:/Program Files/Common Files/Microsoft Shared/VBA/VBA6/VBE6.DLL"
+;; "c:/Program Files/Common Files/Microsoft Shared/VBA/VBA6/VBE6EXT.OLB"
+;; "c:/Program Files/Common Files/Microsoft Shared/OFFICE11/MSO.DLL"
+;; "c:/WINDOWS/system32/stdole2.tlb")
+;; 	   )
 
-;; (custom-set-variables '(vbasense-tli-files "C:/Program Files/Microsoft Office/OFFICE11/EXCEL.EXE"))
-				;; "c:/Program Files/Common Files/Microsoft Shared/VBA/VBA6/VBE6.DLL"
-				;; "c:/Program Files/Common Files/Microsoft Shared/VBA/VBA6/VBE6EXT.OLB"
-				;; "c:/Program Files/Common Files/Microsoft Shared/OFFICE11/MSO.DLL"
-				;; "c:/WINDOWS/system32/stdole2.tlb")
-				;; 	   )
 ;; visual-basic-mode
 (autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode" t)
 (add-to-list 'auto-mode-alist '("\\.\\(vbs\\|vb\\|wsf\\|frm\\|bas\\|cls\\)$" .
 				visual-basic-mode))
+
+;; ------------------------------------------------------------------------
+;; Rst-mode (for Sphinx)
+;; ------------------------------------------------------------------------
+;;; RSTモードを見やすくする。
+(setq frame-background-mode 'dark)
+
+(autoload 'rst "rst-mode" "Rst mode for Sphinx" t)
+;;; *.rst, *.restファイルをrst-modeでOpen
+(setq auto-mode-alist
+      (append '(("\\.rst$" . rst-mode)
+		("\\.rest$" . rst-mode)
+		) auto-mode-alist))
+
+;;; 全部スペースでインデントしましょう
+(add-hook 'rst-mode-hook '(lambda() (setq indent-tabs-mode nil)))
+
+(add-hook 'rst-mode-hook
+	  (lambda ()
+	    (setq rst-slides-program "open -a Firefox")
+	    ))
+
+;; ------------------------------------------------------------------------
+;; Name     : Markdown Mode
+;; Function : Use Markdown
+;; History  : 2014.1.11 Add
+;; Install  : http://jblevins.org/projects/markdown-mode/markdown-mode.el
+;; ------------------------------------------------------------------------
+(autoload
+  'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
+;; associate .md file to markdown-mode
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+;; -----------------------------------------------------------------------
+;; Name     : plantuml
+;; Install  : 
+;; ------------------------------------------------------------------------
+(autoload
+  'plantuml-mode "plantuml-mode" "Major mode for editing PlantUML" t)
+(add-to-list 'auto-mode-alist '("\\.puml$" . plantuml-mode))
+(add-to-list 'auto-mode-alist '("\\.plantuml$" . plantuml-mode))

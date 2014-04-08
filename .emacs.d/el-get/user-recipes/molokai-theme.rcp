@@ -1,0 +1,6 @@
+(:name molokai-theme
+       :type github
+       :website "https://github.com/hbin/molokai-theme"
+       :description "Yet Another molokai theme for Emacs 24"
+       :pkgname "hbin/molokai-theme")
+;;       :url "https://github.com/hbin/molokai-theme.git")

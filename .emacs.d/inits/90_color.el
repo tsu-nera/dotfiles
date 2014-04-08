@@ -1,28 +1,4 @@
 ;; ------------------------------------------------------------------------
-;; face-display Setting
-;; ------------------------------------------------------------------------
-;;; 色を設定する
-;;; 設定自体は M-x list-face-displaysから.emacsに自動生成されたものをcopy
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("2b484c630af2578060ee43827f4785e480e19bab336d1ccb2bce5c9d3acfb652" "ea4035bd249cc84f038158d1eb17493623c55b0ca92d9f5a1d036d2837af2e11" "9fd20670758db15cc4d0b4442a74543888d2e445646b25f2755c65dcd6f1504b" default)))
- '(ecb-options-version "2.40")
- '(safe-local-variable-values (quote ((require-final-newline . t))))
- '(yas-trigger-key "TAB"))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(font-lock-function-name-face ((t (:foreground "cyan"))))
- '(markdown-inline-code-face ((t (:inherit font-lock-constant-face))) t)
- '(markdown-pre-face ((t (:foreground "brightmagenta"))) t)
- '(minibuffer-prompt ((t (:foreground "brightblue")))))
-
-;; ------------------------------------------------------------------------
 ;; Name     : Emacs Color theme
 ;; Function :
 ;; History  : 2014.1.14 Add
@@ -50,6 +26,11 @@
 (setq molokai-theme-kit t)
 (require 'molokai-theme)
 (require 'molokai-theme-kit)
+; Linux環境はスケスケに上書きする
+(when linux-p
+  (require 'my-molokai-theme)
+  (require 'my-molokai-theme-kit)
+)
 (load-theme 'molokai t)
 
 ;; ------------------------------------------------------------------------
