@@ -178,3 +178,27 @@
 (setq org-mobile-inbox-for-pull "~/org/flagged.org")
 ;; Set to <your Dropbox root directory>/MobileOrg.
 (setq org-mobile-directory "~/dropbox/アプリ/MobileOrg")
+
+;; 起動と終了時に同期
+(add-hook 'after-init-hook 'org-mobile-pull)
+(add-hook 'kill-emacs-hook 'org-mobile-push)
+
+;; moble sync
+;; http://stackoverflow.com/questions/8432108/how-to-automatically-do-org-mobile-push-org-mobile-pull-in-emacs
+(defvar org-mobile-sync-timer nil)
+(defvar org-mobile-sync-idle-secs (* 60 10))
+(defun org-mobile-sync ()
+    (interactive)
+      (org-mobile-pull)
+        (org-mobile-push))
+(defun org-mobile-sync-enable ()
+    "enable mobile org idle sync"
+      (interactive)
+        (setq org-mobile-sync-timer
+	      (run-with-idle-timer org-mobile-sync-idle-secs t
+				   'org-mobile-sync)));
+(defun org-mobile-sync-disable ()
+    "disable mobile org idle sync"
+      (interactive)
+        (cancel-timer org-mobile-sync-timer))
+(org-mobile-sync-enable)

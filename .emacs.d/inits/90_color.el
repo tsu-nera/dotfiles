@@ -23,15 +23,17 @@
 ;; Install  : https://raw2.github.com/hbin/molokai-theme/master/molokai-theme-kit.el
 ;; ------------------------------------------------------------------------
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(setq molokai-theme-kit t)
-(require 'molokai-theme)
 (require 'molokai-theme-kit)
-; Linux環境はスケスケに上書きする
+(setq molokai-theme-kit t)
+
+;; Linux環境はスケスケに上書きする
 (when linux-p
-  (require 'my-molokai-theme)
-  (require 'my-molokai-theme-kit)
+  (load-theme 'my-molokai t)
 )
-(load-theme 'molokai t)
+;; Cygwinはちゃんと塗りつぶし
+(when cygwin-p
+  (load-theme 'molokai t)
+)
 
 ;; ------------------------------------------------------------------------
 ;; Name     : PowerLine

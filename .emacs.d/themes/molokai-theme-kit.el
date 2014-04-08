@@ -100,4 +100,4 @@
    )
   )
 
-(provide 'my-molokai-theme-kit)
+(provide 'molokai-theme-kit)
