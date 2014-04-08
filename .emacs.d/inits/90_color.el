@@ -23,6 +23,7 @@
 ;; Install  : https://raw2.github.com/hbin/molokai-theme/master/molokai-theme-kit.el
 ;; ------------------------------------------------------------------------
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/molokai-theme")
 (require 'molokai-theme-kit)
 (setq molokai-theme-kit t)
 
