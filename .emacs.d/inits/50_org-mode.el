@@ -180,8 +180,10 @@
 (setq org-mobile-directory "~/dropbox/アプリ/MobileOrg")
 
 ;; 起動と終了時に同期
-(add-hook 'after-init-hook 'org-mobile-pull)
-(add-hook 'kill-emacs-hook 'org-mobile-push)
+;; org-mobile-directryが存在しないとハングするためなしにした
+;; そのうちなんか考える
+;; (add-hook 'after-init-hook 'org-mobile-pull)
+;; (add-hook 'kill-emacs-hook 'org-mobile-push)
 
 ;; moble sync
 ;; http://stackoverflow.com/questions/8432108/how-to-automatically-do-org-mobile-push-org-mobile-pull-in-emacs
