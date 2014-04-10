@@ -323,21 +323,6 @@
 (global-set-key (kbd "C-c <") 'mc/mark-previous-like-this)
 
 ;; -----------------------------------------------------------------------
-;; Name     : wanderlust
-;; Install  :el-get
-;; Function : emacsのメーラ
-;; ------------------------------------------------------------------------
-(autoload 'wl "wl" "Wanderlust" t)
-(autoload 'wl-other-frame "wl" "Wanderlust on new frame." t)
-(autoload 'wl-draft "wl-draft" "Write draft with Wanderlust." t)
-
-(require 'starttls)
-(require 'ssl)
-(setq ssl-certificate-verification-policy 1) 
-(setq ssl-program-name "openssl")
-(setq starttls-negotiation-by-kill-program t)
-
-;; -----------------------------------------------------------------------
 ;; Name     : EmacsでTODOをハイライト
 ;; Install  : http://stackoverflow.com/questions/8551320/
 ;;            highlighting-todos-in-all-programming-modes
