@@ -1,0 +1,4 @@
+(:name anything
+       :auto-generated t
+       :type git
+       :url "git://repo.or.cz/anything-config.git")

@@ -1,4 +1,0 @@
-githubで管理されたelispをここにおく。
-追加は、 git add submoduleで。
-
-  git add submodule -f xxx

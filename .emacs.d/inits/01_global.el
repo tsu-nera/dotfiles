@@ -1,4 +1,6 @@
-;; general key bind
+;; ------------------------------------------------------------------------
+;; General key bind
+;; ------------------------------------------------------------------------
 ;;(global-set-key (kbd "C-c a")   'align)
 (global-set-key (kbd "C-c M-a") 'align-regexp)
 (global-set-key (kbd "C-h")     'backward-delete-char)
@@ -13,6 +15,9 @@
 (global-set-key (kbd "C-r")     'replace-string)
 (global-set-key (kbd "C-/")     'undo)
 
+;; ------------------------------------------------------------------------
+;; General Value
+;; ------------------------------------------------------------------------
 ;;; ツールバーを消す
 ;;; (tool-bar-mode -1)
 
@@ -60,6 +65,9 @@
 
 ;; バッファ再読み込み
 (global-auto-revert-mode 1)
+
+;; ウィンドウマネージャ環境での起動カイゼン
+(modify-frame-parameters nil '((wait-for-wm . nil)))
 
 ;; ------------------------------------------------------------------------
 ;; Emacs Client

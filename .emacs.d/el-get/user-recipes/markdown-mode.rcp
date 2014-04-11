@@ -1,0 +1,5 @@
+(:name markdown-mode
+       :type github
+       :website "https://github.com:defunkt/markdown-mode.git"
+       :description "Major Mode for Markdown"
+       :pkgname "defunkt/markdown-mode")

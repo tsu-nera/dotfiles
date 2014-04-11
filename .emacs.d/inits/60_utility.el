@@ -14,3 +14,9 @@
 (autoload 'wl "wl" "Wanderlust" t)
 (autoload 'wl-other-frame "wl" "Wanderlust on new frame." t)
 (autoload 'wl-draft "wl-draft" "Write draft with Wanderlust." t)
+
+;; -----------------------------------------------------------------------
+;; Name     : esup
+;; Function : Emacs 起動時のプロファイラ
+;; ------------------------------------------------------------------------
+(autoload 'esup "esup" "Emacs Start Up Profiler." nil)

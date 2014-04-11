@@ -26,3 +26,6 @@
 /.emacs.d/cedet-bzr
 /.emacs.d/srecode-map.el
 /.emacs.d/snippets/enh-ruby-mode/
+.emacs.d/.org-id-locations
+.emacs.d/abbrev_defs
+.emacs.d/el-get/.status.el.old

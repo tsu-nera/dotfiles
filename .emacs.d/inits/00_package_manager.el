@@ -5,13 +5,6 @@
 ;;            git clone git@github.com:dimitri/el-get.git
 ;; ------------------------------------------------------------------------
 ;; ダウンロードしていないときはダウンロード
-;; (unless (require 'el-get nil 'noerror)
-;;   (with-current-buffer
-;;       (url-retrieve-synchronously
-;;        "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
-;;     (goto-char (point-max))
-;;     (eval-print-last-sexp)))
-
 (unless (require 'el-get nil t)
   (url-retrieve
    "https://raw.github.com/dimitri/el-get/master/el-get-install.el"
@@ -32,54 +25,58 @@
 
 (setq el-get-user-package-directory "~/.emacs.d/el-get/init-files")
 
-(require 'el-get)
+;; auto install el-get.el
+(defvar my/el-get-packages
+  '(
+    helm
+    yasnippet
+    vbasense
+    visual-basic-mode
+    ruby-block
+    robe-mode
+    ruby-electric
+    rspec-mode
+    ruby-refactor
+    rcodetools
+    anything-rdefs
+    inf-ruby
+    auto-complete
+    auto-complete-ruby
+    yaml-mode
+    popwin
+    flycheck
+    flycheck-color-mode-line
+    anzu
+    auto-highlight-symbol
+    highlight-symbol
+    multiple-cursors
+    color-theme
+    ;; smart-compile 独自改造したものをelispにおいた
+    helm-descbinds
+    anything
+    gist
+    flymake
+    helm-gist
+    helm-c-yasnippet
+    markdown-mode
+    expand-region
+    powerline 
+    molokai-theme
+    cool-mode
+    plantuml-mode
+    metaweblog
+    xml-rpc-el
+    tempbuf
+    org2blog
+    org-mode
+    org-pomodoro
+    rainbow-mode
+    wanderlust
+    esup
+    )
+  "A list of packages to install from el-get at launch.")
 
-;; 自動でインストールするものたち
-(el-get 'sync
-	'helm
-	'yasnippet
-	'vbasense
-	'visual-basic-mode
-	'ruby-block
-	'robe-mode
-	'ruby-electric
-	'rspec-mode
-	'ruby-refactor
-	'rcodetools
-	'anything-rdefs
-	'inf-ruby
-	'auto-complete
-	'auto-complete-ruby
-	'yaml-mode
-	'popwin
-	'flycheck
-	'flycheck-color-mode-line
-	'anzu
-	'auto-highlight-symbol
-	'highlight-symbol
-	'multiple-cursors
-	'color-theme
-	;; 'smart-compile 独自改造したものをelispにおいた
-	'helm-descbinds
-	'anything
-	'gist
-	'flymake
-	'helm-gist
-	'helm-c-yasnippet
-	'markdown-mode
-	'expand-region
-	'powerline 
-	'molokai-theme
-	'cool-mode
-	'plantuml-mode
-	'metaweblog
-	'xml-rpc-el
-	'tempbuf
-	'org2blog
-	'org-mode
-	'org-pomodoro
-	'rainbow-mode
-	)
+(el-get 'sync my/el-get-packages)
 
 ;; ------------------------------------------------------------------------
 ;; Name     : package.el

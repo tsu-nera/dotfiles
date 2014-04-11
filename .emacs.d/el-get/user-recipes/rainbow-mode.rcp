@@ -1,0 +1,4 @@
+(:name rainbow-mode
+       :auto-generated t
+       :type git
+       :url "https://github.com/emacsmirror/rainbow-mode")
