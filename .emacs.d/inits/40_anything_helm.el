@@ -19,6 +19,8 @@
 ;(require 'helm-migemo)
 (require 'gist)
 (require 'helm-gist)
+(autoload 'helm-github-issues "helm-github-issues"
+  "Helm interface for github issues" nil)
 
 (setq helm-idle-delay             0.3
       helm-input-idle-delay       0.3

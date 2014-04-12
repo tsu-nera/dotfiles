@@ -66,9 +66,24 @@
 ;; バッファ再読み込み
 (global-auto-revert-mode 1)
 
-;; ウィンドウマネージャ環境での起動カイゼン
+;; ウィンドウマネージャ環境での起動時間カイゼン
 (modify-frame-parameters nil '((wait-for-wm . nil)))
 
+;; git管理のシンボリックリンクで質問されないためのおまじない。
+;; 参考: http://openlab.dino.co.jp/2008/10/30/212934368.html
+;;; avoid "Symbolic link to Git-controlled source file;; follow link? (yes or no)"
+(setq git-follow-symlinks t)
+
+;; ------------------------------------------------------------------------
+;; デフォルトブラウザは conkeror
+;; ------------------------------------------------------------------------
+(setq browse-url-generic-program (executable-find "conkeror"))
+(setq browse-url-browser-function 'browse-url-generic)
+
+(when windows-p
+; Windows環境のデフォルト
+ (setq browse-url-browser-function 'browse-url-default-windows-browser)
+)
 ;; ------------------------------------------------------------------------
 ;; Emacs Client
 ;; ------------------------------------------------------------------------
@@ -77,38 +92,6 @@
 (require 'server)
 (unless (server-running-p)
   (server-start))
-
-;; -----------------------------------------------------------------------
-;; Function : 環境による場合分けの方法
-;;   http://d.hatena.ne.jp/tomoya/20090811/1250006208
-;; ------------------------------------------------------------------------
-(defun x->bool (elt) (not (not elt)))
-
-;; emacs-version predicates
-(setq emacs22-p (string-match "^22" emacs-version)
-      emacs23-p (string-match "^23" emacs-version)
-      emacs23.0-p (string-match "^23\.0" emacs-version)
-      emacs23.1-p (string-match "^23\.1" emacs-version)
-      emacs23.2-p (string-match "^23\.2" emacs-version))
-
-;; system-type predicates
-(setq darwin-p  (eq system-type 'darwin)
-      ns-p      (eq window-system 'ns)
-      carbon-p  (eq window-system 'mac)
-      linux-p   (eq system-type 'gnu/linux)
-      colinux-p (when linux-p
-		  (let ((file "/proc/modules"))
-		    (and
-		     (file-readable-p file)
-		     (x->bool
-		      (with-temp-buffer
-			(insert-file-contents file)
-			(goto-char (point-min))
-			(re-search-forward "^cofuse\.+" nil t))))))
-      cygwin-p  (eq system-type 'cygwin)
-      nt-p      (eq system-type 'windows-nt)
-      meadow-p  (featurep 'meadow)
-      windows-p (or cygwin-p nt-p meadow-p))
 
 ;; -----------------------------------------------------------------------
 ;; Function : EmacsとXのクリップポードを共有
@@ -231,24 +214,3 @@
 
 (add-hook 'ruby-mode-hook 'whitespace-mode)
 
-;; -----------------------------------------------------------------------
-;; Name     : 左右のバッファをF2で交換する
-;; Function : http://d.hatena.ne.jp/supermassiveblackhole/20100625/1277436024
-;; ------------------------------------------------------------------------
-(defun swap-screen()
-  "Swap two screen,leaving cursor at current window."
-  (interactive)
-  (let ((thiswin (selected-window))
-        (nextbuf (window-buffer (next-window))))
-    (set-window-buffer (next-window) (window-buffer))
-    (set-window-buffer thiswin nextbuf)))
-(defun swap-screen-with-cursor()
-  "Swap two screen,with cursor in same buffer."
-  (interactive)
-  (let ((thiswin (selected-window))
-        (thisbuf (window-buffer)))
-    (other-window 1)
-    (set-window-buffer thiswin (window-buffer))
-    (set-window-buffer (selected-window) thisbuf)))
-(global-set-key [f2] 'swap-screen)
-(global-set-key [S-f2] 'swap-screen-with-cursor)

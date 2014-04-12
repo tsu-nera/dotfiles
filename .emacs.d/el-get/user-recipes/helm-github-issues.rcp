@@ -1,0 +1,5 @@
+(:name helm-github-issues
+       :type github
+       :website "https://github.com/syohex/emacs-helm-github-issues"
+       :description "helm interface for github issues"
+       :pkgname "syohex/emacs-helm-github-issues")
