@@ -82,10 +82,12 @@
 (setq git-follow-symlinks t)
 
 ;; ------------------------------------------------------------------------
-;; デフォルトブラウザは conkeror
+;; デフォルトブラウザ設定
 ;; ------------------------------------------------------------------------
-(setq browse-url-generic-program (executable-find "conkeror"))
-(setq browse-url-browser-function 'browse-url-generic)
+(when linux-p
+  (setq browse-url-generic-program (executable-find "conkeror"))
+  (setq browse-url-browser-function 'browse-url-generic)
+)
 
 (when windows-p
 ; Windows環境のデフォルト
