@@ -106,25 +106,24 @@
 ;; Function : EmacsとXのクリップポードを共有
 ;; Install  : http://tubo028.hatenablog.jp/entry/2013/09/01/142238
 ;; ------------------------------------------------------------------------
+;; OSとのクリップボード共有
+(cond (window-system
+(setq x-select-enable-clipboard t)
+))
+
+;; 上記では、emacs -nwでは動作しない。
 (when linux-p
-(if (display-graphic-p)
-    ((progn )
-      ;; if on window-system
-      (setq x-select-enable-clipboard t)
-      (global-set-key "\C-y" 'x-clipboard-yank))
-  ;; else (on terminal)
+  ;; クリップボードと同期
   (setq interprogram-paste-function
 	(lambda ()
-	  (shell-command-to-string "xsel -b -o")))
+	  (shell-command-to-string "xsel -p -o")))
   (setq interprogram-cut-function
 	(lambda (text &optional rest)
 	  (let* ((process-connection-type nil)
-		 (proc (start-process "xsel" "*Messages*" "xsel" "-b" "-i")))
+		 (proc (start-process "xsel" "*Messages*" "xsel" "-p" "-i")))
 	    (process-send-string proc text)
-	    (process-send-eof proc)))))
-
-(setq x-select-enable-clipboard t);; OSとのクリップボード共有
-)
+	    (process-send-eof proc))))
+  )
 
 ;; -----------------------------------------------------------------------
 ;; Function : ミニバッファに入るときに日本語入力無効にする
