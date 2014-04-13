@@ -75,6 +75,7 @@
     esup
     helm-github-issues
     helm-open-github
+    setup
     )
   "A list of packages to install from el-get at launch.")
 

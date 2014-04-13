@@ -27,14 +27,15 @@
 (require 'molokai-theme-kit)
 (setq molokai-theme-kit t)
 
+(load-theme 'molokai t)
 ;; Linux環境はスケスケに上書きする
-(when linux-p
-  (load-theme 'my-molokai t)
-)
-;; Cygwinはちゃんと塗りつぶし
-(when cygwin-p
-  (load-theme 'molokai t)
-)
+;; (when linux-p
+;;   (load-theme 'my-molokai t)
+;; )
+;; ;; Cygwinはちゃんと塗りつぶし
+;; (when cygwin-p
+;;   (load-theme 'molokai t)
+;; )
 
 ;; ------------------------------------------------------------------------
 ;; Name     : PowerLine

@@ -135,13 +135,6 @@ found, otherwise returns nil."
 (global-set-key [f2] 'swap-screen)
 (global-set-key [S-f2] 'swap-screen-with-cursor)
 
-;; ------------------------------------------------------------------------
-;; Name     : setup
-;; Function : Emacs高速起動のためのマクロライブラリ
-;;            EmacsWiki
-;; ------------------------------------------------------------------------
-(require 'setup)
-
 ;; -----------------------------------------------------------------------
 ;; Name     : init-loader
 ;; Install  : M-x install-elisp
