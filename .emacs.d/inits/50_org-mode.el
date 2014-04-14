@@ -3,7 +3,8 @@
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
 ;; アジェンダ表示の対象ファイル
-(setq org-agenda-files '("~/gtd/main.org"))
+(setq org-agenda-files '("~/gtd/main.org"
+			 "~/gtd/diary.org"))
 
 ;; key bindings
 (global-set-key "\C-cl" 'org-store-link)
@@ -11,10 +12,10 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 (global-set-key "\C-c\C-x\C-@" 'org-clock-out)
-
-;; リンクをconkerorで開く
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "/home/tsu-nera/bin/conkeror")
+(defun gtd ()
+  (interactive)
+     (find-file "~/gtd/main.org")
+     )
 
 ;; TODO状態
 ;;(setq org-todo-keywords
