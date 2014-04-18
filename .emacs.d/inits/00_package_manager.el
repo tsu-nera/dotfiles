@@ -76,6 +76,8 @@
     helm-github-issues
     helm-open-github
     setup
+    exec-path-from-shell
+    migemo
     )
   "A list of packages to install from el-get at launch.")
 

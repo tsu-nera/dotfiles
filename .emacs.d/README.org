@@ -13,3 +13,8 @@ $ git submodule update
 
 ** emacswikiのレシピを入れる
 M-x el-get-emacswiki-build-local-recipes
+
+* 依存パッケージ
+** cmigemo
+
+sudo apt-get install cmigemo

@@ -161,12 +161,17 @@
 ;; Install  :
 ;; Function : http://sakito.jp/emacs/emacsshell.html#emacs
 ;; ------------------------------------------------------------------------
-(let* ((zshpath (shell-command-to-string
-		          "/usr/bin/env zsh -c 'printenv PATH'"))
-              (pathlst (split-string zshpath ":")))
-    (setq exec-path pathlst)
-      (setq eshell-path-env zshpath)
-        (setenv "PATH" zshpath))
+;; (let* ((zshpath (shell-command-to-string
+;; 		          "/usr/bin/env zsh -c 'printenv PATH'"))
+;;               (pathlst (split-string zshpath ":")))
+;;     (setq exec-path pathlst)
+;;       (setq eshell-path-env zshpath)
+;;         (setenv "PATH" zshpath))
+
+;; パスの引き継ぎ
+;; exec-path-from-shell from el-get
+(exec-path-from-shell-initialize)
+
 ;; -----------------------------------------------------------------------
 ;; Name     :  シェルの設定
 ;; Install  :

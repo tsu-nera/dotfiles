@@ -1,0 +1,5 @@
+(:name migemo
+       :type github
+       :website "https://github.com/emacs-jp/migemo"
+       :description "Migemo"
+       :pkgname "emacs-jp/migemo")
