@@ -222,3 +222,51 @@
 
 (add-hook 'ruby-mode-hook 'whitespace-mode)
 
+;; ------------------------------------------------------------------------
+;; Name     : popwin
+;; Function : ポップアップ表示
+;; History  : 2014.1.15 Add
+;; Install  : package.el経由
+;; ------------------------------------------------------------------------
+(when (require 'popwin)
+  (setq helm-samewindow nil)
+  (setq display-buffer-function 'popwin:display-buffer)
+  (setq popwin:special-display-config '(("*compilation*" :noselect t)
+					;;("helm" :regexp t :height 0.4)
+					("anything" :regexp t :height 0.4)
+					)))
+(push '("^\*helm .+\*$" :regexp t) popwin:special-display-config)
+(push '("^\*Org .+\*$" :regexp t) popwin:special-display-config)
+(push '("*rspec-compilation*" :regexp t) popwin:special-display-config)
+(push '("*Oz Compiler*" :regexp t) popwin:special-display-config)
+
+;; -----------------------------------------------------------------------
+;; Name     : ffap.el
+;; Function : 現在の位置のファイル・URLを開く
+;; History  : 2014/02/02 add
+;; Install  : build-in
+;; ------------------------------------------------------------------------
+(ffap-bindings)
+
+;; -----------------------------------------------------------------------
+;; Name     : tempbuf.el
+;; Function : 使っていないバッファを削除
+;; History  : 2014/02/02 add
+;; Install  : emacs wiki
+;; ------------------------------------------------------------------------
+(require 'tempbuf)
+;; ファイルを開いたら有効
+(add-hook 'find-file-hooks 'turn-on-tempbuf-mode)
+;; Dired modeならば有効
+(add-hook 'dired-mode-hook 'turn-on-tempbuf-mode)
+
+;; -----------------------------------------------------------------------
+;; Name     : EmacsでTODOをハイライト
+;; Install  : http://stackoverflow.com/questions/8551320/
+;;            highlighting-todos-in-all-programming-modes
+;; ------------------------------------------------------------------------
+(add-hook 'prog-mode-hook
+	  (lambda ()
+	    (font-lock-add-keywords nil
+           '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
+

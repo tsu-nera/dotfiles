@@ -4,8 +4,9 @@
 ;; History  : 2014.1.14 Add
 ;; Install  : https://code.google.com/p/gnuemacscolorthemetest/
 ;; ------------------------------------------------------------------------
-(require 'color-theme)
-(color-theme-initialize)
+;; どうもデフォルトで読み込まれる見たいなので封印
+;;(require 'color-theme)
+;;(color-theme-initialize)
 
 ;; ------------------------------------------------------------------------
 ;; Name     : Almost Monokai
