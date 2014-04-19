@@ -1,5 +1,11 @@
+;; -----------------------------------------------------------------------
+;; org-mode
+;; 
+;; こまったらここを見れば日本語訳がある
+;; http://orgmode.jp/
+;; ------------------------------------------------------------------------
 (require 'org-install)
-(require 'org-pomodoro)
+;; (require 'org-pomodoro)
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
 ;; アジェンダ表示の対象ファイル
@@ -27,13 +33,35 @@
 ;; DONEの時刻を記録
 (setq org-log-done 'time)
 
-;;; org-clock configuration
-(setq org-clock-out-remove-zero-time-clocks t
-      org-clock-out-when-done t
-      org-clock-modeline-total 'today
-      org-clock-persist t
-      org-clock-persistence-insinuate)
+;; -----------------------------------------------------------------------
+;; Name     : org-clock
+;; Function : 時間計測
+;; http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
+;; ------------------------------------------------------------------------
+;; emacs resume 時に時間計測再会
+(org-clock-persistence-insinuate)
+
+;; Sometimes I change tasks I'm clocking quickly
+;; - this removes clocked tasks with 0:00 duration
+(setq org-clock-out-remove-zero-time-clocks t)
+;; clock out when moving task to a done state
+(setq org-clock-out-when-done t)
+;; Save the running clock and all clock history
+;; when exiting Emacs, load it on startup
+(setq org-clock-persist (quote history))
+;; Resume clocking task on clock-in if the clock is open
+(setq org-clock-in-resume t)
+
+;; 空き時間の解決 15分
+;; 半端時間を絶えずチェックしているファイルのリストは、M-x org-resolve-clocks
+;; http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
+(setq org-clock-idle-time 15)
+
+;; what's this??
+;;(setq org-clock-modeline-total 'today)
+;;(setq org-clock-persist t)
 ;;(setq org-clock-clocked-in-display 'both)
+
 
 ;(eval-after-load "org-faces"
 ;  '(set-face-attribute 'org-mode-line-clock nil
