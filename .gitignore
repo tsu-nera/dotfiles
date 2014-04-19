@@ -29,3 +29,4 @@
 .emacs.d/.org-id-locations
 .emacs.d/abbrev_defs
 .emacs.d/el-get/.status.el.old
+.emacs.d/bookmarks

@@ -3,15 +3,18 @@
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
 ;; アジェンダ表示の対象ファイル
-(setq org-agenda-files '("~/gtd/main.org"
-			 "~/gtd/diary.org"))
+(setq org-agenda-files '("~/gtd/inbox.org"
+			 "~/gtd/main.org"))
 
 ;; key bindings
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
-(global-set-key "\C-c\C-x\C-@" 'org-clock-out)
+(global-set-key "\C-c\C-x\C-@" 'org-clock-out) ;; tmuxで C-oは利用しているため
+(define-key org-mode-map "\C-co" 'org-open-at-point) ;; C-oの置き換え tmuxで c-oは使っているので
+
+;; ショートカットGTD
 (defun gtd ()
   (interactive)
      (find-file "~/gtd/main.org")
@@ -23,7 +26,6 @@
 
 ;; DONEの時刻を記録
 (setq org-log-done 'time)
-
 
 ;;; org-clock configuration
 (setq org-clock-out-remove-zero-time-clocks t
@@ -49,21 +51,22 @@
 ;;		 (org-agenda-quit))))
 ;;
 
-;; NextActionタグを設定
-(defvar my-doing-tag "next")
-;; nextタグをトグルする
-(defun my-toggle-doing-tag ()
-  (interactive)
-  (when (eq major-mode 'org-mode)
-    (save-excursion
-      (save-restriction
-        (unless (org-at-heading-p)
-          (outline-previous-heading))
-        (if (string-match (concat ":" my-doing-tag ":") (org-get-tags-string))
-            (org-toggle-tag my-doing-tag 'off)
-          (org-toggle-tag my-doing-tag 'on))
-        (org-reveal)))))
-(global-set-key (kbd "<f11>") 'my-toggle-doing-tag)
+;; Doingタグ つかってないので封印
+;; ;; NextActionタグを設定
+;; (defvar my-doing-tag "next")
+;; ;; nextタグをトグルする
+;; (defun my-toggle-doing-tag ()
+;;   (interactive)
+;;   (when (eq major-mode 'org-mode)
+;;     (save-excursion
+;;       (save-restriction
+;;         (unless (org-at-heading-p)
+;;           (outline-previous-heading))
+;;         (if (string-match (concat ":" my-doing-tag ":") (org-get-tags-string))
+;;             (org-toggle-tag my-doing-tag 'off)
+;;           (org-toggle-tag my-doing-tag 'on))
+;;         (org-reveal)))))
+;; (global-set-key (kbd "<f11>") 'my-toggle-doing-tag)
 
 ; 時間になったら音をならす
 (setq org-clock-sound "/usr/share/sounds/LinuxMint/stereo/desktop-login.ogg")
@@ -78,7 +81,7 @@
 (setq org-columns-default-format "%40ITEM(Task) %17Effort(Effort){:} %10CLOCKSUM")
 ; global Effort estimate values
 (setq org-global-properties (quote ((
-      "Effort_ALL" . "0:15 0:30 0:45 1:00 2:00 3:00"))))
+      "Effort_ALL" . "0:15 0:30 0:45 1:00 1:30 2:00 2:30 3:00"))))
 
 ;; -----------------------------------------------------------------------
 ;; Name     : org-capture
@@ -95,15 +98,15 @@
 	;;	 "** TODO %?   :bug:\n  %T\n %a\n %i\n")
 	;;	("m" "Meeting" entry (file+headline nil "Meeting")
 	;;	 "** %?\n %U\n %a\n %i\n")
-	("i" "Idea" entry (file+headline nil "~/diary/org/idea.org")
-	 "** %?\n %U\n %i\n %a\n %i\n")
-	("w" "Twitter" entry (file+datetree "~/diary/org/twitter.org")
-	 "** %U %?\n")
+	("i" "Inbox" entry (file+datetree "~/gtd/inbox.org")
+	 "** TODO %?\n")
+	("w" "diary" entry (file+datetree "~/gtd/main.org")
+	 "** %T %?\n")
 	)
       )
 
-;; C-oの置き換え tmuxで c-oは使っているので
-(define-key org-mode-map "\C-co" 'org-open-at-point)
+;; capture てんぷれの書き方
+;; http://orgmode.org/manual/Template-expansion.html#Template-expansion
 
 ;; -----------------------------------------------------------------------
 ;; NextActionの設定

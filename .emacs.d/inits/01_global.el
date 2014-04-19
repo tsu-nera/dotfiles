@@ -244,6 +244,7 @@
 (push '("^\*Org .+\*$" :regexp t) popwin:special-display-config)
 (push '("*rspec-compilation*" :regexp t) popwin:special-display-config)
 (push '("*Oz Compiler*" :regexp t) popwin:special-display-config)
+(push '("^CAPTURE-.+\*.org$" :regexp t) popwin:special-display-config)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : ffap.el
