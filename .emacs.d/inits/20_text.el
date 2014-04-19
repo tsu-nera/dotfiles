@@ -112,12 +112,12 @@
 ;; Function : リージョンを広げる
 ;; http://d.hatena.ne.jp/syohex/20120117/1326814127
 ;; ------------------------------------------------------------------------
-;;(require 'expand-region)
-;;(global-set-key (kbd "C-@") 'er/expand-region)
-;;(global-set-key (kbd "C-M-@") 'er/contract-region)
+(require 'expand-region)
+;; (global-set-key (kbd "C-@") 'er/expand-region)
+;; (global-set-key (kbd "C-M-@") 'er/contract-region)
 
 ;; transient-mark-modeが nilでは動作しませんので注意
-;;(transient-mark-mode t)
+;; (transient-mark-mode t)
 ;; -----------------------------------------------------------------------
 ;; Name     : multiple-cursors
 ;; Install  : el-get
