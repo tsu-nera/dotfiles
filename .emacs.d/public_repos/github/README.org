@@ -2,10 +2,17 @@ githubで管理されたelispをここにおく。
 
 * 追加
 
+#+begin_lang options
   $ git add submodule -f xxx
+#+end_lang
 
 * 削除
 
+#+begin_lang options
   $ git submodule deinit path/to/submodule
   $ git rm path/to/submodule
   $ git config -f .gitmodules --remove-section submodule.path/to/submodule
+#+end_lang
+
+* 2014/04/19 memo
+el-get, init-loader自体も el-getの管理とする。

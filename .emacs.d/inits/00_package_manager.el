@@ -5,6 +5,7 @@
 ;;            git clone git@github.com:dimitri/el-get.git
 ;; ------------------------------------------------------------------------
 ;; ダウンロードしていないときはダウンロード
+;; TODO どうもうまく動作していないようだ。調査する。
 (unless (require 'el-get nil t)
   (url-retrieve
    "https://raw.github.com/dimitri/el-get/master/el-get-install.el"
@@ -78,6 +79,9 @@
     setup
     exec-path-from-shell
     migemo
+    ;; この2つは特別なので一番最後におく
+    init-loader
+    el-get
     )
   "A list of packages to install from el-get at launch.")
 
@@ -89,12 +93,13 @@
 ;; History  : 2014/01/16 add
 ;; Install  : http://www.emacswiki.org/emacs/download/auto-install.el
 ;; ------------------------------------------------------------------------
-(require 'package)
+;; TODO el-getに完全移行するためにコメントアウトする
+;;(require 'package)
 ;; Add package-archives
 ;; Melpa: githubからelispを落とすリポジトリを追加
 ;; これで、 M-x list-packagesで melpaが利用できる。
-(add-to-list 'package-archives
-	     '("marmalade" . "http://marmalade-repo.org/packages/")
-	     '("melpa" . "http://melpa.milkbox.net/packages/"))
+;; (add-to-list 'package-archives
+;; 	     '("marmalade" . "http://marmalade-repo.org/packages/")
+;; 	     '("melpa" . "http://melpa.milkbox.net/packages/"))
 ;; Initialize
-(package-initialize)
+;;(package-initialize)

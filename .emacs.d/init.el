@@ -79,7 +79,10 @@ found, otherwise returns nil."
 	    (normal-top-level-add-subdirs-to-load-path))))))
 ;; load-pathに追加するフォルダ
 ;; 2つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
-(add-to-load-path "elisp" "public_repos" "elpa" "inits" "el-get" "themes")
+(add-to-load-path "elisp" "inits" "el-get")
+
+;; elpaは外した。el-getで一元管理したいので。
+;; public_reposは対象から外した。el-getで一元管理したいので。
 
 ;; -----------------------------------------------------------------------
 ;; Function : 環境による場合分けの方法
@@ -145,8 +148,7 @@ found, otherwise returns nil."
 
 ;; -----------------------------------------------------------------------
 ;; Name     : init-loader
-;; Install  : M-x install-elisp
-;;     http://coderepos.org/share/browser/lang/elisp/init-loader/init-loader.el
+;; Install  : git clone https://github.com/emacs-jp/init-loader
 ;; Function : init.el分割管理
 ;; ------------------------------------------------------------------------
 ;; このエラーメッセージがでないようにするおまじない
@@ -156,9 +158,11 @@ found, otherwise returns nil."
 
 ;; init-loader
 ;; init-loader は git submoduleで入れる。
+;; TODO 自動でインストールする方法を考える
 (require 'init-loader)
 ;; 設定ディレクトリ
 (init-loader-load "~/.emacs.d/inits")
 ;; ログファイルを表示
 (setq init-loader-show-log-after-init t)
-
+;; バイトコンパイルする
+(setq init-loader-byte-compile t)
