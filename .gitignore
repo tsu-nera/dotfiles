@@ -30,3 +30,4 @@
 .emacs.d/abbrev_defs
 .emacs.d/el-get/.status.el.old
 .emacs.d/bookmarks
+/.emacs.d/inits/*.elc

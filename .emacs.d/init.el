@@ -160,9 +160,25 @@ found, otherwise returns nil."
 ;; init-loader は git submoduleで入れる。
 ;; TODO 自動でインストールする方法を考える
 (require 'init-loader)
-;; 設定ディレクトリ
-(init-loader-load "~/.emacs.d/inits")
+
+;;; 設定ファイルのあるフォルダを指定
+(setq inits_dir (expand-file-name "~/.emacs.d/inits/"))
+(init-loader-load inits_dir)
+
 ;; ログファイルを表示
 (setq init-loader-show-log-after-init t)
 ;; バイトコンパイルする
 (setq init-loader-byte-compile t)
+
+;; initsフォルダのみ、保存時に自動コンパイルして即反映させる
+;; http://fukuyama.co/emacsd
+(defun auto-save-byte-compile-file ()
+  "Do `byte-compile-file' and reload setting immediately, When elisp file saved only in inits folder."
+  (interactive)
+  (when (or (equal default-directory inits_dir)
+	    (equal default-directory (abbreviate-file-name inits_dir)))
+    (byte-compile-file buffer-file-name t)
+    ))
+(add-hook 'emacs-lisp-mode-hook
+	  (lambda ()
+	    (add-hook 'after-save-hook 'auto-save-byte-compile-file nil t)))

@@ -36,8 +36,9 @@
 ;; Function : 日本語をロ-マ字検索
 ;; History  : 2014.1.25 Add
 ;; Install  : sudo apt-get install cmigemo
-					;
+;;
 ;; ------------------------------------------------------------------------
+(when linux-p
 (when (and (executable-find "cmigemo")
 	   (require 'migemo nil t))
   (setq migemo-options '("-q" "--emacs"))
@@ -48,17 +49,8 @@
   (load-library "migemo")
   (migemo-init)
   )
+)
 
-(when (and (executable-find "cmigemo")
-	   (require 'migemo nil t))
-  (setq migemo-options '("-q" "--emacs"))
-
-  (setq migemo-user-dictionary nil)
-  (setq migemo-regex-dictionary nil)
-  (setq migemo-coding-system 'utf-8-unix)
-  (load-library "migemo")
-  (migemo-init)
-  )
 
 (setq migemo-command "cmigemo")
 (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
@@ -91,7 +83,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (require 'yasnippet)
-(yas/load-directory "~/.emacs.d/snippets")
+(yas-load-directory "~/.emacs.d/snippets")
 (yas-global-mode 1)
 
 ;; 既存スニペットを挿入する
@@ -139,4 +131,3 @@
 
 (global-set-key (kbd "C-c >") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-c <") 'mc/mark-previous-like-this)
-
