@@ -227,6 +227,7 @@ export EDITOR='emacsclient -nw'
 # fi
 alias reboot_emacs="emacsclient -e \"(kill-emacs)\";emacs --daemon"
 
+
 # screen実行中にEmacs保存ができない
 # stty ixany
 # stty ixoff -ixon
@@ -249,6 +250,10 @@ fi
 # 	z --add "$(pwd -P)"
 #     }
 # fi
+
+# ------------------------------------------------------------------------
+# Functions
+# ------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------
 # Name     : percol
@@ -280,3 +285,29 @@ if [ -z "$TMUX" -a -z "$STY" ]; then
 	screen -rx || screen -D -RR
     fi
 fi
+
+# ------------------------------------------------------------------------
+# Name     : show_buffer_stack()
+# History  : 2014/04/20
+# Function : コマンドラインスタック
+# Refs:
+# http://d.hatena.ne.jp/kei_q/20110308/1299594629
+# http://qiita.com/items/1f2c7793944b1f6cc346
+# ------------------------------------------------------------------------
+show_buffer_stack() {
+    POSTDISPLAY="
+stack: $LBUFFER"
+    zle push-line-or-edit
+}
+zle -N show_buffer_stack
+setopt noflowcontrol
+bindkey '^Q' show_buffer_stack  # Ctrl + q
+
+# クリップボードコピー
+xsel-buffer(){
+    print -rn $BUFFER | xsel -i
+    zle -M "xsel -i ${BUFFER}"
+}
+
+zle -N xsel-buffer
+bindkey '^x^p' xsel-buffer # C-x C-p

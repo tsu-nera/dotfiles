@@ -168,3 +168,4 @@ found, otherwise returns nil."
 ;; バイトコンパイルする
 ;; 初めのバイトコンパイルは手動で実施する必要がある
 (setq init-loader-byte-compile t)
+(put 'downcase-region 'disabled nil)
