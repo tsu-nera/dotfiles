@@ -169,7 +169,8 @@ alias lal='ls -al'
 
 alias r='ruby'
 alias l='less'
-alias m='emacsclient -nw'
+# alias m='emacsclient -nw'
+alias m='emacsclient -nw $* || emacs --daemon'
 alias t='task'
 alias o='xdg-open'
 alias lock='gnome-screensaver-command --lock'
@@ -225,6 +226,8 @@ export EDITOR='emacsclient -nw'
 #   else
 #     `emacs --daemon`
 # fi
+alias kill_emacs="emacsclient -e \"(kill-emacs)\""
+alias boot_emacs="emacs --daemon"
 alias reboot_emacs="emacsclient -e \"(kill-emacs)\";emacs --daemon"
 
 
@@ -311,3 +314,35 @@ xsel-buffer(){
 
 zle -N xsel-buffer
 bindkey '^x^p' xsel-buffer # C-x C-p
+
+# ------------------------------------------------------------------------
+# Name     : dired
+# History  : 2014/04/20
+# Function : コマンドラインからEmacs Dired
+# Refs:
+## http://masutaka.net/chalow/2011-09-28-1.html
+# ------------------------------------------------------------------------
+## Invoke the ``dired'' of current working directory in Emacs buffer.
+function dired () {
+emacsclient -e "(dired \"${1:a}\")"
+}
+ 
+# ## Chdir to the ``default-directory'' of currently opened in Emacs buffer.
+function cde () {
+EMACS_CWD=`emacsclient -e "
+(expand-file-name
+(with-current-buffer
+(if (featurep 'elscreen)
+(let* ((frame-confs (elscreen-get-frame-confs (selected-frame)))
+(num (nth 1 (assoc 'screen-history frame-confs)))
+(cur-window-conf (cadr (assoc num (assoc 'screen-property frame-confs))))
+(marker (nth 2 cur-window-conf)))
+(marker-buffer marker))
+(nth 1
+(assoc 'buffer-list
+(nth 1 (nth 1 (current-frame-configuration))))))
+default-directory))" | sed 's/^"\(.*\)"$/\1/'`
+ 
+echo "chdir to $EMACS_CWD"
+cd "$EMACS_CWD"
+}

@@ -2,11 +2,30 @@
 ;; Name     :  Oz
 ;; Function :  multi-paradium language
 ;; ------------------------------------------------------------------------
-(add-hook 'oz-mode-hook
-	  (lambda ()
-	    (define-key oz-mode-map "\C-c\C-b" 'oz-feed-buffer)
-	    (define-key oz-mode-map "\C-c\C-l" 'oz-feed-line)
-	    (define-key oz-mode-map "\C-c\C-r" 'oz-feed-region)))
+;; http://www.eecs.ucf.edu/~leavens/ComS541Fall06/running_oz.shtml#
+;;; Oz program mode with Mozart/Oz.
+;;; You have to arrange for the Oz-related emacs lisp (.el) files
+;;; to be in emacs's load-path, for its bin directory to be in the PATH,
+;;; and for the OZHOME environment variable to be set properly.
+(when linux-p
+(or (getenv "OZHOME")
+    (setenv "OZHOME" 
+            "/mnt/win/opt/mozart"))   ; or wherever Mozart is installed
+(setenv "PATH" (concat (getenv "OZHOME") "/bin:" (getenv "PATH")))
+)
+
+(add-to-list 'auto-mode-alist '("\\.oz\\'" . oz-mode))
+(add-to-list 'auto-mode-alist '("\\.ozg\\'" . oz-gump-mode))
+(autoload 'run-oz "oz" "" t)
+(autoload 'oz-mode "oz" "" t)
+(autoload 'oz-gump-mode "oz" "" t)
+(autoload 'oz-new-buffer "oz" "" t)
+
+;; (add-hook 'oz-mode-hook
+;; 	  (lambda ()
+;; 	    (define-key oz-mode-map "\C-c\C-b" 'oz-feed-buffer)
+;; 	    (define-key oz-mode-map "\C-c\C-l" 'oz-feed-line)
+;; 	    (define-key oz-mode-map "\C-c\C-r" 'oz-feed-region)))
 ;; -----------------------------------------------------------------------
 ;; Name     :  Cool
 ;; ------------------------------------------------------------------------
@@ -57,10 +76,11 @@
 ;;; 全部スペースでインデントしましょう
 (add-hook 'rst-mode-hook '(lambda() (setq indent-tabs-mode nil)))
 
-(add-hook 'rst-mode-hook
-	  (lambda ()
-	    (setq rst-slides-program "open -a Firefox")
-	    ))
+;; エラーするので封印
+;; (add-hook 'rst-mode-hook
+;; 	  (lambda ()
+;; 	    (setq rst-slides-program "open -a Firefox")
+;; 	    ))
 
 ;; ------------------------------------------------------------------------
 ;; Name     : Markdown Mode
