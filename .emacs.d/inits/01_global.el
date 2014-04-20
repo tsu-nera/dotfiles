@@ -18,8 +18,8 @@
 (global-set-key (kbd "C-t")     'next-multiframe-window)
 (global-set-key (kbd "M-<RET>") 'ns-toggle-fullscreen)
 (global-set-key (kbd "C-S-t")   'previous-multiframe-window)
-(global-set-key (kbd "C-M-r")   'replace-regexp)
-(global-set-key (kbd "C-r")     'replace-string)
+;; (global-set-key (kbd "C-M-r")   'replace-regexp)
+;; (global-set-key (kbd "C-r")     'replace-string)
 (global-set-key (kbd "C-/")     'undo)
 ;; ------------------------------------------------------------------------
 ;; General Value

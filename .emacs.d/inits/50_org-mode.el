@@ -20,11 +20,46 @@
 (global-set-key "\C-c\C-x\C-@" 'org-clock-out) ;; tmuxで C-oは利用しているため
 (define-key org-mode-map "\C-co" 'org-open-at-point) ;; C-oの置き換え tmuxで c-oは使っているので
 
+;; wanderlustのメールを追跡できる
+(setq org-return-follows-link t)
+
+;; -----------------------------------------------------------------------
+;; Name     : tiny-function
+;; ------------------------------------------------------------------------
+;; DONEをすべてアーカイブ
+(defun my-org-archive-done-tasks ()
+  (interactive)
+  (org-map-entries 'org-archive-subtree "/DONE" 'file))
+
 ;; ショートカットGTD
 (defun gtd ()
   (interactive)
      (find-file "~/gtd/main.org")
      )
+
+;;========================================================================
+;; タスク管理・GTD
+;;========================================================================
+;; -----------------------------------------------------------------------
+;; NextActionの設定
+;; http://qiita.com/takaxp/items/4dfa11a81e18b29143ec
+;; ------------------------------------------------------------------------
+;; タグの色変更
+(setq org-tag-faces '(("next" :foreground "#FF0000")))
+(defun my-sparse-doing-tree ()
+    (interactive)
+      (org-tags-view nil "next"))
+(define-key org-mode-map (kbd "C-c 3") 'my-sparse-doing-tree)
+
+;;========================================================================
+;; 時間計測・見積り
+;;========================================================================
+
+; Set default column view headings: Task Effort Clock_Summary
+(setq org-columns-default-format "%40ITEM(Task) %17Effort(Effort){:} %10CLOCKSUM")
+; global Effort estimate values
+(setq org-global-properties (quote ((
+      "Effort_ALL" . "0:15 0:30 0:45 1:00 1:30 2:00 2:30 3:00"))))
 
 ;; TODO状態
 ;;(setq org-todo-keywords
@@ -35,7 +70,6 @@
 
 ;; -----------------------------------------------------------------------
 ;; Name     : org-clock
-;; Function : 時間計測
 ;; http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
 ;; ------------------------------------------------------------------------
 ;; emacs resume 時に時間計測再会
@@ -55,61 +89,67 @@
 ;; 空き時間の解決 15分
 ;; 半端時間を絶えずチェックしているファイルのリストは、M-x org-resolve-clocks
 ;; http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
-(setq org-clock-idle-time 15)
+(setq org-clock-idle-time 10)
 
 ;; what's this??
 ;;(setq org-clock-modeline-total 'today)
 ;;(setq org-clock-persist t)
 ;;(setq org-clock-clocked-in-display 'both)
 
-
-;(eval-after-load "org-faces"
-;  '(set-face-attribute 'org-mode-line-clock nil
-;		       :inherit nil))
-
-;;(setq org-clock-heading-function
-;;             (lambda ()
-;	       (replace-regexp-in-string
-;;		 "\\[\\[.*?\\]\\[\\(.*?\\)\\]\\]" "\\1"
-;;		  (nth 4 org-heading-components))))
-;;(org-defkey org-agenda-mode-map [(tab)]
-;;	    '(lambda () (interactive)
-;;	       (org-agenda-goto)
-;;	       (with-current-buffer "*Org Agenda*"
-;;		 (org-agenda-quit))))
-;;
-
-;; Doingタグ つかってないので封印
-;; ;; NextActionタグを設定
-;; (defvar my-doing-tag "next")
-;; ;; nextタグをトグルする
-;; (defun my-toggle-doing-tag ()
-;;   (interactive)
-;;   (when (eq major-mode 'org-mode)
-;;     (save-excursion
-;;       (save-restriction
-;;         (unless (org-at-heading-p)
-;;           (outline-previous-heading))
-;;         (if (string-match (concat ":" my-doing-tag ":") (org-get-tags-string))
-;;             (org-toggle-tag my-doing-tag 'off)
-;;           (org-toggle-tag my-doing-tag 'on))
-;;         (org-reveal)))))
-;; (global-set-key (kbd "<f11>") 'my-toggle-doing-tag)
-
 ; 時間になったら音をならす
 (setq org-clock-sound "/usr/share/sounds/LinuxMint/stereo/desktop-login.ogg")
 
-;; wanderlustのメールを追跡できる
-(setq org-return-follows-link t)
-
 ;; -----------------------------------------------------------------------
-;; Function ; 見積り設定
+;; Name     : org-clock-by-tags
+;; Function : タグごとにclocktableを集計
+;; TODO そのうち elispで分離
+;; http://stackoverflow.com/questions/17353591/timetable-grouped-by-tag
+;; #+BEGIN: clocktable-by-tag :maxlevel 2 :tags ("p1" "p2")
+;;                            :tstart "2013-06-27" :tend "2013-06-28"
 ;; ------------------------------------------------------------------------
-; Set default column view headings: Task Effort Clock_Summary
-(setq org-columns-default-format "%40ITEM(Task) %17Effort(Effort){:} %10CLOCKSUM")
-; global Effort estimate values
-(setq org-global-properties (quote ((
-      "Effort_ALL" . "0:15 0:30 0:45 1:00 1:30 2:00 2:30 3:00"))))
+(defun clocktable-by-tag/shift-cell (n)
+  (let ((str ""))
+    (dotimes (i n)
+      (setq str (concat str "| ")))
+    str))
+
+(defun clocktable-by-tag/insert-tag (params)
+  (let ((tag (plist-get params :tags)))
+    (insert "|--\n")
+    (insert (format "| %s | *Tag time* |\n" tag))
+    (let ((total 0))
+;;      (mapcar
+      (mapc
+       (lambda (file)
+	 (let ((clock-data (with-current-buffer (find-file-noselect file)
+			     (org-clock-get-table-data (buffer-name) params))))
+	   (when (> (nth 1 clock-data) 0)
+	     (setq total (+ total (nth 1 clock-data)))
+	     (insert (format "| | File *%s* | %.2f |\n"
+			     (file-name-nondirectory file)
+			     (/ (nth 1 clock-data) 60.0)))
+	     (dolist (entry (nth 2 clock-data))
+	       (insert (format "| | . %s%s | %s %.2f |\n"
+			       (org-clocktable-indent-string (nth 0 entry))
+			       (nth 1 entry)
+			       (clocktable-by-tag/shift-cell (nth 0 entry))
+			       (/ (nth 3 entry) 60.0)))))))
+       (org-agenda-files))
+      (save-excursion
+	(re-search-backward "*Tag time*")
+	(org-table-next-field)
+	(org-table-blank-field)
+	(insert (format "*%.2f*" (/ total 60.0)))))
+    (org-table-align)))
+
+(defun org-dblock-write:clocktable-by-tag (params)
+  (insert "| Tag | Headline | Time (h) |\n")
+  (insert "|     |          | <r>  |\n")
+  (let ((tags (plist-get params :tags)))
+    (mapcar (lambda (tag)
+	      (setq params (plist-put params :tags tag))
+	      (clocktable-by-tag/insert-tag params))
+	    tags)))
 
 ;; -----------------------------------------------------------------------
 ;; Name     : org-capture
@@ -135,17 +175,6 @@
 
 ;; capture てんぷれの書き方
 ;; http://orgmode.org/manual/Template-expansion.html#Template-expansion
-
-;; -----------------------------------------------------------------------
-;; NextActionの設定
-;; http://qiita.com/takaxp/items/4dfa11a81e18b29143ec
-;; ------------------------------------------------------------------------
-;; タグの色変更
-(setq org-tag-faces '(("next" :foreground "#FF0000")))
-(defun my-sparse-doing-tree ()
-    (interactive)
-      (org-tags-view nil "next"))
-(define-key org-mode-map (kbd "C-c 3") 'my-sparse-doing-tree)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : plantuml
@@ -193,11 +222,6 @@
 	;;  )
 	)
       )
-
-;; DONEをすべてアーカイブ
-(defun my-org-archive-done-tasks ()
-  (interactive)
-  (org-map-entries 'org-archive-subtree "/DONE" 'file))
 
 ;; ------------------------------------------------------------------------
 ;; Name     : mobileOrg
