@@ -31,3 +31,4 @@
 .emacs.d/el-get/.status.el.old
 .emacs.d/bookmarks
 /.emacs.d/inits/*.elc
+/.emacs.d/elisp/webkit

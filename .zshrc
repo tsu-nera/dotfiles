@@ -8,7 +8,7 @@
 # 履歴の保存先
 HISTFILE=$HOME/.zsh-history
 ## メモリに展開する履歴の数
-# HISTSIZE=10000
+HISTSIZE=1000
 ## 保存する履歴の数
 SAVEHIST=10000
 
@@ -132,10 +132,14 @@ local DEFAULT=$'%{\e[1;m%}'
 #PROMPT=$BLUE'[%n@%m] %(!.#.$) '$WHITE
 PROMPT=$BLUE'[%n]%# '$WHITE
 # 右側のプロンプト。ここでカレントディレクトリを出す。
-#RPROMPT=$GREEN'[%~]'$WHITE
-RPROMPT=$DEFAULT'[%~]'$WHITE
-setopt transient_rprompt
 
+if [ "$EMACS" ];then
+    # Emacs の ansi-term では右プロンプトを表示しない
+    RPROMPT=""
+else
+    RPROMPT=$DEFAULT'[%~]'$WHITE
+    setopt transient_rprompt
+fi
 ##############
 # ジョブ制御
 ##############
@@ -169,8 +173,6 @@ alias lal='ls -al'
 
 alias r='ruby'
 alias l='less'
-# alias m='emacsclient -nw'
-alias m='emacsclient -nw $* || emacs --daemon'
 alias t='task'
 alias o='xdg-open'
 alias lock='gnome-screensaver-command --lock'
@@ -199,16 +201,6 @@ alias -g GI='| grep -i'
 alias -g P='| percol'
 alias -g PM='| percol --match-method migemo'
 
-############
-# Function 
-############
-# cd して ls する
-function cdls() {
-    # cdがaliasでループするので\をつける
-    \cd $1;
-    ls;
-}
-
 ###############
 # Environment 
 ###############
@@ -216,26 +208,6 @@ export LANG=ja_JP.UTF-8
 export LD_LIBRARY_PATH=/usr/local/lib
 export LIBRARY_PATH=/usr/local/lib
 export CPATH=/usr/local/include
-
-# EmacsClient起動
-export EDITOR='emacsclient -nw'
-# zsh起動時にemacs --daemon起動
-# この機能は封印 cygwin上だとemacsの起動時間が遅いので。
-# if pgrep emacs >/dev/null 2>&1; then
-#     # echo "Emacs server is already running..."
-#   else
-#     `emacs --daemon`
-# fi
-alias kill_emacs="emacsclient -e \"(kill-emacs)\""
-alias boot_emacs="emacs --daemon"
-alias reboot_emacs="emacsclient -e \"(kill-emacs)\";emacs --daemon"
-
-
-# screen実行中にEmacs保存ができない
-# stty ixany
-# stty ixoff -ixon
-# screen -xR
-# export LANG=ja_JP.utf8
 
 # rvenv設定 .rbenvがあるときだけ設定させる
 # http://mukaer.com/archives/2012/03/12/rubyrbenv/
@@ -257,6 +229,25 @@ fi
 # ------------------------------------------------------------------------
 # Functions
 # ------------------------------------------------------------------------
+# cd して ls する
+function cdls() {
+    # cdがaliasでループするので\をつける
+    \cd $1;
+    ls;
+}
+
+# ------------------------------------------------------------------------
+# Name     : isemacs
+# History  : 2014/04/20
+# Function : emacsか判定
+# Refs     :
+# http://sakito.jp/emacs/emacsshell.html#term
+# ------------------------------------------------------------------------
+function isemacs(){
+   [[ "$EMACS" != "" ]] && return 0
+   echo "emacs"
+   return 1
+}
 
 # ------------------------------------------------------------------------
 # Name     : percol
@@ -267,26 +258,6 @@ fi
 if [ -d ${HOME}/.zsh  ] ; then
     source ~/.zsh/percol.zsh
     bindkey '^[x' percol-M-x
-fi
-
-# Template
-# ------------------------------------------------------------------------
-# Name     : tmux 
-# Function : tmuxをログイン時に自動起動
-# http://yonchu.hatenablog.com/entry/20120514/1337026014
-# ------------------------------------------------------------------------
-if [ -z "$TMUX" -a -z "$STY" ]; then
-    if type tmux >/dev/null 2>&1; then
-	tmux
-    elif type tmux >/dev/null 2>&1; then
-	if tmux has-session && tmux list-sessions | /usr/bin/grep -qE '.*]$'; then
-	    tmux attach && echo "tmux attached session "
-	else
-	    tmux new-session && echo "tmux created new session"
-	fi
-    elif type screen >/dev/null 2>&1; then
-	screen -rx || screen -D -RR
-    fi
 fi
 
 # ------------------------------------------------------------------------
@@ -315,6 +286,30 @@ xsel-buffer(){
 zle -N xsel-buffer
 bindkey '^x^p' xsel-buffer # C-x C-p
 
+# Template
+# ------------------------------------------------------------------------
+# Name     : tmux 
+# Function : tmuxをログイン時に自動起動
+# http://yonchu.hatenablog.com/entry/20120514/1337026014
+# ------------------------------------------------------------------------
+if [ -z "$TMUX" -a -z "$STY" ]; then
+    if type tmux >/dev/null 2>&1; then
+	tmux
+    elif type tmux >/dev/null 2>&1; then
+	if tmux has-session && tmux list-sessions | /usr/bin/grep -qE '.*]$'; then
+	    tmux attach && echo "tmux attached session "
+	else
+	    tmux new-session && echo "tmux created new session"
+	fi
+    elif type screen >/dev/null 2>&1; then
+	screen -rx || screen -D -RR
+    fi
+fi
+
+# ------------------------------------------------------------------------
+# For Emacs
+# ------------------------------------------------------------------------
+
 # ------------------------------------------------------------------------
 # Name     : dired
 # History  : 2014/04/20
@@ -322,6 +317,35 @@ bindkey '^x^p' xsel-buffer # C-x C-p
 # Refs:
 ## http://masutaka.net/chalow/2011-09-28-1.html
 # ------------------------------------------------------------------------
+#########
+# Emacs
+#########
+# EmacsClient起動
+if [ "$EMACS" ];then
+else
+    alias m='emacsclient -nw'
+    alias kill_emacs="emacsclient -e \"(kill-emacs)\""
+    alias boot_emacs="emacs --daemon"
+    alias reboot_emacs="emacsclient -e \"(kill-emacs)\";emacs --daemon"
+
+    export TERM=xterm-256color
+    export EDITOR='emacsclient -nw'
+    export VISUAL="emacsclient"
+    # zsh起動時にemacs --daemon起動
+    # この機能は封印 cygwin上だとemacsの起動時間が遅いので。
+    # if pgrep emacs >/dev/null 2>&1; then
+    #     # echo "Emacs server is already running..."
+    #   else
+    #     `emacs --daemon`
+    # fi
+fi
+
+# screen実行中にEmacs保存ができない
+# stty ixany
+# stty ixoff -ixon
+# screen -xR
+# export LANG=ja_JP.utf8
+
 ## Invoke the ``dired'' of current working directory in Emacs buffer.
 function dired () {
 emacsclient -e "(dired \"${1:a}\")"
