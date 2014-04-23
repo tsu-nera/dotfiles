@@ -20,6 +20,10 @@
 (global-set-key "\C-c\C-x\C-@" 'org-clock-out) ;; tmuxで C-oは利用しているため
 (define-key org-mode-map "\C-co" 'org-open-at-point) ;; C-oの置き換え tmuxで c-oは使っているので
 
+;; -----------------------------------------------------------------------
+;; Name     : tiny-function
+;; ------------------------------------------------------------------------
+;; wanderlust
 ;; wanderlustのメールを追跡できる
 (setq org-return-follows-link t)
 
@@ -54,7 +58,6 @@
 ;;========================================================================
 ;; 時間計測・見積り
 ;;========================================================================
-
 ; Set default column view headings: Task Effort Clock_Summary
 (setq org-columns-default-format "%40ITEM(Task) %17Effort(Effort){:} %10CLOCKSUM")
 ; global Effort estimate values
@@ -260,3 +263,10 @@
       (interactive)
         (cancel-timer org-mobile-sync-timer))
 (org-mobile-sync-enable)
+
+;; -----------------------------------------------------------------------
+;; Name     : wanderlust
+;; ------------------------------------------------------------------------
+;; wanderlustのメールを追跡できる
+
+(setq org-return-follows-link t)
