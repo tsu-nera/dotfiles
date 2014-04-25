@@ -197,25 +197,18 @@
 ;; Name     : org2blog
 ;; Function : Emacsからブログ投稿
 ;:            Emacs から WordPressに投稿するLisp
-;; Install  :
 ;; ------------------------------------------------------------------------
-;; https://github.com/punchagan/org2blog
-;; xml-rspも入れた
-;; http://launchpadlibrarian.net/40270196/xml-rpc.el
-;; metaweblogも入れた
-;; git://github.com/punchagan/metaweblog.el.git
 (require 'metaweblog)
 (require 'org2blog-autoloads)
-;;(require 'netrc) ;; or nothing if already in the load-path
-;;(setq blog (netrc-machine (netrc-parse "~/.netrc") "EverClassic" t))
-;;(setq blog (netrc-machine (netrc-parse "~/.netrc") "Futurismo" t))
+(setq futurismo (netrc-machine (netrc-parse "~/.netrc") "Futurismo" t))
+;; (setq blog (netrc-machine (netrc-parse "~/.netrc") "EverClassic" t))
+
 (setq org2blog/wp-blog-alist
 ;;(setq org2blog/wp-blog-alist
       '(("Futurismo"
 	 :url "http://futurismo.biz/xmlrpc.php"
-	 :username "admin"
-	 ;;:username (netrc-get blog "login")
-	 ;;:password (netrc-get blog "password")
+	 :username (netrc-get futurismo "login")
+	 :password (netrc-get futurismo "password")
 	 )
 	;; ("EverClassic"
 	;;  :url "http://everclassic.biz/xmlrpc.php"

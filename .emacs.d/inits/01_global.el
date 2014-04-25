@@ -214,3 +214,11 @@
 	  (lambda ()
 	    (font-lock-add-keywords nil
            '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
+
+
+;; -----------------------------------------------------------------------
+;; Name     : netrc
+;; Install  : build-in
+;; Function : パスワード管理
+;; ------------------------------------------------------------------------
+(require 'netrc)
