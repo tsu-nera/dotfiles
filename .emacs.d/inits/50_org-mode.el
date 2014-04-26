@@ -185,7 +185,7 @@
 ;;requireする前に評価しておいてください。
 (setq cfw:org-capture-template
       '("c" "calfw2org" entry 
-        (file "~/schedule.org")
+        (file "~/gtd/schedule.org")
         "*  %?\n %(cfw:org-capture-day)"))
 
 ;; capture てんぷれの書き方
@@ -237,9 +237,9 @@
 ;; Install  :
 ;; ------------------------------------------------------------------------
 ;; Set to the location of your Org files on your local system
-(setq org-directory "~/org")
+(setq org-directory "~/gtd")
 ;; Set to the name of the file where new notes will be stored
-(setq org-mobile-inbox-for-pull "~/org/flagged.org")
+(setq org-mobile-inbox-for-pull "~/gtd/flagged.org")
 ;; Set to <your Dropbox root directory>/MobileOrg.
 (setq org-mobile-directory "~/dropbox/アプリ/MobileOrg")
 

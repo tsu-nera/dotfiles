@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: ruby-script
+# key: ruby-script
+# --
+#!/usr/bin/env ruby
+
+if $0 == __FILE__
+end
