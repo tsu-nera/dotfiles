@@ -79,6 +79,7 @@
     setup
     exec-path-from-shell
     migemo
+    org-gcal
     ;; webkit downloadが失敗しそうなので封印
     ;; この2つは特別なので一番最後におく
     init-loader

@@ -200,7 +200,7 @@
 ;; ------------------------------------------------------------------------
 (require 'metaweblog)
 (require 'org2blog-autoloads)
-(setq futurismo (netrc-machine (netrc-parse "~/.netrc") "Futurismo" t))
+(setq futurismo (netrc-machine (netrc-parse "~/.netrc") "futurismo" t))
 ;; (setq blog (netrc-machine (netrc-parse "~/.netrc") "EverClassic" t))
 
 (setq org2blog/wp-blog-alist
@@ -261,5 +261,19 @@
 ;; Name     : wanderlust
 ;; ------------------------------------------------------------------------
 ;; wanderlustのメールを追跡できる
-
 (setq org-return-follows-link t)
+
+;; -----------------------------------------------------------------------
+;; Name     : org-gcal
+;; Function : google calendar
+;; ------------------------------------------------------------------------
+(require 'org-gcal)
+(setq GoogleCal (netrc-machine (netrc-parse "~/.netrc") "org-gcal" t))
+(setq org-gcal-client-id (netrc-get GoogleCal "login")
+      org-gcal-client-secret (netrc-get GoogleCal "password")
+      org-gcal-dir "~/org"
+      org-gcal-file-alist '(("fox10225fox@gmail.com" .  "~/gtd/schedule.org")
+			    ;;("your-mail@gmail.com" .  "~/schedule.org")
+                            ;;("another-mail@gmail.com" .  "~/task.org")
+			    )
+      )

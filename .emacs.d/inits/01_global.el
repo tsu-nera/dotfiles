@@ -173,8 +173,8 @@
 ;; Install  : package.el経由
 ;; ------------------------------------------------------------------------
 (when (require 'popwin)
-  (setq helm-samewindow nil)
-  (setq display-buffer-function 'popwin:display-buffer)
+;;  (setq helm-samewindow nil)
+;;  (setq display-buffer-function 'popwin:display-buffer)
   (setq popwin:special-display-config '(("*compilation*" :noselect t)
 					;;("helm" :regexp t :height 0.4)
 					("anything" :regexp t :height 0.4)
@@ -191,7 +191,7 @@
 ;; History  : 2014/02/02 add
 ;; Install  : build-in
 ;; ------------------------------------------------------------------------
-(ffap-bindings)
+;; (ffap-bindings)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : tempbuf.el
@@ -215,10 +215,10 @@
 	    (font-lock-add-keywords nil
            '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
 
-
 ;; -----------------------------------------------------------------------
 ;; Name     : netrc
 ;; Install  : build-in
 ;; Function : パスワード管理
+;; パスワード自体は ~/.netrcに書き込む。dropboxで同期
 ;; ------------------------------------------------------------------------
 (require 'netrc)
