@@ -10,15 +10,17 @@
 
 ;; アジェンダ表示の対象ファイル
 (setq org-agenda-files '("~/gtd/inbox.org"
-			 "~/gtd/main.org"))
+			 "~/gtd/main.org"
+			 "~/gtd/schedule.org"))
 
 ;; key bindings
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-cb" 'org-iswitchb)
+(global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-c\C-x\C-@" 'org-clock-out) ;; tmuxで C-oは利用しているため
 (define-key org-mode-map "\C-co" 'org-open-at-point) ;; C-oの置き換え tmuxで c-oは使っているので
+(global-set-key "\C-cC" 'cfw:open-org-calendar)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : tiny-function
@@ -100,7 +102,8 @@
 ;;(setq org-clock-clocked-in-display 'both)
 
 ; 時間になったら音をならす
-(setq org-clock-sound "/usr/share/sounds/LinuxMint/stereo/desktop-login.ogg")
+;;(setq org-clock-sound "/usr/share/sounds/LinuxMint/stereo/desktop-login.ogg")
+;;(setq org-clock-sound t)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : org-clock-by-tags
@@ -175,6 +178,15 @@
 	 "** %T %?\n")
 	)
       )
+
+;; calfwとの連携
+;; http://sheephead.homelinux.org/2014/03/15/7035/#
+;;cfw:org-capture-templateはcalfw-orgを
+;;requireする前に評価しておいてください。
+(setq cfw:org-capture-template
+      '("c" "calfw2org" entry 
+        (file "~/schedule.org")
+        "*  %?\n %(cfw:org-capture-day)"))
 
 ;; capture てんぷれの書き方
 ;; http://orgmode.org/manual/Template-expansion.html#Template-expansion
@@ -264,10 +276,36 @@
 (setq org-return-follows-link t)
 
 ;; -----------------------------------------------------------------------
+;; Name     : calfw-org
+;; Function : カレンダー連携
+;; ------------------------------------------------------------------------
+(require 'calfw-org)
+;; 対象ファイル
+(setq cfw:org-icalendars '("~/gtd/schedule.org"))
+;; First day of the week
+(setq calendar-week-start-day 1) ; 0:Sunday, 1:Monday
+
+(defun cfw:open-calendar ()
+  (interactive)
+  (let ((cp
+         (cfw:create-calendar-component-buffer
+          :view 'month
+          :contents-sources
+          (list 
+           (cfw:org-create-file-source
+            "仕事" "~/gtd/schedule.org" "#268bd2")
+           ;;(cfw:org-create-file-source
+	   ;; "遊び" "~/yaschedule.org" "#859900")
+	   )
+	  )))
+    (switch-to-buffer (cfw:cp-get-buffer cp))))
+
+;; -----------------------------------------------------------------------
 ;; Name     : org-gcal
 ;; Function : google calendar
 ;; ------------------------------------------------------------------------
 (require 'org-gcal)
+;; passwordは netrcへ
 (setq GoogleCal (netrc-machine (netrc-parse "~/.netrc") "org-gcal" t))
 (setq org-gcal-client-id (netrc-get GoogleCal "login")
       org-gcal-client-secret (netrc-get GoogleCal "password")
@@ -277,3 +315,4 @@
                             ;;("another-mail@gmail.com" .  "~/task.org")
 			    )
       )
+

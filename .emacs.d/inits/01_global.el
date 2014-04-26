@@ -77,8 +77,21 @@
 
 ;; git管理のシンボリックリンクで質問されないためのおまじない。
 ;; 参考: http://openlab.dino.co.jp/2008/10/30/212934368.html
-;;; avoid "Symbolic link to Git-controlled source file;; follow link? (yes or no)"
+;;; avoid "Symbolic link to Git-controlled source file;; follow link? (yes or no)
 (setq git-follow-symlinks t)
+
+;; byte-compile warningの無視
+;; http://tsengf.blogspot.jp/2011/06/disable-byte-compile-warning-in-emacs.html
+;; ignore byte-compile warnings 
+(setq byte-compile-warnings '(not nresolved
+                                  free-vars
+                                  callargs
+                                  redefine
+                                  obsolete
+                                  noruntime
+                                  cl-functions
+                                  interactive-only
+                                  ))
 
 ;; ------------------------------------------------------------------------
 ;; デフォルトブラウザ設定
@@ -92,6 +105,9 @@
 ; Windows環境のデフォルト
  (setq browse-url-browser-function 'browse-url-default-windows-browser)
 )
+
+;; 今のポイントしているURLを開く
+(global-set-key (kbd "C-c u") 'browse-url-at-point)
 ;; ------------------------------------------------------------------------
 ;; Emacs Client
 ;; ------------------------------------------------------------------------
@@ -154,7 +170,6 @@
 ;; ;; Undo の時に確定した位置まで戻る
 ;; (setq ibus-undo-by-committed-string t)
 
-
 ;; -----------------------------------------------------------------------
 ;; Name     : whitespace
 ;; Install  : build-in
@@ -173,8 +188,8 @@
 ;; Install  : package.el経由
 ;; ------------------------------------------------------------------------
 (when (require 'popwin)
-;;  (setq helm-samewindow nil)
-;;  (setq display-buffer-function 'popwin:display-buffer)
+  (setq helm-samewindow nil)
+  (setq display-buffer-function 'popwin:display-buffer)
   (setq popwin:special-display-config '(("*compilation*" :noselect t)
 					;;("helm" :regexp t :height 0.4)
 					("anything" :regexp t :height 0.4)
