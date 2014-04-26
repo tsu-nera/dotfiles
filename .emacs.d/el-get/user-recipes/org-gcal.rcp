@@ -1,0 +1,6 @@
+(:name org-gcal
+       :website "https://github.com/myuhe/org-gcal.el"
+       :description "Org sync with Google Calendar"
+       :type "github"
+       :branch "master"
+       :pkgname "myuhe/org-gcal.el")
