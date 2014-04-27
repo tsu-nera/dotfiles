@@ -1,0 +1,6 @@
+(:name elscreen
+       :auto-generated t
+       :type github
+       :website "https://github.com/knu/elscreen"
+       :description "Screen for Emacs"
+       :pkgname "knu/elscreen")

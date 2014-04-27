@@ -1,0 +1,5 @@
+(:name tabbar
+       :type github
+       :website "https://github.com/dholm/tabbar"
+       :description "alternative of elscreen"
+       :pkgname "dholm/tabbar")
