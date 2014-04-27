@@ -21,6 +21,7 @@
 (global-set-key "\C-c\C-x\C-@" 'org-clock-out) ;; tmuxで C-oは利用しているため
 (define-key org-mode-map "\C-co" 'org-open-at-point) ;; C-oの置き換え tmuxで c-oは使っているので
 (global-set-key "\C-cC" 'cfw:open-org-calendar)
+(global-set-key "\C-c\C-x\C-z" 'org-resolve-clocks)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : tiny-function

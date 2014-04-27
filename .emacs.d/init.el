@@ -79,7 +79,7 @@ found, otherwise returns nil."
 	    (normal-top-level-add-subdirs-to-load-path))))))
 ;; load-pathに追加するフォルダ
 ;; 2つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
-(add-to-load-path "elisp" "inits" "el-get")
+(add-to-load-path "elisp" "inits" "el-get" "elpa")
 
 ;; elpaは外した。el-getで一元管理したいので。
 ;; public_reposは対象から外した。el-getで一元管理したいので。

@@ -123,7 +123,7 @@
 ;; http://d.hatena.ne.jp/TakashiHattori/20120627/1340768058
 ;; ------------------------------------------------------------------------
 ;; *.org を開いたら howm-mode も起動する
-(add-hook 'org-mode-hook 'howm-mode)
+;;(add-hook 'org-mode-hook 'howm-mode)
 
 ;; howm のメモを置くディレクトリ(任意)
 (setq howm-directory "~/gtd/howm") ;; メニュー表示しない
@@ -138,9 +138,9 @@
 (global-unset-key (kbd "C-x C-a"))
 (setq howm-prefix (kbd "C-x C-a"))
 
-(autoload 'howm "howm" " Hitori Otegaru Wiki Modoki" nil)
+;;(autoload 'howm "howm" " Hitori Otegaru Wiki Modoki" nil)
+(require 'howm)
 (add-hook 'howm-mode-hook 'helm-howm)
-;; (require 'howm)
 ;; (require 'helm-howm)
 
 ;; -----------------------------------------------------------------------
@@ -154,3 +154,30 @@
 ;; http://daemianmack.com/magit-cheatsheet.html
 ;; ------------------------------------------------------------------------
 (autoload 'magit "magit" "An Emacs mode for Git" nil)
+(setq magit-git-executable "git")
+(setq magit-emacsclient-executable "emacsclient")
+
+(define-key global-map (kbd "C-c m") 'magit-status)
+
+;; -----------------------------------------------------------------------
+;; Name     : pdf-tools
+;; Install  : recipe
+;;            sudo apt-get install libpoppler-glib-dev
+;; Function : PDF Viewer
+;; Refs
+;;   http://sheephead.homelinux.org/2014/03/17/7076/
+;; ------------------------------------------------------------------------
+;; あとでautoloadに改善する。
+(require 'pdf-tools)
+(require 'pdf-annot) 
+(require 'pdf-history) 
+(require 'pdf-info) 
+(require 'pdf-isearch) 
+(require 'pdf-links) 
+(require 'pdf-misc) 
+(require 'pdf-occur) 
+(require 'pdf-outline) 
+(require 'pdf-render) 
+(require 'pdf-sync) 
+(require 'tablist-filter)
+(require 'tablist)

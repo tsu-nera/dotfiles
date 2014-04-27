@@ -24,6 +24,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(font-lock-comment-delimiter-face ((t (:inherit font-lock-comment-face :foreground "dark gray"))))
+ '(font-lock-comment-face ((t (:foreground "dark gray"))))
  '(font-lock-function-name-face ((t (:foreground "cyan"))))
  '(markdown-inline-code-face ((t (:inherit font-lock-constant-face))) t)
  '(markdown-pre-face ((t (:foreground "brightmagenta"))) t)

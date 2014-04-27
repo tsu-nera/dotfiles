@@ -324,13 +324,14 @@ fi
 if [ "$EMACS" ];then
 else
     alias m='emacsclient -nw'
+    alias mc='emacsclient -nc'
     alias kill_emacs="emacsclient -e \"(kill-emacs)\""
     alias boot_emacs="emacs --daemon"
     alias reboot_emacs="emacsclient -e \"(kill-emacs)\";emacs --daemon"
 
     export TERM=xterm-256color
-    export EDITOR='emacsclient -nw'
-    export VISUAL="emacsclient"
+    export EDITOR="emacsclient -nc"
+    export VISUAL="emacsclient -nc"
     # zsh起動時にemacs --daemon起動
     # この機能は封印 cygwin上だとemacsの起動時間が遅いので。
     # if pgrep emacs >/dev/null 2>&1; then

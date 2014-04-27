@@ -32,3 +32,4 @@
 .emacs.d/bookmarks
 /.emacs.d/inits/*.elc
 /.emacs.d/elisp/webkit
+/.emacs.d/elpa/

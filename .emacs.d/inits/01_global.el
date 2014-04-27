@@ -21,24 +21,32 @@
 ;; (global-set-key (kbd "C-M-r")   'replace-regexp)
 ;; (global-set-key (kbd "C-r")     'replace-string)
 (global-set-key (kbd "C-/")     'undo)
+
 ;; ------------------------------------------------------------------------
 ;; General Value
+;; Ref:
+;; http://www.cozmixng.org/~kou/emacs/dot_emacs
 ;; ------------------------------------------------------------------------
 ;;; ツールバーを消す
-;;; (tool-bar-mode -1)
-
+(tool-bar-mode -1)
 ;; emacs -nw で起動した時にメニューバーを消す
-(if window-system (menu-bar-mode 1) (menu-bar-mode -1))
+;;(if window-system (menu-bar-mode 1) (menu-bar-mode -1))
+;; -> 常にけす
+(menu-bar-mode -1)
+;;; スクロールバーを消す
+(set-scroll-bar-mode nil)
 
 ;;; 対応する括弧を光らせる。
 (show-paren-mode 1)
+
+;;; 画像ファイルを表示する
+(if window-system (auto-image-file-mode t)(auto-image-file-mode nil))
 
 ;;; モードラインに時間を表示する
 (display-time)
 (setq display-time-day-and-date t)
 ;;; 現在の関数名をモードラインに表示
 (which-function-mode 1)
-
 (global-linum-mode t)   ;; 行番号の表示
 ;;(global-hl-line-mode 1) ;; 現在行に色をつける
 
@@ -92,6 +100,13 @@
                                   cl-functions
                                   interactive-only
                                   ))
+;;; 終了時にオートセーブファイルを消す
+(setq delete-auto-save-files t)
+
+;; フォント設定
+;; Ricty
+;; http://d.hatena.ne.jp/kitokitoki/20110502/p2
+(add-to-list 'default-frame-alist '(font . "ricty-13"))
 
 ;; ------------------------------------------------------------------------
 ;; デフォルトブラウザ設定
