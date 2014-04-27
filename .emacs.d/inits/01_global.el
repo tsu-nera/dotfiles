@@ -256,3 +256,11 @@
 ;; パスワード自体は ~/.netrcに書き込む。dropboxで同期
 ;; ------------------------------------------------------------------------
 (require 'netrc)
+
+;; -----------------------------------------------------------------------
+;; Name     : stripe-buffer
+;; Install  : el-get
+;; Function : しましま表示
+;; ------------------------------------------------------------------------
+(add-hook 'dired-mode-hook 'turn-on-stripe-buffer-mode)
+(add-hook 'org-mode-hook 'turn-on-stripe-table-mode)

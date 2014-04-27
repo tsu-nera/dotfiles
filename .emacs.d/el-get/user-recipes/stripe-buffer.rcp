@@ -1,0 +1,5 @@
+(:name stripe-buffer
+       :type github
+       :website "https://github.com/sabof/stripe-buffer"
+       :description "add stripes to list buffers"
+       :pkgname "sabof/stripe-buffer")
