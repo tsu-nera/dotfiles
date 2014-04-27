@@ -173,3 +173,13 @@
 (require 'pdf-sync) 
 (require 'tablist-filter)
 (require 'tablist)
+
+;; -----------------------------------------------------------------------
+;; Name     : direx
+;; Install  : el-get
+;; Function : popup dired
+;; Refs
+;;   https://github.com/m2ym/direx-el
+;;   http://cx4a.blogspot.jp/2011/12/popwineldirexel.html
+;; ------------------------------------------------------------------------
+(require 'direx)

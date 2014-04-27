@@ -214,6 +214,10 @@
 (push '("*rspec-compilation*" :regexp t) popwin:special-display-config)
 (push '("*Oz Compiler*" :regexp t) popwin:special-display-config)
 (push '("^CAPTURE-.+\*.org$" :regexp t) popwin:special-display-config)
+;; http://cx4a.blogspot.jp/2011/12/popwineldirexel.html
+(push '(direx:direx-mode :position left :width 25 :dedicated t)
+      popwin:special-display-config)
+(global-set-key (kbd "C-x j") 'direx:jump-to-directory-other-window)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : ffap.el
