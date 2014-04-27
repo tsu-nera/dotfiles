@@ -86,6 +86,9 @@
 (yas-load-directory "~/.emacs.d/snippets")
 (yas-global-mode 1)
 
+;; メニューは使わない
+(setq yas/use-menu nil)
+
 ;; 既存スニペットを挿入する
 (define-key yas-minor-mode-map (kbd "C-x i i") 'yas-insert-snippet)
 ;; 新規スニペットを作成するバッファを用意する

@@ -125,12 +125,13 @@ setopt prompt_subst
 
 # 色を定義
 local GREEN=$'%{\e[1;32m%}'
-local BLUE=$'%{\e[1;34m%}'
+# local BLUE=$'%{\e[1;34m%}'
+local ORANGE=$'%{\e[1;33m%}'
 local DEFAULT=$'%{\e[1;m%}'
 
 # 通常のプロンプト
 #PROMPT=$BLUE'[%n@%m] %(!.#.$) '$WHITE
-PROMPT=$BLUE'[%n]%# '$WHITE
+PROMPT=$ORANGE'[%n]%# '$WHITE
 # 右側のプロンプト。ここでカレントディレクトリを出す。
 
 if [ "$EMACS" ];then
@@ -166,7 +167,11 @@ fi
 #########
 # Alias 
 #########
-alias ls='ls -F --show-control-chars --color=aut'
+if [ "$EMACS" ];then
+    alias ls='ls -F --show-control-chars'
+else
+    alias ls='ls -F --show-control-chars --color=aut'
+fi
 alias ll='ls -ltr'
 alias la='ls -a'
 alias lal='ls -al'
@@ -321,6 +326,8 @@ fi
 # Emacs
 #########
 # EmacsClient起動
+export TERM=xterm-256color
+
 if [ "$EMACS" ];then
 else
     alias m='emacsclient -nw'
@@ -329,7 +336,6 @@ else
     alias boot_emacs="emacs --daemon"
     alias reboot_emacs="emacsclient -e \"(kill-emacs)\";emacs --daemon"
 
-    export TERM=xterm-256color
     export EDITOR="emacsclient -nc"
     export VISUAL="emacsclient -nc"
     # zsh起動時にemacs --daemon起動
@@ -339,6 +345,7 @@ else
     #   else
     #     `emacs --daemon`
     # fi
+    # いろなし
 fi
 
 # screen実行中にEmacs保存ができない

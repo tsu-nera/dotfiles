@@ -21,6 +21,11 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
+if [ -d "$HOME/script" ] ; then
+    PATH="$HOME/script/sh:$PATH"
+    PATH="$HOME/script/ruby:$PATH"
+fi
+
 # Touch Padデフォルト無効
 xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 0 &
 

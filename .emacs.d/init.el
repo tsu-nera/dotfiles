@@ -184,3 +184,4 @@ found, otherwise returns nil."
 (add-hook 'emacs-lisp-mode-hook
 	  (lambda ()
 	    (add-hook 'after-save-hook 'auto-save-byte-compile-file nil t)))
+(put 'set-goal-column 'disabled nil)
