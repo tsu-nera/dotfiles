@@ -113,3 +113,44 @@
 ;; パスの引き継ぎ
 ;; exec-path-from-shell from el-get
 (exec-path-from-shell-initialize)
+
+;; -----------------------------------------------------------------------
+;; Name     : howm
+;; Install  : el-get
+;; Function : Evernoteを越えるメモ管理ツール
+;; Refs
+;; http://www.gfd-dennou.org/member/uwabami/cc-env/emacs/howm_config.html
+;; http://d.hatena.ne.jp/TakashiHattori/20120627/1340768058
+;; ------------------------------------------------------------------------
+;; *.org を開いたら howm-mode も起動する
+(add-hook 'org-mode-hook 'howm-mode)
+
+;; howm のメモを置くディレクトリ(任意)
+(setq howm-directory "~/gtd/howm") ;; メニュー表示しない
+(setq howm-menu-top nil)
+;; メニューの言語設定
+(setq howm-menu-lang 'ja)
+;; howm ファイル名を設定する。org-mode を起動するため拡張子は .org にする。
+(setq howm-file-name-format "%Y%m%d-%H%M%S.org")
+(setq howm-view-title-header "*") ;; ← howm のロードより前に書くこと
+
+;; キーバインドは C-a C-aにする
+(global-unset-key (kbd "C-x C-a"))
+(setq howm-prefix (kbd "C-x C-a"))
+
+(autoload 'howm "howm" " Hitori Otegaru Wiki Modoki" nil)
+(add-hook 'howm-mode-hook 'helm-howm)
+;; (require 'howm)
+;; (require 'helm-howm)
+
+;; -----------------------------------------------------------------------
+;; Name     : magit
+;; Install  : el-get
+;; Function : Emacsの Git Client
+;; Refs
+;; https://github.com/magit/magit
+;; http://qiita.com/takc923/items/c7a11ff30caedc4c5ba7
+;; チーとシーと
+;; http://daemianmack.com/magit-cheatsheet.html
+;; ------------------------------------------------------------------------
+(autoload 'magit "magit" "An Emacs mode for Git" nil)

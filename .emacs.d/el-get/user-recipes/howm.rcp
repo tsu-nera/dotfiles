@@ -1,0 +1,4 @@
+(:name howm
+       :auto-generated t
+       :type git
+       :url "https://github.com/emacsmirror/howm")

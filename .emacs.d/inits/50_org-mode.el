@@ -174,8 +174,17 @@
 	;;	 "** %?\n %U\n %a\n %i\n")
 	("i" "Inbox" entry (file+datetree "~/gtd/inbox.org")
 	 "** TODO %?\n")
-	("w" "diary" entry (file+datetree "~/gtd/main.org")
+	("w" "Diary" entry (file+datetree "~/gtd/main.org")
 	 "** %T %?\n")
+	("e" "Clock-in" entry (clock)
+	 "* %T %?\n")
+	("m" "Memo" plain
+         (file (concat org-directory (format-time-string "/howm/%Y%m%d-%H%M%S.org")))
+         "* MEMO <%<%Y-%m-%d>> %?\n   %i\n  %a\n\n"
+         :prepend t
+         :unnarrowed t
+         :kill-buffer t
+         )
 	)
       )
 

@@ -118,6 +118,15 @@
 
 ;; transient-mark-modeが nilでは動作しませんので注意
 ;; (transient-mark-mode t)
+
+;; -----------------------------------------------------------------------
+;; Name     : cua-mode
+;; Install  : el-get
+;; ------------------------------------------------------------------------
+(cua-mode t)
+(setq cua-enable-cua-keys nil) ; デフォルトキーバインドを無効化
+(define-key global-map (kbd "C-x SPC") 'cua-set-rectangle-mark)
+
 ;; -----------------------------------------------------------------------
 ;; Name     : multiple-cursors
 ;; Install  : el-get
@@ -131,3 +140,4 @@
 
 (global-set-key (kbd "C-c >") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-c <") 'mc/mark-previous-like-this)
+
