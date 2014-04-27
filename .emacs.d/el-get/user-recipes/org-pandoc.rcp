@@ -1,0 +1,5 @@
+(:name org-pandoc
+       :type github
+       :website "https://github.com/robtillotson/org-pandoc"
+       :description "Export from org-mode using pandoc"
+       :pkgname "robtillotson/org-pandoc")

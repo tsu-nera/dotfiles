@@ -1,3 +1,4 @@
+
 ;; ------------------------------------------------------------------------
 ;; Name     : el-get.el
 ;; Function : eLisp管理
@@ -81,6 +82,7 @@
     migemo
     org-gcal
     calfw
+    org-pandoc
     ;; webkit downloadが失敗しそうなので封印
     ;; この2つは特別なので一番最後におく
     init-loader
