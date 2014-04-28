@@ -8,11 +8,6 @@
 ;; (require 'org-pomodoro)
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
-;; アジェンダ表示の対象ファイル
-(setq org-agenda-files '("~/gtd/inbox.org"
-			 "~/gtd/main.org"
-			 "~/gtd/schedule.org"))
-
 ;; key bindings
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cc" 'org-capture)
@@ -22,6 +17,9 @@
 (define-key org-mode-map "\C-co" 'org-open-at-point) ;; C-oの置き換え tmuxで c-oは使っているので
 (global-set-key "\C-cC" 'cfw:open-org-calendar)
 (global-set-key "\C-c\C-x\C-z" 'org-resolve-clocks)
+
+;; 色ツケ
+(setq org-src-fontify-natively t)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : tiny-function
@@ -59,21 +57,50 @@
 (define-key org-mode-map (kbd "C-c 3") 'my-sparse-doing-tree)
 
 ;;========================================================================
+;; org-agenda
+;;========================================================================
+;; アジェンダ表示の対象ファイル
+(setq org-agenda-files '("~/gtd/inbox.org"
+			 "~/gtd/main.org"
+			 "~/gtd/schedule.org"))
+
+
+;; アジェンダデフォルトはday
+(setq org-agenda-span 'day)
+
+;; 時間表示が1桁の時、0をつける
+(setq org-agenda-time-leading-zero t)
+
+;;========================================================================
 ;; 時間計測・見積り
 ;;========================================================================
 ; Set default column view headings: Task Effort Clock_Summary
-(setq org-columns-default-format "%40ITEM(Task) %17Effort(Effort){:} %10CLOCKSUM")
+(setq org-columns-default-format
+      "%40ITEM(Task) %17Effort(Effort){:} %10CLOCKSUM")
+
 ; global Effort estimate values
 (setq org-global-properties (quote ((
       "Effort_ALL" . "0:15 0:30 0:45 1:00 1:30 2:00 2:30 3:00"))))
 
-;; TODO状態
-;;(setq org-todo-keywords
-;;      '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d)" "SOMEDAY(s)")))
-
 ;; DONEの時刻を記録
 (setq org-log-done 'time)
 
+;; セレクションメニューから状態の変更を行えるようにする
+(setq org-use-fast-todo-selection t)
+
+(setq org-clock-in-resume t)
+
+(setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
+
+;; 測定した時間が0の場合消去する
+(setq org-clock-out-remove-zero-time-clocks t)
+
+;;アジェンダのclockreport用パラメータ
+(setq org-agenda-clockreport-parameter-plist
+      '(:maxlevel 5 :block t :tstart t :tend t :emphasize t :link t :narrow 80 :indent t :formula nil :timestamp t :level 5 :tcolumns nil :formatter nil))
+
+;; カラムビューで表示する項目
+(setq org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
 ;; -----------------------------------------------------------------------
 ;; Name     : org-clock
 ;; http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
@@ -81,30 +108,47 @@
 ;; emacs resume 時に時間計測再会
 (org-clock-persistence-insinuate)
 
-;; Sometimes I change tasks I'm clocking quickly
-;; - this removes clocked tasks with 0:00 duration
-(setq org-clock-out-remove-zero-time-clocks t)
-;; clock out when moving task to a done state
-(setq org-clock-out-when-done t)
-;; Save the running clock and all clock history
-;; when exiting Emacs, load it on startup
-(setq org-clock-persist (quote history))
 ;; Resume clocking task on clock-in if the clock is open
 (setq org-clock-in-resume t)
 
-;; 空き時間の解決 15分
+;; Emacsが終了する時に測定中の計測と全ての測定履歴を保存する
+(setq org-clock-persist t)
+
+;; Sometimes I change tasks I'm clocking quickly
+;; - this removes clocked tasks with 0:00 duration
+(setq org-clock-out-remove-zero-time-clocks t)
+
+;; clock out when moving task to a done state
+;; タスクが完了した時に時間測定も停止する
+(setq org-clock-out-when-done t)
+
+;; Save the running clock and all clock history
+;; when exiting Emacs, load it on startup
+;; Emacsが再起動したときにタスクの時間計測を再開する
+(setq org-clock-persist (quote history))
+
+;; 空き時間の解決 
 ;; 半端時間を絶えずチェックしているファイルのリストは、M-x org-resolve-clocks
 ;; http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
-(setq org-clock-idle-time 10)
+(setq org-clock-idle-time 20)
 
-;; what's this??
-;;(setq org-clock-modeline-total 'today)
-;;(setq org-clock-persist t)
-;;(setq org-clock-clocked-in-display 'both)
+;: 時間測定の履歴数
+(setq org-clock-history-length 36)
 
 ; 時間になったら音をならす
 ;;(setq org-clock-sound "/usr/share/sounds/LinuxMint/stereo/desktop-login.ogg")
 ;;(setq org-clock-sound t)
+
+;; what's this??
+;;(setq org-clock-modeline-total 'today)
+;;(setq org-clock-clocked-in-display 'both)
+
+;; 必ず時間見積り
+(defadvice org-clock-in (before is-set-effort-before-clock-in)
+   (let ((effort (org-entry-get (point) "Effort")))
+     (unless effort
+       (error "[Error: Is not set a effort!]"))))
+(ad-activate-regexp "is-set-effort-before-clock-in")
 
 ;; -----------------------------------------------------------------------
 ;; Name     : org-clock-by-tags
@@ -332,3 +376,5 @@
 ;; ------------------------------------------------------------------------
 (require 'ox-pandoc)
 (setq org-pandoc-output-format 'rst)
+
+

@@ -96,20 +96,3 @@
   "A list of packages to install from el-get at launch.")
 
 (el-get 'sync my/el-get-packages)
-
-;; ------------------------------------------------------------------------
-;; Name     : package.el
-;; Function :
-;; History  : 2014/01/16 add
-;; Install  : http://www.emacswiki.org/emacs/download/auto-install.el
-;; ------------------------------------------------------------------------
-;; TODO el-getに完全移行するためにコメントアウトする
-;;(require 'package)
-;; Add package-archives
-;; Melpa: githubからelispを落とすリポジトリを追加
-;; これで、 M-x list-packagesで melpaが利用できる。
-;; (add-to-list 'package-archives
-;; 	     '("marmalade" . "http://marmalade-repo.org/packages/")
-;; 	     '("melpa" . "http://melpa.milkbox.net/packages/"))
-;; Initialize
-;;(package-initialize)
