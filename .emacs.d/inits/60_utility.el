@@ -104,6 +104,7 @@
 
 ;; パスの引き継ぎ
 ;; exec-path-from-shell from el-get
+(require 'exec-path-from-shell)
 (exec-path-from-shell-initialize)
 
 ;; -----------------------------------------------------------------------

@@ -5,6 +5,123 @@
 ;; ------------------------------------------------------------------------
 ;; (require 'setup)
 
+;;------------------------------------------------------------------------
+;; Def Macro
+;;------------------------------------------------------------------------
+;; Special Thanks
+;; http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
+;;  add-hookを簡潔に
+(defmacro add-hook-fn (name &rest body)
+    `(add-hook ,name #'(lambda () ,@body)))
+
+;; global-set-keyも簡潔に
+(defmacro global-set-key-fn (key args &rest body)
+  `(global-set-key ,key (lambda ,args ,@body)))
+
+;;  複数の要素をリストに追加
+(defmacro append-to-list (to lst)
+  `(setq ,to (append ,lst ,to)))
+
+;; ライブラリがあるときだけrequireする
+;; マクロ定義
+(defmacro req (lib &rest body)
+  `(when (locate-library ,(symbol-name lib))
+     (require ',lib) ,@body))
+
+;; autoloadで遅延ロード
+(defmacro lazyload (func lib &rest body)
+  `(when (locate-library ,lib)
+     ,@(mapcar (lambda (f) `(autoload ',f ,lib nil t)) func)
+     (eval-after-load ,lib
+       '(progn
+	  ,@body))))
+
+;; Special Thanks
+;; http://d.hatena.ne.jp/sr10/20121128/1354083749
+;; ライブラリを遅延評価
+(defmacro lazy-load-eval (feature &optional functions &rest body)
+  "Define each FUNCTIONS to autoload from FEATURE.
+FEATURE is a symbol. FUNCTIONS is a list of symbols. If FUNCTIONS is nil,
+the function same as FEATURE is defined as autoloaded function. BODY is passed
+ to `eval-after-load'.
+When this macro is evaluated, this returns the path to library if FEATURE
+found, otherwise returns nil."
+  (let* ((libname (symbol-name (eval feature)))
+	 (libpath (locate-library libname)))
+    (and libpath
+	 `(progn
+	    ,@(mapcar (lambda (f)
+			(or (fboundp f)
+			    `(autoload (quote ,f)
+				 ,libname
+			       ,(concat "Autoloaded function defined in \""
+					libpath
+					"\".")
+			       t)))
+		      (or (eval functions)
+			  `(,(eval feature))))
+	    (eval-after-load ,feature
+	      (quote (progn
+		       ,@body)))
+	    ,libpath))))
+
+;;------------------------------------------------------------------------
+;; Def Function
+;;------------------------------------------------------------------------
+;; Special Thanks
+;; http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
+
+;; @ load-path
+;; for Emacs 23 under
+(when (> emacs-major-version 23)
+  (defvar user-emacs-directory "~/.emacs.d"))
+;; load-pathの追加関数
+(defun add-to-load-path (&rest paths)
+  (let (path)
+    (dolist (path paths paths)
+      (let ((default-directory (expand-file-name (concat user-emacs-directory path))))
+	(add-to-list 'load-path default-directory)
+	(if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+	    (normal-top-level-add-subdirs-to-load-path))))))
+;; load-pathに追加するフォルダ
+;; 2つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
+(add-to-load-path "elisp" "inits" "el-get" "elpa")
+
+;; elpaは外した。el-getで一元管理したいので。
+;; public_reposは対象から外した。el-getで一元管理したいので。
+
+;; -----------------------------------------------------------------------
+;; Function : 環境による場合分けの方法
+;;   http://d.hatena.ne.jp/tomoya/20090811/1250006208
+;; ------------------------------------------------------------------------
+(defun x->bool (elt) (not (not elt)))
+
+;; emacs-version predicates
+(setq emacs22-p (string-match "^22" emacs-version)
+      emacs23-p (string-match "^23" emacs-version)
+      emacs23.0-p (string-match "^23\.0" emacs-version)
+      emacs23.1-p (string-match "^23\.1" emacs-version)
+      emacs23.2-p (string-match "^23\.2" emacs-version))
+
+;; system-type predicates
+(setq darwin-p  (eq system-type 'darwin)
+      ns-p      (eq window-system 'ns)
+      carbon-p  (eq window-system 'mac)
+      linux-p   (eq system-type 'gnu/linux)
+      colinux-p (when linux-p
+		  (let ((file "/proc/modules"))
+		    (and
+		     (file-readable-p file)
+		     (x->bool
+		      (with-temp-buffer
+			(insert-file-contents file)
+			(goto-char (point-min))
+			(re-search-forward "^cofuse\.+" nil t))))))
+      cygwin-p  (eq system-type 'cygwin)
+      nt-p      (eq system-type 'windows-nt)
+      meadow-p  (featurep 'meadow)
+      windows-p (or cygwin-p nt-p meadow-p))
+
 ;; ------------------------------------------------------------------------
 ;; General key bind
 ;; ------------------------------------------------------------------------
@@ -27,48 +144,6 @@
 ;; Ref:
 ;; http://www.cozmixng.org/~kou/emacs/dot_emacs
 ;; ------------------------------------------------------------------------
-;;; ツールバーを消す
-(tool-bar-mode -1)
-;; emacs -nw で起動した時にメニューバーを消す
-;;(if window-system (menu-bar-mode 1) (menu-bar-mode -1))
-;; -> 常にけす
-(menu-bar-mode -1)
-;;; スクロールバーを消す
-(set-scroll-bar-mode nil)
-
-;;; 対応する括弧を光らせる。
-(show-paren-mode 1)
-
-;;; 画像ファイルを表示する
-(if window-system (auto-image-file-mode t)(auto-image-file-mode nil))
-
-;;; モードラインに時間を表示する
-(display-time)
-(setq display-time-day-and-date t)
-;;; 現在の関数名をモードラインに表示
-(which-function-mode 1)
-(global-linum-mode t)   ;; 行番号の表示
-;;(global-hl-line-mode 1) ;; 現在行に色をつける
-
-;;; 画像ファイルを表示
-(auto-image-file-mode t)
-;; (setq-default mode-line-format
-;; 	      '("-"
-;; 		mode-line-mule-info
-;; 		mode-line-modified
-;; 		" "
-;; 		mode-line-buffer-identification
-;; 		" "
-;; 		global-mode-string
-;; 		" %[("
-;; 		mode-name
-;; 		mode-line-process
-;; 		minor-mode-alist
-;; 		"%n" ")%]"
-;; 		(which-func-mode ("" which-func-format "-"))
-;; 		"-%-"
-;; 		)
-;; 	      )
 
 ;; file名の補間で大文字小文字を区別しない
 (setq completion-ignore-case t)
@@ -263,5 +338,6 @@
 ;; Install  : el-get
 ;; Function : しましま表示
 ;; ------------------------------------------------------------------------
+(require 'stripe-buffer)
 (add-hook 'dired-mode-hook 'turn-on-stripe-buffer-mode)
 ;;(add-hook 'org-mode-hook 'turn-on-stripe-table-mode)

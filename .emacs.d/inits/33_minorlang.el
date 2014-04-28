@@ -36,6 +36,7 @@
 ;; -----------------------------------------------------------------------
 ;; Name     :  VBA
 ;; ------------------------------------------------------------------------
+(when windows-p
 (autoload 'vbasense "vbasense" "Visual Basic Mode" t)
 (add-to-list 'auto-mode-alist '("\\.\\(vbs\\|vb\\|wsf\\|frm\\|bas\\|cls\\)$" .
 				vbasense))
@@ -59,7 +60,7 @@
 (autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode" t)
 (add-to-list 'auto-mode-alist '("\\.\\(vbs\\|vb\\|wsf\\|frm\\|bas\\|cls\\)$" .
 				visual-basic-mode))
-
+)
 ;; ------------------------------------------------------------------------
 ;; Rst-mode (for Sphinx)
 ;; ------------------------------------------------------------------------

@@ -76,7 +76,7 @@
     esup
     helm-github-issues
     helm-open-github
-    setup
+;;    setup
     exec-path-from-shell
     migemo
     org-gcal
@@ -95,4 +95,4 @@
     )
   "A list of packages to install from el-get at launch.")
 
-(el-get 'sync my/el-get-packages)
+;;(el-get 'sync my/el-get-packages)

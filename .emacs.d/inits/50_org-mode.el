@@ -36,12 +36,6 @@
   (interactive)
   (org-map-entries 'org-archive-subtree "/DONE" 'file))
 
-;; ショートカットGTD
-(defun gtd ()
-  (interactive)
-     (find-file "~/gtd/main.org")
-     )
-
 ;;========================================================================
 ;; タスク管理・GTD
 ;;========================================================================
@@ -80,7 +74,7 @@
 
 ; global Effort estimate values
 (setq org-global-properties (quote ((
-      "Effort_ALL" . "0:15 0:30 0:45 1:00 1:30 2:00 2:30 3:00"))))
+      "Effort_ALL" . "0:05 0:10 0:15 0:30 0:45 1:00 1:30 2:00"))))
 
 ;; DONEの時刻を記録
 (setq org-log-done 'time)
@@ -111,9 +105,6 @@
 ;; Resume clocking task on clock-in if the clock is open
 (setq org-clock-in-resume t)
 
-;; Emacsが終了する時に測定中の計測と全ての測定履歴を保存する
-(setq org-clock-persist t)
-
 ;; Sometimes I change tasks I'm clocking quickly
 ;; - this removes clocked tasks with 0:00 duration
 (setq org-clock-out-remove-zero-time-clocks t)
@@ -125,6 +116,7 @@
 ;; Save the running clock and all clock history
 ;; when exiting Emacs, load it on startup
 ;; Emacsが再起動したときにタスクの時間計測を再開する
+;; Emacsが終了する時に測定中の計測と全ての測定履歴を保存する
 (setq org-clock-persist (quote history))
 
 ;; 空き時間の解決 
@@ -135,13 +127,18 @@
 ;: 時間測定の履歴数
 (setq org-clock-history-length 36)
 
+;; Do not prompt to resume an active clock
+(setq org-clock-persist-query-resume nil)
+
+;; Enable auto clock resolution for finding open clocks
+(setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
+
+;; Include current clocking task in clock reports
+(setq org-clock-report-include-clocking-task t)
+
 ; 時間になったら音をならす
 ;;(setq org-clock-sound "/usr/share/sounds/LinuxMint/stereo/desktop-login.ogg")
 ;;(setq org-clock-sound t)
-
-;; what's this??
-;;(setq org-clock-modeline-total 'today)
-;;(setq org-clock-clocked-in-display 'both)
 
 ;; 必ず時間見積り
 (defadvice org-clock-in (before is-set-effort-before-clock-in)
@@ -149,6 +146,44 @@
      (unless effort
        (error "[Error: Is not set a effort!]"))))
 (ad-activate-regexp "is-set-effort-before-clock-in")
+
+;; Refs
+;; https://github.com/danieroux/emacs/blob/master/external/bh-org-mode.el
+;; タスク整理をデフォルトに
+(defvar bh/organization-task-id "b66237b9-95dd-4863-bc36-bd4dbc435eca")
+
+(defun bh/clock-in-task-by-id (id)
+  "Clock in a task by id"
+  (save-restriction
+    (widen)
+    (org-with-point-at (org-id-find id 'marker)
+      (org-clock-in '(16)))))
+
+(defun bh/clock-in-default-task ()
+  (save-excursion
+    (org-with-point-at org-clock-default-task
+      (org-clock-in))))
+
+(defun bh/clock-in-organization-task-as-default ()
+  (interactive)
+  (org-with-point-at (org-id-find bh/organization-task-id 'marker)
+    (org-clock-in '(16))))
+
+(defun bh/clock-out-maybe ()
+  (when (and bh/keep-clock-running
+             (not org-clock-clocking-in)
+             (marker-buffer org-clock-default-task)
+             (not org-clock-resolving-clocks-due-to-idleness))
+    (bh/clock-in-parent-task)))
+
+(add-hook 'org-clock-out-hook 'bh/clock-out-maybe 'append)
+
+;; ショートカットGTD
+(defun gtd ()
+  (interactive)
+     (find-file "~/gtd/main.org")
+     (bh/clock-in-organization-task-as-default) 
+     )
 
 ;; -----------------------------------------------------------------------
 ;; Name     : org-clock-by-tags
