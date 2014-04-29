@@ -87,12 +87,13 @@
     pdf-tools
     direx
     stripe-buffer
+;;    helm-shell-history
     ;; elscreen
-    ;; webkit downloadが失敗しそうなので封印
+    multi-term
     ;; この2つは特別なので一番最後におく
-    init-loader
-    el-get
+;;    init-loader
+;;    el-get
     )
   "A list of packages to install from el-get at launch.")
 
-;;(el-get 'sync my/el-get-packages)
+(el-get 'sync my/el-get-packages)

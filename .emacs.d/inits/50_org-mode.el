@@ -43,12 +43,43 @@
 ;; NextActionの設定
 ;; http://qiita.com/takaxp/items/4dfa11a81e18b29143ec
 ;; ------------------------------------------------------------------------
+(defvar my-next-tag "next")
+(defvar my-unplan-tag "unplan")
+
 ;; タグの色変更
-(setq org-tag-faces '(("next" :foreground "#FF0000")))
-(defun my-sparse-doing-tree ()
-    (interactive)
-      (org-tags-view nil "next"))
-(define-key org-mode-map (kbd "C-c 3") 'my-sparse-doing-tree)
+;; (setq org-tag-faces '(("next" :foreground "#FF0000")))
+(setq org-tag-faces '(("next" :foreground "orange")))
+
+;; Nextタグをトグルする
+;; (defun my-toggle-tag (my-tag)
+;;   (interactive)
+;;   (when (eq major-mode 'org-mode)
+;;     (save-excursion
+;;       (save-restriction
+;;         (unless (org-at-heading-p)
+;;           (outline-previous-heading))
+;;         (if (string-match (concat ":" my-tag ":") (org-get-tags-string))
+;;             (org-toggle-tag my-tag 'off)
+;;           (org-toggle-tag my-tag 'on))
+;;         (org-reveal)))))
+
+(defun my-toggle-next-tag ()
+  (interactive)
+  (when (eq major-mode 'org-mode)
+    (save-excursion
+      (save-restriction
+        (unless (org-at-heading-p)
+          (outline-previous-heading))
+        (if (string-match (concat ":" my-next-tag ":") (org-get-tags-string))
+            (org-toggle-tag my-next-tag 'off)
+          (org-toggle-tag my-next-tag 'on))
+        (org-reveal)))))
+
+;; (defun my-toggle-unplan-tag ()
+;;   my-toggle-tag(my-unplan-tag))
+
+(global-set-key (kbd "C-x <f2>") 'my-toggle-next-tag)
+;;(global-set-key (kbd "C-x <f3>") 'my-toggle-unplan-tag)
 
 ;;========================================================================
 ;; org-agenda
@@ -95,6 +126,7 @@
 
 ;; カラムビューで表示する項目
 (setq org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
+
 ;; -----------------------------------------------------------------------
 ;; Name     : org-clock
 ;; http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
@@ -169,14 +201,14 @@
   (org-with-point-at (org-id-find bh/organization-task-id 'marker)
     (org-clock-in '(16))))
 
-(defun bh/clock-out-maybe ()
-  (when (and bh/keep-clock-running
-             (not org-clock-clocking-in)
-             (marker-buffer org-clock-default-task)
-             (not org-clock-resolving-clocks-due-to-idleness))
-    (bh/clock-in-parent-task)))
+;; (defun bh/clock-out-maybe ()
+;;   (when (and bh/keep-clock-running
+;;              (not org-clock-clocking-in)
+;;              (marker-buffer org-clock-default-task)
+;;              (not org-clock-resolving-clocks-due-to-idleness))
+;;     (bh/clock-in-parent-task)))
 
-(add-hook 'org-clock-out-hook 'bh/clock-out-maybe 'append)
+;;(add-hook 'org-clock-out-hook 'bh/clock-out-maybe 'append)
 
 ;; ショートカットGTD
 (defun gtd ()

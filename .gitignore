@@ -33,3 +33,4 @@
 /.emacs.d/inits/*.elc
 /.emacs.d/elisp/webkit
 /.emacs.d/elpa/
+/.emacs.d/inits/03_display.el

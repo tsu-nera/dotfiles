@@ -75,6 +75,7 @@ found, otherwise returns nil."
 ;; for Emacs 23 under
 (when (> emacs-major-version 23)
   (defvar user-emacs-directory "~/.emacs.d"))
+
 ;; load-pathの追加関数
 (defun add-to-load-path (&rest paths)
   (let (path)
@@ -289,6 +290,8 @@ found, otherwise returns nil."
 (push '("*rspec-compilation*" :regexp t) popwin:special-display-config)
 (push '("*Oz Compiler*" :regexp t) popwin:special-display-config)
 (push '("^CAPTURE-.+\*.org$" :regexp t) popwin:special-display-config)
+(push '("^\*terminal<.+" :regexp t) popwin:special-display-config)
+
 ;; http://cx4a.blogspot.jp/2011/12/popwineldirexel.html
 
 (push '(direx:direx-mode :position left :width 40 :dedicated t)

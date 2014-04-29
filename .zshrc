@@ -5,12 +5,12 @@
 ###############
 # ヒストリ関連
 ###############
-# 履歴の保存先
-HISTFILE=$HOME/.zsh-history
-## メモリに展開する履歴の数
-HISTSIZE=1000
-## 保存する履歴の数
-SAVEHIST=10000
+# 履歴ファイルの保存先
+export HISTFILE=${HOME}/.zsh-history
+# メモリに保存される履歴の件数
+export HISTSIZE=1000
+# 履歴ファイルに保存される履歴の件数
+export SAVEHIST=100000
 
 ## コマンドラインの先頭がスペースで始まる場合ヒストリに追加しない
 setopt hist_ignore_space
@@ -241,6 +241,9 @@ function cdls() {
     ls;
 }
 
+# history 全表示
+function history-all { history -E 1 }
+
 # ------------------------------------------------------------------------
 # Name     : isemacs
 # History  : 2014/04/20
@@ -327,6 +330,7 @@ fi
 #########
 # EmacsClient起動
 export TERM=xterm-256color
+alias mc='emacsclient -nc'
 
 if [ "$EMACS" ];then
 else

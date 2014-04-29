@@ -49,11 +49,11 @@
 
 ;; http://d.hatena.ne.jp/mooz/20090613/p1
 ;; コントロールシーケンスを利用した色指定が使えるように
-(require 'ansi-color)
-(autoload 'ansi-color-for-comint-mode-on "ansi-color"
-    "Set `ansi-color-for-comint-mode' to t." t)
+;;(require 'ansi-color)
+;;(autoload 'ansi-color-for-comint-mode-on "ansi-color"
+;;    "Set `ansi-color-for-comint-mode' to t." t)
 
-(add-hook 'shell-mode-hook
+(add-hook 'term-mode-hook
 	  '(lambda ()
 	    ;; zsh のヒストリファイル名を設定
 	    (setq comint-input-ring-file-name "~/.zsh-histry")
@@ -65,30 +65,84 @@
 	    (local-set-key "\M-p" 'comint-previous-matching-input-from-input)
 	    (local-set-key "\M-n" 'comint-next-matching-input-from-input)
 	    ;; 色の設定
-	    (setq ansi-color-names-vector
-	     ["#000000"           ; black
-	      "#ff6565"           ; red
-	      "#93d44f"           ; green
-	      "#eab93d"           ; yellow
-	      "#204a87"           ; blue
-	      "#ce5c00"           ; magenta
-	      "#89b6e2"           ; cyan
-	      "#ffffff"]          ; white
-	     )
-	    (ansi-color-for-comint-mode-on)
+	    ;; (setq ansi-color-names-vector
+	    ;;  ["#000000"           ; black
+	    ;;   "#ff6565"           ; red
+	    ;;   "#93d44f"           ; green
+	    ;;   "#eab93d"           ; yellow
+	    ;;   "#204a87"           ; blue
+	    ;;   "#ce5c00"           ; magenta
+	    ;;   "#89b6e2"           ; cyan
+	    ;;   "#ffffff"]          ; white
+	    ;;  )
+	    ;; (ansi-color-for-comint-mode-on)
 	    )
 	  )
+
 ;; utf-8
 (set-language-environment  'utf-8)
 (prefer-coding-system 'utf-8)
 
 ;; Emacs が保持する terminfo を利用する
-;; (setq system-uses-terminfo nil)
+(setq system-uses-terminfo nil)
+
+;;multi-term設定
+(require 'multi-term)
+(setq multi-term-program "/usr/bin/zsh")
+
+;;タブ補完できないときのおまじない。
+;; http://stackoverflow.com/questions/18278310/emacs-ansi-term-not-tab-completing
+(add-hook 'term-mode-hook (lambda()
+        (setq yas-dont-activate t)))
+
+;;shell の割り込みを機能させる
+(defadvice term-interrupt-subjob (around ad-term-interrupt-subjob activate)
+  (term-send-raw-string (kbd "C-c")))
+
+;;シェルの行数を増やす
+(add-hook 'term-mode-hook
+(lambda ()
+(setq term-buffer-maximum-size 10000)))
+
+;; my-keybinds for keybinds -e
+(defun term-send-forward-char ()
+  (interactive)
+  (term-send-raw-string "\C-f"))
+
+(defun term-send-backward-char ()
+  (interactive)
+  (term-send-raw-string "\C-b"))
+
+(defun term-send-previous-line ()
+  (interactive)
+  (term-send-raw-string "\C-p"))
+
+(defun term-send-next-line ()
+  (interactive)
+  (term-send-raw-string "\C-n"))
+
+(add-hook 'term-mode-hook
+          '(lambda ()
+             (let* ((key-and-func
+                     `(("\C-p"           term-send-previous-line)
+                       ("\C-n"           term-send-next-line)
+                       ("\C-b"           term-send-backward-char)
+                       ("\C-f"           term-send-forward-char)
+                       (,(kbd "C-h")     term-send-backspace)
+                       (,(kbd "C-y")     term-paste)
+                       (,(kbd "ESC ESC") term-send-raw)
+                       (,(kbd "C-S-p")   multi-term-prev)
+                       (,(kbd "C-S-n")   multi-term-next)
+                       )))
+               (loop for (keybind function) in key-and-func do
+                     (define-key term-raw-map keybind function)))))
 
 ;; shellのキーバインド
-(global-set-key (kbd "C-c t") '(lambda ()
-                                (interactive)
-                                (ansi-term shell-file-name)))
+(global-set-key (kbd "C-c t") 'multi-term)
+
+(require 'helm-shell-history)
+(add-hook 'term-mode-hook
+	  (lambda () (define-key term-raw-map (kbd "C-r") 'helm-shell-history)))
 
 ;; -----------------------------------------------------------------------
 ;; Name     :  パスの設定
