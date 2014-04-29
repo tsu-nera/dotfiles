@@ -146,7 +146,8 @@
 ;; チーとシーと
 ;; http://daemianmack.com/magit-cheatsheet.html
 ;; ------------------------------------------------------------------------
-(autoload 'magit "magit" "An Emacs mode for Git" nil)
+(autoload 'magit "magit" "An Emacs mode for Git" t t)
+
 (setq magit-git-executable "git")
 (setq magit-emacsclient-executable "emacsclient")
 

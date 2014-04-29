@@ -94,4 +94,7 @@
 ;;  #+begin_src emacs-lisp 〜 #+end_src 部分をファイル名.el というファイルに抽出
 ;; タイムスタンプが新しい or .el の抽出を行なったら .el を読む
 
+;; インデント保持
+(setq org-src-preserve-indentation t)
+
 (bl:load-dir "~/.emacs.d/inits/") 

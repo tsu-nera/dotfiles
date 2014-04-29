@@ -14,13 +14,14 @@
 (require 'helm-config)
 (require 'helm-command)
 (require 'helm-descbinds)
+(require 'helm-c-yasnippet)
 ;(require 'helm-recentf)
 ;(require 'helm-c-moccur)
 ;(require 'helm-migemo)
 (require 'gist)
 (require 'helm-gist)
 (autoload 'helm-github-issues "helm-github-issues"
-  "Helm interface for github issues" nil)
+  "Helm interface for github issues" nil t)
 
 (setq helm-idle-delay             0.3
       helm-input-idle-delay       0.3
