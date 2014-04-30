@@ -96,4 +96,6 @@
     )
   "A list of packages to install from el-get at launch.")
 
-(el-get 'sync my/el-get-packages)
+;; syncを外してみる。
+;; proxy配下で起動が遅くなるので。
+;; (el-get 'sync my/el-get-packages)

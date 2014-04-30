@@ -191,23 +191,6 @@
 ;; (require 'helm-howm)
 
 ;; -----------------------------------------------------------------------
-;; Name     : magit
-;; Install  : el-get
-;; Function : Emacsの Git Client
-;; Refs
-;; https://github.com/magit/magit
-;; http://qiita.com/takc923/items/c7a11ff30caedc4c5ba7
-;; チーとシーと
-;; http://daemianmack.com/magit-cheatsheet.html
-;; ------------------------------------------------------------------------
-(autoload 'magit "magit" "An Emacs mode for Git" t t)
-
-(setq magit-git-executable "git")
-(setq magit-emacsclient-executable "emacsclient")
-
-(define-key global-map (kbd "C-c m") 'magit-status)
-
-;; -----------------------------------------------------------------------
 ;; Name     : pdf-tools
 ;; Install  : recipe
 ;;            sudo apt-get install libpoppler-glib-dev

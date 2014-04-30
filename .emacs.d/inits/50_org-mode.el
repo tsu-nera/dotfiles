@@ -179,10 +179,17 @@
        (error "[Error: Is not set a effort!]"))))
 (ad-activate-regexp "is-set-effort-before-clock-in")
 
+
+;; -----------------------------------------------------------------------
+;; Name  : org-clock-in-quick
+;;       : 指定したタスクをclockinするためのショートカット
+;;       : はじめてつくった自作defun!!
+;; http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
+;; ------------------------------------------------------------------------
 ;; Refs
 ;; https://github.com/danieroux/emacs/blob/master/external/bh-org-mode.el
-;; タスク整理をデフォルトに
-(defvar bh/organization-task-id "b66237b9-95dd-4863-bc36-bd4dbc435eca")
+(defvar bh/organization-task-id-gtd "b66237b9-95dd-4863-bc36-bd4dbc435eca")
+(defvar bh/organization-task-id-rest "192d0802-8ed7-4c51-ad3f-04f6ae4e75f6")
 
 (defun bh/clock-in-task-by-id (id)
   "Clock in a task by id"
@@ -191,15 +198,28 @@
     (org-with-point-at (org-id-find id 'marker)
       (org-clock-in '(16)))))
 
-(defun bh/clock-in-default-task ()
-  (save-excursion
-    (org-with-point-at org-clock-default-task
-      (org-clock-in))))
-
-(defun bh/clock-in-organization-task-as-default ()
+;; ショートカット clock-in
+(defun gtd ()
   (interactive)
-  (org-with-point-at (org-id-find bh/organization-task-id 'marker)
-    (org-clock-in '(16))))
+  (find-file "~/gtd/main.org")
+  (bh/clock-in-task-by-id bh/organization-task-id-gtd)
+  )
+
+(defun rest ()
+  (interactive)
+  (find-file "~/gtd/main.org")
+  (bh/clock-in-task-by-id bh/organization-task-id-rest)
+  )
+
+;; (defun bh/clock-in-default-task ()
+;;   (save-excursion
+;;     (org-with-point-at org-clock-default-task
+;;       (org-clock-in))))
+
+;; (defun bh/clock-in-organization-task-as-default ()
+;;   (interactive)
+;;   (org-with-point-at (org-id-find bh/organization-task-id 'marker)
+;;     (org-clock-in '(16))))
 
 ;; (defun bh/clock-out-maybe ()
 ;;   (when (and bh/keep-clock-running
@@ -209,13 +229,6 @@
 ;;     (bh/clock-in-parent-task)))
 
 ;;(add-hook 'org-clock-out-hook 'bh/clock-out-maybe 'append)
-
-;; ショートカットGTD
-(defun gtd ()
-  (interactive)
-     (find-file "~/gtd/main.org")
-     (bh/clock-in-organization-task-as-default) 
-     )
 
 ;; -----------------------------------------------------------------------
 ;; Name     : org-clock-by-tags
@@ -286,6 +299,8 @@
 	;;	 "** %?\n %U\n %a\n %i\n")
 	("i" "Inbox" entry (file+datetree "~/gtd/inbox.org")
 	 "** TODO %?\n")
+	("u" "Unplan" entry (file+datetree "~/gtd/inbox.org")
+	 "** TODO %? :unplan:\n")
 	("w" "Diary" entry (file+datetree "~/gtd/main.org")
 	 "** %T %?\n")
 	("e" "Clock-in" entry (clock)
@@ -444,4 +459,27 @@
 (require 'ox-pandoc)
 (setq org-pandoc-output-format 'rst)
 
+;; -----------------------------------------------------------------------
+;; Name     : org-open-linkをdiredで
+;; http://sheephead.homelinux.org/
+;; ------------------------------------------------------------------------
+(org-add-link-type "file+emacs+dired" 'org-open-file-with-emacs-dired)
+(add-hook 'org-store-link-functions 'org-dired-store-link)
 
+(defun org-open-file-with-emacs-dired (path)
+  "Open in dired."
+  (let ((d (file-name-directory path))
+    (f (file-name-nondirectory path)))
+    (dired d)
+    (goto-char (point-min))
+    (search-forward f nil t)))
+
+(defun org-dired-store-link ()
+  "Store link to files/directories from dired."
+  (require 'dired-x)
+  (when (eq major-mode 'dired-mode)
+    (let* ((f (dired-filename-at-point))
+           (link (concat "file+emacs+dired" ":" f))
+           (desc (concat f " (dired)")))
+      (org-add-link-props :link link :description desc)
+      link)))

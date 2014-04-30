@@ -177,3 +177,36 @@
 ;;(global-set-key [(C-left)] 'keisen-left-move)
 ;;(global-set-key [(C-up)] 'keisen-up-move)
 ;;(global-set-key [(C-down)] 'keisen-down-move)
+
+;; -----------------------------------------------------------------------
+;; Name     : magit
+;; Install  : el-get
+;; Function : Emacsの Git Client
+;; Refs
+;; https://github.com/magit/magit
+;; http://qiita.com/takc923/items/c7a11ff30caedc4c5ba7
+;; チーとシーと
+;; http://daemianmack.com/magit-cheatsheet.html
+;; ------------------------------------------------------------------------
+(autoload 'magit "magit" "An Emacs mode for Git" t t)
+(autoload 'magit-svn "magit-svn" "An Emacs mode for Subversion" t t)
+
+(setq magit-git-executable "git")
+(setq magit-emacsclient-executable "emacsclient")
+
+(define-key global-map (kbd "C-c m") 'magit-status)
+
+;; ------------------------------------------------------------------------
+;; Name     : ediff
+;; Function : emacsようdiffツール
+;; build-in :
+;; http://www.emacswiki.org/emacs/EdiffMode
+;;; ------------------------------------------------------------------------
+;; コントロール用のバッファを同一フレーム内に表示
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+;; 縦に分割
+(setq ediff-split-window-function 'split-window-horizontally)
+;; ウィンドウサイズによっては横分割
+(setq ediff-split-window-function (if (> (frame-width) 150)
+				      'split-window-horizontally
+				    'split-window-vertically))

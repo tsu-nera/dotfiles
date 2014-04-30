@@ -290,13 +290,21 @@ found, otherwise returns nil."
 (push '("*rspec-compilation*" :regexp t) popwin:special-display-config)
 (push '("*Oz Compiler*" :regexp t) popwin:special-display-config)
 (push '("^CAPTURE-.+\*.org$" :regexp t) popwin:special-display-config)
-(push '("^\*terminal<.+" :regexp t) popwin:special-display-config)
+;; (push '("^\*terminal<.+" :regexp t) popwin:special-display-config)
 
 ;; http://cx4a.blogspot.jp/2011/12/popwineldirexel.html
+
+;; M-x dired-jump-other-window
+(push '(dired-mode :position bottom) popwin:special-display-config)
+;; M-!
+(push "*Shell Command Output*" popwin:special-display-config)
+;; M-x compile
+(push '(compilation-mode :noselect t) popwin:special-display-config)
 
 (push '(direx:direx-mode :position left :width 40 :dedicated t)
       popwin:special-display-config)
 (global-set-key (kbd "C-x j") 'direx:jump-to-directory-other-window)
+(global-set-key (kbd "C-x 4 j") 'dired-jump-other-window)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : ffap.el
