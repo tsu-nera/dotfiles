@@ -87,6 +87,7 @@
 ;; アジェンダ表示の対象ファイル
 (setq org-agenda-files '("~/gtd/inbox.org"
 			 "~/gtd/main.org"
+			 "~/gtd/unplan.org"
 			 "~/gtd/schedule.org"))
 
 
@@ -291,15 +292,9 @@
 (require 'org-capture)
 (setq org-capture-templates
       '(
-	;;	("t" "Task" entry (file+headline nil "Inbox")
-	;;	 "** TODO %?\n %T\n %a\n %i\n")
-	;;	("b" "Bug" entry (file+headline nil "Inbox")
-	;;	 "** TODO %?   :bug:\n  %T\n %a\n %i\n")
-	;;	("m" "Meeting" entry (file+headline nil "Meeting")
-	;;	 "** %?\n %U\n %a\n %i\n")
 	("i" "Inbox" entry (file+datetree "~/gtd/inbox.org")
 	 "** TODO %?\n")
-	("u" "Unplan" entry (file+datetree "~/gtd/inbox.org")
+	("u" "Unplan" entry (file+datetree "~/gtd/unplan.org")
 	 "** TODO %? :unplan:\n")
 	("w" "Diary" entry (file+datetree "~/gtd/main.org")
 	 "** %T %?\n")

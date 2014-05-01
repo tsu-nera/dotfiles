@@ -29,67 +29,78 @@
 ;; auto install el-get.el
 (defvar my/el-get-packages
   '(
-    helm
+    ;; window
+    popwin
+    ;; text
     yasnippet
-    vbasense
-    visual-basic-mode
+    auto-complete
+    anzu
+    auto-highlight-symbol
+    highlight-symbol
+    multiple-cursors
+    ;; smart-compile 独自改造したものをelispにおいた
+    expand-region
+;;    setup
+    migemo
+    ;; utility
+    howm
+    magit
+    pdf-tools
+    direx
+    stripe-buffer
+    wanderlust
+    multi-term
+    emacs-w3m
+    metaweblog
+    xml-rpc-el
+    tempbuf
+    esup
+    exec-path-from-shell
+    calfw
+    ;; helm
+    helm
+    helm-gist
+    helm-c-yasnippet
+    helm-descbinds
+    anything
+    helm-github-issues
+    helm-open-github
+    ;; helm-shell-history
+    ;; org-mode
+    org2blog
+    org-mode
+    org-pomodoro
+    org-gcal
+    org-pandoc
+    ;; color
+    color-theme
+    powerline 
+    molokai-theme
+    ;; programming
+    gist
+    flymake
+    flycheck
+    flycheck-color-mode-line
+    ;; ruby
     ruby-block
     robe-mode
     ruby-electric
     rspec-mode
     ruby-refactor
     rcodetools
-    anything-rdefs
     inf-ruby
-    auto-complete
     auto-complete-ruby
+    anything-rdefs
+    ;; visual-basic
+    vbasense
+    visual-basic-mode
+    ;; minor-mode
+    rainbow-mode
     yaml-mode
-    popwin
-    flycheck
-    flycheck-color-mode-line
-    anzu
-    auto-highlight-symbol
-    highlight-symbol
-    multiple-cursors
-    color-theme
-    ;; smart-compile 独自改造したものをelispにおいた
-    helm-descbinds
-    anything
-    gist
-    flymake
-    helm-gist
-    helm-c-yasnippet
     markdown-mode
-    expand-region
-    powerline 
-    molokai-theme
     cool-mode
     plantuml-mode
-    metaweblog
-    xml-rpc-el
-    tempbuf
-    org2blog
-    org-mode
-    org-pomodoro
-    rainbow-mode
-    wanderlust
-    esup
-    helm-github-issues
-    helm-open-github
-;;    setup
-    exec-path-from-shell
-    migemo
-    org-gcal
-    calfw
-    org-pandoc
-    howm
-    magit
-    pdf-tools
-    direx
-    stripe-buffer
-;;    helm-shell-history
     ;; elscreen
-    multi-term
     ;; この2つは特別なので一番最後におく
 ;;    init-loader
 ;;    el-get
@@ -97,5 +108,5 @@
   "A list of packages to install from el-get at launch.")
 
 ;; syncを外してみる。
-;; proxy配下で起動が遅くなるので。
+;; proxy配下で起動が遅くなる気がする。
 ;; (el-get 'sync my/el-get-packages)
