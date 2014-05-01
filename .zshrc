@@ -119,25 +119,22 @@ bindkey -e
 ##################
 # 色有効
 autoload -U colors
-colors
 ## 色を使う
 setopt prompt_subst
 
 # 色を定義
 local GREEN=$'%{\e[1;32m%}'
-# local BLUE=$'%{\e[1;34m%}'
 local ORANGE=$'%{\e[1;33m%}'
 local DEFAULT=$'%{\e[1;m%}'
 
-# 通常のプロンプト
-#PROMPT=$BLUE'[%n@%m] %(!.#.$) '$WHITE
-PROMPT=$ORANGE'[%n]%# '$WHITE
-# 右側のプロンプト。ここでカレントディレクトリを出す。
-
 if [ "$EMACS" ];then
-    # Emacs の ansi-term では右プロンプトを表示しない
+    PROMPT='[%n]%# '
+    # Emacs の shell では右プロンプトを表示しない
     RPROMPT=""
 else
+    PROMPT=$ORANGE'[%n]%# '$WHITE
+
+    # 右側のプロンプト。ここでカレントディレクトリを出す。
     RPROMPT=$DEFAULT'[%~]'$WHITE
     setopt transient_rprompt
 fi
