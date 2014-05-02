@@ -22,7 +22,7 @@
 (autoload 'esup "esup" "Emacs Start Up Profiler." nil)
 
 ;; -----------------------------------------------------------------------
-;; Name     :  シェルの設定(ansi-termをしよう)
+;; Name     :  シェルの設定
 ;; Install  :
 ;; Function : http://sakito.jp/emacs/emacsshell.html#emacs
 ;;            Emacs上のシェル
@@ -137,12 +137,90 @@
                (loop for (keybind function) in key-and-func do
                      (define-key term-raw-map keybind function)))))
 
-;; shellのキーバインド
-(global-set-key (kbd "C-c t") 'multi-term)
+;; (require 'helm-shell-history)
+;; (add-hook 'term-mode-hook
+;; 	  (lambda () (define-key term-raw-map (kbd "C-r") 'helm-shell-history)))
 
-(require 'helm-shell-history)
-(add-hook 'term-mode-hook
-	  (lambda () (define-key term-raw-map (kbd "C-r") 'helm-shell-history)))
+
+;; eshell
+;; http://nishikawasasaki.hatenablog.com/entry/2012/09/12/233116
+;; eshell での補完に auto-complete.el を使う
+(require 'pcomplete)
+(add-to-list 'ac-modes 'eshell-mode)
+(ac-define-source pcomplete
+  '((candidates . pcomplete-completions)))
+(defun my-ac-eshell-mode ()
+  (setq ac-sources
+        '(ac-source-pcomplete
+          ac-source-filename
+          ac-source-files-in-current-dir
+          ac-source-words-in-buffer
+          ac-source-dictionary)))
+(add-hook 'eshell-mode-hook
+          (lambda ()
+            (my-ac-eshell-mode)
+            (define-key eshell-mode-map (kbd "C-i") 'auto-complete)
+            (define-key eshell-mode-map [(tab)] 'auto-complete)))
+
+;; helm で補完
+(add-hook 'eshell-mode-hook
+          #'(lambda ()
+              (define-key eshell-mode-map
+                (kbd "M-n")
+                'helm-esh-pcomplete)))
+
+;; helm で履歴から入力
+(add-hook 'eshell-mode-hook
+          #'(lambda ()
+              (define-key eshell-mode-map
+                (kbd "M-p")
+                'helm-eshell-history)))
+
+;; http://d.hatena.ne.jp/khiker/20060919/1158686507
+;; キーバインドの変更
+(add-hook 'eshell-mode-hook
+	  '(lambda ()
+	     (progn
+	       (define-key eshell-mode-map "\C-a" 'eshell-bol)
+	       (define-key eshell-mode-map "\C-p" 'eshell-previous-matching-input-from-input)
+	       (define-key eshell-mode-map "\C-n" 'eshell-next-matching-input-from-input)
+	       )
+	     ))
+
+(setq eshell-prompt-function
+      (lambda ()
+        (concat "[tsu-nera"
+                (eshell/pwd)
+                (if (= (user-uid) 0) "]\n# " "]\n$ ")
+                )))
+(setq eshell-prompt-regexp "^[^#$]*[$#] ")
+
+;; 補完時に大文字小文字を区別しない
+(setq eshell-cmpl-ignore-case t)
+;; 確認なしでヒストリ保存
+(setq eshell-ask-to-save-history (quote always))
+;; 補完時にサイクルする
+(setq eshell-cmpl-cycle-completions t)
+;;補完候補がこの数値以下だとサイクルせずに候補表示
+(setq eshell-cmpl-cycle-cutoff-length 5)
+;; 履歴で重複を無視する
+(setq eshell-hist-ignoredups t)
+
+;; エスケープシーケンスを処理
+;; http://d.hatena.ne.jp/hiboma/20061031/1162277851
+;; (autoload 'ansi-color-for-comint-mode-on "ansi-color"
+;;           "Set `ansi-color-for-comint-mode' to t." t)
+;; (add-hook 'eshell-load-hook 'ansi-color-for-comint-mode-on)
+;; ;; http://www.emacswiki.org/emacs-ja/EshellColor
+;; (require 'ansi-color)
+;; (require 'eshell)
+;; (defun eshell-handle-ansi-color ()
+;;   (ansi-color-apply-on-region eshell-last-output-start
+;;                               eshell-last-output-end))
+;; (add-to-list 'eshell-output-filter-functions 'eshell-handle-ansi-color)
+
+;; shellのキーバインド
+(global-set-key (kbd "C-c t") 'eshell)
 
 ;; -----------------------------------------------------------------------
 ;; Name     :  パスの設定

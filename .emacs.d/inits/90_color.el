@@ -22,21 +22,14 @@
 ;; Function : Most popular color theme
 ;; History  : 2014.1.14 Add
 ;; Install  : https://raw2.github.com/hbin/molokai-theme/master/molokai-theme-kit.el
+;;            現在は、forkしてカスタマイズしたものをりようしている。
 ;; ------------------------------------------------------------------------
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/molokai-theme")
+
 (require 'molokai-theme-kit)
 (setq molokai-theme-kit t)
-
 (load-theme 'molokai t)
-;; Linux環境はスケスケに上書きする
-;; (when linux-p
-;;   (load-theme 'my-molokai t)
-;; )
-;; ;; Cygwinはちゃんと塗りつぶし
-;; (when cygwin-p
-;;   (load-theme 'molokai t)
-;; )
 
 ;; ------------------------------------------------------------------------
 ;; Name     : PowerLine

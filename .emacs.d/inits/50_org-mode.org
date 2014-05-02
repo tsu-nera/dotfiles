@@ -108,7 +108,7 @@
             (org-agenda-sorting-strategy
             (quote ((agenda time-up priority-down tag-up) )))
             (org-deadline-warning-days 0)
-            (org-agenda-clockreport-mode t)
+;;            (org-agenda-clockreport-mode t) ;; 時間表の表示はコメントアウト
             ))))
         ))
 
