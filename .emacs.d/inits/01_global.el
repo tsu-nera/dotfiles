@@ -239,28 +239,20 @@ found, otherwise returns nil."
 ;;  sudo apt-get update
 ;;  sudo apt-get install ibus-el
 ;;  いれたけど、うまく動かない。
+;;  -> ibus仕様変更により現在動作せず。もうだめぽよ。
+;; http://margaret-sdpara.blogspot.jp/2013/10/ibusel.html
+;; https://code.google.com/p/ibus/issues/detail?id=1419
 ;; ------------------------------------------------------------------------
-;; (require 'ibus)
-;; (add-hook 'after-init-hook 'ibus-mode-on)
-
-;; ;; IBusの状態によってカーソル色を変化させる
-;; (setq ibus-cursor-color '("red" "blue" "limegreen"))
-
-;; ;; isearch 時はオフに
-;; (add-hook 'isearch-mode-hook 'ibus-disable)
-
-;; ;; mini buffer ではオフに
-;; (add-hook 'minibuffer-setup-hook 'ibus-disable)
-
-;; ;; インクリメンタル検索中のカーソル形状を変更する
-;; (setq ibus-isearch-cursor-type 'hollow)
-
-;; ;; カーソルの位置に予測候補を表示
-;; (setq ibus-prediction-window-position t)
-
-;; ;; Undo の時に確定した位置まで戻る
-;; (setq ibus-undo-by-committed-string t)
-
+;; Anthy
+;; sudo apt-get install anthy-el
+;; (when linux-p
+;;   (load-library "anthy")
+;;   (set-language-environment "Japanese")
+;;   (setq default-input-method "japanese-anthy")
+;;   (global-set-key [zenkaku-hankaku] 'toggle-input-method)
+;; ;; パッチあてた
+;; ;; http://www.mail-archive.com/anthy-dev@lists.sourceforge.jp/msg00395.html
+;; )
 ;; -----------------------------------------------------------------------
 ;; Name     : whitespace
 ;; Install  : build-in

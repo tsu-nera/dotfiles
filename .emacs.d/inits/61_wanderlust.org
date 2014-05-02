@@ -3,7 +3,7 @@
 
 環境ごとの設定は~/.wlに記入する。
 
-** HTMLメール対策
+* HTMLメール対策
 emacs-w3mをつかう。w3mが必要。(apt-get install w3m)
 
 #+begin_src emacs-lisp
@@ -20,7 +20,7 @@ emacs-w3mをつかう。w3mが必要。(apt-get install w3m)
   )
 #+end_src
 
-** 無視するヘッダ
+* 無視するヘッダ
 #+begin_src emacs-lisp
 ;; ;; summary-mode ですべての header を一旦除去
 ;; (setq mime-view-ignored-field-list '("^.*"))
@@ -62,7 +62,7 @@ emacs-w3mをつかう。w3mが必要。(apt-get install w3m)
 ;; )))
 #+end_src
 
-** 未分類
+* 未分類
 
 #+begin_src emacs-lisp
 ;;;------------------------------------------
@@ -113,11 +113,11 @@ emacs-w3mをつかう。w3mが必要。(apt-get install w3m)
 (ad-set-arg 0 (or (eword-encode-string (ad-get-arg 0)) "" )) ))
 
 ;; 添付ファイルがある場合は「@」を表示
-(setq elmo-msgdb-extra-fields
-(cons "content-type" elmo-msgdb-extra-fields))
-(setq wl-summary-line-format-spec-alist
-(append wl-summary-line-format-spec-alist
-'((?@ (wl-summary-line-attached)))))
+;; (setq elmo-msgdb-extra-fields
+;; (cons "content-type" elmo-msgdb-extra-fields))
+;; (setq wl-summary-line-format-spec-alist
+;; (append wl-summary-line-format-spec-alist
+;; '((?@ (wl-summary-line-attached)))))
 (setq wl-summary-line-format "%n%T%P%1@%M/%D(%W)%h:%m %t%[%17(%c %f%) %] %s")
 
 ;; サマリの横幅は制限なし
