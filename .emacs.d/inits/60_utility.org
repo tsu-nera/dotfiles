@@ -42,7 +42,6 @@ ScreenのEmacsバージョン。マルチプレクサ。
 
 ;; waanderlust用。よくわからないけどとりあえず。
 ;; (require 'elscreen-wl)
-
 #+end_src
 
 # * tabbar
@@ -97,7 +96,8 @@ ScreenのEmacsバージョン。マルチプレクサ。
 # (global-set-key (kbd "M-s <left>") 'tabbar-backward-tab)
 # #+end_src
 
-* 未分類
+* DONE 未分類
+  CLOSED: [2014-05-03 土 15:58]
 #+begin_src emacs-lisp
 ;; -----------------------------------------------------------------------
 ;; Name     : wanderlust
@@ -300,21 +300,20 @@ ScreenのEmacsバージョン。マルチプレクサ。
 ;; 履歴で重複を無視する
 (setq eshell-hist-ignoredups t)
 
-;; エスケープシーケンスを処理
-;; http://d.hatena.ne.jp/hiboma/20061031/1162277851
-;; (autoload 'ansi-color-for-comint-mode-on "ansi-color"
-;;           "Set `ansi-color-for-comint-mode' to t." t)
-;; (add-hook 'eshell-load-hook 'ansi-color-for-comint-mode-on)
-;; ;; http://www.emacswiki.org/emacs-ja/EshellColor
-;; (require 'ansi-color)
-;; (require 'eshell)
-;; (defun eshell-handle-ansi-color ()
-;;   (ansi-color-apply-on-region eshell-last-output-start
-;;                               eshell-last-output-end))
-;; (add-to-list 'eshell-output-filter-functions 'eshell-handle-ansi-color)
+;; eshellは1つしか生成できないので、複数作成する。
+;; http://stackoverflow.com/questions/2540997/create-more-than-one-eshell-instance-in-emacs
+(defun eshell-create (name)
+  "Create a shell buffer named NAME."
+  (interactive "sName: ")
+  (setq name (concat "$" name))
+  (eshell)
+  (rename-buffer name))
 
 ;; shellのキーバインド
 (global-set-key (kbd "C-c t") 'eshell)
+
+;; 別シェルを生成
+(global-set-key (kbd "C-c x t") 'eshell-create)
 
 ;; -----------------------------------------------------------------------
 ;; Name     :  パスの設定
