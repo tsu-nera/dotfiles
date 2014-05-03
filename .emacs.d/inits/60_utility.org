@@ -1,10 +1,104 @@
-;;-----------------------------------------------------------------------
-;; Emacsですべてこなす
-;; Emacsは世界
-;; Emacsは人生
-;; このelispこそ、Emacsのすごさを示すもの
-;;------------------------------------------------------------------------
+* Utility
 
+このelispこそ、Emacsのすごさを示すものだ。
+
+#+begin_src text
+  EmacsはOS！
+  Emacsは世界！
+  Emacsは人生！
+#+end_src
+
+* Elscreen
+ScreenのEmacsバージョン。マルチプレクサ。
+
+- https://github.com/knu/elscreen
+
+** 参考リンク
+オリジナルはメンテナンスされていないのかな？
+- http://www.morishima.net/~naoto/elscreen-ja/
+
+- http://nishikawasasaki.hatenablog.com/entry/20110313/1300031344
+
+#+begin_src emacs-lisp
+(elscreen-start)
+;; (setq elscreen-prefix-key "\C-o") ;; こっちだとダメだった
+(elscreen-set-prefix-key "\C-o")
+
+ ; タブの幅
+;; (setq elscreen-display-tab 10)
+ ; タブの左端の×を非表示
+(setq elscreen-tab-display-kill-screen nil)
+;; <>を非表示
+(setq elscreen-tab-display-control nil)
+
+;; emacsclientで新しいタブを開く
+(require 'elscreen-server nil t)
+
+;; それっぽい色をつける？？つけてくれないよ。
+;; (require 'elscreen-color-theme)
+
+;; diredでoをオスと別タブで開く
+(require 'elscreen-dired)
+
+;; waanderlust用。よくわからないけどとりあえず。
+;; (require 'elscreen-wl)
+
+#+end_src
+
+# * tabbar
+# Emacs の タブファイラ。elscreenよりもいいみたい。
+
+# ** Refs
+#    - https://github.com/dholm/tabbar
+#    - http://d.hatena.ne.jp/plasticster/20110825/1314271209
+#    - http://cloverrose.hateblo.jp/entry/2013/04/15/183839
+
+# #+begin_src emacs-lisp
+# (require'tabbar)
+
+# ;; タブバーモード有効化
+# (tabbar-mode 1)
+
+# ;; グループ化しない
+# (setq tabbar-buffer-groups-function )
+# ;; マウスホイール無効
+# (tabbar-mwheel-mode -1)
+# ;; はみ出したら無視
+# (setq tabbar-auto-scroll-flag nil)
+
+# ;; 左に表示されるボタンを無効化
+# (dolist (btn '(tabbar-buffer-home-button
+# 	       tabbar-scroll-left-button
+# 	       tabbar-scroll-right-button))
+#   (set btn (cons (cons "" nil)
+# 		 (cons "" nil))))
+
+# ;; タブ同士の間隔
+# (setq tabbar-separator '(1.5))
+
+# ;; 外観変更
+# (set-face-attribute
+#  'tabbar-default nil
+#  :family (face-attribute 'default :family)
+#  :background (face-attribute 'mode-line-inactive :background)
+#  :height 0.9)
+# (set-face-attribute
+#  'tabbar-unselected nil
+#  :background (face-attribute 'mode-line-inactive :background)
+#  :foreground (face-attribute 'mode-line-inactive :foreground)
+#  :box nil)
+# (set-face-attribute
+#  'tabbar-selected nil
+#  :background (face-attribute 'mode-line :background)
+#  :foreground (face-attribute 'mode-line :foreground)
+#  :box nil)
+
+# (global-set-key (kbd "M-s <right>") 'tabbar-forward-tab)
+# (global-set-key (kbd "M-s <left>") 'tabbar-backward-tab)
+# #+end_src
+
+* 未分類
+#+begin_src emacs-lisp
 ;; -----------------------------------------------------------------------
 ;; Name     : wanderlust
 ;; Install  :el-get
@@ -301,46 +395,4 @@
 ;; ------------------------------------------------------------------------
 (require 'direx)
 
-;; -----------------------------------------------------------------------
-;; Name     : tabbar
-;; Install  : el-get
-;; Function : screen
-;; Refs
-;;   https://github.com/dholm/tabbar
-;;   http://d.hatena.ne.jp/plasticster/20110825/1314271209
-;;   http://cloverrose.hateblo.jp/entry/2013/04/15/183839
-;; ------------------------------------------------------------------------
-(require'tabbar)
-
-(tabbar-mode 1)
-
-;; グループ化しない
-;; (setq tabbar-buffer-groups-function nil)
-
-;; 左に表示されるボタンを無効化
-(dolist (btn '(tabbar-buffer-home-button
-	       tabbar-scroll-left-button
-	       tabbar-scroll-right-button))
-  (set btn (cons (cons "" nil)
-		 (cons "" nil))))
-;; タブ同士の間隔
-(setq tabbar-separator '(0.8))
-;; 外観変更
-(set-face-attribute
- 'tabbar-default nil
- :family (face-attribute 'default :family)
- :background (face-attribute 'mode-line-inactive :background)
- :height 0.9)
-(set-face-attribute
- 'tabbar-unselected nil
- :background (face-attribute 'mode-line-inactive :background)
- :foreground (face-attribute 'mode-line-inactive :foreground)
- :box nil)
-(set-face-attribute
- 'tabbar-selected nil
- :background (face-attribute 'mode-line :background)
- :foreground (face-attribute 'mode-line :foreground)
- :box nil)
-
-(global-set-key (kbd "<S-s-right>") 'tabbar-forward-tab)
-(global-set-key (kbd "<S-s-left>") 'tabbar-backward-tab)
+#+end_src

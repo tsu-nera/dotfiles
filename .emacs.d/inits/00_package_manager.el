@@ -100,7 +100,7 @@
     markdown-mode
     cool-mode
     plantuml-mode
-    ;; elscreen
+    elscreen
     ;; この2つは特別なので一番最後におく
 ;;    init-loader
 ;;    el-get

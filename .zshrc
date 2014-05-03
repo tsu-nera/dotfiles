@@ -291,25 +291,24 @@ xsel-buffer(){
 zle -N xsel-buffer
 bindkey '^x^p' xsel-buffer # C-x C-p
 
-# Template
 # ------------------------------------------------------------------------
 # Name     : tmux 
 # Function : tmuxをログイン時に自動起動
 # http://yonchu.hatenablog.com/entry/20120514/1337026014
 # ------------------------------------------------------------------------
-if [ -z "$TMUX" -a -z "$STY" ]; then
-    if type tmux >/dev/null 2>&1; then
-	tmux
-    elif type tmux >/dev/null 2>&1; then
-	if tmux has-session && tmux list-sessions | /usr/bin/grep -qE '.*]$'; then
-	    tmux attach && echo "tmux attached session "
-	else
-	    tmux new-session && echo "tmux created new session"
-	fi
-    elif type screen >/dev/null 2>&1; then
-	screen -rx || screen -D -RR
-    fi
-fi
+# if [ -z "$TMUX" -a -z "$STY" ]; then
+#     if type tmux >/dev/null 2>&1; then
+# 	tmux
+#     elif type tmux >/dev/null 2>&1; then
+# 	if tmux has-session && tmux list-sessions | /usr/bin/grep -qE '.*]$'; then
+# 	    tmux attach && echo "tmux attached session "
+# 	else
+# 	    tmux new-session && echo "tmux created new session"
+# 	fi
+#     elif type screen >/dev/null 2>&1; then
+# 	screen -rx || screen -D -RR
+#     fi
+# fi
 
 # ------------------------------------------------------------------------
 # For Emacs

@@ -27,7 +27,7 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/molokai-theme")
 
-(require 'molokai-theme-kit)
+;;(require 'molokai-theme-kit)
 (setq molokai-theme-kit t)
 (load-theme 'molokai t)
 
