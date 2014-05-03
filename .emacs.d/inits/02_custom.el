@@ -31,6 +31,8 @@
  '(font-lock-comment-delimiter-face ((t (:inherit font-lock-comment-face :foreground "dark gray"))))
  '(font-lock-comment-face ((t (:foreground "dark gray"))))
  '(font-lock-function-name-face ((t (:foreground "cyan"))))
+ '(helm-selection ((t (:background "color-163" :underline t))))
+ '(helm-source-header ((t (:background "color-18" :foreground "white" :weight bold :height 1.3 :family "Sans Serif"))))
  '(markdown-inline-code-face ((t (:inherit font-lock-constant-face))) t)
  '(markdown-pre-face ((t (:foreground "brightmagenta"))) t)
  '(minibuffer-prompt ((t (:foreground "brightblue")))))
