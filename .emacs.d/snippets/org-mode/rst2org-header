@@ -1,0 +1,5 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: rst2org-header
+# key: rst2org-header
+# --
+#+OPTIONS: toc:nil

@@ -96,8 +96,7 @@ ScreenのEmacsバージョン。マルチプレクサ。
 # (global-set-key (kbd "M-s <left>") 'tabbar-backward-tab)
 # #+end_src
 
-* DONE 未分類
-  CLOSED: [2014-05-03 土 15:58]
+* 未分類
 #+begin_src emacs-lisp
 ;; -----------------------------------------------------------------------
 ;; Name     : wanderlust
@@ -300,20 +299,49 @@ ScreenのEmacsバージョン。マルチプレクサ。
 ;; 履歴で重複を無視する
 (setq eshell-hist-ignoredups t)
 
+;; prompt 文字列の変更
+;;(defun my-eshell-prompt ()
+;;(concat (eshell/pwd) "\n→ " ))
+;;(setq eshell-prompt-function 'my-eshell-prompt)
+;; これで正規表現がつかえるようになる？
+(setq eshell-prompt-regexp "^[^#$\n]*[#→] ")
+
+;; sudoのあとも補完可能に
+(defun pcomplete/sudo ()
+  "Completion rules for the `sudo' command."
+  (let ((pcomplete-help "complete after sudo"))
+    (pcomplete-here (pcomplete-here (eshell-complete-commands-list)))))
+
 ;; eshellは1つしか生成できないので、複数作成する。
 ;; http://stackoverflow.com/questions/2540997/create-more-than-one-eshell-instance-in-emacs
-(defun eshell-create (name)
+(defun make-shell (name)
   "Create a shell buffer named NAME."
   (interactive "sName: ")
   (setq name (concat "$" name))
   (eshell)
   (rename-buffer name))
 
+;; なぜかhelmがじゃまをするな。
+(add-to-list 'helm-completing-read-handlers-alist '(make-eshell . nil))
+
+;; eshellのalias設定
+(setq eshell-command-aliases-list
+      (append
+       (list
+        (list "ll" "ls -ltr")
+        (list "la" "ls -a")
+        (list "l" "less")
+        (list "o" "xdg-open")
+        (list "lock" "gnome-screensaver-command --lock")
+        (list "forced_git_local_destroy" "git fetch origin;git reset --hard origin/master")
+       )
+       eshell-command-aliases-list))
+
 ;; shellのキーバインド
 (global-set-key (kbd "C-c t") 'eshell)
 
 ;; 別シェルを生成
-(global-set-key (kbd "C-c x t") 'eshell-create)
+(global-set-key (kbd "C-c C-x t") 'make-shell)
 
 ;; -----------------------------------------------------------------------
 ;; Name     :  パスの設定

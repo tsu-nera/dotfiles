@@ -53,6 +53,8 @@ interactive("open-gmail", "Go to gmail", "follow",
 interactive("open-calendar", "Go to calendar.google.com", "follow",
             $browser_object = "http://calendar.google.com/");
 
+// open url with new buffer 
+define_key(content_buffer_normal_keymap, "d", "follow-new-buffer");
 define_key(content_buffer_normal_keymap, "f1", "open-google");
 define_key(content_buffer_normal_keymap, "f2", "open-gmail");
 define_key(content_buffer_normal_keymap, "f3", "open-calendar");

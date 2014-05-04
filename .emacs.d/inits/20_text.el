@@ -3,6 +3,8 @@
 ;; URL      : http://www.emacswiki.org/emacs/auto-complete-extension.el
 ;; Function : 自動補完を実現するelisp
 ;; History  : 13/10/14
+;; Manual:
+;; http://cx4a.org/software/auto-complete/index.ja.html
 ;; ------------------------------------------------------------------------
 ;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/dict")
 (require 'auto-complete-config)
@@ -16,8 +18,18 @@
   (setq ac-dwim nil)
   ;;  (set-face-background 'ac-selection-face "steelblue")
   ;;  (set-face-background 'ac-menu-face "skyblue")
-  (setq ac-auto-start t)
+  
+  ;; 4文字以上から補完スタート 
+  ;; (setq ac-auto-start nil)
+  (setq ac-auto-start 4)
+  
+  ;; その代わり補完キーでトリガさせる。
   (global-set-key "\M-/" 'ac-start)
+
+  ;; なぜか、Shift+Altでないと動かないのだが。。
+  (define-key ac-menu-map (kbd "M-n") 'ac-next)
+  (define-key ac-menu-map (kbd "M-p") 'ac-previous)
+
   (setq ac-sources '(ac-source-abbrev ac-source-words-in-buffer))
   (add-hook 'ruby-mode-hook
 	    (lambda ()
@@ -27,9 +39,6 @@
 	      (make-local-variable 'ac-omni-completion-sources)
 	      (setq ac-omni-completion-sources
 		    '(("\\.\\=" . (ac-source-rcodetools)))))))
-
-;;; C-c c で compile コマンドを呼び出す
-(define-key mode-specific-map "" 'compile)
 
 ;; ------------------------------------------------------------------------
 ;; Name     : migemo
