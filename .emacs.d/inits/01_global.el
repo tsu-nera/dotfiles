@@ -182,6 +182,8 @@ found, otherwise returns nil."
 ;; フォント設定
 ;; Ricty
 ;; http://d.hatena.ne.jp/kitokitoki/20110502/p2
+;; no window モードはXの設定にしたがっているので、
+;; .Xdefaultsの設定を調整する必要あり。
 (add-to-list 'default-frame-alist '(font . "ricty-13"))
 
 ;; ------------------------------------------------------------------------

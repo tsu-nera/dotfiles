@@ -286,6 +286,8 @@ ScreenのEmacsバージョン。マルチプレクサ。
                 (eshell/pwd)
                 (if (= (user-uid) 0) "]\n# " "]\n$ ")
                 )))
+
+;; これで正規表現がつかえるようになる？
 (setq eshell-prompt-regexp "^[^#$]*[$#] ")
 
 ;; 補完時に大文字小文字を区別しない
@@ -298,13 +300,6 @@ ScreenのEmacsバージョン。マルチプレクサ。
 (setq eshell-cmpl-cycle-cutoff-length 5)
 ;; 履歴で重複を無視する
 (setq eshell-hist-ignoredups t)
-
-;; prompt 文字列の変更
-;;(defun my-eshell-prompt ()
-;;(concat (eshell/pwd) "\n→ " ))
-;;(setq eshell-prompt-function 'my-eshell-prompt)
-;; これで正規表現がつかえるようになる？
-(setq eshell-prompt-regexp "^[^#$\n]*[#→] ")
 
 ;; sudoのあとも補完可能に
 (defun pcomplete/sudo ()

@@ -21,11 +21,11 @@
 (autoload 'oz-gump-mode "oz" "" t)
 (autoload 'oz-new-buffer "oz" "" t)
 
-;; (add-hook 'oz-mode-hook
-;; 	  (lambda ()
-;; 	    (define-key oz-mode-map "\C-c\C-b" 'oz-feed-buffer)
-;; 	    (define-key oz-mode-map "\C-c\C-l" 'oz-feed-line)
-;; 	    (define-key oz-mode-map "\C-c\C-r" 'oz-feed-region)))
+(add-hook 'oz-mode-hook
+	  (lambda ()
+	    (define-key oz-mode-map "\C-c\C-b" 'oz-feed-buffer)
+	    (define-key oz-mode-map "\C-c\C-l" 'oz-feed-line)
+	    (define-key oz-mode-map "\C-c\C-r" 'oz-feed-region)))
 ;; -----------------------------------------------------------------------
 ;; Name     :  Cool
 ;; ------------------------------------------------------------------------

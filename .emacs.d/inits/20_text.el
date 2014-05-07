@@ -147,9 +147,8 @@
 ;; ------------------------------------------------------------------------
 (require 'multiple-cursors)
 
-(global-set-key (kbd "C-c C-c") 'mc/edit-lines)
+(global-set-key (kbd "C-c C-x v") 'mc/edit-lines)
 (global-set-key (kbd "C-M-r") 'mc/mark-all-in-region)
 
 (global-set-key (kbd "C-c >") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-c <") 'mc/mark-previous-like-this)
-
