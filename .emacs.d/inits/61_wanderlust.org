@@ -7,6 +7,7 @@
 emacs-w3mをつかう。w3mが必要。(apt-get install w3m)
 
 #+begin_src emacs-lisp
+(when linux-p
 ;; HTMLファイルは表示しない。
 (setq mime-setup-enable-inline-html nil)
 
@@ -18,6 +19,7 @@ emacs-w3mをつかう。w3mが必要。(apt-get install w3m)
   (require 'mime-w3m)
   (setq mime-w3m-safe-url-regexp nil)
   )
+)
 #+end_src
 
 * 無視するヘッダ
@@ -65,6 +67,7 @@ emacs-w3mをつかう。w3mが必要。(apt-get install w3m)
 * 未分類
 
 #+begin_src emacs-lisp
+(when linux-p
 ;;;------------------------------------------
 ;;; その他の設定
 ;; 大きなメッセージを分割して送信しない(デフォルトはtで分割する)
@@ -124,4 +127,5 @@ emacs-w3mをつかう。w3mが必要。(apt-get install w3m)
 (setq wl-suumary-width nil)
 
 (setq ssl-program-arguments '("s_client" "-quiet" "-host" host "-port" service))
+)
 #+end_src

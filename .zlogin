@@ -9,8 +9,10 @@
 #            source .zshrcをするとエラーがでるため、
 #            起動の設定は .zloginに記入
 # ------------------------------------------------------------------------
+if [ -d ${HOME}/.zsh/autosuggestions  ] ; then
 source ~/.zsh/autosuggestions/autosuggestions.zsh
 zle-line-init() {
-   zle autosuggest-start
+    zle autosuggest-start
 }
 zle -N zle-line-init
+fi

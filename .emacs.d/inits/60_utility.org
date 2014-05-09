@@ -179,10 +179,6 @@ ScreenのEmacsバージョン。マルチプレクサ。
 ;; Emacs が保持する terminfo を利用する
 (setq system-uses-terminfo nil)
 
-;;multi-term設定
-(require 'multi-term)
-(setq multi-term-program "/usr/bin/zsh")
-
 ;;タブ補完できないときのおまじない。
 ;; http://stackoverflow.com/questions/18278310/emacs-ansi-term-not-tab-completing
 (add-hook 'term-mode-hook (lambda()
@@ -392,7 +388,8 @@ ScreenのEmacsバージョン。マルチプレクサ。
 ;; Refs
 ;;   http://sheephead.homelinux.org/2014/03/17/7076/
 ;; ------------------------------------------------------------------------
-;; あとでautoloadに改善する。
+;; TODO あとでautoloadに改善する。
+(when linux-p
 (require 'pdf-tools)
 (require 'pdf-annot) 
 (require 'pdf-history) 
@@ -406,7 +403,7 @@ ScreenのEmacsバージョン。マルチプレクサ。
 (require 'pdf-sync) 
 (require 'tablist-filter)
 (require 'tablist)
-
+)
 ;; -----------------------------------------------------------------------
 ;; Name     : direx
 ;; Install  : el-get

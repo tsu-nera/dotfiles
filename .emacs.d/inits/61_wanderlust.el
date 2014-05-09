@@ -1,3 +1,4 @@
+(when linux-p
 ;; HTMLファイルは表示しない。
 (setq mime-setup-enable-inline-html nil)
 
@@ -9,6 +10,7 @@
   (require 'mime-w3m)
   (setq mime-w3m-safe-url-regexp nil)
   )
+)
 
 ;; ;; summary-mode ですべての header を一旦除去
 ;; (setq mime-view-ignored-field-list '("^.*"))
@@ -49,6 +51,7 @@
 ;; "List-Unsubscribe:"
 ;; )))
 
+(when linux-p
 ;;;------------------------------------------
 ;;; その他の設定
 ;; 大きなメッセージを分割して送信しない(デフォルトはtで分割する)
@@ -108,3 +111,4 @@
 (setq wl-suumary-width nil)
 
 (setq ssl-program-arguments '("s_client" "-quiet" "-host" host "-port" service))
+)
