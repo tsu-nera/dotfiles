@@ -8,6 +8,8 @@ emacs-w3mをつかう。w3mが必要。(apt-get install w3m)
 
 #+begin_src emacs-lisp
 (when linux-p
+(require 'wl)
+
 ;; HTMLファイルは表示しない。
 (setq mime-setup-enable-inline-html nil)
 

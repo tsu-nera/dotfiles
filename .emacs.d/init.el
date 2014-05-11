@@ -5,13 +5,11 @@
 ;; ------------------------------------------------------------------------
 ;; Name     : el-get
 ;; ------------------------------------------------------------------------
+;; el-get ロードパス設定
 (add-to-list 'load-path (locate-user-emacs-file "el-get/repo/el-get"))
+
 ;; ダウンロードしたelisp置き場
 (setq el-get-dir "~/.emacs.d/el-get/repo")
-
-;; (setq-default el-get-dir (locate-user-emacs-file "el-get")
-;;               el-get-emacswiki-base-url
-;;               "http://raw.github.com/emacsmirror/emacswiki.org/master/")
 
 ;; ダウンロードしていないときはダウンロード
 (unless (require 'el-get nil 'noerror)
@@ -21,6 +19,20 @@
     (let (el-get-master-branch)
       (goto-char (point-max))
       (eval-print-last-sexp))))
+
+;; 初期化処理用
+(setq el-get-user-package-directory "~/.emacs.d/el-get/init-files")
+
+;; レシピ置き場
+;; 追加のレシピ置き場
+(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get/user-recipes")
+
+;; emacs wiki関係は一時封印している。会社だとエラーするので。
+;;(setq el-get-recipe-path (list "~/.emacs.d/el-get/recipes/emacswiki"
+;;			       "~/.emacs.d/el-get/recipes"))
+;; (setq-default el-get-dir (locate-user-emacs-file "el-get")
+;;               el-get-emacswiki-base-url
+;;               "http://raw.github.com/emacsmirror/emacswiki.org/master/")
 
 ;; ------------------------------------------------------------------------
 ;; Name     : org-mode

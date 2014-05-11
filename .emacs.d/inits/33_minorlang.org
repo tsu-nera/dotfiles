@@ -1,8 +1,12 @@
-;; -----------------------------------------------------------------------
-;; Name     :  Oz
-;; Function :  multi-paradium language
-;; ------------------------------------------------------------------------
-;; http://www.eecs.ucf.edu/~leavens/ComS541Fall06/running_oz.shtml#
+* Minor Language
+マイナーランゲージのマイナーモード
+
+** Oz
+multi-paradium language
+
+http://www.eecs.ucf.edu/~leavens/ComS541Fall06/running_oz.shtml#
+
+#+begin_src emacs-lisp :tangle yes
 ;;; Oz program mode with Mozart/Oz.
 ;;; You have to arrange for the Oz-related emacs lisp (.el) files
 ;;; to be in emacs's load-path, for its bin directory to be in the PATH,
@@ -26,16 +30,20 @@
 	    (define-key oz-mode-map "\C-c\C-b" 'oz-feed-buffer)
 	    (define-key oz-mode-map "\C-c\C-l" 'oz-feed-line)
 	    (define-key oz-mode-map "\C-c\C-r" 'oz-feed-region)))
-;; -----------------------------------------------------------------------
-;; Name     :  Cool
-;; ------------------------------------------------------------------------
+#+end_src
+
+** Cool
+
+#+begin_src emacs-lisp :tangle yes
 (autoload 'cool-mode "cool-mode" "Major mode for editing COOL programs" t)
 (setq auto-mode-alist
             (append '(("\\.cl\\'" . cool-mode)) auto-mode-alist))
 
-;; -----------------------------------------------------------------------
-;; Name     :  VBA
-;; ------------------------------------------------------------------------
+#+end_src
+
+** VBA 
+
+#+begin_src emacs-lisp :tangle yes
 (when windows-p
 (autoload 'vbasense "vbasense" "Visual Basic Mode" t)
 (add-to-list 'auto-mode-alist '("\\.\\(vbs\\|vb\\|wsf\\|frm\\|bas\\|cls\\)$" .
@@ -60,9 +68,13 @@
 (add-to-list 'auto-mode-alist '("\\.\\(vbs\\|vb\\|wsf\\|frm\\|bas\\|cls\\)$" .
 				visual-basic-mode))
 )
-;; ------------------------------------------------------------------------
-;; Rst-mode (for Sphinx)
-;; ------------------------------------------------------------------------
+#+end_src
+
+** rst-mode
+
+Restructured Text
+#+begin_src emacs-lisp :tangle yes
+
 ;;; RSTモードを見やすくする。
 (setq frame-background-mode 'dark)
 
@@ -82,22 +94,47 @@
 ;; 	    (setq rst-slides-program "open -a Firefox")
 ;; 	    ))
 
-;; ------------------------------------------------------------------------
-;; Name     : Markdown Mode
-;; Function : Use Markdown
-;; History  : 2014.1.11 Add
-;; Install  : http://jblevins.org/projects/markdown-mode/markdown-mode.el
-;; ------------------------------------------------------------------------
+#+end_src
+
+** Markdown Mode
+http://jblevins.org/projects/markdown-mode/markdown-mode.el
+
+#+begin_src emacs-lisp :tangle yes
+
 (autoload
   'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
 ;; associate .md file to markdown-mode
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+#+end_src
 
-;; -----------------------------------------------------------------------
-;; Name     : plantuml
-;; Install  : 
-;; ------------------------------------------------------------------------
+** Plant UML Mode
+
+#+begin_src emacs-lisp :tangle yes
 (autoload
   'plantuml-mode "plantuml-mode" "Major mode for editing PlantUML" t)
 (add-to-list 'auto-mode-alist '("\\.puml$" . plantuml-mode))
 (add-to-list 'auto-mode-alist '("\\.plantuml$" . plantuml-mode))
+
+#+end_src
+
+** Scala
+#+begin_src emacs-lisp :tangle yes
+;; Scala Mode 2
+(require 'scala-mode2)
+;;(autoload 'scala-mode2 "scala-mode2" "A new scala-mode for emacs24" t)
+(add-to-list 'auto-mode-alist '("\\.scala$" . scala-mode))
+(add-to-list 'auto-mode-alist '("\\.sbt$" . scala-mode))
+
+;; ensine
+(require 'ensime)
+;;(autoload 'ensime-scala-mode "ensime" "ENhanced Scala Interaction Mode for Emacs" t)
+;; This step causes the ensime-mode to be started whenever
+;; scala-mode is started for a buffer. You may have to customize this step
+;; if you're not using the standard scala mode.
+(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+
+;; (require 'scala-mode-feature-electric)
+;; (add-hook 'scala-mode-hook
+;;      (lambda ()
+;;        (scala-electric-mode)))
+#+end_src

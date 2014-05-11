@@ -1,3 +1,10 @@
+* El-get
+Emacs用パッケージマネージャー
+
+** 環境による場合分け
+el-get実行前に、環境による場合分けのマクロを定義。
+
+#+begin_src emacs-lisp :tangle yes
 ;; -----------------------------------------------------------------------
 ;; Function : 環境による場合分けの方法
 ;;   http://d.hatena.ne.jp/tomoya/20090811/1250006208
@@ -30,35 +37,14 @@
       meadow-p  (featurep 'meadow)
       windows-p (or cygwin-p nt-p meadow-p))
 
-;; ------------------------------------------------------------------------
-;; Name     : el-get.el
-;; Function : eLisp管理
-;; Install  : cd public_repos 
-;;            git clone git@github.com:dimitri/el-get.git
-;; ------------------------------------------------------------------------
-;; ダウンロードしていないときはダウンロード
-;; TODO どうもうまく動作していないようだ。調査する。
-(unless (require 'el-get nil t)
-  (url-retrieve
-   "https://raw.github.com/dimitri/el-get/master/el-get-install.el"
-   (lambda (s)
-     (goto-char (point-max))
-     (eval-print-last-sexp))))
+#+end_src
 
-;; ダウンロードしたelisp置き場
-(setq el-get-dir "~/.emacs.d/el-get/repo")
+* el-get.el
+インストール自体は init.elで。
 
-;; レシピ置き場
-;;(setq el-get-recipe-path (list "~/.emacs.d/el-get/recipes/emacswiki"
-;;			       "~/.emacs.d/el-get/recipes"))
-;; 追加のレシピ置き場
-(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get/user-recipes")
-;;(add-to-list 'el-get-recipe-path '("~/.emacs.d/el-get/user-recipes/myemacswiki"))
-;;(add-to-list 'el-get-recipe-path '("~/.emacs.d/el-get/user-recipes"))
+** 共通パッケージ
 
-(setq el-get-user-package-directory "~/.emacs.d/el-get/init-files")
-
-;; auto install el-get.el
+#+begin_src emacs-lisp :tangle yes
 (defvar my/el-get-packages-common
   '(
     ;; window
@@ -77,7 +63,6 @@
     direx
     stripe-buffer
     tempbuf
-    esup
     exec-path-from-shell
     ;; helm
     helm
@@ -114,12 +99,16 @@
     rainbow-mode
     yaml-mode
     markdown-mode
-    cool-mode
     plantuml-mode
     elscreen
     )
   "A list of packages to install from el-get at launch")
+#+end_src
 
+** Linux 特有のパッケージ
+el-getの延長でbuildとか動くとcygwinでこけたりする。
+
+#+begin_src emacs-lisp :tangle yes
 (defvar my/el-get-packages-for-linux
   '(
     migemo
@@ -129,7 +118,12 @@
     emacs-w3m  ;; cvs command not found
     )
   "A list of packages that can build only linux, fail for windows")
+#+end_src
 
+** Private パッケージ
+会社でつかわないパッケージ
+
+#+begin_src emacs-lisp :tangle yes
 (defvar my/el-get-packages-private
   '(
     metaweblog
@@ -141,9 +135,18 @@
     org2blog
     org-gcal
     gist
+    cool-mode
+    esup
+    ;; scala
+    scala-mode2
+;;    ensime
     )
   "A list of packages that is not necessory for my work.")
 
+#+end_src
+
+* el-get 同期
+#+begin_src emacs-lisp :tangle yes
 ;; auto install el-get.el
 (defvar my/el-get-packages-all
   (append 
@@ -153,6 +156,8 @@
   )
   "A list of packages to install from el-get at launch.")
 
+;; 同期する
 (el-get 'sync my/el-get-packages-all)
 ;; (el-get 'sync my/el-get-packages-work)
 ;; (el-get 'sync my/el-get-packages-private)
+#+end_src
