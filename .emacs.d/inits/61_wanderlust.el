@@ -1,4 +1,6 @@
 (when linux-p
+(require 'wl)
+
 ;; HTMLファイルは表示しない。
 (setq mime-setup-enable-inline-html nil)
 

@@ -131,3 +131,11 @@ emacs-w3mをつかう。w3mが必要。(apt-get install w3m)
 (setq ssl-program-arguments '("s_client" "-quiet" "-host" host "-port" service))
 )
 #+end_src
+
+* その他
+
+パスワードを省略するためには、パスワード入力後に以下を入力。
+
+#+begin_src language
+M-x elmo-passwd-alist-save
+#+end_src

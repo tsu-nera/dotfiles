@@ -1,15 +1,9 @@
-;; ------------------------------------------------------------------------
-;; Name     : setup
-;; Function : Emacs高速起動のためのマクロライブラリ
-;;            EmacsWiki
-;; ------------------------------------------------------------------------
-;; (require 'setup)
+* Macros
 
-;;------------------------------------------------------------------------
-;; Def Macro
-;;------------------------------------------------------------------------
-;; Special Thanks
-;; http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
+Special Thanks
+http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
+
+#+begin_src emacs-lisp
 ;;  add-hookを簡潔に
 (defmacro add-hook-fn (name &rest body)
     `(add-hook ,name #'(lambda () ,@body)))
@@ -41,36 +35,39 @@
 ;; ライブラリを遅延評価
 (defmacro lazy-load-eval (feature &optional functions &rest body)
   "Define each FUNCTIONS to autoload from FEATURE.
-FEATURE is a symbol. FUNCTIONS is a list of symbols. If FUNCTIONS is nil,
-the function same as FEATURE is defined as autoloaded function. BODY is passed
- to `eval-after-load'.
-When this macro is evaluated, this returns the path to library if FEATURE
+FEATURE is a symbol. FUNCTIONS is a list of symbols. 
+If FUNCTIONS is nil,the function same as FEATURE is 
+defined as autoloaded function. BODY is passed to `eval-after-load'.
+When this macro is evaluated, this returns the 
+path to library if FEATURE
 found, otherwise returns nil."
   (let* ((libname (symbol-name (eval feature)))
 	 (libpath (locate-library libname)))
     (and libpath
 	 `(progn
 	    ,@(mapcar (lambda (f)
-			(or (fboundp f)
-			    `(autoload (quote ,f)
-				 ,libname
-			       ,(concat "Autoloaded function defined in \""
-					libpath
-					"\".")
-			       t)))
-		      (or (eval functions)
-			  `(,(eval feature))))
-	    (eval-after-load ,feature
-	      (quote (progn
-		       ,@body)))
-	    ,libpath))))
+		(or (fboundp f)
+		    `(autoload (quote ,f)
+			 ,libname
+		       ,(concat "Autoloaded function defined in \""
+			libpath
+			"\".")
+		       t)))
+	      (or (eval functions)
+		  `(,(eval feature))))
+    (eval-after-load ,feature
+      (quote (progn
+	       ,@body)))
+   ,libpath))))
+#+end_src
 
-;;------------------------------------------------------------------------
-;; Def Function
-;;------------------------------------------------------------------------
-;; Special Thanks
-;; http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
+* Functions
+** フォルダを再帰的にロードパスに追加
 
+Special Thanks
+http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
+
+#+begin_src emacs-lisp
 ;; @ load-path
 ;; for Emacs 23 under
 (when (> emacs-major-version 23)
@@ -87,13 +84,32 @@ found, otherwise returns nil."
 ;; load-pathに追加するフォルダ
 ;; 2つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
 (add-to-load-path "elisp" "inits" "el-get" "elpa")
+#+end_src
 
-;; elpaは外した。el-getで一元管理したいので。
-;; public_reposは対象から外した。el-getで一元管理したいので。
+** ライブラリが存在すればロード
 
-;; ------------------------------------------------------------------------
-;; General key bind
-;; ------------------------------------------------------------------------
+- [[http://d.hatena.ne.jp/tomoya/20090811/1250006208][ひとつの .emacs で設定を、、その2。 - 日々、とんは語る。]]
+
+#+begin_src emacs-lisp
+(defun autoload-if-found (function file &optional docstring interactive type)
+  "set autoload iff. FILE has found."
+  (and (locate-library file)
+       (autoload function file docstring interactive type)))
+#+end_src
+
+使い方.
+
+#+begin_src language
+;; 引数は autoload と全く同じです。-if-found を付けるだけ
+(when (autoload-if-found 'bs-show "bs" "buffer selection" t)
+  ;; autoload は成功した場合のみ non-nil を返すので、
+  ;; when の条件部に置くことで、依存関係にある設定項目を自然に表現できます。
+  (global-set-key [(control x) (control b)] 'bs-show)
+  (setq bs-max-window-height 10))
+#+end_src
+
+* Global Keys
+#+begin_src emacs-lisp
 ;;(global-set-key (kbd "C-c a")   'align)
 (global-set-key (kbd "C-c M-a") 'align-regexp)
 (global-set-key (kbd "C-h")     'backward-delete-char)
@@ -107,6 +123,26 @@ found, otherwise returns nil."
 ;; (global-set-key (kbd "C-M-r")   'replace-regexp)
 ;; (global-set-key (kbd "C-r")     'replace-string)
 (global-set-key (kbd "C-/")     'undo)
+#+end_src
+
+* emacs client
+server start for emacs-client
+http://d.hatena.ne.jp/syohex/20101224/1293206906
+
+#+begin_src emacs-lisp
+(require 'server)
+(unless (server-running-p)
+  (server-start))
+#+end_src
+
+* 未分類
+
+#+begin_src emacs-lisp
+;; Name     : setup
+;; Function : Emacs高速起動のためのマクロライブラリ
+;;            EmacsWiki
+;; ------------------------------------------------------------------------
+;; (require 'setup)
 
 ;; ------------------------------------------------------------------------
 ;; General Value
@@ -169,15 +205,6 @@ found, otherwise returns nil."
 
 ;; 今のポイントしているURLを開く
 (global-set-key (kbd "C-c u") 'browse-url-at-point)
-;; ------------------------------------------------------------------------
-;; Emacs Client
-;; ------------------------------------------------------------------------
-;; server start for emacs-client
-;; http://d.hatena.ne.jp/syohex/20101224/1293206906
-(require 'server)
-(unless (server-running-p)
-  (server-start))
-
 ;; -----------------------------------------------------------------------
 ;; Function : EmacsとXのクリップポードを共有
 ;; Install  : http://tubo028.hatenablog.jp/entry/2013/09/01/142238
@@ -314,3 +341,5 @@ found, otherwise returns nil."
 (require 'stripe-buffer)
 (add-hook 'dired-mode-hook 'turn-on-stripe-buffer-mode)
 ;;(add-hook 'org-mode-hook 'turn-on-stripe-table-mode)
+#+end_src
+

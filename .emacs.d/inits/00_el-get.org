@@ -126,8 +126,6 @@ el-getの延長でbuildとか動くとcygwinでこけたりする。
 #+begin_src emacs-lisp :tangle yes
 (defvar my/el-get-packages-private
   '(
-    metaweblog
-    xml-rpc-el
     calfw
     helm-gist
     helm-github-issues
@@ -142,7 +140,6 @@ el-getの延長でbuildとか動くとcygwinでこけたりする。
 ;;    ensime
     )
   "A list of packages that is not necessory for my work.")
-
 #+end_src
 
 * el-get 同期

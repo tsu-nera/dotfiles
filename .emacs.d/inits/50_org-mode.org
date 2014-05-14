@@ -419,30 +419,12 @@ http://orgmode.org/manual/Template-expansion.html#Template-expansion
         "*  %?\n %(cfw:org-capture-day)"))
 #+end_src
 
-* 未分類
+
+* org2blog
+Emacs から WordPressに投稿するLisp
 
 #+begin_src emacs-lisp
-;; -----------------------------------------------------------------------
-;; Name     : plantuml
-;; Install  : http://www.emacswiki.org/emacs/IanYang
-;; ------------------------------------------------------------------------
-;; (require 'org-exp-blocks)
-;; (require 'org-export-blocks-format-plantuml)
-;;(require 'ob-plantuml)
-(setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
-(defun org-mode-init ()
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   (add-to-list 'org-babel-load-languages '(plantuml . t))))
-(add-hook 'org-mode-hook 'org-mode-init)
-
-;; ------------------------------------------------------------------------
-;; Name     : org2blog
-;; Function : Emacsからブログ投稿
-;:            Emacs から WordPressに投稿するLisp
-;; ------------------------------------------------------------------------
-(require 'metaweblog)
-(require 'org2blog-autoloads)
+(when (require 'org2blog-autoloads nil t)
 (setq futurismo (netrc-machine (netrc-parse "~/.netrc") "futurismo" t))
 ;; (setq blog (netrc-machine (netrc-parse "~/.netrc") "EverClassic" t))
 
@@ -461,12 +443,13 @@ http://orgmode.org/manual/Template-expansion.html#Template-expansion
 	;;  )
 	)
       )
+)
+#+end_src
 
-;; ------------------------------------------------------------------------
-;; Name     : mobileOrg
-;; Function : iphoneとorg-modeの同期。Dropboxを利用
-;; Install  :
-;; ------------------------------------------------------------------------
+* mobileOrg
+iphoneとorg-modeの同期。Dropboxを利用
+
+#+begin_src emacs-lisp
 ;; Set to the location of your Org files on your local system
 (setq org-directory "~/gtd")
 ;; Set to the name of the file where new notes will be stored
@@ -499,6 +482,24 @@ http://orgmode.org/manual/Template-expansion.html#Template-expansion
       (interactive)
         (cancel-timer org-mobile-sync-timer))
 (org-mobile-sync-enable)
+#+end_src
+
+* 未分類
+
+#+begin_src emacs-lisp
+;; -----------------------------------------------------------------------
+;; Name     : plantuml
+;; Install  : http://www.emacswiki.org/emacs/IanYang
+;; ------------------------------------------------------------------------
+;; (require 'org-exp-blocks)
+;; (require 'org-export-blocks-format-plantuml)
+;;(require 'ob-plantuml)
+(setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
+(defun org-mode-init ()
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   (add-to-list 'org-babel-load-languages '(plantuml . t))))
+(add-hook 'org-mode-hook 'org-mode-init)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : wanderlust
