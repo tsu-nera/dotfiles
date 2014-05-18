@@ -109,6 +109,9 @@ http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
 #+end_src
 
 * Global Keys
+よくわすれる、CやMの意味。
+http://www.emacswiki.org/emacs-ja/Emacs%E3%83%93%E3%82%AE%E3%83%8A%E3%83%BC#toc9
+
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-h")     'backward-delete-char)
 (global-set-key (kbd "C-c d")   'delete-indentation)
