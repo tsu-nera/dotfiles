@@ -1,0 +1,68 @@
+* Java
+打倒Eclipse! Eclipseなんかぶっつぶせ！
+
+そんな感じのJava設定です。
+
+** malabar-mode
+A better Java mode for Emacs.
+
+https://github.com/m0smith/malabar-mode
+
+el-getで取得。fringe-helperに依存。ダウンロードしたら、mvn package.
+
+Mavenの仕組みがうまくわからないので封印した。
+
+#+begin_src emacs-lisp
+;; (require 'cedet)
+;; (require 'semantic)
+;; (load "semantic/loaddefs.el")
+;; (semantic-mode 1)
+;; (require 'malabar-mode)
+;; (add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
+
+;; ;; If you want to mimic the IDEish compile-on-save behaviour
+;; (add-hook 'malabar-mode-hook
+;;      (lambda () 
+;;        (add-hook 'after-save-hook 'malabar-compile-file-silently
+;;                   nil t)))
+#+end_src
+
+** eclim-emacs
+
+https://github.com/senny/emacs-eclim
+http://www.skybert.net/emacs/java/
+http://sleepboy-zzz.blogspot.jp/2014/02/emacsjava_22.html
+
+
+#+begin_src emacs-lisp
+(require 'eclim)
+(global-eclim-mode)
+
+;; eclim daemon
+(require 'eclimd)
+
+;; regular auto-complete initialization
+;;(require 'auto-complete-config)
+;;(ac-config-default)
+
+;; add the emacs-eclim source
+(require 'ac-emacs-eclim-source)
+(ac-emacs-eclim-config)
+
+(setq eclim-eclipse-dirs "/opt/eclipse/kepler")
+(setq eclim-executable "/opt/eclipse/kepler/eclim")
+(setq eclimd-executable "/opt/eclipse/kepler/eclimd")
+(setq eclimd-default-workspace "/mnt/win/src/coursera")
+#+end_src
+
+*** JUnit起動
+
+#+begin_src emacs-lisp
+(defun eclim-run-test ()
+  (interactive)
+  (if (not (string= major-mode "java-mode"))
+    (message "Sorry cannot run current buffer."))
+  (compile (concat eclim-executable " -command java_junit -p " eclim--project-name " -t " (eclim-package-and-class))))
+#+end_src
+
+* Android
