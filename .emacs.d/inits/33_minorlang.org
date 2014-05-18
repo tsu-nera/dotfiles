@@ -11,12 +11,14 @@ http://www.eecs.ucf.edu/~leavens/ComS541Fall06/running_oz.shtml#
 ;;; You have to arrange for the Oz-related emacs lisp (.el) files
 ;;; to be in emacs's load-path, for its bin directory to be in the PATH,
 ;;; and for the OZHOME environment variable to be set properly.
-(when linux-p
-(or (getenv "OZHOME")
-    (setenv "OZHOME" 
-            "/mnt/win/opt/mozart"))   ; or wherever Mozart is installed
-(setenv "PATH" (concat (getenv "OZHOME") "/bin:" (getenv "PATH")))
-)
+
+;; ruby 実行時に warningがでるので、一旦封印
+;; (when linux-p
+;; (or (getenv "OZHOME")
+;;     (setenv "OZHOME" 
+;;             "/mnt/win/opt/mozart"))   ; or wherever Mozart is installed
+;; (setenv "PATH" (concat (getenv "OZHOME") "/bin:" (getenv "PATH")))
+;; )
 
 (add-to-list 'auto-mode-alist '("\\.oz\\'" . oz-mode))
 (add-to-list 'auto-mode-alist '("\\.ozg\\'" . oz-gump-mode))

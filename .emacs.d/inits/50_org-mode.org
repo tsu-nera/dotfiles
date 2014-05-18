@@ -90,7 +90,7 @@
 
 ; global Effort estimate values
 (setq org-global-properties (quote ((
-      "Effort_ALL" . "0:05 0:10 0:15 0:30 0:45 1:00 1:30 2:00"))))
+      "Effort_ALL" . "0:05 0:10 0:15 0:30 0:45 1:00 1:30 2:00 3:00"))))
 
 ;; カスタムコマンド
 ;; http://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
@@ -419,7 +419,6 @@ http://orgmode.org/manual/Template-expansion.html#Template-expansion
         "*  %?\n %(cfw:org-capture-day)"))
 #+end_src
 
-
 * org2blog
 Emacs から WordPressに投稿するLisp
 
@@ -484,6 +483,63 @@ iphoneとorg-modeの同期。Dropboxを利用
 (org-mobile-sync-enable)
 #+end_src
 
+* RSS Feed
+RSS Feeder for Emacs
+
+http://orgmode.org/manual/RSS-Feeds.html
+http://d.hatena.ne.jp/tamura70/20100225/org
+
+#+begin_src emacs-lisp
+(require 'org-feed)
+(defun org-feed-parse-rdf-feed (buffer)
+  "Parse BUFFER for RDF feed entries.
+Returns a list of entries, with each entry a property list,
+containing the properties `:guid' and `:item-full-text'."
+  (let (entries beg end item guid entry)
+    (with-current-buffer buffer
+      (widen)
+      (goto-char (point-min))
+      (while (re-search-forward "<item[> ]" nil t)
+	(setq beg (point)
+	      end (and (re-search-forward "</item>" nil t)
+		       (match-beginning 0)))
+	(setq item (buffer-substring beg end)
+	      guid (if (string-match "<link\\>.*?>\\(.*?\\)</link>" item)
+		       (org-match-string-no-properties 1 item)))
+	(setq entry (list :guid guid :item-full-text item))
+	(push entry entries)
+	(widen)
+	(goto-char end))
+      (nreverse entries))))
+
+(setq org-feed-retrieve-method 'wget)
+;;(setq org-feed-retrieve-method 'curl)
+
+(setq org-feed-default-template "\n* %h\n  - %U\n  - %a  - %description")
+#+end_src
+
+** 登録feed
+
+#+begin_src emacs-lisp
+(setq org-feed-alist nil)
+;; (add-to-list 'org-feed-alist
+;;   '("Futurismo" "http://futurismo.biz/feed"
+;;     "~/org/rss.org" "Futurismo"
+;;     :parse-feed org-feed-parse-rdf-feed))
+(add-to-list 'org-feed-alist
+  '("Publickey" "http://www.publickey1.jp/atom.xml"
+    "~/org/rss.org" "PublicKey"))
+#+end_src
+
+
+* Wanderlust
+
+#+begin_src emacs-lisp
+(require 'org-wl)
+;; wanderlustのメールを追跡できる
+(setq org-return-follows-link t)
+#+end_src
+
 * 未分類
 
 #+begin_src emacs-lisp
@@ -500,12 +556,6 @@ iphoneとorg-modeの同期。Dropboxを利用
    'org-babel-load-languages
    (add-to-list 'org-babel-load-languages '(plantuml . t))))
 (add-hook 'org-mode-hook 'org-mode-init)
-
-;; -----------------------------------------------------------------------
-;; Name     : wanderlust
-;; ------------------------------------------------------------------------
-;; wanderlustのメールを追跡できる
-(setq org-return-follows-link t)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : calfw-org

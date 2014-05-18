@@ -25,17 +25,20 @@ emacs-w3mをつかう。w3mが必要。(apt-get install w3m)
 #+end_src
 
 * 無視するヘッダ
-#+begin_src emacs-lisp
-;; ;; summary-mode ですべての header を一旦除去
-;; (setq mime-view-ignored-field-list '("^.*"))
-;; ;; ;; 表示するヘッダ。
-;; (setq wl-message-visible-field-list
-;; (append mime-view-visible-field-list
-;; '("^Subject:" "^From:" "^To:" "^Cc:"
-;; "^X-Mailer:" "^X-Newsreader:" "^User-Agent:"
-;; "^X-Face:" "^X-Mail-Count:" "^X-ML-COUNT:"
-;; )))
 
+http://kaworu.jpn.org/kaworu/2008-04-29-1.php
+
+#+begin_src emacs-lisp
+;; summary-mode ですべての header を一旦除去
+(setq mime-view-ignored-field-list '("^.*"))
+
+;; ;; 表示するヘッダ。
+(setq wl-message-visible-field-list
+(append mime-view-visible-field-list
+'("^Subject:" "^From:" "^To:" "^Cc:"
+"^X-Mailer:" "^X-Newsreader:" "^User-Agent:"
+"^X-Face:" "^X-Mail-Count:" "^X-ML-COUNT:"
+)))
 ;; ;; 隠すメールヘッダを指定。
 ;; (setq wl-message-ignored-field-list
 ;; (append mime-view-ignored-field-list

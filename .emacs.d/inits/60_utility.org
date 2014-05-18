@@ -11,13 +11,11 @@
 * Elscreen
 ScreenのEmacsバージョン。マルチプレクサ。
 
-- https://github.com/knu/elscreen
+https://github.com/knu/elscreen
 
-** 参考リンク
 オリジナルはメンテナンスされていないのかな？
-- http://www.morishima.net/~naoto/elscreen-ja/
-
-- http://nishikawasasaki.hatenablog.com/entry/20110313/1300031344
+http://www.morishima.net/~naoto/elscreen-ja/
+http://nishikawasasaki.hatenablog.com/entry/20110313/1300031344
 
 #+begin_src emacs-lisp
 (elscreen-start)
@@ -95,6 +93,16 @@ ScreenのEmacsバージョン。マルチプレクサ。
 # (global-set-key (kbd "M-s <right>") 'tabbar-forward-tab)
 # (global-set-key (kbd "M-s <left>") 'tabbar-backward-tab)
 # #+end_src
+
+* w3m
+ブラウザ
+
+#+begin_src emacs-lisp
+(setq w3m-user-agent 
+"Mozilla/5.0 (Linux; U; Android 2.3.3; zh-tw; 
+HTC_Pyramid Build/GRI40) AppleWebKit/533.1 
+(KHTML, like Gecko) Version/4.0 Mobile Safari/533.")
+#+end_src
 
 * 未分類
 #+begin_src emacs-lisp

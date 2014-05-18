@@ -143,6 +143,8 @@
  ; robe
 (add-hook 'ruby-mode-hook 'robe-mode)
 (add-hook 'robe-mode-hook 'ac-robe-setup)
+(custom-set-variables
+ '(robe-highlight-capf-candidates nil))
 ;; -----------------------------------------------------------------------
 ;; Name     : pry
 ;; Install  : git@github.com:jacott/emacs-pry.git

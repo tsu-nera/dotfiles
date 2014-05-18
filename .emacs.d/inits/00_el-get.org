@@ -135,9 +135,8 @@ el-getの延長でbuildとか動くとcygwinでこけたりする。
     gist
     cool-mode
     esup
-    ;; scala
     scala-mode2
-;;    ensime
+    ;; ensime
     )
   "A list of packages that is not necessory for my work.")
 #+end_src
