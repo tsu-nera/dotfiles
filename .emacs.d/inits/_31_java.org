@@ -1,0 +1,59 @@
+* Java
+打倒Eclipse! Eclipseなんかぶっつぶせ！
+
+そんな感じのJava設定です。
+
+** malabar-mode
+A better Java mode for Emacs.
+
+https://github.com/m0smith/malabar-mode
+
+el-getで取得。fringe-helperに依存。ダウンロードしたら、mvn package.
+
+#+begin_src emacs-lisp
+(require 'cedet)
+(require 'semantic)
+(load "semantic/loaddefs.el")
+(semantic-mode 1)
+(require 'malabar-mode)
+(add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
+
+;; If you want to mimic the IDEish compile-on-save behaviour
+(add-hook 'malabar-mode-hook
+     (lambda () 
+       (add-hook 'after-save-hook 'malabar-compile-file-silently
+                  nil t)))
+#+end_src
+
+#+begin_src emacs-lisp
+;; -----------------------------------------------------------------------
+;; Name     : CEDET
+;; History  : 2014/02/04 add 
+;; Install  : http://www.logilab.org/blogentry/173886
+;; Function : 統合開発環境
+;;            先頭のほうに配置する必要がある
+;; ------------------------------------------------------------------------
+;; Load CEDET.
+;; See cedet/common/cedet.info for configuration details.
+;; IMPORTANT: Tou must place this *before* any CEDET component (including
+;; EIEIO) gets activated by another package (Gnus, auth-source, ...).
+;;(load-file "/home/tsu-nera/.emacs.d/cedet-bzr/trunk/cedet-devel-load.el")
+
+;;(semantic-mode 1)  ;; Enable Semantic
+;; (global-ede-mode 1);; Enable EDE (Project Management) features
+;;(semantic-load-enable-code-helpers)   Enable prototype help and smart completion
+
+;;(setq semantic-default-submodes
+;;      '(
+;;	global-semantic-idle-scheduler-mode
+;;	global-semantic-idle-completions-mode
+;;	global-semanticdb-minor-mode
+;;	global-semantic-decoration-mode
+;;	global-semantic-highlight-func-mode
+;;	global-semantic-stickyfunc-mode
+;;	global-semantic-mru-bookmark-mode
+;;	))
+
+#+end_src
+
+* Android

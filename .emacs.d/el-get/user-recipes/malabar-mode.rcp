@@ -1,0 +1,7 @@
+(:name malabar-mode
+       :auto-generated t
+       :type github
+       :description "A better Java mode for Emacs"
+       :pkgname "m0smith/malabar-mode"
+       :depends (fringe-helper)
+)

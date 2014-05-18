@@ -35,3 +35,4 @@
 /.emacs.d/elpa/
 /.emacs.d/inits/03_display.el
 /.emacs.d/elisp/ensime/
+/.emacs.d/semanticdb/

@@ -36,7 +36,6 @@ el-get実行前に、環境による場合分けのマクロを定義。
       nt-p      (eq system-type 'windows-nt)
       meadow-p  (featurep 'meadow)
       windows-p (or cygwin-p nt-p meadow-p))
-
 #+end_src
 
 * el-get.el
@@ -141,6 +140,18 @@ el-getの延長でbuildとか動くとcygwinでこけたりする。
   "A list of packages that is not necessory for my work.")
 #+end_src
 
+
+* el-get-elpa
+MELPAとの連携。M-x el-get-elpa-build-local-recipesする。
+
+http://stackoverflow.com/questions/23165158/how-do-i-install-melpa-packages-via-el-get
+
+#+begin_src emacs-lisp :tangle yes
+(require 'el-get-elpa)
+(unless (file-directory-p el-get-recipe-path-elpa)
+  (el-get-elpa-build-local-recipes))
+#+end_src
+
 * el-get 同期
 #+begin_src emacs-lisp :tangle yes
 ;; auto install el-get.el
@@ -156,4 +167,12 @@ el-getの延長でbuildとか動くとcygwinでこけたりする。
 (el-get 'sync my/el-get-packages-all)
 ;; (el-get 'sync my/el-get-packages-work)
 ;; (el-get 'sync my/el-get-packages-private)
+#+end_src
+
+* package.el
+
+#+begin_src emacs-lisp :tangle yes
+(require 'package)
+(package-initialize)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 #+end_src
