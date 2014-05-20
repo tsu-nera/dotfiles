@@ -20,7 +20,7 @@
 ;; http://shibayu36.hatenablog.com/entry/2013/12/30/190354
 ;; ------------------------------------------------------------------------
 (require 'multiple-cursors)
-(global-set-key (kbd "C-M-") 'mc/edit-lines)
+(global-set-key (kbd "C-M-c") 'mc/edit-lines)
 (global-set-key (kbd "C-M-r") 'mc/mark-all-in-region)
 
 ;; うまくうごかない
