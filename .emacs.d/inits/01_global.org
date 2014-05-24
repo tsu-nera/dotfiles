@@ -138,21 +138,20 @@ http://d.hatena.ne.jp/syohex/20101224/1293206906
   (server-start))
 #+end_src
 
-* 未分類
+* General Settings
+** recentf
+最近使ったファイルをメニューに表示
+
+たくさん履歴を残したい。
 
 #+begin_src emacs-lisp
-;; Name     : setup
-;; Function : Emacs高速起動のためのマクロライブラリ
-;;            EmacsWiki
-;; ------------------------------------------------------------------------
-;; (require 'setup)
+(recentf-mode 1)
+(setq recentf-max-menu-items 30)
+(setq recentf-max-saved-items 30)
+#+end_src
 
-;; ------------------------------------------------------------------------
-;; General Value
-;; Ref:
-;; http://www.cozmixng.org/~kou/emacs/dot_emacs
-;; ------------------------------------------------------------------------
-
+* 未整理
+#+begin_src emacs-lisp
 ;; file名の補間で大文字小文字を区別しない
 (setq completion-ignore-case t)
 

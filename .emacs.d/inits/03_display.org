@@ -104,9 +104,7 @@ http://masutaka.net/chalow/2011-05-19-1.html
 
 - スクロールバーを消す
 #+begin_src emacs-lisp
-(when linux-p
 (set-scroll-bar-mode nil)
-)
 #+end_src
 
 - 対応する括弧を光らせる。
