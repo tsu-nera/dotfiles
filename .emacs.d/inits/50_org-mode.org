@@ -56,10 +56,16 @@
 ** org-agenda
 #+begin_src emacs-lisp
 ;; アジェンダ表示の対象ファイル
+(if nt-p
+(setq org-agenda-files '("C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\inbox.org"
+			 "C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\main.org"
+			 "C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\unplan.org"
+			 "C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\schedule.org"))
 (setq org-agenda-files '("~/gtd/inbox.org"
 			 "~/gtd/main.org"
 			 "~/gtd/unplan.org"
 			 "~/gtd/schedule.org"))
+)
 
 ;; 時間表示が1桁の時、0をつける
 (setq org-agenda-time-leading-zero t)
@@ -423,26 +429,32 @@ http://orgmode.org/manual/Template-expansion.html#Template-expansion
 Emacs から WordPressに投稿するLisp
 
 #+begin_src emacs-lisp
-(when (require 'org2blog-autoloads nil t)
+(require 'org2blog-autoloads)
+(setq org2blog/wp-blog-alist
+      '(("Futurismo"
+	 :url "http://futurismo.biz/xmlrpc.php"
+	 :username "admin")
+)))
+
+(unless nt-p
 (setq futurismo (netrc-machine (netrc-parse "~/.netrc") "futurismo" t))
 ;; (setq blog (netrc-machine (netrc-parse "~/.netrc") "EverClassic" t))
 
 (setq org2blog/wp-blog-alist
-;;(setq org2blog/wp-blog-alist
       '(("Futurismo"
 	 :url "http://futurismo.biz/xmlrpc.php"
-	 :username (netrc-get futurismo "login")
+;;	 :username (netrc-get futurismo "login")
 	 :password (netrc-get futurismo "password")
 	 )
 	;; ("EverClassic"
 	;;  :url "http://everclassic.biz/xmlrpc.php"
 	;;  :username "admin"
 	;;  ;;:username (netrc-get blog "login")
-	;;  ;;:password (netrc-get blog "password"))
-	;;  )
+	;;  ;;:password (netrc-get blog "password")))
 	)
       )
 )
+
 #+end_src
 
 * mobileOrg
