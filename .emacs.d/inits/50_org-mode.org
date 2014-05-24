@@ -53,7 +53,7 @@
 ;; (setq org-indent-mode t)
 #+end_src
 
-* **
+* GTD
 ** org-agenda
 #+begin_src emacs-lisp
 ;; アジェンダ表示の対象ファイル
