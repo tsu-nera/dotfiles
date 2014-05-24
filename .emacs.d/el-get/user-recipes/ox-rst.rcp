@@ -1,0 +1,6 @@
+(:name ox-rst
+       :website "https://github.com/masayuko/ox-rst"
+       :description "reStructuredText Back-End for Org Export Engine"
+       :type "github"
+       :branch "master"
+       :pkgname "masayuko/ox-rst")

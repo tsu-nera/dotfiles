@@ -20,6 +20,7 @@
 (define-key org-mode-map "\C-co" 'org-open-at-point) ;; C-oの置き換え tmuxで c-oは使っているので
 (global-set-key "\C-cC" 'cfw:open-org-calendar)
 (global-set-key "\C-c\C-x\C-z" 'org-resolve-clocks)
+(global-set-key "\C-c\C-x\C-g" 'org-clock-goto)
 
 ;; 色ツケ
 (setq org-src-fontify-natively t)
@@ -52,7 +53,7 @@
 ;; (setq org-indent-mode t)
 #+end_src
 
-* GTD
+* **
 ** org-agenda
 #+begin_src emacs-lisp
 ;; アジェンダ表示の対象ファイル
@@ -538,6 +539,15 @@ containing the properties `:guid' and `:item-full-text'."
 (require 'org-wl)
 ;; wanderlustのメールを追跡できる
 (setq org-return-follows-link t)
+#+end_src
+
+
+* org-babel
+** ox-rst
+org-modeからRSTへの変換
+
+#+begin_src emacs-lisp
+(require 'ox-rst)
 #+end_src
 
 * 未分類

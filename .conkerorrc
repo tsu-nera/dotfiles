@@ -52,9 +52,12 @@ interactive("open-gmail", "Go to gmail", "follow",
             $browser_object = "http://gmail.com/");
 interactive("open-calendar", "Go to calendar.google.com", "follow",
             $browser_object = "http://calendar.google.com/");
+interactive("futurismo", "Open Futurismo", "follow",
+            $browser_object = "http://futurismo.biz");
 
 // open url with new buffer 
 define_key(content_buffer_normal_keymap, "d", "follow-new-buffer");
 define_key(content_buffer_normal_keymap, "f1", "open-google");
 define_key(content_buffer_normal_keymap, "f2", "open-gmail");
 define_key(content_buffer_normal_keymap, "f3", "open-calendar");
+define_key(content_buffer_normal_keymap, "f4", "futurismo");

@@ -131,6 +131,7 @@ el-getの延長でbuildとか動くとcygwinでこけたりする。
     helm-open-github
     org2blog
     org-gcal
+    ox-rst
     gist
     cool-mode
     esup
@@ -139,7 +140,6 @@ el-getの延長でbuildとか動くとcygwinでこけたりする。
     )
   "A list of packages that is not necessory for my work.")
 #+end_src
-
 
 * el-get-elpa
 MELPAとの連携。M-x el-get-elpa-build-local-recipesする。
@@ -166,7 +166,7 @@ http://stackoverflow.com/questions/23165158/how-do-i-install-melpa-packages-via-
 ;; 同期する
 ;; (el-get 'sync my/el-get-packages-all)
 ;; (el-get 'sync my/el-get-packages-work)
-;; (el-get 'sync my/el-get-packages-private)
+(el-get 'sync my/el-get-packages-private)
 #+end_src
 
 * package.el
