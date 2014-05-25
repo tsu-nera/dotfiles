@@ -100,6 +100,7 @@ el-get実行前に、環境による場合分けのマクロを定義。
     markdown-mode
     plantuml-mode
     elscreen
+    tomatinho
     )
   "A list of packages to install from el-get at launch")
 #+end_src

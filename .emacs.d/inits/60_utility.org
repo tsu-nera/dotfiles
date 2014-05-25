@@ -104,6 +104,19 @@ HTC_Pyramid Build/GRI40) AppleWebKit/533.1
 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.")
 #+end_src
 
+* tomatinho
+ちょっとかわったポモドーロツール.
+
+https://github.com/konr/tomatinho
+
+#+begin_src emacs-lisp
+(require 'tomatinho)
+(global-set-key (kbd "<f12>") 'tomatinho)
+(define-key tomatinho-map (kbd "N") 'tomatinho-interactive-new-pomodoro)
+(define-key tomatinho-map (kbd "P") 'tomatinho-interactive-deliberate-pause)
+(define-key tomatinho-map (kbd "T") 'tomatinho-interactive-toggle-display)
+#+end_src
+
 * 未分類
 #+begin_src emacs-lisp
 ;; -----------------------------------------------------------------------

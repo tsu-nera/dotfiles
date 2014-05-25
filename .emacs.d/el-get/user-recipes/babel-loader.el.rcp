@@ -1,0 +1,1 @@
+(:name babel-loader\.el :type github :pkgname "takaishi/babel-loader.el" :after nil)
