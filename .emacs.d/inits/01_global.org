@@ -146,8 +146,8 @@ http://d.hatena.ne.jp/syohex/20101224/1293206906
 
 #+begin_src emacs-lisp
 (recentf-mode 1)
-(setq recentf-max-menu-items 30)
-(setq recentf-max-saved-items 30)
+(setq recentf-max-menu-items 50)
+(setq recentf-max-saved-items 100)
 #+end_src
 
 * 未整理

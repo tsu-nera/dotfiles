@@ -75,6 +75,7 @@ http://www.eecs.ucf.edu/~leavens/ComS541Fall06/running_oz.shtml#
 ** rst-mode
 
 Restructured Text
+
 #+begin_src emacs-lisp :tangle yes
 
 ;;; RSTモードを見やすくする。
@@ -87,14 +88,8 @@ Restructured Text
 		("\\.rest$" . rst-mode)
 		) auto-mode-alist))
 
-;;; 全部スペースでインデントしましょう
-(add-hook 'rst-mode-hook '(lambda() (setq indent-tabs-mode nil)))
-
-;; エラーするので封印
-;; (add-hook 'rst-mode-hook
-;; 	  (lambda ()
-;; 	    (setq rst-slides-program "open -a Firefox")
-;; 	    ))
+;; 全部スペースでインデントしましょう
+;; (add-hook 'rst-mode-hook '(lambda() (setq indent-tabs-mode nil)))
 
 #+end_src
 

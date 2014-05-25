@@ -435,7 +435,7 @@ Emacs から WordPressに投稿するLisp
       '(("Futurismo"
 	 :url "http://futurismo.biz/xmlrpc.php"
 	 :username "admin")
-)))
+))
 
 (unless nt-p
 (setq futurismo (netrc-machine (netrc-parse "~/.netrc") "futurismo" t))
@@ -444,7 +444,7 @@ Emacs から WordPressに投稿するLisp
 (setq org2blog/wp-blog-alist
       '(("Futurismo"
 	 :url "http://futurismo.biz/xmlrpc.php"
-;;	 :username (netrc-get futurismo "login")
+	 :username (netrc-get futurismo "login")
 	 :password (netrc-get futurismo "password")
 	 )
 	;; ("EverClassic"
