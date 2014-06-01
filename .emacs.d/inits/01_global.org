@@ -252,16 +252,6 @@ http://d.hatena.ne.jp/syohex/20101224/1293206906
 ;; ;; パッチあてた
 ;; ;; http://www.mail-archive.com/anthy-dev@lists.sourceforge.jp/msg00395.html
 ;; )
-;; -----------------------------------------------------------------------
-;; Name     : whitespace
-;; Install  : build-in
-;; Function : 80行めを光らせる
-;; ------------------------------------------------------------------------
-(require 'whitespace)
-(setq whitespace-line-column 80) ;; limit line length
-(setq whitespace-style '(face lines-tail))
-
-(add-hook 'ruby-mode-hook 'whitespace-mode)
 
 ;; ------------------------------------------------------------------------
 ;; Name     : popwin

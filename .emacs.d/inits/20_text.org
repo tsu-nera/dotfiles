@@ -1,7 +1,6 @@
 * Text
 テキスト編集。
 
-
 * multiple-cursur
 
 #+begin_src emacs-lisp
@@ -45,6 +44,12 @@ http://d.hatena.ne.jp/syohex/20120117/1326814127
 
 ;; 選択ができるようにしておく
 ;; (transient-mark-mode t)
+#+end_src
+
+* 80行目をハイライト
+
+#+begin_src emacs-lisp
+(require 'highlight-80+)
 #+end_src
 
 * 未分類
