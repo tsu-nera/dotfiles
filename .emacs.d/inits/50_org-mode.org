@@ -562,6 +562,13 @@ org-modeからRSTへの変換
 (require 'ox-rst)
 #+end_src
 
+** ox-taskjuggler
+
+#+begin_src emacs-lisp
+(require 'ox-taskjuggler)
+#+end_src
+
+
 * 未分類
 
 #+begin_src emacs-lisp

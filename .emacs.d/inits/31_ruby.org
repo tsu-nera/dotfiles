@@ -1,3 +1,4 @@
+#+begin_src emacs-lisp
 ;; ------------------------------------------------------------------------
 ;; Ruby
 ;; ------------------------------------------------------------------------
@@ -168,7 +169,12 @@
     "run rubydb on program file in buffer *gud-file*.
 the directory containing file becomes the initial working directory
 and source-file directory for your debugger." t)
+#+end_src
 
+* 静的解析
+** flycheck
+
+#+begin_src emacs-lisp
 ;; (add-hook 'ruby-mode-hook 'flycheck-mode)
 
 ;; definition for flycheck
@@ -199,3 +205,4 @@ and source-file directory for your debugger." t)
 	  (file-name) ":" line ":" column ": " (or "E" "F") ": " (message)
 	  line-end))
   :modes (ruby-mode))
+#+end_src

@@ -33,17 +33,12 @@ https://github.com/senny/emacs-eclim
 http://www.skybert.net/emacs/java/
 http://sleepboy-zzz.blogspot.jp/2014/02/emacsjava_22.html
 
-
 #+begin_src emacs-lisp
 (require 'eclim)
 (global-eclim-mode)
 
 ;; eclim daemon
 (require 'eclimd)
-
-;; regular auto-complete initialization
-;;(require 'auto-complete-config)
-;;(ac-config-default)
 
 ;; add the emacs-eclim source
 (require 'ac-emacs-eclim-source)

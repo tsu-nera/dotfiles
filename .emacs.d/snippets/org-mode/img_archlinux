@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: img_archlinux
+# key: img_archlinux
+# --
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/archlinux-logo-dark.png" width="500"/>
+#+END_HTML

@@ -1,3 +1,4 @@
+#+begin_src emacs-lisp
 ;; -----------------------------------------------------------------------
 ;; Name     : highight-symbol/auto-highlight-symbol
 ;; Install  : el-get
@@ -216,3 +217,4 @@
 (setq ediff-split-window-function (if (> (frame-width) 150)
 				      'split-window-horizontally
 				    'split-window-vertically))
+#+end_src
