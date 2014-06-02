@@ -117,6 +117,35 @@ https://github.com/konr/tomatinho
 (define-key tomatinho-map (kbd "T") 'tomatinho-interactive-toggle-display)
 #+end_src
 
+* dired
+diredからopen
+
+#+begin_src emacs-lisp
+(defun dired-open-file ()
+  "In dired, open the file named on this line."
+  (interactive)
+  (let* ((file (dired-get-filename nil t)))
+    (message "Opening %s..." file)
+    (call-process "xdg-open" nil 0 nil file)
+    (message "Opening %s done" file)))
+
+(add-hook
+   'dired-mode-hook
+   (lambda ()
+     (define-key dired-mode-map "\S-w" 'dired-open-file))) 
+#+end_src
+
+** direx
+popup dired
+
+- https://github.com/m2ym/direx-el
+- http://cx4a.blogspot.jp/2011/12/popwineldirexel.html
+
+#+begin_src emacs-lisp
+(require 'direx)
+#+end_src
+
+
 * 未分類
 #+begin_src emacs-lisp
 ;; -----------------------------------------------------------------------
@@ -425,14 +454,4 @@ https://github.com/konr/tomatinho
 (require 'tablist-filter)
 (require 'tablist)
 )
-;; -----------------------------------------------------------------------
-;; Name     : direx
-;; Install  : el-get
-;; Function : popup dired
-;; Refs
-;;   https://github.com/m2ym/direx-el
-;;   http://cx4a.blogspot.jp/2011/12/popwineldirexel.html
-;; ------------------------------------------------------------------------
-(require 'direx)
-
 #+end_src
