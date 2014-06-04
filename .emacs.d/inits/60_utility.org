@@ -145,19 +145,18 @@ popup dired
 (require 'direx)
 #+end_src
 
+* edit-server
+Google Chromeのフォームをemacsで編集。Edit with Emacs.
+
+- https://raw.githubusercontent.com/stsquad/emacs_chrome/master/servers/edit-server.el
+
+#+begin_src emacs-lisp
+(require 'edit-server)
+(edit-server-start)
+#+end_src
 
 * 未分類
 #+begin_src emacs-lisp
-;; -----------------------------------------------------------------------
-;; Name     : wanderlust
-;; Install  :el-get
-;; Function : emacsのメーラ
-;; ------------------------------------------------------------------------
-(setq ssl-certificate-verification-policy 1) ; この行がないとimapサーバに繋がらない
-(autoload 'wl "wl" "Wanderlust" t)
-(autoload 'wl-other-frame "wl" "Wanderlust on new frame." t)
-(autoload 'wl-draft "wl-draft" "Write draft with Wanderlust." t)
-
 ;; -----------------------------------------------------------------------
 ;; Name     : esup
 ;; Function : Emacs 起動時のプロファイラ

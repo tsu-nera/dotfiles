@@ -52,6 +52,28 @@ http://d.hatena.ne.jp/syohex/20120117/1326814127
 (require 'highlight-80+)
 #+end_src
 
+* Yassnipet
+スニペット管理
+
+#+begin_src emacs-lisp
+;; 問い合わせを簡略化 yes/no を y/n
+(fset 'yes-or-no-p 'y-or-n-p)
+(require 'yasnippet)
+(yas-load-directory "~/.emacs.d/snippets")
+
+(yas-global-mode 1)
+
+;; メニューは使わない
+(setq yas/use-menu nil)
+
+;; 既存スニペットを挿入する
+(define-key yas-minor-mode-map (kbd "C-x i i") 'helm-c-yas-complete)
+;; 新規スニペットを作成するバッファを用意する
+(define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
+;; 既存スニペットを閲覧・編集する
+(define-key yas-minor-mode-map (kbd "C-x i v") 'helm-c-yas-visit-snippet-file)
+#+end_src
+
 * 未分類
 
 #+begin_src emacs-lisp
@@ -138,29 +160,6 @@ http://d.hatena.ne.jp/syohex/20120117/1326814127
 ;;(global-set-key [(C-left)] 'keisen-left-move)
 ;;(global-set-key [(C-up)] 'keisen-up-move)
 ;;(global-set-key [(C-down)] 'keisen-down-move)
-
-;; -----------------------------------------------------------------------
-;; Name     : yasnippet
-;; Function : スニペット管理
-;; History  : 2014/02/11
-;; Install  : elpa
-;; ------------------------------------------------------------------------
-;; 問い合わせを簡略化 yes/no を y/n
-(fset 'yes-or-no-p 'y-or-n-p)
-
-(require 'yasnippet)
-(yas-load-directory "~/.emacs.d/snippets")
-(yas-global-mode 1)
-
-;; メニューは使わない
-(setq yas/use-menu nil)
-
-;; 既存スニペットを挿入する
-(define-key yas-minor-mode-map (kbd "C-x i i") 'helm-c-yas-complete)
-;; 新規スニペットを作成するバッファを用意する
-(define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
-;; 既存スニペットを閲覧・編集する
-(define-key yas-minor-mode-map (kbd "C-x i v") 'helm-c-yas-visit-snippet-file)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : anzu

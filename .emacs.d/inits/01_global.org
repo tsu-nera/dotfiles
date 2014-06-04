@@ -83,7 +83,7 @@ http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
 	    (normal-top-level-add-subdirs-to-load-path))))))
 ;; load-pathに追加するフォルダ
 ;; 2つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
-(add-to-load-path "elisp" "inits" "el-get" "elpa")
+(add-to-load-path "elisp" "inits" "el-get" "elpa" "local")
 #+end_src
 
 ** ライブラリが存在すればロード

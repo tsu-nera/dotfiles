@@ -1,7 +1,15 @@
 * Wanderlust
-ここでは、家と会社で共通の設定を書く。
+emacsのメーラ
 
-環境ごとの設定は~/.wlに記入する。
+ここでは、家と会社で共通の設定を書く。環境ごとの設定は~/.wlに記入する。
+
+#+begin_src emacs-lisp
+; この行がないとimapサーバに繋がらない
+(setq ssl-certificate-verification-policy 1)
+(autoload 'wl "wl" "Wanderlust" t)
+(autoload 'wl-other-frame "wl" "Wanderlust on new frame." t)
+(autoload 'wl-draft "wl-draft" "Write draft with Wanderlust." t)
+#+end_src
 
 * HTMLメール対策
 emacs-w3mをつかう。w3mが必要。(apt-get install w3m)
@@ -9,7 +17,6 @@ emacs-w3mをつかう。w3mが必要。(apt-get install w3m)
 #+begin_src emacs-lisp
 (when linux-p
 (require 'wl)
-
 ;; HTMLファイルは表示しない。
 (setq mime-setup-enable-inline-html nil)
 
@@ -133,6 +140,12 @@ http://kaworu.jpn.org/kaworu/2008-04-29-1.php
 
 (setq ssl-program-arguments '("s_client" "-quiet" "-host" host "-port" service))
 )
+#+end_src
+
+draft-modeでyassnipetを有効化. うまくうごかない。。。
+
+#+begin_src emacs-lisp
+(add-hook-fn 'wl-draft-mode-hook 'yas-monor-mode-on)
 #+end_src
 
 * その他
