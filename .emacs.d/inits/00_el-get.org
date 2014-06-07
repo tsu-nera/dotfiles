@@ -167,7 +167,7 @@ http://stackoverflow.com/questions/23165158/how-do-i-install-melpa-packages-via-
 ;; 同期する
 ;; (el-get 'sync my/el-get-packages-all)
 ;; (el-get 'sync my/el-get-packages-work)
-(el-get 'sync my/el-get-packages-private)
+;; (el-get 'sync my/el-get-packages-private)
 #+end_src
 
 * package.el
