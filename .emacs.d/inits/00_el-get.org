@@ -67,6 +67,7 @@ el-get実行前に、環境による場合分けのマクロを定義。
     helm
     helm-c-yasnippet
     helm-descbinds
+    helm-orgcard
     anything
     ;; helm-shell-history
     ;; org-mode
@@ -75,7 +76,6 @@ el-get実行前に、環境による場合分けのマクロを定義。
     org-pandoc
     ;; color
     color-theme
-    powerline 
     molokai-theme
     ;; programming
     flymake

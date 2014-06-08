@@ -18,10 +18,10 @@ clear mod3
 add mod3 = Hiragana_Katakana
 
 ! Disable Caps_Lock
-! remove Lock = Caps_Lock
-! remove Control = Control_L
-! keysym Caps_Lock = Control_L
-! add Control = Control_L
+remove Lock = Caps_Lock
+remove Control = Control_L
+keysym Caps_Lock = Control_L
+add Control = Control_L
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! Reference:

@@ -32,15 +32,6 @@
 (load-theme 'molokai t)
 
 ;; ------------------------------------------------------------------------
-;; Name     : PowerLine
-;; Function : Most popular color theme
-;; History  : 2014.1.14 Add
-;; Install  : http://www.emacswiki.org/emacs/powerline.el
-;; ------------------------------------------------------------------------
-;;(require 'cl)
-;;(require 'powerline)
-
-;; ------------------------------------------------------------------------
 ;; Name     : rainbow-mode
 ;; Function : 色つけしてくれる 
 ;; History  : 2014.3.13 Add

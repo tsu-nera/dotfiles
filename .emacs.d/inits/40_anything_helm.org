@@ -1,3 +1,6 @@
+* helm
+
+#+begin_src emacs-lisp
 (eval-when-compile (require 'cl))
 
 ;;; ミニバッファで C-h でヘルプでないようにする
@@ -28,9 +31,20 @@
 (global-set-key (kbd "M-x") 'helm-M-x)
 (helm-mode 1)
 
+#+end_src
+
+** helm-orgcard
+orgcardを引く。
+
+#+begin_src emacs-lisp
 (require 'helm-orgcard)
 (setq hoc-lang-selector 'ja)
+#+end_src
 
+* Anything
+今はあまり利用しないので、封印。
+
+#+begin_src emacs-lisp
 ;; (when (require 'anything nui t)
 ;;  (setq
 ;;  候補を表示するまでの時間
@@ -76,3 +90,5 @@
 ;;(add-hook 'dired-mode-hook ;dired
 ;;	  '(lambda ()
 ;;	     (local-set-key (kbd "O") 'anything-c-moccur-dired-do-moccur-by-moccur)))
+#+end_src
+
