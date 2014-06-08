@@ -12,7 +12,7 @@ import XMonad.Layout.MultiToggle.Instances
 import XMonad.Config.Desktop (desktopLayoutModifiers)
 import XMonad.Layout.Named
 
--- for keyboard shortcut
+-- for keyboard shortcut mod4 is windows ShortcutKey
 modm = mod4Mask
 
 tall = Tall 1 (3/100) (1/2)
@@ -34,8 +34,9 @@ main = do
           , normalBorderColor  = "#99ccff"
           , focusedBorderColor = "#0033dd" -- blue
 
-          -- Rebind Mod to the Hiragana_Katakana key
-          , modMask = mod3Mask
+          -- Rebind Mod to the Hiragana_Katakana 
+	  , modMask = mod3Mask
+	  -- , modMask = mod1Mask   	 
 
      	  -- use rxvt-unicode 
 	  , terminal = "urxvt" 

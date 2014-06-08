@@ -11,13 +11,22 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
   unset f
 fi
 
-# exec gnome-session
-# exec startkde
-# exec startxfce4
-# ...or the Window Manager of your choice
+# Touch Padデフォルト無効
+xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 0 &
 
-twm &
-xclock -geometry 50x50-1+1 &
-xterm -geometry 80x50+494+51 &
-xterm -geometry 80x20+494-0 &
-exec xterm -geometry 80x66+0+0 -name login
+##########
+# xmonad
+##########
+# set the cursor 矢印にする
+xsetroot -cursor_name left_ptr
+# set Japanese keyboard layout
+setxkbmap -layout jp
+
+# xmodmap
+# 起動時には、すぐにxmodmapが反映されない。そのため、5秒のdelayを入れる。
+if [ -s ~/.Xmodmap ]; then
+    /bin/bash -c "sleep 5;/usr/bin/xmodmap /home/$USER/.Xmodmap"
+fi
+
+# xmonad
+exec xmonad

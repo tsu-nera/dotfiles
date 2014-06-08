@@ -219,6 +219,11 @@ if [ -d ${HOME}/.rbenv  ] ; then
   eval "$(rbenv init - zsh)"
 fi
 
+if [ -d ${HOME}/script  ] ; then
+  export PATH="${HOME}/script/sh:${PATH}"
+  export PATH="${HOME}/script/ruby:${PATH}"
+fi
+
 # z ディレクトリ移動を簡単に
 # https://github.com/rupa/z
 # if [ -d ${HOME}/bin/z  ] ; then

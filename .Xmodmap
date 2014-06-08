@@ -1,0 +1,31 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! .Xmodmap
+! キーの割り当て変更
+!
+! 設定は以下で反映させる
+! $ xmodmap ~/.Xmodmap
+! or ~/.xinitrcに追記
+! exec xmodmap $HOME/.Xmodmap
+!
+! Keyのコードは xevで調べる。
+! $ xev
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+! Hiragana_Katakana (208) to Alt
+! keycode 208 = Hiragana_Katakana
+! add mod1 = Hiragana_Katakana
+clear mod3
+add mod3 = Hiragana_Katakana
+
+! Disable Caps_Lock
+! remove Lock = Caps_Lock
+! remove Control = Control_L
+! keysym Caps_Lock = Control_L
+! add Control = Control_L
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Reference:
+! http://opamp.hatenablog.jp/entry/20110704/1309792606
+! http://iishikawa.s371.xrea.com/note/archlinux#id2391056
+! http://marigold.sakura.ne.jp/tshoot/xmodmap/xmodmap.html
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
