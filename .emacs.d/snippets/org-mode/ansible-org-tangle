@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: ansible-org-tangle
+# key: ansible-org-tangle
+# --
+#+begin_src yaml :tangle yes
+#+end_src
+$0

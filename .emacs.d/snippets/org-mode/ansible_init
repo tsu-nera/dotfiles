@@ -1,0 +1,13 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: ansible_init
+# key: ansible_init
+# --
+#+begin_src yaml :tangle yes
+---
+- hosts: localhost
+  sudo: yes
+  tasks:
+    - name: $1
+      pacman: name=$2
+#+end_src
+$0
