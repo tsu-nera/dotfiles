@@ -34,7 +34,9 @@ http://www.skybert.net/emacs/java/
 http://sleepboy-zzz.blogspot.jp/2014/02/emacsjava_22.html
 
 #+begin_src emacs-lisp
+
 (require 'eclim)
+(setq eclim-auto-save t)
 (global-eclim-mode)
 
 ;; eclim daemon
@@ -44,10 +46,15 @@ http://sleepboy-zzz.blogspot.jp/2014/02/emacsjava_22.html
 (require 'ac-emacs-eclim-source)
 (ac-emacs-eclim-config)
 
-(setq eclim-eclipse-dirs "/opt/eclipse/kepler")
-(setq eclim-executable "/opt/eclipse/kepler/eclim")
-(setq eclimd-executable "/opt/eclipse/kepler/eclimd")
-(setq eclimd-default-workspace "/mnt/win/src/coursera")
+;; (setq eclim-eclipse-dirs "/opt/eclipse/kepler")
+;; (setq eclim-executable "/opt/eclipse/kepler/eclim")
+;; (setq eclimd-executable "/opt/eclipse/kepler/eclimd")
+;; (setq eclimd-default-workspace "/mnt/win/src/coursera")
+(setq eclim-eclipse-dirs "/usr/share/eclipse")
+(setq eclim-executable "/usr/share/eclipse/eclim")
+(setq eclimd-executable "/usr/share/eclipse/eclimd")
+(setq eclimd-default-workspace "/home/tsu-nera/repo/eclipse_mooc_work")
+
 #+end_src
 
 *** JUnit起動
@@ -58,6 +65,7 @@ http://sleepboy-zzz.blogspot.jp/2014/02/emacsjava_22.html
   (if (not (string= major-mode "java-mode"))
     (message "Sorry cannot run current buffer."))
   (compile (concat eclim-executable " -command java_junit -p " eclim--project-name " -t " (eclim-package-and-class))))
+(define-key eclim-mode-map (kbd "C-c C-e j t") 'eclim-run-test)
 #+end_src
 
 * Android

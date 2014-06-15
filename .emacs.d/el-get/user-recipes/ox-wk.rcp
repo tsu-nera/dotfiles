@@ -1,0 +1,5 @@
+(:name ox-wk
+       :description "Dokuwiki  Back-End for Org Export Engine"
+       :type "github"
+       :branch "master"
+       :pkgname "w-vi/ox-wk.el")

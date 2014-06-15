@@ -554,7 +554,7 @@ containing the properties `:guid' and `:item-full-text'."
 #+end_src
 
 
-* org-babel
+* org-export
 ** ox-rst
 org-modeからRSTへの変換
 
@@ -566,6 +566,12 @@ org-modeからRSTへの変換
 
 #+begin_src emacs-lisp
 (require 'ox-taskjuggler)
+#+end_src
+
+** ox-wk
+   dokuwiki変換
+#+begin_src emacs-lisp
+(require 'ox-wk)
 #+end_src
 
 

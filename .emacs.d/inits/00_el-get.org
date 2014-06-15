@@ -74,6 +74,7 @@ el-get実行前に、環境による場合分けのマクロを定義。
     org-mode
     org-pomodoro
     org-pandoc
+    deferred
     ;; color
     color-theme
     molokai-theme
@@ -133,6 +134,7 @@ el-getの延長でbuildとか動くとcygwinでこけたりする。
     org2blog
     org-gcal
     ox-rst
+    ox-wk
     gist
     cool-mode
     esup

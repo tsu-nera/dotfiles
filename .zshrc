@@ -177,7 +177,6 @@ alias r='ruby'
 alias l='less'
 alias t='task'
 alias o='xdg-open'
-alias lock='gnome-screensaver-command --lock'
 alias forced_git_local_destroy='git fetch origin;git reset --hard origin/master'
 
 #alias cd=cdls
@@ -338,6 +337,7 @@ else
     alias m='emacsclient -nw'
     alias kill_emacs="emacsclient -e \"(kill-emacs)\""
     alias boot_emacs="emacs --daemon"
+    alias boot_my_world="emacs --daemon"
     alias reboot_emacs="emacsclient -e \"(kill-emacs)\";emacs --daemon"
 
     export EDITOR="emacsclient -nw"
