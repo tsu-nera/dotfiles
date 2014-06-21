@@ -97,32 +97,31 @@
 
 ; global Effort estimate values
 (setq org-global-properties (quote ((
-      "Effort_ALL" . "0:05 0:10 0:15 0:30 0:45 1:00 1:30 2:00 3:00"))))
+      "Effort_ALL" . "00:05 00:10 00:15 00:30 01:00 01:30 02:00 02:30 03:00"))))
 
 ;; カスタムコマンド
 ;; http://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
 (setq org-agenda-custom-commands 
       '(
-;; sample
-;; ("c" "Desk Work" tags-todo "computer" ;; (1) (2) (3) (4)
-;;          ((org-agenda-files '("~/org/widgets.org" "~/org/clients.org")) ;; (5)
-;;           (org-agenda-sorting-strategy '(priority-up effort-down))) ;; (5) cont.
-;;          ("~/computer.html")) ;; (6)
-
-;; http://hpcgi1.nifty.com/spen/index.cgi?OrgMode%2FOrg-mode%A4%C7GTD%BC%C2%C1%A9%A1%CA%CB%DD%CC%F5%A1%CB#i16
-       ("d" "Daily Action List"
+      ;; http://hpcgi1.nifty.com/spen/index.cgi?OrgMode%2FOrg-mode%A4%C7GTD%BC%C2%C1%A9%A1%CA%CB%DD%CC%F5%A1%CB#i16
+       ("D" "Daily Action Summary"
+        ((agenda "" 
+	((org-agenda-ndays 1)
+	(org-agenda-entry-types '(:timestamp :sexp))
+	))
+	(tags-todo "next"))
+	)
+       ("d" "Daily Action List Detail"
         ((agenda "" ((org-agenda-ndays 1)
-            (org-agenda-sorting-strategy
-            (quote ((agenda time-up priority-down tag-up) )))
-            (org-deadline-warning-days 0)
-;;            (org-agenda-clockreport-mode t) ;; 時間表の表示はコメントアウト
-            ))))
-        ))
-
-;; アジェンダデフォルトはday
-;; カスタムコマンドを設定したので一旦封印
-;; (setq org-agenda-span 'day)
-
+        (org-agenda-sorting-strategy
+        (quote ((agenda time-up priority-down tag-up) )))
+	;; (org-deadline-warning-days 0)
+	;; (org-agenda-clockreport-mode t) ;; 時間表の表示はコメントアウト
+        ))))
+	("n" "Next Action List" tags-todo "next")
+	)
+)
+	
 #+end_src
 
 ** タスクの状態定義

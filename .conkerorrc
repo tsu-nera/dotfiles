@@ -80,3 +80,9 @@ define_webjump("hatena","javascript:(function(){var%20d=(new%20Date);var%20s=doc
 // create link
 define_webjump("link_markdown","javascript:(function(){prompt('Copy to Clipboard','['+document.title.replace(/([\[\]])/g,'\\$1')+']'+'('+location.href+')');})();");
 define_webjump("link_orgmode","javascript:(function(){prompt('Copy to Clipboard','['+'['+location.href+']'+'['+document.title.replace(/([\[\]])/g,'\\$1')+']'+']');})();");
+
+//////////////////////////////////////////
+// external
+//////////////////////////////////////////
+session_pref("xpinstall.whitelist.required", false);
+external_content_handlers.set("application/pdf", "evince");
