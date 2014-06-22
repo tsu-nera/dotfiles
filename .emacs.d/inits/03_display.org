@@ -96,7 +96,16 @@ http://masutaka.net/chalow/2011-05-19-1.html
 https://github.com/dimitri/switch-window
 
 #+begin_src emacs-lisp
-(global-set-key (kbd "C-x t") 'switch-window)
+(global-set-key (kbd "C-x o") 'switch-window)
+#+end_src
+
+* ace-jump-mode
+Emacs Rock! 
+
+#+begin_src emacs-lisp
+(require 'ace-jump-mode)
+
+(define-key global-map (kbd "C-x SPC") 'ace-jump-mode)
 #+end_src
 
 * その他
