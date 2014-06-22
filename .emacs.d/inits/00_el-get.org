@@ -48,6 +48,7 @@ el-get実行前に、環境による場合分けのマクロを定義。
   '(
     ;; window
     popwin
+    switch-window
     ;; text
     yasnippet
     auto-complete

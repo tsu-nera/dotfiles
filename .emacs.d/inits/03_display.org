@@ -91,6 +91,14 @@ http://masutaka.net/chalow/2011-05-19-1.html
   (global-set-key "\C-qk" 'windmove-up)
 #+END_SRC
 
+* 番号指定でwindow切り替え switch-window
+
+https://github.com/dimitri/switch-window
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-x t") 'switch-window)
+#+end_src
+
 * その他
 - ツールバーを消す
 #+begin_src emacs-lisp
