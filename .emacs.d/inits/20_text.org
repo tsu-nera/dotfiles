@@ -1,23 +1,21 @@
 * Text
 テキスト編集。
 
-* multiple-cursur
+* cua-mode
+矩形編集。
 
 #+begin_src emacs-lisp
-;; -----------------------------------------------------------------------
-;; Name     : cua-mode
-;; Install  : el-get
-;; ------------------------------------------------------------------------
 (cua-mode t)
 (setq cua-enable-cua-keys nil) ; デフォルトキーバインドを無効化
 (define-key global-map (kbd "C-x SPC") 'cua-set-rectangle-mark)
+#+end_src
 
-;; -----------------------------------------------------------------------
-;; Name     : multiple-cursors
-;; Install  : el-get
-;; Function : sublime textみたいに、複数行を編集
-;; http://shibayu36.hatenablog.com/entry/2013/12/30/190354
-;; ------------------------------------------------------------------------
+* multiple-cursur
+sublime textみたいに、複数行を編集.
+
+http://shibayu36.hatenablog.com/entry/2013/12/30/190354
+
+#+begin_src emacs-lisp
 (require 'multiple-cursors)
 (global-set-key (kbd "C-M-c") 'mc/edit-lines)
 (global-set-key (kbd "C-M-r") 'mc/mark-all-in-region)
@@ -46,10 +44,17 @@ http://d.hatena.ne.jp/syohex/20120117/1326814127
 ;; (transient-mark-mode t)
 #+end_src
 
-* 80行目をハイライト
+* ace-jump-mode
+Awesome Emacs Rock! 
 
 #+begin_src emacs-lisp
-(require 'highlight-80+)
+(autoload
+  'ace-jump-mode
+  "ace-jump-mode"
+  "Emacs quick move minor mode"
+  t)
+;; you can select the key you prefer to
+(define-key global-map (kbd "C-x ,") 'ace-jump-mode)
 #+end_src
 
 * Yassnipet

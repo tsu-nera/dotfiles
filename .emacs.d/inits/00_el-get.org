@@ -57,6 +57,7 @@ el-get実行前に、環境による場合分けのマクロを定義。
     auto-highlight-symbol
     highlight-symbol
     multiple-cursors
+    bm
     ;; smart-compile 独自改造したものをelispにおいた
     expand-region
     ;; utility

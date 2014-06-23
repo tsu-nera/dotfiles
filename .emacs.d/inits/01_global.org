@@ -150,6 +150,23 @@ http://d.hatena.ne.jp/syohex/20101224/1293206906
 (setq recentf-max-saved-items 100)
 #+end_src
 
+** saveplace
+一度訪れたファイルは次開くときはそこから開く。
+
+#+begin_src emacs-lisp
+(require 'saveplace)
+(setq-default save-place t)
+#+end_src
+
+** savehist
+minibufferの履歴保存
+
+#+begin_src emacs-lisp
+(require 'savehist)
+(savehist-mode t)
+(setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
+#+end_src
+
 * 未整理
 #+begin_src emacs-lisp
 ;; file名の補間で大文字小文字を区別しない
@@ -184,13 +201,6 @@ http://d.hatena.ne.jp/syohex/20101224/1293206906
                                   ))
 ;;; 終了時にオートセーブファイルを消す
 (setq delete-auto-save-files t)
-
-;; フォント設定
-;; Ricty
-;; http://d.hatena.ne.jp/kitokitoki/20110502/p2
-;; no window モードはXの設定にしたがっているので、
-;; .Xdefaultsの設定を調整する必要あり。
-(add-to-list 'default-frame-alist '(font . "ricty-13"))
 
 ;; ------------------------------------------------------------------------
 ;; デフォルトブラウザ設定
@@ -306,16 +316,6 @@ http://d.hatena.ne.jp/syohex/20101224/1293206906
 (add-hook 'find-file-hooks 'turn-on-tempbuf-mode)
 ;; Dired modeならば有効
 (add-hook 'dired-mode-hook 'turn-on-tempbuf-mode)
-
-;; -----------------------------------------------------------------------
-;; Name     : EmacsでTODOをハイライト
-;; Install  : http://stackoverflow.com/questions/8551320/
-;;            highlighting-todos-in-all-programming-modes
-;; ------------------------------------------------------------------------
-(add-hook 'prog-mode-hook
-	  (lambda ()
-	    (font-lock-add-keywords nil
-           '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
 
 ;; -----------------------------------------------------------------------
 ;; Name     : netrc

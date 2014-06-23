@@ -1,18 +1,5 @@
 #+begin_src emacs-lisp
 ;; -----------------------------------------------------------------------
-;; Name     : highight-symbol/auto-highlight-symbol
-;; Install  : el-get
-;; Function : シンボルをハイライト
-;; http://shibayu36.hatenablog.com/entry/2013/12/30/190354
-;; ------------------------------------------------------------------------
-(require 'auto-highlight-symbol-config)
-(require 'highlight-symbol)
-(setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1"))
-
-;;(global-set-key (kbd "<f3>") 'highlight-symbol-at-point)
-;;(global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
-
-;; -----------------------------------------------------------------------
 ;; Name     : flymake
 ;; Function : 静的文法チェック
 ;; History  : 2014/02/06

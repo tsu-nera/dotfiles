@@ -1,6 +1,143 @@
 * Display
 表示関連。
 
+* Global
+- ツールバーを消す
+#+begin_src emacs-lisp
+(tool-bar-mode -1)
+#+end_src
+
+- emacs -nw で起動した時にメニューバーを消す
+#+begin_src emacs-lisp
+(menu-bar-mode -1)
+#+end_src
+
+- スクロールバーを消す
+#+begin_src emacs-lisp
+(set-scroll-bar-mode nil)
+#+end_src
+
+- 対応する括弧を光らせる。
+#+begin_src emacs-lisp
+(show-paren-mode 1)
+#+end_src
+
+- 画像ファイルを表示する
+#+begin_src emacs-lisp
+(if window-system (auto-image-file-mode t)(auto-image-file-mode nil))
+#+end_src
+
+- モードラインに時間を表示する
+#+begin_src emacs-lisp
+(display-time)
+
+(setq display-time-day-and-date t)
+#+end_src
+
+- 現在の関数名をモードラインに表示
+#+begin_src emacs-lisp
+(which-function-mode 1)
+#+end_src
+- 行番号の表示
+
+#+begin_src emacs-lisp
+(global-linum-mode t)
+#+end_src
+
+- 現在行に色をつける
+#+begin_src emacs-lisp
+(global-hl-line-mode 1) 
+#+end_src
+
+- とにかく色をつける
+#+begin_src emacs-lisp
+;;(global-font-lock-mode 1)
+#+end_src
+
+- Add proper word wrapping
+#+begin_src emacs-lisp
+;; (global-visual-line-mode t)
+#+end_src
+
+* ハイライト
+** 80行目をハイライト
+
+#+begin_src emacs-lisp
+(require 'highlight-80+)
+#+end_src
+
+** Set Markをハイライト
+- [[http://www.emacswiki.org/emacs/VisibleMark][EmacsWiki: Visible Mark]]
+
+#+begin_src emacs-lisp
+#+end_src
+
+** Bookmarksをハイライト
+
+- [[https://github.com/joodland/bm][joodland/bm]]
+
+#+begin_src emacs-lisp
+(require 'bm)
+
+(global-set-key (kbd "<C-f5>") 'bm-toggle)
+(global-set-key (kbd "<f5>")   'bm-next)
+(global-set-key (kbd "<S-f5>") 'bm-previous)
+#+end_src
+
+** TODOをハイライト
+  highlighting-todos-in-all-programming-modes
+
+ http://stackoverflow.com/questions/8551320/
+
+#+begin_src emacs-lisp
+;; (add-hook 'prog-mode-hook
+;; 	  (lambda ()
+;; 	    (font-lock-add-keywords nil
+;;            '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
+#+end_src
+
+上のがうまくうごかないので、fic-ext-modeを利用。
+
+NOTE: If you manually turn on fic-ext-mode, you you might need to force re-fontification initially
+
+M-x font-lock-fontify-buffer
+
+#+begin_src emacs-lisp
+(require 'fic-ext-mode)
+(defun add-something-to-mode-hooks (mode-list something)
+  "helper function to add a callback to multiple hooks"
+  (dolist (mode mode-list)
+    (add-hook (intern (concat (symbol-name mode) "-mode-hook")) something)))
+
+(add-something-to-mode-hooks '(c++ emacs-lisp ruby text scala) 'fic-ext-mode)
+#+end_src
+
+** シンボルをハイライト
+highight-symbol/auto-highlight-symbol
+
+http://shibayu36.hatenablog.com/entry/2013/12/30/190354
+
+#+begin_src emacs-lisp
+(require 'auto-highlight-symbol-config)
+(require 'highlight-symbol)
+(setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1"))
+
+(global-set-key (kbd "<f4>") 'highlight-symbol-at-point)
+(global-set-key (kbd "C-<f4>") 'highlight-symbol-next)
+(global-set-key (kbd "S-<f4>") 'highlight-symbol-prev)
+(global-set-key (kbd "ESC <f4>") 'highlight-symbol-remove-all)
+#+end_src
+
+* フォント
+** Ricty
+http://d.hatena.ne.jp/kitokitoki/20110502/p2
+
+no window モードはXの設定にしたがっているので、.Xdefaultsの設定を調整する必要あり。
+
+#+begin_src emacs-lisp
+(add-to-list 'default-frame-alist '(font . "ricty-13"))
+#+end_src
+
 * 左右のバッファをF2で交換する
   http://d.hatena.ne.jp/supermassiveblackhole/20100625/1277436024
   
@@ -99,59 +236,3 @@ https://github.com/dimitri/switch-window
 (global-set-key (kbd "C-x o") 'switch-window)
 #+end_src
 
-* ace-jump-mode
-Emacs Rock! 
-
-#+begin_src emacs-lisp
-(require 'ace-jump-mode)
-
-(define-key global-map (kbd "C-x SPC") 'ace-jump-mode)
-#+end_src
-
-* その他
-- ツールバーを消す
-#+begin_src emacs-lisp
-(tool-bar-mode -1)
-#+end_src
-
-- emacs -nw で起動した時にメニューバーを消す
-#+begin_src emacs-lisp
-(menu-bar-mode -1)
-#+end_src
-
-- スクロールバーを消す
-#+begin_src emacs-lisp
-(set-scroll-bar-mode nil)
-#+end_src
-
-- 対応する括弧を光らせる。
-#+begin_src emacs-lisp
-(show-paren-mode 1)
-#+end_src
-
-- 画像ファイルを表示する
-#+begin_src emacs-lisp
-(if window-system (auto-image-file-mode t)(auto-image-file-mode nil))
-#+end_src
-
-- モードラインに時間を表示する
-#+begin_src emacs-lisp
-(display-time)
-
-(setq display-time-day-and-date t)
-#+end_src
-
-- 現在の関数名をモードラインに表示
-#+begin_src emacs-lisp
-(which-function-mode 1)
-#+end_src
-- 行番号の表示
-
-#+begin_src emacs-lisp
-(global-linum-mode t)
-#+end_src
-
-- 現在行に色をつける
-#+begin_src emacs-lisp
-(global-hl-line-mode 1) 
-#+end_src

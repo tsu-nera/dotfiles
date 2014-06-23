@@ -25,12 +25,11 @@
       helm-candidate-number-limit 200)
 
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
-(global-set-key (kbd "C-x r") 'helm-recentf)
+(global-set-key (kbd "C-x C-r") 'helm-recentf)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "M-r") 'helm-occur)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (helm-mode 1)
-
 #+end_src
 
 ** helm-orgcard
@@ -41,54 +40,23 @@ orgcardを引く。
 (setq hoc-lang-selector 'ja)
 #+end_src
 
-* Anything
-今はあまり利用しないので、封印。
+** helm-bookmarks
+Nice Bookmarks.
+
+- [[http://tototoshi.hatenablog.com/entry/20101226/1293334388][Emacsのブックマーク機能 - tototoshi の日記]]
+- [[http://www.emacswiki.org/emacs/BookMarks][EmacsWiki: Book Marks]]
+
+C-x r b で helm-mode-bookmark-jumpが発動するみたいなので、あえてキーバインドしない。
+
+- C-x r m’ – set a bookmark at the current location (e.g. in a file)
+- C-x r b’ – jump to a bookmark
+- C-x r l’ – list your bookmarks
+- M-x bookmark-delete’ – delete a bookmark by name これもhelmが発動する。
 
 #+begin_src emacs-lisp
-;; (when (require 'anything nui t)
-;;  (setq
-;;  候補を表示するまでの時間
-;;   anything-idle-delay 0.3
-;; タイプして再描写するまでの時間
-;;   anything-input-idle-delay 0.2
-;; 候補の最大表示数
-;;   anything-candidate-number-limit 100
-;; 体感速度アップ
-;;   anything-quick-update t
-;; 候補選択をアルファベット順
-;;   anything-enable-shortcuts 'alphabet)
-
-;; anything の補間強化
-;; (require 'anything-match-plugin nil t)
-;; 					)
-;; (require 'anything-rdefs)
-;; (setq ar:command "~/.rbenv/shims/rdefs")
-;; (define-key ruby-mode-map "\C-\M-o" 'anything-rdefs)
-
-;;(require 'anything-rake) 動かない。
-
-;;;; color-moccur.elの設定
-;; (require 'color-moccur)
-;;; 複数の検索語や、特定のフェイスのみマッチ等の機能を有効にする
-;;; 詳細は http://www.bookshelf.jp/soft/meadow_50.html#SEC751
-;;(setq moccur-split-word t)
-;; migemoがrequireできる環境ならmigemoを使う
-;;(when (require 'migemo nil t) ;第三引数がnon-nilだとloadできなかった場合にエラーではなくnilを返す
-;;  (setq moccur-use-migemo t))
-
-;;;; anything-c-moccurの設定
-;;(require 'anything-c-moccur)
-;;; カスタマイズ可能変数の設定(M-x customize-group anything-c-moccur でも設定可能)
-;;(setq anything-c-moccur-anything-idle-delay 0.2 ;`anything-idle-delay'
-;;      anything-c-moccur-higligt-info-line-flag t ;; `anything-c-moccur-dmoccur'などのコマンドでバッファの情報をハイライトする
-;;      anything-c-moccur-enable-auto-look-flag t ;; 現在選択中の候補の位置を他のwindowに表示する
-;;      anything-c-moccur-enable-initial-pattern t) ;; `anything-c-moccur-occur-by-moccur'の起動時にポイントの位置の単語を初期パターンにする
-
-;;;; キーバインドの割当(好みに合わせて設定してください)
-;;(global-set-key (kbd "M-o") 'anything-c-moccur-occur-by-moccur) ;バッファ内検索
-;;(global-set-key (kbd "C-M-o") 'anything-c-moccur-dmoccur) ;ディレクトリ
-;;(add-hook 'dired-mode-hook ;dired
-;;	  '(lambda ()
-;;	     (local-set-key (kbd "O") 'anything-c-moccur-dired-do-moccur-by-moccur)))
+;; (global-set-key (kbd "C-x r") 'helm-bookmarks)
+;; (global-set-key "\C-xrl" 'helm-bookmarks)
 #+end_src
 
+* Anything
+完全削除。

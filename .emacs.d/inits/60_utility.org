@@ -109,12 +109,14 @@ HTC_Pyramid Build/GRI40) AppleWebKit/533.1
 
 https://github.com/konr/tomatinho
 
+使わないので一旦封印。
+
 #+begin_src emacs-lisp
-(require 'tomatinho)
-(global-set-key (kbd "<f12>") 'tomatinho)
-(define-key tomatinho-map (kbd "N") 'tomatinho-interactive-new-pomodoro)
-(define-key tomatinho-map (kbd "P") 'tomatinho-interactive-deliberate-pause)
-(define-key tomatinho-map (kbd "T") 'tomatinho-interactive-toggle-display)
+;; (require 'tomatinho)
+;; (global-set-key (kbd "<f12>") 'tomatinho)
+;; (define-key tomatinho-map (kbd "N") 'tomatinho-interactive-new-pomodoro)
+;; (define-key tomatinho-map (kbd "P") 'tomatinho-interactive-deliberate-pause)
+;; (define-key tomatinho-map (kbd "T") 'tomatinho-interactive-toggle-display)
 #+end_src
 
 * dired
