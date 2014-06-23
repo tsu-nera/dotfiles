@@ -10,23 +10,30 @@
 (define-key global-map (kbd "C-x SPC") 'cua-set-rectangle-mark)
 #+end_src
 
-* multiple-cursur
-sublime textみたいに、複数行を編集.
+* multiple-cursurs
+Awesome Emacs Rocks! 
 
 http://shibayu36.hatenablog.com/entry/2013/12/30/190354
+
+- [[https://github.com/magnars/multiple-cursors.el][magnars/multiple-cursors.el]]
+
+どうも、no windowだとうまく動作しない。。
 
 #+begin_src emacs-lisp
 (require 'multiple-cursors)
 (global-set-key (kbd "C-M-c") 'mc/edit-lines)
 (global-set-key (kbd "C-M-r") 'mc/mark-all-in-region)
 
-;; うまくうごかない
-;;(global-set-key (kbd "C-M-_") 'mc/mark-more-like-this-extended)
-;;(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-;;(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-]") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-M-]") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-]") 'mc/mark-all-like-this)
 #+end_src
 
+#+RESULTS:
+
 * expand-region
+Awesome Emacs Rocks! 
+
 リージョンを広げる
 http://d.hatena.ne.jp/syohex/20120117/1326814127
 
@@ -35,17 +42,12 @@ http://d.hatena.ne.jp/syohex/20120117/1326814127
 (global-set-key (kbd "C-\\") 'er/expand-region)
 (global-set-key (kbd "C-M-\\") 'er/contract-region)
 
-;; C-@だと自分の環境ではC-Spaceもバインドされて、
-;; 普通のregion markがつかえなくなった。
-;;(global-set-key (kbd "C-@") 'er/expand-region)
-;;(global-set-key (kbd "C-M-@") 'er/contract-region)
-
 ;; 選択ができるようにしておく
 ;; (transient-mark-mode t)
 #+end_src
 
 * ace-jump-mode
-Awesome Emacs Rock! 
+Awesome Emacs Rocks! 
 
 #+begin_src emacs-lisp
 (autoload
