@@ -29,9 +29,8 @@
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "M-r") 'helm-occur)
 (global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-x m") 'helm-imenu)
 (global-set-key (kbd "C-x g r") 'helm-do-grep)
-(global-set-key (kbd "C-x g g") 'helm-do-grep)
+(global-set-key (kbd "C-x g g") 'helm-google-suggest)
 (helm-mode 1)
 #+end_src
 
