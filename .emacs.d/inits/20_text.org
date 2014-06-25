@@ -59,6 +59,16 @@ Awesome Emacs Rocks!
 (define-key global-map (kbd "C-x ,") 'ace-jump-mode)
 #+end_src
 
+* ace-jump-buffer
+#+begin_src emacs-lisp
+(autoload
+  'ace-jump-buffer
+  "ace-jump-buffer"
+  "Emacs quick move to buffer minor mode"
+  t)
+(define-key global-map (kbd "C-x m") 'ace-jump-buffer)
+#+end_src
+
 * Yassnipet
 スニペット管理
 

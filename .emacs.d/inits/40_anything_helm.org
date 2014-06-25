@@ -31,6 +31,7 @@
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x g r") 'helm-do-grep)
 (global-set-key (kbd "C-x g g") 'helm-google-suggest)
+;; helm-semantic-or-imenu C-x c i でバインドされている。便利。
 (helm-mode 1)
 #+end_src
 

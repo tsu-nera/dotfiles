@@ -50,6 +50,8 @@ el-get実行前に、環境による場合分けのマクロを定義。
     popwin
     switch-window
     ace-jump-mode
+    ace-jump-buffer
+    key-chord
     ;; text
     yasnippet
     auto-complete
