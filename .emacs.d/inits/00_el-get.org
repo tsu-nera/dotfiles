@@ -51,7 +51,9 @@ el-get実行前に、環境による場合分けのマクロを定義。
     switch-window
     ace-jump-mode
     ace-jump-buffer
+    iy-go-to-char
     key-chord
+    jump-char
     ;; text
     yasnippet
     auto-complete

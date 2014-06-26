@@ -69,6 +69,51 @@ Awesome Emacs Rocks!
 (define-key global-map (kbd "C-x m") 'ace-jump-buffer)
 #+end_src
 
+* iy-go-to-char
+
+前後のcharへ移動する。ace-jump-modeがあれば不要かな。。。
+
+- https://github.com/doitian/iy-go-to-char
+
+#+begin_src emacs-lisp
+;; (require 'iy-go-to-char)
+;; (global-set-key (kbd "C-c f") 'iy-go-to-char)
+;; (global-set-key (kbd "C-c F") 'iy-go-to-char-backward)
+;; (global-set-key (kbd "C-c ;") 'iy-go-to-or-up-to-continue)
+;; (global-set-key (kbd "C-c ,") 'iy-go-to-or-up-to-continue-backward)
+;; (global-set-key (kbd "C-c f") 'iy-go-up-to-char)
+;; (global-set-key (kbd "C-c F") 'iy-go-up-to-char-backward)
+
+(add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
+#+end_src
+
+* jump-char
+iy-go-to-charよりよさそう
+
+;で前. , で後ろ。 C-c C-c で ace-jump-modeに切り替え。
+
+- https://github.com/lewang/jump-char
+
+#+begin_src emacs-lisp
+(require 'jump-char)
+;; (global-set-key (kbd "C-c f") 'jump-char-forward)
+;; (global-set-key (kbd "C-c F") 'jump-char-backward)
+;; key-chordにかえる
+#+end_src
+
+* chord-key
+
+#+begin_src emacs-lisp
+(require 'key-chord)
+(key-chord-mode 1)
+(setq key-chord-two-keys-delay 0.08)
+
+; buffer actions
+(key-chord-define-global "jk" 'jump-char-forward)
+(key-chord-define-global "jh" 'jump-char-backward)
+#+end_src
+
+
 * Yassnipet
 スニペット管理
 
