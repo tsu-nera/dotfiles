@@ -168,3 +168,9 @@ http://jblevins.org/projects/markdown-mode/markdown-mode.el
 ))
 
 #+end_src
+** Conkeror
+
+#+begin_src emacs-lisp
+(autoload 'conkeror-minor-mode "conkeror-minor-mode")
+#+end_src
+

@@ -35,28 +35,40 @@ view_source_use_external_editor = true;
 cwd = get_home_directory();
 cwd.append("Downloads");
 
+// keep session
+require("session.js");
+
+// Big Hint Number ヒントの番号を大きく表示する
+register_user_stylesheet(
+    "data:text/css," +
+        escape(
+            "@namespace url(\"http://www.w3.org/1999/xhtml\");\n" +
+            "span.__conkeror_hint {\n"+
+            "  font-size: 18px !important;\n"+
+            "  line-height: 18px !important;\n"+
+            "}"));
 
 //////////////////////////////////////////
 // shortcut
 //////////////////////////////////////////
 interactive("open-google", "Go to google.com", "follow",
-	    $browser_object = "http://www.google.com/");
+    $browser_object = "http://www.google.com/");
 interactive("open-gmail", "Go to gmail", "follow",
-            $browser_object = "http://gmail.com/");
+    $browser_object = "http://gmail.com/");
 interactive("open-calendar", "Go to calendar.google.com", "follow",
-            $browser_object = "http://calendar.google.com/");
+    $browser_object = "http://calendar.google.com/");
 interactive("futurismo", "Open Futurismo", "follow",
-            $browser_object = "http://futurismo.biz");
+    $browser_object = "http://futurismo.biz");
 interactive("futurismo_wiki", "Open Futurismo", "follow",
-            $browser_object = "http://futurismo.biz/dokuwiki");
+    $browser_object = "http://futurismo.biz/dokuwiki");
 interactive("youtube", "Open Youtube", "follow",
-            $browser_object = "http://www.youtube.com");
+    $browser_object = "http://www.youtube.com");
 interactive("feedly", "Open Feedly", "follow",
-            $browser_object = "http://feedly.com");
+    $browser_object = "http://feedly.com");
 interactive("tomatoes", "Open Tomatoes", "follow",
-            $browser_object = "http://tomato.es/");
+    $browser_object = "http://tomato.es/");
 
-// open url with new buffer 
+// open url with new buffer
 define_key(content_buffer_normal_keymap, "d", "follow-new-buffer");
 define_key(content_buffer_normal_keymap, "f1", "open-google");
 define_key(content_buffer_normal_keymap, "f2", "open-gmail");
@@ -70,7 +82,7 @@ define_key(content_buffer_normal_keymap, "f8", "tomatoes");
 //////////////////////////////////////////
 // webjump
 //////////////////////////////////////////
-// evernote 
+// evernote
 define_webjump("clip","javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title);}})();");
 
 // hatenabookmark

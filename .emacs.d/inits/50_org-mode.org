@@ -543,7 +543,6 @@ containing the properties `:guid' and `:item-full-text'."
     "~/org/rss.org" "PublicKey"))
 #+end_src
 
-
 * Wanderlust
 
 #+begin_src emacs-lisp
@@ -552,6 +551,30 @@ containing the properties `:guid' and `:item-full-text'."
 (setq org-return-follows-link t)
 #+end_src
 
+* org-gcal
+google calendar
+
+http://sheephead.homelinux.org/2014/03/14/7023/
+
+Google Developer Consoleで client-idと secret-keyを取得する必要がある。
+
+https://console.developers.google.com/project
+
+取得した情報は ~/.netrcに保存して読み出す。
+
+#+begin_src emacs-lisp
+(require 'org-gcal)
+;; passwordは netrcへ
+(setq GoogleCal (netrc-machine (netrc-parse "~/.netrc") "org-gcal" t))
+(setq org-gcal-client-id (netrc-get GoogleCal "login")
+      org-gcal-client-secret (netrc-get GoogleCal "password")
+      org-gcal-dir "~/org"
+      org-gcal-file-alist '(("fox10225fox@gmail.com" .  "~/gtd/schedule.org")
+			    ;;("your-mail@gmail.com" .  "~/schedule.org")
+                            ;;("another-mail@gmail.com" .  "~/task.org")
+			    )
+      )
+#+end_src
 
 * org-export
 ** ox-rst
@@ -572,7 +595,6 @@ org-modeからRSTへの変換
 #+begin_src emacs-lisp
 (require 'ox-wk)
 #+end_src
-
 
 * 未分類
 
@@ -615,22 +637,6 @@ org-modeからRSTへの変換
 	   )
 	  )))
     (switch-to-buffer (cfw:cp-get-buffer cp))))
-
-;; -----------------------------------------------------------------------
-;; Name     : org-gcal
-;; Function : google calendar
-;; ------------------------------------------------------------------------
-(require 'org-gcal)
-;; passwordは netrcへ
-(setq GoogleCal (netrc-machine (netrc-parse "~/.netrc") "org-gcal" t))
-(setq org-gcal-client-id (netrc-get GoogleCal "login")
-      org-gcal-client-secret (netrc-get GoogleCal "password")
-      org-gcal-dir "~/org"
-      org-gcal-file-alist '(("fox10225fox@gmail.com" .  "~/gtd/schedule.org")
-			    ;;("your-mail@gmail.com" .  "~/schedule.org")
-                            ;;("another-mail@gmail.com" .  "~/task.org")
-			    )
-      )
 
 ;; -----------------------------------------------------------------------
 ;; Name     : org-pandoc

@@ -232,7 +232,10 @@ http://masutaka.net/chalow/2011-05-19-1.html
 
 https://github.com/dimitri/switch-window
 
+あまり好きではないので、一旦封印する
+
 #+begin_src emacs-lisp
-(global-set-key (kbd "C-x o") 'switch-window)
+;; (require 'switch-window)
+;; (global-set-key (kbd "C-x o") 'switch-window)
 #+end_src
 

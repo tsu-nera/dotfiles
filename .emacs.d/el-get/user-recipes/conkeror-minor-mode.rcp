@@ -1,0 +1,4 @@
+(:name conkeror-minor-mode
+       :type github
+       :description "conkeror minor mode"
+       :pkgname "Bruce-Connor/conkeror-minor-mode")
