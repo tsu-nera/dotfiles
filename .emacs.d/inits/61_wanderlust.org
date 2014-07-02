@@ -15,7 +15,6 @@ emacsのメーラ
 emacs-w3mをつかう。w3mが必要。(apt-get install w3m)
 
 #+begin_src emacs-lisp
-(when linux-p
 (require 'wl)
 ;; HTMLファイルは表示しない。
 (setq mime-setup-enable-inline-html nil)
@@ -28,7 +27,6 @@ emacs-w3mをつかう。w3mが必要。(apt-get install w3m)
   (require 'mime-w3m)
   (setq mime-w3m-safe-url-regexp nil)
   )
-)
 #+end_src
 
 * 無視するヘッダ
@@ -79,7 +77,6 @@ http://kaworu.jpn.org/kaworu/2008-04-29-1.php
 * 未分類
 
 #+begin_src emacs-lisp
-(when linux-p
 ;;;------------------------------------------
 ;;; その他の設定
 ;; 大きなメッセージを分割して送信しない(デフォルトはtで分割する)
@@ -139,13 +136,17 @@ http://kaworu.jpn.org/kaworu/2008-04-29-1.php
 (setq wl-suumary-width nil)
 
 (setq ssl-program-arguments '("s_client" "-quiet" "-host" host "-port" service))
-)
+
+;; 添付ファイルを開くためのおまじない
+(setq mime-play-delete-file-immediately nil)
 #+end_src
 
 draft-modeでyassnipetを有効化. うまくうごかない。。。
 
 #+begin_src emacs-lisp
-(add-hook-fn 'wl-draft-mode-hook 'yas-monor-mode-on)
+(add-hook 'wl-draft-mode-hook
+          '(lambda ()
+             (yas-minor-mode)))
 #+end_src
 
 * その他
