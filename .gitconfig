@@ -15,6 +15,5 @@ co = checkout
 st = status
 [push]
 default = simple
-
 [include]
 path = ~/dotfiles/.gitconfig.local

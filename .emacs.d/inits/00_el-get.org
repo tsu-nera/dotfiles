@@ -62,6 +62,7 @@ el-get実行前に、環境による場合分けのマクロを定義。
     highlight-symbol
     multiple-cursors
     bm
+    ;; fic-ext-mode
     ;; smart-compile 独自改造したものをelispにおいた
     expand-region
     ;; utility
@@ -75,7 +76,8 @@ el-get実行前に、環境による場合分けのマクロを定義。
     helm-c-yasnippet
     helm-descbinds
     helm-orgcard
-    anything
+    helm-gtags
+    ;; anything
     ;; helm-shell-history
     ;; org-mode
     org-mode
@@ -110,6 +112,7 @@ el-get実行前に、環境による場合分けのマクロを定義。
     conkeror-minor-mode
     elscreen
     ;; tomatinho
+    wanderlust
     )
   "A list of packages to install from el-get at launch")
 #+end_src
@@ -123,7 +126,6 @@ el-getの延長でbuildとか動くとcygwinでこけたりする。
     migemo
     pdf-tools
     magit
-    wanderlust
     emacs-w3m  ;; cvs command not found
     )
   "A list of packages that can build only linux, fail for windows")
