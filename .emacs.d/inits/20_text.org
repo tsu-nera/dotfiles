@@ -1,5 +1,5 @@
 * Text
-テキスト編集。
+テキスト編集。Emacsの底力を発揮する！
 
 * cua-mode
 矩形編集。
@@ -135,18 +135,13 @@ iy-go-to-charよりよさそう
 (define-key yas-minor-mode-map (kbd "C-x i v") 'helm-c-yas-visit-snippet-file)
 #+end_src
 
+* auto-complete
+自動補完を実現するelisp
 
-* 未分類
+- http://www.emacswiki.org/emacs/auto-complete-extension.el
+- http://cx4a.org/software/auto-complete/index.ja.html
+
 #+begin_src emacs-lisp
-;; ------------------------------------------------------------------------
-;; Name     : auto-complete
-;; URL      : http://www.emacswiki.org/emacs/auto-complete-extension.el
-;; Function : 自動補完を実現するelisp
-;; History  : 13/10/14
-;; Manual:
-;; http://cx4a.org/software/auto-complete/index.ja.html
-;; ------------------------------------------------------------------------
-;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/dict")
 (require 'auto-complete-config)
 (ac-config-default)
 
@@ -168,7 +163,7 @@ iy-go-to-charよりよさそう
 
   ;; なぜか、Shift+Altでないと動かないのだが。。
   (define-key ac-menu-map (kbd "M-n") 'ac-next)
-  (define-key ac-menu-map (kbd "M-p") 'ac-previous)
+p  (define-key ac-menu-map (kbd "M-p") 'ac-previous)
 
   (setq ac-sources '(ac-source-abbrev ac-source-words-in-buffer))
   (add-hook 'ruby-mode-hook
@@ -179,14 +174,12 @@ iy-go-to-charよりよさそう
 	      (make-local-variable 'ac-omni-completion-sources)
 	      (setq ac-omni-completion-sources
 		    '(("\\.\\=" . (ac-source-rcodetools)))))))
+#+end_src
 
-;; ------------------------------------------------------------------------
-;; Name     : migemo
-;; Function : 日本語をロ-マ字検索
-;; History  : 2014.1.25 Add
-;; Install  : sudo apt-get install cmigemo
-;;
-;; ------------------------------------------------------------------------
+* migemo
+日本語をロ-マ字検索
+
+#+begin_src emacs-lisp
 (when linux-p
 (when (and (executable-find "cmigemo")
 	   (require 'migemo nil t))
@@ -203,7 +196,24 @@ iy-go-to-charよりよさそう
 
 (setq migemo-command "cmigemo")
 (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
+#+end_src
 
+* anzu
+インタラクティブ検索、置換
+
+- http://qiita.com/syohex/items/56cf3b7f7d9943f7a7ba
+- https://github.com/syohex/emacs-anzu
+
+#+begin_src emacs-lisp
+(require 'anzu)
+(global-anzu-mode +1)
+
+(set-face-attribute 'anzu-mode-line nil
+		    :foreground "yellow" :weight 'bold)
+#+end_src
+
+* 未分類
+#+begin_src emacs-lisp
 ;; ------------------------------------------------------------------------
 ;; Name     : keisen
 ;; Function : 罫線を引く
@@ -221,19 +231,4 @@ iy-go-to-charよりよさそう
 ;;(global-set-key [(C-left)] 'keisen-left-move)
 ;;(global-set-key [(C-up)] 'keisen-up-move)
 ;;(global-set-key [(C-down)] 'keisen-down-move)
-
-;; -----------------------------------------------------------------------
-;; Name     : anzu
-;; Install  : el-get
-;; Function : インタラクティブ検索、置換
-;;            http://qiita.com/syohex/items/56cf3b7f7d9943f7a7ba
-;;            https://github.com/syohex/emacs-anzu
-;; ------------------------------------------------------------------------
-(require 'anzu)
-(global-anzu-mode +1)
-
-(set-face-attribute 'anzu-mode-line nil
-		    :foreground "yellow" :weight 'bold)
-
 #+end_src
-

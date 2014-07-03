@@ -22,6 +22,7 @@ C/C++に関わる設定を移動。
 (add-hook 'c-mode-hook
 	  '(lambda ()
 	     (flymake-mode t)))(require 'flymake)
+
 #+end_src
 
 * 未分類
