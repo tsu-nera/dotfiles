@@ -113,7 +113,6 @@ iy-go-to-charよりよさそう
 (key-chord-define-global "jh" 'jump-char-backward)
 #+end_src
 
-
 * Yassnipet
 スニペット管理
 
@@ -136,8 +135,8 @@ iy-go-to-charよりよさそう
 (define-key yas-minor-mode-map (kbd "C-x i v") 'helm-c-yas-visit-snippet-file)
 #+end_src
 
-* 未分類
 
+* 未分類
 #+begin_src emacs-lisp
 ;; ------------------------------------------------------------------------
 ;; Name     : auto-complete

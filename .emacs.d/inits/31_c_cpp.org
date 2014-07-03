@@ -1,5 +1,29 @@
 * C言語・C++
 
+* flymake
+C/C++に関わる設定を移動。
+
+#+begin_src emacs-lisp
+(defun flymake-cc-init ()
+  (let* ((temp-file   (flymake-init-create-temp-buffer-copy
+		       'flymake-create-temp-inplace))
+	 (local-file  (file-relative-name
+		       temp-file
+		       (file-name-directory buffer-file-name))))
+    (list "g++" (list "-Wall" "-Wextra" "-fsyntax-only" local-file))))
+
+(push '("\\.c$" flymake-cc-init) flymake-allowed-file-name-masks)
+(push '("\\.cpp$" flymake-cc-init) flymake-allowed-file-name-masks)
+
+(add-hook 'c++-mode-hook
+	  '(lambda ()
+	     (flymake-mode t)))(require 'flymake)
+
+(add-hook 'c-mode-hook
+	  '(lambda ()
+	     (flymake-mode t)))(require 'flymake)
+#+end_src
+
 * 未分類
 ;; -----------------------------------------------------------------------
 ;; Name     : CEDET
