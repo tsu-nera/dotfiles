@@ -1,0 +1,26 @@
+* Color
+色関係。
+
+** Molokai
+Install  : https://raw2.github.com/hbin/molokai-theme/master/molokai-theme-kit.el
+
+現在は、forkしてカスタマイズしたものをりようしている。
+
+#+begin_src emacs-lisp
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/molokai-theme")
+
+;;(require 'molokai-theme-kit)
+(setq molokai-theme-kit t)
+(load-theme 'molokai t)
+#+end_src
+
+** rainbow-mode
+色つけしてくれる 
+
+#+begin_src emacs-lisp
+(require 'rainbow-mode)
+(add-hook 'css-mode-hook 'rainbow-mode)
+(add-hook 'html-mode-hook 'rainbow-mode)
+(add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
+#+end_src

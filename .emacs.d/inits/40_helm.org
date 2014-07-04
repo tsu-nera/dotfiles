@@ -31,6 +31,7 @@
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x g r") 'helm-do-grep)
 (global-set-key (kbd "C-x g g") 'helm-google-suggest)
+(global-set-key (kbd "C-o C-b") 'helm-elscreen)
 ;; helm-semantic-or-imenu C-x c i でバインドされている。便利。
 (helm-mode 1)
 #+end_src
@@ -86,5 +87,3 @@ GNU Global.
      (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)))
 #+end_src
 
-* Anything
-完全削除。
