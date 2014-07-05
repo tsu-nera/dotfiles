@@ -24,10 +24,11 @@ main = do
           --, layoutHook = avoidStruts  $  layoutHook defaultConfig
 	  , layoutHook = mkToggle1 FULL $ desktopLayoutModifiers (named "V" tall ||| (named "H" $ Mirror tall))
 
-          , logHook = dynamicLogWithPP $ xmobarPP
-          { ppOutput = hPutStrLn xmproc
-             , ppTitle = xmobarColor "green" "" . shorten 50
-          }
+	  -- sometimes, xmonad freese,comment out these lines 
+          -- , logHook = dynamicLogWithPP $ xmobarPP
+          -- { ppOutput = hPutStrLn xmproc
+          --    , ppTitle = xmobarColor "green" "" . shorten 50
+          -- }
 
           -- Border settings
  	  , borderWidth = 2

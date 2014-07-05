@@ -163,7 +163,7 @@ iy-go-to-charよりよさそう
 
   ;; なぜか、Shift+Altでないと動かないのだが。。
   (define-key ac-menu-map (kbd "M-n") 'ac-next)
-p  (define-key ac-menu-map (kbd "M-p") 'ac-previous)
+  (define-key ac-menu-map (kbd "M-p") 'ac-previous)
 
   (setq ac-sources '(ac-source-abbrev ac-source-words-in-buffer))
   (add-hook 'ruby-mode-hook

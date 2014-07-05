@@ -123,13 +123,27 @@ https://github.com/konr/tomatinho
 diredからopen
 
 #+begin_src emacs-lisp
+(defun my-x-open (file)
+  "open file by a associated program."
+  (interactive "FOpen File: ")
+  (message "Opening %s..." file)
+  (cond ((not window-system)
+         (find-file file))
+        ((eq system-type 'windows-nt)
+         (call-process "cmd.exe" nil 0 nil "/c" "start" ""
+               (convert-standard-filename file)))
+        ((eq system-type 'darwin)
+         (call-process "open" nil 0 nil file))
+        (t
+         (call-process "xdg-open" nil 0 nil file)))
+  (if (functionp 'recentf-add-file)
+    (recentf-add-file file))
+  (message "Opening %s...done" file))
+
 (defun dired-open-file ()
   "In dired, open the file named on this line."
   (interactive)
-  (let* ((file (dired-get-filename nil t)))
-    (message "Opening %s..." file)
-    (call-process "xdg-open" nil 0 nil file)
-    (message "Opening %s done" file)))
+  (my-x-open (dired-get-filename)))
 
 (add-hook
    'dired-mode-hook

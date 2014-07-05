@@ -1,0 +1,14 @@
+{
+    "CustomMatcher": {
+	"C/Migemo":[
+	    "/home/tsu-nera/dotfiles/.peco/peco-cmigemo", "$QUERY"
+	]
+    },
+    "Keymap": {
+        "M-v": "peco.SelectPreviousPage",
+        "C-v": "peco.SelectNextPage",
+        "C-g": "peco.Cancel"
+    }
+
+
+}

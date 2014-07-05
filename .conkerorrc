@@ -48,6 +48,9 @@ register_user_stylesheet(
             "  line-height: 18px !important;\n"+
             "}"));
 
+// Use emacsclient as external editor
+editor_shell_command = "emacsclient -c"
+
 //////////////////////////////////////////
 // shortcut
 //////////////////////////////////////////
