@@ -237,6 +237,18 @@ if [ -x "`which go`" ]; then
 fi
 
 # ------------------------------------------------------------------------
+# OSによる場合分け
+# ------------------------------------------------------------------------
+case $OSTYPE in
+  cygwin*)
+  alias executer="cygstart"
+  ;;
+  linux*)
+  alias executer="xdg-open"
+  ;;
+esac
+
+# ------------------------------------------------------------------------
 # Functions
 # ------------------------------------------------------------------------
 # cd して ls する
@@ -347,12 +359,6 @@ else
     # いろなし
 fi
 
-# screen実行中にEmacs保存ができない
-# stty ixany
-# stty ixoff -ixon
-# screen -xR
-# export LANG=ja_JP.utf8
-
 ## Invoke the ``dired'' of current working directory in Emacs buffer.
 function dired () {
 emacsclient -e "(dired \"${1:a}\")"
@@ -360,7 +366,7 @@ emacsclient -e "(dired \"${1:a}\")"
  
 # ## Chdir to the ``default-directory'' of currently opened in Emacs buffer.
 function cde () {
-EMACS_CWD=`emacsclient -e "
+    EMACS_CWD=`emacsclient -e "
 (expand-file-name
 (with-current-buffer
 (if (featurep 'elscreen)
@@ -373,9 +379,9 @@ EMACS_CWD=`emacsclient -e "
 (assoc 'buffer-list
 (nth 1 (nth 1 (current-frame-configuration))))))
 default-directory))" | sed 's/^"\(.*\)"$/\1/'`
- 
-echo "chdir to $EMACS_CWD"
-cd "$EMACS_CWD"
+    
+    echo "chdir to $EMACS_CWD"
+    cd "$EMACS_CWD"
 }
 
 # ------------------------------------------------------------------------
@@ -472,16 +478,21 @@ function peco-find-file () {
 zle -N peco-find-file
 
 #------------------------------------------------------------------------
-# peco-xdg-open
+# peco-open-app
 # カレントディレクトリのファイルを開く
 #------------------------------------------------------------------------
-if [ -x "`which xdg-open`" ]; then
 function peco-open-app () {
-    ls | peco | xargs xdg-open
-    zle clear-screen
+    case $OSTYPE in
+	cygwin*)
+	    ls | peco | xargs cygstart
+	    ;;
+	linux*)
+            ls | peco | xargs xdg-open
+	    ;;
+    esac
+#    zle clear-screen
 }
 zle -N peco-open-app
-fi
 
 #------------------------------------------------------------------------
 # peco-ag
