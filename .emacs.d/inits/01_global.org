@@ -167,6 +167,51 @@ minibufferの履歴保存
 (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
 #+end_src
 
+* Tips
+** EmacsとXのクリップポードを共有
+
+http://tubo028.hatenablog.jp/entry/2013/09/01/142238
+
+trampでVMに乗り込むと、うまく動作しない。
+
+ssh の X forwardingの設定が必要？
+
+http://superuser.com/questions/326871/using-clipboard-through-ssh-in-vim
+
+trampするときだけ封印することにする。もっとうまい解決方法ないかな？？
+
+Shift+Insertでも貼り付けできるので、とりあえずはこれで回避。
+
+#+begin_src emacs-lisp
+;; (when linux-p
+;;   ;; クリップボードと同期
+;;   (setq interprogram-paste-function
+;; 	(lambda ()
+;; 	  (shell-command-to-string "xsel -p -o")))
+;;   (setq interprogram-cut-function
+;; 	(lambda (text &optional rest)
+;; 	  (let* ((process-connection-type nil)
+;; 		 (proc (start-process "xsel" "*Messages*" "xsel" "-p" "-i")))
+;; 	    (process-send-string proc text)
+;; 	    (process-send-eof proc))))
+;; )
+#+end_src
+
+* Tramp
+こんな感じで乗り込む。
+
+#+begin_src language
+C-x C-f /ssh:username@hostname#portno:/path/to/your/directory
+#+end_src
+
+Trampでsave時に毎回パスワードが聞かれるので、おまじない。
+
+http://stackoverflow.com/questions/840279/passwords-in-emacs-tramp-mode-editing
+
+#+begin_src emacs-lisp
+(setq password-cache-expiry nil)
+#+end_src
+
 * 未整理
 #+begin_src emacs-lisp
 ;; file名の補間で大文字小文字を区別しない
@@ -217,28 +262,7 @@ minibufferの履歴保存
 
 ;; 今のポイントしているURLを開く
 (global-set-key (kbd "C-c u") 'browse-url-at-point)
-;; -----------------------------------------------------------------------
-;; Function : EmacsとXのクリップポードを共有
-;; Install  : http://tubo028.hatenablog.jp/entry/2013/09/01/142238
-;; ------------------------------------------------------------------------
-;; OSとのクリップボード共有
-(cond (window-system
-(setq x-select-enable-clipboard t)
-))
 
-;; 上記では、emacs -nwでは動作しない。
-(when linux-p
-  ;; クリップボードと同期
-  (setq interprogram-paste-function
-	(lambda ()
-	  (shell-command-to-string "xsel -p -o")))
-  (setq interprogram-cut-function
-	(lambda (text &optional rest)
-	  (let* ((process-connection-type nil)
-		 (proc (start-process "xsel" "*Messages*" "xsel" "-p" "-i")))
-	    (process-send-string proc text)
-	    (process-send-eof proc))))
-  )
 
 ;; -----------------------------------------------------------------------
 ;; Function : ミニバッファに入るときに日本語入力無効にする

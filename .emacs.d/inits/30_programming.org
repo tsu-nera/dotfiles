@@ -1,3 +1,29 @@
+* Programing
+いろいろなプログラミング言語に関わる設定。
+
+
+* コンパイル
+** smart-compile
+コマンドからコンパイル実行. 独自改造したものが、elispにある。
+
+http://www.emacswiki.org/emacs/download/smart-compile.el
+
+#+begin_src emacs-lisp
+(require 'smart-compile)
+(setq compilation-window-height 15)
+#+end_src
+
+** quickrun
+コンパイルを実行。smart-compileよりいい？？
+
+- https://github.com/syohex/emacs-quickrun
+
+#+begin_src emacs-lisp
+(require 'quickrun)
+#+end_src
+
+* 未整理
+
 #+begin_src emacs-lisp
 ;; -----------------------------------------------------------------------
 ;; Name     : flymake

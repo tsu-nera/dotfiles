@@ -1,5 +1,10 @@
 * C言語・C++
 
+#+begin_src emacs-lisp
+(require 'cc-mode)
+(define-key c-mode-map (kbd "C-c c") 'smart-compile)
+#+end_src
+
 * flymake
 C/C++に関わる設定を移動。
 

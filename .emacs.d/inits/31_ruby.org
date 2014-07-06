@@ -1,18 +1,9 @@
+* Ruby
+みんな大好きRubyだお。
+
+** ruby-mode
+
 #+begin_src emacs-lisp
-;; ------------------------------------------------------------------------
-;; Ruby
-;; ------------------------------------------------------------------------
-;; Setting rbenv path
-;; emacs から rbenv でいれたRubyを利用する。
-(setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:"
-		       (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
-(setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims")
-		(cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
-;; -----------------------------------------------------------------------
-;; Name     : ruby-mode
-;; Install  :
-;; Function : Ruby開発環境を提供
-;; ------------------------------------------------------------------------
 (require 'ruby-mode)
 (autoload 'ruby-mode "ruby-mode"
     "Mode for editing ruby source files" t)
@@ -21,6 +12,21 @@
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("[Rr]akefile$" . ruby-mode))
 
+(define-key ruby-mode-map (kbd "C-c c") 'smart-compile)
+#+end_src
+
+** パスの設定
+#+begin_src emacs-lisp
+;; Setting rbenv path
+;; emacs から rbenv でいれたRubyを利用する。
+(setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:"
+		       (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
+(setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims")
+		(cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
+#+end_src
+
+* 未分類
+#+begin_src emacs-lisp
 ;; -----------------------------------------------------------------------
 ;; Name     : enhanced-ruby-mode
 ;; Install  : https://github.com/zenspider/enhanced-ruby-mode
@@ -39,16 +45,6 @@
 ;;(add-to-list 'interpreter-mode-alist '("ruby" enh-ruby-mode))
 
 ;;(remove-hook 'enh-ruby-mode-hook 'erm-define-faces)
-
-;; -----------------------------------------------------------------------
-;; Name     : SmartCompile
-;; Install  : ;http://www.emacswiki.org/emacs/download/smart-compile.el
-;; Function : コマンドからコンパイル実行
-;; ------------------------------------------------------------------------
- (require 'smart-compile)
- (define-key ruby-mode-map (kbd "C-c c") 'smart-compile)
- (define-key ruby-mode-map (kbd "C-c C-c") (kbd "C-c c C-m"))
- (setq compilation-window-height 15) ;; default window height is 15
 
 ;; -----------------------------------------------------------------------
 ;; Name     : ruby-electric.el --- electric editing commands for ruby files

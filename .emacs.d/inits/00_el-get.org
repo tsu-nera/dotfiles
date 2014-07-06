@@ -91,6 +91,7 @@ el-get実行前に、環境による場合分けのマクロを定義。
     flymake
     flycheck
     flycheck-color-mode-line
+    quickrun
     ;; ruby
     ruby-block
     robe-mode

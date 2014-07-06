@@ -280,10 +280,12 @@ setopt noflowcontrol
 bindkey '^Q' show_buffer_stack  # Ctrl + q
 
 # クリップボードコピー
+if [ -x "`which xsel`" ]; then
 xsel-buffer(){
     print -rn $BUFFER | xsel -i
     zle -M "xsel -i ${BUFFER}"
 }
+fi
 
 zle -N xsel-buffer
 bindkey '^x^p' xsel-buffer # C-x C-p
@@ -405,8 +407,14 @@ fi
 # Name     : peco
 # Function : consoleで helmライクなインタフェースを提供する
 # ------------------------------------------------------------------------
+if [ -x "`which peco`" ]; then
 alias -g P='| peco'
-alias -g PM='| peco --match-method migemo'
+alias ll='ls -la | peco'
+alias tp='top | peco'
+alias pp='ps aux | peco'
+if [ -x "`which anamnesis`" ]; then
+alias ap='anamnesis -l 200 | peco'
+fi
 
 # history filter
 # http://qiita.com/uchiko/items/f6b1528d7362c9310da0
@@ -436,3 +444,4 @@ function peco-cdr () {
 }
 zle -N peco-cdr
 bindkey '^xr' peco-cdr
+fi
