@@ -409,15 +409,19 @@ fi
 # ------------------------------------------------------------------------
 if [ -x "`which peco`" ]; then
 alias -g P='| peco'
-alias ll='ls -la | peco'
+alias llp='ls -la | peco'
+alias lsp='lsv| peco'
 alias tp='top | peco'
 alias pp='ps aux | peco'
+
 if [ -x "`which anamnesis`" ]; then
-alias ap='anamnesis -l 200 | peco'
+    alias ap='anamnesis -l 200 | peco'
 fi
 
+# ------------------------------------------------------------------------
 # history filter
 # http://qiita.com/uchiko/items/f6b1528d7362c9310da0
+# ------------------------------------------------------------------------
 function peco-select-history() {
     local tac
     if which tac > /dev/null; then
@@ -432,8 +436,11 @@ function peco-select-history() {
     zle clear-screen
 }
 zle -N peco-select-history
-bindkey '^[x' peco-select-history
 
+# ------------------------------------------------------------------------
+# peco-cdr
+# 最近訪れたディレクトリに移動
+# ------------------------------------------------------------------------
 function peco-cdr () {
     local selected_dir=$(cdr -l | awk '{ print $2 }' | peco)
     if [ -n "$selected_dir" ]; then
@@ -443,5 +450,55 @@ function peco-cdr () {
     zle clear-screen
 }
 zle -N peco-cdr
-bindkey '^xr' peco-cdr
+
+# ------------------------------------------------------------------------
+# peco-kill-process
+# プロセスキル
+# ------------------------------------------------------------------------
+function peco-kill-process () {
+    ps -ef | peco | awk '{ print $2 }' | xargs kill
+    zle clear-screen
+}
+zle -N peco-kill-process
+
+#------------------------------------------------------------------------
+# peco-find-file
+# emacsでカレントディレクトリのファイルを開く
+#------------------------------------------------------------------------
+function peco-find-file () {
+    ls | peco | xargs emacsclient -nw
+    zle clear-screen
+}
+zle -N peco-find-file
+
+#------------------------------------------------------------------------
+# peco-xdg-open
+# カレントディレクトリのファイルを開く
+#------------------------------------------------------------------------
+if [ -x "`which xdg-open`" ]; then
+function peco-open-app () {
+    ls | peco | xargs xdg-open
+    zle clear-screen
+}
+zle -N peco-open-app
+fi
+
+#------------------------------------------------------------------------
+# peco-ag
+# agで検索して、emacsで開く
+#------------------------------------------------------------------------
+if [ -x "`which ag`" ]; then
+function peco-ag () {
+    ag $@ | peco --query "$LBUFFER" | awk -F : '{print "+" $2 " " $1}' | xargs emacsclient -nw
+}
+fi
+
+################
+# key bindings
+################
+bindkey '^[x' peco-select-history # M-x
+bindkey '^xr' peco-cdr            # C-x r
+bindkey '^xk' peco-kill-process   # C-x k
+bindkey '^x^f' peco-find-file     # C-x C-f
+bindkey '^xo' peco-open-app       # C-x o
 fi
