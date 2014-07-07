@@ -1,0 +1,17 @@
+* Windows環境専用設定
+
+** ショートカットから外部のアプリケーションを起動
+
+[[http://stackoverflow.com/questions/2284319/opening-files-with-default-windows-application-from-within-emacs][Opening files with default Windows application from within emacs - Stack Overflow]]
+
+#+begin_src emacs-lisp
+(defun w32-browser 
+  (doc) 
+  (w32-shell-execute 1 doc))
+
+(eval-after-load "dired" 
+  '(define-key dired-mode-map [f6] 
+     (lambda () 
+       (interactive) 
+       (w32-browser (dired-replace-in-string "/" "\\" (dired-get-filename))))))
+#+end_src

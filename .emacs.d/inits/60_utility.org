@@ -171,6 +171,21 @@ Google Chromeのフォームをemacsで編集。Edit with Emacs.
 (edit-server-start)
 #+end_src
 
+* bitlbee
+yaourt bitlbeeでいれた。
+
+- [[https://wiki.archlinux.org/index.php/bitlbee][Bitlbee - ArchWiki]]
+- [[http://www.emacswiki.org/emacs/BitlBee][EmacsWiki: Bitl Bee]]
+- [[http://emacs-fu.blogspot.jp/2012/03/social-networking-with-bitlbee-and-erc.html][emacs-fu: social networking with bitlbee and erc]]
+
+#+begin_src emacs-lisp
+(require 'bitlbee)
+(defun i-wanna-be-social ()
+  "Connect to IM networks using bitlbee."
+  (interactive)
+  (erc :server "localhost" :port 6667 :nick "user"))
+#+end_src
+
 * 未分類
 #+begin_src emacs-lisp
 ;; -----------------------------------------------------------------------

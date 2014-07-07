@@ -71,6 +71,7 @@ el-get実行前に、環境による場合分けのマクロを定義。
     stripe-buffer
     tempbuf
     exec-path-from-shell
+    bitlbee
     ;; helm
     helm
     helm-c-yasnippet
