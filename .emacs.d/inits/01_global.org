@@ -128,7 +128,7 @@ http://www.emacswiki.org/emacs-ja/Emacs%E3%83%93%E3%82%AE%E3%83%8A%E3%83%BC#toc9
 ;; (global-set-key (kbd "C-r")     'replace-string)
 #+end_src
 
-* emacs client
+* Emacs client
 server start for emacs-client
 http://d.hatena.ne.jp/syohex/20101224/1293206906
 
@@ -212,6 +212,57 @@ http://stackoverflow.com/questions/840279/passwords-in-emacs-tramp-mode-editing
 (setq password-cache-expiry nil)
 #+end_src
 
+* undo-tree
+
+C-x uにバインディング。
+
+#+begin_src emacs-lisp
+(require 'undo-tree)
+(global-undo-tree-mode)
+#+end_src
+
+* Popwin
+ポップアップ表示
+
+- [[https://github.com/m2ym/popwin-el][m2ym/popwin-el]]
+
+#+begin_src emacs-lisp
+(when (require 'popwin)
+  (setq helm-samewindow nil)
+  (setq display-buffer-function 'popwin:display-buffer)
+  (setq popwin:special-display-config '(("*compilation*" :noselect t)
+					;;("helm" :regexp t :height 0.4)
+					("anything" :regexp t :height 0.4)
+					)))
+(push '("^\*helm .+\*$" :regexp t) popwin:special-display-config)
+(push '("^\*Org .+\*$" :regexp t) popwin:special-display-config)
+(push '("*rspec-compilation*" :regexp t) popwin:special-display-config)
+(push '("*Oz Compiler*" :regexp t) popwin:special-display-config)
+(push '("^CAPTURE-.+\*.org$" :regexp t) popwin:special-display-config)
+;; (push '("^\*terminal<.+" :regexp t) popwin:special-display-config)
+
+;; http://cx4a.blogspot.jp/2011/12/popwineldirexel.html
+
+;; M-x dired-jump-other-window
+(push '(dired-mode :position bottom) popwin:special-display-config)
+
+;; M-!
+(push "*Shell Command Output*" popwin:special-display-config)
+
+;; M-x compile
+(push '(compilation-mode :noselect t) popwin:special-display-config)
+
+;; Direx 
+(push '(direx:direx-mode :position left :width 40 :dedicated t)
+popwin:special-display-config)
+
+(global-set-key (kbd "C-x j") 'direx:jump-to-directory-other-window)
+(global-set-key (kbd "C-x 4 j") 'dired-jump-other-window)
+
+;; undo-tree
+(push '(" *undo-tree*" :width 0.3 :position right) popwin:special-display-config)
+#+end_src
+
 * 未整理
 #+begin_src emacs-lisp
 ;; file名の補間で大文字小文字を区別しない
@@ -287,39 +338,6 @@ http://stackoverflow.com/questions/840279/passwords-in-emacs-tramp-mode-editing
 ;; ;; http://www.mail-archive.com/anthy-dev@lists.sourceforge.jp/msg00395.html
 ;; )
 
-;; ------------------------------------------------------------------------
-;; Name     : popwin
-;; Function : ポップアップ表示
-;; History  : 2014.1.15 Add
-;; Install  : package.el経由
-;; ------------------------------------------------------------------------
-(when (require 'popwin)
-  (setq helm-samewindow nil)
-  (setq display-buffer-function 'popwin:display-buffer)
-  (setq popwin:special-display-config '(("*compilation*" :noselect t)
-					;;("helm" :regexp t :height 0.4)
-					("anything" :regexp t :height 0.4)
-					)))
-(push '("^\*helm .+\*$" :regexp t) popwin:special-display-config)
-(push '("^\*Org .+\*$" :regexp t) popwin:special-display-config)
-(push '("*rspec-compilation*" :regexp t) popwin:special-display-config)
-(push '("*Oz Compiler*" :regexp t) popwin:special-display-config)
-(push '("^CAPTURE-.+\*.org$" :regexp t) popwin:special-display-config)
-;; (push '("^\*terminal<.+" :regexp t) popwin:special-display-config)
-
-;; http://cx4a.blogspot.jp/2011/12/popwineldirexel.html
-
-;; M-x dired-jump-other-window
-(push '(dired-mode :position bottom) popwin:special-display-config)
-;; M-!
-(push "*Shell Command Output*" popwin:special-display-config)
-;; M-x compile
-(push '(compilation-mode :noselect t) popwin:special-display-config)
-
-(push '(direx:direx-mode :position left :width 40 :dedicated t)
-      popwin:special-display-config)
-(global-set-key (kbd "C-x j") 'direx:jump-to-directory-other-window)
-(global-set-key (kbd "C-x 4 j") 'dired-jump-other-window)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : ffap.el

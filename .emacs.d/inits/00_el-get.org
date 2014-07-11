@@ -143,6 +143,7 @@ el-getの延長でbuildとか動くとcygwinでこけたりする。
     helm-gist
     helm-github-issues
     helm-open-github
+    helm-ag
     org2blog
     org-gcal
     ox-rst

@@ -28,5 +28,8 @@ if [ -s ~/.Xmodmap ]; then
     /bin/bash -c "sleep 5;/usr/bin/xmodmap /home/$USER/.Xmodmap"
 fi
 
+# Boot Emacs
+emacs --daemon &
+
 # xmonad
 exec xmonad

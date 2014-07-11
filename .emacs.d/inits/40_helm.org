@@ -12,9 +12,6 @@
 (require 'helm-command)
 (require 'helm-descbinds)
 (require 'helm-c-yasnippet)
-;(require 'helm-recentf)
-;(require 'helm-c-moccur)
-;(require 'helm-migemo)
 (require 'gist)
 (require 'helm-gist)
 (autoload 'helm-github-issues "helm-github-issues"
@@ -29,7 +26,6 @@
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "M-r") 'helm-occur)
 (global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-x g r") 'helm-do-grep)
 (global-set-key (kbd "C-x g g") 'helm-google-suggest)
 (global-set-key (kbd "C-x C-b") 'helm-elscreen)
 ;; helm-semantic-or-imenu C-x c i でバインドされている。便利。
@@ -85,5 +81,12 @@ GNU Global.
      (define-key helm-gtags-mode-map (kbd "M-r") 'helm-gtags-find-rtag)
      (define-key helm-gtags-mode-map (kbd "M-s") 'helm-gtags-find-symbol)
      (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)))
+#+end_src
+
+** helm-ag
+
+#+begin_src emacs-lisp
+(require 'helm-ag)
+(global-set-key (kbd "C-x g r") 'helm-ag)
 #+end_src
 

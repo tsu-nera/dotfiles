@@ -444,10 +444,10 @@ function peco-select-history() {
 zle -N peco-select-history
 
 # ------------------------------------------------------------------------
-# peco-cdr
+# peco-recentd
 # 最近訪れたディレクトリに移動
 # ------------------------------------------------------------------------
-function peco-cdr () {
+function peco-recentd () {
     local selected_dir=$(cdr -l | awk '{ print $2 }' | peco)
     if [ -n "$selected_dir" ]; then
         BUFFER="cd ${selected_dir}"
@@ -455,7 +455,7 @@ function peco-cdr () {
     fi
     zle clear-screen
 }
-zle -N peco-cdr
+zle -N peco-recentd
 
 # ------------------------------------------------------------------------
 # peco-kill-process
@@ -504,12 +504,23 @@ function peco-ag () {
 }
 fi
 
+#------------------------------------------------------------------------
+# peco-M-x
+# コマンド一覧を表示して実行
+#------------------------------------------------------------------------
+function peco-M-x () {
+    local cmd=$(peco-M-x.rb | peco)
+    eval $cmd &
+}
+zle -N peco-M-x
+
 ################
 # key bindings
 ################
-bindkey '^[x' peco-select-history # M-x
-bindkey '^xr' peco-cdr            # C-x r
-bindkey '^xk' peco-kill-process   # C-x k
-bindkey '^x^f' peco-find-file     # C-x C-f
-bindkey '^xo' peco-open-app       # C-x o
+bindkey '^xb'  peco-select-history # C-x b
+bindkey '^[x'  peco-M-x            # M-x
+bindkey '^x^r' peco-recentd        # C-x C-r
+bindkey '^xk'  peco-kill-process   # C-x k
+bindkey '^x^f' peco-find-file      # C-x C-f
+bindkey '^xo'  peco-open-app       # C-x o
 fi
