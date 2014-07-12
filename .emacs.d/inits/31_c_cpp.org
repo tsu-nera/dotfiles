@@ -2,6 +2,16 @@
 
 #+begin_src emacs-lisp
 (require 'cc-mode)
+
+;; c-mode-common-hookは C/C++の設定
+(add-hook 'c-mode-common-hook
+	  (lambda ()
+	    (setq c-default-style "k&r") ;; カーニハン・リッチースタイル
+	    (setq indent-tabs-mode nil)  ;; タブは利用しない
+	    (setq c-basic-offset 2)      ;; indentは 2スペース
+	    ))
+
+;; Smart Compile
 (define-key c-mode-map (kbd "C-c c") 'smart-compile)
 #+end_src
 

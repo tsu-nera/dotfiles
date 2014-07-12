@@ -16,11 +16,21 @@ Install  : https://raw2.github.com/hbin/molokai-theme/master/molokai-theme-kit.e
 #+end_src
 
 ** rainbow-mode
-色つけしてくれる 
+数字表記に色つけしてくれる 
 
 #+begin_src emacs-lisp
 (require 'rainbow-mode)
 (add-hook 'css-mode-hook 'rainbow-mode)
 (add-hook 'html-mode-hook 'rainbow-mode)
 (add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
+#+end_src
+
+* rainbow-delimiters
+かっこの深さに応じて色付けしてくれる。
+
+- [[https://github.com/jlr/rainbow-delimiters][jlr/rainbow-delimiters]]
+
+#+begin_src emacs-lisp
+(require 'rainbow-delimiters)
+(global-rainbow-delimiters-mode)
 #+end_src

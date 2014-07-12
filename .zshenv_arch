@@ -1,5 +1,4 @@
 # export PATH=$PATH:$HOME/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/rcodetools-0.8.5.0/bin
-export PATH=$HOME/.gem/ruby/2.1.0/bin:$PATH
 
 # railsでエラーがでるので一旦コメントアウト
 # export PATH=/opt/mozart/bin:$PATH

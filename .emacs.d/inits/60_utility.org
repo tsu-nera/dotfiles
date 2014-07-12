@@ -36,7 +36,7 @@ http://nishikawasasaki.hatenablog.com/entry/20110313/1300031344
 ;; (require 'elscreen-color-theme)
 
 ;; diredでoをオスと別タブで開く
-(require 'elscreen-dired)
+;; (require 'elscreen-dired)
 
 ;; waanderlust用。よくわからないけどとりあえず。
 ;; (require 'elscreen-wl)
@@ -123,32 +123,20 @@ https://github.com/konr/tomatinho
 diredからopen
 
 #+begin_src emacs-lisp
-(defun my-x-open (file)
-  "open file by a associated program."
-  (interactive "FOpen File: ")
-  (message "Opening %s..." file)
-  (cond ((not window-system)
-         (find-file file))
-        ((eq system-type 'windows-nt)
-         (call-process "cmd.exe" nil 0 nil "/c" "start" ""
-               (convert-standard-filename file)))
-        ((eq system-type 'darwin)
-         (call-process "open" nil 0 nil file))
-        (t
-         (call-process "xdg-open" nil 0 nil file)))
-  (if (functionp 'recentf-add-file)
-    (recentf-add-file file))
-  (message "Opening %s...done" file))
-
+(when linux-p
 (defun dired-open-file ()
   "In dired, open the file named on this line."
   (interactive)
-  (my-x-open (dired-get-filename)))
+  (let* ((file (dired-get-filename nil t)))
+    (message "Opening %s..." file)
+    (call-process "xdg-open" nil 0 nil file)
+    (message "Opening %s done" file)))
 
 (add-hook
    'dired-mode-hook
    (lambda ()
-     (define-key dired-mode-map "\S-w" 'dired-open-file))) 
+     (define-key dired-mode-map [f6] 'dired-open-file)))
+)
 #+end_src
 
 ** direx

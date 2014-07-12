@@ -111,7 +111,7 @@ http://jblevins.org/projects/markdown-mode/markdown-mode.el
   'plantuml-mode "plantuml-mode" "Major mode for editing PlantUML" t)
 (add-to-list 'auto-mode-alist '("\\.puml$" . plantuml-mode))
 (add-to-list 'auto-mode-alist '("\\.plantuml$" . plantuml-mode))
-
+(setq plantuml-jar-path "/usr/local/bin/plantuml.jar")
 #+end_src
 
 ** Scala
@@ -169,8 +169,8 @@ http://jblevins.org/projects/markdown-mode/markdown-mode.el
 
 #+end_src
 ** Conkeror
-
 #+begin_src emacs-lisp
 (autoload 'conkeror-minor-mode "conkeror-minor-mode")
 #+end_src
+
 

@@ -89,6 +89,10 @@
 ;; http://whiteanthrax.pkf.jp/emacs/75/
 (setq gnutls-min-prime-bits 1024)
 
+;; エラー発生時にlogを開く
+(custom-set-variables
+ '(init-loader-show-log-after-init 'error-only))
+
 ;; -----------------------------------------------------------------------
 ;; Name     : babel-loader
 ;; Function : inits.org分割管理
