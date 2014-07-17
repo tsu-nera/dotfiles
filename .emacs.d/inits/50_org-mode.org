@@ -50,7 +50,7 @@
 (setq org-startup-folded (quote content))
 
 ;; 自動インデント
-;; (setq org-indent-mode t)
+(setq org-indent-mode t)
 #+end_src
 
 * GTD

@@ -389,11 +389,11 @@ popwin:special-display-config)
 ;; History  : 2014/02/02 add
 ;; Install  : emacs wiki
 ;; ------------------------------------------------------------------------
-(require 'tempbuf)
+;; (require 'tempbuf)
 ;; ファイルを開いたら有効
-(add-hook 'find-file-hooks 'turn-on-tempbuf-mode)
+;; (add-hook 'find-file-hooks 'turn-on-tempbuf-mode)
 ;; Dired modeならば有効
-(add-hook 'dired-mode-hook 'turn-on-tempbuf-mode)
+;; (add-hook 'dired-mode-hook 'turn-on-tempbuf-mode)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : netrc

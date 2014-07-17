@@ -159,35 +159,66 @@ Google Chromeのフォームをemacsで編集。Edit with Emacs.
 (edit-server-start)
 #+end_src
 
+* twittering-mode
+Emacs Twitter Client
+
+- [[http://www.emacswiki.org/emacs/TwitteringMode-ja][EmacsWiki: TwitteringMode-ja]]
+
+#+begin_src emacs-lisp
+(require 'twittering-mode)
+(setq twittering-use-master-password t)
+#+end_src
+
 * bitlbee
-yaourt bitlbeeでいれた。
+  yaourt bitlbeeでいれた。
 
 - [[https://wiki.archlinux.org/index.php/bitlbee][Bitlbee - ArchWiki]]
 - [[http://www.emacswiki.org/emacs/BitlBee][EmacsWiki: Bitl Bee]]
 - [[http://emacs-fu.blogspot.jp/2012/03/social-networking-with-bitlbee-and-erc.html][emacs-fu: social networking with bitlbee and erc]]
 
+まだ動かした実績はなし。。。とりあえず入れておくか。
+
 #+begin_src emacs-lisp
-(require 'bitlbee)
-(defun i-wanna-be-social ()
-  "Connect to IM networks using bitlbee."
-  (interactive)
-  (erc :server "localhost" :port 6667 :nick "user"))
+;; (require 'bitlbee)
+;; (defun i-wanna-be-social ()
+;;   "Connect to IM networks using bitlbee."
+;;   (interactive)
+;;   (erc :server "localhost" :port 6667 :nick "user"))
 #+end_src
 
-* 未分類
-#+begin_src emacs-lisp
-;; -----------------------------------------------------------------------
-;; Name     : esup
-;; Function : Emacs 起動時のプロファイラ
-;; ------------------------------------------------------------------------
-(autoload 'esup "esup" "Emacs Start Up Profiler." nil)
+* Hown
+ Function : Evernoteを越えるメモ管理ツール
+ http://www.gfd-dennou.org/member/uwabami/cc-env/emacs/howm_config.html
+ http://d.hatena.ne.jp/TakashiHattori/20120627/1340768058
 
-;; -----------------------------------------------------------------------
-;; Name     :  シェルの設定
-;; Install  :
-;; Function : http://sakito.jp/emacs/emacsshell.html#emacs
-;;            Emacs上のシェル
-;; ------------------------------------------------------------------------
+#+begin_src emacs-lisp
+;; *.org を開いたら howm-mode も起動する
+;;(add-hook 'org-mode-hook 'howm-mode)
+
+;; howm のメモを置くディレクトリ(任意)
+(setq howm-directory "~/gtd/howm") ;; メニュー表示しない
+(setq howm-menu-top nil)
+;; メニューの言語設定
+(setq howm-menu-lang 'ja)
+;; howm ファイル名を設定する。org-mode を起動するため拡張子は .org にする。
+(setq howm-file-name-format "%Y%m%d-%H%M%S.org")
+(setq howm-view-title-header "*") ;; ← howm のロードより前に書くこと
+
+;; キーバインドは C-a C-aにする
+(global-unset-key (kbd "C-x C-a"))
+(setq howm-prefix (kbd "C-x C-a"))
+
+;;(autoload 'howm "howm" " Hitori Otegaru Wiki Modoki" nil)
+(require 'howm)
+(add-hook 'howm-mode-hook 'helm-howm)
+;; (require 'helm-howm)
+#+end_src
+
+* Shell
+** term-mode
+   http://sakito.jp/emacs/emacsshell.html#emacs
+
+#+begin_src emacs-lisp
 ;; shell の存在を確認
 (defun skt:shell ()
   (or (executable-find "zsh")
@@ -297,8 +328,10 @@ yaourt bitlbeeでいれた。
 ;; (require 'helm-shell-history)
 ;; (add-hook 'term-mode-hook
 ;; 	  (lambda () (define-key term-raw-map (kbd "C-r") 'helm-shell-history)))
+#+end_src
 
-
+** Eshell
+#+begin_src emacs-lisp
 ;; eshell
 ;; http://nishikawasasaki.hatenablog.com/entry/2012/09/12/233116
 ;; eshell での補完に auto-complete.el を使う
@@ -401,62 +434,31 @@ yaourt bitlbeeでいれた。
 
 ;; 別シェルを生成
 (global-set-key (kbd "C-c C-x t") 'make-shell)
+#+end_src
 
-;; -----------------------------------------------------------------------
-;; Name     :  パスの設定
-;; Install  :
-;; Function : http://sakito.jp/emacs/emacsshell.html#emacs
-;; ------------------------------------------------------------------------
+** exec-path-from-shell
+   環境変数PATHを引き継ぐ。
+   http://sakito.jp/emacs/emacsshell.html#emacs
+
+#+begin_src emacs-lisp
+;; パスの引き継ぎ
+(require 'exec-path-from-shell)
+(exec-path-from-shell-initialize)
 ;; (let* ((zshpath (shell-command-to-string
 ;; 		          "/usr/bin/env zsh -c 'printenv PATH'"))
 ;;               (pathlst (split-string zshpath ":")))
 ;;     (setq exec-path pathlst)
 ;;       (setq eshell-path-env zshpath)
 ;;         (setenv "PATH" zshpath))
+#+end_src
 
-;; パスの引き継ぎ
-;; exec-path-from-shell from el-get
-(require 'exec-path-from-shell)
-(exec-path-from-shell-initialize)
+* pdf-tools
+PDF Viewer
+http://sheephead.homelinux.org/2014/03/17/7076/
 
-;; -----------------------------------------------------------------------
-;; Name     : howm
-;; Install  : el-get
-;; Function : Evernoteを越えるメモ管理ツール
-;; Refs
-;; http://www.gfd-dennou.org/member/uwabami/cc-env/emacs/howm_config.html
-;; http://d.hatena.ne.jp/TakashiHattori/20120627/1340768058
-;; ------------------------------------------------------------------------
-;; *.org を開いたら howm-mode も起動する
-;;(add-hook 'org-mode-hook 'howm-mode)
+なんか、動かなくなった。封印。
 
-;; howm のメモを置くディレクトリ(任意)
-(setq howm-directory "~/gtd/howm") ;; メニュー表示しない
-(setq howm-menu-top nil)
-;; メニューの言語設定
-(setq howm-menu-lang 'ja)
-;; howm ファイル名を設定する。org-mode を起動するため拡張子は .org にする。
-(setq howm-file-name-format "%Y%m%d-%H%M%S.org")
-(setq howm-view-title-header "*") ;; ← howm のロードより前に書くこと
-
-;; キーバインドは C-a C-aにする
-(global-unset-key (kbd "C-x C-a"))
-(setq howm-prefix (kbd "C-x C-a"))
-
-;;(autoload 'howm "howm" " Hitori Otegaru Wiki Modoki" nil)
-(require 'howm)
-(add-hook 'howm-mode-hook 'helm-howm)
-;; (require 'helm-howm)
-
-;; -----------------------------------------------------------------------
-;; Name     : pdf-tools
-;; Install  : recipe
-;;            sudo apt-get install libpoppler-glib-dev
-;; Function : PDF Viewer
-;; Refs
-;;   http://sheephead.homelinux.org/2014/03/17/7076/
-;; ------------------------------------------------------------------------
-;; 重いから封印する。
+#+begin_src emacs-lisp
 ;; (when linux-p
 ;; (require 'pdf-tools)
 ;; (require 'pdf-annot) 

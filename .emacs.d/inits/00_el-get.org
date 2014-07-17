@@ -115,6 +115,7 @@ el-get実行前に、環境による場合分けのマクロを定義。
     elscreen
     ;; tomatinho
     wanderlust
+    twittering-mode
     )
   "A list of packages to install from el-get at launch")
 #+end_src
