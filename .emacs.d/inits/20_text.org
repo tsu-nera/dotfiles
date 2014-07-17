@@ -212,14 +212,11 @@ iy-go-to-charよりよさそう
 		    :foreground "yellow" :weight 'bold)
 #+end_src
 
-* 未分類
+* keisen
+罫線を引く
+www.pitecan.com/Keisen/keisen.el.
+
 #+begin_src emacs-lisp
-;; ------------------------------------------------------------------------
-;; Name     : keisen
-;; Function : 罫線を引く
-;; History  : 2014.1.29 Add
-;; Install  : www.pitecan.com/Keisen/keisen.el
-;;; ------------------------------------------------------------------------
 ;;(require 'keisen)
 ;;; Control+矢印キーで罫線を引く場合
 ;; (global-set-key (kbd "C-M-f") 'keisen-right-move)

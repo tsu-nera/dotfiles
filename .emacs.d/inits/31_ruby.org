@@ -15,23 +15,11 @@
 (define-key ruby-mode-map (kbd "C-c c") 'smart-compile)
 #+end_src
 
-** パスの設定
-#+begin_src emacs-lisp
-;; Setting rbenv path
-;; emacs から rbenv でいれたRubyを利用する。
-(setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:"
-		       (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
-(setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims")
-		(cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
-#+end_src
+** enhanced-ruby-mode
+Better Ruby Mode.
+ https://github.com/zenspider/enhanced-ruby-mode
 
-* 未分類
 #+begin_src emacs-lisp
-;; -----------------------------------------------------------------------
-;; Name     : enhanced-ruby-mode
-;; Install  : https://github.com/zenspider/enhanced-ruby-mode
-;; Function : Ruby開発環境を提供
-;; ------------------------------------------------------------------------
 ; must be added after any path containing old ruby-mode
 ;;(require 'enh-ruby-mode)
 ;;(autoload 'enh-ruby-mode "enh-ruby-mode" "Major mode for ruby files" t)
@@ -45,7 +33,77 @@
 ;;(add-to-list 'interpreter-mode-alist '("ruby" enh-ruby-mode))
 
 ;;(remove-hook 'enh-ruby-mode-hook 'erm-define-faces)
+#+end_src
 
+** robe-mode
+かしこい補完.
+#+begin_src emacs-lisp
+(add-hook 'ruby-mode-hook 'robe-mode)
+(add-hook 'robe-mode-hook 'ac-robe-setup)
+(custom-set-variables
+ '(robe-highlight-capf-candidates nil))
+#+end_src
+
+** パスの設定
+#+begin_src emacs-lisp
+;; Setting rbenv path
+;; emacs から rbenv でいれたRubyを利用する。
+(setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:"
+		       (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
+(setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims")
+		(cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
+#+end_src
+
+* 静的解析
+** flycheck
+
+#+begin_src emacs-lisp
+;; (add-hook 'ruby-mode-hook 'flycheck-mode)
+
+;; definition for flycheck
+(flycheck-define-checker ruby-rubocop
+  "A Ruby syntax and style checker using the RuboCop tool.
+   See URL `http://batsov.com/rubocop/'."
+  :command ("rubocop" "--format" "emacs" "--silent"
+	    (config-file "--config" flycheck-rubocoprc)
+	    source)
+  :error-patterns
+  ((warning line-start
+	    (file-name) ":" line ":" column ": " (or "C" "W") ": " (message)
+	    line-end)
+   (error line-start
+	  (file-name) ":" line ":" column ": " (or "E" "F") ": " (message)
+	  line-end))
+  :modes (ruby-mode))
+
+;; definition for flycheck
+(flycheck-define-checker ruby-rubylint
+  "A Ruby syntax and style checker using the rubylint tool."
+  :command ("ruby-lint" source)
+  :error-patterns
+  ((warning line-start
+	    (file-name) ":" line ":" column ": " (or "C" "W") ": " (message)
+	    line-end)
+   (error line-start
+	  (file-name) ":" line ":" column ": " (or "E" "F") ": " (message)
+	  line-end))
+  :modes (ruby-mode))
+#+end_src
+
+* ruby-debug
+標準ライブラリのデバッカ。ステップ実行できる。
+elispはrubyのソースに梱包されている。
+
+#+begin_src emacs-lisp
+;;(require 'ruby-debug)
+(autoload 'rubydb "rubydb3x"
+    "run rubydb on program file in buffer *gud-file*.
+the directory containing file becomes the initial working directory
+and source-file directory for your debugger." t)
+#+end_src
+
+* 未分類
+#+begin_src emacs-lisp
 ;; -----------------------------------------------------------------------
 ;; Name     : ruby-electric.el --- electric editing commands for ruby files
 ;; Install  :
@@ -125,24 +183,6 @@
 (custom-set-faces)
 
 ;; -----------------------------------------------------------------------
-;; Name     : rcov-overlay
-;; Install  : wget http://www.emacswiki.org/emacs/download/rcov-overlay.el
-;; Function : rcov連携
-;; ------------------------------------------------------------------------
-;; 動かん!
-;; (require 'rcov-overlay)
-
-;; -----------------------------------------------------------------------
-;; Name     : robe-mode
-;; Install  : el-get
-;; Function : かしこい補完
-;; ------------------------------------------------------------------------
- ; robe
-(add-hook 'ruby-mode-hook 'robe-mode)
-(add-hook 'robe-mode-hook 'ac-robe-setup)
-(custom-set-variables
- '(robe-highlight-capf-candidates nil))
-;; -----------------------------------------------------------------------
 ;; Name     : pry
 ;; Install  : git@github.com:jacott/emacs-pry.git
 ;; Function : 高機能irb
@@ -152,53 +192,4 @@
 ;;(global-set-key [S-f9] 'pry-intercept)
 ;;(global-set-key [f9] 'pry-intercept-rerun)
 
-;; -----------------------------------------------------------------------
-;; Name     : rdebgu
-;; ------------------------------------------------------------------------
-;;(require 'gdb-ui)
-;;(require 'rdebug)
-;; -----------------------------------------------------------------------
-;; Name     : ruby-debug
-;; ------------------------------------------------------------------------
-;;(require 'ruby-debug)
-(autoload 'rubydb "rubydb3x"
-    "run rubydb on program file in buffer *gud-file*.
-the directory containing file becomes the initial working directory
-and source-file directory for your debugger." t)
-#+end_src
-
-* 静的解析
-** flycheck
-
-#+begin_src emacs-lisp
-;; (add-hook 'ruby-mode-hook 'flycheck-mode)
-
-;; definition for flycheck
-(flycheck-define-checker ruby-rubocop
-  "A Ruby syntax and style checker using the RuboCop tool.
-   See URL `http://batsov.com/rubocop/'."
-  :command ("rubocop" "--format" "emacs" "--silent"
-	    (config-file "--config" flycheck-rubocoprc)
-	    source)
-  :error-patterns
-  ((warning line-start
-	    (file-name) ":" line ":" column ": " (or "C" "W") ": " (message)
-	    line-end)
-   (error line-start
-	  (file-name) ":" line ":" column ": " (or "E" "F") ": " (message)
-	  line-end))
-  :modes (ruby-mode))
-
-;; definition for flycheck
-(flycheck-define-checker ruby-rubylint
-  "A Ruby syntax and style checker using the rubylint tool."
-  :command ("ruby-lint" source)
-  :error-patterns
-  ((warning line-start
-	    (file-name) ":" line ":" column ": " (or "C" "W") ": " (message)
-	    line-end)
-   (error line-start
-	  (file-name) ":" line ":" column ": " (or "E" "F") ": " (message)
-	  line-end))
-  :modes (ruby-mode))
 #+end_src
