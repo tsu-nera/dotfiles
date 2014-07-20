@@ -196,6 +196,9 @@ Shift+Insertでも貼り付けできるので、とりあえずはこれで回�
 ;; 	    (process-send-eof proc))))
 ;; )
 #+end_src
+** バッファのサイズ変更
+  C-x C-0を利用する。
+  - http://qiita.com/tnoda_/items/ee7804a34e75f4c35d70
 
 * Tramp
 こんな感じで乗り込む。
@@ -298,6 +301,7 @@ popwin:special-display-config)
         (file-name-directory active-file-name)
       current-dir)))
 #+end_src
+
 
 * 未整理
 #+begin_src emacs-lisp

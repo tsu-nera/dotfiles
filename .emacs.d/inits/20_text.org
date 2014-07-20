@@ -1,7 +1,7 @@
 * Text
 テキスト編集。Emacsの底力を発揮する！
 
-* 編集系
+* 編集
 ** cua-mode
 矩形編集。
 
@@ -131,7 +131,7 @@ www.pitecan.com/Keisen/keisen.el.
 ;;(global-set-key [(C-down)] 'keisen-down-move)
 #+end_src
 
-* 移動系
+* 移動
 ** ace-jump-mode
 Awesome Emacs Rocks! 
 
@@ -153,6 +153,23 @@ Awesome Emacs Rocks!
   "Emacs quick move to buffer minor mode"
   t)
 (define-key global-map (kbd "C-x m") 'ace-jump-buffer)
+#+end_src
+
+** isearch-ace-jump-mode
+Do ace-jump from isearch.
+
+isearchの初めの一文字を入力して待っていると、ace-jump-char発動。
+isearchして、しばらく入力しないとswoop発動。
+
+- https://github.com/tam17aki/isearch-ace-jump-mode
+- http://qiita.com/ballforest/items/7c3f2e64b59d8157bc8c
+
+#+begin_src emacs-lisp
+(require 'isearch-ace-jump)
+(global-isearch-ace-jump-mode +1)
+
+(define-key swoop-map (kbd "C-s") 'swoop-action-goto-line-next)
+(define-key swoop-map (kbd "C-r") 'swoop-action-goto-line-prev)
 #+end_src
 
 ** iy-go-to-char
@@ -199,21 +216,7 @@ iy-go-to-charよりよさそう
 (key-chord-define-global "jh" 'jump-char-backward)
 #+end_src
 
-* 検索
-[Z** anzu
-インタラクティブ検索、置換
-
-- http://qiita.com/syohex/items/56cf3b7f7d9943f7a7ba
-- https://github.com/syohex/emacs-anzu
-
-#+begin_src emacs-lisp
-(require 'anzu)
-(global-anzu-mode +1)
-
-(set-face-attribute 'anzu-mode-line nil
-		    :foreground "yellow" :weight 'bold)
-#+end_src
-
+* 検索・置換
 ** migemo
 日本語をロ-マ字検索
 
@@ -235,3 +238,41 @@ iy-go-to-charよりよさそう
   (setq search-whitespace-regexp nil)
 )
 #+end_src
+** anzu
+インタラクティブ検索、置換
+
+- http://qiita.com/syohex/items/56cf3b7f7d9943f7a7ba
+- https://github.com/syohex/emacs-anzu
+
+#+begin_src emacs-lisp
+(require 'anzu)
+(global-anzu-mode +1)
+
+(set-face-attribute 'anzu-mode-line nil
+		    :foreground "yellow" :weight 'bold)
+#+end_src
+
+** swoop
+   Peculiar buffer navigation for Emacs.
+
+#+begin_src emacs-lisp
+(require 'swoop)
+(global-set-key (kbd "M-o")   'swoop)
+(global-set-key (kbd "C-M-o") 'swoop-multi)
+;; (global-set-key (kbd "M-o")   'swoop-pcre-regexp)
+(global-set-key (kbd "C-S-o") 'swoop-back-to-last-position)
+
+(define-key isearch-mode-map (kbd "M-o") 'swoop-from-isearch)
+(define-key swoop-map (kbd "M-o") 'swoop-multi-from-swoop)
+	
+;; サイズ変更禁止
+(setq swoop-font-size-change: nil)
+#+end_src
+
+** iedit
+https://github.com/tsdh/iedit
+
+#+begin_src emacs-lisp
+(require 'iedit)
+#+end_src
+

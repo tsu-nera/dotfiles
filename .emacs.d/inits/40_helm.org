@@ -1,5 +1,7 @@
 * helm
 
+- https://github.com/emacs-helm
+
 #+begin_src emacs-lisp
 (eval-when-compile (require 'cl))
 
@@ -17,8 +19,8 @@
 (autoload 'helm-github-issues "helm-github-issues"
   "Helm interface for github issues" nil t)
 
-(setq helm-idle-delay             0.3
-      helm-input-idle-delay       0.3
+(setq helm-idle-delay             0.2
+      helm-input-idle-delay       0.2
       helm-candidate-number-limit 200)
 
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
@@ -88,5 +90,64 @@ GNU Global.
 #+begin_src emacs-lisp
 (require 'helm-ag)
 (global-set-key (kbd "C-x g r") 'helm-ag)
+#+end_src
+
+** helm-migemo
+   helmの日本語検索.
+   - https://github.com/emacs-helm/helm-migemo
+
+#+begin_src emacs-lisp
+(require 'helm-migemo)
+(setq helm-use-migemo t)
+
+#+end_src
+
+うまく動かないので、パッチをあてる。
+
+- [[http://qiita.com/ballforest/items/43da06268bef651a7e7e][Emacs - helm-migemoを動くようにするパッチ - Qiita]]
+
+#+begin_src emacs-lisp
+(defun helm-compile-source--candidates-in-buffer (source)
+  (helm-aif (assoc 'candidates-in-buffer source)
+      (append source
+	      `((candidates
+		 . ,(or (cdr it)
+			(lambda ()
+			  ;; Do not use `source' because other plugins
+			  ;; (such as helm-migemo) may change it
+			  (helm-candidates-in-buffer (helm-get-current-source)))))
+		(volatile) (match identity)))
+    source))
+
+(eval-after-load "helm-regexp"
+  '(cl-defun helm-moccur-action (candidate
+                                 &optional (method (quote buffer)) mark)
+             "Jump to CANDIDATE with METHOD.
+	     arg METHOD can be one of buffer, buffer-other-window, buffer-other-frame."
+             (require 'helm-grep)
+             (let* ((split (helm-grep-split-line candidate))
+                    (buf (car split))
+                    (lineno (string-to-number (nth 1 split)))
+                    (split-pat (if helm-occur-match-plugin-mode
+                                   (helm-mp-split-pattern helm-pattern)
+                                 (list helm-pattern)))
+                    ;; for helm-migemo
+                    (search-func (if (featurep 'migemo)
+                                     'migemo-forward
+                                   're-search-forward)))
+               (cl-case method
+                        (buffer              (switch-to-buffer buf))
+                        (buffer-other-window (switch-to-buffer-other-window buf))
+                        (buffer-other-frame  (switch-to-buffer-other-frame buf)))
+               (helm-goto-line lineno)
+               ;; Move point to the nearest matching regexp from bol.
+               (cl-loop for reg in split-pat
+                        when (save-excursion
+                               (funcall search-func reg (point-at-eol) t))
+                        collect (match-beginning 0) into pos-ls
+                        finally (goto-char (apply #'min pos-ls)))
+               (when mark
+                 (set-marker (mark-marker) (point))
+                 (push-mark (point) 'nomsg)))))
 #+end_src
 

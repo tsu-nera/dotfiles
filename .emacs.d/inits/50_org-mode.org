@@ -53,20 +53,52 @@
 (setq org-indent-mode t)
 #+end_src
 
+** org-open-linkをdiredで
+
+http://sheephead.homelinux.org/
+
+#+begin_src emacs-lisp
+(org-add-link-type "file+emacs+dired" 'org-open-file-with-emacs-dired)
+(add-hook 'org-store-link-functions 'org-dired-store-link)
+
+(defun org-open-file-with-emacs-dired (path)
+  "Open in dired."
+  (let ((d (file-name-directory path))
+    (f (file-name-nondirectory path)))
+    (dired d)
+    (goto-char (point-min))
+    (search-forward f nil t)))
+
+(defun org-dired-store-link ()
+  "Store link to files/directories from dired."
+  (require 'dired-x)
+  (when (eq major-mode 'dired-mode)
+    (let* ((f (dired-filename-at-point))
+           (link (concat "file+emacs+dired" ":" f))
+           (desc (concat f " (dired)")))
+      (org-add-link-props :link link :description desc)
+      link)))
+#+end_src
+
 * GTD
 ** org-agenda
 #+begin_src emacs-lisp
 ;; アジェンダ表示の対象ファイル
-(if nt-p
-(setq org-agenda-files '("C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\inbox.org"
-			 "C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\main.org"
-			 "C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\unplan.org"
-			 "C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\schedule.org"))
+;; (if nt-p
+;; (setq org-agenda-files '("C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\inbox.org"
+;; 			 "C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\main.org"
+;; 			 "C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\unplan.org"
+;; 			 "C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\schedule.org"))
+;; (setq org-agenda-files '("~/gtd/inbox.org"
+;; 			 "~/gtd/main.org"
+;; 			 "~/gtd/unplan.org"
+;; 			 "~/gtd/schedule.org"))
+;; )
+
 (setq org-agenda-files '("~/gtd/inbox.org"
 			 "~/gtd/main.org"
 			 "~/gtd/unplan.org"
 			 "~/gtd/schedule.org"))
-)
 
 ;; 時間表示が1桁の時、0をつける
 (setq org-agenda-time-leading-zero t)
@@ -397,14 +429,12 @@ http://orgmode.org/manual/Template-expansion.html#Template-expansion
 (require 'org-capture)
 (setq org-capture-templates
       '(
-	("i" "Inbox" entry (file+datetree "~/gtd/inbox.org")
-	 "** TODO %?\n")
-	("u" "Unplan" entry (file+datetree "~/gtd/unplan.org")
-	 "** TODO %? :unplan:\n")
-	("w" "Diary" entry (file+datetree "~/gtd/main.org")
-	 "** %T %?\n")
-	("e" "Clock-in" entry (clock)
-	 "* %T %?\n")
+	("i" "Inbox" entry (file+datetree "~/gtd/inbox.org") "** TODO %?\n")
+	("u" "Unplan" entry (file+datetree "~/gtd/unplan.org") "** TODO %? :unplan:\n")
+	("w" "Diary" entry (file+datetree "~/gtd/main.org") "** %T %?\n")
+	("e" "Clock-in" entry (clock) "* %T %?\n")
+	;; calfwとの連携 http://sheephead.homelinux.org/2014/03/15/7035/#
+	("c" "calfw2org" entry (file "~/gtd/schedule.org") "*  %?\n %(cfw:org-capture-day)")
 	("m" "Memo" plain
          (file (concat org-directory (format-time-string "/howm/%Y%m%d-%H%M%S.org")))
          "* MEMO <%<%Y-%m-%d>> %?\n   %i\n  %a\n\n"
@@ -414,15 +444,6 @@ http://orgmode.org/manual/Template-expansion.html#Template-expansion
          )
 	)
       )
-
-;; calfwとの連携
-;; http://sheephead.homelinux.org/2014/03/15/7035/#
-;;cfw:org-capture-templateはcalfw-orgを
-;;requireする前に評価しておいてください。
-(setq cfw:org-capture-template
-      '("c" "calfw2org" entry 
-        (file "~/gtd/schedule.org")
-        "*  %?\n %(cfw:org-capture-day)"))
 #+end_src
 
 * org2blog
@@ -457,6 +478,91 @@ Emacs から WordPressに投稿するLisp
 
 #+end_src
 
+* スケジュール管理
+** org-gcal
+google calendar.
+
+- http://sheephead.homelinux.org/2014/03/14/7023/
+
+Google Developer Consoleで client-idと secret-keyを取得する必要がある。
+
+- https://console.developers.google.com/project
+
+取得した情報は ~/.netrcに保存して読み出す。
+
+#+begin_src emacs-lisp
+(when linux-p
+(require 'org-gcal)
+;; passwordは netrcへ
+(setq GoogleCal (netrc-machine (netrc-parse "~/.netrc") "org-gcal" t))
+(setq org-gcal-client-id (netrc-get GoogleCal "login")
+      org-gcal-client-secret (netrc-get GoogleCal "password")
+      org-gcal-dir "~/org"
+      org-gcal-file-alist '(("fox10225fox@gmail.com" .  "~/gtd/schedule.org")
+      ))
+)
+#+end_src
+
+** calfw
+Emacs用カレンダー.
+
+- [[https://github.com/kiwanami/emacs-calfw][kiwanami/emacs-calfw]]
+- [[http://d.hatena.ne.jp/kiwanami/20110723/1311434175][Emacs用カレンダー calfw v1.2 リリース - 技術日記＠kiwanami]]
+- [[http://d.hatena.ne.jp/kiwanami/20110619/1308495781][calfw の org-agenda 対応 calfw-org.el - 技術日記＠kiwanami]]
+- [[http://sheephead.homelinux.org/2014/03/15/7035/][calfwとorg-gcalの連携 | sheephead]]
+
+org-gcalでGoogleカレンダーと同期して、calfwで表示させる。
+
+org と ical のスケジュールを混ぜて表示させることが出来ます。
+以下のような感じで cfw:open-calendar-buffer を使います。
+
+#+begin_src emacs-lisp
+(require 'calfw-org)
+
+;; 対象ファイル
+(setq cfw:org-icalendars '("~/gtd/schedule.org"))
+;; First day of the week
+(setq calendar-week-start-day 1) ; 0:Sunday, 1:Monday
+
+;; cfw:open-org-calendarに集約するので、ひとまずコメントアウト。
+;; (defun my-open-calendar ()
+;;   (interactive)
+;;   (cfw:open-calendar-buffer
+;;    :view 'month
+;;    :contents-sources
+;;    (list 
+;;    ;; title, URL, color
+;;    (cfw:org-create-source "Green")  ; orgmode source
+;;    ;; (cfw:org-create-file-source "GCal" "~/gtd/schedule.org" "#268bd2")  ;; Google Calendar
+;;    )))
+#+end_src
+* org-export
+** ox-rst
+org-modeからRSTへの変換
+
+#+begin_src emacs-lisp
+(require 'ox-rst)
+#+end_src
+
+** ox-pandoc
+org-modeからRSTへの変換. ox-rstを使うからいらないかも。
+
+#+begin_src emacs-lisp
+(require 'ox-pandoc)
+(setq org-pandoc-output-format 'rst)
+#+end_src
+
+** ox-taskjuggler
+
+#+begin_src emacs-lisp
+(require 'ox-taskjuggler)
+#+end_src
+
+** ox-wk
+   dokuwiki変換
+#+begin_src emacs-lisp
+(require 'ox-wk)
+#+end_src
 * mobileOrg
 iphoneとorg-modeの同期。Dropboxを利用
 
@@ -551,51 +657,6 @@ containing the properties `:guid' and `:item-full-text'."
 (setq org-return-follows-link t)
 #+end_src
 
-* org-gcal
-google calendar
-
-http://sheephead.homelinux.org/2014/03/14/7023/
-
-Google Developer Consoleで client-idと secret-keyを取得する必要がある。
-
-https://console.developers.google.com/project
-
-取得した情報は ~/.netrcに保存して読み出す。
-
-#+begin_src emacs-lisp
-(require 'org-gcal)
-;; passwordは netrcへ
-(setq GoogleCal (netrc-machine (netrc-parse "~/.netrc") "org-gcal" t))
-(setq org-gcal-client-id (netrc-get GoogleCal "login")
-      org-gcal-client-secret (netrc-get GoogleCal "password")
-      org-gcal-dir "~/org"
-      org-gcal-file-alist '(("fox10225fox@gmail.com" .  "~/gtd/schedule.org")
-			    ;;("your-mail@gmail.com" .  "~/schedule.org")
-                            ;;("another-mail@gmail.com" .  "~/task.org")
-			    )
-      )
-#+end_src
-
-* org-export
-** ox-rst
-org-modeからRSTへの変換
-
-#+begin_src emacs-lisp
-(require 'ox-rst)
-#+end_src
-
-** ox-taskjuggler
-
-#+begin_src emacs-lisp
-(require 'ox-taskjuggler)
-#+end_src
-
-** ox-wk
-   dokuwiki変換
-#+begin_src emacs-lisp
-(require 'ox-wk)
-#+end_src
-
 * Plantuml
 
 #+begin_src emacs-lisp
@@ -609,64 +670,4 @@ org-modeからRSTへの変換
 )
 #+end_src
 
-* 未分類
 
-#+begin_src emacs-lisp
-
-;; -----------------------------------------------------------------------
-;; Name     : calfw-org
-;; Function : カレンダー連携
-;; ------------------------------------------------------------------------
-(require 'calfw-org)
-;; 対象ファイル
-(setq cfw:org-icalendars '("~/gtd/schedule.org"))
-;; First day of the week
-(setq calendar-week-start-day 1) ; 0:Sunday, 1:Monday
-
-(defun cfw:open-calendar ()
-  (interactive)
-  (let ((cp
-         (cfw:create-calendar-component-buffer
-          :view 'month
-          :contents-sources
-          (list 
-           (cfw:org-create-file-source
-            "仕事" "~/gtd/schedule.org" "#268bd2")
-           ;;(cfw:org-create-file-source
-	   ;; "遊び" "~/yaschedule.org" "#859900")
-	   )
-	  )))
-    (switch-to-buffer (cfw:cp-get-buffer cp))))
-
-;; -----------------------------------------------------------------------
-;; Name     : org-pandoc
-;; Function : エクスポート
-;; ------------------------------------------------------------------------
-(require 'ox-pandoc)
-(setq org-pandoc-output-format 'rst)
-
-;; -----------------------------------------------------------------------
-;; Name     : org-open-linkをdiredで
-;; http://sheephead.homelinux.org/
-;; ------------------------------------------------------------------------
-(org-add-link-type "file+emacs+dired" 'org-open-file-with-emacs-dired)
-(add-hook 'org-store-link-functions 'org-dired-store-link)
-
-(defun org-open-file-with-emacs-dired (path)
-  "Open in dired."
-  (let ((d (file-name-directory path))
-    (f (file-name-nondirectory path)))
-    (dired d)
-    (goto-char (point-min))
-    (search-forward f nil t)))
-
-(defun org-dired-store-link ()
-  "Store link to files/directories from dired."
-  (require 'dired-x)
-  (when (eq major-mode 'dired-mode)
-    (let* ((f (dired-filename-at-point))
-           (link (concat "file+emacs+dired" ":" f))
-           (desc (concat f " (dired)")))
-      (org-add-link-props :link link :description desc)
-      link)))
-#+end_src
