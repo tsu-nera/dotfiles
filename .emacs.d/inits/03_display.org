@@ -64,6 +64,7 @@
 
 #+begin_src emacs-lisp
 (require 'highlight-80+)
+;; (add-hook 'text-mode-hook (lambda () (interactive) (highlight-80+-mode 1)))
 #+end_src
 
 ** Set Markをハイライト

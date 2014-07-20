@@ -2,8 +2,6 @@
 # name: blockquate
 # key: blockquate
 # --
-#+BEGIN_HTML
-<blockquote>
+#+BEGIN_QUOTE
 $0
-</blockquote>
-#+END_HTML
+#+END_QUOTE

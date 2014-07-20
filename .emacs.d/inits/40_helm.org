@@ -151,3 +151,9 @@ GNU Global.
                  (push-mark (point) 'nomsg)))))
 #+end_src
 
+** helm-kaomoji
+顔文字。
+
+#+begin_src emacs-lisp
+(require 'helm-kaomoji)
+#+end_src
