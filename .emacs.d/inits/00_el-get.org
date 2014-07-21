@@ -119,6 +119,7 @@ el-get実行前に、環境による場合分けのマクロを定義。
     plantuml-mode
     conkeror-minor-mode
     elscreen
+    elscreen-wl
     ;; tomatinho
     wanderlust
     twittering-mode

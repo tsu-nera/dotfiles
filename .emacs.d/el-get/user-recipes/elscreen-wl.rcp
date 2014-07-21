@@ -1,0 +1,3 @@
+(:name elscreen-wl
+       :type github
+       :pkgname "syohex/emacs-elscreen-wl")

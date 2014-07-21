@@ -168,6 +168,9 @@ isearchして、しばらく入力しないとswoop発動。
 (require 'isearch-ace-jump)
 (global-isearch-ace-jump-mode +1)
 
+;; Defaultだと0.4だけど、それだと早い。
+(setq isearch-ace-jump-input-idle-delay 1.0)
+
 (define-key swoop-map (kbd "C-s") 'swoop-action-goto-line-next)
 (define-key swoop-map (kbd "C-r") 'swoop-action-goto-line-prev)
 #+end_src

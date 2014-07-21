@@ -186,3 +186,19 @@ pukiwiki-edit-modeで起動。
 #+begin_src emacs-lisp
 (autoload 'pukiwiki-mode "pukiwiki-mode")
 #+end_src
+** Assembly Language
+   アセンブリ言語。
+   - [[http://www.emacswiki.org/emacs/AssemblyProgramming][EmacsWiki: Assembly Programming]]
+
+   asm-modeが標準添付。
+
+*** gas-mode
+    [[http://www.hczim.de/software/gas-mode.html][gas-mode.el]] better asm-mode
+
+    よくわからないので、封印。
+
+#+begin_src emacs-lisp
+;; (autoload 'gas-mode "gas-mode")
+;; (add-to-list 'auto-mode-alist '("\\.s\\'" . gas-mode))
+#+end_src
+
