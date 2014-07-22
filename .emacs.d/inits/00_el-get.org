@@ -84,6 +84,8 @@ el-get実行前に、環境による場合分けのマクロを定義。
     helm-orgcard
     helm-gtags
     helm-migemo
+    helm-kaomoji
+    helm-wl-address
     ;; anything
     ;; helm-shell-history
     ;; org-mode

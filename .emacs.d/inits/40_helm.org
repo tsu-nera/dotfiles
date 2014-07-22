@@ -99,7 +99,6 @@ GNU Global.
 #+begin_src emacs-lisp
 (require 'helm-migemo)
 (setq helm-use-migemo t)
-
 #+end_src
 
 うまく動かないので、パッチをあてる。
@@ -156,4 +155,13 @@ GNU Global.
 
 #+begin_src emacs-lisp
 (require 'helm-kaomoji)
+#+end_src
+** helm-wl-address
+   helm i/fでアドレス検索
+
+   - https://github.com/kenbeese/helm-wl-address
+   - [[http://qiita.com/kenbeese/items/438c1c8d664198d8527f][Emacs - wanderlustのアドレスをhelmで選択する - Qiita]]
+
+#+begin_src emacs-lisp
+(require 'helm-wl-address)
 #+end_src
