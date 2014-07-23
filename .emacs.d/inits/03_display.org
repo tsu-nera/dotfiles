@@ -240,3 +240,12 @@ https://github.com/dimitri/switch-window
 ;; (global-set-key (kbd "C-x o") 'switch-window)
 #+end_src
 
+* sublimity
+  Sublime-Text風の表示
+  -> やめーた。
+
+#+begin_src emacs-lisp
+;; (require 'sublimity)
+;; (sublimity-mode 1)
+;; (require 'sublimity-map)
+#+end_src

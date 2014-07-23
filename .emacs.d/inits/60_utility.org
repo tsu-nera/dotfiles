@@ -37,11 +37,23 @@ ScreenのEmacsバージョン。マルチプレクサ。
 ;; (require 'elscreen-color-theme)
 
 ;; diredでoをオスと別タブで開く
-;; (require 'elscreen-dired)
+;; by wget https://raw.githubusercontent.com/knu/elscreen/master/elscreen-dired.el
+(require 'elscreen-dired)
 
 ;; waanderlust用。syohexさんのやつ
 (require 'elscreen-wl)
+
+;; emacsclientで開いたときに新規タブ作成
+(require 'elscreen-server)
 #+end_src
+
+** org-linkをelscreenで開く
+   いつか。
+
+** セッション保存
+ -  [[http://stackoverflow.com/questions/22445670/save-and-restore-elscreen-tabs-and-split-frames][emacs - Save and restore elscreen tabs and split frames - Stack Overflow]]
+
+うまくうごかない。。。
 
 * w3m
 ブラウザ
@@ -87,6 +99,10 @@ diredからopen
      (define-key dired-mode-map [f6] 'dired-open-file)))
 )
 #+end_src
+
+移動のたびにバッファをつくらないためには、iでバッファを開く。
+
+- [[http://stackoverflow.com/questions/1839313/how-do-i-stop-emacs-dired-mode-from-opening-so-many-buffers][file management - How do I stop emacs dired mode from opening so many buffers? - Stack Overflow]]
 
 ** direx
 popup dired
@@ -427,5 +443,4 @@ http://sheephead.homelinux.org/2014/03/17/7076/
 
 * calfw
 Emacs用カレンダー.
-
 
