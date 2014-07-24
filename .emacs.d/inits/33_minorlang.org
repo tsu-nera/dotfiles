@@ -184,7 +184,7 @@ pukiwiki-modeはminor-modeのみ使用する。firefoxやchromeのEdit機能か�
 pukiwiki-edit-modeで起動。
 
 #+begin_src emacs-lisp
-(autoload 'pukiwiki-mode "pukiwiki-mode")
+(autoload 'pukiwiki-mode "pukiwiki-mode" "Major mode for Pukiwiki" t)
 #+end_src
 ** Assembly Language
    アセンブリ言語。

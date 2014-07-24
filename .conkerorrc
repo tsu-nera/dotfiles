@@ -4,6 +4,16 @@ load_paths.unshift("chrome://conkeror-contrib/content/");
 // teach me something whenever I start my browser
 homepage = "http://www.google.co.jp";
 
+// Big Hint Number
+register_user_stylesheet(
+    "data:text/css," +
+        escape(
+            "@namespace url(\"http://www.w3.org/1999/xhtml\");\n" +
+            "span.__conkeror_hint {\n"+
+            "  font-size: 18px !important;\n"+
+            "  line-height: 18px !important;\n"+
+            "}"));
+
 // give me new tabs; open buffers (tabs) in the background
 require("new-tabs.js");
 require("clicks-in-new-buffer.js");
@@ -37,16 +47,6 @@ cwd.append("Downloads");
 
 // keep session
 require("session.js");
-
-// Big Hint Number ヒントの番号を大きく表示する
-register_user_stylesheet(
-    "data:text/css," +
-        escape(
-            "@namespace url(\"http://www.w3.org/1999/xhtml\");\n" +
-            "span.__conkeror_hint {\n"+
-            "  font-size: 18px !important;\n"+
-            "  line-height: 18px !important;\n"+
-            "}"));
 
 // Use emacsclient as external editor
 editor_shell_command = "emacsclient -c"

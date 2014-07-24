@@ -341,26 +341,13 @@ http://sheephead.homelinux.org/
   (interactive)
   (find-file "~/gtd/main.org")
   (bh/clock-in-task-by-id bh/organization-task-id-rest)
+  (with-output-to-temp-buffer "rest"  (print '休憩中だよ（*´～｀*）))
+  ;;(buffer-face-set "Ricty 30")
+  ;;(switch-to-buffer "rest")
   )
 
-;; (defun bh/clock-in-default-task ()
-;;   (save-excursion
-;;     (org-with-point-at org-clock-default-task
-;;       (org-clock-in))))
-
-;; (defun bh/clock-in-organization-task-as-default ()
-;;   (interactive)
-;;   (org-with-point-at (org-id-find bh/organization-task-id 'marker)
-;;     (org-clock-in '(16))))
-
-;; (defun bh/clock-out-maybe ()
-;;   (when (and bh/keep-clock-running
-;;              (not org-clock-clocking-in)
-;;              (marker-buffer org-clock-default-task)
-;;              (not org-clock-resolving-clocks-due-to-idleness))
-;;     (bh/clock-in-parent-task)))
-
-;;(add-hook 'org-clock-out-hook 'bh/clock-out-maybe 'append)
+(global-set-key (kbd "<f7>") 'gtd)
+(global-set-key (kbd "<f8>") 'rest)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : org-clock-by-tags
