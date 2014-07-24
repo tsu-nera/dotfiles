@@ -216,6 +216,57 @@ http://sheephead.homelinux.org/
 ;; ;; Change task state to STARTED when clocking in
 ;; (setq org-clock-in-switch-to-state "STARTED")
 #+end_src
+
+** org-clock-in-quick
+ 指定したタスクをclockinするためのショートカット はじめてつくった自作defun!!
+
+ http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
+ https://github.com/danieroux/emacs/blob/master/external/bh-org-mode.el
+
+#+begin_src emacs-lisp
+(defvar bh/organization-task-id-gtd "b66237b9-95dd-4863-bc36-bd4dbc435eca")
+(defvar bh/organization-task-id-rest "192d0802-8ed7-4c51-ad3f-04f6ae4e75f6")
+
+(defun bh/clock-in-task-by-id (id)
+  "Clock in a task by id"
+  (save-restriction
+    (widen)
+    (org-with-point-at (org-id-find id 'marker)
+      (org-clock-in '(16)))))
+
+;; ショートカット clock-in
+(defun gtd ()
+  (interactive)
+  (find-file "~/gtd/main.org")
+  (bh/clock-in-task-by-id bh/organization-task-id-gtd)
+  )
+
+;; http://www.emacswiki.org/emacs/FacesPerBuffer
+(defun my-org-rest-display-mode ()
+  "Sets a fixed width (monospace) font in current buffer"
+  (interactive)
+  (setq buffer-face-mode-face '(:height 1000))
+  (buffer-face-mode))
+
+(defun rest-display ()
+  "Display rest message on buffer"
+  (let ((temp-buffer-show-function 'switch-to-buffer))
+  (with-output-to-temp-buffer "*RestMessage*"  
+  (princ "\n休憩中だよ（*´～｀*）")))
+  (my-org-rest-display-mode)
+  )
+
+(defun rest ()
+  (interactive)
+  (find-file "~/gtd/main.org")
+  (bh/clock-in-task-by-id bh/organization-task-id-rest)
+  (rest-display)
+  )
+
+(global-set-key (kbd "<f7>") 'gtd)
+(global-set-key (kbd "<f8>") 'rest)
+#+end_src
+
 ** 未分類
 #+begin_src emacs-lisp
 ;; -----------------------------------------------------------------------
@@ -311,43 +362,6 @@ http://sheephead.homelinux.org/
      (unless effort
        (error "[Error: Is not set a effort!]"))))
 (ad-activate-regexp "is-set-effort-before-clock-in")
-
-;; -----------------------------------------------------------------------
-;; Name  : org-clock-in-quick
-;;       : 指定したタスクをclockinするためのショートカット
-;;       : はじめてつくった自作defun!!
-;; http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
-;; ------------------------------------------------------------------------
-;; Refs
-;; https://github.com/danieroux/emacs/blob/master/external/bh-org-mode.el
-(defvar bh/organization-task-id-gtd "b66237b9-95dd-4863-bc36-bd4dbc435eca")
-(defvar bh/organization-task-id-rest "192d0802-8ed7-4c51-ad3f-04f6ae4e75f6")
-
-(defun bh/clock-in-task-by-id (id)
-  "Clock in a task by id"
-  (save-restriction
-    (widen)
-    (org-with-point-at (org-id-find id 'marker)
-      (org-clock-in '(16)))))
-
-;; ショートカット clock-in
-(defun gtd ()
-  (interactive)
-  (find-file "~/gtd/main.org")
-  (bh/clock-in-task-by-id bh/organization-task-id-gtd)
-  )
-
-(defun rest ()
-  (interactive)
-  (find-file "~/gtd/main.org")
-  (bh/clock-in-task-by-id bh/organization-task-id-rest)
-  (with-output-to-temp-buffer "rest"  (print '休憩中だよ（*´～｀*）))
-  ;;(buffer-face-set "Ricty 30")
-  ;;(switch-to-buffer "rest")
-  )
-
-(global-set-key (kbd "<f7>") 'gtd)
-(global-set-key (kbd "<f8>") 'rest)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : org-clock-by-tags
@@ -659,5 +673,19 @@ containing the properties `:guid' and `:item-full-text'."
 (add-hook 'org-mode-hook 'org-mode-init)
 )
 #+end_src
+
+* memo
+** Narrowing
+範囲を限定して表示することができる。
+
+#+begin_src language
+C-x n s     (org-narrow-to-subtree)
+    Narrow buffer to current subtree. 
+C-x n b     (org-narrow-to-block)
+    Narrow buffer to current block. 
+C-x n w     (widen)
+    Widen buffer to remove narrowing.
+#+end_src
+
 
 

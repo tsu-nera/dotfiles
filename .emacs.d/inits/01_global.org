@@ -157,9 +157,16 @@ minibufferの履歴保存
 (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
 #+end_src
 
+** generic-x
+   いろんなメジャーモード
+
+   #+begin_src emacs-lisp
+   (require 'generic-x)
+   #+end_src
+
 ** 起動時の設定
 
-起動時のscratchメッセージは表示しない
+   起動時のscratchメッセージは表示しない
 
 #+begin_src emacs-lisp
 (setq initial-scratch-message nil)
