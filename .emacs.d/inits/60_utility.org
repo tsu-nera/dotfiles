@@ -55,8 +55,8 @@ ScreenのEmacsバージョン。マルチプレクサ。
 
 うまくうごかない。。。
 
-* w3m
-ブラウザ
+* ブラウザ
+** w3m
 
 #+begin_src emacs-lisp
 (setq w3m-user-agent 
@@ -65,10 +65,55 @@ HTC_Pyramid Build/GRI40) AppleWebKit/533.1
 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.")
 #+end_src
 
+** webkit
+うごくかな？？
+
+- [[https://github.com/linuxdeepin/deepin-emacs/tree/master/site-lisp/extensions/webkit][deepin-emacs/site-lisp/extensions/webkit at master · linuxdeepin/deepin-emacs]]
+  
+  - webkit/helm-webkit from github
+  - epc from el-get
+  - Pyqt5  yaourt -S python2-pyqt5 qt5-webkit
+  - PythonXlib yaourt -S python2-xlib
+
+うごかない。
+
+#+begin_src emacs-lisp
+;; (require 'webkit)
+;; (require 'helm-webkit)
+#+end_src
+
+** eww
+   24.4から搭載のWebブラウザ。
+#+begin_src emacs-lisp
+(setq eww-search-prefix "http://www.google.co.jp/search?q=")
+
+;; http://steckerhalter.co.vu/posts/emacs-tips-and-tricks.html
+
+(defun stk/eww-browse-kill-ring ()
+  (interactive)
+  (eww (current-kill 0 t)))
+
+;; eww起動
+(global-set-key (kbd "C-q <C-return>") 'eww)
+;; 前のページへ
+(global-set-key (kbd "C-q RET") 'stk/eww-browse-kill-ring)
+#+end_src
+
+conkeror like numbering
+
+- https://github.com/m00natic/eww-lnum
+
+#+begin_src emacs-lisp
+(require 'eww-lnum)
+(eval-after-load "eww"
+  '(progn (define-key eww-mode-map "f" 'eww-lnum-follow)
+          (define-key eww-mode-map "F" 'eww-lnum-universal)))
+#+end_src
+
 * tomatinho
 ちょっとかわったポモドーロツール.
 
-https://github.com/konr/tomatinho
+- https://github.com/konr/tomatinho
 
 使わないので一旦封印。
 
