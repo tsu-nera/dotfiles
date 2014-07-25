@@ -418,28 +418,40 @@ Emacs Twitter Client
 #+end_src
 
 * pdf-tools
-PDF Viewer
+PDF Viewer.
+
 http://sheephead.homelinux.org/2014/03/17/7076/
 
-なんか、動かなくなった。封印。
+githubのやつだと、コンパイルエラーするので、forkして無理やり通した。
+
+ArchLinuxでは、GhostScriptを入れる。
+
+#+begin_src sh
+sudo pacman -S ghostscript
+#+end_src
 
 #+begin_src emacs-lisp
-;; (when linux-p
-;; (require 'pdf-tools)
-;; (require 'pdf-annot) 
-;; (require 'pdf-history) 
-;; (require 'pdf-info) 
-;; (require 'pdf-isearch) 
-;; (require 'pdf-links) 
-;; (require 'pdf-misc) 
-;; (require 'pdf-occur) 
-;; (require 'pdf-outline) 
-;; (require 'pdf-render) 
-;; (require 'pdf-sync) 
-;; (require 'tablist-filter)
-;; (require 'tablist)
-;; )
+(when linux-p
+(require 'pdf-tools)
+(require 'pdf-annot)
+(require 'pdf-history) 
+(require 'pdf-info) 
+(require 'pdf-isearch) 
+(require 'pdf-links) 
+(require 'pdf-misc) 
+(require 'pdf-occur) 
+(require 'pdf-outline) 
+(require 'pdf-render) 
+(require 'pdf-sync) 
+(require 'tablist-filter)
+(require 'tablist)
+)
 #+end_src
+
+どうも、doc-view-modeがめちゃくちゃ遅い！linum-modeが有効なことが原因。
+以下のページを参考に、major-modeが doc-view-modeのときは、linum-modeはdisableに。
+
+- [[http://stackoverflow.com/questions/16132234/how-can-i-speed-up-emacs-docview-mode][How can I speed up Emacs DocView mode? - Stack Overflow]]
 
 * calfw
 Emacs用カレンダー.

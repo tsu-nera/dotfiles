@@ -38,10 +38,15 @@
 #+begin_src emacs-lisp
 (which-function-mode 1)
 #+end_src
-- 行番号の表示
 
+- 行番号の表示
 #+begin_src emacs-lisp
 (global-linum-mode t)
+
+;; ただし、特定のmajor-modeのときは抑止
+;; https://github.com/Khady/emacs.d/blob/master/setup-linum.el
+(require 'setup-linum)
+(setq linum-disabled-modes-list '(doc-view-mode))
 #+end_src
 
 - 現在行に色をつける
