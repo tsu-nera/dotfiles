@@ -130,31 +130,6 @@ www.pitecan.com/Keisen/keisen.el.
 ;;(global-set-key [(C-up)] 'keisen-up-move)
 ;;(global-set-key [(C-down)] 'keisen-down-move)
 #+end_src
-
-** text-adjust
-   - text-adjust-codecheck : 半角カナ, 規格外文字を「〓」に置き換える.
-   - text-adjust-hankaku   : 全角英数文字を半角にする.
-   - text-adjust-kutouten  : 句読点を「, 」「. 」に置き換える.
-   - text-adjust-space     : 全角文字と半角文字の間に空白を入れる.
-
-   これは便利だ.
-
- - [[http://www.emacswiki.org/emacs/InsertSpaceBetweenZenkakuAndHankaku][EmacsWiki: Insert Space Between Zenkaku And Hankaku]]
- - [[http://d.hatena.ne.jp/rubikitch/20090220/text_adjust][全角文字と半角文字の間に自動でスペースを開ける text-adjust.el を使ってみた ]]
- - http://www.rubyist.net/~rubikitch/archive/mell.el
- - http://www.rubyist.net/~rubikitch/archive/text-adjust.el
-
- #+begin_src emacs-lisp
- (require 'text-adjust)
- (defun text-adjust-space-before-save-if-needed ()
-   (when (memq major-mode
-               '(org-mode text-mode wl-draft-mode))
-	       (text-adjust-buffer)))
-  ;;           (text-adjust-space-buffer)))
- (defalias 'spacer 'text-adjust-space-buffer)
- (add-hook 'before-save-hook 'text-adjust-space-before-save-if-needed)
- #+end_src
-
 * 移動
 ** ace-jump-mode
 Awesome Emacs Rocks! 
@@ -242,7 +217,6 @@ iy-go-to-char よりよさそう
 (key-chord-define-global "jk" 'jump-char-forward)
 (key-chord-define-global "jh" 'jump-char-backward)
 #+end_src
-
 * 検索・置換
 ** migemo
 日本語をロ-マ字検索
@@ -302,4 +276,122 @@ https://github.com/tsdh/iedit
 #+begin_src emacs-lisp
 (require 'iedit)
 #+end_src
+* 日本語
+** text-adjust
+   - text-adjust-codecheck : 半角カナ, 規格外文字を「〓」に置き換える.
+   - text-adjust-hankaku   : 全角英数文字を半角にする.
+   - text-adjust-kutouten  : 句読点を「, 」「. 」に置き換える.
+   - text-adjust-space     : 全角文字と半角文字の間に空白を入れる.
 
+   これは便利だ.
+
+ - [[http://www.emacswiki.org/emacs/InsertSpaceBetweenZenkakuAndHankaku][EmacsWiki: Insert Space Between Zenkaku And Hankaku]]
+ - [[http://d.hatena.ne.jp/rubikitch/20090220/text_adjust][全角文字と半角文字の間に自動でスペースを開ける text-adjust.el を使ってみた ]]
+ - http://www.rubyist.net/~rubikitch/archive/mell.el
+ - http://www.rubyist.net/~rubikitch/archive/text-adjust.el
+
+** yspel
+   Yahoo の文章校正ツールを利用した日本語スペルチェック!
+
+   - [[http://ubulog.blogspot.jp/2010/09/emacs.html][ubulog: Emacs から校正支援する]]
+
+   #+begin_src emacs-lisp
+   (require 'yspel)
+   #+end_src
+
+
+ #+begin_src emacs-lisp
+ (require 'text-adjust)
+ (defun text-adjust-space-before-save-if-needed ()
+   (when (memq major-mode
+               '(org-mode text-mode wl-draft-mode))
+	       (text-adjust-buffer)))
+  ;;           (text-adjust-space-buffer)))
+ (defalias 'spacer 'text-adjust-space-buffer)
+ (add-hook 'before-save-hook 'text-adjust-space-before-save-if-needed)
+ #+end_src
+* 英語
+** aspell
+   昔は ispell, 今は aspell が主流らしい.
+
+   #+begin_src sh
+   sudo pacman -S aspell aspell-en.
+   #+end_src
+
+   デフォルトだと日本語辞書を探そうとするため,
+   以下のおまじないをし, 英語の辞書を検索するようにする.
+
+   #+begin_src sh
+   echo "lang en_US" >> ~/.aspell.conf
+   #+end_src
+
+   aspell にパスを通す.
+
+   #+begin_src emacs-lisp
+   (when (file-executable-p "/usr/bin/aspell")
+   (setq-default ispell-program-name "aspell")
+   #+end_src
+
+   日本語はスキップ.
+
+   #+begin_src emacs-lisp
+   (eval-after-load "ispell"
+      '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
+   #+end_src
+
+   - バッファ全体をスペルチェック M-x ispell-buffer
+   - 選択範囲だけスペルチェック M-x ispell-region
+
+** flyspell
+   リアルタイム, スペルチェック.
+
+   - [[http://www.gfd-dennou.org/member/uwabami/cc-env/emacs/flyspell_config.html][Youhei SASAKI's official site: flyspell-mode の設定]]
+
+   #+begin_src emacs-lisp
+   (require 'flyspell)
+   #+end_src
+
+   - [[http://d.hatena.ne.jp/mooz/20100423/p1][flyspell-mode の修正候補表示を popup.el で - mooz deceives you]]
+
+     キーバインドを設定.
+
+   #+begin_src emacs-lisp
+  (global-set-key (kbd "C-c <f8>") 'flyspell-mode)
+  (global-set-key (kbd "C-c <f9>") 'ispell-word)
+  (global-set-key (kbd "C-c <f10>") 'flyspell-buffer)
+   #+end_src
+
+   どうも flyspell と ac-complete は相性が悪い?
+
+   #+BEGIN_SRC emacs-lisp
+   (ac-flyspell-workaround)
+   #+END_SRC
+
+*** あるモードのみ flysell を起動
+
+    コメント領域のところだけ有効.
+
+    #+begin_src emacs-lisp
+    (mapc
+    (lambda (hook)
+    (add-hook hook 'flyspell-prog-mode))
+    '(
+    c-mode-common-hook
+    ruby-mode-hook
+    emacs-lisp-mode-hook   
+    ))
+    #+end_src
+
+    特定のモードで有効.
+
+    #+begin_src emacs-lisp
+    (mapc
+    (lambda (hook)
+    (add-hook hook
+    '(lambda () (flyspell-mode 1))))
+    '(
+    text-mode-hook
+    org-mode-hook
+    wl-draft-mode-hook
+    ))
+    #+end_src

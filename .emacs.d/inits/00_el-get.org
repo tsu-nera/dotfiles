@@ -70,6 +70,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     pcre2el
     ht
     iedit
+    flyspell
     ;; fic-ext-mode
     ;; smart-compile 独自改造したものを elisp においた
     expand-region
