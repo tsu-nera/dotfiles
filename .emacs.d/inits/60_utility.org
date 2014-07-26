@@ -1,19 +1,19 @@
 * Utility
 
-このelispこそ、Emacsのすごさを示すものだ。
+この elisp こそ, Emacs のすごさを示すものだ.
 
 #+begin_src text
-  EmacsはOS！
-  Emacsは世界！
-  Emacsは人生！
+  Emacs は OS!
+  Emacs は世界!
+  Emacs は人生!
 #+end_src
 
 * elscreen
-ScreenのEmacsバージョン。マルチプレクサ。
+Screen の Emacs バージョン. マルチプレクサ.
 
 - https://github.com/knu/elscreen
 
-オリジナルはメンテナンスされていないのかな？
+オリジナルはメンテナンスされていないのかな?
 
 - http://www.morishima.net/~naoto/elscreen-ja/
 - http://nishikawasasaki.hatenablog.com/entry/20110313/1300031344
@@ -30,34 +30,33 @@ ScreenのEmacsバージョン。マルチプレクサ。
 ;; <>を非表示
 (setq elscreen-tab-display-control nil)
 
-;; emacsclientで新しいタブを開く
+;; emacsclient で新しいタブを開く
 (require 'elscreen-server nil t)
 
-;; それっぽい色をつける？？つけてくれないよ。
+;; それっぽい色をつける?? つけてくれないよ.
 ;; (require 'elscreen-color-theme)
 
-;; diredでoをオスと別タブで開く
+;; dired で o をオスと別タブで開く
 ;; by wget https://raw.githubusercontent.com/knu/elscreen/master/elscreen-dired.el
 (require 'elscreen-dired)
 
-;; waanderlust用。syohexさんのやつ
+;; waanderlust 用. syohex さんのやつ
 (require 'elscreen-wl)
 
-;; emacsclientで開いたときに新規タブ作成
+;; emacsclient で開いたときに新規タブ作成
 (require 'elscreen-server)
 #+end_src
 
-** org-linkをelscreenで開く
-   いつか。
+** org-link を elscreen で開く
+   いつか.
 
 ** セッション保存
  -  [[http://stackoverflow.com/questions/22445670/save-and-restore-elscreen-tabs-and-split-frames][emacs - Save and restore elscreen tabs and split frames - Stack Overflow]]
 
-うまくうごかない。。。
+うまくうごかない. . .
 
-* ブラウザ
-** w3m
 
+* w3m
 #+begin_src emacs-lisp
 (setq w3m-user-agent 
 "Mozilla/5.0 (Linux; U; Android 2.3.3; zh-tw; 
@@ -65,8 +64,8 @@ HTC_Pyramid Build/GRI40) AppleWebKit/533.1
 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.")
 #+end_src
 
-** webkit
-うごくかな？？
+* webkit
+うごくかな??
 
 - [[https://github.com/linuxdeepin/deepin-emacs/tree/master/site-lisp/extensions/webkit][deepin-emacs/site-lisp/extensions/webkit at master · linuxdeepin/deepin-emacs]]
   
@@ -75,47 +74,114 @@ HTC_Pyramid Build/GRI40) AppleWebKit/533.1
   - Pyqt5  yaourt -S python2-pyqt5 qt5-webkit
   - PythonXlib yaourt -S python2-xlib
 
-うごかない。
+うごかない. . . .
 
 #+begin_src emacs-lisp
 ;; (require 'webkit)
 ;; (require 'helm-webkit)
 #+end_src
 
-** eww
-   24.4から搭載のWebブラウザ。
-#+begin_src emacs-lisp
-(setq eww-search-prefix "http://www.google.co.jp/search?q=")
+* eww
+  24.4 から搭載の Web ブラウザ.
 
-;; http://steckerhalter.co.vu/posts/emacs-tips-and-tricks.html
+  - http://bzr.savannah.gnu.org/lh/emacs/trunk/annotate/head:/lisp/net/eww.el
 
-(defun stk/eww-browse-kill-ring ()
-  (interactive)
-  (eww (current-kill 0 t)))
+  #+begin_src emacs-lisp
+  (when emacs24.4-p
+  #+end_src
+    
+** default の検索エンジンを変更
+   google jp を設定する. default では, duckduckgo が設定されている.
 
-;; eww起動
-(global-set-key (kbd "C-q <C-return>") 'eww)
-;; 前のページへ
-(global-set-key (kbd "C-q RET") 'stk/eww-browse-kill-ring)
-#+end_src
+   => 結局やめた. なぜなら, 色がへん.
+   
+   #+begin_src emacs-lisp
+   ;; (setq eww-search-prefix "http://www.google.co.jp/search?q=")
+   #+end_src
 
-conkeror like numbering
+   - https://duckduckgo.com/params
 
-- https://github.com/m00natic/eww-lnum
+   こまかくパラメータ設定
+   - kl=ja-jp 日本語
+   - k1=-1    広告なし
+   - kc=1     自動先読み
+   - kf=-1    サイトアイコンなし
+   - q =      検索文字
 
-#+begin_src emacs-lisp
-(require 'eww-lnum)
-(eval-after-load "eww"
-  '(progn (define-key eww-mode-map "f" 'eww-lnum-follow)
-          (define-key eww-mode-map "F" 'eww-lnum-universal)))
-#+end_src
+     => サイトアイコンなしは動かない.
+
+   #+begin_src emacs-lisp
+   (setq eww-search-prefix "https://duckduckgo.com/html/?kl=jp-jp&k1=-1&kc=1&kf=-1&q=")
+   #+end_src
+
+*** TODO 色がへんなので, 変更したい
+
+** eww をすぐに起動するためのショートカット
+   以下のページを参考にして, eww を起動するためのキーバインドを設定した.
+
+   - http://steckerhalter.co.vu/posts/emacs-tips-and-tricks.html
+
+   #+begin_src emacs-lisp
+   (defun stk/eww-browse-kill-ring ()
+     (interactive)
+     (eww (current-kill 0 t)))
+    
+   ;; eww 起動
+   (global-set-key (kbd "C-q <C-return>") 'eww)
+   ;; 前のページへ
+   (global-set-key (kbd "C-q RET") 'stk/eww-browse-kill-ring)
+   #+end_src
+
+** eww 複数起動はできない??
+   eww を複数起動はできないようだ.
+   画面を 2 分割して, 別の画面を表示したり,
+   elscreen を利用して, タブブラウザ的なことはできなかった.
+
+   => patch があったので, もうすぐ取り込まれるかと.
+   http://emacs.1067599.n5.nabble.com/bug-16211-eww-should-support-multiple-eww-buffers-td306918.html
+
+** 外部ブラウザでリンクを開く (eww-browse-with-external-link)
+   テキストブラウザは地味なので, ときには別のブラウザでも Web ページを閲覧したい.
+   私は普段は conkeror を利用しているので, これで開きたい.
+
+   以下の関数で今見ているページを外部ブラウザで開くことができる.
+   &にキーバインドされている.
+
+   #+begin_src language
+   eww-browse-with-external-link
+   #+end_src
+
+** conkerror のような番号づけ
+   eww-lnum を入れると, conkeror のようにリンク先を選択できる.
+
+   - https://github.com/m00natic/eww-lnum
+
+   つまり, f を押すことで, リンク先に番号が振られるので,
+   番号を選択することでリンク先を選択できる.
+
+   #+begin_src emacs-lisp
+   (require 'eww-lnum)
+   (eval-after-load "eww"
+   '(progn (define-key eww-mode-map "f" 'eww-lnum-follow)
+   (define-key eww-mode-map "F" 'eww-lnum-universal)))
+   #+end_src
+
+** TODO youtube をみる
+   これでいけるかな?
+   - [[http://jordiinglada.net/wp/2013/08/09/watching-youtube-without-a-browser-2/][Watching YouTube without a browser | Jordi Inglada]]
+   - [[http://mugijiru.seesaa.net/article/258382587.html][やたー. emacs-w3m でリンク先の youtube の動画を mplayer を使ってストリーミング再生できたよー: 麦汁三昧]]
+
+
+  #+begin_src emacs-lisp
+   ) ;; end of 24.4
+  #+end_src
 
 * tomatinho
 ちょっとかわったポモドーロツール.
 
 - https://github.com/konr/tomatinho
 
-使わないので一旦封印。
+使わないので一旦封印.
 
 #+begin_src emacs-lisp
 ;; (require 'tomatinho)
@@ -126,7 +192,7 @@ conkeror like numbering
 #+end_src
 
 * dired
-diredからopen
+dired から open
 
 #+begin_src emacs-lisp
 (when linux-p
@@ -145,7 +211,7 @@ diredからopen
 )
 #+end_src
 
-移動のたびにバッファをつくらないためには、iでバッファを開く。
+移動のたびにバッファをつくらないためには, i でバッファを開く.
 
 - [[http://stackoverflow.com/questions/1839313/how-do-i-stop-emacs-dired-mode-from-opening-so-many-buffers][file management - How do I stop emacs dired mode from opening so many buffers? - Stack Overflow]]
 
@@ -160,7 +226,7 @@ popup dired
 #+end_src
 
 * edit-server
-Google Chromeのフォームをemacsで編集。Edit with Emacs.
+Google Chrome のフォームを emacs で編集. Edit with Emacs.
 
 - https://raw.githubusercontent.com/stsquad/emacs_chrome/master/servers/edit-server.el
 
@@ -180,13 +246,13 @@ Emacs Twitter Client
 #+end_src
 
 * bitlbee
-  yaourt bitlbeeでいれた。
+  yaourt bitlbee でいれた.
 
 - [[https://wiki.archlinux.org/index.php/bitlbee][Bitlbee - ArchWiki]]
 - [[http://www.emacswiki.org/emacs/BitlBee][EmacsWiki: Bitl Bee]]
 - [[http://emacs-fu.blogspot.jp/2012/03/social-networking-with-bitlbee-and-erc.html][emacs-fu: social networking with bitlbee and erc]]
 
-まだ動かした実績はなし。。。とりあえず入れておくか。
+まだ動かした実績はなし. . . とりあえず入れておくか.
 
 #+begin_src emacs-lisp
 ;; (require 'bitlbee)
@@ -197,7 +263,7 @@ Emacs Twitter Client
 #+end_src
 
 * Hown
- Function : Evernoteを越えるメモ管理ツール
+ Function : Evernote を越えるメモ管理ツール
  http://www.gfd-dennou.org/member/uwabami/cc-env/emacs/howm_config.html
  http://d.hatena.ne.jp/TakashiHattori/20120627/1340768058
 
@@ -205,16 +271,16 @@ Emacs Twitter Client
 ;; *.org を開いたら howm-mode も起動する
 ;;(add-hook 'org-mode-hook 'howm-mode)
 
-;; howm のメモを置くディレクトリ(任意)
+;; howm のメモを置くディレクトリ (任意)
 (setq howm-directory "~/gtd/howm") ;; メニュー表示しない
 (setq howm-menu-top nil)
 ;; メニューの言語設定
 (setq howm-menu-lang 'ja)
-;; howm ファイル名を設定する。org-mode を起動するため拡張子は .org にする。
+;; howm ファイル名を設定する. org-mode を起動するため拡張子は .org にする.
 (setq howm-file-name-format "%Y%m%d-%H%M%S.org")
 (setq howm-view-title-header "*") ;; ← howm のロードより前に書くこと
 
-;; キーバインドは C-a C-aにする
+;; キーバインドは C-a C-a にする
 (global-unset-key (kbd "C-x C-a"))
 (setq howm-prefix (kbd "C-x C-a"))
 
@@ -245,7 +311,7 @@ Emacs Twitter Client
 (setenv "SHELL" shell-file-name)
 (setq explicit-shell-file-name shell-file-name)
 
-;; エスケープを綺麗に表示する(lsとか)
+;; エスケープを綺麗に表示する (ls とか)
 ;;(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 ;;(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
@@ -288,9 +354,9 @@ Emacs Twitter Client
 ;; Emacs が保持する terminfo を利用する
 (setq system-uses-terminfo nil)
 
-;;タブ補完できないときのおまじない。
+;;タブ補完できないときのおまじない.
 ;; http://stackoverflow.com/questions/18278310/emacs-ansi-term-not-tab-completing
-(add-hook 'term-mode-hook (lambda()
+(add-hook 'term-mode-hook (lambda ()
         (setq yas-dont-activate t)))
 
 ;;shell の割り込みを機能させる
@@ -394,7 +460,7 @@ Emacs Twitter Client
                 (if (= (user-uid) 0) "]\n# " "]\n$ ")
                 )))
 
-;; これで正規表現がつかえるようになる？
+;; これで正規表現がつかえるようになる?
 (setq eshell-prompt-regexp "^[^#$]*[$#] ")
 
 ;; 補完時に大文字小文字を区別しない
@@ -408,13 +474,13 @@ Emacs Twitter Client
 ;; 履歴で重複を無視する
 (setq eshell-hist-ignoredups t)
 
-;; sudoのあとも補完可能に
+;; sudo のあとも補完可能に
 (defun pcomplete/sudo ()
   "Completion rules for the `sudo' command."
   (let ((pcomplete-help "complete after sudo"))
     (pcomplete-here (pcomplete-here (eshell-complete-commands-list)))))
 
-;; eshellは1つしか生成できないので、複数作成する。
+;; eshell は 1 つしか生成できないので, 複数作成する.
 ;; http://stackoverflow.com/questions/2540997/create-more-than-one-eshell-instance-in-emacs
 (defun make-shell (name)
   "Create a shell buffer named NAME."
@@ -423,10 +489,10 @@ Emacs Twitter Client
   (eshell)
   (rename-buffer name))
 
-;; なぜかhelmがじゃまをするな。
+;; なぜか helm がじゃまをするな.
 (add-to-list 'helm-completing-read-handlers-alist '(make-eshell . nil))
 
-;; eshellのalias設定
+;; eshell の alias 設定
 (setq eshell-command-aliases-list
       (append
        (list
@@ -439,7 +505,7 @@ Emacs Twitter Client
        )
        eshell-command-aliases-list))
 
-;; shellのキーバインド
+;; shell のキーバインド
 (global-set-key (kbd "C-c t") 'eshell)
 
 ;; 別シェルを生成
@@ -447,7 +513,7 @@ Emacs Twitter Client
 #+end_src
 
 ** exec-path-from-shell
-   環境変数PATHを引き継ぐ。
+   環境変数 PATH を引き継ぐ.
    http://sakito.jp/emacs/emacsshell.html#emacs
 
 #+begin_src emacs-lisp
@@ -467,9 +533,9 @@ PDF Viewer.
 
 http://sheephead.homelinux.org/2014/03/17/7076/
 
-githubのやつだと、コンパイルエラーするので、forkして無理やり通した。
+github のやつだと, コンパイルエラーするので, fork して無理やり通した.
 
-ArchLinuxでは、GhostScriptを入れる。
+ArchLinux では, GhostScript を入れる.
 
 #+begin_src sh
 sudo pacman -S ghostscript
@@ -493,11 +559,11 @@ sudo pacman -S ghostscript
 )
 #+end_src
 
-どうも、doc-view-modeがめちゃくちゃ遅い！linum-modeが有効なことが原因。
-以下のページを参考に、major-modeが doc-view-modeのときは、linum-modeはdisableに。
+どうも, doc-view-mode がめちゃくちゃ遅い!linum-mode が有効なことが原因.
+以下のページを参考に, major-mode が doc-view-mode のときは, linum-mode は disable に.
 
 - [[http://stackoverflow.com/questions/16132234/how-can-i-speed-up-emacs-docview-mode][How can I speed up Emacs DocView mode? - Stack Overflow]]
 
 * calfw
-Emacs用カレンダー.
+Emacs 用カレンダー.
 

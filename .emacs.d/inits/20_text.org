@@ -1,9 +1,9 @@
 * Text
-テキスト編集。Emacsの底力を発揮する！
+テキスト編集. Emacs の底力を発揮する!
 
 * 編集
 ** cua-mode
-矩形編集。
+矩形編集.
 
 #+begin_src emacs-lisp
 (cua-mode t)
@@ -18,8 +18,8 @@ http://shibayu36.hatenablog.com/entry/2013/12/30/190354
 
 - [[https://github.com/magnars/multiple-cursors.el][magnars/multiple-cursors.el]]
 
-どうも、no windowだとうまく動作しない。。
-うまく動かないとき、~/.emacs.d/.mc-lists.elを削除したらうまくいくようになった。
+どうも, no window だとうまく動作しない. .
+うまく動かないとき, ~/.emacs.d/.mc-lists.el を削除したらうまくいくようになった.
 
 https://github.com/magnars/multiple-cursors.el/issues/121
 
@@ -73,7 +73,7 @@ http://d.hatena.ne.jp/syohex/20120117/1326814127
 #+end_src
 
 ** auto-complete
-自動補完を実現するelisp
+自動補完を実現する elisp
 
 - http://www.emacswiki.org/emacs/auto-complete-extension.el
 - http://cx4a.org/software/auto-complete/index.ja.html
@@ -91,14 +91,14 @@ http://d.hatena.ne.jp/syohex/20120117/1326814127
   ;;  (set-face-background 'ac-selection-face "steelblue")
   ;;  (set-face-background 'ac-menu-face "skyblue")
   
-  ;; 4文字以上から補完スタート 
+  ;; 4 文字以上から補完スタート 
   ;; (setq ac-auto-start nil)
   (setq ac-auto-start 4)
   
-  ;; その代わり補完キーでトリガさせる。
+  ;; その代わり補完キーでトリガさせる.
   (global-set-key "\M-/" 'ac-start)
 
-  ;; なぜか、Shift+Altでないと動かないのだが。。
+  ;; なぜか, Shift+Alt でないと動かないのだが. .
   (define-key ac-menu-map (kbd "M-n") 'ac-next)
   (define-key ac-menu-map (kbd "M-p") 'ac-previous)
 
@@ -119,7 +119,7 @@ www.pitecan.com/Keisen/keisen.el.
 
 #+begin_src emacs-lisp
 ;;(require 'keisen)
-;;; Control+矢印キーで罫線を引く場合
+;;; Control+ 矢印キーで罫線を引く場合
 ;; (global-set-key (kbd "C-M-f") 'keisen-right-move)
 ;;(global-set-key (kbd "C-M-b") 'keisen-left-move)
 ;;(global-set-key (kbd "C-M-p") 'keisen-up-move)
@@ -130,6 +130,30 @@ www.pitecan.com/Keisen/keisen.el.
 ;;(global-set-key [(C-up)] 'keisen-up-move)
 ;;(global-set-key [(C-down)] 'keisen-down-move)
 #+end_src
+
+** text-adjust
+   - text-adjust-codecheck : 半角カナ, 規格外文字を「〓」に置き換える.
+   - text-adjust-hankaku   : 全角英数文字を半角にする.
+   - text-adjust-kutouten  : 句読点を「, 」「. 」に置き換える.
+   - text-adjust-space     : 全角文字と半角文字の間に空白を入れる.
+
+   これは便利だ.
+
+ - [[http://www.emacswiki.org/emacs/InsertSpaceBetweenZenkakuAndHankaku][EmacsWiki: Insert Space Between Zenkaku And Hankaku]]
+ - [[http://d.hatena.ne.jp/rubikitch/20090220/text_adjust][全角文字と半角文字の間に自動でスペースを開ける text-adjust.el を使ってみた ]]
+ - http://www.rubyist.net/~rubikitch/archive/mell.el
+ - http://www.rubyist.net/~rubikitch/archive/text-adjust.el
+
+ #+begin_src emacs-lisp
+ (require 'text-adjust)
+ (defun text-adjust-space-before-save-if-needed ()
+   (when (memq major-mode
+               '(org-mode text-mode wl-draft-mode))
+	       (text-adjust-buffer)))
+  ;;           (text-adjust-space-buffer)))
+ (defalias 'spacer 'text-adjust-space-buffer)
+ (add-hook 'before-save-hook 'text-adjust-space-before-save-if-needed)
+ #+end_src
 
 * 移動
 ** ace-jump-mode
@@ -156,10 +180,10 @@ Awesome Emacs Rocks!
 #+end_src
 
 ** isearch-ace-jump-mode
-Do ace-jump from isearch.
+   Do ace-jump from isearch.
 
-isearchの初めの一文字を入力して待っていると、ace-jump-char発動。
-isearchして、しばらく入力しないとswoop発動。
+   isearch の初めの一文字を入力して待っていると, ace-jump-char 発動.
+   isearch して, しばらく入力しないと swoop 発動.
 
 - https://github.com/tam17aki/isearch-ace-jump-mode
 - http://qiita.com/ballforest/items/7c3f2e64b59d8157bc8c
@@ -168,7 +192,7 @@ isearchして、しばらく入力しないとswoop発動。
 (require 'isearch-ace-jump)
 (global-isearch-ace-jump-mode +1)
 
-;; Defaultだと0.4だけど、それだと早い。
+;; Default だと 0.4 だけど, それだと早い.
 (setq isearch-ace-jump-input-idle-delay 1.0)
 
 (define-key swoop-map (kbd "C-s") 'swoop-action-goto-line-next)
@@ -177,7 +201,7 @@ isearchして、しばらく入力しないとswoop発動。
 
 ** iy-go-to-char
 
-前後のcharへ移動する。ace-jump-modeがあれば不要かな。。。
+前後の char へ移動する. ace-jump-mode があれば不要かな. . .
 
 - https://github.com/doitian/iy-go-to-char
 
@@ -194,9 +218,9 @@ isearchして、しばらく入力しないとswoop発動。
 #+end_src
 
 ** jump-char
-iy-go-to-charよりよさそう
+iy-go-to-char よりよさそう
 
-;で前. , で後ろ。 C-c C-c で ace-jump-modeに切り替え。
+;で前. , で後ろ. C-c C-c で ace-jump-mode に切り替え.
 
 - https://github.com/lewang/jump-char
 
@@ -204,10 +228,10 @@ iy-go-to-charよりよさそう
 (require 'jump-char)
 ;; (global-set-key (kbd "C-c f") 'jump-char-forward)
 ;; (global-set-key (kbd "C-c F") 'jump-char-backward)
-;; key-chordにかえる
+;; key-chord にかえる
 #+end_src
 ** chord-key
-   キーバインド割り当て。jump-charと一緒に利用。
+   キーバインド割り当て. jump-char と一緒に利用.
 
 #+begin_src emacs-lisp
 (require 'key-chord)
@@ -242,7 +266,7 @@ iy-go-to-charよりよさそう
 )
 #+end_src
 ** anzu
-インタラクティブ検索、置換
+インタラクティブ検索, 置換
 
 - http://qiita.com/syohex/items/56cf3b7f7d9943f7a7ba
 - https://github.com/syohex/emacs-anzu

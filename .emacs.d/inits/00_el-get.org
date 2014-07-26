@@ -1,8 +1,8 @@
 * El-get
-Emacs用パッケージマネージャー
+Emacs 用パッケージマネージャー
 
 ** 環境による場合分け
-el-get実行前に、環境による場合分けのマクロを定義。
+el-get 実行前に, 環境による場合分けのマクロを定義.
 
 #+begin_src emacs-lisp :tangle yes
 ;; -----------------------------------------------------------------------
@@ -16,7 +16,10 @@ el-get実行前に、環境による場合分けのマクロを定義。
       emacs23-p (string-match "^23" emacs-version)
       emacs23.0-p (string-match "^23\.0" emacs-version)
       emacs23.1-p (string-match "^23\.1" emacs-version)
-      emacs23.2-p (string-match "^23\.2" emacs-version))
+      emacs23.2-p (string-match "^23\.2" emacs-version)
+      emacs24.3-p (string-match "^24\.3" emacs-version)
+      emacs24.4-p (string-match "^24\.4" emacs-version)
+)
 
 ;; system-type predicates
 (setq darwin-p  (eq system-type 'darwin)
@@ -39,7 +42,7 @@ el-get実行前に、環境による場合分けのマクロを定義。
 #+end_src
 
 * el-get.el
-インストール自体は init.elで。
+インストール自体は init.el で.
 
 ** 共通パッケージ
 
@@ -68,7 +71,7 @@ el-get実行前に、環境による場合分けのマクロを定義。
     ht
     iedit
     ;; fic-ext-mode
-    ;; smart-compile 独自改造したものをelispにおいた
+    ;; smart-compile 独自改造したものを elisp においた
     expand-region
     ;; utility
     howm
@@ -130,7 +133,7 @@ el-get実行前に、環境による場合分けのマクロを定義。
 #+end_src
 
 ** Linux 特有のパッケージ
-el-getの延長でbuildとか動くとcygwinでこけたりする。
+el-get の延長で build とか動くと cygwin でこけたりする.
 
 #+begin_src emacs-lisp :tangle yes
 (defvar my/el-get-packages-for-linux
@@ -168,7 +171,7 @@ el-getの延長でbuildとか動くとcygwinでこけたりする。
 #+end_src
 
 * el-get-elpa
-MELPAとの連携。M-x el-get-elpa-build-local-recipesする。
+MELPA との連携. M-x el-get-elpa-build-local-recipes する.
 
 http://stackoverflow.com/questions/23165158/how-do-i-install-melpa-packages-via-el-get
 

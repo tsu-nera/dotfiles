@@ -49,11 +49,6 @@
 (setq linum-disabled-modes-list '(doc-view-mode))
 #+end_src
 
-- 現在行に色をつける
-#+begin_src emacs-lisp
-(global-hl-line-mode 1) 
-#+end_src
-
 - とにかく色をつける
 #+begin_src emacs-lisp
 ;;(global-font-lock-mode 1)
@@ -65,12 +60,19 @@
 #+end_src
 
 * ハイライト
-** 80行目をハイライト
+** 現在行をハイライト
 
-#+begin_src emacs-lisp
-(require 'highlight-80+)
-;; (add-hook 'text-mode-hook (lambda () (interactive) (highlight-80+-mode 1)))
-#+end_src
+   #+begin_src emacs-lisp
+   (global-hl-line-mode 1)
+   #+end_src
+
+** 80行目をハイライト
+   なんかうまくうごいていない。
+
+   #+begin_src emacs-lisp
+   (require 'highlight-80+)
+   ;; (add-hook 'text-mode-hook (lambda () (interactive) (highlight-80+-mode 1)))
+   #+end_src
 
 ** Set Markをハイライト
 - [[http://www.emacswiki.org/emacs/VisibleMark][EmacsWiki: Visible Mark]]
@@ -236,13 +238,22 @@ http://masutaka.net/chalow/2011-05-19-1.html
 
 * 番号指定でwindow切り替え switch-window
 
-https://github.com/dimitri/switch-window
+  - https://github.com/dimitri/switch-window
 
-あまり好きではないので、一旦封印する
+  あまり好きではないので、一旦封印する
 
 #+begin_src emacs-lisp
 ;; (require 'switch-window)
 ;; (global-set-key (kbd "C-x o") 'switch-window)
+#+end_src
+
+* stripe-buffer
+しましま表示
+
+#+begin_src emacs-lisp
+(require 'stripe-buffer)
+(add-hook 'dired-mode-hook 'turn-on-stripe-buffer-mode)
+;;(add-hook 'org-mode-hook 'turn-on-stripe-table-mode)
 #+end_src
 
 * sublimity

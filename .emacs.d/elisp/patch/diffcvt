@@ -1,0 +1,77 @@
+#!/usr/bin/perl
+#
+# Copyright 1997 Pavel Machek <pavel@elf.mj.gts.cz>
+#
+# Version 0.1.1
+#
+
+sub toeditable {
+$_ = <>;
+while( 1 ) {
+    if (eof()) { exit( 0 ); }
+
+    do {
+	print "$_";
+    } while( (!(/^--- /)) && ($_ = <>) );
+
+    $_ = <>;
+    if (!/^\+\+\+ /) { next; }
+    printf "$_";
+
+    if (eof()) { exit( 0 ); }
+    $plus = 1;
+    $minus = 1;
+    while( <> ) {
+	if (/^\@\@.*\@\@$/) {
+	    s/\@\@ -([0-9]+),([0-9]+) \+([0-9]+),([0-9]+) \@\@/1=$1,2=$2,3=$3,4=$4/;
+	    $minus=$2;
+	    $plus=$4; 
+	    print "@@ -$1,??? +$3,??? @@\n";
+	    next;
+        }
+	if (($plus == 0) && ($minus == 0)) { last; }
+#	print "$plus/$minus ";
+	if (/^\+/) { $plus--; print "$_"; next; }
+	if (/^-/) { $minus--; print "$_"; next; }
+	if (/^ /) { $plus--; $minus--; print "$_"; next; }
+	$plus--; $minus--;
+	print " $_";
+    }
+    print "@@ EOF\n";
+}
+}
+
+sub fromeditable {
+open( FROM, "tac |" );
+open( TO, "| tac" );
+while( 1 ) {
+    while( <FROM> ) {
+	if (/^\@\@ EOF/) { last; }
+	print TO "$_";
+    }
+    if (eof()) { exit(0); }
+    $plus = 0;
+    $minus = 0;
+    while( <FROM> ) {
+	if (/^\@\@.*\@\@$/) {
+	    s/\?\?\?/$minus/;
+	    s/\?\?\?/$plus/;
+	    print TO "$_";
+	    $plus = 0;
+	    $minus = 0;
+	    next;
+	}
+	if (/^\+\+\+/) { print TO "$_"; last; }
+	if (/^\+/) { $plus++; print TO "$_"; next; }
+	if (/^-/) { $minus++; print TO "$_"; next; }
+	if (/^ /) { $plus++; $minus++; print TO "$_"; next; }
+	print TO " $_";
+    }
+}
+}
+
+require "getopts.pl";
+do Getopts( 'd' );
+
+if ($opt_d) { fromeditable(); }
+       else { toeditable(); }

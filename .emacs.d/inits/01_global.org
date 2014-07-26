@@ -1,7 +1,12 @@
+* Welcome To Emacs!!
+最新版のemacs github mirror.
+
+- https://github.com/mirrors/emacs
+
 * Macros
 
 Special Thanks
-http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
+- http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
 
 #+begin_src emacs-lisp
 ;;  add-hookを簡潔に
@@ -168,25 +173,25 @@ minibufferの履歴保存
 
    起動時のscratchメッセージは表示しない
 
-#+begin_src emacs-lisp
-(setq initial-scratch-message nil)
-#+end_src
-
-起動時の画面はいらない
-
-#+begin_src emacs-lisp
-(setq inhibit-startup-message t)
-#+end_src
+   #+begin_src emacs-lisp
+   (setq initial-scratch-message nil)
+   #+end_src
+    
+   起動時の画面はいらない
+    
+   #+begin_src emacs-lisp
+   (setq inhibit-startup-message t)
+   #+end_src
 
 * Emacs client
-server start for emacs-client
-http://d.hatena.ne.jp/syohex/20101224/1293206906
+  server start for emacs-client
+  http://d.hatena.ne.jp/syohex/20101224/1293206906
 
-#+begin_src emacs-lisp
-(require 'server)
-(unless (server-running-p)
-  (server-start))
-#+end_src
+  #+begin_src emacs-lisp
+  (require 'server)
+  (unless (server-running-p)
+    (server-start))
+  #+end_src
 
 * Tips
 ** EmacsとXのクリップポードを共有
@@ -427,14 +432,5 @@ popwin:special-display-config)
 ;; パスワード自体は ~/.netrcに書き込む。dropboxで同期
 ;; ------------------------------------------------------------------------
 (require 'netrc)
-
-;; -----------------------------------------------------------------------
-;; Name     : stripe-buffer
-;; Install  : el-get
-;; Function : しましま表示
-;; ------------------------------------------------------------------------
-(require 'stripe-buffer)
-(add-hook 'dired-mode-hook 'turn-on-stripe-buffer-mode)
-;;(add-hook 'org-mode-hook 'turn-on-stripe-table-mode)
 #+end_src
 
