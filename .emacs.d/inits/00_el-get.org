@@ -99,6 +99,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     ;; color
     color-theme
     molokai-theme
+    color-theme-leuven
     ;; programming
     flymake
     flycheck

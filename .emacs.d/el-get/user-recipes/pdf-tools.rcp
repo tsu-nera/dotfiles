@@ -1,17 +1,11 @@
 (:name pdf-tools
        :type github
-       :website "https://github.com/politza/pdf-tools"
+       :website "https://github.com/tsu-nera/pdf-tools"
        :description "Emacs support library for PDF files."
-       :pkgname "politza/pdf-tools"
+       :pkgname "tsu-nera/pdf-tools"
        :build
        '(("./autogen.sh")
  	 ("./configure")
-	  ;;(concat "--with-emacs=" el-get-emacs)
-;;	  "--with-contrib" ,
-;;	  "--prefix=~/.emacs.d/el-get/repo/pdf-tools"
-;;	  (concat "--prefix="
-;;		  (expand-file-name
-;;		   (el-get-package-directory "pdf-tools"))))
 	 ("make")
 	 ("make" "install"))
        :load-path ("./lisp")

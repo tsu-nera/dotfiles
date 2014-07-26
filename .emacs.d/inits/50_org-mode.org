@@ -16,29 +16,35 @@
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-cb" 'org-iswitchb)
 (global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-c\C-x\C-@" 'org-clock-out) ;; tmuxで C-oは利用しているため
-(define-key org-mode-map "\C-co" 'org-open-at-point) ;; C-oの置き換え tmuxで c-oは使っているので
+(global-set-key "\C-c\C-x\C-@" 'org-clock-out) ;; tmux で C-o は利用しているため
+(define-key org-mode-map "\C-co" 'org-open-at-point) ;; C-o の置き換え tmux で c-o は使っているので
 (global-set-key "\C-cC" 'cfw:open-org-calendar)
 (global-set-key "\C-c\C-x\C-z" 'org-resolve-clocks)
 (global-set-key "\C-c\C-x\C-g" 'org-clock-goto)
-
-;; 色ツケ
-(setq org-src-fontify-natively t)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : tiny-function
 ;; ------------------------------------------------------------------------
 ;; wanderlust
-;; wanderlustのメールを追跡できる
+;; wanderlust のメールを追跡できる
 (setq org-return-follows-link t)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : tiny-function
 ;; ------------------------------------------------------------------------
-;; DONEをすべてアーカイブ
+;; DONE をすべてアーカイブ
 (defun my-org-archive-done-tasks ()
   (interactive)
   (org-map-entries 'org-archive-subtree "/DONE" 'file))
+#+end_src
+
+org-mode の src を目立たせる設定. うまく動いていないような.
+
+- [[http://orgmode.org/worg/org-contrib/babel/examples/fontify-src-code-blocks.html][Pretty fontification of source code blocks]]
+
+#+begin_src emacs-lisp
+(setq org-src-fontify-natively t)
+(setq org-fontify-whole-heading-line t)
 #+end_src
 
 ** スタートアップ設定
@@ -50,10 +56,10 @@
 (setq org-startup-folded (quote content))
 
 ;; 自動インデント
-(setq org-indent-mode t)
+;; (setq org-indent-mode t)
 #+end_src
 
-** org-open-linkをdiredで
+** org-open-link を dired で
 
 http://sheephead.homelinux.org/
 
@@ -100,10 +106,10 @@ http://sheephead.homelinux.org/
 			 "~/gtd/unplan.org"
 			 "~/gtd/schedule.org"))
 
-;; 時間表示が1桁の時、0をつける
+;; 時間表示が 1 桁の時, 0 をつける
 (setq org-agenda-time-leading-zero t)
 
-;; DONEの時刻を記録
+;; DONE の時刻を記録
 (setq org-log-done 'time)
 
 ;; セレクションメニューから状態の変更を行えるようにする
@@ -113,19 +119,19 @@ http://sheephead.homelinux.org/
 
 (setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
 
-;; 測定した時間が0の場合消去する
+;; 測定した時間が 0 の場合消去する
 (setq org-clock-out-remove-zero-time-clocks t)
 
-;;アジェンダのclockreport用パラメータ
+;;アジェンダの clockreport 用パラメータ
 (setq org-agenda-clockreport-parameter-plist
       '(:maxlevel 5 :block t :tstart t :tend t :emphasize t :link t :narrow 80 :indent t :formula nil :timestamp t :level 5 :tcolumns nil :formatter nil))
 
 ;; カラムビューで表示する項目
-(setq org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
+(setq org-columns-default-format "%80ITEM (Task) %10Effort (Effort){:} %10CLOCKSUM")
 
 ; Set default column view headings: Task Effort Clock_Summary
 ;; (setq org-columns-default-format
-;;      "%40ITEM(Task) %17Effort(Effort){:} %10CLOCKSUM")
+;;      "%40ITEM (Task) %17Effort (Effort){:} %10CLOCKSUM")
 
 ; global Effort estimate values
 (setq org-global-properties (quote ((
@@ -158,12 +164,12 @@ http://sheephead.homelinux.org/
 
 ** タスクの状態定義
 
-とりあえず今は、TODOとDONEでいいや。そのうち充実させる。
+とりあえず今は, TODO と DONE でいいや. そのうち充実させる.
 
 #+begin_src emacs-lisp
 ;; (setq org-todo-keywords (quote (
-;;  (sequence "TODO(t)" "STARTED(s!)" "NEXT(n!)" "DONE(d!/!)")
-;;  (sequence "WAITING(w@/!)" "SOMEDAY(S!)")
+;;  (sequence "TODO (t)" "STARTED (s!)" "NEXT (n!)" "DONE (d!/!)")
+;;  (sequence "WAITING (w@/!)" "SOMEDAY (S!)")
 ;;  )))
 
 ;; (setq org-todo-keyword-faces (quote (
@@ -189,9 +195,9 @@ http://sheephead.homelinux.org/
 ;; 参考
 ;; http://hpcgi1.nifty.com/spen/index.cgi?OrgMode%2fOrganize_Your_Life_In_Plain_Text!#i9
 
-;; (setq org-todo-keywords (quote ((sequence "TODO(t)" "STARTED(s!)" "|" "DONE(d!/!)")
-;;  (sequence "WAITING(w@/!)" "SOMEDAY(S!)" "OPEN(O@)" "|" "CANCELLED(c@/!)")
-;;  (sequence "QUOTE(q!)" "QUOTED(Q!)" "|" "APPROVED(A@)" "EXPIRED(E@)" "REJECTED(R@)"))))
+;; (setq org-todo-keywords (quote ((sequence "TODO (t)" "STARTED (s!)" "|" "DONE (d!/!)")
+;;  (sequence "WAITING (w@/!)" "SOMEDAY (S!)" "OPEN (O@)" "|" "CANCELLED (c@/!)")
+;;  (sequence "QUOTE (q!)" "QUOTED (Q!)" "|" "APPROVED (A@)" "EXPIRED (E@)" "REJECTED (R@)"))))
 ;; (setq org-todo-keyword-faces (quote (("TODO" :foreground "red" :weight bold)
 ;;  ("STARTED" :foreground "blue" :weight bold)
 ;;  ("DONE" :foreground "forest green" :weight bold)
@@ -218,7 +224,7 @@ http://sheephead.homelinux.org/
 #+end_src
 
 ** org-clock-in-quick
- 指定したタスクをclockinするためのショートカット はじめてつくった自作defun!!
+ 指定したタスクを clockin するためのショートカット はじめてつくった自作 defun!!
 
  http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
  https://github.com/danieroux/emacs/blob/master/external/bh-org-mode.el
@@ -252,7 +258,7 @@ http://sheephead.homelinux.org/
   "Display rest message on buffer"
   (let ((temp-buffer-show-function 'switch-to-buffer))
   (with-output-to-temp-buffer "*RestMessage*"  
-  (princ "\n休憩中だよ（*´～｀*）")))
+  (princ "\n 休憩中だよ (*'~`*)")))
   (my-org-rest-display-mode)
   )
 
@@ -270,7 +276,7 @@ http://sheephead.homelinux.org/
 ** 未分類
 #+begin_src emacs-lisp
 ;; -----------------------------------------------------------------------
-;; NextActionの設定
+;; NextAction の設定
 ;; http://qiita.com/takaxp/items/4dfa11a81e18b29143ec
 ;; ------------------------------------------------------------------------
 (defvar my-next-tag "next")
@@ -280,7 +286,7 @@ http://sheephead.homelinux.org/
 ;; (setq org-tag-faces '(("next" :foreground "#FF0000")))
 (setq org-tag-faces '(("next" :foreground "orange")))
 
-;; Nextタグをトグルする
+;; Next タグをトグルする
 ;; (defun my-toggle-tag (my-tag)
 ;;   (interactive)
 ;;   (when (eq major-mode 'org-mode)
@@ -306,7 +312,7 @@ http://sheephead.homelinux.org/
         (org-reveal)))))
 
 ;; (defun my-toggle-unplan-tag ()
-;;   my-toggle-tag(my-unplan-tag))
+;;   my-toggle-tag (my-unplan-tag))
 
 (global-set-key (kbd "C-x <f2>") 'my-toggle-next-tag)
 ;;(global-set-key (kbd "C-x <f3>") 'my-toggle-unplan-tag)
@@ -331,12 +337,12 @@ http://sheephead.homelinux.org/
 
 ;; Save the running clock and all clock history
 ;; when exiting Emacs, load it on startup
-;; Emacsが再起動したときにタスクの時間計測を再開する
-;; Emacsが終了する時に測定中の計測と全ての測定履歴を保存する
+;; Emacs が再起動したときにタスクの時間計測を再開する
+;; Emacs が終了する時に測定中の計測と全ての測定履歴を保存する
 (setq org-clock-persist (quote history))
 
 ;; 空き時間の解決 
-;; 半端時間を絶えずチェックしているファイルのリストは、M-x org-resolve-clocks
+;; 半端時間を絶えずチェックしているファイルのリストは, M-x org-resolve-clocks
 ;; http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
 (setq org-clock-idle-time 20)
 
@@ -365,8 +371,8 @@ http://sheephead.homelinux.org/
 
 ;; -----------------------------------------------------------------------
 ;; Name     : org-clock-by-tags
-;; Function : タグごとにclocktableを集計
-;; TODO そのうち elispで分離
+;; Function : タグごとに clocktable を集計
+;; TODO そのうち elisp で分離
 ;; http://stackoverflow.com/questions/17353591/timetable-grouped-by-tag
 ;; #+BEGIN: clocktable-by-tag :maxlevel 2 :tags ("p1" "p2")
 ;;                            :tstart "2013-06-27" :tend "2013-06-28"
@@ -434,7 +440,7 @@ http://orgmode.org/manual/Template-expansion.html#Template-expansion
 	("u" "Unplan" entry (file+datetree "~/gtd/unplan.org") "** TODO %? :unplan:\n")
 	("w" "Diary" entry (file+datetree "~/gtd/main.org") "** %T %?\n")
 	("k" "Clock-in" entry (clock) "* %T %?\n")
-	;; calfwとの連携 http://sheephead.homelinux.org/2014/03/15/7035/#
+	;; calfw との連携 http://sheephead.homelinux.org/2014/03/15/7035/#
 	("c" "calfw2org" entry (file "~/gtd/schedule.org") "*  %?\n %(cfw:org-capture-day)")
 	("m" "Memo" plain
          (file (concat org-directory (format-time-string "/howm/%Y%m%d-%H%M%S.org")))
@@ -449,7 +455,7 @@ http://orgmode.org/manual/Template-expansion.html#Template-expansion
 #+end_src
 
 * org2blog
-Emacs から WordPressに投稿するLisp
+Emacs から WordPress に投稿する Lisp
 
 #+begin_src emacs-lisp
 (require 'org2blog-autoloads)
@@ -486,16 +492,16 @@ google calendar.
 
 - http://sheephead.homelinux.org/2014/03/14/7023/
 
-Google Developer Consoleで client-idと secret-keyを取得する必要がある。
+Google Developer Console で client-id と secret-key を取得する必要がある.
 
 - https://console.developers.google.com/project
 
-取得した情報は ~/.netrcに保存して読み出す。
+取得した情報は ~/.netrc に保存して読み出す.
 
 #+begin_src emacs-lisp
 (when linux-p
 (require 'org-gcal)
-;; passwordは netrcへ
+;; password は netrc へ
 (setq GoogleCal (netrc-machine (netrc-parse "~/.netrc") "org-gcal" t))
 (setq org-gcal-client-id (netrc-get GoogleCal "login")
       org-gcal-client-secret (netrc-get GoogleCal "password")
@@ -506,17 +512,17 @@ Google Developer Consoleで client-idと secret-keyを取得する必要があ�
 #+end_src
 
 ** calfw
-Emacs用カレンダー.
+Emacs 用カレンダー.
 
 - [[https://github.com/kiwanami/emacs-calfw][kiwanami/emacs-calfw]]
-- [[http://d.hatena.ne.jp/kiwanami/20110723/1311434175][Emacs用カレンダー calfw v1.2 リリース - 技術日記＠kiwanami]]
-- [[http://d.hatena.ne.jp/kiwanami/20110619/1308495781][calfw の org-agenda 対応 calfw-org.el - 技術日記＠kiwanami]]
-- [[http://sheephead.homelinux.org/2014/03/15/7035/][calfwとorg-gcalの連携 | sheephead]]
+- [[http://d.hatena.ne.jp/kiwanami/20110723/1311434175][Emacs 用カレンダー calfw v1.2 リリース - 技術日記＠ kiwanami]]
+- [[http://d.hatena.ne.jp/kiwanami/20110619/1308495781][calfw の org-agenda 対応 calfw-org.el - 技術日記＠ kiwanami]]
+- [[http://sheephead.homelinux.org/2014/03/15/7035/][calfw と org-gcal の連携 | sheephead]]
 
-org-gcalでGoogleカレンダーと同期して、calfwで表示させる。
+org-gcal で Google カレンダーと同期して, calfw で表示させる.
 
-org と ical のスケジュールを混ぜて表示させることが出来ます。
-以下のような感じで cfw:open-calendar-buffer を使います。
+org と ical のスケジュールを混ぜて表示させることが出来ます.
+以下のような感じで cfw:open-calendar-buffer を使います.
 
 #+begin_src emacs-lisp
 (require 'calfw-org)
@@ -526,7 +532,7 @@ org と ical のスケジュールを混ぜて表示させることが出来ま�
 ;; First day of the week
 (setq calendar-week-start-day 1) ; 0:Sunday, 1:Monday
 
-;; cfw:open-org-calendarに集約するので、ひとまずコメントアウト。
+;; cfw:open-org-calendar に集約するので, ひとまずコメントアウト.
 ;; (defun my-open-calendar ()
 ;;   (interactive)
 ;;   (cfw:open-calendar-buffer
@@ -540,14 +546,14 @@ org と ical のスケジュールを混ぜて表示させることが出来ま�
 #+end_src
 * org-export
 ** ox-rst
-org-modeからRSTへの変換
+org-mode から RST への変換
 
 #+begin_src emacs-lisp
 (require 'ox-rst)
 #+end_src
 
 ** ox-pandoc
-org-modeからRSTへの変換. ox-rstを使うからいらないかも。
+org-mode から RST への変換. ox-rst を使うからいらないかも.
 
 #+begin_src emacs-lisp
 (require 'ox-pandoc)
@@ -561,14 +567,14 @@ org-modeからRSTへの変換. ox-rstを使うからいらないかも。
 #+end_src
 
 ** ox-wk
-   dokuwiki変換
+   dokuwiki 変換
 #+begin_src emacs-lisp
 (require 'ox-wk)
 #+end_src
 * mobileOrg
-iphoneとorg-modeの同期。Dropboxを利用
+iphone と org-mode の同期. Dropbox を利用
 
-つかってないから、ひとまず封印。
+つかってないから, ひとまず封印.
 
 #+begin_src emacs-lisp
 ;; Set to the location of your Org files on your local system
@@ -576,10 +582,10 @@ iphoneとorg-modeの同期。Dropboxを利用
 ;; ;; Set to the name of the file where new notes will be stored
 ;; (setq org-mobile-inbox-for-pull "~/gtd/flagged.org")
 ;; ;; Set to <your Dropbox root directory>/MobileOrg.
-;; (setq org-mobile-directory "~/dropbox/アプリ/MobileOrg")
+;; (setq org-mobile-directory "~/dropbox/ アプリ/MobileOrg")
 
 ;; ;; 起動と終了時に同期
-;; ;; org-mobile-directryが存在しないとハングするためなしにした
+;; ;; org-mobile-directry が存在しないとハングするためなしにした
 ;; ;; そのうちなんか考える
 ;; ;; (add-hook 'after-init-hook 'org-mobile-pull)
 ;; ;; (add-hook 'kill-emacs-hook 'org-mobile-push)
@@ -640,7 +646,7 @@ containing the properties `:guid' and `:item-full-text'."
 (setq org-feed-default-template "\n* %h\n  - %U\n  - %a  - %description")
 #+end_src
 
-** 登録feed
+** 登録 feed
 
 #+begin_src emacs-lisp
 (setq org-feed-alist nil)
@@ -657,7 +663,7 @@ containing the properties `:guid' and `:item-full-text'."
 
 #+begin_src emacs-lisp
 (require 'org-wl)
-;; wanderlustのメールを追跡できる
+;; wanderlust のメールを追跡できる
 (setq org-return-follows-link t)
 #+end_src
 
@@ -676,7 +682,7 @@ containing the properties `:guid' and `:item-full-text'."
 
 * memo
 ** Narrowing
-範囲を限定して表示することができる。
+範囲を限定して表示することができる.
 
 #+begin_src language
 C-x n s     (org-narrow-to-subtree)

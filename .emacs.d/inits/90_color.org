@@ -1,22 +1,51 @@
 * Color
-色関係。
+色関係.
+
+* Emacs Color Theme
+
+A collection of custom themes for Emacs.
+
+- https://github.com/owainlewis/emacs-color-themes
+
+会社だと, エラーするかもしれないため, マニュアルで入れることにした.
+
+#+begin_src sh
+$ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-color-themes && ./install.sh
+#+end_src
+
+el-get にまとめた.
+
+#+begin_src emacs-lisp
+(require 'emacs-color-themes)
+#+end_src
 
 ** Molokai
-Install  : https://raw2.github.com/hbin/molokai-theme/master/molokai-theme-kit.el
+   Install  : https://raw2.github.com/hbin/molokai-theme/master/molokai-theme-kit.el
 
-現在は、forkしてカスタマイズしたものをりようしている。
+   現在は, fork してカスタマイズしたものをりようしている.
 
 #+begin_src emacs-lisp
 ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/molokai-theme")
+;; (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/molokai-theme")
 
-(require 'molokai-theme-kit)
- (setq molokai-theme-kit t)
+;; (require 'molokai-theme-kit)
+;;  (setq molokai-theme-kit t)
 
- (load-theme 'molokai t)
+;; (load-theme 'molokai t)
 #+end_src
 
-** rainbow-mode
+** Leuven-theme
+   Emacs 24.4 に標準で入っているテーマ. org-mode との相性がとにかくイイ!
+
+   - [[https://github.com/fniessen/emacs-leuven-theme][fniessen/emacs-leuven-theme]]
+
+#+begin_src emacs-lisp
+(load-theme 'leuven t)
+;; fontify the whole line for headings (with a background color)
+(setq org-fontify-whole-heading-line t)
+#+end_src
+
+* rainbow-mode
 数字表記に色つけしてくれる 
 
 #+begin_src emacs-lisp
@@ -27,7 +56,7 @@ Install  : https://raw2.github.com/hbin/molokai-theme/master/molokai-theme-kit.e
 #+end_src
 
 * rainbow-delimiters
-かっこの深さに応じて色付けしてくれる。
+かっこの深さに応じて色付けしてくれる.
 
 - [[https://github.com/jlr/rainbow-delimiters][jlr/rainbow-delimiters]]
 
@@ -35,3 +64,4 @@ Install  : https://raw2.github.com/hbin/molokai-theme/master/molokai-theme-kit.e
 (require 'rainbow-delimiters)
 (global-rainbow-delimiters-mode)
 #+end_src
+

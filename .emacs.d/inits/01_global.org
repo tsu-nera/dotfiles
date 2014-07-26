@@ -1,5 +1,5 @@
 * Welcome To Emacs!!
-最新版のemacs github mirror.
+最新版の emacs github mirror.
 
 - https://github.com/mirrors/emacs
 
@@ -9,11 +9,11 @@ Special Thanks
 - http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
 
 #+begin_src emacs-lisp
-;;  add-hookを簡潔に
+;;  add-hook を簡潔に
 (defmacro add-hook-fn (name &rest body)
     `(add-hook ,name #'(lambda () ,@body)))
 
-;; global-set-keyも簡潔に
+;; global-set-key も簡潔に
 (defmacro global-set-key-fn (key args &rest body)
   `(global-set-key ,key (lambda ,args ,@body)))
 
@@ -21,13 +21,13 @@ Special Thanks
 (defmacro append-to-list (to lst)
   `(setq ,to (append ,lst ,to)))
 
-;; ライブラリがあるときだけrequireする
+;; ライブラリがあるときだけ require する
 ;; マクロ定義
 (defmacro req (lib &rest body)
   `(when (locate-library ,(symbol-name lib))
      (require ',lib) ,@body))
 
-;; autoloadで遅延ロード
+;; autoload で遅延ロード
 (defmacro lazyload (func lib &rest body)
   `(when (locate-library ,lib)
      ,@(mapcar (lambda (f) `(autoload ',f ,lib nil t)) func)
@@ -78,7 +78,7 @@ http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
 (when (> emacs-major-version 23)
   (defvar user-emacs-directory "~/.emacs.d"))
 
-;; load-pathの追加関数
+;; load-path の追加関数
 (defun add-to-load-path (&rest paths)
   (let (path)
     (dolist (path paths paths)
@@ -86,14 +86,14 @@ http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
 	(add-to-list 'load-path default-directory)
 	(if (fboundp 'normal-top-level-add-subdirs-to-load-path)
 	    (normal-top-level-add-subdirs-to-load-path))))))
-;; load-pathに追加するフォルダ
-;; 2つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
+;; load-path に追加するフォルダ
+;; 2 つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
 (add-to-load-path "elisp" "inits" "el-get" "elpa" "local")
 #+end_src
 
 ** ライブラリが存在すればロード
 
-- [[http://d.hatena.ne.jp/tomoya/20090811/1250006208][ひとつの .emacs で設定を、、その2。 - 日々、とんは語る。]]
+- [[http://d.hatena.ne.jp/tomoya/20090811/1250006208][ひとつの .emacs で設定を, , その 2. - 日々, とんは語る. ]]
 
 #+begin_src emacs-lisp
 (defun autoload-if-found (function file &optional docstring interactive type)
@@ -105,16 +105,16 @@ http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
 使い方.
 
 #+begin_src language
-;; 引数は autoload と全く同じです。-if-found を付けるだけ
+;; 引数は autoload と全く同じです. -if-found を付けるだけ
 (when (autoload-if-found 'bs-show "bs" "buffer selection" t)
-  ;; autoload は成功した場合のみ non-nil を返すので、
-  ;; when の条件部に置くことで、依存関係にある設定項目を自然に表現できます。
+  ;; autoload は成功した場合のみ non-nil を返すので,
+  ;; when の条件部に置くことで, 依存関係にある設定項目を自然に表現できます.
   (global-set-key [(control x) (control b)] 'bs-show)
   (setq bs-max-window-height 10))
 #+end_src
 
 * Global Keys
-よくわすれる、CやMの意味。
+よくわすれる, C や M の意味.
 http://www.emacswiki.org/emacs-ja/Emacs%E3%83%93%E3%82%AE%E3%83%8A%E3%83%BC#toc9
 
 #+begin_src emacs-lisp
@@ -137,7 +137,7 @@ http://www.emacswiki.org/emacs-ja/Emacs%E3%83%93%E3%82%AE%E3%83%8A%E3%83%BC#toc9
 ** recentf
 最近使ったファイルをメニューに表示
 
-たくさん履歴を残したい。
+たくさん履歴を残したい.
 
 #+begin_src emacs-lisp
 (recentf-mode 1)
@@ -146,7 +146,7 @@ http://www.emacswiki.org/emacs-ja/Emacs%E3%83%93%E3%82%AE%E3%83%8A%E3%83%BC#toc9
 #+end_src
 
 ** saveplace
-一度訪れたファイルは次開くときはそこから開く。
+一度訪れたファイルは次開くときはそこから開く.
 
 #+begin_src emacs-lisp
 (require 'saveplace)
@@ -154,7 +154,7 @@ http://www.emacswiki.org/emacs-ja/Emacs%E3%83%93%E3%82%AE%E3%83%8A%E3%83%BC#toc9
 #+end_src
 
 ** savehist
-minibufferの履歴保存
+minibuffer の履歴保存
 
 #+begin_src emacs-lisp
 (require 'savehist)
@@ -171,7 +171,7 @@ minibufferの履歴保存
 
 ** 起動時の設定
 
-   起動時のscratchメッセージは表示しない
+   起動時の scratch メッセージは表示しない
 
    #+begin_src emacs-lisp
    (setq initial-scratch-message nil)
@@ -194,19 +194,19 @@ minibufferの履歴保存
   #+end_src
 
 * Tips
-** EmacsとXのクリップポードを共有
+** Emacs と X のクリップポードを共有
 
 http://tubo028.hatenablog.jp/entry/2013/09/01/142238
 
-trampでVMに乗り込むと、うまく動作しない。
+tramp で VM に乗り込むと, うまく動作しない.
 
-ssh の X forwardingの設定が必要？
+ssh の X forwarding の設定が必要?
 
 http://superuser.com/questions/326871/using-clipboard-through-ssh-in-vim
 
-trampするときだけ封印することにする。もっとうまい解決方法ないかな？？
+tramp するときだけ封印することにする. もっとうまい解決方法ないかな??
 
-Shift+Insertでも貼り付けできるので、とりあえずはこれで回避。
+Shift+Insert でも貼り付けできるので, とりあえずはこれで回避.
 
 #+begin_src emacs-lisp
 ;; (when linux-p
@@ -223,15 +223,15 @@ Shift+Insertでも貼り付けできるので、とりあえずはこれで回�
 ;; )
 #+end_src
 ** バッファのサイズ変更
-  C-x C-0を利用する。
+  C-x C-0 を利用する.
   - http://qiita.com/tnoda_/items/ee7804a34e75f4c35d70
 
-** Diredでカレントディレクトリを取得
+** Dired でカレントディレクトリを取得
 
-- [[http://d.hatena.ne.jp/syohex/20111026/1319606395][cdeを改良 - Life is very short]]
+- [[http://d.hatena.ne.jp/syohex/20111026/1319606395][cde を改良 - Life is very short]]
 
 #+begin_src emacs-lisp
-;; .emacs等設定ファイルに追加
+;; .emacs 等設定ファイルに追加
 (defun elscreen-current-directory ()
   (let* (current-dir
          (active-file-name
@@ -263,13 +263,13 @@ Shift+Insertでも貼り付けできるので、とりあえずはこれで回�
 #+end_src
 
 * Tramp
-こんな感じで乗り込む。
+こんな感じで乗り込む.
 
 #+begin_src language
 C-x C-f /ssh:username@hostname#portno:/path/to/your/directory
 #+end_src
 
-Trampでsave時に毎回パスワードが聞かれるので、おまじない。
+Tramp で save 時に毎回パスワードが聞かれるので, おまじない.
 
 http://stackoverflow.com/questions/840279/passwords-in-emacs-tramp-mode-editing
 
@@ -279,7 +279,7 @@ http://stackoverflow.com/questions/840279/passwords-in-emacs-tramp-mode-editing
 
 * undo-tree
 
-C-x uにバインディング。
+C-x u にバインディング.
 
 #+begin_src emacs-lisp
 (require 'undo-tree)
@@ -331,7 +331,7 @@ popwin:special-display-config)
 
 * 未整理
 #+begin_src emacs-lisp
-;; file名の補間で大文字小文字を区別しない
+;; file 名の補間で大文字小文字を区別しない
 (setq completion-ignore-case t)
 
 ;; 同名ファイルの区別
@@ -344,12 +344,12 @@ popwin:special-display-config)
 ;; ウィンドウマネージャ環境での起動時間カイゼン
 (modify-frame-parameters nil '((wait-for-wm . nil)))
 
-;; git管理のシンボリックリンクで質問されないためのおまじない。
+;; git 管理のシンボリックリンクで質問されないためのおまじない.
 ;; 参考: http://openlab.dino.co.jp/2008/10/30/212934368.html
 ;;; avoid "Symbolic link to Git-controlled source file;; follow link? (yes or no)
 (setq git-follow-symlinks t)
 
-;; byte-compile warningの無視
+;; byte-compile warning の無視
 ;; http://tsengf.blogspot.jp/2011/06/disable-byte-compile-warning-in-emacs.html
 ;; ignore byte-compile warnings 
 (setq byte-compile-warnings '(not nresolved
@@ -373,11 +373,11 @@ popwin:special-display-config)
 )
 
 (when windows-p
-; Windows環境のデフォルト
+; Windows 環境のデフォルト
  (setq browse-url-browser-function 'browse-url-default-windows-browser)
 )
 
-;; 今のポイントしているURLを開く
+;; 今のポイントしている URL を開く
 (global-set-key (kbd "C-c u") 'browse-url-at-point)
 
 
@@ -388,8 +388,8 @@ popwin:special-display-config)
 ;;  sudo add-apt-repository ppa:irie/elisp
 ;;  sudo apt-get update
 ;;  sudo apt-get install ibus-el
-;;  いれたけど、うまく動かない。
-;;  -> ibus仕様変更により現在動作せず。もうだめぽよ。
+;;  いれたけど, うまく動かない.
+;;  -> ibus 仕様変更により現在動作せず. もうだめぽよ.
 ;; http://margaret-sdpara.blogspot.jp/2013/10/ibusel.html
 ;; https://code.google.com/p/ibus/issues/detail?id=1419
 ;; ------------------------------------------------------------------------
@@ -407,7 +407,7 @@ popwin:special-display-config)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : ffap.el
-;; Function : 現在の位置のファイル・URLを開く
+;; Function : 現在の位置のファイル・ URL を開く
 ;; History  : 2014/02/02 add
 ;; Install  : build-in
 ;; ------------------------------------------------------------------------
@@ -422,15 +422,14 @@ popwin:special-display-config)
 ;; (require 'tempbuf)
 ;; ファイルを開いたら有効
 ;; (add-hook 'find-file-hooks 'turn-on-tempbuf-mode)
-;; Dired modeならば有効
+;; Dired mode ならば有効
 ;; (add-hook 'dired-mode-hook 'turn-on-tempbuf-mode)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : netrc
 ;; Install  : build-in
 ;; Function : パスワード管理
-;; パスワード自体は ~/.netrcに書き込む。dropboxで同期
+;; パスワード自体は ~/.netrc に書き込む. dropbox で同期
 ;; ------------------------------------------------------------------------
 (require 'netrc)
 #+end_src
-

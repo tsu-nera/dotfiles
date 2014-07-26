@@ -1,0 +1,9 @@
+(:name color-theme
+       :type github
+       :website "https://github.com/owainlewis/emacs-color-themes"
+       :description "A collection of custom themes for Emacs."
+       :pkgname "owainlewis/emacs-color-themes"
+       :build
+       '(("./install.sh"))
+       ;; :load-path ("./lisp")
+       )

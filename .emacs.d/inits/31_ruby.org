@@ -1,5 +1,5 @@
 * Ruby
-みんな大好きRubyだお。
+みんな大好き Ruby だお.
 
 ** ruby-mode
 
@@ -47,7 +47,7 @@ Better Ruby Mode.
 ** パスの設定
 #+begin_src emacs-lisp
 ;; Setting rbenv path
-;; emacs から rbenv でいれたRubyを利用する。
+;; emacs から rbenv でいれた Ruby を利用する.
 (setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:"
 		       (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
 (setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims")
@@ -91,8 +91,8 @@ Better Ruby Mode.
 #+end_src
 
 * ruby-debug
-標準ライブラリのデバッカ。ステップ実行できる。
-elispはrubyのソースに梱包されている。
+標準ライブラリのデバッカ. ステップ実行できる.
+elisp は ruby のソースに梱包されている.
 
 #+begin_src emacs-lisp
 ;;(require 'ruby-debug)
@@ -107,7 +107,7 @@ and source-file directory for your debugger." t)
 ;; -----------------------------------------------------------------------
 ;; Name     : ruby-electric.el --- electric editing commands for ruby files
 ;; Install  :
-;; Function : かっこやdo endなどの対応関係を自動で補正してくれる
+;; Function : かっこや do end などの対応関係を自動で補正してくれる
 ;; ------------------------------------------------------------------------
 (require ' ruby-electric)
   (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
@@ -116,7 +116,7 @@ and source-file directory for your debugger." t)
 ;; -----------------------------------------------------------------------
 ;; Name     : ruby-electric.el --- electric editing commands for ruby files
 ;; Install  :
-;; Function : かっこやdo endなどの対応関係を自動でハイライトしてくれる
+;; Function : かっこや do end などの対応関係を自動でハイライトしてくれる
 ;; ------------------------------------------------------------------------
 (require 'ruby-block)
 (ruby-block-mode t)
@@ -125,7 +125,7 @@ and source-file directory for your debugger." t)
 ;; -----------------------------------------------------------------------
 ;; Name     : RcodeTools
 ;; Install  : el-get
-;; Function : Ruby開発のツール群
+;; Function : Ruby 開発のツール群
 ;; ------------------------------------------------------------------------
 (require 'rcodetools)
 (setq rct-find-tag-if-available nil)
@@ -139,9 +139,9 @@ and source-file directory for your debugger." t)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : ruby-refactor
-;; Install  : github(el-get 登録済み)
+;; Install  : github (el-get 登録済み)
 ;;            https://github.com/ajvargo/ruby-refactor.git
-;; Function : Ruby用リファクタリングツール
+;; Function : Ruby 用リファクタリングツール
 ;; ------------------------------------------------------------------------
 (require 'ruby-refactor)
 (add-hook 'ruby-mode-hook 'ruby-refactor-mode-launch)
@@ -149,14 +149,14 @@ and source-file directory for your debugger." t)
 ;; -----------------------------------------------------------------------
 ;; Name     : inf-ruby
 ;; Install  : el-get
-;; Function : emacsからirbを操作
+;; Function : emacs から irb を操作
 ;; ------------------------------------------------------------------------
 (autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby process" t)
 (add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : robocop 
-;; Install  : checkstyleのようなスタイルの解析
+;; Install  : checkstyle のようなスタイルの解析
 ;; Function : gem install rubocop
 ;; ------------------------------------------------------------------------
 ;;(require 'rubocop)
@@ -165,15 +165,15 @@ and source-file directory for your debugger." t)
 ;; -----------------------------------------------------------------------
 ;; Name     : autotest
 ;; Install  : wget 
-;; Function : rspec自動実行
+;; Function : rspec 自動実行
 ;; ------------------------------------------------------------------------
-;; 動かん！
+;; 動かん!
 ;; (require 'autotest)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : rspec-mode
 ;; Install  : el-get
-;; Function : rspec拡張
+;; Function : rspec 拡張
 ;; ------------------------------------------------------------------------
 (require 'rspec-mode)
 (add-hook 'ruby-mode-hook 'rspec-mode)
@@ -185,7 +185,7 @@ and source-file directory for your debugger." t)
 ;; -----------------------------------------------------------------------
 ;; Name     : pry
 ;; Install  : git@github.com:jacott/emacs-pry.git
-;; Function : 高機能irb
+;; Function : 高機能 irb
 ;; ------------------------------------------------------------------------
 ;; (require 'pry)
 ;; optional suggestions
@@ -193,3 +193,4 @@ and source-file directory for your debugger." t)
 ;;(global-set-key [f9] 'pry-intercept-rerun)
 
 #+end_src
+
