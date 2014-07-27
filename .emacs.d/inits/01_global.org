@@ -195,6 +195,8 @@ http://www.emacswiki.org/emacs-ja/Emacs%E3%83%93%E3%82%AE%E3%83%8A%E3%83%BC#toc9
 
 * Start Up
 
+どうも, Elscreen が scratch を初期画面で開いてしまうようだ.
+
 #+begin_src emacs-lisp
 (defun my-startup-display-mode ()
   "Sets a fixed width (monospace) font in current buffer"
@@ -203,17 +205,17 @@ http://www.emacswiki.org/emacs-ja/Emacs%E3%83%93%E3%82%AE%E3%83%8A%E3%83%BC#toc9
 
 (defun my-startup-display ()
   "Display startup message on buffer"
+  (interactive)
   (let ((temp-buffer-show-function 'switch-to-buffer))
     (with-output-to-temp-buffer "*MyStartUpMessage*"  
-      (princ "Hello Emacs!\nLet's Hacking Begin!!\n")))
+      (princ "\n\nHello Emacs (^-^)/\nLet the Hacking Begin!\n")))
   (my-startup-display-mode)
   )
 
-(defun kill-scratch ()
-  (kill-buffer "*scratch*"))
-
-;; うまくいかない.
-;; (add-hook 'after-init-hook 'my-startup-display)
+;; (defun kill-scratch ()
+;;   (kill-buffer "*scratch*"))
+;; (add-hook 'after-init-hook 'kill-scratch t)
+(add-hook 'after-init-hook 'my-startup-display)
 #+end_src
 
 * Tips

@@ -11,6 +11,7 @@
 * elscreen
 Screen の Emacs バージョン. マルチプレクサ.
 
+- https://github.com/emacs-jp/elscreen
 - https://github.com/knu/elscreen
 
 オリジナルはメンテナンスされていないのかな?
@@ -20,10 +21,11 @@ Screen の Emacs バージョン. マルチプレクサ.
 
 #+begin_src emacs-lisp
 (elscreen-start)
+
 ;; (setq elscreen-prefix-key "\C-o") ;; こっちだとダメだった
 (elscreen-set-prefix-key "\C-o")
 
- ; タブの幅
+; タブの幅
 ;; (setq elscreen-display-tab 10)
  ; タブの左端の×を非表示
 (setq elscreen-tab-display-kill-screen nil)
@@ -31,7 +33,7 @@ Screen の Emacs バージョン. マルチプレクサ.
 (setq elscreen-tab-display-control nil)
 
 ;; emacsclient で新しいタブを開く
-(require 'elscreen-server nil t)
+;; (require 'elscreen-server nil t)
 
 ;; それっぽい色をつける?? つけてくれないよ.
 ;; (require 'elscreen-color-theme)
@@ -43,18 +45,19 @@ Screen の Emacs バージョン. マルチプレクサ.
 ;; waanderlust 用. syohex さんのやつ
 (require 'elscreen-wl)
 
-;; emacsclient で開いたときに新規タブ作成
-(require 'elscreen-server)
+;; 画面切り替え
+;; (add-hook 'after-make-frame-functions 'elscreen-create)
+(add-hook 'elscreen-goto-hook (lambda ()
+   (switch-to-buffer "*MyStartUpMessage*")))
 #+end_src
 
-** org-link を elscreen で開く
+** TODO org-link を elscreen で開く
    いつか.
 
-** セッション保存
+** TODO セッション保存
  -  [[http://stackoverflow.com/questions/22445670/save-and-restore-elscreen-tabs-and-split-frames][emacs - Save and restore elscreen tabs and split frames - Stack Overflow]]
 
 うまくうごかない. . .
-
 
 * w3m
 #+begin_src emacs-lisp
