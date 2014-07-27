@@ -25,25 +25,41 @@ el-get にまとめた.
    現在は, fork してカスタマイズしたものをりようしている.
 
 #+begin_src emacs-lisp
-;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/molokai-theme")
-
 ;; (require 'molokai-theme-kit)
 ;;  (setq molokai-theme-kit t)
-
 ;; (load-theme 'molokai t)
 #+end_src
+
+   自分のテーマにも, 以下のような設定で org-mode 対応できるらしい??
+
+   - [[http://orgmode.org/worg/org-contrib/babel/examples/fontify-src-code-blocks.html][Pretty fontification of source code blocks]]
+
+   #+begin_src emacs-lisp
+   ;; (defface org-block-begin-line	
+   ;;   '((t (:underline "#A7A6AA" :foreground "#008ED1" :background "#EAEAFF")))
+   ;;   "Face used for the line delimiting the begin of source blocks.")
+    
+   ;; (defface org-block-background
+   ;;   '((t (:background "#FFFFEA")))
+   ;;   "Face used for the source block background.")
+    
+   ;; (defface org-block-end-line
+   ;;   '((t (:overline "#A7A6AA" :foreground "#008ED1" :background "#EAEAFF")))
+   ;;   "Face used for the line delimiting the end of source blocks.")
+   #+end_src
 
 ** Leuven-theme
    Emacs 24.4 に標準で入っているテーマ. org-mode との相性がとにかくイイ!
 
    - [[https://github.com/fniessen/emacs-leuven-theme][fniessen/emacs-leuven-theme]]
 
-#+begin_src emacs-lisp
-(load-theme 'leuven t)
-;; fontify the whole line for headings (with a background color)
-(setq org-fontify-whole-heading-line t)
-#+end_src
+   #+begin_src emacs-lisp
+   (load-theme 'leuven t)
+   ;; fontify the whole line for headings (with a background color)
+   (setq org-fontify-whole-heading-line t)
+   #+end_src
 
 * rainbow-mode
 数字表記に色つけしてくれる 

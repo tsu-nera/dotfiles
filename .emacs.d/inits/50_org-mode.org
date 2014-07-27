@@ -423,25 +423,23 @@ http://sheephead.homelinux.org/
 #+end_src
 
 * org-capture
+アイデアをキャプチャーする.
+
 capture てんぷれの書き方
 http://orgmode.org/manual/Template-expansion.html#Template-expansion
 
+注意: adjust-text.el との兼ね合いで, file+datetree が動かない. 様子見
+
 #+begin_src emacs-lisp
-;; -----------------------------------------------------------------------
-;; Name     : org-capture
-;; Function : アイデアをキャプチャーする
-;; History  : 2014/02/25
-;; Install  : build-in
-;; ------------------------------------------------------------------------
 (require 'org-capture)
 (setq org-capture-templates
       '(
 	("i" "Inbox" entry (file+datetree "~/gtd/inbox.org") "** TODO %?\n")
 	("u" "Unplan" entry (file+datetree "~/gtd/unplan.org") "** TODO %? :unplan:\n")
-	("w" "Diary" entry (file+datetree "~/gtd/main.org") "** %T %?\n")
+	;; ("w" "Diary" entry (file+datetree "~/gtd/main.org") "** %T %?\n")
+	("w" "Diary" entry (file+headline "~/gtd/main.org" "Diary") "**** %T %?\n")
 	("k" "Clock-in" entry (clock) "* %T %?\n")
-	;; calfw との連携 http://sheephead.homelinux.org/2014/03/15/7035/#
-	("c" "calfw2org" entry (file "~/gtd/schedule.org") "*  %?\n %(cfw:org-capture-day)")
+	;; calfw との連携 http://sheephead.homelinux.org/2014/03/15/7035/
 	("m" "Memo" plain
          (file (concat org-directory (format-time-string "/howm/%Y%m%d-%H%M%S.org")))
          "* MEMO <%<%Y-%m-%d>> %?\n   %i\n  %a\n\n"
@@ -450,8 +448,9 @@ http://orgmode.org/manual/Template-expansion.html#Template-expansion
          :kill-buffer t)
 	("e" "Email Todo" entry (file+headline "~/gtd/main.org" "Mails")
         "* TODO %^{Brief Description}\n%a\n%?Added: %U\n" :prepend t)
-	)
-      )
+	("c" "calfw2org" entry (file "~/gtd/schedule.org") "*  %?\n %(cfw:org-capture-day)")
+	       )
+     )
 #+end_src
 
 * org2blog
@@ -477,7 +476,7 @@ Emacs から WordPress に投稿する Lisp
 	 )
 	;; ("EverClassic"
 	;;  :url "http://everclassic.biz/xmlrpc.php"
-	;;  :username "admin"
+	        ;;  :username "admin"
 	;;  ;;:username (netrc-get blog "login")
 	;;  ;;:password (netrc-get blog "password")))
 	)

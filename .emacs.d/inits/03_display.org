@@ -1,156 +1,50 @@
 * Display
-表示関連。
+表示関連.
 
-* Global
-- ツールバーを消す
+* バッファ
+** 定義
+   テキストを編集するための器.
+
+** 画像ファイルを表示する
 #+begin_src emacs-lisp
-(tool-bar-mode -1)
+(if window-system (auto-image-file-mode t) (auto-image-file-mode nil))
 #+end_src
 
-- emacs -nw で起動した時にメニューバーを消す
-#+begin_src emacs-lisp
-(menu-bar-mode -1)
-#+end_src
-
-- スクロールバーを消す
-#+begin_src emacs-lisp
-(set-scroll-bar-mode nil)
-#+end_src
-
-- 対応する括弧を光らせる。
-#+begin_src emacs-lisp
-(show-paren-mode 1)
-#+end_src
-
-- 画像ファイルを表示する
-#+begin_src emacs-lisp
-(if window-system (auto-image-file-mode t)(auto-image-file-mode nil))
-#+end_src
-
-- モードラインに時間を表示する
+* モードライン
+** モードラインに時間を表示する
 #+begin_src emacs-lisp
 (display-time)
-
 (setq display-time-day-and-date t)
 #+end_src
 
-- 現在の関数名をモードラインに表示
+** 現在の関数名をモードラインに表示
 #+begin_src emacs-lisp
 (which-function-mode 1)
 #+end_src
 
-- 行番号の表示
+** 行番号の表示
 #+begin_src emacs-lisp
 (global-linum-mode t)
 
-;; ただし、特定のmajor-modeのときは抑止
+;; ただし, 特定の major-mode のときは抑止
 ;; https://github.com/Khady/emacs.d/blob/master/setup-linum.el
 (require 'setup-linum)
 (setq linum-disabled-modes-list '(doc-view-mode))
 #+end_src
 
-- とにかく色をつける
-#+begin_src emacs-lisp
-;;(global-font-lock-mode 1)
-#+end_src
+* ファイル
+** 定義
+   名前がつけられたバッファ.
 
-- Add proper word wrapping
-#+begin_src emacs-lisp
-;; (global-visual-line-mode t)
-#+end_src
+* ウィンドウ
+** 定義
+   バッファの表示領域.
 
-* ハイライト
-** 現在行をハイライト
-
-   #+begin_src emacs-lisp
-   (global-hl-line-mode 1)
-   #+end_src
-
-** 80行目をハイライト
-   なんかうまくうごいていない。
-
-   #+begin_src emacs-lisp
-   (require 'highlight-80+)
-   ;; (add-hook 'text-mode-hook (lambda () (interactive) (highlight-80+-mode 1)))
-   #+end_src
-
-** Set Markをハイライト
-- [[http://www.emacswiki.org/emacs/VisibleMark][EmacsWiki: Visible Mark]]
-
-#+begin_src emacs-lisp
-#+end_src
-
-** Bookmarksをハイライト
-
-- [[https://github.com/joodland/bm][joodland/bm]]
-
-#+begin_src emacs-lisp
-(require 'bm)
-
-(global-set-key (kbd "<C-f5>") 'bm-toggle)
-(global-set-key (kbd "<f5>")   'bm-next)
-(global-set-key (kbd "<S-f5>") 'bm-previous)
-#+end_src
-
-** TODOをハイライト
-  highlighting-todos-in-all-programming-modes
-
- http://stackoverflow.com/questions/8551320/
-
-#+begin_src emacs-lisp
-;; (add-hook 'prog-mode-hook
-;; 	  (lambda ()
-;; 	    (font-lock-add-keywords nil
-;;            '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
-#+end_src
-
-上のがうまくうごかないので、fic-ext-modeを利用。
-
-NOTE: If you manually turn on fic-ext-mode, you you might need to force re-fontification initially
-
-M-x font-lock-fontify-buffer
-
-#+begin_src emacs-lisp
-(require 'fic-ext-mode)
-(defun add-something-to-mode-hooks (mode-list something)
-  "helper function to add a callback to multiple hooks"
-  (dolist (mode mode-list)
-    (add-hook (intern (concat (symbol-name mode) "-mode-hook")) something)))
-
-(add-something-to-mode-hooks '(c++ emacs-lisp ruby text scala) 'fic-ext-mode)
-#+end_src
-
-** シンボルをハイライト
-highight-symbol/auto-highlight-symbol
-
-http://shibayu36.hatenablog.com/entry/2013/12/30/190354
-
-#+begin_src emacs-lisp
-(require 'auto-highlight-symbol-config)
-(require 'highlight-symbol)
-(setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1"))
-
-(global-set-key (kbd "<f4>") 'highlight-symbol-at-point)
-(global-set-key (kbd "C-<f4>") 'highlight-symbol-next)
-(global-set-key (kbd "S-<f4>") 'highlight-symbol-prev)
-(global-set-key (kbd "ESC <f4>") 'highlight-symbol-remove-all)
-#+end_src
-
-* フォント
-** Ricty
-http://d.hatena.ne.jp/kitokitoki/20110502/p2
-
-no window モードはXの設定にしたがっているので、.Xdefaultsの設定を調整する必要あり。
-
-#+begin_src emacs-lisp
-(add-to-list 'default-frame-alist '(font . "ricty-13"))
-#+end_src
-
-* 左右のバッファをF2で交換する
+** 左右のバッファを F2 で交換する
   http://d.hatena.ne.jp/supermassiveblackhole/20100625/1277436024
   
 #+begin_src emacs-lisp
-(defun swap-screen()
+(defun swap-screen ()
   "Swap two screen,leaving cursor at current window."
   (interactive)
   (let ((thiswin (selected-window))
@@ -158,7 +52,7 @@ no window モードはXの設定にしたがっているので、.Xdefaultsの�
     (set-window-buffer (next-window) (window-buffer))
     (set-window-buffer thiswin nextbuf)))
 
-(defun swap-screen-with-cursor()
+(defun swap-screen-with-cursor ()
   "Swap two screen,with cursor in same buffer."
   (interactive)
   (let ((thiswin (selected-window))
@@ -171,16 +65,16 @@ no window モードはXの設定にしたがっているので、.Xdefaultsの�
 (global-set-key [S-f2] 'swap-screen-with-cursor)
 #+end_src
 
-* 縦横のバッファをF3で交換する
+** 縦横のバッファを F3 で交換する
 
 http://masutaka.net/chalow/2011-05-19-1.html
 
 #+BEGIN_SRC emacs-lisp
   (defun window-toggle-division ()
-    "ウィンドウ 2 分割時に、縦分割<->横分割"
+    "ウィンドウ 2 分割時に, 縦分割<->横分割"
     (interactive)
     (unless (= (count-windows 1) 2)
-      (error "ウィンドウが 2 分割されていません。"))
+      (error "ウィンドウが 2 分割されていません. "))
     (let ((before-height)
           (other-buf (window-buffer (next-window))))
       (setq before-height (window-height))
@@ -194,7 +88,7 @@ http://masutaka.net/chalow/2011-05-19-1.html
   (global-set-key [f3] 'window-toggle-division)
 #+END_SRC
 
-* windownの動的リサイズ
+** windown の動的リサイズ
  http://d.hatena.ne.jp/mooz/20100119/p1
 
 #+BEGIN_SRC emacs-lisp
@@ -236,16 +130,153 @@ http://masutaka.net/chalow/2011-05-19-1.html
   (global-set-key "\C-qk" 'windmove-up)
 #+END_SRC
 
-* 番号指定でwindow切り替え switch-window
+** 番号指定で window 切り替え switch-window
 
   - https://github.com/dimitri/switch-window
 
-  あまり好きではないので、一旦封印する
+  あまり好きではないので, 一旦封印する
 
 #+begin_src emacs-lisp
 ;; (require 'switch-window)
 ;; (global-set-key (kbd "C-x o") 'switch-window)
 #+end_src
+
+* フレーム
+** 定義
+   ウィンドウシステムにおけるウィンドウを Emacs では, フレームと呼ぶ.
+   1 つのフレームは, 複数のウィンドウからなる.
+
+** ツールバーを消す
+   
+   #+begin_src emacs-lisp
+   (tool-bar-mode -1)
+   #+end_src
+
+** emacs -nw で起動した時にメニューバーを消す
+
+   #+begin_src emacs-lisp
+   (menu-bar-mode -1)
+   #+end_src
+
+** スクロールバーを消す
+
+   #+begin_src emacs-lisp
+   (set-scroll-bar-mode nil)
+   #+end_src
+
+* ハイライト
+** 現在行をハイライト
+
+   #+begin_src emacs-lisp
+   (global-hl-line-mode 1)
+   #+end_src
+
+** 80 行目をハイライト
+   なんかうまくうごいていない.
+
+   #+begin_src emacs-lisp
+   (require 'highlight-80+)
+   ;; (add-hook 'text-mode-hook (lambda () (interactive) (highlight-80+-mode 1)))
+   #+end_src
+
+** Set Mark をハイライト
+- [[http://www.emacswiki.org/emacs/VisibleMark][EmacsWiki: Visible Mark]]
+
+#+begin_src emacs-lisp
+#+end_src
+
+** Bookmarks をハイライト
+
+- [[https://github.com/joodland/bm][joodland/bm]]
+
+#+begin_src emacs-lisp
+(require 'bm)
+
+(global-set-key (kbd "<C-f5>") 'bm-toggle)
+(global-set-key (kbd "<f5>")   'bm-next)
+(global-set-key (kbd "<S-f5>") 'bm-previous)
+#+end_src
+
+** TODO をハイライト
+  highlighting-todos-in-all-programming-modes
+
+ http://stackoverflow.com/questions/8551320/
+
+#+begin_src emacs-lisp
+;; (add-hook 'prog-mode-hook
+;; 	  (lambda ()
+;; 	    (font-lock-add-keywords nil
+;;            '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
+#+end_src
+
+上のがうまくうごかないので, fic-ext-mode を利用.
+
+NOTE: If you manually turn on fic-ext-mode, you you might need to force re-fontification initially
+
+M-x font-lock-fontify-buffer
+
+#+begin_src emacs-lisp
+(require 'fic-ext-mode)
+(defun add-something-to-mode-hooks (mode-list something)
+  "helper function to add a callback to multiple hooks"
+  (dolist (mode mode-list)
+    (add-hook (intern (concat (symbol-name mode) "-mode-hook")) something)))
+
+(add-something-to-mode-hooks '(c++ emacs-lisp ruby text scala) 'fic-ext-mode)
+#+end_src
+
+** シンボルをハイライト
+highlight-symbol/auto-highlight-symbol
+
+http://shibayu36.hatenablog.com/entry/2013/12/30/190354
+
+#+begin_src emacs-lisp
+(require 'auto-highlight-symbol-config)
+(require 'highlight-symbol)
+(setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1"))
+
+(global-set-key (kbd "<f4>") 'highlight-symbol-at-point)
+(global-set-key (kbd "C-<f4>") 'highlight-symbol-next)
+(global-set-key (kbd "S-<f4>") 'highlight-symbol-prev)
+(global-set-key (kbd "ESC <f4>") 'highlight-symbol-remove-all)
+#+end_src
+
+** 対応する括弧を光らせる.
+#+begin_src emacs-lisp
+(show-paren-mode 1)
+#+end_src
+
+** 未分類
+- とにかく色をつける
+#+begin_src emacs-lisp
+;;(global-font-lock-mode 1)
+#+end_src
+
+- Add proper word wrapping
+#+begin_src emacs-lisp
+;; (global-visual-line-mode t)
+#+end_src
+
+* フォント
+** Ricty
+http://d.hatena.ne.jp/kitokitoki/20110502/p2
+
+no window モードは X の設定にしたがっているので, .Xdefaults の設定を調整する必要あり.
+
+#+begin_src emacs-lisp
+(add-to-list 'default-frame-alist '(font . "ricty-13"))
+#+end_src
+
+** サイズ変更
+   text-scale-adjust という関数で変更する.(C-x C-0)
+   
+  - 文字の大きさを一時的に変更するには text-scale-adjust
+  - デフォルトでは C-x C-0
+    * + 連打→拡大
+    * - 連打→縮小
+    * 0 → 元に戻す
+
+  from: [[http://qiita.com/tnoda_/items/ee7804a34e75f4c35d70][Emacs で文字の大きさを一時的に変更する C-x C-0 - Qiita]]
 
 * stripe-buffer
 しましま表示
@@ -257,8 +288,8 @@ http://masutaka.net/chalow/2011-05-19-1.html
 #+end_src
 
 * sublimity
-  Sublime-Text風の表示
-  -> やめーた。
+  Sublime-Text 風の表示
+  -> やめーた.
 
 #+begin_src emacs-lisp
 ;; (require 'sublimity)

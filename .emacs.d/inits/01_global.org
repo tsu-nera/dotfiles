@@ -1,7 +1,7 @@
 * Welcome To Emacs!!
-最新版の emacs github mirror.
+  最新版の emacs github mirror.
 
-- https://github.com/mirrors/emacs
+  - https://github.com/mirrors/emacs
 
 * Macros
 
@@ -154,13 +154,13 @@ http://www.emacswiki.org/emacs-ja/Emacs%E3%83%93%E3%82%AE%E3%83%8A%E3%83%BC#toc9
 #+end_src
 
 ** savehist
-minibuffer の履歴保存
+   minibuffer の履歴保存
 
-#+begin_src emacs-lisp
-(require 'savehist)
-(savehist-mode t)
-(setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
-#+end_src
+   #+begin_src emacs-lisp
+   (require 'savehist)
+   (savehist-mode t)
+   (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
+   #+end_src
 
 ** generic-x
    いろんなメジャーモード
@@ -277,15 +277,6 @@ http://stackoverflow.com/questions/840279/passwords-in-emacs-tramp-mode-editing
 (setq password-cache-expiry nil)
 #+end_src
 
-* undo-tree
-
-C-x u にバインディング.
-
-#+begin_src emacs-lisp
-(require 'undo-tree)
-(global-undo-tree-mode)
-#+end_src
-
 * Popwin
 ポップアップ表示
 
@@ -379,7 +370,6 @@ popwin:special-display-config)
 
 ;; 今のポイントしている URL を開く
 (global-set-key (kbd "C-c u") 'browse-url-at-point)
-
 
 ;; -----------------------------------------------------------------------
 ;; Function : ミニバッファに入るときに日本語入力無効にする

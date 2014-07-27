@@ -1,59 +1,55 @@
 * Text
-テキスト編集. Emacs の底力を発揮する!
+  テキスト編集. Emacs の底力を発揮する!
 
 * 編集
 ** cua-mode
-矩形編集.
+   矩形編集.
 
-#+begin_src emacs-lisp
-(cua-mode t)
-(setq cua-enable-cua-keys nil) ; デフォルトキーバインドを無効化
-(define-key global-map (kbd "C-x SPC") 'cua-set-rectangle-mark)
-#+end_src
+   #+begin_src emacs-lisp
+   (cua-mode t)
+   (setq cua-enable-cua-keys nil) ; デフォルトキーバインドを無効化
+   (define-key global-map (kbd "C-x SPC") 'cua-set-rectangle-mark)
+   #+end_src
 
 ** multiple-cursurs
-Awesome Emacs Rocks! 
+   Awesome Emacs Rocks! http://shibayu36.hatenablog.com/entry/2013/12/30/190354
 
-http://shibayu36.hatenablog.com/entry/2013/12/30/190354
+   - [[https://github.com/magnars/multiple-cursors.el][magnars/multiple-cursors.el]]
 
-- [[https://github.com/magnars/multiple-cursors.el][magnars/multiple-cursors.el]]
+   どうも, no window だとうまく動作しない.
+   うまく動かないとき, ~/.emacs.d/.mc-lists.el を削除したらうまくいくようになった.
 
-どうも, no window だとうまく動作しない. .
-うまく動かないとき, ~/.emacs.d/.mc-lists.el を削除したらうまくいくようになった.
+   https://github.com/magnars/multiple-cursors.el/issues/121
 
-https://github.com/magnars/multiple-cursors.el/issues/121
-
-#+begin_src emacs-lisp
-(require 'multiple-cursors)
-(global-set-key (kbd "C-M-c") 'mc/edit-lines)
-(global-set-key (kbd "C-M-r") 'mc/mark-all-in-region)
-
-(global-set-key (kbd "C-]") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-M-]") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-]") 'mc/mark-all-like-this)
-#+end_src
-
-#+RESULTS:
+   #+begin_src emacs-lisp
+   (require 'multiple-cursors)
+   (global-set-key (kbd "C-M-c") 'mc/edit-lines)
+   (global-set-key (kbd "C-M-r") 'mc/mark-all-in-region)
+   
+   (global-set-key (kbd "C-]") 'mc/mark-next-like-this)
+   (global-set-key (kbd "C-M-]") 'mc/mark-previous-like-this)
+   (global-set-key (kbd "C-c C-]") 'mc/mark-all-like-this)
+   #+end_src
 
 ** expand-region
-Awesome Emacs Rocks! 
+   Awesome Emacs Rocks! 
 
-リージョンを広げる
-http://d.hatena.ne.jp/syohex/20120117/1326814127
+   リージョンを広げる
+   http://d.hatena.ne.jp/syohex/20120117/1326814127
 
-#+begin_src emacs-lisp
+   #+begin_src emacs-lisp
 (require 'expand-region)
 (global-set-key (kbd "C-\\") 'er/expand-region)
 (global-set-key (kbd "C-M-\\") 'er/contract-region)
 
 ;; 選択ができるようにしておく
 ;; (transient-mark-mode t)
-#+end_src
+   #+end_src
 
 ** Yassnipet
-スニペット管理
+   スニペット管理
 
-#+begin_src emacs-lisp
+   #+begin_src emacs-lisp
 ;; 問い合わせを簡略化 yes/no を y/n
 (fset 'yes-or-no-p 'y-or-n-p)
 (require 'yasnippet)
@@ -70,15 +66,15 @@ http://d.hatena.ne.jp/syohex/20120117/1326814127
 (define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
 ;; 既存スニペットを閲覧・編集する
 (define-key yas-minor-mode-map (kbd "C-x i v") 'helm-c-yas-visit-snippet-file)
-#+end_src
+   #+end_src
 
 ** auto-complete
-自動補完を実現する elisp
+   自動補完を実現する elisp
 
-- http://www.emacswiki.org/emacs/auto-complete-extension.el
-- http://cx4a.org/software/auto-complete/index.ja.html
+   - http://www.emacswiki.org/emacs/auto-complete-extension.el
+   - http://cx4a.org/software/auto-complete/index.ja.html
 
-#+begin_src emacs-lisp
+   #+begin_src emacs-lisp
 (require 'auto-complete-config)
 (ac-config-default)
 
@@ -111,13 +107,21 @@ http://d.hatena.ne.jp/syohex/20120117/1326814127
 	      (make-local-variable 'ac-omni-completion-sources)
 	      (setq ac-omni-completion-sources
 		    '(("\\.\\=" . (ac-source-rcodetools)))))))
-#+end_src
+   #+end_src
+
+** undo-tree
+   C-x u にバインディング.
+
+   #+begin_src emacs-lisp
+   (require 'undo-tree)
+   (global-undo-tree-mode)
+   #+end_src
 
 ** keisen
-罫線を引く
-www.pitecan.com/Keisen/keisen.el.
+   罫線を引く
+   www.pitecan.com/Keisen/keisen.el.
 
-#+begin_src emacs-lisp
+   #+begin_src emacs-lisp
 ;;(require 'keisen)
 ;;; Control+ 矢印キーで罫線を引く場合
 ;; (global-set-key (kbd "C-M-f") 'keisen-right-move)
@@ -129,12 +133,12 @@ www.pitecan.com/Keisen/keisen.el.
 ;;(global-set-key [(C-left)] 'keisen-left-move)
 ;;(global-set-key [(C-up)] 'keisen-up-move)
 ;;(global-set-key [(C-down)] 'keisen-down-move)
-#+end_src
+   #+end_src
 * 移動
 ** ace-jump-mode
-Awesome Emacs Rocks! 
+   Awesome Emacs Rocks! 
 
-#+begin_src emacs-lisp
+   #+begin_src emacs-lisp
 (autoload
   'ace-jump-mode
   "ace-jump-mode"
@@ -142,17 +146,17 @@ Awesome Emacs Rocks!
   t)
 ;; you can select the key you prefer to
 (define-key global-map (kbd "C-x ,") 'ace-jump-mode)
-#+end_src
+   #+end_src
 
 ** ace-jump-buffer
-#+begin_src emacs-lisp
+   #+begin_src emacs-lisp
 (autoload
   'ace-jump-buffer
   "ace-jump-buffer"
   "Emacs quick move to buffer minor mode"
   t)
 (define-key global-map (kbd "C-x m") 'ace-jump-buffer)
-#+end_src
+   #+end_src
 
 ** isearch-ace-jump-mode
    Do ace-jump from isearch.
@@ -160,10 +164,10 @@ Awesome Emacs Rocks!
    isearch の初めの一文字を入力して待っていると, ace-jump-char 発動.
    isearch して, しばらく入力しないと swoop 発動.
 
-- https://github.com/tam17aki/isearch-ace-jump-mode
-- http://qiita.com/ballforest/items/7c3f2e64b59d8157bc8c
+   - https://github.com/tam17aki/isearch-ace-jump-mode
+   - http://qiita.com/ballforest/items/7c3f2e64b59d8157bc8c
 
-#+begin_src emacs-lisp
+   #+begin_src emacs-lisp
 (require 'isearch-ace-jump)
 (global-isearch-ace-jump-mode +1)
 
@@ -172,15 +176,15 @@ Awesome Emacs Rocks!
 
 (define-key swoop-map (kbd "C-s") 'swoop-action-goto-line-next)
 (define-key swoop-map (kbd "C-r") 'swoop-action-goto-line-prev)
-#+end_src
+   #+end_src
 
 ** iy-go-to-char
 
-前後の char へ移動する. ace-jump-mode があれば不要かな. . .
+   前後の char へ移動する. ace-jump-mode があれば不要かな. . .
 
-- https://github.com/doitian/iy-go-to-char
+   - https://github.com/doitian/iy-go-to-char
 
-#+begin_src emacs-lisp
+   #+begin_src emacs-lisp
 ;; (require 'iy-go-to-char)
 ;; (global-set-key (kbd "C-c f") 'iy-go-to-char)
 ;; (global-set-key (kbd "C-c F") 'iy-go-to-char-backward)
@@ -190,38 +194,38 @@ Awesome Emacs Rocks!
 ;; (global-set-key (kbd "C-c F") 'iy-go-up-to-char-backward)
 
 (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
-#+end_src
+   #+end_src
 
 ** jump-char
-iy-go-to-char よりよさそう
+   iy-go-to-char よりよさそう
 
-;で前. , で後ろ. C-c C-c で ace-jump-mode に切り替え.
+   ;で前. , で後ろ. C-c C-c で ace-jump-mode に切り替え.
 
-- https://github.com/lewang/jump-char
+   - https://github.com/lewang/jump-char
 
-#+begin_src emacs-lisp
-(require 'jump-char)
-;; (global-set-key (kbd "C-c f") 'jump-char-forward)
-;; (global-set-key (kbd "C-c F") 'jump-char-backward)
-;; key-chord にかえる
-#+end_src
+   #+begin_src emacs-lisp
+   (require 'jump-char)
+   ;; (global-set-key (kbd "C-c f") 'jump-char-forward)
+   ;; (global-set-key (kbd "C-c F") 'jump-char-backward)
+   ;; key-chord にかえる
+   #+end_src
 ** chord-key
    キーバインド割り当て. jump-char と一緒に利用.
 
-#+begin_src emacs-lisp
-(require 'key-chord)
-(key-chord-mode 1)
-(setq key-chord-two-keys-delay 0.08)
-
-; buffer actions
-(key-chord-define-global "jk" 'jump-char-forward)
-(key-chord-define-global "jh" 'jump-char-backward)
-#+end_src
+   #+begin_src emacs-lisp
+   (require 'key-chord)
+   (key-chord-mode 1)
+   (setq key-chord-two-keys-delay 0.08)
+   
+   ; buffer actions
+   (key-chord-define-global "jk" 'jump-char-forward)
+   (key-chord-define-global "jh" 'jump-char-backward)
+   #+end_src
 * 検索・置換
 ** migemo
-日本語をロ-マ字検索
+   日本語をロ-マ字検索
 
-#+begin_src emacs-lisp
+   #+begin_src emacs-lisp
 (when (and (executable-find "cmigemo") 
            (require 'migemo nil t))
 
@@ -238,25 +242,24 @@ iy-go-to-char よりよさそう
   ;; http://wp.kncn.net/archives/6025
   (setq search-whitespace-regexp nil)
 )
-#+end_src
+   #+end_src
 ** anzu
-インタラクティブ検索, 置換
+   インタラクティブ検索, 置換
 
-- http://qiita.com/syohex/items/56cf3b7f7d9943f7a7ba
-- https://github.com/syohex/emacs-anzu
+   - http://qiita.com/syohex/items/56cf3b7f7d9943f7a7ba
+   - https://github.com/syohex/emacs-anzu
 
-#+begin_src emacs-lisp
-(require 'anzu)
-(global-anzu-mode +1)
-
-(set-face-attribute 'anzu-mode-line nil
+   #+begin_src emacs-lisp
+   (require 'anzu)
+   (global-anzu-mode +1)
+   (set-face-attribute 'anzu-mode-line nil
 		    :foreground "yellow" :weight 'bold)
-#+end_src
+   #+end_src
 
 ** swoop
    Peculiar buffer navigation for Emacs.
 
-#+begin_src emacs-lisp
+   #+begin_src emacs-lisp
 (require 'swoop)
 (global-set-key (kbd "M-o")   'swoop)
 (global-set-key (kbd "C-M-o") 'swoop-multi)
@@ -268,14 +271,14 @@ iy-go-to-char よりよさそう
 	
 ;; サイズ変更禁止
 (setq swoop-font-size-change: nil)
-#+end_src
+   #+end_src
 
 ** iedit
-https://github.com/tsdh/iedit
+   https://github.com/tsdh/iedit
 
-#+begin_src emacs-lisp
+   #+begin_src emacs-lisp
 (require 'iedit)
-#+end_src
+   #+end_src
 * 日本語
 ** text-adjust
    - text-adjust-codecheck : 半角カナ, 規格外文字を「〓」に置き換える.
@@ -285,10 +288,10 @@ https://github.com/tsdh/iedit
 
    これは便利だ.
 
- - [[http://www.emacswiki.org/emacs/InsertSpaceBetweenZenkakuAndHankaku][EmacsWiki: Insert Space Between Zenkaku And Hankaku]]
- - [[http://d.hatena.ne.jp/rubikitch/20090220/text_adjust][全角文字と半角文字の間に自動でスペースを開ける text-adjust.el を使ってみた ]]
- - http://www.rubyist.net/~rubikitch/archive/mell.el
- - http://www.rubyist.net/~rubikitch/archive/text-adjust.el
+   - [[http://www.emacswiki.org/emacs/InsertSpaceBetweenZenkakuAndHankaku][EmacsWiki: Insert Space Between Zenkaku And Hankaku]]
+   - [[http://d.hatena.ne.jp/rubikitch/20090220/text_adjust][全角文字と半角文字の間に自動でスペースを開ける text-adjust.el を使ってみた ]]
+   - http://www.rubyist.net/~rubikitch/archive/mell.el
+   - http://www.rubyist.net/~rubikitch/archive/text-adjust.el
 
 ** yspel
    Yahoo の文章校正ツールを利用した日本語スペルチェック!
@@ -300,16 +303,16 @@ https://github.com/tsdh/iedit
    #+end_src
 
 
- #+begin_src emacs-lisp
- (require 'text-adjust)
- (defun text-adjust-space-before-save-if-needed ()
+   #+begin_src emacs-lisp
+   (require 'text-adjust)
+   (defun text-adjust-space-before-save-if-needed ()
    (when (memq major-mode
                '(org-mode text-mode wl-draft-mode))
 	       (text-adjust-buffer)))
-  ;;           (text-adjust-space-buffer)))
- (defalias 'spacer 'text-adjust-space-buffer)
- (add-hook 'before-save-hook 'text-adjust-space-before-save-if-needed)
- #+end_src
+	       ;;           (text-adjust-space-buffer)))
+    (defalias 'spacer 'text-adjust-space-buffer)
+    (add-hook 'before-save-hook 'text-adjust-space-before-save-if-needed)
+   #+end_src
 * 英語
 ** aspell
    昔は ispell, 今は aspell が主流らしい.
@@ -329,7 +332,7 @@ https://github.com/tsdh/iedit
 
    #+begin_src emacs-lisp
    (when (file-executable-p "/usr/bin/aspell")
-   (setq-default ispell-program-name "aspell")
+   (setq-default ispell-program-name "aspell"))
    #+end_src
 
    日本語はスキップ.
