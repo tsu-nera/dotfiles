@@ -1,10 +1,10 @@
 * Programing
-いろいろなプログラミング言語に関わる設定。
+いろいろなプログラミング言語に関わる設定.
 
 
 * コンパイル
 ** smart-compile
-コマンドからコンパイル実行. 独自改造したものが、elispにある。
+コマンドからコンパイル実行. 独自改造したものが, elisp にある.
 
 http://www.emacswiki.org/emacs/download/smart-compile.el
 
@@ -14,13 +14,26 @@ http://www.emacswiki.org/emacs/download/smart-compile.el
 #+end_src
 
 ** quickrun
-コンパイルを実行。smart-compileよりいい？？
+コンパイルを実行. smart-compile よりいい??
 
 - https://github.com/syohex/emacs-quickrun
 
 #+begin_src emacs-lisp
 (require 'quickrun)
 #+end_src
+
+* プロジェクト管理
+** project-mode
+
+   Emacs global minor mode for defining and navigating projects.
+
+   GTD のプロジェクトと連携させるのはいいかもね.
+   - タスクのかたまりはプロジェクトとして管理
+   - プロジェクトは git で版数管理
+
+   #+begin_src emacs-lisp
+   (autoload 'project-mode "project-mode" "Project Mode" t)
+   #+end_src
 
 * 未整理
 
@@ -33,13 +46,13 @@ http://www.emacswiki.org/emacs/download/smart-compile.el
 ;; ------------------------------------------------------------------------
 (require 'flymake)
 
-;; GUIの警告は表示しない
+;; GUI の警告は表示しない
 (setq flymake-gui-warnings-enabled nil)
 
-;; 全てのファイルで flymakeを有効化
+;; 全てのファイルで flymake を有効化
 (add-hook 'find-file-hook 'flymake-find-file-hook)
 
-;; M-p/M-n で警告/エラー行の移動
+;; M-p/M-n で警告/ エラー行の移動
 (global-set-key "\M-p" 'flymake-goto-prev-error)
 (global-set-key "\M-n" 'flymake-goto-next-error)
 
@@ -102,16 +115,16 @@ http://www.emacswiki.org/emacs/download/smart-compile.el
   :modes (ruby-mode))
 
 ;; -----------------------------------------------------------------------
-;; Name     : github関連
+;; Name     : github 関連
 ;; ------------------------------------------------------------------------
-;; 起動時にproxyパスワードが求められるので一旦封印する
+;; 起動時に proxy パスワードが求められるので一旦封印する
 ;; (require 'helm-github-issues)
 ;; (require 'helm-open-github)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : magit
 ;; Install  : el-get
-;; Function : Emacsの Git Client
+;; Function : Emacs の Git Client
 ;; Refs
 ;; https://github.com/magit/magit
 ;; http://qiita.com/takc923/items/c7a11ff30caedc4c5ba7
@@ -128,7 +141,7 @@ http://www.emacswiki.org/emacs/download/smart-compile.el
 
 ;; ------------------------------------------------------------------------
 ;; Name     : ediff
-;; Function : emacsようdiffツール
+;; Function : emacs よう diff ツール
 ;; build-in :
 ;; http://www.emacswiki.org/emacs/EdiffMode
 ;;; ------------------------------------------------------------------------

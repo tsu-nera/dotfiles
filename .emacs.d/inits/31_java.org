@@ -1,16 +1,16 @@
 * Java
-打倒Eclipse! Eclipseなんかぶっつぶせ！
+打倒 Eclipse! Eclipse なんかぶっつぶせ!
 
-そんな感じのJava設定です。
+そんな感じの Java 設定です.
 
 ** malabar-mode
 A better Java mode for Emacs.
 
 https://github.com/m0smith/malabar-mode
 
-el-getで取得。fringe-helperに依存。ダウンロードしたら、mvn package.
+el-get で取得. fringe-helper に依存. ダウンロードしたら, mvn package.
 
-Mavenの仕組みがうまくわからないので封印した。
+Maven の仕組みがうまくわからないので封印した.
 
 #+begin_src emacs-lisp
 ;; (require 'cedet)
@@ -57,7 +57,7 @@ http://sleepboy-zzz.blogspot.jp/2014/02/emacsjava_22.html
 
 #+end_src
 
-*** JUnit起動
+*** JUnit 起動
 
 #+begin_src emacs-lisp
 (defun eclim-run-test ()
@@ -66,6 +66,16 @@ http://sleepboy-zzz.blogspot.jp/2014/02/emacsjava_22.html
     (message "Sorry cannot run current buffer."))
   (compile (concat eclim-executable " -command java_junit -p " eclim--project-name " -t " (eclim-package-and-class))))
 (define-key eclim-mode-map (kbd "C-c C-e j t") 'eclim-run-test)
+#+end_src
+
+** gradle-mode
+   Gradle support for emacs-project-mode.
+   - https://github.com/rimerosolutions/emacs-gradle-project-mode
+
+  project-mode に依存してる.
+
+#+begin_src emacs-lisp
+(autoload 'emacs-gradle-project-mode "emacs-gradle-project-mode" "emacs-gradle-Project Mode" t)
 #+end_src
 
 * Android

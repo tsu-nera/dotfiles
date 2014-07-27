@@ -1,0 +1,4 @@
+(:name gradle-mode
+       :description "Gradle support for emacs-project-mode"
+       :type github
+       :pkgname "rimerosolutions/emacs-gradle-project-mode")

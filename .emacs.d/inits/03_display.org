@@ -296,3 +296,4 @@ no window モードは X の設定にしたがっているので, .Xdefaults の
 ;; (sublimity-mode 1)
 ;; (require 'sublimity-map)
 #+end_src
+

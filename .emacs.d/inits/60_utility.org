@@ -93,10 +93,11 @@ HTC_Pyramid Build/GRI40) AppleWebKit/533.1
 ** default の検索エンジンを変更
    google jp を設定する. default では, duckduckgo が設定されている.
 
-   => 結局やめた. なぜなら, 色がへん.
+   - 結局やめた. なぜなら, 色がへん.
+   - leuven-theme ならばそんなにへんじゃないので復活
    
    #+begin_src emacs-lisp
-   ;; (setq eww-search-prefix "http://www.google.co.jp/search?q=")
+   (setq eww-search-prefix "http://www.google.co.jp/search?q=")
    #+end_src
 
    - https://duckduckgo.com/params
@@ -111,10 +112,8 @@ HTC_Pyramid Build/GRI40) AppleWebKit/533.1
      => サイトアイコンなしは動かない.
 
    #+begin_src emacs-lisp
-   (setq eww-search-prefix "https://duckduckgo.com/html/?kl=jp-jp&k1=-1&kc=1&kf=-1&q=")
+   ;; (setq eww-search-prefix "https://duckduckgo.com/html/?kl=jp-jp&k1=-1&kc=1&kf=-1&q=")
    #+end_src
-
-*** TODO 色がへんなので, 変更したい
 
 ** eww をすぐに起動するためのショートカット
    以下のページを参考にして, eww を起動するためのキーバインドを設定した.
@@ -170,7 +169,6 @@ HTC_Pyramid Build/GRI40) AppleWebKit/533.1
    これでいけるかな?
    - [[http://jordiinglada.net/wp/2013/08/09/watching-youtube-without-a-browser-2/][Watching YouTube without a browser | Jordi Inglada]]
    - [[http://mugijiru.seesaa.net/article/258382587.html][やたー. emacs-w3m でリンク先の youtube の動画を mplayer を使ってストリーミング再生できたよー: 麦汁三昧]]
-
 
   #+begin_src emacs-lisp
    ) ;; end of 24.4

@@ -1,0 +1,4 @@
+(:name project-mode
+       :description "svn clone of emacs-project-mode"
+       :type github
+       :pkgname "kurtharriger/emacs-project-mode")
