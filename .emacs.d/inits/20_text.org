@@ -246,14 +246,20 @@
 ** anzu
    インタラクティブ検索, 置換
 
+   - [[https://github.com/syohex/emacs-anzu][syohex/emacs-anzu]]
    - http://qiita.com/syohex/items/56cf3b7f7d9943f7a7ba
-   - https://github.com/syohex/emacs-anzu
 
    #+begin_src emacs-lisp
-   (require 'anzu)
-   (global-anzu-mode +1)
-   (set-face-attribute 'anzu-mode-line nil
+(require 'anzu)
+(global-anzu-mode +1)
+(set-face-attribute 'anzu-mode-line nil
 		    :foreground "yellow" :weight 'bold)
+
+(custom-set-variables
+ '(anzu-mode-lighter "")
+ '(anzu-deactivate-region t)
+ '(anzu-search-threshold 1000)
+ '(anzu-replace-to-string-separator " => "))
    #+end_src
 
 ** swoop
