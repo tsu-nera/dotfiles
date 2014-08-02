@@ -293,9 +293,12 @@ no window モードは X の設定にしたがっているので, .Xdefaults の
 しましま表示
 
 #+begin_src emacs-lisp
+;; windows だと気持ち悪い色になる
+(when linux-p
 (require 'stripe-buffer)
 (add-hook 'dired-mode-hook 'turn-on-stripe-buffer-mode)
 ;;(add-hook 'org-mode-hook 'turn-on-stripe-table-mode)
+)
 #+end_src
 
 * sublimity

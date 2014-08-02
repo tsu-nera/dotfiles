@@ -19,6 +19,18 @@ el-get にまとめた.
 (require 'emacs-color-themes)
 #+end_src
 
+** tangotango
+   org-mode に対応してるダークテーマ.
+
+   - https://github.com/juba/color-theme-tangotango
+
+   #+begin_src emacs-lisp
+   (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/color-theme-tangotango")
+   (load-theme 'tangotango t)
+   #+end_src
+
+   tangotango と molokai をあわせると意外にいいかも??
+
 ** Molokai
    Install  : https://raw2.github.com/hbin/molokai-theme/master/molokai-theme-kit.el
 
@@ -26,10 +38,10 @@ el-get にまとめた.
 
 #+begin_src emacs-lisp
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-;; (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/molokai-theme")
-;; (require 'molokai-theme-kit)
-;;  (setq molokai-theme-kit t)
-;; (load-theme 'molokai t)
+(add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/molokai-theme")
+(require 'molokai-theme-kit)
+(setq molokai-theme-kit t)
+(load-theme 'molokai t)
 #+end_src
 
    自分のテーマにも, 以下のような設定で org-mode 対応できるらしい??
@@ -56,10 +68,10 @@ el-get にまとめた.
    - [[https://github.com/fniessen/emacs-leuven-theme][fniessen/emacs-leuven-theme]]
 
    #+begin_src emacs-lisp
-   (load-theme 'leuven t)
-   ;; fontify the whole line for headings (with a background color)
-   (setq org-fontify-whole-heading-line t)
+;;   (load-theme 'leuven t)
    #+end_src
+
+
 
 * rainbow-mode
 数字表記に色つけしてくれる 
