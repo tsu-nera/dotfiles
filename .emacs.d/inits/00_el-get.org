@@ -66,11 +66,12 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     multiple-cursors
     bm
     swoop
-    async
+    emacs-async
     pcre2el
     ht
     iedit
     flyspell
+    yspel
     ;; fic-ext-mode
     ;; smart-compile 独自改造したものを elisp においた
     expand-region
@@ -81,6 +82,8 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     tempbuf
     exec-path-from-shell
     bitlbee
+    migemo
+    magit
     ;; helm
     helm
     helm-c-yasnippet
@@ -140,9 +143,7 @@ el-get の延長で build とか動くと cygwin でこけたりする.
 #+begin_src emacs-lisp :tangle yes
 (defvar my/el-get-packages-for-linux
   '(
-    migemo
     pdf-tools
-    magit
     emacs-w3m  ;; cvs command not found
     )
   "A list of packages that can build only linux, fail for windows")
@@ -167,6 +168,7 @@ el-get の延長で build とか動くと cygwin でこけたりする.
     cool-mode
     esup
     scala-mode2
+    project-mode
     ;; ensime
     )
   "A list of packages that is not necessory for my work.")

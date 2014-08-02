@@ -164,6 +164,17 @@ http://masutaka.net/chalow/2011-05-19-1.html
    (set-scroll-bar-mode nil)
    #+end_src
 
+** 最大化表示
+Emacs は世界を統べるものなので, 最大化してもまったく問題ない.
+
+#+begin_src emacs-lisp
+;; スクリーンの最大化
+(set-frame-parameter nil 'fullscreen 'maximized)
+
+;; フルスクリーン
+(set-frame-parameter nil 'fullscreen 'fullboth)
+#+end_src
+
 * ハイライト
 ** 現在行をハイライト
 

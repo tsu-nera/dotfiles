@@ -162,14 +162,21 @@ http://sheephead.homelinux.org/
 	
 #+end_src
 
-** タスクの状態定義
+** タスクの状態
+   うまく動作しないので, 利用しないことにする.
+*** 定義
+    基本の状態は以下.
 
-とりあえず今は, TODO と DONE でいいや. そのうち充実させる.
+   - TODO: Default
+   - DONE: Done 
+   - NEXT: Next Action
+   - WAIT: Wait for  
+   - SOME: Some Day
 
 #+begin_src emacs-lisp
 ;; (setq org-todo-keywords (quote (
-;;  (sequence "TODO (t)" "STARTED (s!)" "NEXT (n!)" "DONE (d!/!)")
-;;  (sequence "WAITING (w@/!)" "SOMEDAY (S!)")
+;;  (sequence "TODO (t)" "NEXT (n)" "DONE (d)")
+;;  (sequence "WAIT (w)" "SOME (s)")
 ;;  )))
 
 ;; (setq org-todo-keyword-faces (quote (
@@ -177,51 +184,14 @@ http://sheephead.homelinux.org/
 ;;  ("NEXT" :foreground "orange" :weight bold)
 ;;  ("DONE" :foreground "forest green" :weight bold)
 ;;  ("REMINER" :foreground "forest green" :weight bold)
-;;  ("WAITING" :foreground "blue" :weight bold)
+;;  ("WAITING" :foreground "brown" :weight bold)
 ;;  ("SOMEDAY" :foreground "yellow" :weight bold)
 ;;  )))
-
-(setq org-todo-state-tags-triggers
-      (quote (;;("CANCELLED" ("CANCELLED" . t))
-              ;; ("WAITING" ("WAITING" . t) ("NEXT"))
-              ;; ("SOMEDAY" ("WAITING" . t))
-;;              (done ("next"))
-;;              ("next" ("planed . t"))
-              ;; ("TODO" ("WAITING") ("CANCELLED") ("NEXT"))
-              ;; ("DONE" ("WAITING") ("NEXT"))
-)))
-
-
-;; 参考
-;; http://hpcgi1.nifty.com/spen/index.cgi?OrgMode%2fOrganize_Your_Life_In_Plain_Text!#i9
-
-;; (setq org-todo-keywords (quote ((sequence "TODO (t)" "STARTED (s!)" "|" "DONE (d!/!)")
-;;  (sequence "WAITING (w@/!)" "SOMEDAY (S!)" "OPEN (O@)" "|" "CANCELLED (c@/!)")
-;;  (sequence "QUOTE (q!)" "QUOTED (Q!)" "|" "APPROVED (A@)" "EXPIRED (E@)" "REJECTED (R@)"))))
-;; (setq org-todo-keyword-faces (quote (("TODO" :foreground "red" :weight bold)
-;;  ("STARTED" :foreground "blue" :weight bold)
-;;  ("DONE" :foreground "forest green" :weight bold)
-;;  ("WAITING" :foreground "orange" :weight bold)
-;;  ("SOMEDAY" :foreground "magenta" :weight bold)
-;;  ("CANCELLED" :foreground "forest green" :weight bold)
-;;  ("QUOTE" :foreground "red" :weight bold)
-;;  ("QUOTED" :foreground "magenta" :weight bold)
-;;  ("APPROVED" :foreground "forest green" :weight bold)
-;;  ("EXPIRED" :foreground "forest green" :weight bold)
-;;  ("REJECTED" :foreground "forest green" :weight bold)
-;;  ("OPEN" :foreground "blue" :weight bold))))
-
-;; (setq org-todo-state-tags-triggers
-;;       (quote (("CANCELLED" ("CANCELLED" . t))
-;;               ("WAITING" ("WAITING" . t) ("NEXT"))
-;;               ("SOMEDAY" ("WAITING" . t))
-;;               (done ("NEXT") ("WAITING"))
-;;               ("TODO" ("WAITING") ("CANCELLED") ("NEXT"))
-;;               ("DONE" ("WAITING") ("CANCELLED") ("NEXT")))))
-
-;; ;; Change task state to STARTED when clocking in
-;; (setq org-clock-in-switch-to-state "STARTED")
 #+end_src
+
+** 参考リンク
+  - http://hpcgi1.nifty.com/spen/index.cgi?OrgMode%2fOrganize_Your_Life_In_Plain_Text!#i9
+  - [[http://hpcgi1.nifty.com/spen/index.cgi?OrgMode%2FOrg-mode%A4%C7GTD%BC%C2%C1%A9%A1%CA%CB%DD%CC%F5%A1%CB#i16][OrgMode/Org-mode で GTD 実践 (翻訳) - How I use Emacs and Org-mode to implement GTD の翻訳]]
 
 ** org-clock-in-quick
  指定したタスクを clockin するためのショートカット はじめてつくった自作 defun!!
@@ -273,20 +243,29 @@ http://sheephead.homelinux.org/
 (global-set-key (kbd "<f8>") 'rest)
 #+end_src
 
-** 未分類
+** Next Action
+   http://qiita.com/takaxp/items/4dfa11a81e18b29143ec
+
 #+begin_src emacs-lisp
-;; -----------------------------------------------------------------------
-;; NextAction の設定
-;; http://qiita.com/takaxp/items/4dfa11a81e18b29143ec
-;; ------------------------------------------------------------------------
 (defvar my-next-tag "next")
 (defvar my-unplan-tag "unplan")
 
-;; タグの色変更
-;; (setq org-tag-faces '(("next" :foreground "#FF0000")))
 (setq org-tag-faces '(("next" :foreground "orange")))
 
 ;; Next タグをトグルする
+(defun my-toggle-next-tag ()
+  (interactive)
+  (when (eq major-mode 'org-mode)
+    (save-excursipon
+      (save-restriction
+        (unless (org-at-heading-p)
+          (outline-previous-heading))
+        (if (string-match (concat ":" my-next-tag ":") (org-get-tags-string))
+            (org-toggle-tag my-next-tag 'off)
+          (org-toggle-tag my-next-tag 'on))
+        (org-reveal)))))
+
+;; うまくうごかないので, 封印
 ;; (defun my-toggle-tag (my-tag)
 ;;   (interactive)
 ;;   (when (eq major-mode 'org-mode)
@@ -299,24 +278,25 @@ http://sheephead.homelinux.org/
 ;;           (org-toggle-tag my-tag 'on))
 ;;         (org-reveal)))))
 
-(defun my-toggle-next-tag ()
-  (interactive)
-  (when (eq major-mode 'org-mode)
-    (save-excursion
-      (save-restriction
-        (unless (org-at-heading-p)
-          (outline-previous-heading))
-        (if (string-match (concat ":" my-next-tag ":") (org-get-tags-string))
-            (org-toggle-tag my-next-tag 'off)
-          (org-toggle-tag my-next-tag 'on))
-        (org-reveal)))))
+;; (defun my-toggle-next-tag ()
+;;   my-toggle-tag ("next"))
 
 ;; (defun my-toggle-unplan-tag ()
 ;;   my-toggle-tag (my-unplan-tag))
 
 (global-set-key (kbd "C-x <f2>") 'my-toggle-next-tag)
 ;;(global-set-key (kbd "C-x <f3>") 'my-toggle-unplan-tag)
+#+end_src
 
+** next タグの除去
+   
+#+begin_src emacs-lisp
+(setq org-todo-state-tags-triggers
+      (quote (("DONE" ("next")))))
+#+end_src
+
+** 未分類
+#+begin_src emacs-lisp
 ;; -----------------------------------------------------------------------
 ;; Name     : org-clock
 ;; http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
@@ -544,32 +524,54 @@ org と ical のスケジュールを混ぜて表示させることが出来ま�
 ;;    )))
 #+end_src
 * org-export
+  org-mode から別形式へ. つまり, なんでも org-mode でよいということ.
+
+  -[[http://orgmode.org/manual/Exporting.html#Exporting][Exporting - The Org Manual]]
+
+  C-c C-e
+
+  デフォルト以外を export 先ツールとして利用するためには, ox-xxx を require します.
+
+  | ascii (ASCII format)           | ox-ascii.el     |
+  | beamer (LaTeX Beamer format)   | ox-beamer.el    |
+  | html (HTML format)             | ox-html.el      |
+  | icalendar (iCalendar format)   | ox-icalendar.el |
+  | latex (LaTeX format)           | ox-latex.el     |
+  | man (Man page format)          | ox-man.el       |
+  | md (Markdown format)           | ox-md.el        |
+  | odt (OpenDocument Text format) | ox-odt.el       |
+  | org (Org format)               | ox-org.el       |
+  | texinfo (Texinfo format)       | ox-texinfo.el   |
+
 ** ox-rst
-org-mode から RST への変換
+   org-mode から reStructredText への変換
 
 #+begin_src emacs-lisp
-(require 'ox-rst)
+;; (require 'ox-rst)
 #+end_src
 
 ** ox-pandoc
-org-mode から RST への変換. ox-rst を使うからいらないかも.
+   org-mode から reStructredText への変換. ox-rst を使うからいらないかも.
 
 #+begin_src emacs-lisp
-(require 'ox-pandoc)
-(setq org-pandoc-output-format 'rst)
+;; (require 'ox-pandoc)
+;; (setq org-pandoc-output-format 'rst)
 #+end_src
 
 ** ox-taskjuggler
+   TaskJuggler 変換.
 
 #+begin_src emacs-lisp
 (require 'ox-taskjuggler)
 #+end_src
 
 ** ox-wk
-   dokuwiki 変換
+   dokuwiki 変換.
+
 #+begin_src emacs-lisp
 (require 'ox-wk)
 #+end_src
+
 * mobileOrg
 iphone と org-mode の同期. Dropbox を利用
 
