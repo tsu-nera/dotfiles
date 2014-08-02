@@ -631,11 +631,16 @@ sudo pacman -S ghostscript
 Emacs 用カレンダー.
 
 * minimap
-SublimeText のようなミニマップ.
+  Sublime Text のようなミニマップ.
 
 #+begin_src emacs-lisp
-(when (display-graphic-p)
-  (require 'minimap)
-  ;; enable minimap
-  (global-set-key (kbd "C-c n") 'minimap-toggle))
+(require 'minimap)
+(setq minimap-window-location 'right)
+(setq minimap-minimum-width 15)
+(global-set-key (kbd "C-c n") 'minimap-mode)
+
+;; (when (display-graphic-p)
+;;   (require 'minimap)
+;;   ;; enable minimap
+;;   (global-set-key (kbd "C-c n") 'minimap-toggle))
 #+end_src
