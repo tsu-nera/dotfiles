@@ -630,3 +630,12 @@ sudo pacman -S ghostscript
 * calfw
 Emacs 用カレンダー.
 
+* minimap
+SublimeText のようなミニマップ.
+
+#+begin_src emacs-lisp
+(when (display-graphic-p)
+  (require 'minimap)
+  ;; enable minimap
+  (global-set-key (kbd "C-c n") 'minimap-toggle))
+#+end_src

@@ -84,6 +84,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     bitlbee
     migemo
     magit
+    minimap
     ;; helm
     helm
     helm-c-yasnippet
