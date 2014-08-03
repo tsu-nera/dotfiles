@@ -93,6 +93,20 @@ el-get にまとめた.
 (global-rainbow-delimiters-mode)
 #+end_src
 
+* minimap
+  Sublime Text のようなミニマップ.
+
+#+begin_src emacs-lisp
+(require 'minimap)
+(setq minimap-window-location 'right)
+(setq minimap-minimum-width 15)
+(global-set-key (kbd "C-c n") 'minimap-mode)
+
+;; (when (display-graphic-p)
+;;   (require 'minimap)
+;;   ;; enable minimap
+;;   (global-set-key (kbd "C-c n") 'minimap-toggle))
+#+end_src
 
 * Buck Up
 

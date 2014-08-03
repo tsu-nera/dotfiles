@@ -1,5 +1,5 @@
 (:name elscreen
-       :auto-generated t
+;;       :auto-generated t
        :type github
        :website "https://github.com/emacs-jp/elscreen"
        :description "Screen for Emacs"

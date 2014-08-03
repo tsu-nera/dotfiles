@@ -3,10 +3,4 @@
        :website "https://github.com/tsu-nera/pdf-tools"
        :description "Emacs support library for PDF files."
        :pkgname "tsu-nera/pdf-tools"
-       :build
-       '(("./autogen.sh")
- 	 ("./configure")
-	 ("make")
-	 ("make" "install"))
-       :load-path ("./lisp")
        )

@@ -24,8 +24,8 @@ export ANSIBLE_HOSTS=$HOME/.ansible/hosts
 export LANG=ja_JP.UTF-8
 
 # touchpad
-alias touchpad_disable='xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 0'
-alias touchpad_enable='xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 1'
+# alias touchpad_disable='xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 0'
+# alias touchpad_enable='xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 1'
 
 # lock slim
 alias lock='slimlock'
