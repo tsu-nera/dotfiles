@@ -29,3 +29,7 @@ export LANG=ja_JP.UTF-8
 
 # lock slim
 alias lock='slimlock'
+
+# アンチエイリアス
+export _JAVA_OPTIONS='-Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+export JAVA_FONTS=/usr/share/fonts/TTF

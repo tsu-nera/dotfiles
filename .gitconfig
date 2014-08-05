@@ -1,19 +1,16 @@
-[user]
-name = tsu-nera
-email = fox10225fox@gmail.com
 [color]
-ui = auto
+	ui = auto
 [gui]
-encoding = utf-8
+	encoding = utf-8
 [core]
-quotepath = false
+	quotepath = false
 [alias]
-ci = commit -a
-di = diff
-br = branch
-co = checkout
-st = status
+	ci = commit -a
+	di = diff
+	br = branch
+	co = checkout
+	st = status
 [push]
-default = simple
+	default = simple
 [include]
-path = ~/dotfiles/.gitconfig.local
+	path = ~/dotfiles/.gitconfig.local
