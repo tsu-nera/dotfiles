@@ -1,12 +1,4 @@
 * Setupメモ
-** OS環境
-以下をインストール
-
-- bzr
-- gettext
-- libsasl2
-- ca-certificates
-
 ** el-get init-loaderを入れる
 $ git submodule init
 $ git submodule update
@@ -15,6 +7,25 @@ $ git submodule update
 M-x el-get-emacswiki-build-local-recipes
 
 * 依存パッケージ
-** cmigemo
+** ビルド系
+  - make
+  - gcc
+  - autoconf
 
-sudo apt-get install cmigemo
+** バージョン管理
+  - bzr
+  - git
+  - mercurial
+  - cvs
+
+** その他
+  - gettext
+  - libsasl2
+  - ca-certificates
+
+** cmigemo
+   - Ubuntsu　sudo apt-get install cmigemo
+   - Windows　http://www.kaoriya.net/software/cmigemo/
+   
+** w3m
+   - Windows(Cygwin) w3m

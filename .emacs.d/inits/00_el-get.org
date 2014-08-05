@@ -66,7 +66,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     multiple-cursors
     bm
     swoop
-    async
+    emacs-async
     pcre2el
     ht
     iedit
@@ -130,22 +130,14 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     ;; tomatinho
     wanderlust
     twittering-mode
-    )
-  "A list of packages to install from el-get at launch")
-#+end_src
-
-** Linux 特有のパッケージ
-el-get の延長で build とか動くと cygwin でこけたりする.
-
-#+begin_src emacs-lisp :tangle yes
-(defvar my/el-get-packages-for-linux
-  '(
+    ;; for linux
     migemo
-    pdf-tools
     magit
     emacs-w3m  ;; cvs command not found
+    pdf-tools
+    undo-tree
     )
-  "A list of packages that can build only linux, fail for windows")
+  "A list of packages to install from el-get at launch")
 #+end_src
 
 ** Private パッケージ
@@ -154,7 +146,7 @@ el-get の延長で build とか動くと cygwin でこけたりする.
 #+begin_src emacs-lisp :tangle yes
 (defvar my/el-get-packages-private
   '(
-    calfw
+    Calfw
     helm-gist
     helm-github-issues
     helm-open-github
@@ -190,13 +182,11 @@ http://stackoverflow.com/questions/23165158/how-do-i-install-melpa-packages-via-
   (append 
   my/el-get-packages-common
   my/el-get-packages-private
-  (when linux-p my/el-get-packages-for-linux)
   )
   "A list of packages to install from el-get at launch.")
 
 ;; 同期する
 ;; (el-get 'sync my/el-get-packages-all)
-;; (el-get 'sync my/el-get-packages-work)
 ;; (el-get 'sync my/el-get-packages-private)
 #+end_src
 
