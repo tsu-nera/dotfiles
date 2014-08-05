@@ -71,6 +71,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     ht
     iedit
     flyspell
+    yspel
     ;; fic-ext-mode
     ;; smart-compile 独自改造したものを elisp においた
     expand-region
@@ -81,6 +82,9 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     tempbuf
     exec-path-from-shell
     bitlbee
+    migemo
+    magit
+    minimap
     ;; helm
     helm
     helm-c-yasnippet
@@ -101,6 +105,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     color-theme
     molokai-theme
     color-theme-leuven
+    color-theme-tangotango
     ;; programming
     flymake
     flycheck
@@ -159,6 +164,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     cool-mode
     esup
     scala-mode2
+    project-mode
     ;; ensime
     )
   "A list of packages that is not necessory for my work.")
