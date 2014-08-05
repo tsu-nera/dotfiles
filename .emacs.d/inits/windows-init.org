@@ -16,4 +16,3 @@
        (w32-browser (dired-replace-in-string "/" "\\" (dired-get-filename))))))
 #+end_src
 
-* Color Theme

@@ -6,6 +6,11 @@ $ git submodule update
 ** emacswikiのレシピを入れる
 M-x el-get-emacswiki-build-local-recipes
 
+* Windowsでの設定
+
+
+  - http://futurismo.biz/archives/2465
+
 * 依存パッケージ
 ** ビルド系
   - make

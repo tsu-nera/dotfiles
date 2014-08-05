@@ -30,69 +30,6 @@ url_completion_use_history = true; // should work since bf05c87405
 url_completion_use_bookmarks = true;
 
 //////////////////////////////////////////
-// Darken Pages
-// very cool staff!
-//////////////////////////////////////////
-function darken_page (I) {
-    var styles='* { background: black !important; color: grey !important; }'+
-        ':link, :link * { color: #4986dd !important; }'+
-        ':visited, :visited * { color: #d75047 !important; }';
-    var document = I.buffer.document;
-    var newSS=document.createElement('link');
-    newSS.rel='stylesheet';
-    newSS.href='data:text/css,'+escape(styles);
-    document.getElementsByTagName("head")[0].appendChild(newSS);
-}
-
-interactive("darken-page", "Darken the page in an attempt to save your eyes.",
-            darken_page);
-
-define_key(content_buffer_normal_keymap, "C-d", "darken-page");
-
-///////////////////////////////////////////////////////////////
-//  Mode-line
-//  http://conkeror.org/ModeLine?highlight=%28mode-line%29
-///////////////////////////////////////////////////////////////
-// funky icons in the modeline
-require("mode-line.js");
-
-load_paths.unshift("chrome://conkeror-contrib/content/");
-require("mode-line-buttons.js");
-mode_line_add_buttons(standard_mode_line_buttons, true);
-
-// view source in your editor.
-view_source_use_external_editor = true;
-
-// keep session
-require("session.js");
-
-// Use emacsclient as external editor
-editor_shell_command = "emacsclient -c"
-
-mode_line_add_buttons(standard_mode_line_buttons, true);
-cwd.append("Downloads");
-
-//////////////////////////////////////////
-// Darken Pages
-//   very cool staff!
-//////////////////////////////////////////
-function darken_page (I) {
-    var styles='* { background: black !important; color: grey !important; }'+
-        ':link, :link * { color: #4986dd !important; }'+
-        ':visited, :visited * { color: #d75047 !important; }';
-    var document = I.buffer.document;
-    var newSS=document.createElement('link');
-    newSS.rel='stylesheet';
-    newSS.href='data:text/css,'+escape(styles);
-    document.getElementsByTagName("head")[0].appendChild(newSS);
-}
-
-interactive("darken-page", "Darken the page in an attempt to save your eyes.",
-            darken_page);
-
-define_key(content_buffer_normal_keymap, "C-d", "darken-page");
-
-//////////////////////////////////////////
 // shortcut
 //////////////////////////////////////////
 interactive("open-google", "Go to google.co.jp", "follow",
@@ -146,3 +83,50 @@ define_webjump("g", "http://www.google.co.jp/search?q=%s", $alternative = "http:
 //////////////////////////////////////////
 session_pref("xpinstall.whitelist.required", false);
 external_content_handlers.set("application/pdf", "evince");
+
+//////////////////////////////////////////
+// Darken Pages
+// very cool staff!
+//////////////////////////////////////////
+function darken_page (I) {
+    var styles='* { background: black !important; color: grey !important; }'+
+        ':link, :link * { color: #4986dd !important; }'+
+        ':visited, :visited * { color: #d75047 !important; }';
+    var document = I.buffer.document;
+    var newSS=document.createElement('link');
+    newSS.rel='stylesheet';
+    newSS.href='data:text/css,'+escape(styles);
+    document.getElementsByTagName("head")[0].appendChild(newSS);
+}
+
+interactive("darken-page", "Darken the page in an attempt to save your eyes.",
+            darken_page);
+
+define_key(content_buffer_normal_keymap, "C-d", "darken-page");
+
+
+///////////////////////////////////////////////////////////////
+//  Mode-line
+//  http://conkeror.org/ModeLine?highlight=%28mode-line%29
+///////////////////////////////////////////////////////////////
+// funky icons in the modeline
+require("mode-line.js");
+
+load_paths.unshift("chrome://conkeror-contrib/content/");
+require("mode-line-buttons.js");
+mode_line_add_buttons(standard_mode_line_buttons, true);
+
+///////////////////////////////////////////////////////////////
+//  Others
+///////////////////////////////////////////////////////////////
+// view source in your editor.
+view_source_use_external_editor = true;
+
+// keep session
+require("session.js");
+
+// Use emacsclient as external editor
+editor_shell_command = "emacsclient -c"
+
+mode_line_add_buttons(standard_mode_line_buttons, true);
+cwd.append("Downloads");

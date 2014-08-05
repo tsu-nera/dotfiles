@@ -72,7 +72,8 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     iedit
     flyspell
     yspel
-    ;; fic-ext-mode
+    fic-ext-mode
+    isearch-ace-jump
     ;; smart-compile 独自改造したものを elisp においた
     expand-region
     ;; utility
@@ -106,6 +107,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     molokai-theme
     color-theme-leuven
     color-theme-tangotango
+    rainbow-delimiters
     ;; programming
     flymake
     flycheck
