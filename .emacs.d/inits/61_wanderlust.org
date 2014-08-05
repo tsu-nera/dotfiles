@@ -1,25 +1,28 @@
 * Wanderlust
-emacsのメーラ
+emacs のメーラ
 
-ここでは、家と会社で共通の設定を書く。環境ごとの設定は~/.wlに記入する。
+ここでは, 家と会社で共通の設定を書く. 環境ごとの設定は~/.wl に記入する.
 
 #+begin_src emacs-lisp
-; この行がないとimapサーバに繋がらない
+; この行がないと imap サーバに繋がらない
 (setq ssl-certificate-verification-policy 1)
 (autoload 'wl "wl" "Wanderlust" t)
 (autoload 'wl-other-frame "wl" "Wanderlust on new frame." t)
 (autoload 'wl-draft "wl-draft" "Write draft with Wanderlust." t)
 #+end_src
 
-* HTMLメール対策
-emacs-w3mをつかう。w3mが必要。(apt-get install w3m)
+* HTML メール対策
+emacs-w3m をつかう. w3m が必要. (apt-get install w3m)
 
 #+begin_src emacs-lisp
 (require 'wl)
-;; HTMLファイルは表示しない。
+;; HTML ファイルは表示しない.
 (setq mime-setup-enable-inline-html nil)
 
-;; HTMLメールはw3mで
+;; text/plain を html よりも優先
+(set-alist 'mime-view-type-subtype-score-alist '(text . html) 0)
+
+;; HTML メールは w3m で
 (require 'mime-setup)
 (when (locate-library "mime-w3m")
   (require 'w3m-ems)
@@ -37,14 +40,14 @@ http://kaworu.jpn.org/kaworu/2008-04-29-1.php
 ;; summary-mode ですべての header を一旦除去
 (setq mime-view-ignored-field-list '("^.*"))
 
-;; ;; 表示するヘッダ。
+;; ;; 表示するヘッダ.
 (setq wl-message-visible-field-list
 (append mime-view-visible-field-list
 '("^Subject:" "^From:" "^To:" "^Cc:"
 "^X-Mailer:" "^X-Newsreader:" "^User-Agent:"
 "^X-Face:" "^X-Mail-Count:" "^X-ML-COUNT:"
 )))
-;; ;; 隠すメールヘッダを指定。
+;; ;; 隠すメールヘッダを指定.
 ;; (setq wl-message-ignored-field-list
 ;; (append mime-view-ignored-field-list
 ;; '(".*Received:" ".*Path:" ".*Id:" "^References:"
@@ -79,31 +82,31 @@ http://kaworu.jpn.org/kaworu/2008-04-29-1.php
 #+begin_src emacs-lisp
 ;;;------------------------------------------
 ;;; その他の設定
-;; 大きなメッセージを分割して送信しない(デフォルトはtで分割する)
+;; 大きなメッセージを分割して送信しない (デフォルトは t で分割する)
 (setq mime-edit-split-message nil)
 
 ;; 起動時からオフラインにする
 ;; (setq wl-plugged nil)
 ;; サマリモードで日時を英語表示
 ;; (setq wl-summary-weekday-name-lang 'en)
-;; メールを書くときは見出し画面を残して、フル画面にする
+;; メールを書くときは見出し画面を残して, フル画面にする
 (setq wl-draft-reply-buffer-style 'keep)
-;; 送信済みIMAPフォルダは送信と同時に既読にする
+;; 送信済み IMAP フォルダは送信と同時に既読にする
 (setq wl-fcc-force-as-read t)
 ;; 最初からスレッドを開いておかない
 ;;(setq wl-thread-insert-opened nil)
-;; スレッドを分割するしきい値(デフォルト：30)
+;; スレッドを分割するしきい値 (デフォルト:30)
 (setq wl-summary-max-thread-depth 30)
-;; 警告無しに開けるメールサイズの最大値(デフォルト：30K)
+;; 警告無しに開けるメールサイズの最大値 (デフォルト:30K)
 (setq elmo-message-fetch-threshold 500000)
-;; プリフェッチ時に確認を求めるメールサイズの最大値(デフォルト：30K)
+;; プリフェッチ時に確認を求めるメールサイズの最大値 (デフォルト:30K)
 (setq wl-prefetch-threshold 500000)
 
 ;;;------------------------------------------
 ;; (setq wl-dispose-folder-alist
 ;; (cons '("^%inbox" . remove) wl-dispose-folder-alist))
 ;;;------------------------------------------
-;;; from,to のデコード指定。
+;;; from,to のデコード指定.
 (mime-set-field-decoder
 'From nil 'eword-decode-and-unfold-unstructured-field-body)
 (mime-set-field-decoder
@@ -130,7 +133,7 @@ http://kaworu.jpn.org/kaworu/2008-04-29-1.php
 ;; (setq wl-summary-line-format-spec-alist
 ;; (append wl-summary-line-format-spec-alist
 ;; '((?@ (wl-summary-line-attached)))))
-(setq wl-summary-line-format "%n%T%P%1@%M/%D(%W)%h:%m %t%[%17(%c %f%) %] %s")
+(setq wl-summary-line-format "%n%T%P%1@%M/%D (%W)%h:%m %t%[%17 (%c %f%) %] %s")
 
 ;; サマリの横幅は制限なし
 (setq wl-suumary-width nil)
@@ -141,7 +144,7 @@ http://kaworu.jpn.org/kaworu/2008-04-29-1.php
 (setq mime-play-delete-file-immediately nil)
 #+end_src
 
-draft-modeでyassnipetを有効化. うまくうごかない。。。
+draft-mode で yassnipet を有効化. うまくうごかない. . .
 
 #+begin_src emacs-lisp
 (add-hook 'wl-draft-mode-hook
@@ -151,7 +154,7 @@ draft-modeでyassnipetを有効化. うまくうごかない。。。
 
 * その他
 
-パスワードを省略するためには、パスワード入力後に以下を入力。
+パスワードを省略するためには, パスワード入力後に以下を入力.
 
 #+begin_src language
 M-x elmo-passwd-alist-save
