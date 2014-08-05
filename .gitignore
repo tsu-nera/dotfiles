@@ -4,6 +4,7 @@
 .#*
 .recentf
 .emacs-places
+.w3m
 
 /.xmonad/*
 !/.xmonad/xmonad.hs

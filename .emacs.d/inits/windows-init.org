@@ -1,4 +1,6 @@
-* Windows環境専用設定
+* Windows 環境専用設定
+
+- [[http://gregorygrubbs.com/emacs/10-tips-emacs-windows/][10 Tips for Powerful Emacs on Windows]]
 
 ** ショートカットから外部のアプリケーションを起動
 

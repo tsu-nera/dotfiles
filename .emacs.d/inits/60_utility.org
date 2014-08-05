@@ -127,6 +127,17 @@ from: [[http://qiita.com/fujimisakari/items/d7f1b904de11dcb018c3][Emacs - Elscre
 "Mozilla/5.0 (Linux; U; Android 2.3.3; zh-tw; 
 HTC_Pyramid Build/GRI40) AppleWebKit/533.1 
 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.")
+
+(when windows-p
+;;(setq exec-path (append exec-path '("C://app//w3m-mingw32")))
+(setq exec-path (append exec-path '("C:/cygwin64/bin")))
+)
+
+(require 'w3m-load)
+(setq w3m-use-cookies t)
+(setq w3m-favicon-cache-expire-wait nil)
+(setq w3m-home-page "http://www.google.co.jp/")
+
 #+end_src
 
 * webkit

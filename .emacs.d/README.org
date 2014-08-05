@@ -1,12 +1,12 @@
-* Setupメモ
-** el-get init-loaderを入れる
+* Setup メモ
+** el-get init-loader を入れる
 $ git submodule init
 $ git submodule update
 
-** emacswikiのレシピを入れる
+** emacswiki のレシピを入れる
 M-x el-get-emacswiki-build-local-recipes
 
-* Windowsでの設定
+* Windows での設定
 
 
   - http://futurismo.biz/archives/2465
@@ -29,8 +29,10 @@ M-x el-get-emacswiki-build-local-recipes
   - ca-certificates
 
 ** cmigemo
-   - Ubuntsu　sudo apt-get install cmigemo
-   - Windows　http://www.kaoriya.net/software/cmigemo/
+   - Ubuntsu  sudo apt-get install cmigemo
+   - Windows  http://www.kaoriya.net/software/cmigemo/
    
 ** w3m
-   - Windows(Cygwin) w3m
+   - Windows (Cygwin) w3m
+
+     バイナリオトス: [[http://hp.vector.co.jp/authors/VA052357/w3m_w32.html][OOTA's page]]
