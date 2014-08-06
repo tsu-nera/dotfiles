@@ -1,0 +1,7 @@
+* Emacs Lisp
+
+以下を評価するとスタック情報がみえる.
+
+#+begin_src language
+(setq debug-on-error t)
+#+end_src

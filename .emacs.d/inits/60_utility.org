@@ -638,6 +638,14 @@ sudo pacman -S ghostscript
 
 - [[http://stackoverflow.com/questions/16132234/how-can-i-speed-up-emacs-docview-mode][How can I speed up Emacs DocView mode? - Stack Overflow]]
 
+** WIndows 環境
+   頑張ってる. まだうごかない.
+
+   - libglib
+   - libglib-dev
+   - libpopper
+   - libpoppwer-glib8
+
 * calfw
 Emacs 用カレンダー.
 

@@ -16,6 +16,7 @@ M-x el-get-emacswiki-build-local-recipes
   - make
   - gcc
   - autoconf
+  - automake
 
 ** バージョン管理
   - bzr
