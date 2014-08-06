@@ -169,10 +169,10 @@ Emacs は世界を統べるものなので, 最大化してもまったく問題
 
 #+begin_src emacs-lisp
 ;; スクリーンの最大化
-(set-frame-parameter nil 'fullscreen 'maximized)
+;;(set-frame-parameter nil 'fullscreen 'maximized)
 
 ;; フルスクリーン
-(set-frame-parameter nil 'fullscreen 'fullboth)
+;; (set-frame-parameter nil 'fullscreen 'fullboth)
 #+end_src
 
 * ハイライト

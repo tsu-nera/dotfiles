@@ -183,6 +183,8 @@ http://www.emacswiki.org/emacs-ja/Emacs%E3%83%93%E3%82%AE%E3%83%8A%E3%83%BC#toc9
    (setq inhibit-startup-message t)
    #+end_src
 
+   
+
 * Emacs client
   server start for emacs-client
   http://d.hatena.ne.jp/syohex/20101224/1293206906
@@ -285,6 +287,14 @@ Shift+Insert でも貼り付けできるので, とりあえずはこれで回�
     (if active-file-name
         (file-name-directory active-file-name)
       current-dir)))
+#+end_src
+
+** BEEP  
+   Ignore beep (for windows)
+
+#+begin_src emacs-lisp
+(setq visible-bell t)
+(setq ring-bell-function 'ignore)
 #+end_src
 
 * Tramp
