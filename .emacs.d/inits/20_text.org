@@ -226,25 +226,35 @@
    日本語をロ-マ字検索
 
    #+begin_src emacs-lisp
-  (require 'migemo)
+  ;; for emacs 24.3
+  ;; http://wp.kncn.net/archives/6025
+  (setq search-whitespace-regexp nil)
+
   (when linux-p
-  (setq migemo-command "cmigemo")
-  (setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict")
-  )
-  (when windows-p
-  (setq migemo-command "c:/app/cmigemo-default-win64/cmigemo.exe")
-  (setq migemo-dictionary "c:/app/cmigemo-default-win64/dict/utf-8/migemo-dict")
-  )
+  (require 'migemo)
   (setq migemo-options '("-q" "--emacs"))
   (setq migemo-user-dictionary nil)
   (setq migemo-regex-dictionary nil)
   (setq migemo-coding-system 'utf-8-unix)
+
+  (setq migemo-command "cmigemo")
+  (setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict")
   (load-library "migemo")
   (migemo-init)
+  )
 
-  ;; for emacs 24.3
-  ;; http://wp.kncn.net/archives/6025
-  (setq search-whitespace-regexp nil)
+  (when windows-p
+  (require 'migemo)
+  (setq migemo-options '("-q" "--emacs"))
+  (setq migemo-user-dictionary nil)
+  (setq migemo-regex-dictionary nil)
+  (setq migemo-coding-system 'utf-8-unix)
+
+  (setq migemo-command "c:/app/cmigemo-default-win64/cmigemo.exe")
+  (setq migemo-dictionary "c:/app/cmigemo-default-win64/dict/utf-8/migemo-dict")
+  (load-library "migemo")
+  ;;(migemo-init)
+  )
 
    #+end_src
 ** anzu

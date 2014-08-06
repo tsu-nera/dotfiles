@@ -1,4 +1,6 @@
 * Windows 環境専用設定
+Official.
+- http://ftp.gnu.org/gnu/emacs/windows/
 
 - [[http://gregorygrubbs.com/emacs/10-tips-emacs-windows/][10 Tips for Powerful Emacs on Windows]]
 
@@ -18,3 +20,46 @@
        (w32-browser (dired-replace-in-string "/" "\\" (dired-get-filename))))))
 #+end_src
 
+* 画像
+Official に情報あり
+- http://ftp.gnu.org/gnu/emacs/windows/
+
+F1 + v + dynamic-library-alist で必要な dll をしらべる
+
+ #+begin_src language
+Value: ((xpm "libxpm.dll" "xpm4.dll" "libXpm-nox4.dll")
+ (png "libpng14-14.dll" "libpng14.dll")
+ (jpeg "jpeg62.dll" "libjpeg.dll" "jpeg-62.dll" "jpeg.dll")
+ (tiff "libtiff3.dll" "libtiff.dll")
+ (gif "giflib4.dll" "libungif4.dll" "libungif.dll")
+ (svg "librsvg-2-2.dll")
+ (gdk-pixbuf "libgdk_pixbuf-2.0-0.dll")
+ (glib "libglib-2.0-0.dll")
+ (gobject "libgobject-2.0-0.dll")
+ (gnutls "libgnutls-28.dll" "libgnutls-26.dll")
+ (libxml2 "libxml2-2.dll" "libxml2.dll"))
+#+end_src
+
+
+.dll が必要. 以下のサイトから入手.
+
+ http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/
+
+# 64 だとうごかない!
+# http://ftp.gnome.org/pub/gnome/binaries/win64/dependencies/
+
+- zlib_xxx.zip
+- libpng_xxx.zip (PNG 用 , w32 でないとうごかなかった)
+- jpeg_xxx.zip ( JPEG, ver8 ではなく, 6 であるところに注意)
+
+解凍後, bin 配下にある dll を Emacs.exe と同じ bin フォルダに置く.
+
+* ag
+ここにバイナリ発見!
+
+- https://github.com/rbtnn/ag4mingw
+
+#+begin_src emacs-lisp
+;; しかしうごかないな.
+;; (setq helm-ag-base-command "c:/app/ag4mingw/ag.exe --nogroup")
+#+end_src

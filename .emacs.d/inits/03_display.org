@@ -29,7 +29,7 @@
 ;; ただし, 特定の major-mode のときは抑止
 ;; https://github.com/Khady/emacs.d/blob/master/setup-linum.el
 (require 'setup-linum)
-(setq linum-disabled-modes-list '(doc-view-mode))
+(setq linum-disabled-modes-list '(doc-view-mode image-mode))
 #+end_src
 
 * ファイル
