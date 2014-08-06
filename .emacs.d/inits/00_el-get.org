@@ -140,7 +140,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     ;; for linux
     migemo
     magit
-    emacs-w3m  ;; cvs command not found
+    emacs-w3m
     pdf-tools
     undo-tree
     )

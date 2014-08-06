@@ -54,6 +54,27 @@ Value: ((xpm "libxpm.dll" "xpm4.dll" "libXpm-nox4.dll")
 
 解凍後, bin 配下にある dll を Emacs.exe と同じ bin フォルダに置く.
 
+* PDF
+docview-mode. need ghostscript
+
+- http://www.emacswiki.org/emacs/DocViewMode
+- http://apeman0.blogspot.jp/2012/11/windowsgnu-emacsdocviewpng.html
+- http://emacsworld.blogspot.jp/2009/08/getting-docview-to-work-on-windows.html
+
+- Set up png support, you'll have to look elsewhere for instructions on this.
+- Install ghostscript and add the bin and lib directories to your path.
+  - http://www.ghostscript.com/download/
+- Get xpdf for windows and put the executables somewhere on your path.
+  - http://gnuwin32.sourceforge.net/packages/xpdf.htm
+- Set this in your .emacs: (setq doc-view-ghostscript-program "gswin32c")
+- That should be it.
+
+
+#+begin_src emacs-lisp
+(setq doc-view-ghostscript-program "c:/Program Files/gs/gs9.14/bin/gswin64c.exe")
+#+end_src
+
+
 * ag
 ここにバイナリ発見!
 
