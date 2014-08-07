@@ -133,7 +133,9 @@ http://kaworu.jpn.org/kaworu/2008-04-29-1.php
 ;; (setq wl-summary-line-format-spec-alist
 ;; (append wl-summary-line-format-spec-alist
 ;; '((?@ (wl-summary-line-attached)))))
-(setq wl-summary-line-format "%n%T%P%1@%M/%D (%W)%h:%m %t%[%17 (%c %f%) %] %s")
+
+;; これを宣言すると, SUMARRY view が動かない. この解決に 3 時間かかった.
+;; (setq wl-summary-line-format "%n%T%P%1@%M/%D (%W)%h:%m %t%[%17 (%c %f%) %] %s")
 
 ;; サマリの横幅は制限なし
 (setq wl-suumary-width nil)

@@ -572,6 +572,13 @@ org と ical のスケジュールを混ぜて表示させることが出来ま�
 (require 'ox-wk)
 #+end_src
 
+** ox-mk
+   markdown 変換
+
+#+begin_src emacs-lisp
+(require 'ox-md)
+#+end_src
+
 * mobileOrg
 iphone と org-mode の同期. Dropbox を利用
 
@@ -679,6 +686,17 @@ containing the properties `:guid' and `:item-full-text'."
    (add-to-list 'org-babel-load-languages '(plantuml . t))))
 (add-hook 'org-mode-hook 'org-mode-init)
 )
+#+end_src
+
+* org-sync
+  チケット管理システムとの同期.
+
+  - Official [[http://orgmode.org/worg/org-contrib/gsoc2012/student-projects/org-sync/][Org-sync]]
+  - [[https://github.com/emacsmirror/org-sync][emacsmirror/org-sync · GitHub]]
+
+#+begin_src emacs-lisp
+;; 不十分 先送り
+(require 'os)
 #+end_src
 
 * memo
