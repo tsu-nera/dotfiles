@@ -317,7 +317,15 @@ Emacs Twitter Client
 #+begin_src emacs-lisp
 (require 'twittering-mode)
 (setq twittering-use-master-password t)
+;; パスワード暗号ファイル保存先変更 (デフォはホームディレクトリ)
+(setq twittering-private-info-file "~/.emacs.d/twittering-mode.gpg")
+
+(global-set-key (kbd "C-c C-x w") 'twittering-update-status-from-pop-up-buffer)
 #+end_src
+
+** popwin に閉じ込める
+   このアイデアは good idea.
+   - [[http://d.hatena.ne.jp/lurdan/20130225/1361806605][twittering-mode を popwin に閉じこめる - *scratch*]]
 
 * bitlbee
   yaourt bitlbee でいれた.

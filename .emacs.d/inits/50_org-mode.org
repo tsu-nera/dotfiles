@@ -695,8 +695,8 @@ containing the properties `:guid' and `:item-full-text'."
   - [[https://github.com/emacsmirror/org-sync][emacsmirror/org-sync · GitHub]]
 
 #+begin_src emacs-lisp
-;; 不十分 先送り
-(require 'os)
+(mapc 'load
+      '("org-element" "os" "os-bb" "os-github" "os-rmine"))
 #+end_src
 
 * memo

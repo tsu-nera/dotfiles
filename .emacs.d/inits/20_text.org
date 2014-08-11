@@ -416,5 +416,6 @@
     text-mode-hook
     org-mode-hook
     wl-draft-mode-hook
+    twittering-edit-mode
     ))
     #+end_src

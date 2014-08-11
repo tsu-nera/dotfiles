@@ -30,12 +30,12 @@
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x g g") 'helm-google-suggest)
 (global-set-key (kbd "C-x C-b") 'helm-elscreen)
-;; helm-semantic-or-imenu C-x c i でバインドされている。便利。
+;; helm-semantic-or-imenu C-x c i でバインドされている. 便利.
 (helm-mode 1)
 #+end_src
 
 ** helm-orgcard
-orgcardを引く。
+orgcard を引く.
 
 #+begin_src emacs-lisp
 (require 'helm-orgcard)
@@ -45,15 +45,15 @@ orgcardを引く。
 ** helm-bookmarks
 Nice Bookmarks.
 
-- [[http://tototoshi.hatenablog.com/entry/20101226/1293334388][Emacsのブックマーク機能 - tototoshi の日記]]
+- [[http://tototoshi.hatenablog.com/entry/20101226/1293334388][Emacs のブックマーク機能 - tototoshi の日記]]
 - [[http://www.emacswiki.org/emacs/BookMarks][EmacsWiki: Book Marks]]
 
-C-x r b で helm-mode-bookmark-jumpが発動するみたいなので、あえてキーバインドしない。
+C-x r b で helm-mode-bookmark-jump が発動するみたいなので, あえてキーバインドしない.
 
-- C-x r m’ – set a bookmark at the current location (e.g. in a file)
-- C-x r b’ – jump to a bookmark
-- C-x r l’ – list your bookmarks
-- M-x bookmark-delete’ – delete a bookmark by name これもhelmが発動する。
+- C-x r m' – set a bookmark at the current location (e.g. in a file)
+- C-x r b' – jump to a bookmark
+- C-x r l' – list your bookmarks
+- M-x bookmark-delete' – delete a bookmark by name これも helm が発動する.
 
 #+begin_src emacs-lisp
 ;; (global-set-key (kbd "C-x r") 'helm-bookmarks)
@@ -67,8 +67,10 @@ GNU Global.
 (require 'helm-gtags)
 
 ;;; Enable helm-gtags-mode
+;;; Enable helm-gtags-mode
 (add-hook 'c-mode-hook 'helm-gtags-mode)
 (add-hook 'c++-mode-hook 'helm-gtags-mode)
+(add-hook 'asm-mode-hook 'helm-gtags-mode)
 
 ;; customize
 (custom-set-variables
@@ -93,7 +95,7 @@ GNU Global.
 #+end_src
 
 ** helm-migemo
-   helmの日本語検索.
+   helm の日本語検索.
    - https://github.com/emacs-helm/helm-migemo
 
 #+begin_src emacs-lisp
@@ -101,9 +103,9 @@ GNU Global.
 (setq helm-use-migemo t)
 #+end_src
 
-うまく動かないので、パッチをあてる。
+うまく動かないので, パッチをあてる.
 
-- [[http://qiita.com/ballforest/items/43da06268bef651a7e7e][Emacs - helm-migemoを動くようにするパッチ - Qiita]]
+- [[http://qiita.com/ballforest/items/43da06268bef651a7e7e][Emacs - helm-migemo を動くようにするパッチ - Qiita]]
 
 #+begin_src emacs-lisp
 (defun helm-compile-source--candidates-in-buffer (source)
@@ -151,16 +153,16 @@ GNU Global.
 #+end_src
 
 ** helm-kaomoji
-顔文字。
+顔文字.
 
 #+begin_src emacs-lisp
 (require 'helm-kaomoji)
 #+end_src
 ** helm-wl-address
-   helm i/fでアドレス検索
+   helm i/f でアドレス検索
 
    - https://github.com/kenbeese/helm-wl-address
-   - [[http://qiita.com/kenbeese/items/438c1c8d664198d8527f][Emacs - wanderlustのアドレスをhelmで選択する - Qiita]]
+   - [[http://qiita.com/kenbeese/items/438c1c8d664198d8527f][Emacs - wanderlust のアドレスを helm で選択する - Qiita]]
 
 #+begin_src emacs-lisp
 (require 'helm-wl-address)
