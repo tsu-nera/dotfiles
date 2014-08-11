@@ -419,3 +419,62 @@
     twittering-edit-mode
     ))
     #+end_src
+
+** grammar
+   英語の文法をチェックしてくれる.
+
+   - [[http://www.emacswiki.org/emacs/BaoqiuCui][EmacsWiki: Baoqiu Cui]]
+
+*** インストール
+   - link-grammar をインストール.
+   - /usr/include/link-grammar/ にファイルが配置される.
+   - svn co http://bcui-emacs.googlecode.com/svn/trunk/grammar
+   - INCDIRS = -I. -I/usr/include/link-grammar に Makefile を修正.
+
+  C-M-g で文法チェック発動.
+
+#+begin_src emacs-lisp
+(require 'grammar)
+(setq grammar-program-name "~/.emacs.d/elisp/grammar/grammar")
+;; 黒背景用の色変更
+(set-face-attribute 'grammar-error-face nil
+                    :background "#Ff6347"
+                    :foreground "#000000")
+
+(defvar my/programing-hooks
+  '(twittering-edit-mode-hook
+    ))
+
+(loop for hook in programing-hooks
+      do (add-hook hook
+                   '(lambda ()
+                      (setq-local my/programming-mode t))))
+#+end_src
+
+** auto-capitalize
+   自動で大文字に変換する.
+
+   - https://github.com/yuutayamada/auto-capitalize-el
+   - [[http://sleepboy-zzz.blogspot.jp/2013/09/auto-capitalizeel-aspell.html][memo: 英語環境で文字を大文字にキャピタライズする拡張 auto-capitalize.el を導入した]]
+
+   You can use by M-x 
+   - turn-on-auto-capitalize-mode
+   - auto-capitalize-mode.
+
+   #+begin_src emacs-lisp
+   (require 'auto-capitalize)
+
+   (defvar my/programming-mode 
+   "Use this variable to know whether current major-mode is mode
+   for programming. If it is non-nil mean the mode is mode for programming."
+   '(twittering-edit-mode-hook
+   ))
+   
+  ;; Add hook to set t (rue) to my/programming-mode as a buffer local valuable
+  ;; to prevent a turn on auto-capitalize-mode.
+  (loop for hook in programing-hooks
+      do (add-hook hook
+                   '(lambda ()
+                      (setq-local my/programming-mode t))))
+   #+end_src
+

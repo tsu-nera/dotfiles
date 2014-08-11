@@ -1,0 +1,11 @@
+(:name auto-capitalize
+       :type github
+       :url "https://github.com/yuutayamada/auto-capitalize-el.git"
+       :pkgname "yuutayamada/auto-capitalize-el")
+
+;; (push '(:name auto-capitalize
+;;         :type git
+;;         :url "https://github.com/yuutayamada/auto-capitalize-el.git"
+;;         :load-path "./")
+;;        el-get-sources)
+
