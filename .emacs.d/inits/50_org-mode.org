@@ -446,7 +446,7 @@ Emacs から WordPress に投稿する Lisp
 
 (unless nt-p
 (setq futurismo (netrc-machine (netrc-parse "~/.netrc") "futurismo" t))
-;; (setq blog (netrc-machine (netrc-parse "~/.netrc") "EverClassic" t))
+(setq sternstunden (netrc-machine (netrc-parse "~/.netrc") "sternstunden" t))
 
 (setq org2blog/wp-blog-alist
       '(("Futurismo"
@@ -454,11 +454,17 @@ Emacs から WordPress に投稿する Lisp
 	 :username (netrc-get futurismo "login")
 	 :password (netrc-get futurismo "password")
 	 )
+	("SternStunden"
+	 :url "http://hmi-me.ciao.jp/sternstunden/xmlrpc.php"
+	 :username (netrc-get sternstunden "login")
+	 :password (netrc-get sternstunden "password")
+	)
 	;; ("EverClassic"
 	;;  :url "http://everclassic.biz/xmlrpc.php"
 	        ;;  :username "admin"
 	;;  ;;:username (netrc-get blog "login")
-	;;  ;;:password (netrc-get blog "password")))
+	;;  ;;:password (netrc-get blog "password"))
+
 	)
       )
 )

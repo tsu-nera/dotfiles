@@ -1,0 +1,10 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: sternstunden
+# key:  sternstunden
+# binding: direct-keybinding
+# --
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: daily
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: 

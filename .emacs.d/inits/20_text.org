@@ -443,9 +443,10 @@
 
 (defvar my/programing-hooks
   '(twittering-edit-mode-hook
+    org-mode-hook
     ))
 
-(loop for hook in programing-hooks
+(loop for hook in my/programing-hooks
       do (add-hook hook
                    '(lambda ()
                       (setq-local my/programming-mode t))))
@@ -464,15 +465,8 @@
    #+begin_src emacs-lisp
    (require 'auto-capitalize)
 
-   (defvar my/programming-mode 
-   "Use this variable to know whether current major-mode is mode
-   for programming. If it is non-nil mean the mode is mode for programming."
-   '(twittering-edit-mode-hook
-   ))
-   
-  ;; Add hook to set t (rue) to my/programming-mode as a buffer local valuable
-  ;; to prevent a turn on auto-capitalize-mode.
-  (loop for hook in programing-hooks
+  ;; use same config with grammar
+  (loop for hook in my/programing-hooks
       do (add-hook hook
                    '(lambda ()
                       (setq-local my/programming-mode t))))
