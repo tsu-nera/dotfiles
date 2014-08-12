@@ -2,5 +2,8 @@ eshell
 org-gcal
 local/
 *#
-tramp85;95;0c
+tramp
 themes
+
+elisp/grammar
+twittering-mode.gpg
