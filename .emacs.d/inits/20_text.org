@@ -402,6 +402,12 @@
    - バッファ全体をスペルチェック M-x ispell-buffer
    - 選択範囲だけスペルチェック M-x ispell-region
 
+*** 辞書に単語を登録する
+    - [[http://www.emacswiki.org/emacs/FlySpell][EmacsWiki: Fly Spell]]
+      - region 選択して,ispell-region/word で選択.
+      - "i"を入力
+      - $HOME/.aspell.en.pws に登録される.
+
 ** flyspell
    リアルタイム, スペルチェック.
 
@@ -545,4 +551,3 @@
 ;;           '(lambda ()
 ;;              (turn-on-auto-capitalize-mode)))
    #+end_src
- 

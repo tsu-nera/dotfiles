@@ -483,6 +483,9 @@ Emacs Twitter Client
 #+end_src
 
 ** Eshell
+
+   M-p で helm-eshell-history 発動.
+
 #+begin_src emacs-lisp
 ;; eshell
 ;; http://nishikawasasaki.hatenablog.com/entry/2012/09/12/233116
@@ -520,14 +523,14 @@ Emacs Twitter Client
 
 ;; http://d.hatena.ne.jp/khiker/20060919/1158686507
 ;; キーバインドの変更
-(add-hook 'eshell-mode-hook
-	  '(lambda ()
-	     (progn
-	       (define-key eshell-mode-map "\C-a" 'eshell-bol)
-	       (define-key eshell-mode-map "\C-p" 'eshell-previous-matching-input-from-input)
-	       (define-key eshell-mode-map "\C-n" 'eshell-next-matching-input-from-input)
-	       )
-	     ))
+;; (add-hook 'eshell-mode-hook
+;; 	  '(lambda ()
+;; 	     (progn
+;; 	       (define-key eshell-mode-map "\C-a" 'eshell-bol)
+;; 	       (define-key eshell-mode-map "\C-p" 'eshell-previous-matching-input-from-input)
+;; 	       (define-key eshell-mode-map "\C-n" 'eshell-next-matching-input-from-input)
+;; 	       )
+;; 	     ))
 
 (setq eshell-prompt-function
       (lambda ()

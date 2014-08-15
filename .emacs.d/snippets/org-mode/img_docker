@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: img_docker
+# key: img_docker
+# --
+#+BEGIN_HTML
+<a href="http://futurismo.biz/wp-content/uploads/docker_img.png"><img alt="" src="http://futurismo.biz/wp-content/uploads/docker_img.png" width="256" height="256" /></a>
+#+END_HTML
