@@ -143,6 +143,9 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     emacs-w3m
     pdf-tools
     undo-tree
+    google-this
+    pomodoro
+    joseph-single-dired
     )
   "A list of packages to install from el-get at launch")
 #+end_src

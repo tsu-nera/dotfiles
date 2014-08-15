@@ -26,11 +26,12 @@
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
 (global-set-key (kbd "C-x C-r") 'helm-recentf)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
+(global-set-key (kbd "M-SPC") 'helm-all-mark-rings)
 (global-set-key (kbd "M-r") 'helm-occur)
 (global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-x g g") 'helm-google-suggest)
 (global-set-key (kbd "C-x C-b") 'helm-elscreen)
 ;; helm-semantic-or-imenu C-x c i でバインドされている. 便利.
+;; (global-set-key (kbd "C-x g g") 'helm-google-suggest)
 (helm-mode 1)
 #+end_src
 
@@ -59,6 +60,9 @@ C-x r b で helm-mode-bookmark-jump が発動するみたいなので, あえて
 ;; (global-set-key (kbd "C-x r") 'helm-bookmarks)
 ;; (global-set-key "\C-xrl" 'helm-bookmarks)
 #+end_src
+
+** helm-all-mark-rings
+   過去の global-mark を絞り込み. これは便利!
 
 ** helm-gtags
 GNU Global.
@@ -225,4 +229,16 @@ Adapted from `flyspell-correct-word-before-point'."
 	  (ispell-pdict-save t)))))
 
 (global-set-key (kbd "C-x g i") 'helm-flyspell-correct)
+#+end_src
+** helm-google
+   google 検索.英語だけ.
+
+   - https://github.com/steckerhalter/helm-google
+
+   日本語だからか? うごかない.
+
+#+begin_src emacs-lisp
+;; (require 'helm-google)
+;; (global-set-key (kbd "C-x g g") 'helm-google)
+;; (setq helm-google-tld "co.jp")
 #+end_src

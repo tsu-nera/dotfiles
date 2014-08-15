@@ -250,23 +250,8 @@ HTC_Pyramid Build/GRI40) AppleWebKit/533.1
    ) ;; end of 24.4
   #+end_src
 
-* tomatinho
-ちょっとかわったポモドーロツール.
-
-- https://github.com/konr/tomatinho
-
-使わないので一旦封印.
-
-#+begin_src emacs-lisp
-;; (require 'tomatinho)
-;; (global-set-key (kbd "<f12>") 'tomatinho)
-;; (define-key tomatinho-map (kbd "N") 'tomatinho-interactive-new-pomodoro)
-;; (define-key tomatinho-map (kbd "P") 'tomatinho-interactive-deliberate-pause)
-;; (define-key tomatinho-map (kbd "T") 'tomatinho-interactive-toggle-display)
-#+end_src
-
 * dired
-dired から open
+  dired から open
 
 #+begin_src emacs-lisp
 (when linux-p
@@ -285,12 +270,21 @@ dired から open
 )
 #+end_src
 
-移動のたびにバッファをつくらないためには, i でバッファを開く.
+移動のたびにバッファをつくらないためには, i や a でバッファを開く.
 
 - [[http://stackoverflow.com/questions/1839313/how-do-i-stop-emacs-dired-mode-from-opening-so-many-buffers][file management - How do I stop emacs dired mode from opening so many buffers? - Stack Overflow]]
 
+** joseph-single-dired
+   バッファを複数作成しない.
+
+   - https://github.com/jixiuf/joseph-single-dired
+
+#+begin_src emacs-lisp
+(require 'joseph-single-dired)
+#+end_src
+
 ** direx
-popup dired
+   popup dired
 
 - https://github.com/m2ym/direx-el
 - http://cx4a.blogspot.jp/2011/12/popwineldirexel.html
@@ -657,3 +651,106 @@ sudo pacman -S ghostscript
 * calfw
 Emacs 用カレンダー.
 
+* Google
+** google-translate
+   Google 翻訳.
+
+   - [[http://qiita.com/catatsuy/items/ae9875706769d4f02317][卒論を英語で書けと言われしまったあなたにおすすめの Emacs の設定 - Qiita]]
+
+#+begin_src emacs-lisp
+(require 'google-translate)
+
+(global-set-key "\C-xt" 'google-translate-at-point)
+(global-set-key "\C-xT" 'google-translate-query-translate)
+
+;; 翻訳のデフォルト値を設定 (ja -> en) (無効化は C-u する)
+(custom-set-variables
+ '(google-translate-default-source-language "ja")
+ '(google-translate-default-target-language "en"))
+
+;; google-translate.el の翻訳バッファをポップアップで表示させる
+(push '("*Google Translate*") popwin:special-display-config)
+#+end_src
+
+** google-this
+   Google 検索.
+   
+   - [[https://github.com/Bruce-Connor/emacs-google-this][Bruce-Connor/emacs-google-this]]
+
+   代表的な使用方法.
+
+   - C-c / g (RET) でその場のキーワード検索.
+   - C-c / w でその場のワードを検索
+   - C-c / l でその行を検索
+   - C-c / c Google 翻訳
+
+#+begin_src emacs-lisp
+(require 'google-this)
+(google-this-mode 1)
+#+end_src
+
+* Dictionary
+** search-web
+    無料でオンラインの英辞郎 on the WEB をサクッと利用する.
+
+    - [[https://github.com/tomoya/search-web.el/tree/master][tomoya/search-web.el]]
+    - [[http://qiita.com/akisute3@github/items/8deb54b75b48e8b04cb0][Emacs 使用中に素早く検索する - Qiita]]
+    - [[http://d.hatena.ne.jp/tomoya/20090703/1246610432][Emacs ですぐに単語の検索をしたい欲望を叶える Elisp. - 日々, とん
+      は語る. ]]
+
+    とくに, キーバインドはつけてない.
+
+#+begin_src emacs-lisp
+(require 'search-web)
+;; 英辞郎 ... なんかうごかないな.
+;; (define-key global-map (kbd "C-x g e") (lambda () (interactive) (search-web-at-point "eow")))
+;; (define-key global-map (kbd "C-x g C-e") (lambda () (interactive) (search-web-region "eow")))
+#+end_src
+
+** codic
+   エンジニアのためのネーミング辞書.
+
+   M-x codic xxx
+
+#+begin_src emacs-lisp
+(require 'codic)
+#+end_src
+
+
+* Pomodoro
+  ポモドーロ関係のツール.
+
+  - [[http://pomodorotechnique.com/][HOME - The Pomodoro Technique ® The Pomodoro Technique ®]]
+  - 
+
+** 一覧
+  - https://github.com/konr/tomatinho
+  - http://ivan.kanis.fr/pomodoro.el
+  - https://github.com/lolownia/org-pomodoro
+  - https://github.com/baudtack/pomodoro.el
+
+** tomatinho
+ちょっとかわったポモドーロツール.
+
+- https://github.com/konr/tomatinho
+
+使わないので一旦封印.
+
+#+begin_src emacs-lisp
+;; (require 'tomatinho)
+;; (global-set-key (kbd "<f12>") 'tomatinho)
+;; (define-key tomatinho-map (kbd "N") 'tomatinho-interactive-new-pomodoro)
+;; (define-key tomatinho-map (kbd "P") 'tomatinho-interactive-deliberate-pause)
+;; (define-key tomatinho-map (kbd "T") 'tomatinho-interactive-toggle-display)
+#+end_src
+
+** pomodoro.el
+   なんか, pomodoro.el が 同じ名前で 3 つもある気がする.
+   とりあえず, el-get のレシピがあったものを利用.
+
+   - [[https://github.com/syohex/emacs-utils][syohex/emacs-utils]]
+   - [[http://d.hatena.ne.jp/syohex/20121215/1355579575][Emacs でポモドーロテクニック - Life is very short]]
+
+#+begin_src emacs-lisp
+;; (require 'pomodoro)
+#+end_src

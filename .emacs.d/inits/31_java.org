@@ -29,12 +29,11 @@ Maven の仕組みがうまくわからないので封印した.
 
 ** eclim-emacs
 
-https://github.com/senny/emacs-eclim
-http://www.skybert.net/emacs/java/
-http://sleepboy-zzz.blogspot.jp/2014/02/emacsjava_22.html
+  - https://github.com/senny/emacs-eclim
+  - http://www.skybert.net/emacs/java/
+  - http://sleepboy-zzz.blogspot.jp/2014/02/emacsjava_22.html
 
 #+begin_src emacs-lisp
-
 (require 'eclim)
 (setq eclim-auto-save t)
 (global-eclim-mode)
@@ -46,16 +45,13 @@ http://sleepboy-zzz.blogspot.jp/2014/02/emacsjava_22.html
 (require 'ac-emacs-eclim-source)
 (ac-emacs-eclim-config)
 
-;; (setq eclim-eclipse-dirs "/opt/eclipse/kepler")
-;; (setq eclim-executable "/opt/eclipse/kepler/eclim")
-;; (setq eclimd-executable "/opt/eclipse/kepler/eclimd")
-;; (setq eclimd-default-workspace "/mnt/win/src/coursera")
 (setq eclim-eclipse-dirs "/usr/share/eclipse")
 (setq eclim-executable "/usr/share/eclipse/eclim")
 (setq eclimd-executable "/usr/share/eclipse/eclimd")
 (setq eclimd-default-workspace "/home/tsu-nera/repo/eclipse_mooc_work")
-
 #+end_src
+
+eclim のキーバインドを有効にするには, (eclim-mode) を評価.
 
 *** JUnit 起動
 

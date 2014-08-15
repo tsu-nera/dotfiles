@@ -141,12 +141,38 @@
    - [[http://www.emacswiki.org/emacs/AutoFillMode][EmacsWiki: Auto Fill Mode]]
 
 #+begin_src emacs-lisp
+;;; 一行が 80 字以上になった時には自動改行する
+(setq fill-column 80)
+;;(setq-default auto-fill-mode t)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
 #+end_src
 
 * 移動
-** ace-jump-mode
+  まずは, 基本まとめ.
+ 
+  - [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Mark-Ring.html][Mark Ring - GNU Emacs Manual]]
+  - [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Setting-Mark.html][Setting Mark - GNU Emacs Manual]]
+  - [[http://www.bookshelf.jp/texi/emacs-20.6-man-jp/emacs_10.html][GNU Emacs マニュアル: マークとリージョン]]
+  - [[http://d.hatena.ne.jp/whitypig/20100308/1267990959][pop-global-mark を使えないボクって. . . - GONE WITH THE MEDICINE]]
+
+  | C-SPC             | マークをセット          | mark-ring               |
+  | C-x C-x           | マークとカーソルを swap | exchange-point-and-mark |
+  | C-x C-SPC         | 過去のマークへジャンプ  | pop-global-mark         |
+
+  mark-ring と mark-global-ring は違う.
+
+  | C-x r SPACE [a-z] | register に登録         |                         |
+  | C-x r j [a-z]     | jump to that register   |                         |
+
+  helm-all-mark-rings が強力.
+
+#+begin_src emacs-lisp
+;; default is 16
+(setq global-mark-ring-max 64)
+#+end_src
+  
+** ACE-jump-mode
    Awesome Emacs Rocks! 
 
    #+begin_src emacs-lisp
@@ -442,7 +468,9 @@
    - svn co http://bcui-emacs.googlecode.com/svn/trunk/grammar
    - INCDIRS = -I. -I/usr/include/link-grammar に Makefile を修正.
 
-  C-M-g で文法チェック発動.
+   C-M-g で文法チェック発動.
+
+*** 設定
 
 #+begin_src emacs-lisp
 (require 'grammar)
@@ -450,17 +478,12 @@
 ;; 黒背景用の色変更
 (set-face-attribute 'grammar-error-face nil
                     :background "#Ff6347"
-                    :foreground "#000000")
+                   :foreground "#000000")
 
-(defvar my/programing-hooks
-  '(twittering-edit-mode-hook
-    org-mode-hook
-    ))
-
-(loop for hook in my/programing-hooks
-      do (add-hook hook
-                   '(lambda ()
-                      (setq-local my/programming-mode t))))
+;; TODO Refactoring
+;; (add-hook 'org-mode-hook 'grammar-mode)
+;; (add-hook 'text-mode-hook 'grammar-mode)
+(add-hook 'twittering-edit-mode-hook 'grammar-mode)
 #+end_src
 
 ** auto-capitalize
@@ -474,12 +497,52 @@
    - auto-capitalize-mode.
 
    #+begin_src emacs-lisp
-   (require 'auto-capitalize)
+;; This code is from README
+(require 'auto-capitalize)
 
-  ;; use same config with grammar
-  (loop for hook in my/programing-hooks
-      do (add-hook hook
-                   '(lambda ()
-                      (setq-local my/programming-mode t))))
+;; Enable auto-capitalize-mode
+(add-hook 'twittering-edit-mode-hook
+          '(lambda ()
+             (turn-on-auto-capitalize-mode)))
+
+;; (defvar programing-hooks
+;;   ;; Add your preference programming mode hook like ruby-mode-hook
+;;   '(twittering-edit-mode-hook
+;;     ;; org-mode-hook
+;;     ))
+
+;; (defvar my/programming-mode nil
+;;   "Use this variable to know whether current major-mode is mode
+;;   for programming. If it is non-nil mean the mode is mode for programming."
+;;   )
+
+;; ;; Add hook to set t (rue) to my/programming-mode as a buffer local valuable
+;; ;; to prevent a turn on auto-capitalize-mode.
+;; (loop for hook in programing-hooks
+;;       do (add-hook hook
+;;                    '(lambda ()
+;;                       (setq-local my/programming-mode t))))
+
+;; (defun my/switch-auto-capitalize-mode ()
+;;   "turn on auto-capitalize-mode if it was comment line on 
+;;   specific programming mode."
+;;   (if my/programming-mode
+;;       (if (equal font-lock-comment-face
+;;                  (nth 1 (text-properties-at (point))))
+;;           (turn-on-auto-capitalize-mode)
+;;         (turn-off-auto-capitalize-mode))))
+
+;; couldn't work
+;; (defadvice self-insert-command
+;;     "turn on auto-capitalize-mode on specified programming mode"
+;;   (around ad-turn-on-auto-capitalize activate)
+;;   (unless (minibufferp)
+;;     (my/switch-auto-capitalize-mode))
+;;   ad-do-it)
+
+;; Enable auto-capitalize-mode
+;; (add-hook 'text-mode-hook
+;;           '(lambda ()
+;;              (turn-on-auto-capitalize-mode)))
    #+end_src
-
+ 

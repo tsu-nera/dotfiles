@@ -108,6 +108,11 @@ el-get にまとめた.
 ;;   (global-set-key (kbd "C-c n") 'minimap-toggle))
 #+end_src
 
+#+begin_src emacs-lisp
+(require 'pomodoro)
+#+end_src
+
+
 * Buck Up
 
 2014/07/29 の custom のバックアップ. 一旦消す.
