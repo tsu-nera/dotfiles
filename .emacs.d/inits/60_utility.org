@@ -719,7 +719,6 @@ Emacs 用カレンダー.
 (require 'codic)
 #+end_src
 
-
 * Pomodoro
   ポモドーロ関係のツール.
 
@@ -756,4 +755,54 @@ Emacs 用カレンダー.
 
 #+begin_src emacs-lisp
 ;; (require 'pomodoro)
+#+end_src
+* e2wm
+  Emacs ようの window manager.
+
+  - [[https://github.com/kiwanami/emacs-window-manager][kiwanami/emacs-window-manager]]
+  - [[http://d.hatena.ne.jp/kiwanami/20100528/1275038929][広くなった画面を有効利用できる, Emacs 内 Window 管理ツール e2wm.el を作ってみた]]
+
+  array を利用すると, windows のようなタブで画面切り替え.
+
+  - [[http://aki2o.hatenablog.jp/entry/2014/08/19/Emacs%E3%81%A7%E3%83%90%E3%83%83%E3%83%95%E3%82%A1%E5%86%85%E5%AE%B9%E3%82%92%E7%9B%AE%E8%A6%96%E7%A2%BA%E8%AA%8D%E3%81%97%E3%81%A6%E7%9B%AE%E7%9A%84%E3%81%AE%E3%83%90%E3%83%83%E3%83%95%E3%82%A1%E3%81%AB][Emacs でバッファ内容を目視確認して目的のバッファに素早く切り替える - 死ぬまでの暇潰し]]
+
+    #+begin_src emacs-lisp
+    (require 'e2wm)
+    (global-set-key (kbd "M-+") 'e2wm:start-management)
+    (when linux-p
+    (global-set-key (kbd "M-<tab>") 'e2wm:dp-array)
+    )
+    #+end_src
+
+** e2wm-direx
+   - [[https://github.com/aki2o/e2wm-direx][aki2o/e2wm-direx]]
+
+#+begin_src emacs-lisp
+(setq e2wm:c-code-recipe
+      '(| (:left-max-size 40)
+          (- (:upper-size-ratio 0.6)
+             tree history)
+          (- (:lower-max-size 150)
+             (| (:right-max-size 40)
+                main imenu)
+             sub)))
+
+(setq e2wm:c-code-winfo
+      '((:name main)
+        (:name tree    :plugin direx)
+        (:name history :plugin history-list)
+        (:name imenu   :plugin imenu :default-hide nil)
+        (:name sub     :buffer "*info*" :default-hide t)))
+#+end_src
+
+* psession
+  セッション保存. escreen に対応してくれないかな. . .
+
+- [[https://github.com/thierryvolpiatto/psession][thierryvolpiatto/psession]]
+[[http://rubikitch.com/2014/08/21/psession/][- Emacs のデータ・バッファ・ウィンドウ構成を永続化し, 再起動時に復元する方法 るびきち× Emacs]]
+
+#+begin_src emacs-lisp
+(require 'psession)
+(autoload 'psession-mode "persistent-sessions.el")
+(psession-mode 1)
 #+end_src

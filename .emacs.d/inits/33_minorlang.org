@@ -12,7 +12,7 @@ http://www.eecs.ucf.edu/~leavens/ComS541Fall06/running_oz.shtml#
 ;;; to be in emacs's load-path, for its bin directory to be in the PATH,
 ;;; and for the OZHOME environment variable to be set properly.
 
-;; ruby 実行時に warningがでるので、一旦封印
+;; ruby 実行時に warning がでるので, 一旦封印
 ;; (when linux-p
 ;; (or (getenv "OZHOME")
 ;;     (setenv "OZHOME" 
@@ -78,18 +78,18 @@ Restructured Text
 
 #+begin_src emacs-lisp :tangle yes
 
-;;; RSTモードを見やすくする。
+;;; RST モードを見やすくする.
 (setq frame-background-mode 'dark)
 
 (autoload 'rst "rst-mode" "Rst mode for Sphinx" t)
-;;; *.rst, *.restファイルをrst-modeでOpen
+;;; *.rst, *.rest ファイルを rst-mode で Open
 (setq auto-mode-alist
       (append '(("\\.rst$" . rst-mode)
 		("\\.rest$" . rst-mode)
 		) auto-mode-alist))
 
 ;; 全部スペースでインデントしましょう
-;; (add-hook 'rst-mode-hook '(lambda() (setq indent-tabs-mode nil)))
+;; (add-hook 'rst-mode-hook '(lambda () (setq indent-tabs-mode nil)))
 
 #+end_src
 
@@ -173,32 +173,61 @@ http://jblevins.org/projects/markdown-mode/markdown-mode.el
 (autoload 'conkeror-minor-mode "conkeror-minor-mode")
 #+end_src
 ** pukiwiki-mode
-pukiwiki-modeはminor-modeのみ使用する。firefoxやchromeのEdit機能から、Emacsを起動する。
+pukiwiki-mode は minor-mode のみ使用する. firefox や chrome の Edit 機能から, Emacs を起動する.
 
 [[http://www.bookshelf.jp/pukiwiki/pukiwiki.php?%A5%A2%A5%A4%A5%C7%A5%A2%BD%B8%2Fpukiwiki-mode][アイデア集/pukiwiki-mode - Meadow memo]]
 
 - pukiwiki-mode.el  http://www.bookshelf.jp/elc/pukiwiki-mode.el
 - http.el http://tdiary.cvs.sourceforge.net/tdiary/contrib/util/tdiary-mode/
-- [[http://rmecab.jp/wiki/index.php?Wiki_pukiwiki-mode%A4%F2%C6%B3%C6%FE][Wiki_pukiwiki-modeを導入 - RとLinuxと...]]
+- [[http://rmecab.jp/wiki/index.php?Wiki_pukiwiki-mode%A4%F2%C6%B3%C6%FE][Wiki_pukiwiki-mode を導入 - R と Linux と...]]
 
-pukiwiki-edit-modeで起動。
+pukiwiki-edit-mode で起動.
 
 #+begin_src emacs-lisp
 (autoload 'pukiwiki-mode "pukiwiki-mode" "Major mode for Pukiwiki" t)
 #+end_src
 ** Assembly Language
-   アセンブリ言語。
+   アセンブリ言語.
    - [[http://www.emacswiki.org/emacs/AssemblyProgramming][EmacsWiki: Assembly Programming]]
 
-   asm-modeが標準添付。
+   asm-mode が標準添付.
 
 *** gas-mode
     [[http://www.hczim.de/software/gas-mode.html][gas-mode.el]] better asm-mode
 
-    よくわからないので、封印。
+    よくわからないので, 封印.
 
 #+begin_src emacs-lisp
 ;; (autoload 'gas-mode "gas-mode")
 ;; (add-to-list 'auto-mode-alist '("\\.s\\'" . gas-mode))
 #+end_src
 
+** PHP
+*** php-mode
+   - [[https://github.com/ejmr/php-mode][ejmr/php-mode]]
+
+#+begin_src emacs-lisp
+(autoload 'php-mode "php-mode" "Major mode for editing PHP programs" t)
+(setq auto-mode-alist
+            (append '(("\\.php\\'" . php-mode)) auto-mode-alist))
+#+end_src
+
+*** mmm-mode
+    php-mode と html-mode の同居.
+
+    - [[http://bluestar.s32.xrea.com/text/php-mode.php][閑古鳥 -> 呟き -> emacs で PHP-mode と mmm-mode を使う]]
+
+    Molokai テーマと相性が悪いので一旦消す.
+
+#+begin_src emacs-lisp
+; mmm-mode in php
+;; (require 'mmm-mode)
+;; (setq mmm-global-mode 'maybe)
+;; (mmm-add-mode-ext-class nil "\\.php?\\'" 'html-php)
+;; (mmm-add-classes
+;;  '((html-php
+;;     :submode php-mode
+;;     :front "<\\?\\(php\\)?"
+;;     :back "\\?>")))
+;; (add-to-list 'auto-mode-alist '("\\.php?\\'" . xml-mode))
+#+end_src

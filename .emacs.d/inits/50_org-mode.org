@@ -438,15 +438,10 @@ Emacs から WordPress に投稿する Lisp
 
 #+begin_src emacs-lisp
 (require 'org2blog-autoloads)
-(setq org2blog/wp-blog-alist
-      '(("Futurismo"
-	 :url "http://futurismo.biz/xmlrpc.php"
-	 :username "admin")
-))
 
-(unless nt-p
 (setq futurismo (netrc-machine (netrc-parse "~/.netrc") "futurismo" t))
 (setq sternstunden (netrc-machine (netrc-parse "~/.netrc") "sternstunden" t))
+(setq everclassic (netrc-machine (netrc-parse "~/.netrc") "everclassic" t))
 
 (setq org2blog/wp-blog-alist
       '(("Futurismo"
@@ -459,17 +454,74 @@ Emacs から WordPress に投稿する Lisp
 	 :username (netrc-get sternstunden "login")
 	 :password (netrc-get sternstunden "password")
 	)
-	;; ("EverClassic"
-	;;  :url "http://everclassic.biz/xmlrpc.php"
-	        ;;  :username "admin"
-	;;  ;;:username (netrc-get blog "login")
-	;;  ;;:password (netrc-get blog "password"))
-
+	("EverClassic"
+	:url "http://everclassic.biz/xmlrpc.php"
+	 :username (netrc-get everclassic "login")
+	 :password (netrc-get everclassic "password")
 	)
       )
 )
-
 #+end_src
+
+** WordPress で シンタックスハイライト
+   SyntaxHighlighter Evolved Plugin を利用すればできるようだ.
+
+   - [[http://vxlabs.com/2014/05/25/emacs-24-with-prelude-org2blog-and-wordpress/][Publish to WordPress with Emacs 24 and org2blog - vxlabs]]
+   - [[http://blog.tmsrv.net/?p=82][tmaeda1981jp の blog » Blog Archive » org2blog を使用して Emacs から WordPress に投稿する]]
+   - [[http://blog.binchen.org/posts/how-to-use-org2blog-effectively-as-a-programmer.html][How to use org2blog effectively as a programmer | Chen's blog]]
+
+#+begin_src emacs-lisp
+(setq org2blog/wp-use-sourcecode-shortcode t)
+(setq org2blog/wp-sourcecode-default-params nil) ;; removed light="true"
+
+;; target language needs to be in here
+(setq org2blog/wp-sourcecode-langs
+      '("actionscript3" "bash" "coldfusion" "cpp" "csharp" "css" "delphi"
+        "erlang" "fsharp" "diff" "groovy" "javascript" "java" "javafx" "matlab"
+        "objc" "perl" "php" "text" "powershell" "python" "ruby" "scala" "sql"
+        "vb" "xml"
+        "sh" "elisp" "lisp" "lua"
+	"emacs-lisp" "c"))
+ 
+;; this will use emacs syntax higlighting in your #+BEGIN_SRC
+;; <language> <your-code> #+END_SRC code blocks.
+(setq org-src-fontify-natively t)
+#+end_src
+
+** images
+   画像ファイルは記事投稿時にサーバの upload フォルダに転送されるよう.
+
+#+begin_src language
+   # ./../img/2014-08-17-124249_785x456_scrot.png
+   # http://futurismo.biz/wp-content/uploads/wpid-2014-08-17-124249_785x456_scrot.png
+#+end_src
+
+   scrot で撮影した画像を,以下のように書くことで記事に挿入することができる.
+
+#+begin_src language
+ [[file:/ ファイルパス]]
+#+end_src
+
+   ただし, リサイズはされない.外部コマンドと連携させる必要がある.
+   ImageMagic というツールがよい.
+   
+   - [[http://sachachua.com/blog/2013/09/when-i-blog-with-emacs-and-when-i-blog-with-something-else/][When I blog with Emacs and when I blog with other tools - sacha chua :: living an awesome life]]
+   - [[http://d.hatena.ne.jp/weblinuxmemo/20090929/p1][コマンドラインで画像を縮小する:ImageMagick convert mogrify - Linux Memo: Vine Linux 5 設定 tips]]
+   - [[http://o.inchiki.jp/obbr/125][ImageMagick で画像をリサイズする時のメモ]]
+
+   このサイトを参考に, 幅 670px, 高さ 447px に.
+
+   - [[http://i-i-news.com/2014/08/eyecatch/#][最近ブログのアイキャッチ画像の作り方を確立したので, 自分がやっている方法を紹介します - iLOG]]
+
+     #+begin_src bash
+     convert -resize 640x480 before.jpg after.jpg
+     convert -resize 670x447 before.jpg after.jpg
+     #+end_src
+
+
+   縦横比を計算してくれるつーる.
+
+   - [[http://www.web-jozu.com/javascript/size.html][写真の縦横比を固定して拡大縮小値を計算するツール:JavaScript サンプル |WEB 上手]]
 
 * スケジュール管理
 ** org-gcal
@@ -704,6 +756,14 @@ containing the properties `:guid' and `:item-full-text'."
 (mapc 'load
       '("org-element" "os" "os-bb" "os-github" "os-rmine"))
 #+end_src
+
+* org-babel
+
+  ruby を実行するには, 以下が必要.
+
+  #+begin_src emacs-lisp
+;;  (require 'ob-ruby)
+  #+end_src
 
 * memo
 ** Narrowing

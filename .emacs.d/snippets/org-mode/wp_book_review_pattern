@@ -1,0 +1,15 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: wp_book_review_pattern
+# key: wp_book_review_pattern
+# binding: direct-keybinding
+# --
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Book, 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: 
+* 目的
+* 感想
+* 内容
+* 学習メモ
+* 行動目標

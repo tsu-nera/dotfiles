@@ -187,6 +187,10 @@ alias cdpp='cd ../../'
 alias enable_bashrc="source ~/.bashrc"
 alias enable_zshrc="source ~/.bashrc"
 
+if [ -x "`which docker`" ]; then
+    alias doc='docker'
+fi
+
 # screen実行中にemacsで保存が効かない場合の対策
 stty ixany
 stty ixoff -ixon
@@ -513,6 +517,50 @@ function peco-M-x () {
     eval $cmd &
 }
 zle -N peco-M-x
+
+#------------------------------------------------------------------------
+# peco-docker
+# http://qiita.com/sonodar/items/d2de15b98581108b5de8
+#------------------------------------------------------------------------
+# pecoで選択したコンテナに対して操作を行う
+
+if [ -x "`which docker`" ]; then
+docker_peco_containers() {
+  if [ $# -lt 1 ]; then
+      echo "Usage: dpc [OPTIONS] COMMAND [args]" >&2
+      return 1
+  fi
+  
+  docker ps -a | peco | while read CONTAINER
+  do
+      docker $@ `echo $CONTAINER | awk '{print $1}'`
+  done
+}
+
+# pecoで選択したイメージに対して操作を行う
+docker_peco_images() {
+    if [ $# -lt 1 ]; then
+	echo "Usage: dpi [OPTIONS] COMMAND [args]" >&2
+	return 1
+    fi
+
+    unset DOCKER_OPTS
+    [[ -z $ENVS ]] || \
+	for e in $ENVS; do DOCKER_OPTS="$DOCKER_OPTS -e $e"; done
+    [[ -z $VOLUMES ]] || \
+	for v in $VOLUMES; do DOCKER_OPTS="$DOCKER_OPTS -v $v"; done
+    [[ -z $PORTS ]] || \
+	for p in $PORTS; do DOCKER_OPTS="$DOCKER_OPTS -p $p"; done
+    docker images | peco | while read IMAGE
+    do
+	docker $DOCKER_OPTS $@ `echo $IMAGE | awk '{print $3}'`
+    done
+}
+
+# エイリアスはお好みで
+alias dpc='docker_peco_containers'
+alias dpi='docker_peco_images'
+fi
 
 ################
 # key bindings

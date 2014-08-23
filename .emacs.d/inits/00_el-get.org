@@ -73,7 +73,12 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     flyspell
     yspel
     fic-ext-mode
-    isearch-ace-jump
+    isearch-ace-jump-mode
+    codic
+    google-this
+    google-translate
+    sdic
+    search-web
     ;; smart-compile 独自改造したものを elisp においた
     expand-region
     ;; utility
@@ -86,6 +91,9 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     migemo
     magit
     minimap
+    e2wm
+    e2wm-direx
+    psession
     ;; helm
     helm
     helm-c-yasnippet
@@ -95,6 +103,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     helm-migemo
     helm-kaomoji
     helm-wl-address
+    helm-google
     ;; anything
     ;; helm-shell-history
     ;; org-mode
@@ -113,6 +122,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     flycheck
     flycheck-color-mode-line
     quickrun
+    php-mode
     ;; ruby
     ruby-block
     robe-mode
@@ -143,7 +153,6 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     emacs-w3m
     pdf-tools
     undo-tree
-    google-this
     pomodoro
     joseph-single-dired
     )
@@ -156,7 +165,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
 #+begin_src emacs-lisp :tangle yes
 (defvar my/el-get-packages-private
   '(
-    Calfw
+    calfw
     helm-gist
     helm-github-issues
     helm-open-github
@@ -197,7 +206,7 @@ http://stackoverflow.com/questions/23165158/how-do-i-install-melpa-packages-via-
   "A list of packages to install from el-get at launch.")
 
 ;; 同期する
-;; (el-get 'sync my/el-get-packages-all)
+(el-get 'sync my/el-get-packages-all)
 ;; (el-get 'sync my/el-get-packages-private)
 #+end_src
 

@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: insert-img
+# key: insert-img
+# binding: direct-keybinding
+# --
+[[file:./../img/$0]
