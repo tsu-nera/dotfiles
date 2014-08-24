@@ -224,11 +224,13 @@ http://sheephead.homelinux.org/
   (setq buffer-face-mode-face '(:height 1000))
   (buffer-face-mode))
 
+(defvar rest-display-string "\n 休憩中だよ (*'~`*)")
+
 (defun rest-display ()
   "Display rest message on buffer"
   (let ((temp-buffer-show-function 'switch-to-buffer))
   (with-output-to-temp-buffer "*RestMessage*"  
-  (princ "\n 休憩中だよ (*'~`*)")))
+  (princ rest-display-string)))
   (my-org-rest-display-mode)
   )
 
