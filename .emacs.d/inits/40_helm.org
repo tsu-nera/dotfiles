@@ -19,9 +19,9 @@
 (autoload 'helm-github-issues "helm-github-issues"
   "Helm interface for github issues" nil t)
 
-(setq helm-idle-delay             0.2
-      helm-input-idle-delay       0.2
-      helm-candidate-number-limit 200)
+;; (setq helm-idle-delay             0.2
+;;       helm-input-idle-delay       0.2
+;;       helm-candidate-number-limit 200)
 
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
 (global-set-key (kbd "C-x C-r") 'helm-recentf)
@@ -63,33 +63,6 @@ C-x r b で helm-mode-bookmark-jump が発動するみたいなので, あえて
 
 ** helm-all-mark-rings
    過去の global-mark を絞り込み. これは便利!
-
-** helm-gtags
-GNU Global.
-
-#+begin_src emacs-lisp
-(require 'helm-gtags)
-
-;;; Enable helm-gtags-mode
-;;; Enable helm-gtags-mode
-(add-hook 'c-mode-hook 'helm-gtags-mode)
-(add-hook 'c++-mode-hook 'helm-gtags-mode)
-(add-hook 'asm-mode-hook 'helm-gtags-mode)
-
-;; customize
-(custom-set-variables
- '(helm-gtags-path-style 'relative)
- '(helm-gtags-ignore-case t)
- '(helm-gtags-auto-update t))
-
-;; key bindings
-(eval-after-load "helm-gtags"
-  '(progn
-     (define-key helm-gtags-mode-map (kbd "M-t") 'helm-gtags-find-tag)
-     (define-key helm-gtags-mode-map (kbd "M-r") 'helm-gtags-find-rtag)
-     (define-key helm-gtags-mode-map (kbd "M-s") 'helm-gtags-find-symbol)
-     (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)))
-#+end_src
 
 ** helm-ag
 
@@ -241,4 +214,50 @@ Adapted from `flyspell-correct-word-before-point'."
 ;; (require 'helm-google)
 ;; (global-set-key (kbd "C-x g g") 'helm-google)
 ;; (setq helm-google-tld "co.jp")
+#+end_src
+
+** helm-gtags
+   GNU Global.
+
+   うーん, 動かない. . .
+
+   - [[https://github.com/syohex/emacs-helm-gtags][syohex/emacs-helm-gtags]]
+
+#+begin_src emacs-lisp
+;; (require 'helm-gtags)
+
+;; ;;; Enable helm-gtags-mode
+;; (add-hook 'c-mode-hook 'helm-gtags-mode)
+;; (add-hook 'c++-mode-hook 'helm-gtags-mode)
+;; (add-hook 'asm-mode-hook 'helm-gtags-mode)
+
+;; ;; customize
+;; (setq
+;;  helm-gtags-ignore-case t
+;;  helm-gtags-auto-update t
+;;  helm-gtags-use-input-at-cursor t
+;;  helm-gtags-pulse-at-cursor t
+
+;; ;; helm-gtags-suggested-key-mapping t
+;;  )
+
+;; ;; key bindings
+;; (eval-after-load "helm-gtags"
+;;   '(progn
+;;      (define-key helm-gtags-mode-map (kbd "M-t") 'helm-gtags-find-tag)
+;;      (define-key helm-gtags-mode-map (kbd "M-r") 'helm-gtags-find-rtag)
+;;      (define-key helm-gtags-mode-map (kbd "M-s") 'helm-gtags-find-symbol)
+;;      (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)))
+#+end_src
+
+** helm-etags-plus
+   - [[https://github.com/jixiuf/helm-etags-plus][jixiuf/helm-etags-plus]]
+
+     C 言語では, これがまともに動く.gtags は動かない.
+
+     etags で TAGS を生成する.
+
+#+begin_src emacs-lisp
+(require 'helm-etags+)
+(require 'ctags-update)
 #+end_src

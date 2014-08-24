@@ -753,9 +753,8 @@ Emacs 用カレンダー.
    - [[https://github.com/syohex/emacs-utils][syohex/emacs-utils]]
    - [[http://d.hatena.ne.jp/syohex/20121215/1355579575][Emacs でポモドーロテクニック - Life is very short]]
 
-#+begin_src emacs-lisp
-;; (require 'pomodoro)
-#+end_src
+     -> color に宣言移動.
+
 * e2wm
   Emacs ようの window manager.
 
@@ -778,6 +777,7 @@ Emacs 用カレンダー.
    - [[https://github.com/aki2o/e2wm-direx][aki2o/e2wm-direx]]
 
 #+begin_src emacs-lisp
+;; (require 'e2wm-direx)
 (setq e2wm:c-code-recipe
       '(| (:left-max-size 40)
           (- (:upper-size-ratio 0.6)
@@ -789,7 +789,7 @@ Emacs 用カレンダー.
 
 (setq e2wm:c-code-winfo
       '((:name main)
-        (:name tree    :plugin direx)
+        (:name tree    :plugin dired)
         (:name history :plugin history-list)
         (:name imenu   :plugin imenu :default-hide nil)
         (:name sub     :buffer "*info*" :default-hide t)))
@@ -802,7 +802,7 @@ Emacs 用カレンダー.
 [[http://rubikitch.com/2014/08/21/psession/][- Emacs のデータ・バッファ・ウィンドウ構成を永続化し, 再起動時に復元する方法 るびきち× Emacs]]
 
 #+begin_src emacs-lisp
-(require 'psession)
-(autoload 'psession-mode "persistent-sessions.el")
-(psession-mode 1)
+;; (require 'psession)
+;; (autoload 'psession-mode "persistent-sessions.el")
+;; (psession-mode 1)
 #+end_src

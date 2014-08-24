@@ -108,10 +108,33 @@ el-get にまとめた.
 ;;   (global-set-key (kbd "C-c n") 'minimap-toggle))
 #+end_src
 
+* pomodoro
+
+ここでやらないと, なぜかモードラインで表示されない.
+音をならしたいけど, ならない. . .
+
 #+begin_src emacs-lisp
 (require 'pomodoro)
-#+end_src
 
+(when linux-p
+;; hook 関数関連
+(require 'notifications)
+(defun* my/pomodoro-notification (&key (title "Pomodoro")
+                                       body
+                                       (urgency 'critical))
+  (notifications-notify :title title :body body :urgency urgency))
+
+;; 作業終了後の hook
+(add-hook 'pomodoro:finish-work-hook
+          (lambda ()
+            (my/pomodoro-notification :body "Work is Finish")))
+
+;; 休憩終了後の hook
+(add-hook 'pomodoro:finish-rest-hook
+          (lambda ()
+            (my/pomodoro-notification :body "Break time is finished")))
+)
+#+end_src
 
 * Buck Up
 

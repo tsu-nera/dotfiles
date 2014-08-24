@@ -69,7 +69,6 @@
 ;; bundleを el-getで取得する
 (add-to-list 'el-get-sources '(:name bundle :type github :pkgname "tarao/bundle-el"))
 (el-get 'sync 'bundle)
-
 ;; -----------------------------------------------------------------------
 ;; Name     : init-loader
 ;; Install  : git clone https://github.com/emacs-jp/init-loader
@@ -114,4 +113,4 @@
 (setq org-src-preserve-indentation t)
 
 (bl:load-dir "~/.emacs.d/inits/") 
-(put 'dired-find-alternate-file 'disabled nil)
+

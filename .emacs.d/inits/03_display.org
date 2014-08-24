@@ -162,10 +162,11 @@ http://masutaka.net/chalow/2011-05-19-1.html
 
    #+begin_src emacs-lisp
    (set-scroll-bar-mode nil)
+   (horizontal-scroll-bar-mode -1)
    #+end_src
 
 ** 最大化表示
-Emacs は世界を統べるものなので, 最大化してもまったく問題ない.
+   Emacs は世界を統べるものなので, 最大化してもまったく問題ない.
 
 #+begin_src emacs-lisp
 ;; スクリーンの最大化
