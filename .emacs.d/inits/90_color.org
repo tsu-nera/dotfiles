@@ -109,34 +109,10 @@ el-get にまとめた.
 #+end_src
 
 * pomodoro
-
 ここでやらないと, なぜかモードラインで表示されない.
-音をならしたいけど, ならない. . .
 
 #+begin_src emacs-lisp
-(require 'pomodoro)
-
-(when linux-p
-;; hook 関数関連
-(require 'notifications)
-(defun* my/pomodoro-notification (&key (title "Pomodoro")
-                                       body
-                                       (urgency 'normal))
-  (notifications-notify :title title :body body :urgency urgency))
-
-;; 作業終了後の hook
-(add-hook 'pomodoro:finish-work-hook
-          (lambda ()
-            (my/pomodoro-notification :body "Work is Finish")
-	    (rest)
-	    (shell-command "mplayer /usr/share/sounds/freedesktop/stereo/service-login.oga >/dev/null 2>&1")
-	    ))
-
-;; 休憩終了後の hook
-(add-hook 'pomodoro:finish-rest-hook
-          (lambda ()
-            (my/pomodoro-notification :body "Break time is finished")
-	    (shell-command "mplayer /usr/share/sounds/freedesktop/stereo/service-login.oga >/dev/null 2>&1")
-	    ))
-)
+(setq-default mode-line-format
+   (cons '(:eval (pomodoro:propertize-mode-line))
+    mode-line-format))
 #+end_src

@@ -753,7 +753,33 @@ Emacs 用カレンダー.
    - [[https://github.com/syohex/emacs-utils][syohex/emacs-utils]]
    - [[http://d.hatena.ne.jp/syohex/20121215/1355579575][Emacs でポモドーロテクニック - Life is very short]]
 
-     -> color に宣言移動.
+#+begin_src emacs-lisp
+(require 'pomodoro)
+
+(when linux-p
+;; hook 関数関連
+(require 'notifications)
+(defun* my/pomodoro-notification (&key (title "Pomodoro")
+                                       body
+                                       (urgency 'normal))
+  (notifications-notify :title title :body body :urgency urgency))
+
+;; 作業終了後の hook
+(add-hook 'pomodoro:finish-work-hook
+          (lambda ()
+            (my/pomodoro-notification :body "Work is Finish")
+	    (rest)
+	    (shell-command "mplayer /usr/share/sounds/freedesktop/stereo/service-login.oga >/dev/null 2>&1")
+	    ))
+
+;; 休憩終了後の hook
+(add-hook 'pomodoro:finish-rest-hook
+          (lambda ()
+            (my/pomodoro-notification :body "Break time is finished")
+	    (shell-command "mplayer /usr/share/sounds/freedesktop/stereo/service-login.oga >/dev/null 2>&1")
+	    ))
+)
+#+end_src
 
 * e2wm
   Emacs ようの window manager.
