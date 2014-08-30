@@ -490,22 +490,22 @@ Emacs Twitter Client
 ;; eshell
 ;; http://nishikawasasaki.hatenablog.com/entry/2012/09/12/233116
 ;; eshell での補完に auto-complete.el を使う
-(require 'pcomplete)
-(add-to-list 'ac-modes 'eshell-mode)
-(ac-define-source pcomplete
-  '((candidates . pcomplete-completions)))
-(defun my-ac-eshell-mode ()
-  (setq ac-sources
-        '(ac-source-pcomplete
-          ac-source-filename
-          ac-source-files-in-current-dir
-          ac-source-words-in-buffer
-          ac-source-dictionary)))
-(add-hook 'eshell-mode-hook
-          (lambda ()
-            (my-ac-eshell-mode)
-            (define-key eshell-mode-map (kbd "C-i") 'auto-complete)
-            (define-key eshell-mode-map [(tab)] 'auto-complete)))
+;; (require 'pcomplete)
+;; (add-to-list 'ac-modes 'eshell-mode)
+;; (ac-define-source pcomplete
+;;   '((candidates . pcomplete-completions)))
+;; (defun my-ac-eshell-mode ()
+;;   (setq ac-sources
+;;         '(ac-source-pcomplete
+;;           ac-source-filename
+;;           ac-source-files-in-current-dir
+;;           ac-source-words-in-buffer
+;;           ac-source-dictionary)))
+;; (add-hook 'eshell-mode-hook
+;;           (lambda ()
+;;             (my-ac-eshell-mode)
+;;             (define-key eshell-mode-map (kbd "C-i") 'auto-complete)
+;;             (define-key eshell-mode-map [(tab)] 'auto-complete)))
 
 ;; helm で補完
 (add-hook 'eshell-mode-hook
@@ -795,7 +795,8 @@ Emacs 用カレンダー.
     (require 'e2wm)
     (global-set-key (kbd "M-+") 'e2wm:start-management)
     (when linux-p
-    (global-set-key (kbd "M-<tab>") 'e2wm:dp-array)
+    ;; 使わないから封印.
+    ;; (global-set-key (kbd "M-<tab>") 'e2wm:dp-array)
     )
     #+end_src
 

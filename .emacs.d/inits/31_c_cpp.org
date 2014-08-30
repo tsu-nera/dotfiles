@@ -1,4 +1,8 @@
 * C 言語・ C++
+ - [[http://tuhdo.github.io/c-ide.html#sec-2][C/C++ Development Environment for Emacs]]
+ - [[http://at-aka.blogspot.jp/2006/12/emacs-c.html][clmemo@aka: Emacs で C 言語プログラミングを始める人へのイントロダクション]]
+ - [[http://sakito.jp/emacs/emacsobjectivec.html][Emacs で iPhone アプリ開発を快適にするための設定 : 紹介マニア]]
+
 #+begin_src emacs-lisp
 (require 'cc-mode)
 
@@ -40,6 +44,4 @@ C/C++ に関わる設定を移動.
 #+end_src
 
 
-* Bookmarks
- - [[http://at-aka.blogspot.jp/2006/12/emacs-c.html][clmemo@aka: Emacs で C 言語プログラミングを始める人へのイントロダクション]]
 

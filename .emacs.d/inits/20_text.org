@@ -74,40 +74,59 @@
    - http://www.emacswiki.org/emacs/auto-complete-extension.el
    - http://cx4a.org/software/auto-complete/index.ja.html
 
+     company-mode をつかってみるので, 封印してみる.
+
    #+begin_src emacs-lisp
-(require 'auto-complete-config)
-(ac-config-default)
+;; (require 'auto-complete-config)
+;; (ac-config-default)
 
-(setq ac-auto-show-menu 0.5)
-(setq ac-menu-height 20)
+;; (setq ac-auto-show-menu 0.5)
+;; (setq ac-menu-height 20)
 
-(when (require 'auto-complete nil t)
-  (global-auto-complete-mode t)
-  (setq ac-dwim nil)
-  ;;  (set-face-background 'ac-selection-face "steelblue")
-  ;;  (set-face-background 'ac-menu-face "skyblue")
+;; (when (require 'auto-complete nil t)
+;;   (global-auto-complete-mode t)
+;;   (setq ac-dwim nil)
+;;   ;;  (set-face-background 'ac-selection-face "steelblue")
+;;   ;;  (set-face-background 'ac-menu-face "skyblue")
   
-  ;; 4 文字以上から補完スタート 
-  ;; (setq ac-auto-start nil)
-  (setq ac-auto-start 4)
+;;   ;; 4 文字以上から補完スタート 
+;;   ;; (setq ac-auto-start nil)
+;;   (setq ac-auto-start 4)
   
-  ;; その代わり補完キーでトリガさせる.
-  (global-set-key "\M-/" 'ac-start)
+;;   ;; その代わり補完キーでトリガさせる.
+;;   (global-set-key "\M-/" 'ac-start)
 
-  ;; なぜか, Shift+Alt でないと動かないのだが. .
-  (define-key ac-menu-map (kbd "M-n") 'ac-next)
-  (define-key ac-menu-map (kbd "M-p") 'ac-previous)
+;;   ;; なぜか, Shift+Alt でないと動かないのだが. .
+;;   (define-key ac-menu-map (kbd "M-n") 'ac-next)
+;;   (define-key ac-menu-map (kbd "M-p") 'ac-previous)
 
-  (setq ac-sources '(ac-source-abbrev ac-source-words-in-buffer))
-  (add-hook 'ruby-mode-hook
-	    (lambda ()
-	      (require 'rcodetools)
-	      (require 'auto-complete-ruby)
-	      ;; (load-auto-complete)
-	      (make-local-variable 'ac-omni-completion-sources)
-	      (setq ac-omni-completion-sources
-		    '(("\\.\\=" . (ac-source-rcodetools)))))))
+;;   (setq ac-sources '(ac-source-abbrev ac-source-words-in-buffer))
+;;   (add-hook 'ruby-mode-hook
+;; 	    (lambda ()
+;; 	      (require 'rcodetools)
+;; 	      (require 'auto-complete-ruby)
+;; 	      ;; (load-auto-complete)
+;; 	      (make-local-variable 'ac-omni-completion-sources)
+;; 	      (setq ac-omni-completion-sources
+;; 		    '(("\\.\\=" . (ac-source-rcodetools)))))))
    #+end_src
+
+** company-mode
+ 補完のフレームワーク.auto-complete との違いがわからない.
+
+ - [[http://www.emacswiki.org/emacs/CompanyMode][EmacsWiki: Company Mode]]
+ - [[http://company-mode.github.io/][company-mode for Emacs]]
+ - github: [[https://github.com/company-mode][company-mode]]
+
+ - Use M-n and M-p to select,
+ - <return> to complete or <tab> to complete the common part. 
+ - Search through the completions with C-s, C-r and C-o. Press
+   M-(digit) to quickly complete with one of the first 10 candidates.
+
+#+begin_src emacs-lisp
+(require 'company)
+(add-hook 'after-init-hook 'global-company-mode)
+#+end_src
 
 ** undo-tree
    C-x u にバインディング.
@@ -430,7 +449,7 @@
    どうも flyspell と ac-complete は相性が悪い?
 
    #+BEGIN_SRC emacs-lisp
-   (ac-flyspell-workaround)
+   ;; (ac-flyspell-workaround)
    #+END_SRC
 
 *** あるモードのみ flysell を起動

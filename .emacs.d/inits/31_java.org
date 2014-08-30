@@ -3,6 +3,23 @@
 
 そんな感じの Java 設定です.
 
+** intent
+   なんか, Eclipse と Emacs でインデントあってない.
+
+   - [[http://d.hatena.ne.jp/mzp/20090618/emacs][インデントの設定まとめ - みずぴー日記]]
+   - [[http://stackoverflow.com/questions/5556558/getting-consistent-indentation-in-eclipse-and-emacs][Getting consistent indentation in Eclipse and Emacs - Stack Overflow]]
+   - [[http://yohshiy.blog.fc2.com/blog-entry-172.html][Emacs でのタブ幅の設定 | プログラマーズ雑記帳]]
+
+#+begin_src emacs-lisp
+(add-hook 'java-mode-hook
+	 (lambda ()
+	 ;; タブ幅
+	 (setq tab-width 2)
+	 ;; タブはとりあえず有効. プロジェクトによって変える.
+	 (setq indent-tabs-mode t)
+	 (setq c-basic-offset 2)))
+#+end_src
+
 ** malabar-mode
 A better Java mode for Emacs.
 
@@ -35,20 +52,48 @@ Maven の仕組みがうまくわからないので封印した.
 
 #+begin_src emacs-lisp
 (require 'eclim)
-(setq eclim-auto-save t)
-(global-eclim-mode)
+;; (setq eclim-auto-save t)
+;; (setq eclim-use-yasnippet nil)
+
+(autoload 'eclim-mode "eclim" nil t)
+(add-hook 'java-mode-hook 'eclim-mode)
 
 ;; eclim daemon
 (require 'eclimd)
 
-;; add the emacs-eclim source
-(require 'ac-emacs-eclim-source)
-(ac-emacs-eclim-config)
+;; ;; regular auto-complete initialization
+;; (require 'auto-complete-config)
+;; (ac-config-default)
+;; ;; add the emacs-eclim source
+;; (require 'ac-emacs-eclim-source)
+;; (ac-emacs-eclim-config)
+
+;; for company-mode
+(require 'company-emacs-eclim)
+(company-emacs-eclim-setup)
 
 (setq eclim-eclipse-dirs "/usr/share/eclipse")
 (setq eclim-executable "/usr/share/eclipse/eclim")
 (setq eclimd-executable "/usr/share/eclipse/eclimd")
 (setq eclimd-default-workspace "/home/tsu-nera/repo/eclipse_mooc_work")
+
+;; Displaying compilation error messages in the echo area
+(setq help-at-pt-display-when-idle t)
+(setq help-at-pt-timer-delay 0.1)
+(help-at-pt-set-timer)
+
+;; add keybinds
+(define-key eclim-mode-map (kbd "C-c C-e p q") 'eclim-problems)
+(define-key eclim-mode-map (kbd "C-c C-e p o") 'eclim-problems-open)
+(define-key eclim-mode-map (kbd "C-c C-e p n") 'eclim-problems-next)
+;; Re-map `eclim-project-create' to C so that I can use c for
+;; `eclim-problems-correct'
+(define-key eclim-mode-map (kbd "C-c C-e p C") 'eclim-project-create)
+(define-key eclim-mode-map (kbd "C-c C-e p c") 'eclim-problems-correct)
+(define-key eclim-mode-map (kbd "M-.") 'eclim-java-find-declaration)
+;; find-references = list-callers.
+(define-key eclim-mode-map (kbd "C-c C-e l") 'eclim-java-find-references)
+
 #+end_src
 
 eclim のキーバインドを有効にするには, (eclim-mode) を評価.

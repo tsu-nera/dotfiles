@@ -60,6 +60,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     ;; text
     yasnippet
     auto-complete
+    company-mode
     anzu
     auto-highlight-symbol
     highlight-symbol
@@ -133,7 +134,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     rcodetools
     inf-ruby
     auto-complete-ruby
-    anything-rdefs
+    ;; anything-rdefs
     ;; visual-basic
     vbasense
     visual-basic-mode
@@ -156,6 +157,8 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     undo-tree
     pomodoro
     joseph-single-dired
+    ;; others
+    key-guide
     )
   "A list of packages to install from el-get at launch")
 #+end_src
