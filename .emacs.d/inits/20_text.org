@@ -144,6 +144,16 @@
          (mapcan #'yas--table-all-keys (yas--get-snippet-tables)))))
    #+end_src
 
+*** ac-helm
+    helm インターフェースを利用する. 
+    これは多げさかな. .
+
+#+begin_src emacs-lisp
+(require 'ac-helm)
+(global-set-key (kbd "C-:") 'ac-complete-with-helm)
+(define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)
+#+end_src
+
 ** company-mode
  補完のフレームワーク.auto-complete との違いがわからない.
 
