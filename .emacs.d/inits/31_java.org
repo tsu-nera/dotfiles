@@ -3,6 +3,8 @@
 
 そんな感じの Java 設定です.
 
+  - [[http://www.skybert.net/emacs/java/][.:: skybert.net :: emacs :: java ::.]]
+
 ** intent
    なんか, Eclipse と Emacs でインデントあってない.
 
@@ -61,21 +63,16 @@ Maven の仕組みがうまくわからないので封印した.
 ;; eclim daemon
 (require 'eclimd)
 
-;; ;; regular auto-complete initialization
-;; (require 'auto-complete-config)
-;; (ac-config-default)
-;; ;; add the emacs-eclim source
-;; (require 'ac-emacs-eclim-source)
-;; (ac-emacs-eclim-config)
+;; regular auto-complete initialization
+(require 'auto-complete-config)
+(ac-config-default)
+;; add the emacs-eclim source
+(require 'ac-emacs-eclim-source)
+(ac-emacs-eclim-config)
 
 ;; for company-mode
-(require 'company-emacs-eclim)
-(company-emacs-eclim-setup)
-
-(setq eclim-eclipse-dirs "/usr/share/eclipse")
-(setq eclim-executable "/usr/share/eclipse/eclim")
-(setq eclimd-executable "/usr/share/eclipse/eclimd")
-(setq eclimd-default-workspace "/home/tsu-nera/repo/eclipse_mooc_work")
+;; (require 'company-emacs-eclim)
+;; (company-emacs-eclim-setup)
 
 ;; Displaying compilation error messages in the echo area
 (setq help-at-pt-display-when-idle t)
@@ -86,6 +83,7 @@ Maven の仕組みがうまくわからないので封印した.
 (define-key eclim-mode-map (kbd "C-c C-e p q") 'eclim-problems)
 (define-key eclim-mode-map (kbd "C-c C-e p o") 'eclim-problems-open)
 (define-key eclim-mode-map (kbd "C-c C-e p n") 'eclim-problems-next)
+(define-key eclim-mode-map (kbd "C-c C-e p p") 'eclim-problems-previous)
 ;; Re-map `eclim-project-create' to C so that I can use c for
 ;; `eclim-problems-correct'
 (define-key eclim-mode-map (kbd "C-c C-e p C") 'eclim-project-create)
@@ -94,9 +92,37 @@ Maven の仕組みがうまくわからないので封印した.
 ;; find-references = list-callers.
 (define-key eclim-mode-map (kbd "C-c C-e l") 'eclim-java-find-references)
 
+;; skip warning error
+(setq compilation-skip-threshold 2)
+
+(when linux-p
+(setq eclim-eclipse-dirs "/usr/share/eclipse")
+(setq eclim-executable "/usr/share/eclipse/eclim")
+(setq eclimd-executable "/usr/share/eclipse/eclimd")
+(setq eclimd-default-workspace "/home/tsu-nera/repo/eclipse_mooc_work")
+)
+
 #+end_src
 
-eclim のキーバインドを有効にするには, (eclim-mode) を評価.
+*** Program 起動
+    org.eclim.java.run.mainclass にメインクラスを設定.
+
+    - [[http://eclim.org/vim/java/java.html][Java / Jps - eclim (eclipse + vim)]]
+    - [[http://eclim.org/vim/settings.html][Settings - eclim (eclipse + vim)]]
+    - [[http://stackoverflow.com/questions/7394811/eclim-what-to-set-org-eclim-java-run-mainclass-to][vim - Eclim - What to set org.eclim.java.run.mainclass to? - Stack Overflow]]
+
+
+   設定方法は, .settings/org.eclim.prefs というファイルを作成して,以下を書き込む
+
+   #+begin_src language
+   org.eclim.java.run.mainclass=<Class Name>
+   #+end_src
+
+   しかし, これだけでは動作しなかった. main メソッドの場所で
+   eclim-run-class を実行すると, ようやく eclim 経由で java program が起動.
+   
+   起動は, eclim の機能を利用するのではなくて,
+   別のビルドツールを利用したほうがいいな.
 
 *** JUnit 起動
 

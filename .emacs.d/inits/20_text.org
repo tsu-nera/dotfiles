@@ -69,46 +69,79 @@
    #+end_src
 
 ** auto-complete
-   自動補完を実現する elisp
+   自動補完を実現する elisp.
 
-   - http://www.emacswiki.org/emacs/auto-complete-extension.el
-   - http://cx4a.org/software/auto-complete/index.ja.html
+   - github:
+   https://github.com/auto-complete/auto-complete
+   - wiki:
+   http://www.emacswiki.org/emacs/auto-complete-extension.el
 
-     company-mode をつかってみるので, 封印してみる.
-
+   - manuals
+     http://cx4a.org/software/auto-complete/index.ja.html
+     http://cx4a.org/software/auto-complete/manual.ja.html
+     
    #+begin_src emacs-lisp
-;; (require 'auto-complete-config)
-;; (ac-config-default)
+(require 'auto-complete)
+(require 'auto-complete-config)
+(ac-config-default)
 
+;; グローバルで auto-complete を利用
+(global-auto-complete-mode t)
+;; 追加メジャーモード
+(add-to-list 'ac-modes 'org-mode)
+
+;; メニュー表示を遅延
 ;; (setq ac-auto-show-menu 0.5)
-;; (setq ac-menu-height 20)
+(setq ac-auto-show-menu t)
 
-;; (when (require 'auto-complete nil t)
-;;   (global-auto-complete-mode t)
-;;   (setq ac-dwim nil)
-;;   ;;  (set-face-background 'ac-selection-face "steelblue")
-;;   ;;  (set-face-background 'ac-menu-face "skyblue")
-  
-;;   ;; 4 文字以上から補完スタート 
-;;   ;; (setq ac-auto-start nil)
-;;   (setq ac-auto-start 4)
-  
-;;   ;; その代わり補完キーでトリガさせる.
-;;   (global-set-key "\M-/" 'ac-start)
+;; 高さは 20 まで.
+(setq ac-menu-height 20)
 
-;;   ;; なぜか, Shift+Alt でないと動かないのだが. .
-;;   (define-key ac-menu-map (kbd "M-n") 'ac-next)
-;;   (define-key ac-menu-map (kbd "M-p") 'ac-previous)
+;; 色を変更
+;; (set-face-background 'ac-candidate-face "lightgray")
+(set-face-background 'ac-candidate-face "orange")
+(set-face-underline 'ac-candidate-face "darkgray")
+(set-face-background 'ac-selection-face "steelblue")
 
-;;   (setq ac-sources '(ac-source-abbrev ac-source-words-in-buffer))
-;;   (add-hook 'ruby-mode-hook
-;; 	    (lambda ()
-;; 	      (require 'rcodetools)
-;; 	      (require 'auto-complete-ruby)
-;; 	      ;; (load-auto-complete)
-;; 	      (make-local-variable 'ac-omni-completion-sources)
-;; 	      (setq ac-omni-completion-sources
-;; 		    '(("\\.\\=" . (ac-source-rcodetools)))))))
+;; 補完候補が 1 つのときはそれを採用.
+(setq ac-dwim t)
+
+;; (setq ac-auto-start nil)
+(setq ac-auto-start 3)           ; 3 文字以上から補完スタート 
+;; (setq ac-auto-show-menu 0.8)     ; 0.8 秒でメニュー表示
+(setq ac-use-comphist t)         ; 補完候補をソート
+(setq ac-candidate-limit nil)    ; 補完候補表示を無制限に
+
+;; 補完キーでトリガさせる.
+;; 手動で補完を起動する
+(define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
+(global-set-key "\M-/" 'auto-complete)
+
+(setq ac-use-menu-map t)
+;; デフォルトで設定済み
+;; (define-key ac-menu-map "\C-n" 'ac-next)
+;; (define-key ac-menu-map "\C-p" 'ac-previous)
+;; Ctrl ではなくて, Alt に割り当てる.
+(define-key ac-menu-map (kbd "M-n") 'ac-next)
+(define-key ac-menu-map (kbd "M-p") 'ac-previous)
+
+(setq ac-sources '(ac-source-abbrev ac-source-words-in-buffer))
+
+;; for ruby programming
+(add-hook 'ruby-mode-hook
+	  (lambda ()
+	    (require 'rcodetools)
+	    (require 'auto-complete-ruby)
+	    ;; (load-auto-complete)
+	    (make-local-variable 'ac-omni-completion-sources)
+	    (setq ac-omni-completion-sources
+		  '(("\\.\\=" . (ac-source-rcodetools))))))
+
+;; for yassnipet
+(setf (symbol-function 'yas-active-keys)
+      (lambda ()
+        (remove-duplicates
+         (mapcan #'yas--table-all-keys (yas--get-snippet-tables)))))
    #+end_src
 
 ** company-mode
@@ -124,8 +157,8 @@
    M-(digit) to quickly complete with one of the first 10 candidates.
 
 #+begin_src emacs-lisp
-(require 'company)
-(add-hook 'after-init-hook 'global-company-mode)
+;; (require 'company)
+;; (add-hook 'after-init-hook 'global-company-mode)
 #+end_src
 
 ** undo-tree
