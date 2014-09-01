@@ -162,7 +162,10 @@ http://masutaka.net/chalow/2011-05-19-1.html
 
    #+begin_src emacs-lisp
    (set-scroll-bar-mode nil)
+   (when linux-p
+   ;; 家の archlinux 環境たけ有効にしておく
    (horizontal-scroll-bar-mode -1)
+   )
    #+end_src
 
 ** 最大化表示
