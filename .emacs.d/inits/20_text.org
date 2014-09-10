@@ -541,6 +541,7 @@
 *** 設定
 
 #+begin_src emacs-lisp
+(when linux-p
 (require 'grammar)
 (setq grammar-program-name "~/.emacs.d/elisp/grammar/grammar")
 ;; 黒背景用の色変更
@@ -552,6 +553,7 @@
 ;; (add-hook 'org-mode-hook 'grammar-mode)
 ;; (add-hook 'text-mode-hook 'grammar-mode)
 (add-hook 'twittering-edit-mode-hook 'grammar-mode)
+)
 #+end_src
 
 ** auto-capitalize
