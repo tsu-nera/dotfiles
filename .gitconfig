@@ -1,9 +1,6 @@
 [include]
 	path = ~/dotfiles/.gitconfig.local
-[user]
-name = tsu-nera
-email = fox10225fox@gmail.com
-
+	
 [color]
 	ui = auto
 [gui]
