@@ -1,9 +1,7 @@
 * Java
-打倒 Eclipse! Eclipse なんかぶっつぶせ!
+  打倒 Eclipse! Eclipse なんかぶっつぶせ!
 
-そんな感じの Java 設定です.
-
-  - [[http://www.skybert.net/emacs/java/][.:: skybert.net :: emacs :: java ::.]]
+  そんな感じの Java 設定です.
 
 ** intent
    なんか, Eclipse と Emacs でインデントあってない.
@@ -23,13 +21,13 @@
 #+end_src
 
 ** malabar-mode
-A better Java mode for Emacs.
+   A better Java mode for Emacs.
 
-https://github.com/m0smith/malabar-mode
+   https://github.com/m0smith/malabar-mode
 
-el-get で取得. fringe-helper に依存. ダウンロードしたら, mvn package.
+   el-get で取得. fringe-helper に依存. ダウンロードしたら, mvn package.
 
-Maven の仕組みがうまくわからないので封印した.
+   Maven の仕組みがうまくわからないので封印した.
 
 #+begin_src emacs-lisp
 ;; (require 'cedet)
@@ -47,10 +45,12 @@ Maven の仕組みがうまくわからないので封印した.
 #+end_src
 
 ** eclim-emacs
+   Emacs から Eclipse をつかう.
 
   - https://github.com/senny/emacs-eclim
   - http://www.skybert.net/emacs/java/
   - http://sleepboy-zzz.blogspot.jp/2014/02/emacsjava_22.html
+  - http://www.skybert.net/emacs/java/
 
 #+begin_src emacs-lisp
 (require 'eclim)
@@ -64,11 +64,15 @@ Maven の仕組みがうまくわからないので封印した.
 (require 'eclimd)
 
 ;; regular auto-complete initialization
-(require 'auto-complete-config)
-(ac-config-default)
+;; (require 'auto-complete-config)
+;; (ac-config-default)
+
 ;; add the emacs-eclim source
-(require 'ac-emacs-eclim-source)
-(ac-emacs-eclim-config)
+(add-hook 'java-mode-hook 
+   (lambda () 
+   (require 'ac-emacs-eclim-source)
+   (ac-emacs-eclim-config)
+   ))
 
 ;; for company-mode
 ;; (require 'company-emacs-eclim)
@@ -139,10 +143,10 @@ Maven の仕組みがうまくわからないので封印した.
    Gradle support for emacs-project-mode.
    - https://github.com/rimerosolutions/emacs-gradle-project-mode
 
-  project-mode に依存してる.
+   project-mode に依存してる.
 
-#+begin_src emacs-lisp
-(autoload 'emacs-gradle-project-mode "emacs-gradle-project-mode" "emacs-gradle-Project Mode" t)
-#+end_src
+   #+begin_src emacs-lisp
+   (autoload 'emacs-gradle-project-mode "emacs-gradle-project-mode" "emacs-gradle-Project Mode" t)
+   #+end_src
 
 * Android

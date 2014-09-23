@@ -57,6 +57,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     iy-go-to-char
     key-chord
     jump-char
+    ace-jump-zap
     ;; text
     yasnippet
     auto-complete

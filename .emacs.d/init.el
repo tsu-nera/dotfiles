@@ -106,7 +106,7 @@
 ;; 指定された org ファイルの basename を取得
 ;; 取得した basename + ".el" と元の org ファイルのタイムスタンプを比較
 ;; .el のタイムスタンプが古かったら, org 中の
-;;  #+begin_src emacs-lisp 〜 #+end_src 部分をファイル名.el というファイルに抽出
+;;  +begin_src emacs-lisp - +end_src 部分をファイル名.el というファイルに抽出
 ;; タイムスタンプが新しい or .el の抽出を行なったら .el を読む
 
 ;; インデント保持

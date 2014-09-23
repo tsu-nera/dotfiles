@@ -128,14 +128,15 @@
 (setq ac-sources '(ac-source-abbrev ac-source-words-in-buffer))
 
 ;; for ruby programming
-(add-hook 'ruby-mode-hook
-	  (lambda ()
-	    (require 'rcodetools)
-	    (require 'auto-complete-ruby)
-	    ;; (load-auto-complete)
-	    (make-local-variable 'ac-omni-completion-sources)
-	    (setq ac-omni-completion-sources
-		  '(("\\.\\=" . (ac-source-rcodetools))))))
+;; よくわからないので, 封印
+;; (add-hook 'ruby-mode-hook
+;; 	  (lambda ()
+;; 	    (require 'rcodetools)
+;; 	    (require 'auto-complete-ruby)
+;; 	    ;; (load-auto-complete)
+;; 	    (make-local-variable 'ac-omni-completion-sources)
+;; 	    (setq ac-omni-completion-sources
+;; 		  '(("\\.\\=" . (ac-source-rcodetools))))))
 
 ;; for yassnipet
 (setf (symbol-function 'yas-active-keys)
@@ -147,12 +148,11 @@
 *** ac-helm
     helm インターフェースを利用する. 
     これは多げさかな. .
-
-#+begin_src emacs-lisp
+    #+begin_src emacs-lisp
 (require 'ac-helm)
 (global-set-key (kbd "C-:") 'ac-complete-with-helm)
 (define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)
-#+end_src
+    #+end_src
 
 ** company-mode
  補完のフレームワーク.auto-complete との違いがわからない.
@@ -234,7 +234,7 @@
 (setq global-mark-ring-max 64)
 #+end_src
   
-** ACE-jump-mode
+** ace-jump-mode
    Awesome Emacs Rocks! 
 
    #+begin_src emacs-lisp
@@ -256,6 +256,16 @@
   t)
 (define-key global-map (kbd "C-x m") 'ace-jump-buffer)
    #+end_src
+
+** ace-jump-zap
+   ジャンプして削除.
+
+   - https://github.com/waymondo/ace-jump-zap
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "M-z") 'ace-jump-zap-to-char)
+(global-set-key (kbd "M-C-z") 'ace-jump-zap-up-to-char)
+#+end_src
 
 ** isearch-ace-jump-mode
    Do ace-jump from isearch.
@@ -377,6 +387,8 @@
 
 ** swoop
    Peculiar buffer navigation for Emacs.
+
+  - [[http://fukuyama.co/emacs-swoop][Emacs バッファ内高速ナビゲーション Swoop.el を作りました. - Web 学び]]
 
    #+begin_src emacs-lisp
 (require 'swoop)

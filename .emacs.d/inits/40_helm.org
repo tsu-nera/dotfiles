@@ -12,6 +12,7 @@
 (when (fboundp 'terminal-init-bobcat)
   (terminal-init-bobcat))
 
+(require 'async-bytecomp)
 (require 'helm-config)
 (require 'helm-command)
 (require 'helm-descbinds)
@@ -259,7 +260,6 @@ Adapted from `flyspell-correct-word-before-point'."
    - [[https://github.com/jixiuf/helm-etags-plus][jixiuf/helm-etags-plus]]
 
      C 言語では, これがまともに動く.gtags は動かない.
-
      etags で TAGS を生成する.
 
 #+begin_src emacs-lisp
