@@ -1,0 +1,7 @@
+(:name org-sync
+       :website "http://orgmode.org/worg/org-contrib/gsoc2012/student-projects/org-sync/"
+       :description "Synchronize Org documents with external services."
+       :type github
+       :depends (org-mode json)
+       :pkgname "emacsmirror/org-sync"
+)
