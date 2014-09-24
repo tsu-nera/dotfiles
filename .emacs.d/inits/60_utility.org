@@ -833,3 +833,11 @@ Emacs 用カレンダー.
 ;; (autoload 'psession-mode "persistent-sessions.el")
 ;; (psession-mode 1)
 #+end_src
+* gist
+  Emacs gist interface
+  - https://github.com/defunkt/gist.el
+
+#+begin_src emacs-lisp
+(require 'gist)
+(require 'helm-gist)
+#+end_src

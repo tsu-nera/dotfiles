@@ -107,6 +107,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     helm-wl-address
     helm-google
     helm-etags-plus
+    emacs-async
     ;; anything
     ;; helm-shell-history
     ;; org-mode
