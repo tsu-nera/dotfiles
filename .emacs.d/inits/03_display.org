@@ -258,6 +258,7 @@ http://shibayu36.hatenablog.com/entry/2013/12/30/190354
 
 ** 対応する括弧を光らせる.
 #+begin_src emacs-lisp
+;; turn on highlight matching brackets when cursor is on one
 (show-paren-mode 1)
 #+end_src
 

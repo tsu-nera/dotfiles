@@ -283,8 +283,11 @@
 ;; Default だと 0.4 だけど, それだと早い.
 (setq isearch-ace-jump-input-idle-delay 1.0)
 
-(define-key swoop-map (kbd "C-s") 'swoop-action-goto-line-next)
-(define-key swoop-map (kbd "C-r") 'swoop-action-goto-line-prev)
+;; (define-key swoop-map (kbd "C-s") 'swoop-action-goto-line-next)
+;; (define-key swoop-map (kbd "C-r") 'swoop-action-goto-line-prev)
+(define-key helm-swoop-map (kbd "C-s") 'swoop-action-goto-line-next)
+(define-key helm-swoop-map (kbd "C-r") 'swoop-action-goto-line-prev)
+
    #+end_src
 
 ** iy-go-to-char
@@ -387,21 +390,22 @@
 
 ** swoop
    Peculiar buffer navigation for Emacs.
+   -> helm-swoopに変更. helmのほうが高速.
 
   - [[http://fukuyama.co/emacs-swoop][Emacs バッファ内高速ナビゲーション Swoop.el を作りました. - Web 学び]]
 
    #+begin_src emacs-lisp
-(require 'swoop)
-(global-set-key (kbd "M-o")   'swoop)
-(global-set-key (kbd "C-M-o") 'swoop-multi)
-;; (global-set-key (kbd "M-o")   'swoop-pcre-regexp)
-(global-set-key (kbd "C-S-o") 'swoop-back-to-last-position)
+;; (require 'swoop)
+;; (global-set-key (kbd "M-o")   'swoop)
+;; (global-set-key (kbd "C-M-o") 'swoop-multi)
+;; ;; (global-set-key (kbd "M-o")   'swoop-pcre-regexp)
+;; (global-set-key (kbd "C-S-o") 'swoop-back-to-last-position)
 
-(define-key isearch-mode-map (kbd "M-o") 'swoop-from-isearch)
-(define-key swoop-map (kbd "M-o") 'swoop-multi-from-swoop)
+;; (define-key isearch-mode-map (kbd "M-o") 'swoop-from-isearch)
+;; (define-key swoop-map (kbd "M-o") 'swoop-multi-from-swoop)
 	
-;; サイズ変更禁止
-(setq swoop-font-size-change: nil)
+;; ;; サイズ変更禁止
+;; (setq swoop-font-size-change: nil)
    #+end_src
 
 ** iedit

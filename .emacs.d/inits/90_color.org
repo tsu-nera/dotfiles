@@ -90,7 +90,7 @@ el-get にまとめた.
 
 #+begin_src emacs-lisp
 (require 'rainbow-delimiters)
-(global-rainbow-delimiters-mode)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 #+end_src
 
 * minimap
