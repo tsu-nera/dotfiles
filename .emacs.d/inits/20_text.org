@@ -365,7 +365,7 @@
   (setq migemo-command "c:/app/cmigemo-default-win64/cmigemo.exe")
   (setq migemo-dictionary "c:/app/cmigemo-default-win64/dict/utf-8/migemo-dict")
   (load-library "migemo")
-  ;;(migemo-init)
+  (migemo-init)
   )
 
    #+end_src
