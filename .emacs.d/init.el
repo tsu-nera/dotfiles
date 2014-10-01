@@ -112,6 +112,6 @@
 ;; インデント保持
 (setq org-src-preserve-indentation t)
 
-(bl:load-dir "~/.emacs.d/inits/") 
+(bl:load-dir "~/.emacs.d/inits/")
 
 (put 'dired-find-alternate-file 'disabled nil)

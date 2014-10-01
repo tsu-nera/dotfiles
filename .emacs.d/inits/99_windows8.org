@@ -1,20 +1,23 @@
 #+begin_src emacs-lisp
 (set-frame-font "Ricty Diminished-13")
 
+(require 'milkode)
+(global-set-key (kbd "M-g") 'milkode:search)
+(global-set-key (kbd "M-s") 'milkode:search-at-point)
+
 (setq gmilk-command "c:/Ruby21-x64/bin/gmilk.bat")
 (setq jump-from-browser-command "c:/Ruby21-x64/bin/gmilk.bat")
 (setq milk-command "c:/Ruby21-x64/bin/milk.bat")
 
-  (if milkode:windows-p "gmilk.bat" "gmilk")
-  "gmilk command.")
+;; (defvar gmilk-command
+;;   (if milkode:windows-p "gmilk.bat" "gmilk")
+;;   "gmilk command.")
 
-(defvar jump-from-browser-command
-  (if milkode:windows-p "gmilk.bat" "gmilk")
-  "M-x jump-from-browser-command.")
+;; (defvar jump-from-browser-command
+;;   (if milkode:windows-p "gmilk.bat" "gmilk")
+;;   "M-x jump-from-browser-command.")
 
-(defvar milk-command
-  (if milkode:windows-p "milk.bat" "milk")
-  "milk command.")
-
-
+;; (defvar milk-command
+;;   (if milkode:windows-p "milk.bat" "milk")
+;;   "milk command.")
 #+end_src

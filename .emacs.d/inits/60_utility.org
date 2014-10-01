@@ -597,8 +597,10 @@ Emacs Twitter Client
 
 #+begin_src emacs-lisp
 ;; パスの引き継ぎ
+(when linux-p
 (require 'exec-path-from-shell)
 (exec-path-from-shell-initialize)
+)
 ;; (let* ((zshpath (shell-command-to-string
 ;; 		          "/usr/bin/env zsh -c 'printenv PATH'"))
 ;;               (pathlst (split-string zshpath ":")))
