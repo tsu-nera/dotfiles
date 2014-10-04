@@ -3,22 +3,30 @@
 
 * コンパイル
 ** smart-compile
-コマンドからコンパイル実行. 独自改造したものが, elisp にある.
+   コマンドからコンパイル実行. 独自改造したものが, elisp にある.
 
-http://www.emacswiki.org/emacs/download/smart-compile.el
+   - http://www.emacswiki.org/emacs/download/smart-compile.el
+
+   quickrun に乗り換えてみるため,いったんコメントアウト.
 
 #+begin_src emacs-lisp
-(require 'smart-compile)
-(setq compilation-window-height 15)
+;; (require 'smart-compile)
+;; (setq compilation-window-height 15)
+
+;; (define-key c-mode-map (kbd "C-c c") 'smart-compile)
+;; (define-key ruby-mode-map (kbd "C-c c") 'smart-compile)
+;; (define-key python-mode-map (kbd "C-c c") 'smart-compile)
 #+end_src
 
 ** quickrun
-コンパイルを実行. smart-compile よりいい??
+   コンパイルを実行. smafrt-compile よりいい??
 
-- https://github.com/syohex/emacs-quickrun
+  - https://github.com/syohex/emacs-quickrun
 
 #+begin_src emacs-lisp
 (require 'quickrun)
+(push '("*quickrun*") popwin:special-display-config)
+(global-set-key (kbd "C-c r") 'quickrun)
 #+end_src
 
 * プロジェクト管理

@@ -1,7 +1,14 @@
 * Python
+  - [[http://www.jesshamrick.com/2012/09/18/emacs-as-a-python-ide/][Emacs as a Python IDE - Jessica Hamrick]]
+
+** python2 を quickrun で利用する設定
+#+begin_src emacs-lisp
+(quickrun-add-command "python"
+		      '((:command . "python2"))
+		      :override t)
+#+end_src
 
 ** インデント
-   
 #+begin_src emacs-lisp
 (add-hook 'python-mode-hook
                    '(lambda ()
@@ -10,4 +17,3 @@
                         (setq python-indent 4)
                         (setq tab-width 4)))
 #+end_src
-

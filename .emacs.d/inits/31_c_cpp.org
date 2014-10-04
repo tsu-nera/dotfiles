@@ -13,9 +13,6 @@
 	    (setq indent-tabs-mode nil)  ;; タブは利用しない
 	    (setq c-basic-offset 2)      ;; indent は 2 スペース
 	    ))
-
-;; Smart Compile
-(define-key c-mode-map (kbd "C-c c") 'smart-compile)
 #+end_src
 
 * flymake
