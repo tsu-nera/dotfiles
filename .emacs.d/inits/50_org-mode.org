@@ -441,9 +441,15 @@ Emacs から WordPress に投稿する Lisp
 #+begin_src emacs-lisp
 (require 'org2blog-autoloads)
 
+(when linux-p
 (setq futurismo (netrc-machine (netrc-parse "~/.netrc") "futurismo" t))
 (setq sternstunden (netrc-machine (netrc-parse "~/.netrc") "sternstunden" t))
 (setq everclassic (netrc-machine (netrc-parse "~/.netrc") "everclassic" t))
+)
+
+(when windows-p
+(setq futurismo (netrc-machine (netrc-parse "c:/cygwin64/home/tsu-nera/.netrc") "futurismo" t))
+)
 
 (setq org2blog/wp-blog-alist
       '(("Futurismo"
