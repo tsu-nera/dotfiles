@@ -1,14 +1,30 @@
 * Python
-  - [[http://www.jesshamrick.com/2012/09/18/emacs-as-a-python-ide/][Emacs as a Python IDE - Jessica Hamrick]]
+* 入力支援
+  python.el は公式, python-mode.el は Python コミュニティによって作成されたもの.
+  
+** python
+   Emacs にデフォルトではいっているやつ.
 
-** python2 を quickrun で利用する設定
+** python-mode
+   Python コミュニティによって作成されたもの.
+   - [[https://github.com/emacsmirror/python-mode][emacsmirror/python-mode]]   
+   - [[https://launchpad.net/python-mode/][python-mode.el in Launchpad]]
+   - [[http://tnt.math.se.tmu.ac.jp/~tetsushi/nzmath/emacs-python-mode.html][Guide - Software - Emacs - python-mode]]
+
+   ショートカットがまとまっている.
+   - [[http://ikautimituaki.hatenablog.com/entry/20111120/1321806070][python-mode の便利なショートカットまとめ - まったりいんふぉまてぃくすめもらんだむ]]
+
 #+begin_src emacs-lisp
-(quickrun-add-command "python"
-		      '((:command . "python2"))
-		      :override t)
+(setq auto-mode-alist
+      (cons '("\\.py$" . python-mode) auto-mode-alist))
+(setq interpreter-mode-alist (cons '("python" . python-mode)
+                                   interpreter-mode-alist))
+(autoload 'python-mode "python-mode" "Python editing mode." t)
 #+end_src
 
-** インデント
+
+** インデント設定
+   4 で設定.
 #+begin_src emacs-lisp
 (add-hook 'python-mode-hook
                    '(lambda ()
@@ -17,3 +33,93 @@
                         (setq python-indent 4)
                         (setq tab-width 4)))
 #+end_src
+
+** とじ括弧挿入
+   結構うざったいので封印
+
+#+begin_src emacs-lisp
+;; (add-hook 'python-mode-hook
+;;           (lambda ()
+;;             (define-key python-mode-map "\"" 'electric-pair)
+;;             (define-key python-mode-map "\'" 'electric-pair)
+;;             (define-key python-mode-map "(" 'electric-pair)
+;;             (define-key python-mode-map "[" 'electric-pair)
+;;             (define-key python-mode-map "{" 'electric-pair)))
+;; (defun electric-pair ()
+;;   "Insert character pair without sournding spaces"
+;;   (interactive)
+;;   (let (parens-require-spaces)
+;;     (insert-pair)))
+#+end_src
+
+
+* コードリーディング
+** TODO imenu
+   - [[http://stackoverflow.com/questions/21644876/imenu-does-not-work-for-python-mode-or-c-mode][emacs - imenu does not work for python mode or c++ mode - Stack Overflow]]
+
+#+begin_src emacs-lisp
+(defun my-merge-imenu ()
+  (interactive)
+  (let ((mode-imenu (imenu-default-create-index-function))
+        (custom-imenu (imenu--generic-function imenu-generic-expression)))
+    (append mode-imenu custom-imenu)))
+
+(add-hook 'python-mode-hook
+          (lambda ()
+            (add-to-list
+             'imenu-generic-expression
+             '("Sections" "^#### \\[ \\(.*\\) \\]$" 1))
+            (imenu-add-to-menubar "Position")
+            (setq imenu-create-index-function 'my-merge-imenu)))
+#+end_src
+
+* リファクタリング
+  主に名前変更の Elisp を導入.
+
+  参考リンク:
+  - [[http://stackoverflow.com/questions/28796/what-refactoring-tools-do-you-use-for-python][What refactoring tools do you use for Python? - Stack Overflow]]
+  
+** TODO Ropemacs
+   Python 用のリファクタリングツール.
+   - [[http://rope.sourceforge.net/ropemacs.html][ropemacs, rope in emacs]]
+   
+* コーディング支援
+** TODO jedi
+   Python のオムニ補完 (かしこい補完) をしてくれる.
+  - [[http://qiita.com/yuu116atlab/items/2a62cb880ac863dcc8ef][emacs-jedi の install - Qiita]]
+
+** TODO Pydoc
+
+** TODO ac-python
+   auto-complete の python 強化版.
+
+** TODO quickrun
+   quickrun を利用すれば, python コードを Emacs から実行可能.
+   - https://github.com/syohex/emacs-quickrun
+     
+   システムの version が 3 で, Emacs からは 2 を利用したいときは,
+   以下のようにすれば実行コマンドをオーバライドできる.
+   
+#+begin_src emacs-lisp
+(quickrun-add-command "python"
+		      '((:command . "python2"))
+		      :override t)
+#+end_src
+
+** TODO iPython
+   インタラクティブなデバッグ環境.
+
+* 静的解析
+** TODO flymake
+** TODO pyflakes
+** TODO PyLint
+
+* Links
+  - [[http://www.emacswiki.org/PythonProgrammingInEmacs][EmacsWiki: Python Programming In Emacs]]
+  - [[http://www.jesshamrick.com/2012/09/18/emacs-as-a-python-ide/][Emacs as a Python IDE - Jessica Hamrick]]
+  - [[http://pedrokroger.net/configuring-emacs-python-ide/][Configuring Emacs as a Python IDE - Pedro Kroger]]
+  - [[http://uchikoshi22.hatenadiary.jp/entry/20110925/1316936253][Emacs を Python 用 IDE としてセットアップ - uchikoshi22's blog]]
+  - [[http://d.hatena.ne.jp/cou929_la/20110525/1306321857][emacs の python 開発環境を整える - フリーフォーム フリークアウト]]
+  - [[http://blog.kzfmix.com/entry/1334218401][Emacs の Python 開発環境を整えた]]
+  - [[http://lambdalisue.hatenablog.com/entry/2013/06/23/071344][Vim を最強の Python 開発環境にする 2 - Λ Lisue's blog]]
+  - [[https://github.com/gabrielelanaro/emacs-for-python][gabrielelanaro/emacs-for-python]]

@@ -1,9 +1,9 @@
 # export PATH=$PATH:$HOME/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/rcodetools-0.8.5.0/bin
 
 # railsでエラーがでるので一旦コメントアウト
-# export PATH=/opt/mozart/bin:$PATH
-# export OZEMACS=/usr/bin/emacs
-# export OZHOME=/mnt/win/opt/mozart
+export PATH=/opt/mozart2/bin:$PATH
+export OZEMACS=/usr/local/bin/emacs
+export OZHOME=/opt/mozart2
 # export PATH=/usr/class/cs143/cool/bin:$PATH
 
 # railsでエラーがでるので一旦コメントアウト

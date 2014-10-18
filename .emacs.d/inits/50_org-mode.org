@@ -767,7 +767,7 @@ containing the properties `:guid' and `:item-full-text'."
 ;;  (require 'ob-ruby)
   #+end_src
 
-* memo
+* Others
 ** Narrowing
 範囲を限定して表示することができる.
 
@@ -780,5 +780,15 @@ C-x n w     (widen)
     Widen buffer to remove narrowing.
 #+end_src
 
+** org-sparse-tree 
+   - [[http://rubikitch.com/2014/10/10/org-sparse-tree-indirect-buffer/][Emacs org-mode の検索機能を 16 倍パワーアップする方法 | るびきち「日刊 Emacs 」]]
 
-
+#+begin_src emacs-lisp
+(defun org-sparse-tree-indirect-buffer (arg)
+  (interactive "P")
+  (let ((ibuf (switch-to-buffer (org-get-indirect-buffer))))
+    (condition-case _
+        (org-sparse-tree arg)
+      (quit (kill-buffer ibuf)))))
+(define-key org-mode-map (kbd "C-c /") 'org-sparse-tree-indirect-buffer)
+#+end_src

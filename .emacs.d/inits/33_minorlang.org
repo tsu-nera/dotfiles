@@ -2,9 +2,13 @@
 マイナーランゲージのマイナーモード
 
 ** Oz
-multi-paradium language
+   multi-paradium language
 
-http://www.eecs.ucf.edu/~leavens/ComS541Fall06/running_oz.shtml#
+   導入方法:
+   - http://www.eecs.ucf.edu/~leavens/ComS541Fall06/running_oz.shtml#
+
+   文法:
+   - [[https://mozart.github.io/mozart-v1/doc-1.4.0/base/index.html][The Oz Base Environment]]
 
 #+begin_src emacs-lisp :tangle yes
 ;;; Oz program mode with Mozart/Oz.
@@ -32,6 +36,9 @@ http://www.eecs.ucf.edu/~leavens/ComS541Fall06/running_oz.shtml#
 	    (define-key oz-mode-map "\C-c\C-b" 'oz-feed-buffer)
 	    (define-key oz-mode-map "\C-c\C-l" 'oz-feed-line)
 	    (define-key oz-mode-map "\C-c\C-r" 'oz-feed-region)))
+
+;; indent を 3 から 2 へ変更
+(setq oz-indent-chars 2)
 #+end_src
 
 ** Cool

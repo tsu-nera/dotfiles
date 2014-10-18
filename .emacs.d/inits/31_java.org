@@ -3,7 +3,8 @@
 
   そんな感じの Java 設定です.
 
-** intent
+* Global Setting
+** indent
    なんか, Eclipse と Emacs でインデントあってない.
 
    - [[http://d.hatena.ne.jp/mzp/20090618/emacs][インデントの設定まとめ - みずぴー日記]]
@@ -20,6 +21,8 @@
 	 (setq c-basic-offset 2)))
 #+end_src
 
+
+* Mode
 ** malabar-mode
    A better Java mode for Emacs.
 
@@ -44,7 +47,54 @@
 ;;                   nil t)))
 #+end_src
 
-** eclim-emacs
+** gradle-mode
+   Gradle support for emacs-project-mode.
+   - https://github.com/rimerosolutions/emacs-gradle-project-mode
+
+   project-mode に依存してる.
+
+   #+begin_src emacs-lisp
+   (autoload 'emacs-gradle-project-mode "emacs-gradle-project-mode" "emacs-gradle-Project Mode" t)
+   #+end_src
+
+* Others
+** auto-java-complete
+   auto-complete の Java 用.
+   - [[http://www.emacswiki.org/emacs/AutoJavaComplete][EmacsWiki: Auto Java Complete]]
+   - https://github.com/emacs-java/auto-java-complete
+   - http://www.emacswiki.org/emacs/ajc-java-complete-my-config-example.el
+
+*** Install
+    参考: https://github.com/emacs-java/auto-java-complete/blob/master/Install
+
+    - AutoComplete と Yasnippet を事前にインストールする必要がある.
+    - github からリポジトリ取得.
+    - テンプレートタグを解凍
+
+#+begin_src bash
+% bunzip2 java_base2.tag.bz2
+% mv java_base2.tag ~/.java_base.tag
+#+end_src
+
+  自分の環境に合わせてタグを生成するには,
+
+    - CLASSPATH を設定
+    - Tag を生成.
+
+#+begin_src bash
+% javac Tags.java
+% java Tags
+#+end_src
+
+*** config
+
+#+begin_src emacs-lisp
+(require 'ajc-java-complete-config)
+(add-hook 'java-mode-hook 'ajc-java-complete-mode)
+(add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
+#+end_src
+
+* eclim-emacs
    Emacs から Eclipse をつかう.
 
   - https://github.com/senny/emacs-eclim
@@ -62,21 +112,6 @@
 
 ;; eclim daemon
 (require 'eclimd)
-
-;; regular auto-complete initialization
-;; (require 'auto-complete-config)
-;; (ac-config-default)
-
-;; add the emacs-eclim source
-(add-hook 'java-mode-hook 
-   (lambda () 
-   (require 'ac-emacs-eclim-source)
-   (ac-emacs-eclim-config)
-   ))
-
-;; for company-mode
-;; (require 'company-emacs-eclim)
-;; (company-emacs-eclim-setup)
 
 ;; Displaying compilation error messages in the echo area
 (setq help-at-pt-display-when-idle t)
@@ -99,12 +134,34 @@
 ;; skip warning error
 (setq compilation-skip-threshold 2)
 
+
+
 (when linux-p
 (setq eclim-eclipse-dirs "/usr/share/eclipse")
 (setq eclim-executable "/usr/share/eclipse/eclim")
 (setq eclimd-executable "/usr/share/eclipse/eclimd")
 (setq eclimd-default-workspace "/home/tsu-nera/repo/eclipse_mooc_work")
 )
+
+** 自動保管
+
+;; regular auto-complete initialization
+;; (require 'auto-complete-config)
+;; (ac-config-default)
+
+;; ajc-java-complete-config を利用するため一旦封印
+;; add the emacs-eclim source
+;; (add-hook 'java-mode-hook 
+;;    (lambda () 
+;;    (require 'ac-emacs-eclim-source)
+;;    (ac-emacs-eclim-config)
+;;    ))
+
+;; for company-mode
+;; (require 'company-emacs-eclim)
+;; (company-emacs-eclim-setup)
+
+
 
 #+end_src
 
@@ -139,14 +196,5 @@
 (define-key eclim-mode-map (kbd "C-c C-e j t") 'eclim-run-test)
 #+end_src
 
-** gradle-mode
-   Gradle support for emacs-project-mode.
-   - https://github.com/rimerosolutions/emacs-gradle-project-mode
-
-   project-mode に依存してる.
-
-   #+begin_src emacs-lisp
-   (autoload 'emacs-gradle-project-mode "emacs-gradle-project-mode" "emacs-gradle-Project Mode" t)
-   #+end_src
 
 * Android

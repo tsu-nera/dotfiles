@@ -1,0 +1,3 @@
+(:name python-mode
+       :type github
+       :pkgname "emacsmirror/python-mode")
