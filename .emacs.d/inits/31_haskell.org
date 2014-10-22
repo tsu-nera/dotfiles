@@ -1,0 +1,121 @@
+* Haskell
+  純粋関数型言語.
+
+* haskell-mode
+  Haskell のマイナーモード.
+  - https://github.com/haskell/haskell-mode
+
+#+begin_src emacs-lisp
+(autoload 'haskell-mode "haskell-mode" nil t)
+(autoload 'haskell-cabal "haskell-cabal" nil t)
+
+(add-to-list 'auto-mode-alist '("\\.hs$" . haskell-mode))
+(add-to-list 'auto-mode-alist '("\\.lhs$" . literate-haskell-mode))
+(add-to-list 'auto-mode-alist '("\\.cabal\\'" . haskell-cabal-mode))
+#+end_src
+
+モードの設定.以下のリンクが詳しい.
+  - [[http://haskell.github.io/haskell-mode/manual/latest/][Haskell Mode 13.07]]
+
+
+#+begin_src emacs-lisp
+ ;; indent の有効.
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+(add-hook 'haskell-mode-hook 'font-lock-mode)
+(add-hook 'haskell-mode-hook 'imenu-add-menubar-index)
+
+#+end_src
+
+** Haskell Script の編集モード
+
+#+begin_src emacs-lisp
+(add-to-list 'interpreter-mode-alist '("runghc" . haskell-mode))
+(add-to-list 'interpreter-mode-alist '("runhaskell" . haskell-mode))
+#+end_src
+
+Haskell でかかれたスクリプトを haskell-mode で編集する.
+
+#+begin_src haskell
+#!/usr/bin/env runhaskell
+#+end_src
+
+** Ghci との連携
+   M-x run-haskell で ghci が起動.
+
+#+begin_src emacs-lisp
+(setq haskell-program-name "/usr/bin/ghci")
+#+end_src
+
+ C-c, C-l でも起動.
+
+#+begin_src emacs-lisp
+(add-hook 'haskell-mode-hook 'inf-haskell-mode) ;; enable
+#+end_src
+
+  ghci の起動とファイルの読み込みを一緒に行う設定.
+
+#+begin_src emacs-lisp
+(defadvice inferior-haskell-load-file (after change-focus-after-load)
+  "Change focus to GHCi window after C-c C-l command"
+  (other-window 1))
+(ad-activate 'inferior-haskell-load-file)
+#+end_src
+
+ -[[http://d.hatena.ne.jp/pogin/20140121/1390299797][  inferior-haskell-mode で設定すると便利なこと - プログラムとかのの blog]]
+
+* gcd-mod
+  Haskell 開発を助ける機能がそろったツール.
+  - [[http://www.mew.org/%7Ekazu/proj/ghc-mod/en/][Happy Haskell Programming]]
+  - [[https://github.com/kazu-yamamoto/ghc-mod][kazu-yamamoto/ghc-mod]]
+
+** Install
+  - [[http://www.mew.org/~kazu/proj/ghc-mod/en/install.html][Installing "ghc-mod"]]
+
+#+begin_src bash
+% cabal update
+% cabal install ghc-mod
+#+end_src
+
+** Settings
+   - [[http://www.mew.org/~kazu/proj/ghc-mod/en/preparation.html][Preparing Emacs front-end]]
+
+#+begin_src emacs-lisp
+(autoload 'ghc-init "ghc" nil t)
+(autoload 'ghc-debug "ghc" nil t)
+(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+#+end_src
+
+  Emacs での使い方は以下のページに書いてある.
+  - [[http://www.mew.org/~kazu/proj/ghc-mod/en/emacs.html][Usage of Emacs front-end]]
+
+* エラーチェック
+** flymake
+   構文チェック.
+
+#+begin_src emacs-lisp
+(add-hook 'haskell-mode-hook (lambda () (flymake-mode)))
+#+end_src
+
+** hlint
+   コードチェック. cabal install hlint でインストールする.
+   C-c C-c でカーソル部のチェック.
+
+* 自動補完
+  こんなの見つけた. ac-haskell-process.
+  - https://github.com/purcell/ac-haskell-process
+
+#+begin_src emacs-lisp
+(require 'ac-haskell-process) ; if not installed via package.el
+(add-hook 'interactive-haskell-mode-hook 'ac-haskell-process-setup)
+(add-hook 'haskell-interactive-mode-hook 'ac-haskell-process-setup)
+(eval-after-load "auto-complete"
+  '(add-to-list 'ac-modes 'haskell-interactive-mode))
+#+end_src
+
+* Links
+  - [[http://www.haskell.org/haskellwiki/Emacs][Emacs - HaskellWiki]]
+  - [[http://www.haskell.org/haskellwiki/Emacs/Inferior_Haskell_processes][Emacs/Inferior Haskell processes - HaskellWiki]]
+  - [[http://www.slideshare.net/KazufumiOhkawa/haskelleremacs][静岡の Haskeller は Emacs を使う]]
+  - [[http://blog.karky7.com/2012/12/gentooemacshaskell.html][karky7 のブログ: Gentoo で emacs+haskell 環境を作る]]
+  - [[http://d.hatena.ne.jp/kitokitoki/20111217/p1][Haskell 用の emacs カスタマイズ例 - わからん]]

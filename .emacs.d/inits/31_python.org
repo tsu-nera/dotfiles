@@ -15,13 +15,12 @@
    - [[http://ikautimituaki.hatenablog.com/entry/20111120/1321806070][python-mode の便利なショートカットまとめ - まったりいんふぉまてぃくすめもらんだむ]]
 
 #+begin_src emacs-lisp
-(setq auto-mode-alist
-      (cons '("\\.py$" . python-mode) auto-mode-alist))
-(setq interpreter-mode-alist (cons '("python" . python-mode)
-                                   interpreter-mode-alist))
-(autoload 'python-mode "python-mode" "Python editing mode." t)
+;; (setq auto-mode-alist
+;;       (cons '("\\.py$" . python-mode) auto-mode-alist))
+;; (setq interpreter-mode-alist (cons '("python" . python-mode)
+;;                                    interpreter-mode-alist))
+;; (autoload 'python-mode "python-mode" "Python editing mode." t)
 #+end_src
-
 
 ** インデント設定
    4 で設定.
@@ -90,10 +89,17 @@
 
 ** TODO Pydoc
 
-** TODO ac-python
+** ac-python
    auto-complete の python 強化版.
 
-** TODO quickrun
+#+begin_src emacs-lisp
+;; (when linux-p
+;; (require 'ac-python)
+;; (add-to-list 'ac-modes 'python-2-mode)
+;; )
+#+end_src
+
+** quickrun
    quickrun を利用すれば, python コードを Emacs から実行可能.
    - https://github.com/syohex/emacs-quickrun
      

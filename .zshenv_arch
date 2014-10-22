@@ -1,14 +1,17 @@
 # export PATH=$PATH:$HOME/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/rcodetools-0.8.5.0/bin
 
-# railsでエラーがでるので一旦コメントアウト
+# export PATH=/usr/local/bin:$PATH
+
+# OZ
 export PATH=/opt/mozart2/bin:$PATH
 export OZEMACS=/usr/local/bin/emacs
 export OZHOME=/opt/mozart2
+
+# Cool
 # export PATH=/usr/class/cs143/cool/bin:$PATH
 
-# railsでエラーがでるので一旦コメントアウト
-# export PATH=$HOME/.cabal/bin:$PATH
-# export PATH=/usr/local/bin:$PATH
+# Haskell
+export PATH=$HOME/.cabal/bin:$PATH
 
 # Scala 
 # export PATH=$HOME/app/sbt/bin:$PATH
