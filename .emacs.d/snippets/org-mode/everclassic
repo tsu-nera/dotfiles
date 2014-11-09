@@ -1,0 +1,9 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: everclassic
+# key: everclassic
+# --
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 日記
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: 

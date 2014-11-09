@@ -18,6 +18,10 @@ export PATH=$HOME/.cabal/bin:$PATH
 # export PATH=$HOME/app/scala/bin:$PATH
 # export SCALA_HOME=$HOME/app/scala
 
+# Java
+export JUNIT_HOME=/usr/share/java
+export CLASSPATH=$JUNIT_HOME/junit.jar:$CLASSPATH
+
 alias fault='sudo shutdown -P now'
 
 # ansible

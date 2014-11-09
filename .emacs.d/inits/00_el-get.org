@@ -140,6 +140,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     python-mode
     ;; java
     auto-java-complete
+    ant
     ;; haskell
     haskell-mode
     ac-haskell-process

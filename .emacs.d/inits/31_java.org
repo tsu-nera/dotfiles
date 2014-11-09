@@ -2,7 +2,7 @@
   打倒 Eclipse! Eclipse なんかぶっつぶせ!
 
   そんな感じの Java 設定です.
-
+  
 * Global Setting
 ** indent
    なんか, Eclipse と Emacs でインデントあってない.
@@ -20,7 +20,6 @@
 	 (setq indent-tabs-mode t)
 	 (setq c-basic-offset 2)))
 #+end_src
-
 
 * Mode
 ** malabar-mode
@@ -46,16 +45,6 @@
 ;;        (add-hook 'after-save-hook 'malabar-compile-file-silently
 ;;                   nil t)))
 #+end_src
-
-** gradle-mode
-   Gradle support for emacs-project-mode.
-   - https://github.com/rimerosolutions/emacs-gradle-project-mode
-
-   project-mode に依存してる.
-
-   #+begin_src emacs-lisp
-   (autoload 'emacs-gradle-project-mode "emacs-gradle-project-mode" "emacs-gradle-Project Mode" t)
-   #+end_src
 
 * Others
 ** auto-java-complete
@@ -87,12 +76,52 @@
 #+end_src
 
 *** config
-
 #+begin_src emacs-lisp
 (require 'ajc-java-complete-config)
 (add-hook 'java-mode-hook 'ajc-java-complete-mode)
 (add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
 #+end_src
+
+* JUnit
+** 事前準備
+   環境変数を設定.
+
+#+begin_src bash
+export JUNIT_HOME = /usr/share/java
+export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
+#+end_src
+
+** コンソールから起動
+   - https://github.com/junit-team/junit/wiki/Test-runners
+
+** ant
+   Emacs から ant を実行するためのヘルパー
+   - https://github.com/apg/ant-el
+
+   
+
+#+begin_src emacs-lisp
+(autoload 'ant "ant" "" t)
+#+end_src
+
+
+* Build
+** Ant
+   - [[http://dev.ariel-networks.com/Members/matsuyama/emacs-ant/][emacs で Ant を使う - ありえるえりあ]]
+   - [[http://www.javadrive.jp/ant/][Apache Ant の使い方]]
+   - build.xml の書き方 [[http://www.techscore.com/tech/Java/ApacheJakarta/Ant/7-2/][7. 基本的なタスク (2) | TECHSCORE (テックスコア)]]   
+
+** Marven
+
+** Gradle
+   Gradle support for emacs-project-mode.
+   - https://github.com/rimerosolutions/emacs-gradle-project-mode
+
+   project-mode に依存してる.
+
+   #+begin_src emacs-lisp
+   (autoload 'emacs-gradle-project-mode "emacs-gradle-project-mode" "emacs-gradle-Project Mode" t)
+   #+end_src
 
 * eclim-emacs
    Emacs から Eclipse をつかう.
@@ -195,6 +224,5 @@
   (compile (concat eclim-executable " -command java_junit -p " eclim--project-name " -t " (eclim-package-and-class))))
 (define-key eclim-mode-map (kbd "C-c C-e j t") 'eclim-run-test)
 #+end_src
-
 
 * Android

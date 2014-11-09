@@ -57,19 +57,19 @@
    - [[http://stackoverflow.com/questions/21644876/imenu-does-not-work-for-python-mode-or-c-mode][emacs - imenu does not work for python mode or c++ mode - Stack Overflow]]
 
 #+begin_src emacs-lisp
-(defun my-merge-imenu ()
-  (interactive)
-  (let ((mode-imenu (imenu-default-create-index-function))
-        (custom-imenu (imenu--generic-function imenu-generic-expression)))
-    (append mode-imenu custom-imenu)))
+;; (defun my-merge-imenu ()
+;;   (interactive)
+;;   (let ((mode-imenu (imenu-default-create-index-function))
+;;         (custom-imenu (imenu--generic-function imenu-generic-expression)))
+;;     (append mode-imenu custom-imenu)))
 
-(add-hook 'python-mode-hook
-          (lambda ()
-            (add-to-list
-             'imenu-generic-expression
-             '("Sections" "^#### \\[ \\(.*\\) \\]$" 1))
-            (imenu-add-to-menubar "Position")
-            (setq imenu-create-index-function 'my-merge-imenu)))
+;; (add-hook 'python-mode-hook
+;;           (lambda ()
+;;             (add-to-list
+;;              'imenu-generic-expression
+;;              '("Sections" "^#### \\[ \\(.*\\) \\]$" 1))
+;;             (imenu-add-to-menubar "Position")
+;;             (setq imenu-create-index-function 'my-merge-imenu)))
 #+end_src
 
 * リファクタリング
@@ -116,9 +116,31 @@
    インタラクティブなデバッグ環境.
 
 * 静的解析
-** TODO flymake
-** TODO pyflakes
-** TODO PyLint
+** flymake
+   flymake でエラーチェックを実施. 
+   エラーチェックのエンジンに pyflakes を利用する.
+
+   #+begin_src bash
+   $ sudo pip install pyflakes
+   #+end_src
+
+   Emacswiki を参考に設定.
+   - [[http://www.emacswiki.org/PythonProgrammingInEmacs][EmacsWiki: Python Programming In Emacs]]
+
+#+begin_src emacs-lisp
+(when (load "flymake" t)
+  (defun flymake-pyflakes-init ()
+     ; Make sure it's not a remote buffer or flymake would not work
+     (when (not (subsetp (list (current-buffer)) (tramp-list-remote-buffers)))
+      (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                         'flymake-create-temp-inplace))
+             (local-file (file-relative-name
+                          temp-file
+                          (file-name-directory buffer-file-name))))
+        (list "pyflakes" (list local-file)))))
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.py\\'" flymake-pyflakes-init)))
+#+end_src
 
 * Links
   - [[http://www.emacswiki.org/PythonProgrammingInEmacs][EmacsWiki: Python Programming In Emacs]]
