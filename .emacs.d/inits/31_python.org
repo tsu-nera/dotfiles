@@ -53,23 +53,14 @@
 
 
 * コードリーディング
-** TODO imenu
-   - [[http://stackoverflow.com/questions/21644876/imenu-does-not-work-for-python-mode-or-c-mode][emacs - imenu does not work for python mode or c++ mode - Stack Overflow]]
+** imenu
+   - [[http://qiita.com/lambdasakura@github/items/ceb9bc6fb008c959ec4b][Emacs の Python 開発環境構築メモ - Qiita]]
 
 #+begin_src emacs-lisp
-;; (defun my-merge-imenu ()
-;;   (interactive)
-;;   (let ((mode-imenu (imenu-default-create-index-function))
-;;         (custom-imenu (imenu--generic-function imenu-generic-expression)))
-;;     (append mode-imenu custom-imenu)))
-
-;; (add-hook 'python-mode-hook
-;;           (lambda ()
-;;             (add-to-list
-;;              'imenu-generic-expression
-;;              '("Sections" "^#### \\[ \\(.*\\) \\]$" 1))
-;;             (imenu-add-to-menubar "Position")
-;;             (setq imenu-create-index-function 'my-merge-imenu)))
+(semantic-mode 1) 
+(add-hook 'python-mode-hook
+  (lambda ()
+    (setq imenu-create-index-function 'python-imenu-create-index)))
 #+end_src
 
 * リファクタリング

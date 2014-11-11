@@ -158,6 +158,15 @@
 				    'split-window-vertically))
 #+end_src
 
+** tdd
+   Test-Driven Development 用の Elisp??
+
+   なんか, エラーしてもグリーンな気がする.
+
+#+begin_src emacs-lisp
+(require 'tdd)
+#+end_src
+
 * git
 ** magit
    Emacs の Git Client.
@@ -185,3 +194,4 @@
 ;; (require 'helm-github-issues)
 ;; (require 'helm-open-github)
  #+end_src
+

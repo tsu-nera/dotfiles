@@ -1,0 +1,20 @@
+# Information
+# http://eclim.org/eclimd.html
+#
+
+# Bind eclimd to all interfaces
+# nailgun.server.host=0.0.0.0
+
+# Specifies the port that nailgun / eclimd listens on for client requests.
+# nailgun.server.port=10012
+
+# Specifies the workspace directory to use
+# See $ECLIPSE_HOME/configuration/config.ini for other osgi properties.
+osgi.instance.area.default=/home/tsu-nera/repo/eclipse_mooc_work
+
+# increase heap size
+# -Xmx256M
+
+# increase perm gen size
+# -XX:PermSize=64m
+# -XX:MaxPermSize=128m

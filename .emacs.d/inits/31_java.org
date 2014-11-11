@@ -76,10 +76,12 @@
 #+end_src
 
 *** config
+    eclim との機能競合を起こすので, 一旦封印しておくか.
+
 #+begin_src emacs-lisp
-(require 'ajc-java-complete-config)
-(add-hook 'java-mode-hook 'ajc-java-complete-mode)
-(add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
+;; (require 'ajc-java-complete-config)
+;; (add-hook 'java-mode-hook 'ajc-java-complete-mode)
+;; (add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
 #+end_src
 
 * JUnit
@@ -98,12 +100,9 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
    Emacs から ant を実行するためのヘルパー
    - https://github.com/apg/ant-el
 
-   
-
 #+begin_src emacs-lisp
 (autoload 'ant "ant" "" t)
 #+end_src
-
 
 * Build
 ** Ant
@@ -139,16 +138,14 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 (autoload 'eclim-mode "eclim" nil t)
 (add-hook 'java-mode-hook 'eclim-mode)
 
-;; eclim daemon
-(require 'eclimd)
-
 ;; Displaying compilation error messages in the echo area
 (setq help-at-pt-display-when-idle t)
 (setq help-at-pt-timer-delay 0.1)
 (help-at-pt-set-timer)
 
 ;; add keybinds
-(define-key eclim-mode-map (kbd "C-c C-e p q") 'eclim-problems)
+;; (define-key eclim-mode-map (kbd "C-c C-e b") 'eclim-problems)
+(define-key eclim-mode-map (kbd "C-c C-e p q") 'eclim-problems-compilation-buffer)
 (define-key eclim-mode-map (kbd "C-c C-e p o") 'eclim-problems-open)
 (define-key eclim-mode-map (kbd "C-c C-e p n") 'eclim-problems-next)
 (define-key eclim-mode-map (kbd "C-c C-e p p") 'eclim-problems-previous)
@@ -163,17 +160,28 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 ;; skip warning error
 (setq compilation-skip-threshold 2)
 
-
-
 (when linux-p
 (setq eclim-eclipse-dirs "/usr/share/eclipse")
 (setq eclim-executable "/usr/share/eclipse/eclim")
 (setq eclimd-executable "/usr/share/eclipse/eclimd")
 (setq eclimd-default-workspace "/home/tsu-nera/repo/eclipse_mooc_work")
 )
+   #+end_src
+
+** eclimd
+   start-eclimd/stop-eclimd で起動・終了.
+
+#+begin_src emacs-lisp
+;; eclim daemon
+(require 'eclimd)
+#+end_src
+
+   心なしか, Emacs から起動するよりも, コマンドラインから起動したほうが
+   Emacs が軽く動作する.
 
 ** 自動保管
 
+#+begin_src emacs-lisp
 ;; regular auto-complete initialization
 ;; (require 'auto-complete-config)
 ;; (ac-config-default)
@@ -190,31 +198,29 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 ;; (require 'company-emacs-eclim)
 ;; (company-emacs-eclim-setup)
 
-
-
 #+end_src
 
-*** Program 起動
-    org.eclim.java.run.mainclass にメインクラスを設定.
+** Program 起動
+   org.eclim.java.run.mainclass にメインクラスを設定.
 
-    - [[http://eclim.org/vim/java/java.html][Java / Jps - eclim (eclipse + vim)]]
-    - [[http://eclim.org/vim/settings.html][Settings - eclim (eclipse + vim)]]
-    - [[http://stackoverflow.com/questions/7394811/eclim-what-to-set-org-eclim-java-run-mainclass-to][vim - Eclim - What to set org.eclim.java.run.mainclass to? - Stack Overflow]]
+   - [[http://eclim.org/vim/java/java.html][Java / Jps - eclim (eclipse + vim)]]
+   - [[http://eclim.org/vim/settings.html][Settings - eclim (eclipse + vim)]]
+   - [[http://stackoverflow.com/questions/7394811/eclim-what-to-set-org-eclim-java-run-mainclass-to][vim - Eclim - What to set org.eclim.java.run.mainclass to? - Stack Overflow]]
 
 
-   設定方法は, .settings/org.eclim.prefs というファイルを作成して,以下を書き込む
+  設定方法は, .settings/org.eclim.prefs というファイルを作成して,以下を書き込む
 
-   #+begin_src language
-   org.eclim.java.run.mainclass=<Class Name>
-   #+end_src
+  #+begin_src language
+  org.eclim.java.run.mainclass=<Class Name>
+  #+end_src
 
-   しかし, これだけでは動作しなかった. main メソッドの場所で
-   eclim-run-class を実行すると, ようやく eclim 経由で java program が起動.
-   
-   起動は, eclim の機能を利用するのではなくて,
-   別のビルドツールを利用したほうがいいな.
+  しかし, これだけでは動作しなかった. main メソッドの場所で
+  eclim-run-class を実行すると, ようやく eclim 経由で java program が起動.
+  
+  起動は, eclim の機能を利用するのではなくて,
+  別のビルドツールを利用したほうがいいな.
 
-*** JUnit 起動
+** JUnit 起動
 
 #+begin_src emacs-lisp
 (defun eclim-run-test ()
@@ -222,7 +228,10 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
   (if (not (string= major-mode "java-mode"))
     (message "Sorry cannot run current buffer."))
   (compile (concat eclim-executable " -command java_junit -p " eclim--project-name " -t " (eclim-package-and-class))))
-(define-key eclim-mode-map (kbd "C-c C-e j t") 'eclim-run-test)
+;; (define-key eclim-mode-map (kbd "C-c C-e j t") 'eclim-run-test)
+(define-key eclim-mode-map (kbd "C-c C-e j t") 'recompile)
 #+end_src
+
+実は, recompile でよかったりして..
 
 * Android

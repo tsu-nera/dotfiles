@@ -127,6 +127,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     flycheck-color-mode-line
     quickrun
     php-mode
+    tdd
     ;; ruby
     ruby-block
     robe-mode

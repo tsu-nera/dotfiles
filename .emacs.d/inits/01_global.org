@@ -192,6 +192,12 @@ http://www.emacswiki.org/emacs-ja/Emacs%E3%83%93%E3%82%AE%E3%83%8A%E3%83%BC#toc9
 (setq max-specpdl-size 6000)
 #+end_src
 
+** 自動閉じ括弧挿入
+
+#+begin_src emacs-lisp
+(electric-pair-mode 1)
+#+end_src
+
 * Emacs client
   server start for emacs-client
   http://d.hatena.ne.jp/syohex/20101224/1293206906
