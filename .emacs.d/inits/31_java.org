@@ -122,6 +122,61 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
    (autoload 'emacs-gradle-project-mode "emacs-gradle-project-mode" "emacs-gradle-Project Mode" t)
    #+end_src
 
+* JDEE
+  むむむ, , , コンパイルできない. できるようになるまで封印!
+
+#+begin_src emacs-lisp
+;;(add-to-list 'load-path "~/.emacs.d/jdee/lisp")
+;; (load "jde")
+;;(autoload 'jde-mode "jde" "Java Development Environment for Emacs." t)
+
+;; jde-mode は手動で有効にする
+;; (setq auto-mode-alist (cons '("\.java$" . jde-mode) auto-mode-alist))
+#+end_src
+
+自動補完がきかないのでキーバインド変更.
+
+#+begin_src emacs-lisp
+;; (define-key eclim-mode-map (kbd "C-c C-v .") 'jde-complete)
+#+end_src
+
+** prj.el
+   プロジェクト用の設定ファイル. Eclipse でいうところの.project
+   読み込んだ java ソースファイルのあるディレクトリからみつかるまで
+   親をたどってさがしてくれる.
+   プロジェクトのトップなんかにおいとくと便利.
+
+#+begin_src emacs-lisp
+;; (jde-project-file-version "1.0")
+;; ;; JDK
+;; (setq jde-jdk-registry
+;;       '(("1.4" . "/usr/lib/jvm/blackdown-jdk-1.4.2")
+;;         ("1.5" . "/usr/lib/jvm/sun-jdk-1.5")
+;;         ("1.6" . "/usr/lib/jvm/sun-jdk-1.6")
+;;         ("1.7" . "/usr/lib/jvm/java-7-openjdk")))
+
+;; (setq jde-jdk '("1.7"))
+;; (setq jde-jdk-doc-url "http://java.sun.com/javase/ja/7/docs/ja/api/")
+;; (setq jde-help-docsets '(("JDK API" "http://java.sun.com/javase/ja/7/docs/ja/api/" nil)))
+#+end_src
+   
+** JUnit
+
+#+begin_src emacs-lisp
+;; JUnit4
+;; (setq jde-junit-testrunner-type "org.junit.runner.JUnitCore")
+#+end_src
+
+** Bookmark
+   - 公式: [[http://jdee.sourceforge.net/][Java Development Environment for Emacs]]
+   - github:mirror https://github.com/emacsmirror/jdee/
+
+   - [[http://mikio.github.io/article/2012/12/23_emacsjdeejava.html][Emacs 中毒者に贈る JDEE による Java 開発環境の構築|ざる魂]]
+   - [[http://www.02.246.ne.jp/~torutk/jdee/jdee.html][JDEE:Java Development Environment for Emacs]]
+   - [[http://epian-wiki.appspot.com/wiki/Emacs/JDEE][Emacs/JDEE - epian-wiki]]
+   - [[https://github.com/toshikiw/qiita/blob/master/malabar-mode%E3%81%A6%E3%82%99java%E3%82%92%E6%9B%B8%E3%81%8F.md][qiita/malabar-mode でjava を書く.md at master · toshikiw/qiita]]
+   - [[https://www.youtube.com/watch?v=wsqzBEJoHLY][▶ My Java Emacs environment - YouTube]]
+
 * eclim-emacs
    Emacs から Eclipse をつかう.
 

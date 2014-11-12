@@ -223,7 +223,8 @@ http://www.emacswiki.org/emacs-ja/Emacs%E3%83%93%E3%82%AE%E3%83%8A%E3%83%BC#toc9
   (interactive)
   (let ((temp-buffer-show-function 'switch-to-buffer))
     (with-output-to-temp-buffer "*MyStartUpMessage*"  
-      (princ "\n\nHello Emacs (^-^)/\nLet the Hacking Begin!\n")))
+;;      (princ "\n\nHello Emacs (^-^)/\nLet the Hacking Begin!\n")))
+(princ "\n\nHello Emacs!!\nHappy Hacking (^-^)/\n")))
   (my-startup-display-mode)
   )
 

@@ -81,6 +81,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     google-translate
     sdic
     search-web
+    wgrep
     ;; smart-compile 独自改造したものを elisp においた
     expand-region
     ;; utility

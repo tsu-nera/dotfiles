@@ -210,6 +210,16 @@
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
 #+end_src
 
+** wgrep
+   grep した結果を編集.
+
+#+begin_src emacs-lisp
+(require 'wgrep-ag)
+(autoload 'wgrep-ag-setup "wgrep-ag")
+(add-hook 'ag-mode-hook 'wgrep-ag-setup)
+(define-key ag-mode-map (kbd "r") 'wgrep-change-to-wgrep-mode)
+#+end_src
+
 * 移動
   まずは, 基本まとめ.
  
@@ -334,6 +344,17 @@
    (key-chord-define-global "jh" 'jump-char-backward)
    #+end_src
 * 検索・置換
+** ag
+   高速 grep
+
+   #+begin_src emacs-lisp
+(require 'ag)
+(custom-set-variables
+ '(ag-highlight-search t)  ; 検索結果の中の検索語をハイライトする
+ '(ag-reuse-window 'nil)   ; 現在のウィンドウを検索結果表示に使う
+ '(ag-reuse-buffers 'nil)) ; 現在のバッファを検索結果表示に使う   
+   #+end_src
+
 ** migemo
    日本語をロ-マ字検索
 
@@ -390,7 +411,7 @@
 
 ** swoop
    Peculiar buffer navigation for Emacs.
-   -> helm-swoopに変更. helmのほうが高速.
+   -> helm-swoop に変更. helm のほうが高速.
 
   - [[http://fukuyama.co/emacs-swoop][Emacs バッファ内高速ナビゲーション Swoop.el を作りました. - Web 学び]]
 
