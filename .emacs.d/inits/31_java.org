@@ -126,9 +126,9 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
   むむむ, , , コンパイルできない. できるようになるまで封印!
 
 #+begin_src emacs-lisp
-;;(add-to-list 'load-path "~/.emacs.d/jdee/lisp")
+(add-to-list 'load-path "~/.emacs.d/jdee/lisp")
 ;; (load "jde")
-;;(autoload 'jde-mode "jde" "Java Development Environment for Emacs." t)
+(autoload 'jde-mode "jde" "Java Development Environment for Emacs." t)
 
 ;; jde-mode は手動で有効にする
 ;; (setq auto-mode-alist (cons '("\.java$" . jde-mode) auto-mode-alist))
@@ -177,6 +177,18 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
    - [[https://github.com/toshikiw/qiita/blob/master/malabar-mode%E3%81%A6%E3%82%99java%E3%82%92%E6%9B%B8%E3%81%8F.md][qiita/malabar-mode でjava を書く.md at master · toshikiw/qiita]]
    - [[https://www.youtube.com/watch?v=wsqzBEJoHLY][▶ My Java Emacs environment - YouTube]]
 
+
+* Error Check
+** flymake
+#+begin_src emacs-lisp
+(defun my-flymake-java-init ()
+  (list "my-java-flymake-checks"
+	(list (flymake-init-create-temp-buffer-copy
+	       'flymake-create-temp-with-folder-structure))))
+(add-to-list 'flymake-allowed-file-name-masks
+	     '("\\.java$" my-flymake-java-init flymake-simple-cleanup))
+#+end_src
+
 * eclim-emacs
    Emacs から Eclipse をつかう.
 
@@ -184,6 +196,7 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
   - http://www.skybert.net/emacs/java/
   - http://sleepboy-zzz.blogspot.jp/2014/02/emacsjava_22.html
   - http://www.skybert.net/emacs/java/
+  - [[http://www.xiaohanyu.me/oh-my-emacs/modules/ome-java.html][Oh My Emacs Java]]
 
 #+begin_src emacs-lisp
 (require 'eclim)
@@ -236,19 +249,28 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 
 ** 自動保管
 
+*** use auto-complete
+  - [[http://www.emacswiki.org/emacs/AutoComplete][EmacsWiki: Auto Complete]]
+
 #+begin_src emacs-lisp
-;; regular auto-complete initialization
-;; (require 'auto-complete-config)
-;; (ac-config-default)
+;; keep consistent which other auto-complete backend.
+  (custom-set-faces
+   '(ac-emacs-eclim-candidate-face ((t (:inherit ac-candidate-face))))
+   '(ac-emacs-eclim-selection-face ((t (:inherit ac-selection-face)))))
 
 ;; ajc-java-complete-config を利用するため一旦封印
 ;; add the emacs-eclim source
-;; (add-hook 'java-mode-hook 
-;;    (lambda () 
-;;    (require 'ac-emacs-eclim-source)
-;;    (ac-emacs-eclim-config)
-;;    ))
+(add-hook 'java-mode-hook 
+   (lambda () 
+   (require 'ac-emacs-eclim-source)
+   ;;   (ac-emacs-eclim-config)
+   (add-to-list 'ac-sources 'ac-source-emacs-eclim)
+   ))
+#+end_src
 
+*** use company-mode
+
+#+begin_src emacs-lisp
 ;; for company-mode
 ;; (require 'company-emacs-eclim)
 ;; (company-emacs-eclim-setup)
