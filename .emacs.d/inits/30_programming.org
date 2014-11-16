@@ -55,7 +55,9 @@
 
 #+begin_src emacs-lisp
 (projectile-global-mode)
+
 (require 'helm-projectile)
+(helm-projectile-on)
 
 ;; プロジェクトに関連するファイルを helm-for-files に追加
 (defadvice helm-for-files (around update-helm-list activate)

@@ -238,3 +238,55 @@ pukiwiki-edit-mode で起動.
 ;;     :back "\\?>")))
 ;; (add-to-list 'auto-mode-alist '("\\.php?\\'" . xml-mode))
 #+end_src
+** R
+*** ESS
+    Emacs を統計用 IDE にするツール.
+
+    - Official: [[http://ess.r-project.org/][ESS - Emacs Speaks Statistics]]
+    - github: https://github.com/emacs-ess/ESS
+    - メチャクチャ詳しい: [[http://www.okada.jp.org/RWiki/?ESS][ESS - RjpWiki]]
+    - [[http://www.emacswiki.org/emacs/EmacsSpeaksStatistics][EmacsWiki: Emacs Speaks Statistics]]
+
+   yaourt でインストール. yaourt -S emacs-ess.
+   emacs 自体は独自のものを利用しているため,
+   ビルドファイルで Emacs をコメントアウトした.
+
+   起動は M-x R.
+
+#+begin_src emacs-lisp
+(setq load-path (cons "/usr/share/emacs/site-lisp/ess" load-path))
+(when (locate-library "ess-site")
+  (require 'ess-site)
+
+(setq auto-mode-alist
+      (cons (cons "\\.[rR]$" 'R-mode) auto-mode-alist))
+(autoload 'R-mode "ess-site" "Emacs Speaks Statistics mode" t)
+
+
+;; R 起動時にワーキングディレクトリを訊ねない
+(setq ess-ask-for-ess-directory nil)
+
+;; ウィンドウ分割
+(defun ess:format-window-1 ()
+  (interactive)
+  (split-window-horizontally)
+  (other-window 1)
+  (split-window)
+  (other-window 1))
+;; (add-hook 'ess-pre-run-hook 'ess:format-window-1)
+#+end_src
+
+** ESS Auto-complete
+   - [[http://www.emacswiki.org/emacs/ESSAuto-complete][EmacsWiki: ESSAuto-complete]]   
+
+   ac-R.el はふるいっぽい.
+   - [[http://www.emacswiki.org/emacs/AutoCompleteSources#toc2][EmacsWiki: Auto Complete Sources]]
+   - [[http://stackoverflow.com/questions/4682459/emacs-autocomplete-mode-extension-for-ess-and-r][Emacs autocomplete-mode extension for ESS and R - Stack Overflow]]
+   - [[http://kozo2.hatenablog.com/entry/2012/04/14/050121][ESS の auto-complete を試す - kozo2's blog]]
+
+#+begin_src emacs-lisp
+(when (locate-library "ess-site")
+(setq ess-use-auto-complete t)
+;; (setq ess-use-auto-complete 'script-only)
+)
+#+end_src
