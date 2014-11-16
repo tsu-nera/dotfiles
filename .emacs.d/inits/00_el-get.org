@@ -82,6 +82,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     sdic
     search-web
     wgrep
+    phi-search
     ;; smart-compile 独自改造したものを elisp においた
     expand-region
     ;; utility
@@ -129,6 +130,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     quickrun
     php-mode
     tdd
+    projectile
     ;; ruby
     ruby-block
     robe-mode

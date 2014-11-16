@@ -46,44 +46,6 @@
 ;;                   nil t)))
 #+end_src
 
-* Others
-** auto-java-complete
-   auto-complete の Java 用.
-   - [[http://www.emacswiki.org/emacs/AutoJavaComplete][EmacsWiki: Auto Java Complete]]
-   - https://github.com/emacs-java/auto-java-complete
-   - http://www.emacswiki.org/emacs/ajc-java-complete-my-config-example.el
-
-*** Install
-    参考: https://github.com/emacs-java/auto-java-complete/blob/master/Install
-
-    - AutoComplete と Yasnippet を事前にインストールする必要がある.
-    - github からリポジトリ取得.
-    - テンプレートタグを解凍
-
-#+begin_src bash
-% bunzip2 java_base2.tag.bz2
-% mv java_base2.tag ~/.java_base.tag
-#+end_src
-
-  自分の環境に合わせてタグを生成するには,
-
-    - CLASSPATH を設定
-    - Tag を生成.
-
-#+begin_src bash
-% javac Tags.java
-% java Tags
-#+end_src
-
-*** config
-    eclim との機能競合を起こすので, 一旦封印しておくか.
-
-#+begin_src emacs-lisp
-;; (require 'ajc-java-complete-config)
-;; (add-hook 'java-mode-hook 'ajc-java-complete-mode)
-;; (add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
-#+end_src
-
 * JUnit
 ** 事前準備
    環境変数を設定.
@@ -198,13 +160,19 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
   - http://www.skybert.net/emacs/java/
   - [[http://www.xiaohanyu.me/oh-my-emacs/modules/ome-java.html][Oh My Emacs Java]]
 
+** eclim
+
 #+begin_src emacs-lisp
 (require 'eclim)
 ;; (setq eclim-auto-save t)
 ;; (setq eclim-use-yasnippet nil)
 
 (autoload 'eclim-mode "eclim" nil t)
-(add-hook 'java-mode-hook 'eclim-mode)
+;; 手動で有効にする.
+;;(add-hook 'java-mode-hook 'eclim-mode)
+
+(add-hook 'eclim-mode-hook
+	 (lambda ()
 
 ;; Displaying compilation error messages in the echo area
 (setq help-at-pt-display-when-idle t)
@@ -234,6 +202,8 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 (setq eclimd-executable "/usr/share/eclipse/eclimd")
 (setq eclimd-default-workspace "/home/tsu-nera/repo/eclipse_mooc_work")
 )
+
+))
    #+end_src
 
 ** eclimd
@@ -260,7 +230,7 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 
 ;; ajc-java-complete-config を利用するため一旦封印
 ;; add the emacs-eclim source
-(add-hook 'java-mode-hook 
+(add-hook 'eclim-mode-hook 
    (lambda () 
    (require 'ac-emacs-eclim-source)
    ;;   (ac-emacs-eclim-config)
@@ -310,5 +280,45 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 #+end_src
 
 実は, recompile でよかったりして..
+
+
+* 自動補完
+** auto-java-complete
+   auto-complete の Java 用.
+   - [[http://www.emacswiki.org/emacs/AutoJavaComplete][EmacsWiki: Auto Java Complete]]
+   - https://github.com/emacs-java/auto-java-complete
+   - http://www.emacswiki.org/emacs/ajc-java-complete-my-config-example.el
+
+*** Install
+    参考: https://github.com/emacs-java/auto-java-complete/blob/master/Install
+
+    - AutoComplete と Yasnippet を事前にインストールする必要がある.
+    - github からリポジトリ取得.
+    - テンプレートタグを解凍
+
+#+begin_src bash
+% bunzip2 java_base2.tag.bz2
+% mv java_base2.tag ~/.java_base.tag
+#+end_src
+
+  自分の環境に合わせてタグを生成するには,
+
+    - CLASSPATH を設定
+    - Tag を生成.
+
+#+begin_src bash
+% javac Tags.java
+% java Tags
+#+end_src
+
+*** config
+    eclim との機能競合を起こすので, 一旦封印しておくか.
+
+#+begin_src emacs-lisp
+(require 'ajc-java-complete-config)
+(add-hook 'java-mode-hook 'ajc-java-complete-mode)
+(add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
+#+end_src
+
 
 * Android

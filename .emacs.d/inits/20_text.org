@@ -210,16 +210,6 @@
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
 #+end_src
 
-** wgrep
-   grep した結果を編集.
-
-#+begin_src emacs-lisp
-(require 'wgrep-ag)
-(autoload 'wgrep-ag-setup "wgrep-ag")
-(add-hook 'ag-mode-hook 'wgrep-ag-setup)
-(define-key ag-mode-map (kbd "r") 'wgrep-change-to-wgrep-mode)
-#+end_src
-
 * 移動
   まずは, 基本まとめ.
  
@@ -435,6 +425,35 @@
    #+begin_src emacs-lisp
 (require 'iedit)
    #+end_src
+** wgrep
+   grep した結果を編集.
+
+#+begin_src emacs-lisp
+(require 'wgrep-ag)
+(autoload 'wgrep-ag-setup "wgrep-ag")
+(add-hook 'ag-mode-hook 'wgrep-ag-setup)
+(define-key ag-mode-map (kbd "r") 'wgrep-change-to-wgrep-mode)
+#+end_src
+
+** phi-search
+   multiple-cursors.el 対応のインクリメンタルサーチ.
+
+   - https://github.com/zk-phi/phi-search
+
+   使い方わからない.
+
+#+begin_src emacs-lisp
+;; (require 'phi-search)
+;; (global-set-key (kbd "C-s") 'phi-search)
+;; (global-set-key (kbd "C-r") 'phi-search-backward)
+
+;; (with-eval-after-load 'phi-search-core
+;;   (define-key phi-search-default-map [remap scroll-up-command] 'phi-search-scroll-up)
+;;   (define-key phi-search-default-map [remap scroll-down-command] 'phi-search-scroll-down))
+;; (set-face-attribute 'phi-search-selection-face nil
+;;                     :background "orange")
+#+end_src
+
 * 日本語
 ** text-adjust
    - text-adjust-codecheck : 半角カナ, 規格外文字を「〓」に置き換える.
@@ -449,6 +468,17 @@
    - http://www.rubyist.net/~rubikitch/archive/mell.el
    - http://www.rubyist.net/~rubikitch/archive/text-adjust.el
 
+  #+begin_src emacs-lisp
+   (require 'text-adjust)
+   (defun text-adjust-space-before-save-if-needed ()
+   (when (memq major-mode
+               '(org-mode text-mode wl-draft-mode))
+	       (text-adjust-buffer)))
+	       ;;           (text-adjust-space-buffer)))
+    (defalias 'spacer 'text-adjust-space-buffer)
+    (add-hook 'before-save-hook 'text-adjust-space-before-save-if-needed)
+   #+end_src
+
 ** yspel
    Yahoo の文章校正ツールを利用した日本語スペルチェック!
 
@@ -459,17 +489,7 @@
    #+end_src
 
 
-   #+begin_src emacs-lisp
-   (require 'text-adjust)
-   (defun text-adjust-space-before-save-if-needed ()
-   (when (memq major-mode
-               '(org-mode text-mode wl-draft-mode))
-	       (text-adjust-buffer)))
-	       ;;           (text-adjust-space-buffer)))
-    (defalias 'spacer 'text-adjust-space-buffer)
-    (add-hook 'before-save-hook 'text-adjust-space-before-save-if-needed)
-   #+end_src
-* 英語
+ * 英語
 ** aspell
    昔は ispell, 今は aspell が主流らしい.
 
