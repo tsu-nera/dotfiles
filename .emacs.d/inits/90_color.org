@@ -1,6 +1,15 @@
 * Color
 色関係.
 
+* Default
+** Comment
+#+begin_src emacs-lisp
+(custom-set-faces
+ '(font-lock-comment-delimiter-face ((t (:inherit font-lock-comment-face :foreground "gray80"))))
+ '(font-lock-comment-face ((t (:foreground "gray80")))))
+#+end_src
+
+
 * Emacs Color Theme
 
 A collection of custom themes for Emacs.

@@ -6,7 +6,6 @@
 * Global Setting
 ** indent
    なんか, Eclipse と Emacs でインデントあってない.
-
    - [[http://d.hatena.ne.jp/mzp/20090618/emacs][インデントの設定まとめ - みずぴー日記]]
    - [[http://stackoverflow.com/questions/5556558/getting-consistent-indentation-in-eclipse-and-emacs][Getting consistent indentation in Eclipse and Emacs - Stack Overflow]]
    - [[http://yohshiy.blog.fc2.com/blog-entry-172.html][Emacs でのタブ幅の設定 | プログラマーズ雑記帳]]
