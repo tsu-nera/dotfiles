@@ -1,0 +1,3 @@
+(:name color-theme-molokai
+       :type github
+       :pkgname "alloy-d/color-theme-molokai")

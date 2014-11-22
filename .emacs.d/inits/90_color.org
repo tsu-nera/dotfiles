@@ -34,8 +34,8 @@ el-get にまとめた.
    - https://github.com/juba/color-theme-tangotango
 
    #+begin_src emacs-lisp
-   (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/color-theme-tangotango")
-   (load-theme 'tangotango t)
+;;   (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/color-theme-tangotango")
+;;   (load-theme 'tangotango t)
    #+end_src
 
    tangotango と molokai をあわせると意外にいいかも??
@@ -51,6 +51,8 @@ el-get にまとめた.
 (require 'molokai-theme-kit)
 (setq molokai-theme-kit t)
 (load-theme 'molokai t)
+
+
 #+end_src
 
    自分のテーマにも, 以下のような設定で org-mode 対応できるらしい??
@@ -62,14 +64,23 @@ el-get にまとめた.
    ;;   '((t (:underline "#A7A6AA" :foreground "#008ED1" :background "#EAEAFF")))
    ;;   "Face used for the line delimiting the begin of source blocks.")
     
-   ;; (defface org-block-background
-   ;;   '((t (:background "#FFFFEA")))
-   ;;   "Face used for the source block background.")
+   ;;  (defface org-block-background
+   ;;  '((t (:background "#FFFFEA")))
+   ;;    "Face used for the source block background.")
     
    ;; (defface org-block-end-line
    ;;   '((t (:overline "#A7A6AA" :foreground "#008ED1" :background "#EAEAFF")))
    ;;   "Face used for the line delimiting the end of source blocks.")
    #+end_src
+
+** color-theme-molokai
+   別の molokai
+   https://github.com/alloy-d/color-theme-molokai
+
+#+begin_src emacs-lisp
+;; (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/color-theme-molokai")
+;; (load-theme 'molokai t)
+#+end_src
 
 ** Leuven-theme
    Emacs 24.4 に標準で入っているテーマ. org-mode との相性がとにかくイイ!
@@ -79,8 +90,6 @@ el-get にまとめた.
    #+begin_src emacs-lisp
 ;;   (load-theme 'leuven t)
    #+end_src
-
-
 
 * rainbow-mode
 数字表記に色つけしてくれる 
