@@ -275,13 +275,15 @@ http://shibayu36.hatenablog.com/entry/2013/12/30/190354
 
 * フォント
 ** Ricty
-http://d.hatena.ne.jp/kitokitoki/20110502/p2
+   http://d.hatena.ne.jp/kitokitoki/20110502/p2
 
-no window モードは X の設定にしたがっているので, .Xdefaults の設定を調整する必要あり.
+   no window モードは X の設定にしたがっているので, .Xdefaults の設定を調整する必要あり.
 
-#+begin_src emacs-lisp
-(add-to-list 'default-frame-alist '(font . "ricty-13"))
-#+end_src
+   #+begin_src emacs-lisp
+   (when linux-p
+   (add-to-list 'default-frame-alist '(font . "ricty-13"))
+   )
+   #+end_src
 
 ** サイズ変更
    text-scale-adjust という関数で変更する.(C-x C-0)

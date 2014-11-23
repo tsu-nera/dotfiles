@@ -56,6 +56,10 @@
 #+begin_src emacs-lisp
 (projectile-global-mode)
 
+(when windows-p
+(setq projectile-indexing-method 'alien)
+)
+
 (require 'helm-projectile)
 (helm-projectile-on)
 
@@ -196,7 +200,6 @@
 
 ** tdd
    Test-Driven Development 用の Elisp??
-
    なんか, エラーしてもグリーンな気がする.
 
 #+begin_src emacs-lisp
