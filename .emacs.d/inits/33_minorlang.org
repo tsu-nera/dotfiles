@@ -24,21 +24,26 @@
 ;; (setenv "PATH" (concat (getenv "OZHOME") "/bin:" (getenv "PATH")))
 ;; )
 
-(add-to-list 'auto-mode-alist '("\\.oz\\'" . oz-mode))
-(add-to-list 'auto-mode-alist '("\\.ozg\\'" . oz-gump-mode))
 (autoload 'run-oz "oz" "" t)
 (autoload 'oz-mode "oz" "" t)
 (autoload 'oz-gump-mode "oz" "" t)
 (autoload 'oz-new-buffer "oz" "" t)
 
+(add-to-list 'auto-mode-alist '("\\.oz$'" . oz-mode))
+(add-to-list 'auto-mode-alist '("\\.ozg$'" . oz-gump-mode))
+
 (add-hook 'oz-mode-hook
 	  (lambda ()
 	    (define-key oz-mode-map "\C-c\C-b" 'oz-feed-buffer)
 	    (define-key oz-mode-map "\C-c\C-l" 'oz-feed-line)
-	    (define-key oz-mode-map "\C-c\C-r" 'oz-feed-region)))
+	    (define-key oz-mode-map "\C-c\C-r" 'oz-feed-region)
+	    ))
 
 ;; indent を 3 から 2 へ変更
 (setq oz-indent-chars 2)
+
+(eval-after-load "auto-complete"
+  '(add-to-list 'ac-modes 'oz-mode))
 #+end_src
 
 ** Cool
@@ -274,6 +279,7 @@ pukiwiki-edit-mode で起動.
   (split-window)
   (other-window 1))
 ;; (add-hook 'ess-pre-run-hook 'ess:format-window-1)
+)
 #+end_src
 
 ** ESS Auto-complete
