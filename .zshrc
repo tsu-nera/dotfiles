@@ -51,8 +51,14 @@ setopt pushd_ignore_dups
 # 補間関連
 ############
 ## 補完機能の有効
-autoload -U compinit
-compinit
+# autoload -U compinit
+# compinit
+
+# cygwinでのエラー回避
+# zsh compinit: insecure directories, run compaudit for list.
+# http://d.hatena.ne.jp/ywatase/20071103
+autoload -Uz compinit
+compinit -u
 
 ## TAB で順に補完候補を切り替える
 setopt auto_menu

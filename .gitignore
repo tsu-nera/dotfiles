@@ -5,6 +5,7 @@
 .recentf
 .emacs-places
 .w3m
+*.cache
 
 /.xmonad/*
 !/.xmonad/xmonad.hs
@@ -47,3 +48,8 @@
 .zcompdum
 .zcompdump
 .emacs.d/server
+/org
+/Mail
+/.wl
+/.address
+/.folders

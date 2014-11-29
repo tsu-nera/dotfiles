@@ -1,12 +1,10 @@
 * Windows 環境専用設定
-Official.
-- http://ftp.gnu.org/gnu/emacs/windows/
-
-- [[http://gregorygrubbs.com/emacs/10-tips-emacs-windows/][10 Tips for Powerful Emacs on Windows]]
+  Official.
+  - http://ftp.gnu.org/gnu/emacs/windows/
+  - [[http://gregorygrubbs.com/emacs/10-tips-emacs-windows/][10 Tips for Powerful Emacs on Windows]]
 
 ** ショートカットから外部のアプリケーションを起動
-
-[[http://stackoverflow.com/questions/2284319/opening-files-with-default-windows-application-from-within-emacs][Opening files with default Windows application from within emacs - Stack Overflow]]
+   - [[http://stackoverflow.com/questions/2284319/opening-files-with-default-windows-application-from-within-emacs][Opening files with default Windows application from within emacs - Stack Overflow]]
 
 #+begin_src emacs-lisp
 (defun w32-browser 
@@ -21,10 +19,10 @@ Official.
 #+end_src
 
 * 画像
-Official に情報あり
-- http://ftp.gnu.org/gnu/emacs/windows/
+  Official に情報あり
+  - http://ftp.gnu.org/gnu/emacs/windows/
 
-F1 + v + dynamic-library-alist で必要な dll をしらべる
+  F1 + v + dynamic-library-alist で必要な dll をしらべる
 
  #+begin_src language
 Value: ((xpm "libxpm.dll" "xpm4.dll" "libXpm-nox4.dll")
@@ -41,39 +39,37 @@ Value: ((xpm "libxpm.dll" "xpm4.dll" "libXpm-nox4.dll")
 #+end_src
 
 
-.dll が必要. 以下のサイトから入手.
+ .dll が必要. 以下のサイトから入手.
 
- http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/
+ - http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/
 
-# 64 だとうごかない!
-# http://ftp.gnome.org/pub/gnome/binaries/win64/dependencies/
+ # 64 だとうごかない!
+ # http://ftp.gnome.org/pub/gnome/binaries/win64/dependencies/
+ 
+ - zlib_xxx.zip
+ - libpng_xxx.zip (PNG 用 , w32 でないとうごかなかった)
+ - jpeg_xxx.zip ( JPEG, ver8 ではなく, 6 であるところに注意)
 
-- zlib_xxx.zip
-- libpng_xxx.zip (PNG 用 , w32 でないとうごかなかった)
-- jpeg_xxx.zip ( JPEG, ver8 ではなく, 6 であるところに注意)
-
-解凍後, bin 配下にある dll を Emacs.exe と同じ bin フォルダに置く.
+ 解凍後, bin 配下にある dll を Emacs.exe と同じ bin フォルダに置く.
 
 * PDF
-docview-mode. need ghostscript
+  docview-mode. need ghostscript
 
-- http://www.emacswiki.org/emacs/DocViewMode
-- http://apeman0.blogspot.jp/2012/11/windowsgnu-emacsdocviewpng.html
-- http://emacsworld.blogspot.jp/2009/08/getting-docview-to-work-on-windows.html
+  - http://www.emacswiki.org/emacs/DocViewMode
+  - http://apeman0.blogspot.jp/2012/11/windowsgnu-emacsdocviewpng.html
+  - http://emacsworld.blogspot.jp/2009/08/getting-docview-to-work-on-windows.html
 
-- Set up png support, you'll have to look elsewhere for instructions on this.
-- Install ghostscript and add the bin and lib directories to your path.
+  - Set up png support, you'll have to look elsewhere for instructions on this.
+  - Install ghostscript and add the bin and lib directories to your path.
   - http://www.ghostscript.com/download/
-- Get xpdf for windows and put the executables somewhere on your path.
+  - Get xpdf for windows and put the executables somewhere on your path.
   - http://gnuwin32.sourceforge.net/packages/xpdf.htm
-- Set this in your .emacs: (setq doc-view-ghostscript-program "gswin32c")
-- That should be it.
-
+  - Set this in your .emacs: (setq doc-view-ghostscript-program "gswin32c")
+  - That should be it.
 
 #+begin_src emacs-lisp
 (setq doc-view-ghostscript-program "c:/Program Files/gs/gs9.14/bin/gswin64c.exe")
 #+end_src
-
 
 * ag
 ここにバイナリ発見!

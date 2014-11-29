@@ -1,5 +1,8 @@
 * Wanderlust
   emacs のメーラ
+  - [[http://www.emacswiki.org/emacs/WanderLust][EmacsWiki: Wander Lust]]
+  - [[http://box.matto.nl/emacsgmail.html][Emacs with Wanderlust and GMail | box.matto.nl]]
+  - [[http://www.gfd-dennou.org/member/uwabami/cc-env/emacs/wl_config.html][Youhei SASAKI's official site: Wanderlust の設定]]
 
   ここでは, 家と会社で共通の設定を書く. 環境ごとの設定は~/.wl に記入する.
 
@@ -158,10 +161,41 @@ draft-mode で yassnipet を有効化. うまくうごかない. . .
              (yas-minor-mode)))
 #+end_src
 
-* その他
-
-パスワードを省略するためには, パスワード入力後に以下を入力.
+* Tips
+  パスワードを省略するためには, パスワード入力後に以下を入力.
 
 #+begin_src language
 M-x elmo-passwd-alist-save
+#+end_src
+
+* windows
+** init file の置き場所
+  cygwin の~/dotfiles を Home にしているので,
+  dotfiles に.wl, .address, .folders を配置.
+
+** gmail との連携
+   windows だと gmail で送信できない. gnutls-cli がない.
+   - [[http://d.hatena.ne.jp/buzztaiki/20090715/1247619151][wanderlust で ssl 接続に gnutls を使う - 適当めも]]  
+
+   cygwin でいけるか?
+   - [[http://www.psg.com/lists/wanderlust/msg02177.html][Re: Wanderlust + Gmail + EMACS 24.1 + WinXP/32?]]
+
+   ダメだった. 諦める.
+
+#+begin_src emacs-lisp
+;; cygwin から gnutil を取得
+;; (setq starttls-negotiation-by-kill-program t
+;;       starttls-kill-program "c:/cygwin64/bin/kill.exe"
+;;       starttls-kill-program "c:/cygwin64/bin/gnutls-cli.exe"      
+;;       starttls-use-gnutls t)
+
+;; (defadvice starttls-negotiate (around use-external-kill activate)
+;;   (if (and (boundp 'starttls-negotiation-by-kill-program)
+;; 	   starttls-negotiation-by-kill-program)
+;;       (call-process starttls-kill-program nil nil nil
+;; 		    "-ALRM" (format "%d" (process-id process)))
+;;     ad-do-it))
+
+;; (setq ssl-program-name "c:/cygwin64/bin/gnutls-cli.exe")
+;; (setq ssl-program-arguments '("--insecure" "-p" service host))
 #+end_src
