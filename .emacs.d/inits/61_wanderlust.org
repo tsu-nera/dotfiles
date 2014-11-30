@@ -14,6 +14,47 @@
 (autoload 'wl-draft "wl-draft" "Write draft with Wanderlust." t)
 #+end_src
 
+* 基本設定
+#+begin_src emacs-lisp
+;; 画面を普通のメーラみたいな 3 ペインに
+(setq wl-stay-folder-window t)
+
+;; 大きなメッセージを分割して送信しない (デフォルトは t で分割する)
+(setq mime-edit-split-message nil)
+
+;; 起動時からオフラインにする
+;; (setq wl-plugged nil)
+
+;; サマリモードで日時を英語表示
+;; (setq wl-summary-weekday-name-lang 'en)
+
+;; メールを書くときは見出し画面を残して, フル画面にする
+(setq wl-draft-reply-buffer-style 'keep)
+
+;; 送信済み IMAP フォルダは送信と同時に既読にする
+(setq wl-fcc-force-as-read t)
+
+;; 最初からスレッドを開いておかない
+;;(setq wl-thread-insert-opened nil)
+;; スレッドを分割するしきい値 (デフォルト:30)
+(setq wl-summary-max-thread-depth 30)
+
+;; 警告無しに開けるメールサイズの最大値 (デフォルト:30K)
+(setq elmo-message-fetch-threshold 500000)
+
+;; プリフェッチ時に確認を求めるメールサイズの最大値 (デフォルト:30K)
+(setq wl-prefetch-threshold 500000)
+
+;;; from,to のデコード指定.
+(mime-set-field-decoder
+'From nil 'eword-decode-and-unfold-unstructured-field-body)
+(mime-set-field-decoder
+'To nil 'eword-decode-and-unfold-unstructured-field-body)
+
+;; 通信のオブション
+(setq ssl-program-arguments '("s_client" "-quiet" "-host" host "-port" service))
+#+end_src
+
 * HTML メール対策
   emacs-w3m をつかう. w3m が必要. (apt-get install w3m)
 
@@ -84,40 +125,26 @@
 ;; )))
 #+end_src
 
-* 未分類
+* Summary
 
 #+begin_src emacs-lisp
-;;;------------------------------------------
-;;; その他の設定
-;; 大きなメッセージを分割して送信しない (デフォルトは t で分割する)
-(setq mime-edit-split-message nil)
+;; サマリの横幅は制限なし ... 動かない..
+(setq wl-suumary-width nil)
+(setq wl-summary-indent-length-limit nil)
+(setq wl-summary-subject-length-limit nil)
 
-;; 起動時からオフラインにする
-;; (setq wl-plugged nil)
-;; サマリモードで日時を英語表示
-;; (setq wl-summary-weekday-name-lang 'en)
-;; メールを書くときは見出し画面を残して, フル画面にする
-(setq wl-draft-reply-buffer-style 'keep)
-;; 送信済み IMAP フォルダは送信と同時に既読にする
-(setq wl-fcc-force-as-read t)
-;; 最初からスレッドを開いておかない
-;;(setq wl-thread-insert-opened nil)
-;; スレッドを分割するしきい値 (デフォルト:30)
-(setq wl-summary-max-thread-depth 30)
-;; 警告無しに開けるメールサイズの最大値 (デフォルト:30K)
-(setq elmo-message-fetch-threshold 500000)
-;; プリフェッチ時に確認を求めるメールサイズの最大値 (デフォルト:30K)
-(setq wl-prefetch-threshold 500000)
+;; これを宣言すると, SUMARRY view が動かない. この解決に 3 時間かかった.
+;; (setq wl-summary-line-format "%n%T%P%1@%M/%D (%W)%h:%m %t%[%17 (%c %f%) %] %s")
+#+end_src
 
-;;;------------------------------------------
-;; (setq wl-dispose-folder-alist
-;; (cons '("^%inbox" . remove) wl-dispose-folder-alist))
-;;;------------------------------------------
-;;; from,to のデコード指定.
-(mime-set-field-decoder
-'From nil 'eword-decode-and-unfold-unstructured-field-body)
-(mime-set-field-decoder
-'To nil 'eword-decode-and-unfold-unstructured-field-body)
+* 添付ファイル
+  - 添付する C-c C-x Tab
+  - 添付ダウンロード: ダウンロードパスで v
+
+#+begin_src emacs-lisp
+;; 添付ファイルを開くためのおまじない
+(setq mime-play-delete-file-immediately nil)
+
 ;;;---------------------------------------------------
 ;; ファイル名が日本語の添付ファイルをデコードする
 (eval-after-load "mime"
@@ -140,33 +167,43 @@
 ;; (setq wl-summary-line-format-spec-alist
 ;; (append wl-summary-line-format-spec-alist
 ;; '((?@ (wl-summary-line-attached)))))
-
-;; これを宣言すると, SUMARRY view が動かない. この解決に 3 時間かかった.
-;; (setq wl-summary-line-format "%n%T%P%1@%M/%D (%W)%h:%m %t%[%17 (%c %f%) %] %s")
-
-;; サマリの横幅は制限なし
-(setq wl-suumary-width nil)
-
-(setq ssl-program-arguments '("s_client" "-quiet" "-host" host "-port" service))
-
-;; 添付ファイルを開くためのおまじない
-(setq mime-play-delete-file-immediately nil)
 #+end_src
 
-draft-mode で yassnipet を有効化. うまくうごかない. . .
+* 検索
+  Summary モードで V を入力.
+  - [[http://cns-guide.sfc.keio.ac.jp/2004/7/6/4.html][6.4 メッセージの検索]]
 
-#+begin_src emacs-lisp
+** Namazu
+   レガシーっぽい.
+  - [[http://www.emacswiki.org/emacs/Namazu][EmacsWiki: Namazu]]
+  - [[http://emacs-21.ki.nu/application/wl-namazu.html][Emacs Application/wl-namazu]]
+   
+** mu
+  linux のみ. Windows ではつかえない.
+  - [[https://code.google.com/p/mu0/][mu0 - mu is a collection of utilties for indexing and searching Maildirs - Google Project Hosting]]
+  
+* Tips
+** Yassnipet
+   draft-mode で yassnipet を有効化. うまくうごかない. . .
+
+   #+begin_src emacs-lisp
 (add-hook 'wl-draft-mode-hook
           '(lambda ()
              (yas-minor-mode)))
-#+end_src
+   #+end_src
 
-* Tips
+** Password
   パスワードを省略するためには, パスワード入力後に以下を入力.
 
 #+begin_src language
 M-x elmo-passwd-alist-save
 #+end_src
+
+** NEWS
+   見たら q を押すと, また見ますか? と聞かれるので No を選択.
+   - [[http://d.hatena.ne.jp/fujimisakari/20120204/1328375322][wanderlust を起動すると毎回 NEWS が起動してしまう - 安定の漢になるために]]
+
+* 未分類
 
 * windows
 ** init file の置き場所
