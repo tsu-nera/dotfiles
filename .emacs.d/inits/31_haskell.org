@@ -113,9 +113,20 @@ Haskell でかかれたスクリプトを haskell-mode で編集する.
   '(add-to-list 'ac-modes 'haskell-interactive-mode))
 #+end_src
 
+* ドキュメント参照
+  show help with CTRL-c CTRL-h.
+
+* structured-haskell-mode
+  paredit みたいな. 未導入.
+  - https://github.com/chrisdone/structured-haskell-mode
+
 * Links
+** Japanese
   - [[http://www.haskell.org/haskellwiki/Emacs][Emacs - HaskellWiki]]
   - [[http://www.haskell.org/haskellwiki/Emacs/Inferior_Haskell_processes][Emacs/Inferior Haskell processes - HaskellWiki]]
   - [[http://www.slideshare.net/KazufumiOhkawa/haskelleremacs][静岡の Haskeller は Emacs を使う]]
   - [[http://blog.karky7.com/2012/12/gentooemacshaskell.html][karky7 のブログ: Gentoo で emacs+haskell 環境を作る]]
   - [[http://d.hatena.ne.jp/kitokitoki/20111217/p1][Haskell 用の emacs カスタマイズ例 - わからん]]
+
+** English
+  - [[http://tim.dysinger.net/posts/2014-02-18-haskell-with-emacs.html][Haskell Development on Emacs]]

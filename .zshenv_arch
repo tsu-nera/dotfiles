@@ -21,7 +21,7 @@ export PATH=$HOME/.cabal/bin:$PATH
 # Java
 export JUNIT_HOME=/usr/share/java
 export CLASSPATH=$JUNIT_HOME/junit.jar:$CLASSPATH
-export PATH=/usr/share/eclipse:$PATH
+# export PATH=/usr/share/eclipse:$PATH
 
 alias fault='sudo shutdown -P now'
 
@@ -41,3 +41,7 @@ alias lock='slimlock'
 # アンチエイリアス
 export _JAVA_OPTIONS='-Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 export JAVA_FONTS=/usr/share/fonts/TTF
+
+# Chromeでibusがつかえない
+# export GTK_IM_MODULE_FILE=/usr/lib/gtk-3.0/3.0.0/immodules.cache
+export GTK_IM_MODULE_FILE=/etc/gtk-2.0/gtk.immodules

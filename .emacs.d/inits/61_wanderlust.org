@@ -1,7 +1,7 @@
 * Wanderlust
-emacs のメーラ
+  emacs のメーラ
 
-ここでは, 家と会社で共通の設定を書く. 環境ごとの設定は~/.wl に記入する.
+  ここでは, 家と会社で共通の設定を書く. 環境ごとの設定は~/.wl に記入する.
 
 #+begin_src emacs-lisp
 ; この行がないと imap サーバに繋がらない
@@ -12,29 +12,33 @@ emacs のメーラ
 #+end_src
 
 * HTML メール対策
-emacs-w3m をつかう. w3m が必要. (apt-get install w3m)
+  emacs-w3m をつかう. w3m が必要. (apt-get install w3m)
+
+  eww がつかえるか??
+  - [[http://blog.gmane.org/gmane.mail.wanderlust.general.japanese/month=20140101][Japanese discussion of the Wanderlust mail/news reader for Emacs/XEmacs]]
 
 #+begin_src emacs-lisp
 (require 'wl)
 ;; HTML ファイルは表示しない.
-(setq mime-setup-enable-inline-html nil)
+;; (setq mime-setup-enable-inline-html nil)
+
+(setq mime-setup-enable-inline-html 'shr) ;; eww を利用する.
 
 ;; text/plain を html よりも優先
 (set-alist 'mime-view-type-subtype-score-alist '(text . html) 0)
 
 ;; HTML メールは w3m で
-(require 'mime-setup)
-(when (locate-library "mime-w3m")
-  (require 'w3m-ems)
-  (require 'w3m-load)
-  (require 'mime-w3m)
-  (setq mime-w3m-safe-url-regexp nil)
-  )
+;; (require 'mime-setup)
+;; (when (locate-library "mime-w3m")
+;;   (require 'w3m-ems)
+;;   (require 'w3m-load)
+;;   (require 'mime-w3m)
+;;   (setq mime-w3m-safe-url-regexp nil)
+;;   )
 #+end_src
 
 * 無視するヘッダ
-
-http://kaworu.jpn.org/kaworu/2008-04-29-1.php
+  - http://kaworu.jpn.org/kaworu/2008-04-29-1.php
 
 #+begin_src emacs-lisp
 ;; summary-mode ですべての header を一旦除去

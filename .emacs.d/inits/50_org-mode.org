@@ -405,12 +405,12 @@ http://sheephead.homelinux.org/
 #+end_src
 
 * org-capture
-アイデアをキャプチャーする.
+  アイデアをキャプチャーする.
 
-capture てんぷれの書き方
-http://orgmode.org/manual/Template-expansion.html#Template-expansion
+  capture てんぷれの書き方
+  - http://orgmode.org/manual/Template-expansion.html#Template-expansion
 
-注意: adjust-text.el との兼ね合いで, file+datetree が動かない. 様子見
+  注意: adjust-text.el との兼ね合いで, file+datetree が動かない. 様子見
 
 #+begin_src emacs-lisp
 (require 'org-capture)
@@ -629,7 +629,7 @@ org と ical のスケジュールを混ぜて表示させることが出来ま�
    TaskJuggler 変換.
 
 #+begin_src emacs-lisp
-(require 'ox-taskjuggler)
+;; (require 'ox-taskjuggler)
 #+end_src
 
 ** ox-wk
@@ -644,6 +644,15 @@ org と ical のスケジュールを混ぜて表示させることが出来ま�
 
 #+begin_src emacs-lisp
 (require 'ox-md)
+#+end_src
+
+** ox-freemind
+   freemind もできるんだー.
+
+   ただし, ArchLinux では freemind がとてもつかいにくい...
+
+#+begin_src emacs-lisp
+;; (require 'ox-freemind)
 #+end_src
 
 * mobileOrg
