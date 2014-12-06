@@ -437,7 +437,7 @@
 
 ** phi-search
    multiple-cursors.el 対応のインクリメンタルサーチ.
-
+   - [[http://rubikitch.com/2014/11/11/phi-search/][emacs phi-search.el : multiple-cursors で isearch できるよ!]]
    - https://github.com/zk-phi/phi-search
 
    使い方わからない.
@@ -452,6 +452,20 @@
 ;;   (define-key phi-search-default-map [remap scroll-down-command] 'phi-search-scroll-down))
 ;; (set-face-attribute 'phi-search-selection-face nil
 ;;                     :background "orange")
+#+end_src
+
+*** phi-search-migemo
+    - https://github.com/zk-phi/phi-search-migemo
+    - [[http://rubikitch.com/2014/12/06/phi-search-migemo/][emacs phi-search-migemo.el : multiple-cursors.el 専属 isearch が Migemo 化]]
+
+#+begin_src emacs-lisp
+(require 'phi-search-migemo)
+(define-key phi-search-default-map (kbd "M-m") 'phi-search-migemo-toggle)
+(global-set-key (kbd "C-s") 'phi-search-migemo)
+(global-set-key (kbd "C-r") 'phi-search-migemo-backward)
+;; (with-eval-after-load 'multiple-cursors-core
+;;   (define-key mc/keymap (kbd "C-s") 'phi-search-migemo)
+;;   (define-key mc/keymap (kbd "C-r") 'phi-search-migemo-backward))
 #+end_src
 
 * 日本語
