@@ -1,0 +1,3 @@
+(:name erc-nick-notify
+       :type github
+       :pkgname "emacsmirror/erc-nick-notify")

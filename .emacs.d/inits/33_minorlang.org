@@ -1,7 +1,7 @@
 * Minor Language
 マイナーランゲージのマイナーモード
 
-** Oz
+* Oz
    multi-paradium language
 
    導入方法:
@@ -46,7 +46,7 @@
   '(add-to-list 'ac-modes 'oz-mode))
 #+end_src
 
-** Cool
+* Cool
 
 #+begin_src emacs-lisp :tangle yes
 (autoload 'cool-mode "cool-mode" "Major mode for editing COOL programs" t)
@@ -55,7 +55,7 @@
 
 #+end_src
 
-** VBA 
+* VBA 
 
 #+begin_src emacs-lisp :tangle yes
 (when windows-p
@@ -84,7 +84,7 @@
 )
 #+end_src
 
-** rst-mode
+* rst-mode
 
 Restructured Text
 
@@ -105,7 +105,7 @@ Restructured Text
 
 #+end_src
 
-** Markdown Mode
+* Markdown Mode
 http://jblevins.org/projects/markdown-mode/markdown-mode.el
 
 #+begin_src emacs-lisp :tangle yes
@@ -116,7 +116,7 @@ http://jblevins.org/projects/markdown-mode/markdown-mode.el
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 #+end_src
 
-** Plant UML Mode
+* Plant UML Mode
 
 #+begin_src emacs-lisp :tangle yes
 (autoload
@@ -126,7 +126,7 @@ http://jblevins.org/projects/markdown-mode/markdown-mode.el
 (setq plantuml-jar-path "/usr/local/bin/plantuml.jar")
 #+end_src
 
-** Scala
+* Scala
 #+begin_src emacs-lisp :tangle yes
 ;; Scala Mode 2
 (require 'scala-mode2)
@@ -148,7 +148,7 @@ http://jblevins.org/projects/markdown-mode/markdown-mode.el
 ;;        (scala-electric-mode)))
 #+end_src
 
-*** sbt mode
+** sbt mode
     https://github.com/hvesalai/sbt-mode
 
 #+begin_src emacs-lisp :tangle yes
@@ -180,11 +180,11 @@ http://jblevins.org/projects/markdown-mode/markdown-mode.el
 ))
 
 #+end_src
-** Conkeror
+* Conkeror
 #+begin_src emacs-lisp
 (autoload 'conkeror-minor-mode "conkeror-minor-mode")
 #+end_src
-** pukiwiki-mode
+* pukiwiki-mode
 pukiwiki-mode は minor-mode のみ使用する. firefox や chrome の Edit 機能から, Emacs を起動する.
 
 [[http://www.bookshelf.jp/pukiwiki/pukiwiki.php?%A5%A2%A5%A4%A5%C7%A5%A2%BD%B8%2Fpukiwiki-mode][アイデア集/pukiwiki-mode - Meadow memo]]
@@ -198,13 +198,13 @@ pukiwiki-edit-mode で起動.
 #+begin_src emacs-lisp
 (autoload 'pukiwiki-mode "pukiwiki-mode" "Major mode for Pukiwiki" t)
 #+end_src
-** Assembly Language
-   アセンブリ言語.
-   - [[http://www.emacswiki.org/emacs/AssemblyProgramming][EmacsWiki: Assembly Programming]]
+* Assembly Language
+  アセンブリ言語.
+  - [[http://www.emacswiki.org/emacs/AssemblyProgramming][EmacsWiki: Assembly Programming]]
 
-   asm-mode が標準添付.
+  asm-mode が標準添付.
 
-*** gas-mode
+** gas-mode
     [[http://www.hczim.de/software/gas-mode.html][gas-mode.el]] better asm-mode
 
     よくわからないので, 封印.
@@ -214,8 +214,8 @@ pukiwiki-edit-mode で起動.
 ;; (add-to-list 'auto-mode-alist '("\\.s\\'" . gas-mode))
 #+end_src
 
-** PHP
-*** php-mode
+* PHP
+** php-mode
    - [[https://github.com/ejmr/php-mode][ejmr/php-mode]]
 
 #+begin_src emacs-lisp
@@ -224,7 +224,7 @@ pukiwiki-edit-mode で起動.
             (append '(("\\.php\\'" . php-mode)) auto-mode-alist))
 #+end_src
 
-*** mmm-mode
+** mmm-mode
     php-mode と html-mode の同居.
 
     - [[http://bluestar.s32.xrea.com/text/php-mode.php][閑古鳥 -> 呟き -> emacs で PHP-mode と mmm-mode を使う]]
@@ -243,8 +243,8 @@ pukiwiki-edit-mode で起動.
 ;;     :back "\\?>")))
 ;; (add-to-list 'auto-mode-alist '("\\.php?\\'" . xml-mode))
 #+end_src
-** R
-*** ESS
+* R
+** ESS
     Emacs を統計用 IDE にするツール.
 
     - Official: [[http://ess.r-project.org/][ESS - Emacs Speaks Statistics]]

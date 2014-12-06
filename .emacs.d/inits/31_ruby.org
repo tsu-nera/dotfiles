@@ -192,6 +192,3 @@ and source-file directory for your debugger." t)
 ;;(global-set-key [f9] 'pry-intercept-rerun)
 
 #+end_src
-
-
-

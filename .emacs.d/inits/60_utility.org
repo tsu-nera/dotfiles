@@ -843,3 +843,104 @@ Emacs 用カレンダー.
 (require 'gist)
 (require 'helm-gist)
 #+end_src
+
+* ERC
+  Emacs のチャットツール.
+  
+  - [[http://www.emacswiki.org/ERC][EmacsWiki: ERC]]
+  - [[http://en.wikipedia.org/wiki/ERC_(software)][ERC (software) - Wikipedia, the free encyclopedia]]
+  - [[http://emacs-fu.blogspot.jp/2009/06/erc-emacs-irc-client.html][emacs-fu: ERC: the emacs IRC client]]
+  - [[http://sleepboy-zzz.blogspot.jp/2013/07/emacs-ercirc.html][memo: Emacs ERC で IRC を試してみた]]
+
+#+begin_src emacs-lisp
+;; (require 'erc)
+
+;; ログイン情報
+;; (setq erc-server "localhost")
+;; (setq erc-port "6667")
+;; (setq erc-nick "tsu-nera")
+;; (setq erc-password "")
+
+(autoload 'erc "erc" "" t)
+(defmacro de-erc-connect (command server port nick)
+  "Create interactive command `command', for connecting to an IRC server. The
+command uses interactive mode if passed an argument."
+  (fset command
+	`(lambda (arg)
+	   (interactive "p")
+	   (if (not (= 1 arg))
+	       (call-interactively 'erc)
+	     (erc :server ,server :port ,port :nick ,nick)))))
+
+;; (de-erc-connect erc-opn "localhost" 6667 "tsu-nera")
+#+end_src
+
+** ログアウト
+   - /PART Channel をさる
+   - /QUIT msg Server をさる
+
+#+begin_src emacs-lisp
+;; Kill buffers for channels after /part
+(setq erc-kill-buffer-on-part t)
+#+end_src
+
+- [[http://www.emacswiki.org/emacs/ErcStartupFiles][EmacsWiki: Erc Startup Files]]
+
+** ニックネームハイライト
+*** erc-highlight-nicknames
+   - [[http://www.emacswiki.org/ErcHighlightNicknames][EmacsWiki: Erc Highlight Nicknames]]
+
+#+begin_src emacs-lisp
+;; (and
+;;   (require 'erc-highlight-nicknames)
+;;   (add-to-list 'erc-modules 'highlight-nicknames)
+;;   (erc-update-modules))
+#+end_src
+
+*** erc-hl-nicks
+    erc-highlight-nicknames の改良版か?
+  - https://github.com/leathekd/erc-hl-nicks
+
+#+begin_src emacs-lisp
+(require 'erc-hl-nicks)
+#+end_src
+
+
+** 通知
+*** ERC notification
+    登録した単語をみつけたら反応する.
+    - [[https://julien.danjou.info/blog/2012/erc-notifications][ERC notifications | Julien Danjou]]
+
+#+begin_src emacs-lisp
+(add-to-list 'erc-modules 'notifications)
+(erc-update-modules)
+(setq erc-pals '("*all" "tsune" "tsu-nera")
+ erc-notify-list erc-pals)
+#+end_src
+      
+*** erc-nick-notify
+  呼ばれたら反応する.
+  - [[http://www.emacswiki.org/emacs/ErcNickNotify][EmacsWiki: Erc Nick Notify]]
+
+#+begin_src emacs-lisp
+(autoload 'erc-nick-notify-mode "erc-nick-notify"
+  "Minor mode that calls `erc-nick-notify-cmd' when his nick gets
+mentioned in an erc channel" t)
+(eval-after-load 'erc '(erc-nick-notify-mode t))
+#+end_src
+
+*** erc-input-lien-position
+
+#+begin_src emacs-lisp
+(setq erc-input-line-position -2)
+#+end_src
+
+** Encoding
+   #+begin_src emacs-lisp
+   ;; UTF-8
+   ;; (setq  erc-server-coding-system '(utf-8 . utf-8))
+
+   ;; Shift-JIS
+   ;; (setq erc-server-coding-system に (iso-2022-jp . iso-2022-jp))
+   #+end_src
+

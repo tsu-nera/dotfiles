@@ -134,3 +134,16 @@ el-get にまとめた.
    (cons '(:eval (pomodoro:propertize-mode-line))
     mode-line-format))
 #+end_src
+
+* ERC
+  ダークからにデフォルトの色は合わない.
+  - https://github.com/emacs-jp/replace-colorthemes/blob/master/blue-erc-theme.el
+  - https://github.com/emacs-jp/replace-colorthemes/blob/master/dark-erc-theme.el
+
+ #+begin_src emacs-lisp
+ (add-to-list 'custom-theme-load-path "~/.emacs.d/elisp")
+ (load-theme 'blue-erc t t)
+ (enable-theme 'blue-erc)
+ ;; (load-theme 'dark-erc t t)
+ ;; (enable-theme 'dark-erc)
+ #+end_src

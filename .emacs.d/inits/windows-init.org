@@ -72,11 +72,8 @@ Value: ((xpm "libxpm.dll" "xpm4.dll" "libXpm-nox4.dll")
 #+end_src
 
 * ag
-ここにバイナリ発見!
-
-- https://github.com/rbtnn/ag4mingw
+  - [[http://blog.kowalczyk.info/software/the-silver-searcher-for-windows.html][The Silver Searcher windows port]]
 
 #+begin_src emacs-lisp
-;; しかしうごかないな.
 ;; (setq helm-ag-base-command "c:/app/ag4mingw/ag.exe --nogroup")
 #+end_src
