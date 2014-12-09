@@ -919,14 +919,16 @@ command uses interactive mode if passed an argument."
 #+end_src
       
 *** erc-nick-notify
-  呼ばれたら反応する.
+    呼ばれたら反応する.
   - [[http://www.emacswiki.org/emacs/ErcNickNotify][EmacsWiki: Erc Nick Notify]]
 
+    notify-send しか対応していないのかな??
+    
 #+begin_src emacs-lisp
 (autoload 'erc-nick-notify-mode "erc-nick-notify"
   "Minor mode that calls `erc-nick-notify-cmd' when his nick gets
-mentioned in an erc channel" t)
-(eval-after-load 'erc '(erc-nick-notify-mode t))
+  mentioned in an erc channel" t)
+  (eval-after-load 'erc '(erc-nick-notify-mode t))
 #+end_src
 
 *** erc-input-lien-position
@@ -944,3 +946,12 @@ mentioned in an erc channel" t)
    ;; (setq erc-server-coding-system に (iso-2022-jp . iso-2022-jp))
    #+end_src
 
+** width を可変にする
+   デフォルトは 78 で折り返し.
+   - [[http://www.emacswiki.org/emacs/ErcFilling][EmacsWiki: Erc Filling]]
+
+#+begin_src emacs-lisp
+ (add-hook 'window-configuration-change-hook 
+	   '(lambda ()
+	      (setq erc-fill-column (- (window-width) 2))))
+#+end_src
