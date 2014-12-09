@@ -88,8 +88,10 @@ http://sheephead.homelinux.org/
 
 * GTD
 ** org-agenda
+   アジェンダ表示の対象ファイル
+
 #+begin_src emacs-lisp
-;; アジェンダ表示の対象ファイル
+;; 
 ;; (if nt-p
 ;; (setq org-agenda-files '("C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\inbox.org"
 ;; 			 "C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\main.org"
@@ -101,11 +103,16 @@ http://sheephead.homelinux.org/
 ;; 			 "~/gtd/schedule.org"))
 ;; )
 
-(setq org-agenda-files '("~/gtd/inbox.org"
-			 "~/gtd/main.org"
-			 "~/gtd/unplan.org"
-			 "~/gtd/schedule.org"))
+;; スピードアップのために, agenda を減らしてみる.
+;; (setq org-agenda-files '("~/gtd/inbox.org"
+;; 			 "~/gtd/main.org"
+;; 			 "~/gtd/unplan.org"
+;; 			 "~/gtd/schedule.org"))
 
+(setq org-agenda-files '("~/gtd/main.org"))
+#+end_src
+
+#+begin_src emacs-lisp
 ;; 時間表示が 1 桁の時, 0 をつける
 (setq org-agenda-time-leading-zero t)
 
@@ -161,6 +168,9 @@ http://sheephead.homelinux.org/
 )
 	
 #+end_src
+
+*** agenda speedup
+    - [[http://orgmode.org/worg/agenda-optimization.html][Agenda speedup and optimization]]
 
 ** タスクの状態
    うまく動作しないので, 利用しないことにする.
