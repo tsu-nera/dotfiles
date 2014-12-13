@@ -1,0 +1,5 @@
+(:name open-junk-file
+       :description "Open a junk (memo) file to try-and-error"
+       :type github
+       :pkgname "emacsmirror/open-junk-file")
+

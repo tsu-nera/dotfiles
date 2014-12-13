@@ -446,7 +446,10 @@ http://sheephead.homelinux.org/
 #+end_src
 
 * org2blog
-Emacs から WordPress に投稿する Lisp
+  Emacs から WordPress に投稿する Lisp
+  - https://github.com/punchagan/org2blog
+  - [[http://bach.istc.kobe-u.ac.jp/hatena/web/index.html][org ファイルの HTML エクスポート]]
+  - [[http://www.geocities.jp/km_pp1/org-mode/org-mode-document.html][Org-mode による HTML 文書作成入門]]
 
 #+begin_src emacs-lisp
 (require 'org2blog-autoloads)
@@ -541,6 +544,21 @@ Emacs から WordPress に投稿する Lisp
    縦横比を計算してくれるつーる.
 
    - [[http://www.web-jozu.com/javascript/size.html][写真の縦横比を固定して拡大縮小値を計算するツール:JavaScript サンプル |WEB 上手]]
+
+** org-export html で表が崩れる
+   left 属性が設定されてしまうことが原因.
+
+#+begin_src html
+<th class="left"> xx </th>
+<td class="left"> xx </td>
+#+end_src
+
+以下のように設定する.
+
+#+begin_src emacs-lisp
+(setq org-html-table-data-tags (quote ("<td>" . "</td>")))
+(setq org-html-table-header-tags (quote ("<th scope=\"%s\">" . "</th>")))
+#+end_src
 
 * スケジュール管理
 ** org-gcal

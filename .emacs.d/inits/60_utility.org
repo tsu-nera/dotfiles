@@ -289,8 +289,9 @@ HTC_Pyramid Build/GRI40) AppleWebKit/533.1
 - https://github.com/m2ym/direx-el
 - http://cx4a.blogspot.jp/2011/12/popwineldirexel.html
 
+  使っていないのと, open-junk-file とキーがかぶったので封印.
 #+begin_src emacs-lisp
-(require 'direx)
+;; (require 'direx)
 #+end_src
 
 * edit-server
@@ -838,10 +839,11 @@ Emacs 用カレンダー.
 * gist
   Emacs gist interface
   - https://github.com/defunkt/gist.el
+  - https://github.com/emacs-helm/helm-gist/blob/master/helm-gist.el
 
 #+begin_src emacs-lisp
 (require 'gist)
-(require 'helm-gist)
+;; (require 'helm-gist)
 #+end_src
 
 * ERC

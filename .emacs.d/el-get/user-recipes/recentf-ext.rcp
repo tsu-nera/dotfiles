@@ -1,0 +1,4 @@
+(:name recentf-ext
+       :description "Recentf extensions"
+       :type github
+       :pkgname "emacsmirror/recentf-ext")

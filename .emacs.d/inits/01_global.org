@@ -146,14 +146,24 @@ http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
 
 * General Settings
 ** recentf
-最近使ったファイルをメニューに表示
+   最近使ったファイルをメニューに表示
 
-たくさん履歴を残したい.
+   たくさん履歴を残したい.
 
 #+begin_src emacs-lisp
 (recentf-mode 1)
 (setq recentf-max-menu-items 50)
 (setq recentf-max-saved-items 100)
+#+end_src
+
+** recentf-ext
+   recentf の拡張.
+   - [[http://d.hatena.ne.jp/rubikitch/20091224/recentf][人は俺を「 recentf マスター」と呼ぶ]]
+   - [[http://qiita.com/catatsuy/items/f9fad90fa1352a4d3161][Emacs を快適に使うファイル周りの設定紹介 - Qiita]]
+   
+#+begin_src emacs-lisp
+(require 'recentf-ext)
+;; (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 #+end_src
 
 ** saveplace
@@ -218,6 +228,76 @@ http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
   (unless (server-running-p)
     (server-start))
   #+end_src
+* Tramp
+こんな感じで乗り込む.
+
+#+begin_src language
+C-x C-f /ssh:username@hostname#portno:/path/to/your/directory
+#+end_src
+
+Tramp で save 時に毎回パスワードが聞かれるので, おまじない.
+
+http://stackoverflow.com/questions/840279/passwords-in-emacs-tramp-mode-editing
+
+#+begin_src emacs-lisp
+(setq password-cache-expiry nil)
+#+end_src
+
+* Popwin
+ポップアップ表示
+
+- [[https://github.com/m2ym/popwin-el][m2ym/popwin-el]]
+
+#+begin_src emacs-lisp
+(when (require 'popwin)
+  (setq helm-samewindow nil)
+  (setq display-buffer-function 'popwin:display-buffer)
+  (setq popwin:special-display-config '(("*compilation*" :noselect t)
+					;;("helm" :regexp t :height 0.4)
+					("anything" :regexp t :height 0.4)
+					)))
+(push '("^\*helm .+\*$" :regexp t) popwin:special-display-config)
+(push '("^\*Org .+\*$" :regexp t) popwin:special-display-config)
+(push '("*rspec-compilation*" :regexp t) popwin:special-display-config)
+(push '("*Oz Compiler*" :regexp t) popwin:special-display-config)
+(push '("^CAPTURE-.+\*.org$" :regexp t) popwin:special-display-config)
+(push '("*twittering-edit*" :regexp t) popwin:special-display-config)
+;; (push '("^\*terminal<.+" :regexp t) popwin:special-display-config)
+
+;; http://cx4a.blogspot.jp/2011/12/popwineldirexel.html
+
+;; M-x dired-jump-other-window
+(push '(dired-mode :position bottom) popwin:special-display-config)
+
+;; M-!
+(push "*Shell Command Output*" popwin:special-display-config)
+
+;; M-x compile
+(push '(compilation-mode :noselect t) popwin:special-display-config)
+
+;; Direx 
+(push '(direx:direx-mode :position left :width 40 :dedicated t)
+popwin:special-display-config)
+
+(global-set-key (kbd "C-x j") 'direx:jump-to-directory-other-window)
+(global-set-key (kbd "C-x 4 j") 'dired-jump-other-window)
+
+;; undo-tree
+(push '(" *undo-tree*" :width 0.3 :position right) popwin:special-display-config)
+#+end_src
+
+* key-guide
+  キーバインドを教えてくれる.
+
+ - https://github.com/kai2nenobu/guide-key
+ - [[http://rubikitch.com/2014/08/30/guide-key/][もう迷子にならない! 今の Emacs は自動的に次のキー操作を教えてくれるゾ!!]]
+
+#+begin_src emacs-lisp
+(require 'guide-key)
+(setq guide-key/guide-key-sequence '("C-x r" "C-x 4"))
+(setq guide-key/popup-window-position 'bottom)
+(guide-key-mode 1)  ; Enable guide-key-mode
+#+end_src
 
 * Start Up
 
@@ -243,6 +323,25 @@ http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
 ;;   (kill-buffer "*scratch*"))
 ;; (add-hook 'after-init-hook 'kill-scratch t)
 (add-hook 'after-init-hook 'my-startup-display)
+#+end_src
+
+
+* netrc
+  build-in のパスワード管理
+  パスワード自体は ~/.netrc に書き込む. 
+
+#+begin_src emacs-lisp
+(require 'netrc)
+#+end_src
+
+* open-junk-file
+
+#+begin_src emacs-lisp
+(require 'open-junk-file)
+(setq open-junk-file-format "~/tmp/%Y-%m-%d-%H%M%S.")
+
+;; open-junk
+(global-set-key (kbd "C-x j") 'open-junk-file)
 #+end_src
 
 * Tips
@@ -322,78 +421,8 @@ Shift+Insert でも貼り付けできるので, とりあえずはこれで回�
 (setq ring-bell-function 'ignore)
 #+end_src
 
-* Tramp
-こんな感じで乗り込む.
-
-#+begin_src language
-C-x C-f /ssh:username@hostname#portno:/path/to/your/directory
-#+end_src
-
-Tramp で save 時に毎回パスワードが聞かれるので, おまじない.
-
-http://stackoverflow.com/questions/840279/passwords-in-emacs-tramp-mode-editing
-
-#+begin_src emacs-lisp
-(setq password-cache-expiry nil)
-#+end_src
-
-* Popwin
-ポップアップ表示
-
-- [[https://github.com/m2ym/popwin-el][m2ym/popwin-el]]
-
-#+begin_src emacs-lisp
-(when (require 'popwin)
-  (setq helm-samewindow nil)
-  (setq display-buffer-function 'popwin:display-buffer)
-  (setq popwin:special-display-config '(("*compilation*" :noselect t)
-					;;("helm" :regexp t :height 0.4)
-					("anything" :regexp t :height 0.4)
-					)))
-(push '("^\*helm .+\*$" :regexp t) popwin:special-display-config)
-(push '("^\*Org .+\*$" :regexp t) popwin:special-display-config)
-(push '("*rspec-compilation*" :regexp t) popwin:special-display-config)
-(push '("*Oz Compiler*" :regexp t) popwin:special-display-config)
-(push '("^CAPTURE-.+\*.org$" :regexp t) popwin:special-display-config)
-(push '("*twittering-edit*" :regexp t) popwin:special-display-config)
-;; (push '("^\*terminal<.+" :regexp t) popwin:special-display-config)
-
-;; http://cx4a.blogspot.jp/2011/12/popwineldirexel.html
-
-;; M-x dired-jump-other-window
-(push '(dired-mode :position bottom) popwin:special-display-config)
-
-;; M-!
-(push "*Shell Command Output*" popwin:special-display-config)
-
-;; M-x compile
-(push '(compilation-mode :noselect t) popwin:special-display-config)
-
-;; Direx 
-(push '(direx:direx-mode :position left :width 40 :dedicated t)
-popwin:special-display-config)
-
-(global-set-key (kbd "C-x j") 'direx:jump-to-directory-other-window)
-(global-set-key (kbd "C-x 4 j") 'dired-jump-other-window)
-
-;; undo-tree
-(push '(" *undo-tree*" :width 0.3 :position right) popwin:special-display-config)
-#+end_src
-
-* key-guide
-  キーバインドを教えてくれる.
-
- - https://github.com/kai2nenobu/guide-key
- - [[http://rubikitch.com/2014/08/30/guide-key/][もう迷子にならない! 今の Emacs は自動的に次のキー操作を教えてくれるゾ!!]]
-
-#+begin_src emacs-lisp
-(require 'guide-key)
-(setq guide-key/guide-key-sequence '("C-x r" "C-x 4"))
-(setq guide-key/popup-window-position 'bottom)
-(guide-key-mode 1)  ; Enable guide-key-mode
-#+end_src
-
 * 未整理
+
 #+begin_src emacs-lisp
 ;; file 名の補間で大文字小文字を区別しない
 (setq completion-ignore-case t)
@@ -487,12 +516,4 @@ popwin:special-display-config)
 ;; (add-hook 'find-file-hooks 'turn-on-tempbuf-mode)
 ;; Dired mode ならば有効
 ;; (add-hook 'dired-mode-hook 'turn-on-tempbuf-mode)
-
-;; -----------------------------------------------------------------------
-;; Name     : netrc
-;; Install  : build-in
-;; Function : パスワード管理
-;; パスワード自体は ~/.netrc に書き込む. dropbox で同期
-;; ------------------------------------------------------------------------
-(require 'netrc)
 #+end_src
