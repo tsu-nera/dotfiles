@@ -11,7 +11,7 @@
    (define-key global-map (kbd "C-x SPC") 'cua-set-rectangle-mark)
    #+end_src
 
-** multiple-cursurs
+** multiple-cursors
    Awesome Emacs Rocks! http://shibayu36.hatenablog.com/entry/2013/12/30/190354
 
    - [[https://github.com/magnars/multiple-cursors.el][magnars/multiple-cursors.el]]
@@ -50,7 +50,7 @@
    スニペット管理
 
    #+begin_src emacs-lisp
-;; 問い合わせを簡略化 yes/no を y/n
+;; 問い合わせを簡略化 A yes/no を y/n
 (fset 'yes-or-no-p 'y-or-n-p)
 (require 'yasnippet)
 (yas-load-directory "~/.emacs.d/snippets")
@@ -452,7 +452,7 @@
 
 *** phi-search-migemo
     - https://github.com/zk-phi/phi-search-migemo
-    - [[http://rubikitch.com/2014/12/06/phi-search-migemo/][emacs phi-search-migemo.el : multiple-cursors.el 専属 isearch が Migemo 化]]
+    - [[http://rubiAkitch.com/2014/12/06/phi-search-migemo/][emacs phi-search-migemo.el : multiple-cursors.el 専属 isearch が Migemo 化]]
 
 #+begin_src emacs-lisp
 ;; (require 'phi-search-migemo)
@@ -625,7 +625,6 @@
 
 ** auto-capitalize
    自動で大文字に変換する.
-
    - https://github.com/yuutayamada/auto-capitalize-el
    - [[http://sleepboy-zzz.blogspot.jp/2013/09/auto-capitalizeel-aspell.html][memo: 英語環境で文字を大文字にキャピタライズする拡張 auto-capitalize.el を導入した]]
 

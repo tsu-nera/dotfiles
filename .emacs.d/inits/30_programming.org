@@ -30,6 +30,8 @@
 (require 'quickrun)
 (push '("*quickrun*") popwin:special-display-config)
 (global-set-key (kbd "C-c r") 'quickrun)
+
+(setq quickrun-timeout-seconds 20)
 #+end_src
 
 * プロジェクト管理

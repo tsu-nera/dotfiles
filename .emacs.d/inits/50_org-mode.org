@@ -1,9 +1,7 @@
 * org-mode
-
-こまったらここを見れば日本語訳がある
-
- http://orgmode.jp/
-
+  こまったらここを見れば日本語訳がある
+  - http://orgmode.jp/
+ 
 * 一般的な設定
 #+begin_src emacs-lisp
 ; ------------------------------------------------------------------------
@@ -84,6 +82,57 @@ http://sheephead.homelinux.org/
            (desc (concat f " (dired)")))
       (org-add-link-props :link link :description desc)
       link)))
+#+end_src
+
+** org-table で日本語がずれるときのパッチ
+   org-mode は頻繁に update しているので, 関数だけ抜き出した.
+   ひとまずこれで対処.
+   - http://d.hatena.ne.jp/buzztaiki/20100201/1265031994
+   
+#+begin_src emacs-lisp
+(defun org-table-justify-field-maybe (&optional new)
+  "Justify the current field, text to left, number to right.
+Optional argument NEW may specify text to replace the current field content."
+  (cond
+   ((and (not new) org-table-may-need-update)) ; Realignment will happen anyway
+   ((org-at-table-hline-p))
+   ((and (not new)
+	 (or (not (equal (marker-buffer org-table-aligned-begin-marker)
+			 (current-buffer)))
+	     (< (point) org-table-aligned-begin-marker)
+	     (>= (point) org-table-aligned-end-marker)))
+    ;; This is not the same table, force a full re-align
+    (setq org-table-may-need-update t))
+   (t ;; realign the current field, based on previous full realign
+    (let* ((pos (point)) s
+	   (col (org-table-current-column))
+	   (num (if (> col 0) (nth (1- col) org-table-last-alignment)))
+	   l f n o e)
+      (when (> col 0)
+	(skip-chars-backward "^|\n")
+	(if (looking-at " *\\([^|\n]*?\\) *\\(|\\|$\\)")
+	    (progn
+	      (setq s (match-string 1)
+		    o (match-string 0)
+		    l (max 1
+			   (- (org-string-width
+			       (buffer-substring-no-properties
+			       (string-width o))) 3)) ;; ここのラインを追加
+				;; (match-end 0) (match-beginning 0))) 3))
+		    e (not (= (match-beginning 2) (match-end 2))))
+	      (setq f (format (if num " %%%ds %s" " %%-%ds %s")
+			      l (if e "|" (setq org-table-may-need-update t) ""))
+		    n (format f s))
+	      (if new
+		  (if (<= (org-string-width new) l)
+		      (setq n (format f new))
+		    (setq n (concat new "|") org-table-may-need-update t)))
+	      (if (equal (string-to-char n) ?-) (setq n (concat " " n)))
+	      (or (equal n o)
+		  (let (org-table-may-need-update)
+		    (replace-match n t t))))
+	  (setq org-table-may-need-update t))
+	(goto-char pos))))))
 #+end_src
 
 * GTD
@@ -804,7 +853,6 @@ containing the properties `:guid' and `:item-full-text'."
 #+end_src
 
 * org-babel
-
   ruby を実行するには, 以下が必要.
 
   #+begin_src emacs-lisp
