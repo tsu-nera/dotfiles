@@ -320,4 +320,17 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 #+end_src
 
 
+* log4j
+#+begin_src emacs-lisp
+(require 'log4j-mode)
+#+end_src
+
+* Jtags
+  - [[http://sourceforge.net/projects/jtags/][jtags - Emacs package for editing Java | SourceForge.net]]
+  - [[http://jtags.sourceforge.net/][jtags - Emacs minor mode for editing and browsing Java source code]]
+
+#+begin_src emacs-lisp
+(require 'jtags)
+#+end_src
+
 * Android
