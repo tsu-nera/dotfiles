@@ -63,7 +63,7 @@ Screen の Emacs バージョン. マルチプレクサ.
 #+end_src
 
 ** screen の順番を手軽に変更
-from: [[http://qiita.com/fujimisakari/items/d7f1b904de11dcb018c3][Emacs - Elscreen に機能追加する - Qiita]]
+   from: [[http://qiita.com/fujimisakari/items/d7f1b904de11dcb018c3][Emacs - Elscreen に機能追加する - Qiita]]
 
 #+begin_src emacs-lisp
 (defun elscreen-swap-previous ()
@@ -116,10 +116,21 @@ from: [[http://qiita.com/fujimisakari/items/d7f1b904de11dcb018c3][Emacs - Elscre
 ** TODO org-link を elscreen で開く
    いつか.
 
-** TODO セッション保存
- -  [[http://stackoverflow.com/questions/22445670/save-and-restore-elscreen-tabs-and-split-frames][emacs - Save and restore elscreen tabs and split frames - Stack Overflow]]
+** elscreen-persistent
+   - [[http://www.robario.com/2014/12/08][elscreen を永続化する elscreen-persist を書いた #Emacs @robario]]
+   - [[http://rubikitch.com/2014/12/11/elscreen-persist/][elscreen のウィンドウ構成が windows.el ばりに再起動時に復元できるゾ! ]]
 
-うまくうごかない. . .
+   revive というパッケージに依存している??
+
+#+begin_src emacs-lisp
+(require 'elscreen-persist)
+;; どうもこれを有効にするとEmacsが立ち上がらなくなるな...
+;; (elscreen-persist-mode 1)
+#+end_src
+
+*** 以下で操作
+   - elscreen-persist-store
+   - elscreen-persist-restore
 
 * w3m
 #+begin_src emacs-lisp

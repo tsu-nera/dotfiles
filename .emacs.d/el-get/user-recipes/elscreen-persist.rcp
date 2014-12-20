@@ -1,0 +1,3 @@
+(:name elscreen-persist
+       :type github
+       :pkgname "robario/elscreen-persist")

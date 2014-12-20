@@ -107,7 +107,6 @@
 	     (gtags-make-complete-list)))
 #+end_src
 
-
 * エラーチェック
 ** flycheck
    静的文法チェック.
