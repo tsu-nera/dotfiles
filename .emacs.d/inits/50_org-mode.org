@@ -834,3 +834,5 @@ C-x n w     (widen)
       (quit (kill-buffer ibuf)))))
 (define-key org-mode-map (kbd "C-c /") 'org-sparse-tree-indirect-buffer)
 #+end_src
+
+

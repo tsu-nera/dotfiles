@@ -124,7 +124,7 @@ Screen の Emacs バージョン. マルチプレクサ.
 
 #+begin_src emacs-lisp
 (require 'elscreen-persist)
-;; どうもこれを有効にするとEmacsが立ち上がらなくなるな...
+;; どうもこれを有効にすると Emacs が立ち上がらなくなるな...
 ;; (elscreen-persist-mode 1)
 #+end_src
 
@@ -241,16 +241,23 @@ HTC_Pyramid Build/GRI40) AppleWebKit/533.1
    eww-lnum を入れると, conkeror のようにリンク先を選択できる.
 
    - https://github.com/m00natic/eww-lnum
-
+   - [[http://rubikitch.com/2014/11/12/eww-lnum/][emacs eww-lnum.el : 組み込みブラウザ eww で Hit-a-Hint しようぜ ]]
    つまり, f を押すことで, リンク先に番号が振られるので,
    番号を選択することでリンク先を選択できる.
 
    #+begin_src emacs-lisp
-   (require 'eww-lnum)
-   (eval-after-load "eww"
-   '(progn (define-key eww-mode-map "f" 'eww-lnum-follow)
-   (define-key eww-mode-map "F" 'eww-lnum-universal)))
+(with-eval-after-load "eww"
+(require 'eww-lnum)
+  (define-key eww-mode-map "f" 'eww-lnum-follow)
+  (define-key eww-mode-map "F" 'eww-lnum-universal))
+(defun eww-lnum-read-interactive--not-truncate-lines (&rest them)
+  (let ((truncate-lines nil))
+    (apply them)))
+(advice-add 'eww-lnum-read-interactive :around
+            'eww-lnum-read-interactive--not-truncate-lines)
    #+end_src
+
+   #+RESULTS:
 
 ** TODO youtube をみる
    これでいけるかな?

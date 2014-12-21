@@ -262,6 +262,7 @@ http://stackoverflow.com/questions/840279/passwords-in-emacs-tramp-mode-editing
 (push '("*Oz Compiler*" :regexp t) popwin:special-display-config)
 (push '("^CAPTURE-.+\*.org$" :regexp t) popwin:special-display-config)
 (push '("*twittering-edit*" :regexp t) popwin:special-display-config)
+(push '("R data view" :regexp t) popwin:special-display-config)
 ;; (push '("^\*terminal<.+" :regexp t) popwin:special-display-config)
 
 ;; http://cx4a.blogspot.jp/2011/12/popwineldirexel.html

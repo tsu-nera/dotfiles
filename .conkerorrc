@@ -49,6 +49,8 @@ interactive("feedly", "Open Feedly", "follow",
     $browser_object = "http://feedly.com");
 interactive("tomatoes", "Open Tomatoes", "follow",
     $browser_object = "http://tomato.es/");
+interactive("github", "Open Github", "follow",
+    $browser_object = "https://github.com/tsu-nera");
 
 // open url with new buffer
 define_key(content_buffer_normal_keymap, "d", "follow-new-buffer");
@@ -59,7 +61,7 @@ define_key(content_buffer_normal_keymap, "f4", "youtube");
 define_key(content_buffer_normal_keymap, "f5", "feedly");
 define_key(content_buffer_normal_keymap, "f6", "futurismo");
 define_key(content_buffer_normal_keymap, "f7", "futurismo_wiki");
-define_key(content_buffer_normal_keymap, "f8", "tomatoes");
+define_key(content_buffer_normal_keymap, "f8", "github");
 
 //////////////////////////////////////////
 // webjump

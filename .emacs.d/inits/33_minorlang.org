@@ -180,7 +180,7 @@ http://jblevins.org/projects/markdown-mode/markdown-mode.el
 ))
 
 #+end_src
-* Conkeror
+* conkeror
 #+begin_src emacs-lisp
 (autoload 'conkeror-minor-mode "conkeror-minor-mode")
 #+end_src
@@ -251,6 +251,8 @@ pukiwiki-edit-mode で起動.
     - github: https://github.com/emacs-ess/ESS
     - メチャクチャ詳しい: [[http://www.okada.jp.org/RWiki/?ESS][ESS - RjpWiki]]
     - [[http://www.emacswiki.org/emacs/EmacsSpeaksStatistics][EmacsWiki: Emacs Speaks Statistics]]
+    - [[http://d.hatena.ne.jp/a_bicky/20120415/1334490586][ESS で快適 R ライフ ~設定編~(2012 年度版) - あらびき日記]]
+    - [[http://d.hatena.ne.jp/a_bicky/20120422/1335086814][ESS で快適 R ライフ ~操作編~(2012 年度版) - あらびき日記]]
 
    yaourt でインストール. yaourt -S emacs-ess.
    emacs 自体は独自のものを利用しているため,
@@ -295,4 +297,14 @@ pukiwiki-edit-mode で起動.
 (setq ess-use-auto-complete t)
 ;; (setq ess-use-auto-complete 'script-only)
 )
+#+end_src
+
+** ESS R Data View
+   データの中身がみれる.
+   - [[http://sheephead.homelinux.org/2013/05/10/7019/][R のデータビューワ ess-R-data-view.el というのを作りました - sheephead]]
+   - https://github.com/myuhe/ess-R-data-view.el
+
+#+begin_src emacs-lisp
+;; (define-key ess-mode-map (kbd "C-c v") 'ess-R-dv-ctable)
+(define-key ess-mode-map (kbd "C-c v") 'ess-R-dv-pprint)
 #+end_src
