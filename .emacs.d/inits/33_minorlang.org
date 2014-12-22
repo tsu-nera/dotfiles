@@ -245,7 +245,7 @@ pukiwiki-edit-mode で起動.
 #+end_src
 * R
 ** ESS
-    Emacs を統計用 IDE にするツール.
+    Emacs を統計用 IDE にするツール. デファクトスタンダードと言える.
 
     - Official: [[http://ess.r-project.org/][ESS - Emacs Speaks Statistics]]
     - github: https://github.com/emacs-ess/ESS
@@ -272,19 +272,10 @@ pukiwiki-edit-mode で起動.
 
 ;; R 起動時にワーキングディレクトリを訊ねない
 (setq ess-ask-for-ess-directory nil)
-
-;; ウィンドウ分割
-(defun ess:format-window-1 ()
-  (interactive)
-  (split-window-horizontally)
-  (other-window 1)
-  (split-window)
-  (other-window 1))
-;; (add-hook 'ess-pre-run-hook 'ess:format-window-1)
-)
 #+end_src
 
 ** ESS Auto-complete
+   R 言語の入力自動補完をするために, auto-complete を利用する.
    - [[http://www.emacswiki.org/emacs/ESSAuto-complete][EmacsWiki: ESSAuto-complete]]   
 
    ac-R.el はふるいっぽい.
@@ -308,3 +299,38 @@ pukiwiki-edit-mode で起動.
 ;; (define-key ess-mode-map (kbd "C-c v") 'ess-R-dv-ctable)
 (define-key ess-mode-map (kbd "C-c v") 'ess-R-dv-pprint)
 #+end_src
+
+   popwin と組み合わせると便利.
+   
+** ess-R-object-popup
+  オブジェクトの中身をポップアップで表示.
+  - https://github.com/myuhe/ess-R-object-popup.el
+  - [[http://sheephead.homelinux.org/2010/03/02/1807/][popup.el を使って R オブジェクトの情報を popup する ess-R-object-popup.el - sheephead]]
+
+#+begin_src emacs-lisp
+(when (locate-library "ess-site")
+(require 'ess-R-object-popup)
+(define-key ess-mode-map "\C-c\C-g" 'ess-R-object-popup)
+)
+#+end_src
+
+  gist 版は古いようだ.
+  - https://gist.github.com/myuhe/318365
+
+  no ESS process is associated with this buffer というエラー
+  がでたら C-c C-s を叩く.
+  - [[http://stackoverflow.com/questions/13930713/ess-rdired-i-get-this-error-no-ess-process-is-associated-with-this-buffer-now][r - ess-rdired: I get this error "no ESS process is associated with this buffer now" - Stack Overflow]]
+
+** helm-R
+  helm インタフェースで 関数のヘルプをひくことができる.
+  - [[http://sheephead.homelinux.org/2010/05/24/1846/][R のための anything インターフェイス, anything-R.el を作った. - sheephead]]
+  - https://github.com/emacs-helm/helm-R
+
+#+begin_src emacs-lisp
+(when (locate-library "ess-site")
+(require 'helm-R)
+(define-key ess-mode-map "\C-ch" 'helm-for-R)
+(define-key inferior-ess-mode-map "\C-ch" 'helm-for-R)
+)
+#+end_src
+

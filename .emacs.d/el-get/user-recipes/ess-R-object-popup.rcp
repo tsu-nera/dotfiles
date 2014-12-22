@@ -1,0 +1,3 @@
+(:name ess-R-object-popup
+       :type github
+       :pkgname "myuhe/ess-R-object-popup.el")

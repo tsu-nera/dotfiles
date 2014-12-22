@@ -125,6 +125,9 @@
 (define-key ac-menu-map (kbd "M-n") 'ac-next)
 (define-key ac-menu-map (kbd "M-p") 'ac-previous)
 
+;; ヘルプを表示
+(define-key ac-completing-map (kbd "M-h") 'ac-quick-help)
+
 (setq ac-sources '(ac-source-abbrev ac-source-words-in-buffer))
 
 ;; for ruby programming
