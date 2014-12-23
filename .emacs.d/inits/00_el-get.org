@@ -54,10 +54,14 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     switch-window
     ace-jump-mode
     ace-jump-buffer
+    ace-isearch
+    isearch-dabbrev
+    open-junk-file
     iy-go-to-char
     key-chord
     jump-char
     ace-jump-zap
+    recentf-ext
     ;; text
     yasnippet
     auto-complete
@@ -75,7 +79,6 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     flyspell
     yspel
     fic-ext-mode
-    isearch-ace-jump-mode
     codic
     google-this
     google-translate
@@ -83,7 +86,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     search-web
     wgrep
     phi-search
-    ;; smart-compile 独自改造したものを elisp においた
+    ;; smart-compile 独自 age 改造したものを elisp においた
     expand-region
     ;; utility
     howm
@@ -98,6 +101,9 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     e2wm
     e2wm-direx
     psession
+    elscreen-persist
+    revive
+    imenu-anywhere
     ;; helm
     helm
     helm-c-yasnippet
@@ -110,9 +116,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     helm-google
     helm-etags-plus
     emacs-async
-    ;; anything
     ;; helm-shell-history
-    ;; org-mode
     org-mode
     org-pomodoro
     org-pandoc
@@ -144,6 +148,8 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     python-mode
     ;; java
     auto-java-complete
+    log4j-mode
+    jtags-mode
     ant
     ;; haskell
     haskell-mode
@@ -163,6 +169,8 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     ;; tomatinho
     wanderlust
     twittering-mode
+    erc-hl-nicks
+    erc-nick-notify
     ;; for linux
     migemo
     magit
@@ -172,7 +180,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     pomodoro
     joseph-single-dired
     ;; others
-    key-guide
+    ;; key-guide
     )
   "A list of packages to install from el-get at launch")
 #+end_src
@@ -203,9 +211,8 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
 #+end_src
 
 * el-get-elpa
-MELPA との連携. M-x el-get-elpa-build-local-recipes する.
-
-http://stackoverflow.com/questions/23165158/how-do-i-install-melpa-packages-via-el-get
+  MELPA との連携. M-x el-get-elpa-build-local-recipes する.
+  - http://stackoverflow.com/questions/23165158/how-do-i-install-melpa-packages-via-el-get
 
 #+begin_src emacs-lisp :tangle yes
 (require 'el-get-elpa)

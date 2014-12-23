@@ -269,9 +269,8 @@ pukiwiki-edit-mode で起動.
       (cons (cons "\\.[rR]$" 'R-mode) auto-mode-alist))
 (autoload 'R-mode "ess-site" "Emacs Speaks Statistics mode" t)
 
-
 ;; R 起動時にワーキングディレクトリを訊ねない
-(setq ess-ask-for-ess-directory nil)
+(setq ess-ask-for-ess-directory nil))
 #+end_src
 
 ** ESS Auto-complete
@@ -296,8 +295,10 @@ pukiwiki-edit-mode で起動.
    - https://github.com/myuhe/ess-R-data-view.el
 
 #+begin_src emacs-lisp
+(when (locate-library "ess-site")
 ;; (define-key ess-mode-map (kbd "C-c v") 'ess-R-dv-ctable)
 (define-key ess-mode-map (kbd "C-c v") 'ess-R-dv-pprint)
+)
 #+end_src
 
    popwin と組み合わせると便利.
