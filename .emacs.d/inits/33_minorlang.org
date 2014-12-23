@@ -334,3 +334,21 @@ pukiwiki-edit-mode で起動.
 )
 #+end_src
 
+
+** org-babel-R
+   org-mode で R を利用する.
+   - [[http://d.hatena.ne.jp/tamura70/20100315/org][Emacs org-mode を使ってみる: (40) org-babel-R を使う 1/2 - 屯遁のパズルとプログラミングの日記]]
+   - [[http://d.hatena.ne.jp/tamura70/20100316/org][Emacs org-mode を使ってみる: (41) org-babel-R を使う 2/2 - 屯遁のパズルとプログラミングの日記]]
+   - [[http://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html][R Source Code Blocks in Org Mode]]
+
+#+begin_src emacs-lisp
+(when (locate-library "ess-site")
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((R . t)))
+)
+#+end_src
+
+ R 言語と org-mode で Reproducible Research を.
+ - https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org
+

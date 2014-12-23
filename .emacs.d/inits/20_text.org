@@ -10,7 +10,7 @@
    (setq cua-enable-cua-keys nil) ; デフォルトキーバインドを無効化
    (define-key global-map (kbd "C-x SPC") 'cua-set-rectangle-mark)
    #+end_src
-
+   
 ** multiple-cursors
    Awesome Emacs Rocks! http://shibayu36.hatenablog.com/entry/2013/12/30/190354
 
@@ -71,14 +71,15 @@
 ** auto-complete
    自動補完を実現する elisp.
 
-   - github:
-   https://github.com/auto-complete/auto-complete
-   - wiki:
-   http://www.emacswiki.org/emacs/auto-complete-extension.el
+   github:
+   - https://github.com/auto-complete/auto-complete
 
-   - manuals
-     http://cx4a.org/software/auto-complete/index.ja.html
-     http://cx4a.org/software/auto-complete/manual.ja.html
+   wiki:
+   - http://www.emacswiki.org/emacs/auto-complete-extension.el
+
+   manuals:
+   - http://cx4a.org/software/auto-complete/index.ja.html
+   - http://cx4a.org/software/auto-complete/manual.ja.html
      
    #+begin_src emacs-lisp
 (require 'auto-complete)
@@ -184,7 +185,7 @@
 
 ** keisen
    罫線を引く
-   www.pitecan.com/Keisen/keisen.el.
+   - http://www.pitecan.com/Keisen/keisen.el
 
    #+begin_src emacs-lisp
 ;;(require 'keisen)
@@ -202,7 +203,6 @@
 
 ** auto-fill-mode
    デフォルト搭載. 勝手に折り返してくれる.
-
    - [[http://www.emacswiki.org/emacs/AutoFillMode][EmacsWiki: Auto Fill Mode]]
 
 #+begin_src emacs-lisp
@@ -465,6 +465,19 @@
 ;; (with-eval-after-load 'multiple-cursors-core
 ;;   (define-key mc/keymap (kbd "C-s") 'phi-search-migemo)
 ;;   (define-key mc/keymap (kbd "C-r") 'phi-search-migemo-backward))
+#+end_src
+
+** isearch-dabbrev
+   isearch で動的略語補完.
+   - https://github.com/Dewdrops/isearch-dabbrev
+
+   isearch 中にタブを押すと勝手に補完してくれる.
+
+#+begin_src emacs-lisp
+(eval-after-load "isearch"
+  '(progn
+     (require 'isearch-dabbrev)
+     (define-key isearch-mode-map (kbd "<tab>") 'isearch-dabbrev-expand)))
 #+end_src
 
 * 日本語
