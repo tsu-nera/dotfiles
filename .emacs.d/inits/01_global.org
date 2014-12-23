@@ -119,7 +119,6 @@ http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
 
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-h")     'backward-delete-char)
-(global-set-key (kbd "M-g")     'goto-line)
 (global-set-key (kbd "C-/")     'undo)
 (global-set-key (kbd "C-S-i")   'indent-region)
 (global-set-key (kbd "C-m")     'newline-and-indent)
@@ -217,6 +216,22 @@ http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
 
 #+begin_src emacs-lisp
 (electric-pair-mode 1)
+#+end_src
+
+** goto どっかにとんでいく処理
+   M-g の 仕様 (24.4)   goto-map は M-g にバインドされている.
+   - TAB: move-to-column
+   - p: previous-error
+   - n: next-error
+   - g: goto-line
+   - c: goto-char
+
+   参考:
+   - [[http://g000001.cddddr.org/3628335601][#:g1: M-g を活用しよう]]
+
+#+begin_src emacs-lisp
+;; (global-set-key (kbd "M-g")     'goto-line)
+(define-key goto-map [?b] #'browse-url-at-point)
 #+end_src
 
 * Emacs client
@@ -343,6 +358,7 @@ popwin:special-display-config)
 
 ;; open-junk
 (global-set-key (kbd "C-x j") 'open-junk-file)
+(define-key goto-map [?j] 'open-junk-file)
 #+end_src
 
 * Tips
@@ -473,6 +489,7 @@ Shift+Insert でも貼り付けできるので, とりあえずはこれで回�
 
 ;; 今のポイントしている URL を開く
 (global-set-key (kbd "C-c u") 'browse-url-at-point)
+(define-key goto-map [?b] #'browse-url-at-point)
 
 ;; -----------------------------------------------------------------------
 ;; Function : ミニバッファに入るときに日本語入力無効にする
