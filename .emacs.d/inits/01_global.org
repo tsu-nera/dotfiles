@@ -134,9 +134,9 @@ http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
    - https://github.com/yuttie/initchart
 
 #+begin_src emacs-lisp
-;; (require 'initchart)
-;; (initchart-record-execution-time-of load file)
-;; (initchart-record-execution-time-of require feature)
+(require 'initchart)
+(initchart-record-execution-time-of load file)
+(initchart-record-execution-time-of require feature)
 #+end_src
 
 * Global Keys

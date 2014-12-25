@@ -89,8 +89,8 @@
 (setq gnutls-min-prime-bits 1024)
 
 ;; エラー発生時にlogを開く
-(custom-set-variables
- '(init-loader-show-log-after-init 'error-only))
+;; (custom-set-variables
+;; '(init-loader-show-log-after-init 'error-only))
 
 ;; -----------------------------------------------------------------------
 ;; Name     : babel-loader
