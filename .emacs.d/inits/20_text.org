@@ -292,20 +292,21 @@
 
 ** iy-go-to-char
    前後の char へ移動する. ace-jump-mode があれば不要かな. . .
-
    - https://github.com/doitian/iy-go-to-char
 
-   #+begin_src emacs-lisp
-;; (use-package iy-go-to-char)
-;; (global-set-key (kbd "C-c f") 'iy-go-to-char)
-;; (global-set-key (kbd "C-c F") 'iy-go-to-char-backward)
-;; (global-set-key (kbd "C-c ;") 'iy-go-to-or-up-to-continue)
-;; (global-set-key (kbd "C-c ,") 'iy-go-to-or-up-to-continue-backward)
-;; (global-set-key (kbd "C-c f") 'iy-go-up-to-char)
-;; (global-set-key (kbd "C-c F") 'iy-go-up-to-char-backward)
+#+begin_src emacs-lisp
+;; (use-package iy-go-to-char
+;;   :config
+;;   (global-set-key (kbd "C-c f") 'iy-go-to-char)
+;;   (global-set-key (kbd "C-c F") 'iy-go-to-char-backward)
+;;   (global-set-key (kbd "C-c ;") 'iy-go-to-or-up-to-continue)
+;;   (global-set-key (kbd "C-c ,") 'iy-go-to-or-up-to-continue-backward)
+;;   (global-set-key (kbd "C-c f") 'iy-go-up-to-char)
+;;   (global-set-key (kbd "C-c F") 'iy-go-up-to-char-backward)
 
-(add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
-   #+end_src
+;;   (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
+;; )
+#+end_src
 
 ** jump-char
    iy-go-to-char よりよさそう

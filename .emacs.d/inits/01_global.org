@@ -286,67 +286,6 @@
 (setq delete-auto-save-files t)
 #+end_src
 
-* ファイル管理
-** saveplace
-   一度訪れたファイルは次開くときはそこから開く.
-
-#+begin_src emacs-lisp
-(use-package saveplace
-  :init
-  (setq-default save-place t))
-#+end_src
-
-** recentf
-    最近使ったファイルをメニューに表示たくさん履歴を残したい.
-
-  #+begin_src emacs-lisp
-(use-package recentf
-  :bind (("C-c F" . recentf-open-files))
-  :init
-  (recentf-mode)
-  :config
-  (setq recentf-max-saved-items 2000)
-  (setq recentf-auto-cleanup 10)
-  (setq recentf-exclude '("/TAGS$" "/var/tmp/" ".recentf")))
- #+end_src
-
-** recentf-ext
-   recentf の拡張.
-   - [[http://d.hatena.ne.jp/rubikitch/20091224/recentf][人は俺を「 recentf マスター」と呼ぶ]]
-   - [[http://qiita.com/catatsuy/items/f9fad90fa1352a4d3161][Emacs を快適に使うファイル周りの設定紹介 - Qiita]]
-   - [[http://qiita.com/icb54615/items/ed8ff0ac0443e0a9c7da][Emacs - 最近使ったファイル一覧を表示 - Qiita]]
-   
-#+begin_src emacs-lisp
-(use-package recentf-ext)
-#+end_src
-
-** open-junk-file
-   使い捨てファイルを開く.
-
-#+begin_src emacs-lisp
-(use-package open-junk-file
-  :config
-  (setq open-junk-file-format "~/tmp/%Y-%m-%d-%H%M%S.")
-  
-  ;; open-junk
-  (global-set-key (kbd "C-x j") 'open-junk-file)
-  (define-key goto-map [?j] 'open-junk-file))
-#+end_src
-
-** uniquify
-   同名ファイルの区別
-
-#+begin_src emacs-lisp
- (use-package uniquify
- :config
- (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
-#+end_src
-
-** file 名の補間で大文字小文字を区別しない
-#+begin_src emacs-lisp
-(setq completion-ignore-case t)
-#+end_src
-
 * ディレクトリ管理
 ** Tramp
    リモートサーバに Emacs から乗り込む.
