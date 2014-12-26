@@ -1,8 +1,8 @@
 * El-get
-Emacs 用パッケージマネージャー
+  Emacs 用パッケージマネージャー
 
 ** 環境による場合分け
-el-get 実行前に, 環境による場合分けのマクロを定義.
+   el-get 実行前に, 環境による場合分けのマクロを定義.
 
 #+begin_src emacs-lisp :tangle yes
 ;; -----------------------------------------------------------------------
@@ -204,6 +204,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     gist
     cool-mode
     esup
+    initchart
     scala-mode2
     project-mode
     ;; ensime

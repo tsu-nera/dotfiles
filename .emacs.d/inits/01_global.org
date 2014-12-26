@@ -1,10 +1,8 @@
 * Welcome To Emacs!!
   最新版の emacs github mirror.
-
   - https://github.com/mirrors/emacs
 
 * Macros
-
 Special Thanks
 - http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
 
@@ -113,6 +111,34 @@ http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
   (setq bs-max-window-height 10))
 #+end_src
 
+* 時間計測
+  これは普段は封印している. 時間を知りたくなったときに利用する.
+
+** 起動時間の把握
+   M-x emacs-init-time という関数を実行すると, 起動にかかる時間がわかる.
+
+** esup をつかう
+   esup を利用すると, 詳細な起動時間がわかる.
+   - https://github.com/jschaf/esup
+
+#+begin_src emacs-lisp
+;; (require 'esup)
+#+end_src
+
+  自分の環境だと, inits ディレクトリ配下がすべて結果が要約されてしまい,
+  よくわからなかった.
+
+** initchart をつかう
+   Emacs のスタートアップを視覚化する.
+   - [[http://qiita.com/yuttie/items/0f38870817c11b2166bd][Emacs のスタートアップを視覚的に理解する - Qiita]]
+   - https://github.com/yuttie/initchart
+
+#+begin_src emacs-lisp
+;; (require 'initchart)
+;; (initchart-record-execution-time-of load file)
+;; (initchart-record-execution-time-of require feature)
+#+end_src
+
 * Global Keys
   よくわすれる, C や M の意味.
   - http://www.emacswiki.org/emacs-ja/Emacs%E3%83%93%E3%82%AE%E3%83%8A%E3%83%BC#toc9
@@ -165,7 +191,7 @@ http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
 (setq recentf-max-saved-items 5000)
 (setq recentf-exclude '("/TAGS$" "/var/tmp/"))
 (require 'recentf-ext)
-(global-set-key (kbd "C-@") 'recentf-open-files)
+(global-set-key (kbd "C-c @") 'recentf-open-files)
 #+end_src
 
    以下をコピーしてディレクトリに色付けする.
