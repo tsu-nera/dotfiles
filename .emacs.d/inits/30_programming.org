@@ -228,10 +228,14 @@
    #+end_src
 
 ** github 関連
-   起動時に proxy パスワードが求められるので一旦封印する
 
  #+begin_src emacs-lisp
 ;; (use-package helm-github-issues)
 ;; (use-package helm-open-github)
+
+;; git 管理のシンボリックリンクで質問されないためのおまじない.
+;; 参考: http://openlab.dino.co.jp/2008/10/30/212934368.html
+;;; avoid "Symbolic link to Git-controlled source file;; follow link? (yes or no)
+(setq git-follow-symlinks t)
  #+end_src
 

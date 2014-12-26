@@ -2,6 +2,9 @@
   最新版の emacs github mirror.
   - https://github.com/mirrors/emacs
 
+  人気パッケージダウンロードランキング!!
+  - http://melpa.org
+
 * Functions
 ** フォルダを再帰的にロードパスに追加
    Special Thanks
@@ -25,6 +28,41 @@
 ;; 2 つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
 (add-to-load-path "elisp" "inits" "el-get" "elpa" "local")
 #+end_src
+** Dired でカレントディレクトリを取得
+  - [[http://d.hatena.ne.jp/syohex/20111026/1319606395][cde を改良 - Life is very short]]
+
+#+begin_src emacs-lisp
+;; .emacs 等設定ファイルに追加
+(defun elscreen-current-directory ()
+  (let* (current-dir
+         (active-file-name
+          (with-current-buffer
+              (let* ((current-screen (car (elscreen-get-conf-list 'screen-history)))
+                     (property (cadr (assoc current-screen
+                                            (elscreen-get-conf-list 'screen-property)))))
+                (marker-buffer (nth 2 property)))
+            (progn
+              (setq current-dir (expand-file-name (cadr (split-string (pwd)))))
+              (buffer-file-name)))))
+    (if active-file-name
+        (file-name-directory active-file-name)
+      current-dir)))
+
+(defun non-elscreen-current-directory ()
+  (let* (current-dir
+         (current-buffer
+          (nth 1 (assoc 'buffer-list
+                        (nth 1 (nth 1 (current-frame-configuration))))))
+         (active-file-name
+          (with-current-buffer current-buffer
+            (progn
+              (setq current-dir (expand-file-name (cadr (split-string (pwd)))))
+              (buffer-file-name)))))
+    (if active-file-name
+        (file-name-directory active-file-name)
+      current-dir)))
+#+end_src
+
 * Macros
   Special Thanks
   - http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
@@ -65,135 +103,28 @@
    Could not load package hoge
 
    *Message* バッファを検索して, エラーがないかチェックする.
-
-* 時間計測
-  これは普段は封印している. 時間を知りたくなったときに利用する.
-
-** 起動時間の把握
-   M-x emacs-init-time という関数を実行すると, 起動にかかる時間がわかる.
-
-** esup をつかう
-   esup を利用すると, 詳細な起動時間がわかる.
-   - https://github.com/jschaf/esup
-
-#+begin_src emacs-lisp
-;; (use-package esup :disabled t)
-#+end_src
-
-  自分の環境だと, inits ディレクトリ配下がすべて結果が要約されてしまい,
-  よくわからなかった.
-
-** initchart をつかう
-   Emacs のスタートアップを視覚化する.
-   - [[http://qiita.com/yuttie/items/0f38870817c11b2166bd][Emacs のスタートアップを視覚的に理解する - Qiita]]
-   - https://github.com/yuttie/initchart
-
-#+begin_src emacs-lisp
-;; (use-package initchart 
-;;   :disabled t
-;;   :config
-;;   (initchart-record-execution-time-of load file)
-;;   (initchart-record-execution-time-of require feature))
-#+end_src
-
-* Global Keys
-  よくわすれる, C や M の意味.
-  - [[http://www.emacswiki.org/emacs/Emacs%e3%83%93%e3%82%ae%e3%83%8a%e3%83%bc#toc9][EmacsWiki: Emacs ビギナー]]
-
-#+begin_src emacs-lisp
-(global-set-key (kbd "C-/")     'undo)
-(global-set-key (kbd "C-S-i")   'indent-region)
-(global-set-key (kbd "C-m")     'newline-and-indent)
-#+end_src
-
-** 削除系
-
-   | C-k | kill-line     |
-   | M-d | kill-word     |
-   | M-k | kill-sentence |
-
-#+begin_src emacs-lisp
-(global-set-key (kbd "C-h")     'backward-delete-char)
-#+end_src
-
 * General Settings
-** recentf
-   最近使ったファイルをメニューに表示
-
-   たくさん履歴を残したい.
-
-#+begin_src emacs-lisp
-(recentf-mode 1)
-(setq recentf-max-menu-items 50)
-(setq recentf-max-saved-items 100)
-(setq recentf-exclude '("/TAGS$" "/var/tmp/"))
-#+end_src
-
-** recentf-ext
-   recentf の拡張.
-   - [[http://d.hatena.ne.jp/rubikitch/20091224/recentf][人は俺を「 recentf マスター」と呼ぶ]]
-   - [[http://qiita.com/catatsuy/items/f9fad90fa1352a4d3161][Emacs を快適に使うファイル周りの設定紹介 - Qiita]]
-   - [[http://qiita.com/icb54615/items/ed8ff0ac0443e0a9c7da][Emacs - 最近使ったファイル一覧を表示 - Qiita]]
-   
-#+begin_src emacs-lisp
-(use-package recentf-ext)
-(global-set-key (kbd "C-c @") 'recentf-open-files)
-#+end_src
-
-   以下をコピーしてディレクトリに色付けする.
-   - [[http://yak-shaver.blogspot.jp/2013/07/recentf-ext.html][recentf-ext のディレクトリを色付け | The Yak Shaver]]
-
-#+begin_src emacs-lisp
-(defadvice recentf-open-files (after recentf-set-overlay-directory-adv activate)
-  (set-buffer "*Open Recent*")
-  (save-excursion
-    (while (re-search-forward "\\(^ \\[[0-9]\\] \\|^ \\)\\(.*/\\)$" nil t nil)
-      (overlay-put (make-overlay (match-beginning 2) (match-end 2))
-		   'face `((:foreground ,"#F1266F")))))) 
-#+end_src
-
-** saveplace
-一度訪れたファイルは次開くときはそこから開く.
-
-#+begin_src emacs-lisp
-(use-package saveplace)
-(setq-default save-place t)
-#+end_src
-
 ** savehist
    minibuffer の履歴保存
 
-   #+begin_src emacs-lisp
-   (use-package savehist)
-   (savehist-mode t)
-   (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
-   #+end_src
+#+begin_src emacs-lisp
+(use-package savehist
+  :config
+  (savehist-mode t)
+  (setq savehist-additional-variables 
+  '(kill-ring search-ring regexp-search-ring)))
+#+end_src
 
 ** generic-x
    いろんなメジャーモード
 
-   #+begin_src emacs-lisp
-   (use-package generic-x)
-   #+end_src
-
-** 起動時の設定
-
-   起動時の scratch メッセージは表示しない
-
-   #+begin_src emacs-lisp
-   (setq initial-scratch-message nil)
-   #+end_src
-    
-   起動時の画面はいらない
-    
-   #+begin_src emacs-lisp
-   (setq inhibit-startup-message t)
-   #+end_src
+#+begin_src emacs-lisp
+(use-package generic-x)
+#+end_src
 
 ** Variable binding depth exceeds max-specpdl-size error
    以下の行を追加.
-
-  - [[http://d.hatena.ne.jp/a666666/20100221/1266695355][Variable binding depth exceeds max-specpdl-size エラー]]
+   - [[http://d.hatena.ne.jp/a666666/20100221/1266695355][Variable binding depth exceeds max-specpdl-size エラー]]
 
 #+begin_src emacs-lisp
 (setq max-specpdl-size 6000)
@@ -217,93 +148,114 @@
    - [[http://g000001.cddddr.org/3628335601][#:g1: M-g を活用しよう]]
 
 #+begin_src emacs-lisp
-;; (global-set-key (kbd "M-g")     'goto-line)
 (define-key goto-map [?b] #'browse-url-at-point)
 #+end_src
 
-* Emacs client
-  server start for emacs-client
-  http://d.hatena.ne.jp/syohex/20101224/1293206906
+* Key Bindings
+** Global Keys
+   よくわすれる, C や M の意味.
+   - [[http://www.emacswiki.org/emacs/Emacs%e3%83%93%e3%82%ae%e3%83%8a%e3%83%bc#toc9][EmacsWiki: Emacs ビギナー]]
 
-  #+begin_src emacs-lisp
-  (use-package server)
-  (unless (server-running-p)
-    (server-start))
-  #+end_src
-* Tramp
-こんな感じで乗り込む.
+ #+begin_src emacs-lisp
+(global-set-key (kbd "C-/")     'undo)
+(global-set-key (kbd "C-S-i")   'indent-region)
+(global-set-key (kbd "C-m")     'newline-and-indent)
+ #+end_src
 
-#+begin_src language
-C-x C-f /ssh:username@hostname#portno:/path/to/your/directory
-#+end_src
-
-Tramp で save 時に毎回パスワードが聞かれるので, おまじない.
-
-http://stackoverflow.com/questions/840279/passwords-in-emacs-tramp-mode-editing
+** 削除系
+   | C-k | kill-line     |
+   | M-d | kill-word     |
+   | M-k | kill-sentence |
 
 #+begin_src emacs-lisp
-(setq password-cache-expiry nil)
+(global-set-key (kbd "C-h")     'backward-delete-char)
 #+end_src
 
-* Popwin
-ポップアップ表示
+** key-guide
+   キーバインドを教えてくれる.
 
-- [[https://github.com/m2ym/popwin-el][m2ym/popwin-el]]
-
-#+begin_src emacs-lisp
-(when (use-package popwin)
-  (setq helm-samewindow nil)
-  (setq display-buffer-function 'popwin:display-buffer)
-  (setq popwin:special-display-config '(("*compilation*" :noselect t)
-					;;("helm" :regexp t :height 0.4)
-					("anything" :regexp t :height 0.4)
-					)))
-
-(push '("^\*helm .+\*$" :regexp t) popwin:special-display-config)
-(push '("^\*Org .+\*$" :regexp t) popwin:special-display-config)
-(push '("*rspec-compilation*" :regexp t) popwin:special-display-config)
-(push '("*Oz Compiler*" :regexp t) popwin:special-display-config)
-(push '("^CAPTURE-.+\*.org$" :regexp t) popwin:special-display-config)
-(push '("*twittering-edit*" :regexp t) popwin:special-display-config)
-(push '("R data view" :regexp t) popwin:special-display-config)
-;; (push '("^\*terminal<.+" :regexp t) popwin:special-display-config)
-
-;; M-x dired-jump-other-window
-(push '(dired-mode :position bottom) popwin:special-display-config)
-
-;; M-!
-(push "*Shell Command Output*" popwin:special-display-config)
-
- ;; M-x compile
-(push '(compilation-mode :noselect t) popwin:special-display-config)
-
-;; Direx 使わなくなったので..
-;; (push '(direx:direx-mode :position left :width 40 :dedicated t)
-;; popwin:special-display-config)
-;; (global-set-key (kbd "C-x j") 'direx:jump-to-directory-other-window)
-;; (global-set-key (kbd "C-x 4 j") 'dired-jump-other-window)
-
-;; undo-tree
-(push '(" *undo-tree*" :width 0.3 :position right) popwin:special-display-config)
-#+end_src
-
-* key-guide
-  キーバインドを教えてくれる.
-
- - https://github.com/kai2nenobu/guide-key
- - [[http://rubikitch.com/2014/08/30/guide-key/][もう迷子にならない! 今の Emacs は自動的に次のキー操作を教えてくれるゾ!!]]
+  - https://github.com/kai2nenobu/guide-key
+  - [[http://rubikitch.com/2014/08/30/guide-key/][もう迷子にならない! 今の Emacs は自動的に次のキー操作を教えてくれるゾ!!]]
 
 #+begin_src emacs-lisp
-(use-package guide-key)
-(setq guide-key/guide-key-sequence '("C-x r" "C-x 4"))
-(setq guide-key/popup-window-position 'bottom)
-(guide-key-mode 1)  ; Enable guide-key-mode
+(use-package guide-key
+  :config
+  (setq guide-key/popup-window-position 'bottom)
+  (guide-key-mode 1)  ; Enable guide-key-mode
+  (setq guide-key/guide-key-sequence '("C-x r" "C-x 4")))
 #+end_src
 
 * Start Up
+  起動時の設定
 
-どうも, Elscreen が scratch を初期画面で開いてしまうようだ.
+#+begin_src emacs-lisp
+;; 起動時の scratch メッセージは表示しない
+(setq initial-scratch-message nil)
 
+;; 起動時の画面はいらない
+(setq inhibit-startup-message t)
+
+;; ウィンドウマネージャ環境での起動時間カイゼン
+(modify-frame-parameters nil '((wait-for-wm . nil)))
+
+;; byte-compile warning の無視
+;; http://tsengf.blogspot.jp/2011/06/disable-byte-compile-warning-in-emacs.html
+;; ignore byte-compile warnings 
+(setq byte-compile-warnings '(not nresolved
+                                  free-vars
+                                  callargs
+                                  redefine
+                                  obsolete
+                                  noruntime
+                                  cl-functions
+                                  interactive-only
+                                  ))
+#+end_src
+
+** 時間計測
+   これは普段は封印している. 時間を知りたくなったときに利用する.
+
+*** 起動時間の把握
+    M-x emacs-init-time という関数を実行すると, 起動にかかる時間がわかる.
+
+*** esup をつかう
+    esup を利用すると, 詳細な起動時間がわかる.
+    - https://github.com/jschaf/esup
+
+#+begin_src emacs-lisp
+(use-package esup :disabled t)
+#+end_src
+
+   自分の環境だと, inits ディレクトリ配下がすべて結果が要約されてしまい,
+   よくわからなかった.
+
+*** initchart をつかう
+    Emacs のスタートアップを視覚化する.
+    - [[http://qiita.com/yuttie/items/0f38870817c11b2166bd][Emacs のスタートアップを視覚的に理解する - Qiita]]
+    - https://github.com/yuttie/initchart
+
+#+begin_src emacs-lisp
+(use-package initchart 
+  :disabled t
+  :config
+  (initchart-record-execution-time-of load file)
+  (initchart-record-execution-time-of require feature))
+#+end_src
+
+** Emacs client
+   server start for emacs-client
+   - http://d.hatena.ne.jp/syohex/20101224/1293206906
+
+ #+begin_src emacs-lisp
+(use-package server
+  :config
+  (unless (server-running-p)
+    (server-start)))
+ #+end_src
+
+  どうも, Elscreen が scratch を初期画面で開いてしまうようだ.
+
+** Original Message
 #+begin_src emacs-lisp
 (defun my-startup-display-mode ()
   "Sets a fixed width (monospace) font in current buffer"
@@ -326,197 +278,114 @@ http://stackoverflow.com/questions/840279/passwords-in-emacs-tramp-mode-editing
 (add-hook 'after-init-hook 'my-startup-display)
 #+end_src
 
+* TearDown
+  終了時の設定.
+
+#+begin_src emacs-lisp
+;;; 終了時にオートセーブファイルを消す
+(setq delete-auto-save-files t)
+#+end_src
+
+* ファイル管理
+** saveplace
+   一度訪れたファイルは次開くときはそこから開く.
+
+#+begin_src emacs-lisp
+(use-package saveplace
+  :init
+  (setq-default save-place t))
+#+end_src
+
+** recentf
+    最近使ったファイルをメニューに表示たくさん履歴を残したい.
+
+  #+begin_src emacs-lisp
+(use-package recentf
+  :bind (("C-c F" . recentf-open-files))
+  :init
+  (recentf-mode)
+  :config
+  (setq recentf-max-saved-items 2000)
+  (setq recentf-auto-cleanup 10)
+  (setq recentf-exclude '("/TAGS$" "/var/tmp/" ".recentf")))
+ #+end_src
+
+** recentf-ext
+   recentf の拡張.
+   - [[http://d.hatena.ne.jp/rubikitch/20091224/recentf][人は俺を「 recentf マスター」と呼ぶ]]
+   - [[http://qiita.com/catatsuy/items/f9fad90fa1352a4d3161][Emacs を快適に使うファイル周りの設定紹介 - Qiita]]
+   - [[http://qiita.com/icb54615/items/ed8ff0ac0443e0a9c7da][Emacs - 最近使ったファイル一覧を表示 - Qiita]]
+   
+#+begin_src emacs-lisp
+(use-package recentf-ext)
+#+end_src
+
+** open-junk-file
+   使い捨てファイルを開く.
+
+#+begin_src emacs-lisp
+(use-package open-junk-file
+  :config
+  (setq open-junk-file-format "~/tmp/%Y-%m-%d-%H%M%S.")
+  
+  ;; open-junk
+  (global-set-key (kbd "C-x j") 'open-junk-file)
+  (define-key goto-map [?j] 'open-junk-file))
+#+end_src
+
+** uniquify
+   同名ファイルの区別
+
+#+begin_src emacs-lisp
+ (use-package uniquify
+ :config
+ (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
+#+end_src
+
+** file 名の補間で大文字小文字を区別しない
+#+begin_src emacs-lisp
+(setq completion-ignore-case t)
+#+end_src
+
+* ディレクトリ管理
+** Tramp
+   リモートサーバに Emacs から乗り込む.
+
+   こんな感じで乗り込む.
+   - C-x C-f /ssh:username@hostname#portno:/path/to/your/directory
+
+   Tramp で save 時に毎回パスワードが聞かれるので, おまじない.
+   - [[http://stackoverflow.com/questions/840279/passwords-in-emacs-tramp-mode-editing][ssh - Passwords in Emacs tramp mode editing - Stack Overflow]]
+
+#+begin_src emacs-lisp
+(setq password-cache-expiry nil)
+#+end_src
 
 * netrc
-  build-in のパスワード管理
+  build-in のパスワード管理.
   パスワード自体は ~/.netrc に書き込む. 
 
 #+begin_src emacs-lisp
 (use-package netrc)
 #+end_src
 
-* open-junk-file
-
-#+begin_src emacs-lisp
-(use-package open-junk-file)
-(setq open-junk-file-format "~/tmp/%Y-%m-%d-%H%M%S.")
-
-;; open-junk
-(global-set-key (kbd "C-x j") 'open-junk-file)
-(define-key goto-map [?j] 'open-junk-file)
-#+end_src
-
 * Tips
 ** Emacs と X のクリップポードを共有
+   - http://tubo028.hatenablog.jp/entry/2013/09/01/142238
 
-http://tubo028.hatenablog.jp/entry/2013/09/01/142238
+   tramp で VM に乗り込むと, うまく動作しない.
+   ssh の X forwarding の設定が必要?
+   - http://superuser.com/questions/326871/using-clipboard-through-ssh-in-vim
 
-tramp で VM に乗り込むと, うまく動作しない.
-
-ssh の X forwarding の設定が必要?
-
-http://superuser.com/questions/326871/using-clipboard-through-ssh-in-vim
-
-tramp するときだけ封印することにする. もっとうまい解決方法ないかな??
-
-Shift+Insert でも貼り付けできるので, とりあえずはこれで回避.
-
-#+begin_src emacs-lisp
-;; (when linux-p
-;;   ;; クリップボードと同期
-;;   (setq interprogram-paste-function
-;; 	(lambda ()
-;; 	  (shell-command-to-string "xsel -p -o")))
-;;   (setq interprogram-cut-function
-;; 	(lambda (text &optional rest)
-;; 	  (let* ((process-connection-type nil)
-;; 		 (proc (start-process "xsel" "*Messages*" "xsel" "-p" "-i")))
-;; 	    (process-send-string proc text)
-;; 	    (process-send-eof proc))))
-;; )
-#+end_src
-** バッファのサイズ変更
-  C-x C-0 を利用する.
-  - http://qiita.com/tnoda_/items/ee7804a34e75f4c35d70
-
-** Dired でカレントディレクトリを取得
-
-- [[http://d.hatena.ne.jp/syohex/20111026/1319606395][cde を改良 - Life is very short]]
-
-#+begin_src emacs-lisp
-;; .emacs 等設定ファイルに追加
-(defun elscreen-current-directory ()
-  (let* (current-dir
-         (active-file-name
-          (with-current-buffer
-              (let* ((current-screen (car (elscreen-get-conf-list 'screen-history)))
-                     (property (cadr (assoc current-screen
-                                            (elscreen-get-conf-list 'screen-property)))))
-                (marker-buffer (nth 2 property)))
-            (progn
-              (setq current-dir (expand-file-name (cadr (split-string (pwd)))))
-              (buffer-file-name)))))
-    (if active-file-name
-        (file-name-directory active-file-name)
-      current-dir)))
-
-(defun non-elscreen-current-directory ()
-  (let* (current-dir
-         (current-buffer
-          (nth 1 (assoc 'buffer-list
-                        (nth 1 (nth 1 (current-frame-configuration))))))
-         (active-file-name
-          (with-current-buffer current-buffer
-            (progn
-              (setq current-dir (expand-file-name (cadr (split-string (pwd)))))
-              (buffer-file-name)))))
-    (if active-file-name
-        (file-name-directory active-file-name)
-      current-dir)))
-#+end_src
-
+   tramp するときだけ封印することにする. もっとうまい解決方法ないかな??
+   
+   Shift+Insert でも貼り付けできるので, とりあえずはこれで回避.
+   
 ** BEEP  
    Ignore beep (for windows)
-
+   
 #+begin_src emacs-lisp
 (setq visible-bell t)
 (setq ring-bell-function 'ignore)
 #+end_src
 
-* 未整理
-
-#+begin_src emacs-lisp
-;; file 名の補間で大文字小文字を区別しない
-(setq completion-ignore-case t)
-
-;; 同名ファイルの区別
-(use-package uniquify)
-(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
-
-;; バッファ再読み込み
-(global-auto-revert-mode 1)
-
-;; ウィンドウマネージャ環境での起動時間カイゼン
-(modify-frame-parameters nil '((wait-for-wm . nil)))
-
-;; git 管理のシンボリックリンクで質問されないためのおまじない.
-;; 参考: http://openlab.dino.co.jp/2008/10/30/212934368.html
-;;; avoid "Symbolic link to Git-controlled source file;; follow link? (yes or no)
-(setq git-follow-symlinks t)
-
-;; byte-compile warning の無視
-;; http://tsengf.blogspot.jp/2011/06/disable-byte-compile-warning-in-emacs.html
-;; ignore byte-compile warnings 
-(setq byte-compile-warnings '(not nresolved
-                                  free-vars
-                                  callargs
-                                  redefine
-                                  obsolete
-                                  noruntime
-                                  cl-functions
-                                  interactive-only
-                                  ))
-;;; 終了時にオートセーブファイルを消す
-(setq delete-auto-save-files t)
-
-;; ------------------------------------------------------------------------
-;; デフォルトブラウザ設定
-;; ------------------------------------------------------------------------
-(when linux-p
-  (setq browse-url-generic-program (executable-find "conkeror"))
-  (setq browse-url-browser-function 'browse-url-generic)
-)
-
-(when windows-p
-; Windows 環境のデフォルト
- (setq browse-url-browser-function 'browse-url-default-windows-browser)
-)
-
-;; 今のポイントしている URL を開く
-(global-set-key (kbd "C-c u") 'browse-url-at-point)
-(define-key goto-map [?b] #'browse-url-at-point)
-
-;; -----------------------------------------------------------------------
-;; Function : ミニバッファに入るときに日本語入力無効にする
-;;  http://www11.atwiki.jp/s-irie/pages/21.html
-;; Install  : 
-;;  sudo add-apt-repository ppa:irie/elisp
-;;  sudo apt-get update
-;;  sudo apt-get install ibus-el
-;;  いれたけど, うまく動かない.
-;;  -> ibus 仕様変更により現在動作せず. もうだめぽよ.
-;; http://margaret-sdpara.blogspot.jp/2013/10/ibusel.html
-;; https://code.google.com/p/ibus/issues/detail?id=1419
-;; ------------------------------------------------------------------------
-;; Anthy
-;; sudo apt-get install anthy-el
-;; (when linux-p
-;;   (load-library "anthy")
-;;   (set-language-environment "Japanese")
-;;   (setq default-input-method "japanese-anthy")
-;;   (global-set-key [zenkaku-hankaku] 'toggle-input-method)
-;; ;; パッチあてた
-;; ;; http://www.mail-archive.com/anthy-dev@lists.sourceforge.jp/msg00395.html
-;; )
-
-
-;; -----------------------------------------------------------------------
-;; Name     : ffap.el
-;; Function : 現在の位置のファイル・ URL を開く
-;; History  : 2014/02/02 add
-;; Install  : build-in
-;; ------------------------------------------------------------------------
-;; (ffap-bindings)
-
-;; -----------------------------------------------------------------------
-;; Name     : tempbuf.el
-;; Function : 使っていないバッファを削除
-;; History  : 2014/02/02 add
-;; Install  : emacs wiki
-;; ------------------------------------------------------------------------
-;; (use-package tempbuf)
-;; ファイルを開いたら有効
-;; (add-hook 'find-file-hooks 'turn-on-tempbuf-mode)
-;; Dired mode ならば有効
-;; (add-hook 'dired-mode-hook 'turn-on-tempbuf-mode)
-#+end_src

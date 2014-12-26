@@ -46,6 +46,7 @@ org-mode の src を目立たせる設定. うまく動いていないような.
 #+end_src
 
 ** スタートアップ設定
+
 #+begin_src emacs-lisp
 ;; アスタリスクはかくす
 (setq org-hide-leading-stars t)
@@ -83,7 +84,6 @@ http://sheephead.homelinux.org/
       (org-add-link-props :link link :description desc)
       link)))
 #+end_src
-
 
 * GTD
 ** org-agenda
@@ -819,10 +819,13 @@ containing the properties `:guid' and `:item-full-text'."
    - [[http://1ikehen1ikechicken.sitemix.jp/][Emacser のホームページ]]
 
 #+begin_src emacs-lisp
-(use-package mmm-auto
+(use-package mmm-mode
   :config
-  (setq mmm-global-mode 'maybe)
-  (setq mmm-submode-decoration-level 2)
+  ;; (setq mmm-global-mode 'maybe) ;; 自動推測
+  (setq mmm-global-mode 't) ;; つねに利用
+  
+  ;; (setq mmm-submode-decoration-level 2)
+  (setq mmm-submode-decoration-level 1)
   
   ;; (set-face-bold-p 'mmm-default-submode-face t) ;太字
   (set-face-background 'mmm-default-submode-face "#242424") ;背景色
@@ -830,23 +833,15 @@ containing the properties `:guid' and `:item-full-text'."
   (mmm-add-classes
    '((org-elisp
       :submode emacs-lisp-mode
-      :front "^#\\+begin_src"
+      :front "^#\\+begin_src emacs-lisp"
       :back  "^#\\+end_src")))
   (mmm-add-mode-ext-class nil "\\.org\\'" 'org-elisp))
 #+end_src
 
-* Others
-** Narrowing
-範囲を限定して表示することができる.
-
-#+begin_src language
-C-x n s     (org-narrow-to-subtree)
-    Narrow buffer to current subtree. 
-C-x n b     (org-narrow-to-block)
-    Narrow buffer to current block. 
-C-x n w     (widen)
-    Widen buffer to remove narrowing.
-#+end_src
+** org-narrow
+  - C-x n s     (org-narrow-to-subtree) Narrow buffer to current subtree. 
+  - C-x n b     (org-narrow-to-block) Narrow buffer to current block. 
+  - C-x n w     (widen) Widen buffer to remove narrowing.
 
 ** org-sparse-tree 
    - [[http://rubikitch.com/2014/10/10/org-sparse-tree-indirect-buffer/][Emacs org-mode の検索機能を 16 倍パワーアップする方法 | るびきち「日刊 Emacs 」]]

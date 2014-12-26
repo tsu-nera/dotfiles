@@ -1,0 +1,20 @@
+* Lisp
+  Lips 系言語のためのページ
+
+* General
+** smartparens
+   - https://github.com/Fuco1/smartparens
+
+** paredit
+   Lisp コードで頻出する括弧類のバランスを維持することを目的としたもの.
+   - [[http://www.daregada.sakuraweb.com/paredit_tutorial_ja.html][ParEdit チュートリアル]]
+   - [[http://emacsrocks.com/e14.html][Emacs Rocks!]]
+   - https://github.com/Fuco1/smartparens
+
+* Emacs Lisp
+** Tips
+  以下を評価するとスタック情報がみえる.
+
+#+begin_src emacs-lisp
+;; (setq debug-on-error t)
+#+end_src

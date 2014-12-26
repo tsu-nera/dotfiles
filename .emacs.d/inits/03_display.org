@@ -10,6 +10,54 @@
 (if window-system (auto-image-file-mode t) (auto-image-file-mode nil))
 #+end_src
 
+** バッファ再読み込み
+#+begin_src emacs-lisp
+(global-auto-revert-mode 1)
+#+end_src
+
+** Popwin
+   バッファのポップアップ表示. Popup Manager for Emacs.
+   - [[https://github.com/m2ym/popwin-el][m2ym/popwin-el]]
+
+ #+begin_src emacs-lisp
+(use-package popwin
+  :config
+  (setq helm-samewindow nil)
+  (setq display-buffer-function 'popwin:display-buffer)
+  (setq popwin:special-display-config '(("*compilation*" :noselect t)
+					;;("helm" :regexp t :height 0.4)
+					("anything" :regexp t :height 0.4)
+					))
+  
+  (push '("^\*helm .+\*$" :regexp t) popwin:special-display-config)
+  (push '("^\*Org .+\*$" :regexp t) popwin:special-display-config)
+  (push '("*rspec-compilation*" :regexp t) popwin:special-display-config)
+  (push '("*Oz Compiler*" :regexp t) popwin:special-display-config)
+  (push '("^CAPTURE-.+\*.org$" :regexp t) popwin:special-display-config)
+  (push '("*twittering-edit*" :regexp t) popwin:special-display-config)
+  (push '("R data view" :regexp t) popwin:special-display-config)
+  ;; (push '("^\*terminal<.+" :regexp t) popwin:special-display-config)
+  
+  ;; M-x dired-jump-other-window
+  (push '(dired-mode :position bottom) popwin:special-display-config)
+  
+  ;; M-!
+  (push "*Shell Command Output*" popwin:special-display-config)
+  
+  ;; M-x compile
+  (push '(compilation-mode :noselect t) popwin:special-display-config)
+  
+  ;; Direx 使わなくなったので..
+  ;; (push '(direx:direx-mode :position left :width 40 :dedicated t)
+  ;; popwin:special-display-config)
+  ;; (global-set-key (kbd "C-x j") 'direx:jump-to-directory-other-window)
+  ;; (global-set-key (kbd "C-x 4 j") 'dired-jump-other-window)
+  
+  ;; undo-tree
+  (push '(" *undo-tree*" :width 0.3 :position right) popwin:special-display-config)
+  )
+ #+end_src
+
 * モードライン
 ** モードラインに時間を表示する
 #+begin_src emacs-lisp
@@ -307,24 +355,15 @@ http://shibayu36.hatenablog.com/entry/2013/12/30/190354
   from: [[http://qiita.com/tnoda_/items/ee7804a34e75f4c35d70][Emacs で文字の大きさを一時的に変更する C-x C-0 - Qiita]]
 
 * stripe-buffer
-しましま表示
+  しましま表示
+  - https://github.com/sabof/stripe-buffer
 
 #+begin_src emacs-lisp
 ;; windows だと気持ち悪い色になる
-(when linux-p
-(use-package stripe-buffer)
-(add-hook 'dired-mode-hook 'turn-on-stripe-buffer-mode)
-;;(add-hook 'org-mode-hook 'turn-on-stripe-table-mode)
+(use-package stripe-buffer
+  :if linux-p
+  :config
+  (add-hook 'dired-mode-hook 'turn-on-stripe-buffer-mode)
+  ;;(add-hook 'org-mode-hook 'turn-on-stripe-table-mode)
 )
 #+end_src
-
-* sublimity
-  Sublime-Text 風の表示
-  -> やめーた.
-
-#+begin_src emacs-lisp
-;; (use-package sublimity)
-;; (sublimity-mode 1)
-;; (use-package sublimity-map)
-#+end_src
-

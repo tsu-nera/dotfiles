@@ -132,82 +132,98 @@ Screen の Emacs バージョン. マルチプレクサ.
    - elscreen-persist-store
    - elscreen-persist-restore
 
-* w3m
-#+begin_src emacs-lisp
-(setq w3m-user-agent 
-"Mozilla/5.0 (Linux; U; Android 2.3.3; zh-tw; 
-HTC_Pyramid Build/GRI40) AppleWebKit/533.1 
-(KHTML, like Gecko) Version/4.0 Mobile Safari/533.")
+* Web Browser
 
-(when windows-p
-;;(setq exec-path (append exec-path '("C://app//w3m-mingw32")))
-(setq exec-path (append exec-path '("C:/cygwin64/bin")))
+#+begin_src emacs-lisp
+(when linux-p
+  (setq browse-url-generic-program (executable-find "conkeror"))
+  (setq browse-url-browser-function 'browse-url-generic)
 )
 
-(use-package w3m-load)
-(setq w3m-use-cookies t)
-(setq w3m-favicon-cache-expire-wait nil)
-(setq w3m-home-page "http://www.google.co.jp/")
+(when windows-p
+; Windows 環境のデフォルト
+ (setq browse-url-browser-function 'browse-url-default-windows-browser)
+)
 
+;; 今のポイントしている URL を開く
+(global-set-key (kbd "C-c u") 'browse-url-at-point)
+(define-key goto-map [?b] #'browse-url-at-point)
 #+end_src
 
-* webkit
-うごくかな??
+** w3m
+   eww が登場したのでもはや過去のもの. 
 
-- [[https://github.com/linuxdeepin/deepin-emacs/tree/master/site-lisp/extensions/webkit][deepin-emacs/site-lisp/extensions/webkit at master · linuxdeepin/deepin-emacs]]
+#+begin_src emacs-lisp
+(use-package w3m-load
+  :config
+  (setq w3m-use-cookies t)
+  (setq w3m-favicon-cache-expire-wait nil)
+  (setq w3m-home-page "http://www.google.co.jp/")
   
-  - webkit/helm-webkit from github
-  - epc from el-get
-  - Pyqt5  yaourt -S python2-pyqt5 qt5-webkit
-  - PythonXlib yaourt -S python2-xlib
+  (when windows-p
+    ;;(setq exec-path (append exec-path '("C://app//w3m-mingw32")))
+    (setq exec-path (append exec-path '("C:/cygwin64/bin")))
+    )
 
-うごかない. . . .
+  (setq w3m-user-agent  "Mozilla/5.0 (Linux; U; Android 2.3.3; zh-tw; 
+        HTC_Pyramid Build/GRI40) AppleWebKit/533.1 
+        (KHTML, like Gecko) Version/4.0 Mobile Safari/533.")
+)
+#+end_src
+
+** webkit
+   うごかない. . . .
+   - [[https://github.com/linuxdeepin/deepin-emacs/tree/master/site-lisp/extensions/webkit][deepin-emacs/site-lisp/extensions/webkit at master · linuxdeepin/deepin-emacs]]
+
+     - webkit/helm-webkit from github
+     - epc from el-get
+     - Pyqt5  yaourt -S python2-pyqt5 qt5-webkit
+     - PythonXlib yaourt -S python2-xlib
 
 #+begin_src emacs-lisp
 ;; (use-package webkit)
 ;; (use-package helm-webkit)
 #+end_src
 
-* eww
-  24.4 から搭載の Web ブラウザ.
+** eww
+   24.4 から搭載の Web ブラウザ.
 
-  - http://bzr.savannah.gnu.org/lh/emacs/trunk/annotate/head:/lisp/net/eww.el
+   - http://bzr.savannah.gnu.org/lh/emacs/trunk/annotate/head:/lisp/net/eww.el
 
-  #+begin_src emacs-lisp
+#+begin_src emacs-lisp
   (when emacs24.4-p
-  #+end_src
-    
-** default の検索エンジンを変更
-   google jp を設定する. default では, duckduckgo が設定されている.
+#+end_src
 
-   - 結局やめた. なぜなら, 色がへん.
-   - leuven-theme ならばそんなにへんじゃないので復活
+*** default の検索エンジンを変更
+    google jp を設定する. default では, duckduckgo が設定されている.
+
+    - 結局やめた. なぜなら, 色がへん.
+    - leuven-theme ならばそんなにへんじゃないので復活
    
-   #+begin_src emacs-lisp
+    #+begin_src emacs-lisp
    (setq eww-search-prefix "http://www.google.co.jp/search?q=")
-   #+end_src
+    #+end_src
 
-   - https://duckduckgo.com/params
+    - https://duckduckgo.com/params
 
-   こまかくパラメータ設定
-   - kl=ja-jp 日本語
-   - k1=-1    広告なし
-   - kc=1     自動先読み
-   - kf=-1    サイトアイコンなし
-   - q =      検索文字
+    こまかくパラメータ設定
+    - kl=ja-jp 日本語
+    - k1=-1    広告なし
+    - kc=1     自動先読み
+    - kf=-1    サイトアイコンなし
+    - q =      検索文字
 
-     => サイトアイコンなしは動かない.
+    => サイトアイコンなしは動かない.
 
-   #+begin_src emacs-lisp
+    #+begin_src emacs-lisp
    ;; (setq eww-search-prefix "https://duckduckgo.com/html/?kl=jp-jp&k1=-1&kc=1&kf=-1&q=")
-   #+end_src
+    #+end_src
 
-** eww をすぐに起動するためのショートカット
-   以下のページを参考にして, eww を起動するためのキーバインドを設定した.
+*** eww をすぐに起動するためのショートカット
+    以下のページを参考にして, eww を起動するためのキーバインドを設定した.
+    - http://steckerhalter.co.vu/posts/emacs-tips-and-tricks.html
 
-   - http://steckerhalter.co.vu/posts/emacs-tips-and-tricks.html
-
-   #+begin_src emacs-lisp
+    #+begin_src emacs-lisp
    (defun stk/eww-browse-kill-ring ()
      (interactive)
      (eww (current-kill 0 t)))
@@ -216,36 +232,36 @@ HTC_Pyramid Build/GRI40) AppleWebKit/533.1
    (global-set-key (kbd "C-q <C-return>") 'eww)
    ;; 前のページへ
    (global-set-key (kbd "C-q RET") 'stk/eww-browse-kill-ring)
-   #+end_src
+    #+end_src
 
-** eww 複数起動はできない??
-   eww を複数起動はできないようだ.
-   画面を 2 分割して, 別の画面を表示したり,
-   elscreen を利用して, タブブラウザ的なことはできなかった.
+*** eww 複数起動はできない??
+    eww を複数起動はできないようだ.
+    画面を 2 分割して, 別の画面を表示したり,
+    elscreen を利用して, タブブラウザ的なことはできなかった.
 
-   => patch があったので, もうすぐ取り込まれるかと.
-   http://emacs.1067599.n5.nabble.com/bug-16211-eww-should-support-multiple-eww-buffers-td306918.html
+    => patch があったので, もうすぐ取り込まれるかと.
+    http://emacs.1067599.n5.nabble.com/bug-16211-eww-should-support-multiple-eww-buffers-td306918.html
 
-** 外部ブラウザでリンクを開く (eww-browse-with-external-link)
-   テキストブラウザは地味なので, ときには別のブラウザでも Web ページを閲覧したい.
-   私は普段は conkeror を利用しているので, これで開きたい.
+*** 外部ブラウザでリンクを開く (eww-browse-with-external-link)
+    テキストブラウザは地味なので, ときには別のブラウザでも Web ページを閲覧したい.
+    私は普段は conkeror を利用しているので, これで開きたい.
 
-   以下の関数で今見ているページを外部ブラウザで開くことができる.
-   &にキーバインドされている.
+    以下の関数で今見ているページを外部ブラウザで開くことができる.
+    &にキーバインドされている.
 
-   #+begin_src language
-   eww-browse-with-external-link
-   #+end_src
+    #+begin_src language
+    eww-browse-with-external-link
+    #+end_src
 
-** conkerror のような番号づけ
-   eww-lnum を入れると, conkeror のようにリンク先を選択できる.
+*** conkerror のような番号づけ
+    eww-lnum を入れると, conkeror のようにリンク先を選択できる.
 
-   - https://github.com/m00natic/eww-lnum
-   - [[http://rubikitch.com/2014/11/12/eww-lnum/][emacs eww-lnum.el : 組み込みブラウザ eww で Hit-a-Hint しようぜ ]]
-   つまり, f を押すことで, リンク先に番号が振られるので,
-   番号を選択することでリンク先を選択できる.
+    - https://github.com/m00natic/eww-lnum
+    - [[http://rubikitch.com/2014/11/12/eww-lnum/][emacs eww-lnum.el : 組み込みブラウザ eww で Hit-a-Hint しようぜ ]]
+    つまり, f を押すことで, リンク先に番号が振られるので,
+    番号を選択することでリンク先を選択できる.
 
-   #+begin_src emacs-lisp
+    #+begin_src emacs-lisp
 (with-eval-after-load "eww"
 (use-package eww-lnum)
   (define-key eww-mode-map "f" 'eww-lnum-follow)
@@ -255,18 +271,11 @@ HTC_Pyramid Build/GRI40) AppleWebKit/533.1
     (apply them)))
 (advice-add 'eww-lnum-read-interactive :around
             'eww-lnum-read-interactive--not-truncate-lines)
-   #+end_src
+    #+end_src
 
-   #+RESULTS:
-
-** TODO youtube をみる
-   これでいけるかな?
-   - [[http://jordiinglada.net/wp/2013/08/09/watching-youtube-without-a-browser-2/][Watching YouTube without a browser | Jordi Inglada]]
-   - [[http://mugijiru.seesaa.net/article/258382587.html][やたー. emacs-w3m でリンク先の youtube の動画を mplayer を使ってストリーミング再生できたよー: 麦汁三昧]]
-
-  #+begin_src emacs-lisp
+#+begin_src emacs-lisp
    ) ;; end of 24.4
-  #+end_src
+#+end_src
 
 * dired
   dired から open
