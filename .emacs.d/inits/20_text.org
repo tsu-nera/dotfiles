@@ -13,46 +13,48 @@
    
 ** multiple-cursors
    Awesome Emacs Rocks! http://shibayu36.hatenablog.com/entry/2013/12/30/190354
-
    - [[https://github.com/magnars/multiple-cursors.el][magnars/multiple-cursors.el]]
 
    どうも, no window だとうまく動作しない.
    うまく動かないとき, ~/.emacs.d/.mc-lists.el を削除したらうまくいくようになった.
 
-   https://github.com/magnars/multiple-cursors.el/issues/121
+   - https://github.com/magnars/multiple-cursors.el/issues/121
 
    #+begin_src emacs-lisp
-   (use-package multiple-cursors)
+(use-package multiple-cursors
+  :config
    (global-set-key (kbd "C-M-c") 'mc/edit-lines)
    (global-set-key (kbd "C-M-r") 'mc/mark-all-in-region)
    
    (global-set-key (kbd "C-]") 'mc/mark-next-like-this)
    (global-set-key (kbd "C-M-]") 'mc/mark-previous-like-this)
    (global-set-key (kbd "C-c C-]") 'mc/mark-all-like-this)
+   )
    #+end_src
 
 ** expand-region
    Awesome Emacs Rocks! 
 
    リージョンを広げる
-   http://d.hatena.ne.jp/syohex/20120117/1326814127
+   - http://d.hatena.ne.jp/syohex/20120117/1326814127
 
    #+begin_src emacs-lisp
-(use-package expand-region)
+(use-package expand-region
+    :config
 (global-set-key (kbd "C-\\") 'er/expand-region)
 (global-set-key (kbd "C-M-\\") 'er/contract-region)
 
 ;; 選択ができるようにしておく
 ;; (transient-mark-mode t)
+)
    #+end_src
 
 ** Yassnipet
    スニペット管理
 
    #+begin_src emacs-lisp
-;; 問い合わせを簡略化 A yes/no を y/n
-(fset 'yes-or-no-p 'y-or-n-p)
-(use-package yasnippet)
+(use-package yasnippet
+  :config
 (yas-load-directory "~/.emacs.d/snippets")
 
 (yas-global-mode 1)
@@ -60,12 +62,15 @@
 ;; メニューは使わない
 (setq yas/use-menu nil)
 
+;; 問い合わせを簡略化 A yes/no を y/n
+(fset 'yes-or-no-p 'y-or-n-p)
+
 ;; 既存スニペットを挿入する
 (define-key yas-minor-mode-map (kbd "C-x i i") 'helm-c-yas-complete)
 ;; 新規スニペットを作成するバッファを用意する
 (define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
 ;; 既存スニペットを閲覧・編集する
-(define-key yas-minor-mode-map (kbd "C-x i v") 'helm-c-yas-visit-snippet-file)
+(define-key yas-minor-mode-map (kbd "C-x i v") 'helm-c-yas-visit-snippet-file))
    #+end_src
 
 ** auto-complete
@@ -83,7 +88,8 @@
      
    #+begin_src emacs-lisp
 (use-package auto-complete)
-(use-package auto-complete-config)
+(use-package auto-complete-config
+    :config
 (ac-config-default)
 
 ;; グローバルで auto-complete を利用
@@ -147,28 +153,32 @@
       (lambda ()
         (remove-duplicates
          (mapcan #'yas--table-all-keys (yas--get-snippet-tables)))))
+)
    #+end_src
 
 *** ac-helm
     helm インターフェースを利用する. 
     これは多げさかな. .
+
     #+begin_src emacs-lisp
-    (use-package ac-helm)
-    (global-set-key (kbd "C-:") 'ac-complete-with-helm)
-    (define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)
+(use-package ac-helm
+  :config
+  (global-set-key (kbd "C-:") 'ac-complete-with-helm)
+  (define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)
+  )
     #+end_src
 
 ** company-mode
- 補完のフレームワーク.auto-complete との違いがわからない.
+   補完のフレームワーク.auto-complete との違いがわからない.
 
- - [[http://www.emacswiki.org/emacs/CompanyMode][EmacsWiki: Company Mode]]
- - [[http://company-mode.github.io/][company-mode for Emacs]]
- - github: [[https://github.com/company-mode][company-mode]]
+   - [[http://www.emacswiki.org/emacs/CompanyMode][EmacsWiki: Company Mode]]
+   - [[http://company-mode.github.io/][company-mode for Emacs]]
+   - github: [[https://github.com/company-mode][company-mode]]
 
- - Use M-n and M-p to select,
- - <return> to complete or <tab> to complete the common part. 
- - Search through the completions with C-s, C-r and C-o. Press
-   M-(digit) to quickly complete with one of the first 10 candidates.
+   - Use M-n and M-p to select,
+   - <return> to complete or <tab> to complete the common part. 
+   - Search through the completions with C-s, C-r and C-o. Press
+     M-(digit) to quickly complete with one of the first 10 candidates.
 
 #+begin_src emacs-lisp
 ;; (use-package company)
@@ -179,8 +189,9 @@
    C-x u にバインディング.
 
    #+begin_src emacs-lisp
-   (use-package undo-tree)
-   (global-undo-tree-mode)
+(use-package undo-tree
+  :config
+  (global-undo-tree-mode))
    #+end_src
 
 ** keisen
@@ -284,10 +295,12 @@
    - [[http://qiita.com/ballforest/items/7c3f2e64b59d8157bc8c][Emacs - ace-isearch : isearch と ace-jump-mode の連携 - Qiita]]
 
    #+begin_src emacs-lisp
-   (use-package ace-isearch)
+(use-package ace-isearch
+  :config
    (global-ace-isearch-mode +1)
    ;; (setq ace-isearch-use-function-from-isearch nil)
    (define-key isearch-mode-map (kbd "M-o") 'helm-multi-swoop-all-from-isearch)
+   )
    #+end_src
 
 ** iy-go-to-char
@@ -315,33 +328,39 @@
    - https://github.com/lewang/jump-char
 
    #+begin_src emacs-lisp
-   (use-package jump-char)
+(use-package jump-char
+  :config
    ;; (global-set-key (kbd "C-c f") 'jump-char-forward)
    ;; (global-set-key (kbd "C-c F") 'jump-char-backward)
-   ;; key-chord にかえる
+  ;; key-chord にかえる
+  )
    #+end_src
 ** chord-key
    キーバインド割り当て. jump-char と一緒に利用.
 
    #+begin_src emacs-lisp
-   (use-package key-chord)
+(use-package key-chord
+  :config
    (key-chord-mode 1)
    (setq key-chord-two-keys-delay 0.08)
    
    ; buffer actions
    (key-chord-define-global "jk" 'jump-char-forward)
    (key-chord-define-global "jh" 'jump-char-backward)
+   )
    #+end_src
 * 検索・置換
 ** ag
    高速 grep
 
    #+begin_src emacs-lisp
-(use-package ag)
+(use-package ag
+  :config
 (custom-set-variables
  '(ag-highlight-search t)  ; 検索結果の中の検索語をハイライトする
  '(ag-reuse-window 'nil)   ; 現在のウィンドウを検索結果表示に使う
- '(ag-reuse-buffers 'nil)) ; 現在のバッファを検索結果表示に使う   
+ '(ag-reuse-buffers 'nil)) ; 現在のバッファを検索結果表示に使う
+)
    #+end_src
 
 ** migemo
@@ -352,8 +371,9 @@
   ;; http://wp.kncn.net/archives/6025
   (setq search-whitespace-regexp nil)
 
-  (when linux-p
-  (use-package migemo)
+(use-package migemo
+  :if linux-p
+  :config
   (setq migemo-options '("-q" "--emacs"))
   (setq migemo-user-dictionary nil)
   (setq migemo-regex-dictionary nil)
@@ -365,8 +385,9 @@
   (migemo-init)
   )
 
-  (when windows-p
-  (use-package migemo)
+(use-package migemo
+  :if windows-p
+  :config
   (setq migemo-options '("-q" "--emacs"))
   (setq migemo-user-dictionary nil)
   (setq migemo-regex-dictionary nil)
@@ -377,7 +398,6 @@
   (load-library "migemo")
   (migemo-init)
   )
-
    #+end_src
 ** anzu
    インタラクティブ検索, 置換
@@ -386,7 +406,8 @@
    - http://qiita.com/syohex/items/56cf3b7f7d9943f7a7ba
 
    #+begin_src emacs-lisp
-(use-package anzu)
+(use-package anzu
+  :config
 (global-anzu-mode +1)
 (set-face-attribute 'anzu-mode-line nil
 		    :foreground "yellow" :weight 'bold)
@@ -396,6 +417,7 @@
  '(anzu-deactivate-region t)
  '(anzu-search-threshold 1000)
  '(anzu-replace-to-string-separator " => "))
+)
    #+end_src
 
 ** swoop
@@ -419,7 +441,8 @@
    #+end_src
 
 ** iedit
-   https://github.com/tsdh/iedit
+   グラフィカルな置換. C-;で発動.
+   - https://github.com/tsdh/iedit
 
    #+begin_src emacs-lisp
 (use-package iedit)
@@ -428,10 +451,12 @@
    grep した結果を編集.
 
 #+begin_src emacs-lisp
-(use-package wgrep-ag)
-(autoload 'wgrep-ag-setup "wgrep-ag")
-(add-hook 'ag-mode-hook 'wgrep-ag-setup)
-(define-key ag-mode-map (kbd "r") 'wgrep-change-to-wgrep-mode)
+(use-package wgrep-ag
+  :config
+  (autoload 'wgrep-ag-setup "wgrep-ag")
+  (add-hook 'ag-mode-hook 'wgrep-ag-setup)
+  (define-key ag-mode-map (kbd "r") 'wgrep-change-to-wgrep-mode)
+  )
 #+end_src
 
 ** phi-search
@@ -495,7 +520,8 @@
    - http://www.rubyist.net/~rubikitch/archive/text-adjust.el
 
   #+begin_src emacs-lisp
-   (use-package text-adjust)
+(use-package text-adjust
+  :config
    (defun text-adjust-space-before-save-if-needed ()
    (when (memq major-mode
                '(org-mode text-mode wl-draft-mode))
@@ -503,6 +529,7 @@
 	       ;;           (text-adjust-space-buffer)))
     (defalias 'spacer 'text-adjust-space-buffer)
     (add-hook 'before-save-hook 'text-adjust-space-before-save-if-needed)
+    )
    #+end_src
 
 ** yspel
@@ -515,7 +542,7 @@
    #+end_src
 
 
- * 英語
+* 英語
 ** aspell
    昔は ispell, 今は aspell が主流らしい.
 
@@ -549,34 +576,28 @@
 
 *** 辞書に単語を登録する
     - [[http://www.emacswiki.org/emacs/FlySpell][EmacsWiki: Fly Spell]]
-      - region 選択して,ispell-region/word で選択.
-      - "i"を入力
-      - $HOME/.aspell.en.pws に登録される.
+      + region 選択して,ispell-region/word で選択.
+      + "i"を入力
+      + $HOME/.aspell.en.pws に登録される.
 
 ** flyspell
    リアルタイム, スペルチェック.
 
    - [[http://www.gfd-dennou.org/member/uwabami/cc-env/emacs/flyspell_config.html][Youhei SASAKI's official site: flyspell-mode の設定]]
-
-   #+begin_src emacs-lisp
-   (use-package flyspell)
-   #+end_src
-
    - [[http://d.hatena.ne.jp/mooz/20100423/p1][flyspell-mode の修正候補表示を popup.el で - mooz deceives you]]
 
-     キーバインドを設定.
-
    #+begin_src emacs-lisp
+(use-package flyspell
+  :config
+  ;; キーバインドを設定.
   (global-set-key (kbd "C-c <f8>") 'flyspell-mode)
   (global-set-key (kbd "C-c <f9>") 'ispell-word)
   (global-set-key (kbd "C-c <f10>") 'flyspell-buffer)
-   #+end_src
 
-   どうも flyspell と ac-complete は相性が悪い?
-
-   #+BEGIN_SRC emacs-lisp
-   ;; (ac-flyspell-workaround)
-   #+END_SRC
+  ;; どうも flyspell と ac-complete は相性が悪い?
+  ;; (ac-flyspell-workaround)
+  )
+#+end_src
 
 *** あるモードのみ flysell を起動
 
@@ -624,19 +645,20 @@
 *** 設定
 
 #+begin_src emacs-lisp
-(when linux-p
-(use-package grammar)
-(setq grammar-program-name "~/.emacs.d/elisp/grammar/grammar")
-;; 黒背景用の色変更
-(set-face-attribute 'grammar-error-face nil
-                    :background "#Ff6347"
-                   :foreground "#000000")
-
-;; TODO Refactoring
-;; (add-hook 'org-mode-hook 'grammar-mode)
-;; (add-hook 'text-mode-hook 'grammar-mode)
-(add-hook 'twittering-edit-mode-hook 'grammar-mode)
-)
+  (use-package grammar
+    :if linux-p
+    :config
+    (setq grammar-program-name "~/.emacs.d/elisp/grammar/grammar")
+    ;; 黒背景用の色変更
+    (set-face-attribute 'grammar-error-face nil
+			:background "#Ff6347"
+			:foreground "#000000")
+    
+    ;; TODO Refactoring
+    ;; (add-hook 'org-mode-hook 'grammar-mode)
+    ;; (add-hook 'text-mode-hook 'grammar-mode)
+    (add-hook 'twittering-edit-mode-hook 'grammar-mode)
+    )
 #+end_src
 
 ** auto-capitalize
@@ -650,7 +672,8 @@
 
    #+begin_src emacs-lisp
 ;; This code is from README
-(use-package auto-capitalize)
+(use-package auto-capitalize
+  :config
 
 ;; Enable auto-capitalize-mode
 (add-hook 'twittering-edit-mode-hook
@@ -696,4 +719,5 @@
 ;; (add-hook 'text-mode-hook
 ;;           '(lambda ()
 ;;              (turn-on-auto-capitalize-mode)))
+)
    #+end_src
