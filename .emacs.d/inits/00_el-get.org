@@ -49,6 +49,8 @@
 #+begin_src emacs-lisp :tangle yes
 (defvar my/el-get-packages-common
   '(
+    ;; manager
+    use-package
     ;; window
     popwin
     switch-window
