@@ -1,8 +1,10 @@
-* helm
-
-- https://github.com/emacs-helm
+* Helm
+  絞りこみインターフェイス.
+  - https://github.com/emacs-helm
 
   ダウンロードしたら, make でコンパイルする.
+
+* Default 設定
 
 #+begin_src emacs-lisp
 (eval-when-compile (require 'cl))
@@ -26,10 +28,8 @@
 ;;       helm-input-idle-delay       0.2
 ;;       helm-candidate-number-limit 200)
 
-(global-set-key (kbd "C-x b") 'helm-buffers-list)
 (global-set-key (kbd "C-x C-r") 'helm-recentf)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "M-SPC") 'helm-all-mark-rings)
 (global-set-key (kbd "M-r") 'helm-occur)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-b") 'helm-elscreen)
@@ -38,36 +38,46 @@
 (helm-mode 1)
 #+end_src
 
+** helm-buffer-list
+   default. バッファの絞り込み.
+   - 絞りこみの文字列の先頭に@をつけることでバッファ内の文字列でしぼりこみ.
+   - 絞りこみの文字列の先頭に/ をつければ, ディレクトリ名で絞りこみ.
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-x b") 'helm-buffers-list)
+#+end_src
+
+** helm-all-mark-rings
+   過去の global-mark を絞り込み. これは便利!
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "M-SPC") 'helm-all-mark-rings)
+#+end_src
+
+** helm-bookmarks
+   Nice Bookmarks.
+
+  - [[http://tototoshi.hatenablog.com/entry/20101226/1293334388][Emacs のブックマーク機能 - tototoshi の日記]]
+  - [[http://www.emacswiki.org/emacs/BookMarks][EmacsWiki: Book Marks]]
+
+  C-x r b で helm-mode-bookmark-jump が発動するみたいなので, あえてキーバインドしない.
+
+  - C-x r m' – set a bookmark at the current location (e.g. in a file)
+  - C-x r b' – jump to a bookmark
+  - C-x r l' – list your bookmarks
+  - M-x bookmark-delete' – delete a bookmark by name これも helm が発動する.
+
+* 拡張 lisp
 ** helm-orgcard
-orgcard を引く.
+   orgcard を引く.
 
 #+begin_src emacs-lisp
 (require 'helm-orgcard)
 (setq hoc-lang-selector 'ja)
 #+end_src
 
-** helm-bookmarks
-Nice Bookmarks.
-
-- [[http://tototoshi.hatenablog.com/entry/20101226/1293334388][Emacs のブックマーク機能 - tototoshi の日記]]
-- [[http://www.emacswiki.org/emacs/BookMarks][EmacsWiki: Book Marks]]
-
-C-x r b で helm-mode-bookmark-jump が発動するみたいなので, あえてキーバインドしない.
-
-- C-x r m' – set a bookmark at the current location (e.g. in a file)
-- C-x r b' – jump to a bookmark
-- C-x r l' – list your bookmarks
-- M-x bookmark-delete' – delete a bookmark by name これも helm が発動する.
-
-#+begin_src emacs-lisp
-;; (global-set-key (kbd "C-x r") 'helm-bookmarks)
-;; (global-set-key "\C-xrl" 'helm-bookmarks)
-#+end_src
-
-** helm-all-mark-rings
-   過去の global-mark を絞り込み. これは便利!
-
 ** helm-ag
+   ag 結果を helm で絞り込み
 
 #+begin_src emacs-lisp
 (require 'helm-ag)
@@ -105,7 +115,7 @@ C-x r b で helm-mode-bookmark-jump が発動するみたいなので, あえて
 (require 'helm-kaomoji)
 #+end_src
 ** helm-wl-address
-   helm i/f でアドレス検索
+   helm i/f でアドレス検索. 
 
    - https://github.com/kenbeese/helm-wl-address
    - [[http://qiita.com/kenbeese/items/438c1c8d664198d8527f][Emacs - wanderlust のアドレスを helm で選択する - Qiita]]
@@ -234,7 +244,7 @@ Adapted from `flyspell-correct-word-before-point'."
 #+end_src
 ** helm-swoop
    - [[https://github.com/ShingoFukuyama/helm-swoop][ShingoFukuyama/helm-swoop]]
-
+   - [[http://rubikitch.com/2014/12/25/helm-swoop/][emacs helm-swoop.el : 【これはすごい】バッファ全体を Migemo 絞り込み検索して走り回れ!]]
 
 #+begin_src emacs-lisp
 (require 'helm-swoop)
@@ -267,7 +277,9 @@ Adapted from `flyspell-correct-word-before-point'."
 (define-key helm-swoop-map (kbd "C-s") 'swoop-action-goto-line-next)
 (define-key helm-swoop-map (kbd "C-r") 'swoop-action-goto-line-prev)
 #+end_src
+
 ** imenu-anywhere
+   imenu の置き換え.
 
 #+begin_src emacs-lisp
 (require 'imenu-anywhere)

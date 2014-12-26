@@ -159,10 +159,25 @@ http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
    recentf の拡張.
    - [[http://d.hatena.ne.jp/rubikitch/20091224/recentf][人は俺を「 recentf マスター」と呼ぶ]]
    - [[http://qiita.com/catatsuy/items/f9fad90fa1352a4d3161][Emacs を快適に使うファイル周りの設定紹介 - Qiita]]
+   - [[http://qiita.com/icb54615/items/ed8ff0ac0443e0a9c7da][Emacs - 最近使ったファイル一覧を表示 - Qiita]]
    
 #+begin_src emacs-lisp
+(setq recentf-max-saved-items 5000)
+(setq recentf-exclude '("/TAGS$" "/var/tmp/"))
 (require 'recentf-ext)
-;; (global-set-key (kbd "C-x C-r") 'recentf-open-files)
+(global-set-key (kbd "C-@") 'recentf-open-files)
+#+end_src
+
+   以下をコピーしてディレクトリに色付けする.
+   - [[http://yak-shaver.blogspot.jp/2013/07/recentf-ext.html][recentf-ext のディレクトリを色付け | The Yak Shaver]]
+
+#+begin_src emacs-lisp
+(defadvice recentf-open-files (after recentf-set-overlay-directory-adv activate)
+  (set-buffer "*Open Recent*")
+  (save-excursion
+    (while (re-search-forward "\\(^ \\[[0-9]\\] \\|^ \\)\\(.*/\\)$" nil t nil)
+      (overlay-put (make-overlay (match-beginning 2) (match-end 2))
+		   'face `((:foreground ,"#F1266F")))))) 
 #+end_src
 
 ** saveplace
@@ -271,6 +286,7 @@ http://stackoverflow.com/questions/840279/passwords-in-emacs-tramp-mode-editing
 					;;("helm" :regexp t :height 0.4)
 					("anything" :regexp t :height 0.4)
 					)))
+
 (push '("^\*helm .+\*$" :regexp t) popwin:special-display-config)
 (push '("^\*Org .+\*$" :regexp t) popwin:special-display-config)
 (push '("*rspec-compilation*" :regexp t) popwin:special-display-config)
@@ -280,23 +296,20 @@ http://stackoverflow.com/questions/840279/passwords-in-emacs-tramp-mode-editing
 (push '("R data view" :regexp t) popwin:special-display-config)
 ;; (push '("^\*terminal<.+" :regexp t) popwin:special-display-config)
 
-;; http://cx4a.blogspot.jp/2011/12/popwineldirexel.html
-
 ;; M-x dired-jump-other-window
 (push '(dired-mode :position bottom) popwin:special-display-config)
 
 ;; M-!
 (push "*Shell Command Output*" popwin:special-display-config)
 
-;; M-x compile
+ ;; M-x compile
 (push '(compilation-mode :noselect t) popwin:special-display-config)
 
-;; Direx 
-(push '(direx:direx-mode :position left :width 40 :dedicated t)
-popwin:special-display-config)
-
-(global-set-key (kbd "C-x j") 'direx:jump-to-directory-other-window)
-(global-set-key (kbd "C-x 4 j") 'dired-jump-other-window)
+;; Direx 使わなくなったので..
+;; (push '(direx:direx-mode :position left :width 40 :dedicated t)
+;; popwin:special-display-config)
+;; (global-set-key (kbd "C-x j") 'direx:jump-to-directory-other-window)
+;; (global-set-key (kbd "C-x 4 j") 'dired-jump-other-window)
 
 ;; undo-tree
 (push '(" *undo-tree*" :width 0.3 :position right) popwin:special-display-config)
