@@ -28,7 +28,7 @@
 
 ;; ただし, 特定の major-mode のときは抑止
 ;; https://github.com/Khady/emacs.d/blob/master/setup-linum.el
-(require 'setup-linum)
+(use-package setup-linum)
 (setq linum-disabled-modes-list '(doc-view-mode image-mode))
 #+end_src
 
@@ -137,7 +137,7 @@ http://masutaka.net/chalow/2011-05-19-1.html
    あまり好きではないので, 一旦封印する
 
 #+begin_src emacs-lisp
-;; (require 'switch-window)
+;; (use-package switch-window)
 ;; (global-set-key (kbd "C-x o") 'switch-window)
 #+end_src
 
@@ -200,7 +200,7 @@ http://masutaka.net/chalow/2011-05-19-1.html
    なんかうまくうごいていない.
 
    #+begin_src emacs-lisp
-   (require 'highlight-80+)
+   (use-package highlight-80+)
    ;; (add-hook 'text-mode-hook (lambda () (interactive) (highlight-80+-mode 1)))
    #+end_src
 
@@ -215,7 +215,7 @@ http://masutaka.net/chalow/2011-05-19-1.html
 - [[https://github.com/joodland/bm][joodland/bm]]
 
 #+begin_src emacs-lisp
-(require 'bm)
+(use-package bm)
 
 (global-set-key (kbd "<C-f5>") 'bm-toggle)
 (global-set-key (kbd "<f5>")   'bm-next)
@@ -241,7 +241,7 @@ NOTE: If you manually turn on fic-ext-mode, you you might need to force re-fonti
 M-x font-lock-fontify-buffer
 
 #+begin_src emacs-lisp
-(require 'fic-ext-mode)
+(use-package fic-ext-mode)
 (defun add-something-to-mode-hooks (mode-list something)
   "helper function to add a callback to multiple hooks"
   (dolist (mode mode-list)
@@ -256,8 +256,8 @@ highlight-symbol/auto-highlight-symbol
 http://shibayu36.hatenablog.com/entry/2013/12/30/190354
 
 #+begin_src emacs-lisp
-(require 'auto-highlight-symbol-config)
-(require 'highlight-symbol)
+(use-package auto-highlight-symbol-config)
+(use-package highlight-symbol)
 (setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1"))
 
 (global-set-key (kbd "<f4>") 'highlight-symbol-at-point)
@@ -312,7 +312,7 @@ http://shibayu36.hatenablog.com/entry/2013/12/30/190354
 #+begin_src emacs-lisp
 ;; windows だと気持ち悪い色になる
 (when linux-p
-(require 'stripe-buffer)
+(use-package stripe-buffer)
 (add-hook 'dired-mode-hook 'turn-on-stripe-buffer-mode)
 ;;(add-hook 'org-mode-hook 'turn-on-stripe-table-mode)
 )
@@ -323,8 +323,8 @@ http://shibayu36.hatenablog.com/entry/2013/12/30/190354
   -> やめーた.
 
 #+begin_src emacs-lisp
-;; (require 'sublimity)
+;; (use-package sublimity)
 ;; (sublimity-mode 1)
-;; (require 'sublimity-map)
+;; (use-package sublimity-map)
 #+end_src
 

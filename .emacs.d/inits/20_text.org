@@ -22,7 +22,7 @@
    https://github.com/magnars/multiple-cursors.el/issues/121
 
    #+begin_src emacs-lisp
-   (require 'multiple-cursors)
+   (use-package multiple-cursors)
    (global-set-key (kbd "C-M-c") 'mc/edit-lines)
    (global-set-key (kbd "C-M-r") 'mc/mark-all-in-region)
    
@@ -38,7 +38,7 @@
    http://d.hatena.ne.jp/syohex/20120117/1326814127
 
    #+begin_src emacs-lisp
-(require 'expand-region)
+(use-package expand-region)
 (global-set-key (kbd "C-\\") 'er/expand-region)
 (global-set-key (kbd "C-M-\\") 'er/contract-region)
 
@@ -52,7 +52,7 @@
    #+begin_src emacs-lisp
 ;; 問い合わせを簡略化 A yes/no を y/n
 (fset 'yes-or-no-p 'y-or-n-p)
-(require 'yasnippet)
+(use-package yasnippet)
 (yas-load-directory "~/.emacs.d/snippets")
 
 (yas-global-mode 1)
@@ -82,8 +82,8 @@
    - http://cx4a.org/software/auto-complete/manual.ja.html
      
    #+begin_src emacs-lisp
-(require 'auto-complete)
-(require 'auto-complete-config)
+(use-package auto-complete)
+(use-package auto-complete-config)
 (ac-config-default)
 
 ;; グローバルで auto-complete を利用
@@ -135,8 +135,8 @@
 ;; よくわからないので, 封印
 ;; (add-hook 'ruby-mode-hook
 ;; 	  (lambda ()
-;; 	    (require 'rcodetools)
-;; 	    (require 'auto-complete-ruby)
+;; 	    (use-package rcodetools)
+;; 	    (use-package auto-complete-ruby)
 ;; 	    ;; (load-auto-complete)
 ;; 	    (make-local-variable 'ac-omni-completion-sources)
 ;; 	    (setq ac-omni-completion-sources
@@ -153,7 +153,7 @@
     helm インターフェースを利用する. 
     これは多げさかな. .
     #+begin_src emacs-lisp
-    (require 'ac-helm)
+    (use-package ac-helm)
     (global-set-key (kbd "C-:") 'ac-complete-with-helm)
     (define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)
     #+end_src
@@ -171,7 +171,7 @@
    M-(digit) to quickly complete with one of the first 10 candidates.
 
 #+begin_src emacs-lisp
-;; (require 'company)
+;; (use-package company)
 ;; (add-hook 'after-init-hook 'global-company-mode)
 #+end_src
 
@@ -179,7 +179,7 @@
    C-x u にバインディング.
 
    #+begin_src emacs-lisp
-   (require 'undo-tree)
+   (use-package undo-tree)
    (global-undo-tree-mode)
    #+end_src
 
@@ -188,7 +188,7 @@
    - http://www.pitecan.com/Keisen/keisen.el
 
    #+begin_src emacs-lisp
-;;(require 'keisen)
+;;(use-package keisen)
 ;;; Control+ 矢印キーで罫線を引く場合
 ;; (global-set-key (kbd "C-M-f") 'keisen-right-move)
 ;;(global-set-key (kbd "C-M-b") 'keisen-left-move)
@@ -284,7 +284,7 @@
    - [[http://qiita.com/ballforest/items/7c3f2e64b59d8157bc8c][Emacs - ace-isearch : isearch と ace-jump-mode の連携 - Qiita]]
 
    #+begin_src emacs-lisp
-   (require 'ace-isearch)
+   (use-package ace-isearch)
    (global-ace-isearch-mode +1)
    ;; (setq ace-isearch-use-function-from-isearch nil)
    (define-key isearch-mode-map (kbd "M-o") 'helm-multi-swoop-all-from-isearch)
@@ -296,7 +296,7 @@
    - https://github.com/doitian/iy-go-to-char
 
    #+begin_src emacs-lisp
-;; (require 'iy-go-to-char)
+;; (use-package iy-go-to-char)
 ;; (global-set-key (kbd "C-c f") 'iy-go-to-char)
 ;; (global-set-key (kbd "C-c F") 'iy-go-to-char-backward)
 ;; (global-set-key (kbd "C-c ;") 'iy-go-to-or-up-to-continue)
@@ -315,7 +315,7 @@
    - https://github.com/lewang/jump-char
 
    #+begin_src emacs-lisp
-   (require 'jump-char)
+   (use-package jump-char)
    ;; (global-set-key (kbd "C-c f") 'jump-char-forward)
    ;; (global-set-key (kbd "C-c F") 'jump-char-backward)
    ;; key-chord にかえる
@@ -324,7 +324,7 @@
    キーバインド割り当て. jump-char と一緒に利用.
 
    #+begin_src emacs-lisp
-   (require 'key-chord)
+   (use-package key-chord)
    (key-chord-mode 1)
    (setq key-chord-two-keys-delay 0.08)
    
@@ -337,7 +337,7 @@
    高速 grep
 
    #+begin_src emacs-lisp
-(require 'ag)
+(use-package ag)
 (custom-set-variables
  '(ag-highlight-search t)  ; 検索結果の中の検索語をハイライトする
  '(ag-reuse-window 'nil)   ; 現在のウィンドウを検索結果表示に使う
@@ -353,7 +353,7 @@
   (setq search-whitespace-regexp nil)
 
   (when linux-p
-  (require 'migemo)
+  (use-package migemo)
   (setq migemo-options '("-q" "--emacs"))
   (setq migemo-user-dictionary nil)
   (setq migemo-regex-dictionary nil)
@@ -366,7 +366,7 @@
   )
 
   (when windows-p
-  (require 'migemo)
+  (use-package migemo)
   (setq migemo-options '("-q" "--emacs"))
   (setq migemo-user-dictionary nil)
   (setq migemo-regex-dictionary nil)
@@ -386,7 +386,7 @@
    - http://qiita.com/syohex/items/56cf3b7f7d9943f7a7ba
 
    #+begin_src emacs-lisp
-(require 'anzu)
+(use-package anzu)
 (global-anzu-mode +1)
 (set-face-attribute 'anzu-mode-line nil
 		    :foreground "yellow" :weight 'bold)
@@ -405,7 +405,7 @@
   - [[http://fukuyama.co/emacs-swoop][Emacs バッファ内高速ナビゲーション Swoop.el を作りました. - Web 学び]]
 
    #+begin_src emacs-lisp
-;; (require 'swoop)
+;; (use-package swoop)
 ;; (global-set-key (kbd "M-o")   'swoop)
 ;; (global-set-key (kbd "C-M-o") 'swoop-multi)
 ;; ;; (global-set-key (kbd "M-o")   'swoop-pcre-regexp)
@@ -422,13 +422,13 @@
    https://github.com/tsdh/iedit
 
    #+begin_src emacs-lisp
-(require 'iedit)
+(use-package iedit)
    #+end_src
 ** wgrep
    grep した結果を編集.
 
 #+begin_src emacs-lisp
-(require 'wgrep-ag)
+(use-package wgrep-ag)
 (autoload 'wgrep-ag-setup "wgrep-ag")
 (add-hook 'ag-mode-hook 'wgrep-ag-setup)
 (define-key ag-mode-map (kbd "r") 'wgrep-change-to-wgrep-mode)
@@ -442,7 +442,7 @@
    使い方わからない.
 
 #+begin_src emacs-lisp
-;; (require 'phi-search)
+;; (use-package phi-search)
 ;; (global-set-key (kbd "C-s") 'phi-search)
 ;; (global-set-key (kbd "C-r") 'phi-search-backward)
 
@@ -458,7 +458,7 @@
     - [[http://rubiAkitch.com/2014/12/06/phi-search-migemo/][emacs phi-search-migemo.el : multiple-cursors.el 専属 isearch が Migemo 化]]
 
 #+begin_src emacs-lisp
-;; (require 'phi-search-migemo)
+;; (use-package phi-search-migemo)
 ;; (define-key phi-search-default-map (kbd "M-m") 'phi-search-migemo-toggle)
 ;; (global-set-key (kbd "C-s") 'phi-search-migemo)
 ;; (global-set-key (kbd "C-r") 'phi-search-migemo-backward)
@@ -476,7 +476,7 @@
 #+begin_src emacs-lisp
 (eval-after-load "isearch"
   '(progn
-     (require 'isearch-dabbrev)
+     (use-package isearch-dabbrev)
      (define-key isearch-mode-map (kbd "<tab>") 'isearch-dabbrev-expand)))
 #+end_src
 
@@ -495,7 +495,7 @@
    - http://www.rubyist.net/~rubikitch/archive/text-adjust.el
 
   #+begin_src emacs-lisp
-   (require 'text-adjust)
+   (use-package text-adjust)
    (defun text-adjust-space-before-save-if-needed ()
    (when (memq major-mode
                '(org-mode text-mode wl-draft-mode))
@@ -511,7 +511,7 @@
    - [[http://ubulog.blogspot.jp/2010/09/emacs.html][ubulog: Emacs から校正支援する]]
 
    #+begin_src emacs-lisp
-   (require 'yspel)
+   (use-package yspel)
    #+end_src
 
 
@@ -559,7 +559,7 @@
    - [[http://www.gfd-dennou.org/member/uwabami/cc-env/emacs/flyspell_config.html][Youhei SASAKI's official site: flyspell-mode の設定]]
 
    #+begin_src emacs-lisp
-   (require 'flyspell)
+   (use-package flyspell)
    #+end_src
 
    - [[http://d.hatena.ne.jp/mooz/20100423/p1][flyspell-mode の修正候補表示を popup.el で - mooz deceives you]]
@@ -625,7 +625,7 @@
 
 #+begin_src emacs-lisp
 (when linux-p
-(require 'grammar)
+(use-package grammar)
 (setq grammar-program-name "~/.emacs.d/elisp/grammar/grammar")
 ;; 黒背景用の色変更
 (set-face-attribute 'grammar-error-face nil
@@ -650,7 +650,7 @@
 
    #+begin_src emacs-lisp
 ;; This code is from README
-(require 'auto-capitalize)
+(use-package auto-capitalize)
 
 ;; Enable auto-capitalize-mode
 (add-hook 'twittering-edit-mode-hook

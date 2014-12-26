@@ -7,20 +7,20 @@
 * Default 設定
 
 #+begin_src emacs-lisp
-(eval-when-compile (require 'cl))
+(eval-when-compile (use-package cl))
 
 ;;; ミニバッファで C-h でヘルプでないようにする
 (load "term/bobcat")
 (when (fboundp 'terminal-init-bobcat)
   (terminal-init-bobcat))
 
-(require 'async-bytecomp)
-(require 'helm-config)
-(require 'helm-command)
-(require 'helm-descbinds)
-(require 'helm-c-yasnippet)
-(require 'gist)
-(require 'helm-gist)
+(use-package async-bytecomp)
+(use-package helm-config)
+(use-package helm-command)
+(use-package helm-descbinds)
+(use-package helm-c-yasnippet)
+(use-package gist)
+(use-package helm-gist)
 (autoload 'helm-github-issues "helm-github-issues"
   "Helm interface for github issues" nil t)
 
@@ -72,7 +72,7 @@
    orgcard を引く.
 
 #+begin_src emacs-lisp
-(require 'helm-orgcard)
+(use-package helm-orgcard)
 (setq hoc-lang-selector 'ja)
 #+end_src
 
@@ -80,7 +80,7 @@
    ag 結果を helm で絞り込み
 
 #+begin_src emacs-lisp
-(require 'helm-ag)
+(use-package helm-ag)
 (global-set-key (kbd "C-x g r") 'helm-ag)
 #+end_src
 
@@ -89,7 +89,7 @@
    - https://github.com/emacs-helm/helm-migemo
 
 #+begin_src emacs-lisp
-(require 'helm-migemo)
+(use-package helm-migemo)
 ;;; この修正が必要
 (eval-after-load "helm-migemo"
   '(defun helm-compile-source--candidates-in-buffer (source)
@@ -112,7 +112,7 @@
 顔文字.
 
 #+begin_src emacs-lisp
-(require 'helm-kaomoji)
+(use-package helm-kaomoji)
 #+end_src
 ** helm-wl-address
    helm i/f でアドレス検索. 
@@ -121,7 +121,7 @@
    - [[http://qiita.com/kenbeese/items/438c1c8d664198d8527f][Emacs - wanderlust のアドレスを helm で選択する - Qiita]]
 
 #+begin_src emacs-lisp
-(require 'helm-wl-address)
+(use-package helm-wl-address)
 #+end_src
 ** helm-flyspell
    from: https://gist.github.com/cofi/3013327
@@ -190,7 +190,7 @@ Adapted from `flyspell-correct-word-before-point'."
    日本語だからか? うごかない.
 
 #+begin_src emacs-lisp
-;; (require 'helm-google)
+;; (use-package helm-google)
 ;; (global-set-key (kbd "C-x g g") 'helm-google)
 ;; (setq helm-google-tld "co.jp")
 #+end_src
@@ -205,7 +205,7 @@ Adapted from `flyspell-correct-word-before-point'."
      error helm-process-delay-source
 
 #+begin_src emacs-lisp
-;; (require 'helm-gtags)
+;; (use-package helm-gtags)
 
 ;; ;;; Enable helm-gtags-mode
 ;; (add-hook 'c-mode-hook 'helm-gtags-mode)
@@ -239,15 +239,15 @@ Adapted from `flyspell-correct-word-before-point'."
      etags で TAGS を生成する.
 
 #+begin_src emacs-lisp
-(require 'helm-etags+)
-(require 'ctags-update)
+(use-package helm-etags+)
+(use-package ctags-update)
 #+end_src
 ** helm-swoop
    - [[https://github.com/ShingoFukuyama/helm-swoop][ShingoFukuyama/helm-swoop]]
    - [[http://rubikitch.com/2014/12/25/helm-swoop/][emacs helm-swoop.el : 【これはすごい】バッファ全体を Migemo 絞り込み検索して走り回れ!]]
 
 #+begin_src emacs-lisp
-(require 'helm-swoop)
+(use-package helm-swoop)
 
 ;; Change the keybinds to whatever you like :)
 (global-set-key (kbd "M-o") 'helm-swoop)
@@ -282,6 +282,6 @@ Adapted from `flyspell-correct-word-before-point'."
    imenu の置き換え.
 
 #+begin_src emacs-lisp
-(require 'imenu-anywhere)
+(use-package imenu-anywhere)
 (global-set-key (kbd "C-x c i") 'helm-imenu-anywhere)
 #+end_src

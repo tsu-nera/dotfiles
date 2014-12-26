@@ -25,7 +25,7 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
 el-get にまとめた.
 
 #+begin_src emacs-lisp
-(require 'emacs-color-themes)
+(use-package emacs-color-themes)
 #+end_src
 
 ** tangotango
@@ -48,7 +48,7 @@ el-get にまとめた.
 #+begin_src emacs-lisp
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/molokai-theme")
-(require 'molokai-theme-kit)
+(use-package molokai-theme-kit)
 (setq molokai-theme-kit t)
 (load-theme 'molokai t)
 
@@ -95,7 +95,7 @@ el-get にまとめた.
 数字表記に色つけしてくれる 
 
 #+begin_src emacs-lisp
-(require 'rainbow-mode)
+(use-package rainbow-mode)
 (add-hook 'css-mode-hook 'rainbow-mode)
 (add-hook 'html-mode-hook 'rainbow-mode)
 (add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
@@ -107,7 +107,7 @@ el-get にまとめた.
 - [[https://github.com/jlr/rainbow-delimiters][jlr/rainbow-delimiters]]
 
 #+begin_src emacs-lisp
-(require 'rainbow-delimiters)
+(use-package rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 #+end_src
 
@@ -115,13 +115,13 @@ el-get にまとめた.
   Sublime Text のようなミニマップ.
 
 #+begin_src emacs-lisp
-(require 'minimap)
+(use-package minimap)
 (setq minimap-window-location 'right)
 (setq minimap-minimum-width 15)
 (global-set-key (kbd "C-c n") 'minimap-mode)
 
 ;; (when (display-graphic-p)
-;;   (require 'minimap)
+;;   (use-package minimap)
 ;;   ;; enable minimap
 ;;   (global-set-key (kbd "C-c n") 'minimap-toggle))
 #+end_src

@@ -31,11 +31,11 @@
    Maven の仕組みがうまくわからないので封印した.
 
 #+begin_src emacs-lisp
-;; (require 'cedet)
-;; (require 'semantic)
+;; (use-package cedet)
+;; (use-package semantic)
 ;; (load "semantic/loaddefs.el")
 ;; (semantic-mode 1)
-;; (require 'malabar-mode)
+;; (use-package malabar-mode)
 ;; (add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
 
 ;; ;; If you want to mimic the IDEish compile-on-save behaviour
@@ -163,7 +163,7 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 ** eclim
 
 #+begin_src emacs-lisp
-(require 'eclim)
+(use-package eclim)
 ;; (setq eclim-auto-save t)
 ;; (setq eclim-use-yasnippet nil)
 
@@ -211,7 +211,7 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 
 #+begin_src emacs-lisp
 ;; eclim daemon
-(require 'eclimd)
+(use-package eclimd)
 #+end_src
 
    心なしか, Emacs から起動するよりも, コマンドラインから起動したほうが
@@ -232,7 +232,7 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 ;; add the emacs-eclim source
 (add-hook 'eclim-mode-hook 
    (lambda () 
-   (require 'ac-emacs-eclim-source)
+   (use-package ac-emacs-eclim-source)
    ;;   (ac-emacs-eclim-config)
    (add-to-list 'ac-sources 'ac-source-emacs-eclim)
    ))
@@ -242,7 +242,7 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 
 #+begin_src emacs-lisp
 ;; for company-mode
-;; (require 'company-emacs-eclim)
+;; (use-package company-emacs-eclim)
 ;; (company-emacs-eclim-setup)
 
 #+end_src
@@ -314,7 +314,7 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
     eclim との機能競合を起こすので, 一旦封印しておくか.
 
 #+begin_src emacs-lisp
-(require 'ajc-java-complete-config)
+(use-package ajc-java-complete-config)
 (add-hook 'java-mode-hook 'ajc-java-complete-mode)
 (add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
 #+end_src
@@ -322,7 +322,7 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 
 * log4j
 #+begin_src emacs-lisp
-(require 'log4j-mode)
+(use-package log4j-mode)
 #+end_src
 
 * Jtags
@@ -330,7 +330,7 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
   - [[http://jtags.sourceforge.net/][jtags - Emacs minor mode for editing and browsing Java source code]]
 
 #+begin_src emacs-lisp
-(require 'jtags)
+(use-package jtags)
 #+end_src
 
 * Android

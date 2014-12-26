@@ -85,7 +85,7 @@
 
 #+begin_src emacs-lisp
 ;; (when linux-p
-;; (require 'ac-python)
+;; (use-package ac-python)
 ;; (add-to-list 'ac-modes 'python-2-mode)
 ;; )
 #+end_src

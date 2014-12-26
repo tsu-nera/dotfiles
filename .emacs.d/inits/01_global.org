@@ -67,7 +67,7 @@
    - https://github.com/yuttie/initchart
 
 #+begin_src emacs-lisp
-;; (require 'initchart)
+;; (use-package initchart)
 ;; (initchart-record-execution-time-of load file)
 ;; (initchart-record-execution-time-of require feature)
 #+end_src
@@ -123,7 +123,7 @@
 #+begin_src emacs-lisp
 (setq recentf-max-saved-items 5000)
 (setq recentf-exclude '("/TAGS$" "/var/tmp/"))
-(require 'recentf-ext)
+(use-package recentf-ext)
 (global-set-key (kbd "C-c @") 'recentf-open-files)
 #+end_src
 
@@ -143,7 +143,7 @@
 一度訪れたファイルは次開くときはそこから開く.
 
 #+begin_src emacs-lisp
-(require 'saveplace)
+(use-package saveplace)
 (setq-default save-place t)
 #+end_src
 
@@ -151,7 +151,7 @@
    minibuffer の履歴保存
 
    #+begin_src emacs-lisp
-   (require 'savehist)
+   (use-package savehist)
    (savehist-mode t)
    (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
    #+end_src
@@ -160,7 +160,7 @@
    いろんなメジャーモード
 
    #+begin_src emacs-lisp
-   (require 'generic-x)
+   (use-package generic-x)
    #+end_src
 
 ** 起動時の設定
@@ -213,7 +213,7 @@
   http://d.hatena.ne.jp/syohex/20101224/1293206906
 
   #+begin_src emacs-lisp
-  (require 'server)
+  (use-package server)
   (unless (server-running-p)
     (server-start))
   #+end_src
@@ -238,7 +238,7 @@ http://stackoverflow.com/questions/840279/passwords-in-emacs-tramp-mode-editing
 - [[https://github.com/m2ym/popwin-el][m2ym/popwin-el]]
 
 #+begin_src emacs-lisp
-(when (require 'popwin)
+(when (use-package popwin)
   (setq helm-samewindow nil)
   (setq display-buffer-function 'popwin:display-buffer)
   (setq popwin:special-display-config '(("*compilation*" :noselect t)
@@ -281,7 +281,7 @@ http://stackoverflow.com/questions/840279/passwords-in-emacs-tramp-mode-editing
  - [[http://rubikitch.com/2014/08/30/guide-key/][もう迷子にならない! 今の Emacs は自動的に次のキー操作を教えてくれるゾ!!]]
 
 #+begin_src emacs-lisp
-(require 'guide-key)
+(use-package guide-key)
 (setq guide-key/guide-key-sequence '("C-x r" "C-x 4"))
 (setq guide-key/popup-window-position 'bottom)
 (guide-key-mode 1)  ; Enable guide-key-mode
@@ -319,13 +319,13 @@ http://stackoverflow.com/questions/840279/passwords-in-emacs-tramp-mode-editing
   パスワード自体は ~/.netrc に書き込む. 
 
 #+begin_src emacs-lisp
-(require 'netrc)
+(use-package netrc)
 #+end_src
 
 * open-junk-file
 
 #+begin_src emacs-lisp
-(require 'open-junk-file)
+(use-package open-junk-file)
 (setq open-junk-file-format "~/tmp/%Y-%m-%d-%H%M%S.")
 
 ;; open-junk
@@ -417,7 +417,7 @@ Shift+Insert でも貼り付けできるので, とりあえずはこれで回�
 (setq completion-ignore-case t)
 
 ;; 同名ファイルの区別
-(require 'uniquify)
+(use-package uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 
 ;; バッファ再読み込み
@@ -501,7 +501,7 @@ Shift+Insert でも貼り付けできるので, とりあえずはこれで回�
 ;; History  : 2014/02/02 add
 ;; Install  : emacs wiki
 ;; ------------------------------------------------------------------------
-;; (require 'tempbuf)
+;; (use-package tempbuf)
 ;; ファイルを開いたら有効
 ;; (add-hook 'find-file-hooks 'turn-on-tempbuf-mode)
 ;; Dired mode ならば有効

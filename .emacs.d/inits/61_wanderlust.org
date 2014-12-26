@@ -62,7 +62,7 @@
   - [[http://blog.gmane.org/gmane.mail.wanderlust.general.japanese/month=20140101][Japanese discussion of the Wanderlust mail/news reader for Emacs/XEmacs]]
 
 #+begin_src emacs-lisp
-(require 'wl)
+(use-package wl)
 ;; HTML ファイルは表示しない.
 ;; (setq mime-setup-enable-inline-html nil)
 
@@ -72,11 +72,11 @@
 (set-alist 'mime-view-type-subtype-score-alist '(text . html) 0)
 
 ;; HTML メールは w3m で
-;; (require 'mime-setup)
+;; (use-package mime-setup)
 ;; (when (locate-library "mime-w3m")
-;;   (require 'w3m-ems)
-;;   (require 'w3m-load)
-;;   (require 'mime-w3m)
+;;   (use-package w3m-ems)
+;;   (use-package w3m-load)
+;;   (use-package mime-w3m)
 ;;   (setq mime-w3m-safe-url-regexp nil)
 ;;   )
 #+end_src
@@ -158,7 +158,7 @@
 (eval-after-load "std11"
 '(defadvice std11-wrap-as-quoted-string (before encode-string activate)
 "Encode a string."
-(require 'eword-encode)
+(use-package eword-encode)
 (ad-set-arg 0 (or (eword-encode-string (ad-get-arg 0)) "" )) ))
 
 ;; 添付ファイルがある場合は「@」を表示

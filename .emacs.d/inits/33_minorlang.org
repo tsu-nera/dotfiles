@@ -129,20 +129,20 @@ http://jblevins.org/projects/markdown-mode/markdown-mode.el
 * Scala
 #+begin_src emacs-lisp :tangle yes
 ;; Scala Mode 2
-(require 'scala-mode2)
+(use-package scala-mode2)
 ;;(autoload 'scala-mode2 "scala-mode2" "A new scala-mode for emacs24" t)
 (add-to-list 'auto-mode-alist '("\\.scala$" . scala-mode))
 (add-to-list 'auto-mode-alist '("\\.sbt$" . scala-mode))
 
 ;; ensine
-(require 'ensime)
+(use-package ensime)
 ;;(autoload 'ensime-scala-mode "ensime" "ENhanced Scala Interaction Mode for Emacs" t)
 ;; This step causes the ensime-mode to be started whenever
 ;; scala-mode is started for a buffer. You may have to customize this step
 ;; if you're not using the standard scala mode.
 (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 
-;; (require 'scala-mode-feature-electric)
+;; (use-package scala-mode-feature-electric)
 ;; (add-hook 'scala-mode-hook
 ;;      (lambda ()
 ;;        (scala-electric-mode)))
@@ -152,7 +152,7 @@ http://jblevins.org/projects/markdown-mode/markdown-mode.el
     https://github.com/hvesalai/sbt-mode
 
 #+begin_src emacs-lisp :tangle yes
-(require 'sbt-mode)
+(use-package sbt-mode)
 
 (add-hook 'sbt-mode-hook '(lambda ()
   ;; compilation-skip-threshold tells the compilation minor-mode
@@ -233,7 +233,7 @@ pukiwiki-edit-mode で起動.
 
 #+begin_src emacs-lisp
 ; mmm-mode in php
-;; (require 'mmm-mode)
+;; (use-package mmm-mode)
 ;; (setq mmm-global-mode 'maybe)
 ;; (mmm-add-mode-ext-class nil "\\.php?\\'" 'html-php)
 ;; (mmm-add-classes
@@ -263,7 +263,7 @@ pukiwiki-edit-mode で起動.
 #+begin_src emacs-lisp
 (setq load-path (cons "/usr/share/emacs/site-lisp/ess" load-path))
 (when (locate-library "ess-site")
-  (require 'ess-site)
+  (use-package ess-site)
 
 (setq auto-mode-alist
       (cons (cons "\\.[rR]$" 'R-mode) auto-mode-alist))
@@ -310,7 +310,7 @@ pukiwiki-edit-mode で起動.
 
 #+begin_src emacs-lisp
 (when (locate-library "ess-site")
-(require 'ess-R-object-popup)
+(use-package ess-R-object-popup)
 (define-key ess-mode-map "\C-c\C-g" 'ess-R-object-popup)
 )
 #+end_src
@@ -329,7 +329,7 @@ pukiwiki-edit-mode で起動.
 
 #+begin_src emacs-lisp
 (when (locate-library "ess-site")
-(require 'helm-R)
+(use-package yhelm-R)
 (define-key ess-mode-map "\C-ch" 'helm-for-R)
 (define-key inferior-ess-mode-map "\C-ch" 'helm-for-R)
 )

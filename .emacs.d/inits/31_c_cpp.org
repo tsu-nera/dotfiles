@@ -4,7 +4,7 @@
  - [[http://sakito.jp/emacs/emacsobjectivec.html][Emacs で iPhone アプリ開発を快適にするための設定 : 紹介マニア]]
 
 #+begin_src emacs-lisp
-(require 'cc-mode)
+(use-package cc-mode)
 
 ;; c-mode-common-hook は C/C++ の設定
 (add-hook 'c-mode-common-hook
@@ -32,11 +32,11 @@ C/C++ に関わる設定を移動.
 
 (add-hook 'c++-mode-hook
 	  '(lambda ()
-	     (flymake-mode t))) (require 'flymake)
+	     (flymake-mode t))) (use-package flymake)
 
 (add-hook 'c-mode-hook
 	  '(lambda ()
-	     (flymake-mode t))) (require 'flymake)
+	     (flymake-mode t))) (use-package flymake)
 
 #+end_src
 

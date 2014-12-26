@@ -5,8 +5,8 @@
 * 一般的な設定
 #+begin_src emacs-lisp
 ; ------------------------------------------------------------------------
-(require 'org-install)
-;; (require 'org-pomodoro)
+(use-package org-install)
+;; (use-package org-pomodoro)
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
 ;; key bindings
@@ -75,7 +75,7 @@ http://sheephead.homelinux.org/
 
 (defun org-dired-store-link ()
   "Store link to files/directories from dired."
-  (require 'dired-x)
+  (use-package dired-x)
   (when (eq major-mode 'dired-mode)
     (let* ((f (dired-filename-at-point))
            (link (concat "file+emacs+dired" ":" f))
@@ -422,7 +422,7 @@ http://sheephead.homelinux.org/
   注意: adjust-text.el との兼ね合いで, file+datetree が動かない. 様子見
 
 #+begin_src emacs-lisp
-(require 'org-capture)
+(use-package org-capture)
 (setq org-capture-templates
       '(
 	("i" "Inbox" entry (file+datetree "~/gtd/inbox.org") "** TODO %?\n")
@@ -451,7 +451,7 @@ http://sheephead.homelinux.org/
   - [[http://www.geocities.jp/km_pp1/org-mode/org-mode-document.html][Org-mode による HTML 文書作成入門]]
 
 #+begin_src emacs-lisp
-(require 'org2blog-autoloads)
+(use-package org2blog-autoloads)
 
 (when linux-p
 (setq sternstunden (netrc-machine (netrc-parse "~/.netrc") "sternstunden" t))
@@ -573,7 +573,7 @@ Google Developer Console で client-id と secret-key を取得する必要が�
 
 #+begin_src emacs-lisp
 (when linux-p
-(require 'org-gcal)
+(use-package org-gcal)
 ;; password は netrc へ
 (setq GoogleCal (netrc-machine (netrc-parse "~/.netrc") "org-gcal" t))
 (setq org-gcal-client-id (netrc-get GoogleCal "login")
@@ -598,7 +598,7 @@ org と ical のスケジュールを混ぜて表示させることが出来ま�
 以下のような感じで cfw:open-calendar-buffer を使います.
 
 #+begin_src emacs-lisp
-(require 'calfw-org)
+(use-package calfw-org)
 
 ;; 対象ファイル
 (setq cfw:org-icalendars '("~/gtd/schedule.org"))
@@ -641,14 +641,14 @@ org と ical のスケジュールを混ぜて表示させることが出来ま�
    org-mode から reStructredText への変換
 
 #+begin_src emacs-lisp
-;; (require 'ox-rst)
+;; (use-package ox-rst)
 #+end_src
 
 ** ox-pandoc
    org-mode から reStructredText への変換. ox-rst を使うからいらないかも.
 
 #+begin_src emacs-lisp
-;; (require 'ox-pandoc)
+;; (use-package ox-pandoc)
 ;; (setq org-pandoc-output-format 'rst)
 #+end_src
 
@@ -656,21 +656,21 @@ org と ical のスケジュールを混ぜて表示させることが出来ま�
    TaskJuggler 変換.
 
 #+begin_src emacs-lisp
-;; (require 'ox-taskjuggler)
+;; (use-package ox-taskjuggler)
 #+end_src
 
 ** ox-wk
    dokuwiki 変換.
 
 #+begin_src emacs-lisp
-(require 'ox-wk)
+(use-package ox-wk)
 #+end_src
 
 ** ox-mk
    markdown 変換
 
 #+begin_src emacs-lisp
-(require 'ox-md)
+(use-package ox-md)
 #+end_src
 
 ** ox-freemind
@@ -679,7 +679,7 @@ org と ical のスケジュールを混ぜて表示させることが出来ま�
    ただし, ArchLinux では freemind がとてもつかいにくい...
 
 #+begin_src emacs-lisp
-;; (require 'ox-freemind)
+;; (use-package ox-freemind)
 #+end_src
 
 * mobileOrg
@@ -729,7 +729,7 @@ http://orgmode.org/manual/RSS-Feeds.html
 http://d.hatena.ne.jp/tamura70/20100225/org
 
 #+begin_src emacs-lisp
-(require 'org-feed)
+(use-package org-feed)
 (defun org-feed-parse-rdf-feed (buffer)
   "Parse BUFFER for RDF feed entries.
 Returns a list of entries, with each entry a property list,
@@ -773,7 +773,7 @@ containing the properties `:guid' and `:item-full-text'."
 * Wanderlust
 
 #+begin_src emacs-lisp
-(require 'org-wl)
+(use-package org-wl)
 ;; wanderlust のメールを追跡できる
 (setq org-return-follows-link t)
 #+end_src
@@ -806,7 +806,7 @@ containing the properties `:guid' and `:item-full-text'."
   ruby を実行するには, 以下が必要.
 
   #+begin_src emacs-lisp
-;;  (require 'ob-ruby)
+;;  (use-package ob-ruby)
   #+end_src
 
 * Others

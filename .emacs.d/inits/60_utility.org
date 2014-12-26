@@ -35,17 +35,17 @@ Screen の Emacs バージョン. マルチプレクサ.
 (setq elscreen-tab-display-control nil)
 
 ;; emacsclient で新しいタブを開く
-;; (require 'elscreen-server nil t)
+;; (use-package elscreen-server nil t)
 
 ;; それっぽい色をつける?? つけてくれないよ.
-;; (require 'elscreen-color-theme)
+;; (use-package elscreen-color-theme)
 
 ;; dired で o をオスと別タブで開く
 ;; by wget https://raw.githubusercontent.com/knu/elscreen/master/elscreen-dired.el
-(require 'elscreen-dired)
+(use-package elscreen-dired)
 
 ;; waanderlust 用. syohex さんのやつ
-(require 'elscreen-wl)
+(use-package elscreen-wl)
 
 ;; 画面切り替え
 ;; 使い勝手がわるいので封印した
@@ -123,7 +123,7 @@ Screen の Emacs バージョン. マルチプレクサ.
    revive というパッケージに依存している??
 
 #+begin_src emacs-lisp
-(require 'elscreen-persist)
+(use-package elscreen-persist)
 ;; どうもこれを有効にすると Emacs が立ち上がらなくなるな...
 ;; (elscreen-persist-mode 1)
 #+end_src
@@ -144,7 +144,7 @@ HTC_Pyramid Build/GRI40) AppleWebKit/533.1
 (setq exec-path (append exec-path '("C:/cygwin64/bin")))
 )
 
-(require 'w3m-load)
+(use-package w3m-load)
 (setq w3m-use-cookies t)
 (setq w3m-favicon-cache-expire-wait nil)
 (setq w3m-home-page "http://www.google.co.jp/")
@@ -164,8 +164,8 @@ HTC_Pyramid Build/GRI40) AppleWebKit/533.1
 うごかない. . . .
 
 #+begin_src emacs-lisp
-;; (require 'webkit)
-;; (require 'helm-webkit)
+;; (use-package webkit)
+;; (use-package helm-webkit)
 #+end_src
 
 * eww
@@ -247,7 +247,7 @@ HTC_Pyramid Build/GRI40) AppleWebKit/533.1
 
    #+begin_src emacs-lisp
 (with-eval-after-load "eww"
-(require 'eww-lnum)
+(use-package eww-lnum)
   (define-key eww-mode-map "f" 'eww-lnum-follow)
   (define-key eww-mode-map "F" 'eww-lnum-universal))
 (defun eww-lnum-read-interactive--not-truncate-lines (&rest them)
@@ -298,7 +298,7 @@ HTC_Pyramid Build/GRI40) AppleWebKit/533.1
    - https://github.com/jixiuf/joseph-single-dired
 
 #+begin_src emacs-lisp
-(require 'joseph-single-dired)
+(use-package joseph-single-dired)
 #+end_src
 
 ** direx
@@ -309,7 +309,7 @@ HTC_Pyramid Build/GRI40) AppleWebKit/533.1
 
   使っていないのと, open-junk-file とキーがかぶったので封印.
 #+begin_src emacs-lisp
-;; (require 'direx)
+;; (use-package direx)
 #+end_src
 
 * edit-server
@@ -318,7 +318,7 @@ Google Chrome のフォームを emacs で編集. Edit with Emacs.
 - https://raw.githubusercontent.com/stsquad/emacs_chrome/master/servers/edit-server.el
 
 #+begin_src emacs-lisp
-(require 'edit-server)
+(use-package edit-server)
 (edit-server-start)
 #+end_src
 
@@ -328,7 +328,7 @@ Emacs Twitter Client
 - [[http://www.emacswiki.org/emacs/TwitteringMode-ja][EmacsWiki: TwitteringMode-ja]]
 
 #+begin_src emacs-lisp
-(require 'twittering-mode)
+(use-package twittering-mode)
 (setq twittering-use-master-password t)
 ;; パスワード暗号ファイル保存先変更 (デフォはホームディレクトリ)
 (setq twittering-private-info-file "~/.emacs.d/twittering-mode.gpg")
@@ -350,7 +350,7 @@ Emacs Twitter Client
 まだ動かした実績はなし. . . とりあえず入れておくか.
 
 #+begin_src emacs-lisp
-;; (require 'bitlbee)
+;; (use-package bitlbee)
 ;; (defun i-wanna-be-social ()
 ;;   "Connect to IM networks using bitlbee."
 ;;   (interactive)
@@ -380,9 +380,9 @@ Emacs Twitter Client
 (setq howm-prefix (kbd "C-x C-a"))
 
 ;;(autoload 'howm "howm" " Hitori Otegaru Wiki Modoki" nil)
-(require 'howm)
+(use-package howm)
 (add-hook 'howm-mode-hook 'helm-howm)
-;; (require 'helm-howm)
+;; (use-package helm-howm)
 #+end_src
 
 * Shell
@@ -412,7 +412,7 @@ Emacs Twitter Client
 
 ;; http://d.hatena.ne.jp/mooz/20090613/p1
 ;; コントロールシーケンスを利用した色指定が使えるように
-;;(require 'ansi-color)
+;;(use-package ansi-color)
 ;;(autoload 'ansi-color-for-comint-mode-on "ansi-color"
 ;;    "Set `ansi-color-for-comint-mode' to t." t)
 
@@ -496,7 +496,7 @@ Emacs Twitter Client
                (loop for (keybind function) in key-and-func do
                      (define-key term-raw-map keybind function)))))
 
-;; (require 'helm-shell-history)
+;; (use-package helm-shell-history)
 ;; (add-hook 'term-mode-hook
 ;; 	  (lambda () (define-key term-raw-map (kbd "C-r") 'helm-shell-history)))
 #+end_src
@@ -509,7 +509,7 @@ Emacs Twitter Client
 ;; eshell
 ;; http://nishikawasasaki.hatenablog.com/entry/2012/09/12/233116
 ;; eshell での補完に auto-complete.el を使う
-;; (require 'pcomplete)
+;; (use-package pcomplete)
 ;; (add-to-list 'ac-modes 'eshell-mode)
 ;; (ac-define-source pcomplete
 ;;   '((candidates . pcomplete-completions)))
@@ -617,7 +617,7 @@ Emacs Twitter Client
 #+begin_src emacs-lisp
 ;; パスの引き継ぎ
 (when linux-p
-(require 'exec-path-from-shell)
+(use-package exec-path-from-shell)
 (exec-path-from-shell-initialize)
 )
 ;; (let* ((zshpath (shell-command-to-string
@@ -643,19 +643,19 @@ sudo pacman -S ghostscript
 
 #+begin_src emacs-lisp
 ;; (when linux-p
-;; (require 'pdf-tools)
-;; (require 'pdf-annot)
-;; (require 'pdf-history) 
-;; (require 'pdf-info) 
-;; (require 'pdf-isearch) 
-;; (require 'pdf-links) 
-;; (require 'pdf-misc) 
-;; (require 'pdf-occur) 
-;; (require 'pdf-outline) 
-;; (require 'pdf-render) 
-;; (require 'pdf-sync) 
-;; (require 'tablist-filter)
-;; (require 'tablist)
+;; (use-package pdf-tools)
+;; (use-package pdf-annot)
+;; (use-package pdf-history) 
+;; (use-package pdf-info) 
+;; (use-package pdf-isearch) 
+;; (use-package pdf-links) 
+;; (use-package pdf-misc) 
+;; (use-package pdf-occur) 
+;; (use-package pdf-outline) 
+;; (use-package pdf-render) 
+;; (use-package pdf-sync) 
+;; (use-package tablist-filter)
+;; (use-package tablist)
 ;; )
 #+end_src
 
@@ -682,7 +682,7 @@ Emacs 用カレンダー.
    - [[http://qiita.com/catatsuy/items/ae9875706769d4f02317][卒論を英語で書けと言われしまったあなたにおすすめの Emacs の設定 - Qiita]]
 
 #+begin_src emacs-lisp
-(require 'google-translate)
+(use-package google-translate)
 
 (global-set-key "\C-xt" 'google-translate-at-point)
 (global-set-key "\C-xT" 'google-translate-query-translate)
@@ -709,7 +709,7 @@ Emacs 用カレンダー.
    - C-c / c Google 翻訳
 
 #+begin_src emacs-lisp
-(require 'google-this)
+(use-package google-this)
 (google-this-mode 1)
 #+end_src
 
@@ -725,7 +725,7 @@ Emacs 用カレンダー.
     とくに, キーバインドはつけてない.
 
 #+begin_src emacs-lisp
-(require 'search-web)
+(use-package search-web)
 ;; 英辞郎 ... なんかうごかないな.
 ;; (define-key global-map (kbd "C-x g e") (lambda () (interactive) (search-web-at-point "eow")))
 ;; (define-key global-map (kbd "C-x g C-e") (lambda () (interactive) (search-web-region "eow")))
@@ -737,7 +737,7 @@ Emacs 用カレンダー.
    M-x codic xxx
 
 #+begin_src emacs-lisp
-(require 'codic)
+(use-package codic)
 #+end_src
 
 * Pomodoro
@@ -760,7 +760,7 @@ Emacs 用カレンダー.
 使わないので一旦封印.
 
 #+begin_src emacs-lisp
-;; (require 'tomatinho)
+;; (use-package tomatinho)
 ;; (global-set-key (kbd "<f12>") 'tomatinho)
 ;; (define-key tomatinho-map (kbd "N") 'tomatinho-interactive-new-pomodoro)
 ;; (define-key tomatinho-map (kbd "P") 'tomatinho-interactive-deliberate-pause)
@@ -777,11 +777,11 @@ Emacs 用カレンダー.
    使わないので一旦封印.
 
 #+begin_src emacs-lisp
-;; (require 'pomodoro)
+;; (use-package pomodoro)
 
 ;; (when linux-p
 ;; ;; hook 関数関連
-;; (require 'notifications)
+;; (use-package notifications)
 ;; (defun* my/pomodoro-notification (&key (title "Pomodoro")
 ;;                                        body
 ;;                                        (urgency 'normal))
@@ -815,7 +815,7 @@ Emacs 用カレンダー.
   - [[http://aki2o.hatenablog.jp/entry/2014/08/19/Emacs%E3%81%A7%E3%83%90%E3%83%83%E3%83%95%E3%82%A1%E5%86%85%E5%AE%B9%E3%82%92%E7%9B%AE%E8%A6%96%E7%A2%BA%E8%AA%8D%E3%81%97%E3%81%A6%E7%9B%AE%E7%9A%84%E3%81%AE%E3%83%90%E3%83%83%E3%83%95%E3%82%A1%E3%81%AB][Emacs でバッファ内容を目視確認して目的のバッファに素早く切り替える - 死ぬまでの暇潰し]]
 
     #+begin_src emacs-lisp
-    (require 'e2wm)
+    (use-package e2wm)
     (global-set-key (kbd "M-+") 'e2wm:start-management)
     (when linux-p
     ;; 使わないから封印.
@@ -827,7 +827,7 @@ Emacs 用カレンダー.
    - [[https://github.com/aki2o/e2wm-direx][aki2o/e2wm-direx]]
 
 #+begin_src emacs-lisp
-;; (require 'e2wm-direx)
+;; (use-package e2wm-direx)
 (setq e2wm:c-code-recipe
       '(| (:left-max-size 40)
           (- (:upper-size-ratio 0.6)
@@ -852,7 +852,7 @@ Emacs 用カレンダー.
 [[http://rubikitch.com/2014/08/21/psession/][- Emacs のデータ・バッファ・ウィンドウ構成を永続化し, 再起動時に復元する方法 るびきち× Emacs]]
 
 #+begin_src emacs-lisp
-;; (require 'psession)
+;; (use-package psession)
 ;; (autoload 'psession-mode "persistent-sessions.el")
 ;; (psession-mode 1)
 #+end_src
@@ -862,8 +862,8 @@ Emacs 用カレンダー.
   - https://github.com/emacs-helm/helm-gist/blob/master/helm-gist.el
 
 #+begin_src emacs-lisp
-(require 'gist)
-;; (require 'helm-gist)
+(use-package gist)
+;; (use-package helm-gist)
 #+end_src
 
 * ERC
@@ -875,7 +875,7 @@ Emacs 用カレンダー.
   - [[http://sleepboy-zzz.blogspot.jp/2013/07/emacs-ercirc.html][memo: Emacs ERC で IRC を試してみた]]
 
 #+begin_src emacs-lisp
-;; (require 'erc)
+;; (use-package erc)
 
 ;; ログイン情報
 ;; (setq erc-server "localhost")
@@ -914,7 +914,7 @@ command uses interactive mode if passed an argument."
 
 #+begin_src emacs-lisp
 ;; (and
-;;   (require 'erc-highlight-nicknames)
+;;   (use-package erc-highlight-nicknames)
 ;;   (add-to-list 'erc-modules 'highlight-nicknames)
 ;;   (erc-update-modules))
 #+end_src
@@ -924,7 +924,7 @@ command uses interactive mode if passed an argument."
   - https://github.com/leathekd/erc-hl-nicks
 
 #+begin_src emacs-lisp
-(require 'erc-hl-nicks)
+(use-package erc-hl-nicks)
 #+end_src
 
 

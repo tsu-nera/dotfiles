@@ -4,7 +4,7 @@
 ** ruby-mode
 
 #+begin_src emacs-lisp
-(require 'ruby-mode)
+(use-package ruby-mode)
 (autoload 'ruby-mode "ruby-mode"
     "Mode for editing ruby source files" t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
@@ -20,7 +20,7 @@ Better Ruby Mode.
 
 #+begin_src emacs-lisp
 ; must be added after any path containing old ruby-mode
-;;(require 'enh-ruby-mode)
+;;(use-package enh-ruby-mode)
 ;;(autoload 'enh-ruby-mode "enh-ruby-mode" "Major mode for ruby files" t)
 ;;(add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
 
@@ -94,7 +94,7 @@ Better Ruby Mode.
 elisp は ruby のソースに梱包されている.
 
 #+begin_src emacs-lisp
-;;(require 'ruby-debug)
+;;(use-package ruby-debug)
 (autoload 'rubydb "rubydb3x"
     "run rubydb on program file in buffer *gud-file*.
 the directory containing file becomes the initial working directory
@@ -108,7 +108,7 @@ and source-file directory for your debugger." t)
 ;; Install  :
 ;; Function : かっこや do end などの対応関係を自動で補正してくれる
 ;; ------------------------------------------------------------------------
-(require ' ruby-electric)
+(use-package  ruby-electric)
   (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
   (setq ruby-electric-expand-delimiters-list nil)
 
@@ -117,7 +117,7 @@ and source-file directory for your debugger." t)
 ;; Install  :
 ;; Function : かっこや do end などの対応関係を自動でハイライトしてくれる
 ;; ------------------------------------------------------------------------
-(require 'ruby-block)
+(use-package ruby-block)
 (ruby-block-mode t)
 (setq ruby-block-highlight-toggle t)
 
@@ -126,7 +126,7 @@ and source-file directory for your debugger." t)
 ;; Install  : el-get
 ;; Function : Ruby 開発のツール群
 ;; ------------------------------------------------------------------------
-(require 'rcodetools)
+(use-package rcodetools)
 (setq rct-find-tag-if-available nil)
 (defun ruby-mode-hook-rcodetools ()
   (define-key ruby-mode-map "\C-c\C-t" 'ruby-toggle-buffer)
@@ -142,7 +142,7 @@ and source-file directory for your debugger." t)
 ;;            https://github.com/ajvargo/ruby-refactor.git
 ;; Function : Ruby 用リファクタリングツール
 ;; ------------------------------------------------------------------------
-(require 'ruby-refactor)
+(use-package ruby-refactor)
 (add-hook 'ruby-mode-hook 'ruby-refactor-mode-launch)
 
 ;; -----------------------------------------------------------------------
@@ -158,7 +158,7 @@ and source-file directory for your debugger." t)
 ;; Install  : checkstyle のようなスタイルの解析
 ;; Function : gem install rubocop
 ;; ------------------------------------------------------------------------
-;;(require 'rubocop)
+;;(use-package rubocop)
 ;;(add-hook 'ruby-mode 'rubocop-mode)
 
 ;; -----------------------------------------------------------------------
@@ -167,14 +167,14 @@ and source-file directory for your debugger." t)
 ;; Function : rspec 自動実行
 ;; ------------------------------------------------------------------------
 ;; 動かん!
-;; (require 'autotest)
+;; (use-package autotest)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : rspec-mode
 ;; Install  : el-get
 ;; Function : rspec 拡張
 ;; ------------------------------------------------------------------------
-(require 'rspec-mode)
+(use-package rspec-mode)
 (add-hook 'ruby-mode-hook 'rspec-mode)
 (eval-after-load 'rspec-mode
   '(rspec-install-snippets))
@@ -186,7 +186,7 @@ and source-file directory for your debugger." t)
 ;; Install  : git@github.com:jacott/emacs-pry.git
 ;; Function : 高機能 irb
 ;; ------------------------------------------------------------------------
-;; (require 'pry)
+;; (use-package pry)
 ;; optional suggestions
 ;;(global-set-key [S-f9] 'pry-intercept)
 ;;(global-set-key [f9] 'pry-intercept-rerun)
