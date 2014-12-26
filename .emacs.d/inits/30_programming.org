@@ -1,4 +1,4 @@
-* Programing
+* Programming
   いろいろなプログラミング言語に関わる設定.
 
 * コンパイル
@@ -27,11 +27,13 @@
   エラー箇所にジャンプすることができる.
 
 #+begin_src emacs-lisp
-(use-package quickrun)
+(use-package quickrun
+  :config
 (push '("*quickrun*") popwin:special-display-config)
 (global-set-key (kbd "C-c r") 'quickrun)
 
 (setq quickrun-timeout-seconds 20)
+)
 #+end_src
 
 * プロジェクト管理
@@ -55,37 +57,38 @@
 
    - [[http://blog.en30.net/2014/10/20/development-environment.html][最近の開発環境: mjolnir, projectile, peco - blog.en30.net]]
 
-#+begin_src emacs-lisp
-(projectile-global-mode)
+   #+begin_src emacs-lisp
+(use-package helm-projectile
+  :config
+  (projectile-global-mode)
+  
+  (when windows-p
+    (setq projectile-indexing-method 'alien)
+    )
+  
+  (helm-projectile-on)
 
-(when windows-p
-(setq projectile-indexing-method 'alien)
+  ;; プロジェクトに関連するファイルを helm-for-files に追加
+  (defadvice helm-for-files (around update-helm-list activate)
+    (let ((helm-for-files-preferred-list
+	   (helm-for-files-update-list)))
+      ad-do-it))
+  
+  (defun helm-for-files-update-list ()
+    `(helm-source-buffers-list
+      helm-source-recentf
+      helm-source-ghq
+      helm-source-files-in-current-dir
+      helm-source-file-cache
+      ,(if (projectile-project-p)
+	   helm-source-projectile-files-list)))
+
+  ;; helm-ag をプロジェクトルートから
+  (defun projectile-helm-ag ()
+    (interactive)
+    (helm-ag (projectile-project-root)))
 )
-
-(use-package helm-projectile)
-(helm-projectile-on)
-
-;; プロジェクトに関連するファイルを helm-for-files に追加
-(defadvice helm-for-files (around update-helm-list activate)
-  (let ((helm-for-files-preferred-list
-         (helm-for-files-update-list)))
-    ad-do-it))
-
-(defun helm-for-files-update-list ()
-  `(helm-source-buffers-list
-    helm-source-recentf
-    helm-source-ghq
-    helm-source-files-in-current-dir
-    helm-source-file-cache
-    ,(if (projectile-project-p)
-     helm-source-projectile-files-list)))
-
-;; helm-ag をプロジェクトルートから
-(defun projectile-helm-ag ()
-  (interactive)
-  (helm-ag (projectile-project-root)))
 #+end_src
-
 
 * タグジャンプ
 ** gtags
@@ -94,25 +97,28 @@
 
 #+begin_src emacs-lisp
 ;; GNU global
-(when (locate-library "gtags") (use-package gtags))
-(global-set-key "\M-t" 'gtags-find-tag) ;関数の定義元へ
-(global-set-key "\M-r" 'gtags-find-rtag) ;関数の参照先へ
-(global-set-key "\M-s" 'gtags-find-symbol) ;変数の定義元/ 参照先へ
-;; (global-set-key "\M-f" 'gtags-find-file) ;ファイルにジャンプ
-(global-set-key "\M-," 'gtags-pop-stack);前のバッ ファに戻る
-
-(add-hook 'c-mode-common-hook
-	  '(lambda ()
-	     (gtags-mode 1)
-	     (gtags-make-complete-list)))
+(use-package gtags
+  :config		 
+  (global-set-key "\M-t" 'gtags-find-tag) ;関数の定義元へ
+  (global-set-key "\M-r" 'gtags-find-rtag) ;関数の参照先へ
+  (global-set-key "\M-s" 'gtags-find-symbol) ;変数の定義元/ 参照先へ
+  ;; (global-set-key "\M-f" 'gtags-find-file) ;ファイルにジャンプ
+  (global-set-key "\M-," 'gtags-pop-stack);前のバッ ファに戻る
+  
+  (add-hook 'c-mode-common-hook
+	    '(lambda ()
+	       (gtags-mode 1)
+	       (gtags-make-complete-list)))
+  )
 #+end_src
 
 * エラーチェック
-** flycheck
+** flymake
    静的文法チェック.
 
 #+begin_src emacs-lisp
-(use-package flymake)
+(use-package flymake
+  :config
 
 ;; GUI の警告は表示しない
 (setq flymake-gui-warnings-enabled nil)
@@ -136,18 +142,16 @@
 
 ;;(use-package flymake-ruby)
 ;;(add-hook 'enh-ruby-mode-hook 'flymake-ruby-load)
+)
 #+end_src
 
 ** flycheck
    静的文法チェック.
 
 #+begin_src emacs-lisp
-(use-package flycheck)
+(use-package flycheck
+  :config
 ;;(setq flycheck-check-syntax-automatically '(mode-enabled save))
-
-(use-package flycheck-color-mode-line)
-(eval-after-load "flycheck"
-  '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
 
 ;; Ruby
 ;; (add-hook 'ruby-mode-hook 'flycheck-mode)
@@ -180,13 +184,24 @@
 	  (file-name) ":" line ":" column ": " (or "E" "F") ": " (message)
 	  line-end))
   :modes (ruby-mode))
+)
+
+#+end_src
+
+*** flycheck-color-mode-line
+
+#+begin_src emacs-lisp
+(use-package flycheck-color-mode-line
+  :config
+  (eval-after-load "flycheck"
+  '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
+)
 #+end_src
 
 * Utils
 ** ediff
    emacs よう diff ツール
-
-   http://www.emacswiki.org/emacs/EdiffMode
+   - http://www.emacswiki.org/emacs/EdiffMode
 
 #+begin_src emacs-lisp
 ;; コントロール用のバッファを同一フレーム内に表示
@@ -204,7 +219,7 @@
    なんか, エラーしてもグリーンな気がする.
 
 #+begin_src emacs-lisp
-(use-package tdd)
+(use-package tdd :disabled t)
 #+end_src
 
 * git
@@ -218,24 +233,24 @@
    http://daemianmack.com/magit-cheatsheet.html
 
    #+begin_src emacs-lisp
-   (autoload 'magit "magit" "An Emacs mode for Git" t t)
-   (autoload 'magit-svn "magit-svn" "An Emacs mode for Subversion" t t)
-   
-   (setq magit-git-executable "git")
-   (setq magit-emacsclient-executable "emacsclient")
-
-   (define-key global-map (kbd "C-c m") 'magit-status)
-   #+end_src
+(use-package magit
+  :commands (magit magit-svn magit-status)
+  :init
+  (define-key global-map (kbd "C-c m") 'magit-status)
+  :config
+  (setq magit-git-executable "git")
+  (setq magit-emacsclient-executable "emacsclient")
+  )
+#+end_src
 
 ** github 関連
 
  #+begin_src emacs-lisp
-;; (use-package helm-github-issues)
-;; (use-package helm-open-github)
+(use-package helm-github-issues :disabled t)
+(use-package helm-open-github :disabled t)
 
 ;; git 管理のシンボリックリンクで質問されないためのおまじない.
 ;; 参考: http://openlab.dino.co.jp/2008/10/30/212934368.html
 ;;; avoid "Symbolic link to Git-controlled source file;; follow link? (yes or no)
 (setq git-follow-symlinks t)
  #+end_src
-

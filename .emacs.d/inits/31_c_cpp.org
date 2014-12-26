@@ -1,22 +1,24 @@
 * C 言語・ C++
- - [[http://tuhdo.github.io/c-ide.html#sec-2][C/C++ Development Environment for Emacs]]
- - [[http://at-aka.blogspot.jp/2006/12/emacs-c.html][clmemo@aka: Emacs で C 言語プログラミングを始める人へのイントロダクション]]
- - [[http://sakito.jp/emacs/emacsobjectivec.html][Emacs で iPhone アプリ開発を快適にするための設定 : 紹介マニア]]
+  C 言語・ C++ のための設定.
+  - [[http://tuhdo.github.io/c-ide.html#sec-2][C/C++ Development Environment for Emacs]]
+  - [[http://at-aka.blogspot.jp/2006/12/emacs-c.html][clmemo@aka: Emacs で C 言語プログラミングを始める人へのイントロダクション]]
+  - [[http://sakito.jp/emacs/emacsobjectivec.html][Emacs で iPhone アプリ開発を快適にするための設定 : 紹介マニア]]
 
 #+begin_src emacs-lisp
-(use-package cc-mode)
-
-;; c-mode-common-hook は C/C++ の設定
-(add-hook 'c-mode-common-hook
-	  (lambda ()
-	    (setq c-default-style "k&r") ;; カーニハン・リッチースタイル
-	    (setq indent-tabs-mode nil)  ;; タブは利用しない
-	    (setq c-basic-offset 2)      ;; indent は 2 スペース
-	    ))
+(use-package cc-mode
+  :config
+  ;; c-mode-common-hook は C/C++ の設定
+  (add-hook 'c-mode-common-hook
+	    (lambda ()
+	      (setq c-default-style "k&r") ;; カーニハン・リッチースタイル
+	      (setq indent-tabs-mode nil)  ;; タブは利用しない
+	      (setq c-basic-offset 2)      ;; indent は 2 スペース
+	      ))
+  )
 #+end_src
 
 * flymake
-C/C++ に関わる設定を移動.
+  C/C++ に関わる設定.
 
 #+begin_src emacs-lisp
 (defun flymake-cc-init ()
@@ -37,7 +39,6 @@ C/C++ に関わる設定を移動.
 (add-hook 'c-mode-hook
 	  '(lambda ()
 	     (flymake-mode t))) (use-package flymake)
-
 #+end_src
 
 

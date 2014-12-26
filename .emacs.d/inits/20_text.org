@@ -542,7 +542,6 @@
    (use-package yspel)
    #+end_src
 
-
 * 英語
 ** aspell
    昔は ispell, 今は aspell が主流らしい.
