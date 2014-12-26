@@ -226,7 +226,6 @@ pukiwiki-edit-mode で起動.
 
 ** mmm-mode
     php-mode と html-mode の同居.
-
     - [[http://bluestar.s32.xrea.com/text/php-mode.php][閑古鳥 -> 呟き -> emacs で PHP-mode と mmm-mode を使う]]
 
     Molokai テーマと相性が悪いので一旦消す.
@@ -342,14 +341,7 @@ pukiwiki-edit-mode で起動.
    - [[http://d.hatena.ne.jp/tamura70/20100316/org][Emacs org-mode を使ってみる: (41) org-babel-R を使う 2/2 - 屯遁のパズルとプログラミングの日記]]
    - [[http://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html][R Source Code Blocks in Org Mode]]
 
-#+begin_src emacs-lisp
-(when (locate-library "ess-site")
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((R . t)))
-)
-#+end_src
+   R 言語と org-mode で Reproducible Research を.
+   - https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org
 
- R 言語と org-mode で Reproducible Research を.
- - https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org
-
+   設定は, org-mode.org に移動.

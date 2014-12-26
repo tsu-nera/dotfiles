@@ -803,11 +803,37 @@ containing the properties `:guid' and `:item-full-text'."
 #+end_src
 
 * org-babel
-  ruby を実行するには, 以下が必要.
+  org-babel で 実行した言語を書く. デフォルトでは emacs-lisp だけ.
+  
+#+begin_src emacs-lisp
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((R . t))
+ )
+#+end_src
 
-  #+begin_src emacs-lisp
-;;  (use-package ob-ruby)
-  #+end_src
+** mmm-mode
+   mmm-mode を利用すると, org-mode のなかに major-mode が共存できる.
+   - https://github.com/purcell/mmm-mode
+   - [[http://d.hatena.ne.jp/r_takaishi/20111101/1320161117][org-mode の内部で mmm-mode を使う - うどん駆動開発]]
+   - [[http://1ikehen1ikechicken.sitemix.jp/][Emacser のホームページ]]
+
+#+begin_src emacs-lisp
+(use-package mmm-auto
+  :config
+  (setq mmm-global-mode 'maybe)
+  (setq mmm-submode-decoration-level 2)
+  
+  ;; (set-face-bold-p 'mmm-default-submode-face t) ;太字
+  (set-face-background 'mmm-default-submode-face "#242424") ;背景色
+  
+  (mmm-add-classes
+   '((org-elisp
+      :submode emacs-lisp-mode
+      :front "^#\\+begin_src"
+      :back  "^#\\+end_src")))
+  (mmm-add-mode-ext-class nil "\\.org\\'" 'org-elisp))
+#+end_src
 
 * Others
 ** Narrowing
@@ -834,5 +860,4 @@ C-x n w     (widen)
       (quit (kill-buffer ibuf)))))
 (define-key org-mode-map (kbd "C-c /") 'org-sparse-tree-indirect-buffer)
 #+end_src
-
 
