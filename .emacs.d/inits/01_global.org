@@ -20,6 +20,11 @@
   `(setq ,to (append ,lst ,to)))
 #+end_src
 
+** use-package
+#+begin_src emacs-lisp
+(package-initialize)
+#+end_src
+
 * Functions
 ** フォルダを再帰的にロードパスに追加
    Special Thanks

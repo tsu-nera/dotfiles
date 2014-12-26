@@ -4,7 +4,7 @@
 ** 環境による場合分け
    el-get 実行前に, 環境による場合分けのマクロを定義.
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp 
 ;; -----------------------------------------------------------------------
 ;; Function : 環境による場合分けの方法
 ;;   http://d.hatena.ne.jp/tomoya/20090811/1250006208
@@ -42,11 +42,11 @@
 #+end_src
 
 * el-get.el
-インストール自体は init.el で.
+  インストール自体は init.el で.
 
 ** 共通パッケージ
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp 
 (defvar my/el-get-packages-common
   '(
     ;; manager
@@ -191,7 +191,7 @@
 ** Private パッケージ
 会社でつかわないパッケージ
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp 
 (defvar my/el-get-packages-private
   '(
     calfw
@@ -218,14 +218,14 @@
   MELPA との連携. M-x el-get-elpa-build-local-recipes する.
   - http://stackoverflow.com/questions/23165158/how-do-i-install-melpa-packages-via-el-get
 
-#+begin_src emacs-lisp :tangle yes
-(use-package el-get-elpa)
+#+begin_src emacs-lisp 
+(require 'el-get-elpa)
 (unless (file-directory-p el-get-recipe-path-elpa)
   (el-get-elpa-build-local-recipes))
 #+end_src
 
 * el-get 同期
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp 
 ;; auto install el-get.el
 (defvar my/el-get-packages-all
   (append 
@@ -239,10 +239,3 @@
 ;; (el-get 'sync my/el-get-packages-private)
 #+end_src
 
-* package.el
-
-#+begin_src emacs-lisp :tangle yes
-(use-package package)
-(package-initialize)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-#+end_src
