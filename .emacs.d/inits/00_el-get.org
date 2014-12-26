@@ -61,6 +61,7 @@ el-get 実行前に, 環境による場合分けのマクロを定義.
     key-chord
     jump-char
     ace-jump-zap
+    ace-window
     recentf-ext
     ;; text
     yasnippet

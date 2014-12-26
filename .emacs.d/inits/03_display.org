@@ -130,15 +130,25 @@ http://masutaka.net/chalow/2011-05-19-1.html
   (global-set-key "\C-qk" 'windmove-up)
 #+END_SRC
 
-** 番号指定で window 切り替え switch-window
+** switch-window
+   番号指定で window 切り替え
+    - https://github.com/dimitri/switch-window
 
-  - https://github.com/dimitri/switch-window
-
-  あまり好きではないので, 一旦封印する
+   あまり好きではないので, 一旦封印する
 
 #+begin_src emacs-lisp
 ;; (require 'switch-window)
 ;; (global-set-key (kbd "C-x o") 'switch-window)
+#+end_src
+
+** ace-window
+   ace インタフェースによる切り替え.
+   - https://github.com/abo-abo/ace-window
+   - [[http://rubikitch.com/2014/12/26/ace-window/][emacs ace-window.el : C-x o を ace-jump 化しよう!]]
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-x o") 'ace-window)
+(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 #+end_src
 
 * フレーム
