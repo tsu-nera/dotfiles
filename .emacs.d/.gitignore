@@ -2,6 +2,7 @@ eshell
 org-gcal
 local/
 *#
+*.elc
 tramp
 themes
 elisp-objects/

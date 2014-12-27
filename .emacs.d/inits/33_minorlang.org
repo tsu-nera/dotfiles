@@ -219,17 +219,7 @@
   - [[http://www.emacswiki.org/emacs/AssemblyProgramming][EmacsWiki: Assembly Programming]]
 
   asm-mode が標準添付.
-
-** gas-mode
-    [[http://www.hczim.de/software/gas-mode.html][gas-mode.el]] better asm-mode
-
-    よくわからないので, 封印.
-
-#+begin_src emacs-lisp
-;; (autoload 'gas-mode "gas-mode")
-;; (add-to-list 'auto-mode-alist '("\\.s\\'" . gas-mode))
-#+end_src
-
+  
 * PHP
 ** php-mode
    - [[https://github.com/ejmr/php-mode][ejmr/php-mode]]

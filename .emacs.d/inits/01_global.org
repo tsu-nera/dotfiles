@@ -26,7 +26,7 @@
 	    (normal-top-level-add-subdirs-to-load-path))))))
 ;; load-path に追加するフォルダ
 ;; 2 つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
-(add-to-load-path "elisp" "inits" "el-get" "elpa" "local")
+(add-to-load-path "elisp" "inits" "el-get" "elpa" "local" "mylisp")
 #+end_src
 ** Dired でカレントディレクトリを取得
   - [[http://d.hatena.ne.jp/syohex/20111026/1319606395][cde を改良 - Life is very short]]
@@ -106,16 +106,22 @@
    Could not load package hoge
 
    *Message* バッファを検索して, エラーがないかチェックする.
+
 * General Settings
-** savehist
-   minibuffer の履歴保存
+** inits, el-get 管理外の elisp のバイトコンパイル.
+   - [[http://www.bookshelf.jp/soft/meadow_18.html][Meadow/Emacs memo: バイトコンパイル]]
+   - [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Compilation-Functions.html#Compilation-Functions][Compilation Functions - GNU Emacs Lisp Reference Manual]]
 
 #+begin_src emacs-lisp
-(use-package savehist
-  :config
-  (savehist-mode t)
-  (setq savehist-additional-variables 
-  '(kill-ring search-ring regexp-search-ring)))
+(byte-recompile-directory "~/.emacs.d/elisp/" 0)
+(byte-recompile-directory "~/.emacs.d/mylisp/" 0)
+#+end_src
+
+** customize の出力先
+#+begin_src emacs-lisp
+(setq custom-file "~/.emacs.d/inits/02_custom.el")
+(if (file-exists-p (expand-file-name "~/.emacs.d/inits/02_custom.el"))
+    (load (expand-file-name custom-file) t nil nil))
 #+end_src
 
 ** generic-x

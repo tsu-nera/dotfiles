@@ -1,6 +1,6 @@
+;; 特定の major-mode のときは抑止する
+;; https://github.com/Khady/emacs.d/blob/master/setup-linum.el
 (require 'linum)
-
-(global-linum-mode)
 
 (defcustom linum-disabled-modes-list '(eshell-mode wl-summary-mode compilation-mode org-mode text-mode dired-mode doc-view-mode)
   "* List of modes disabled when global linum mode is on"
@@ -22,3 +22,4 @@
     (linum-mode 1)))
 
 (provide 'setup-linum)
+

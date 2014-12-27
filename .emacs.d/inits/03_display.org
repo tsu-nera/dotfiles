@@ -74,6 +74,17 @@
 )
 #+end_src
 
+** savehist
+   minibuffer の履歴保存
+
+#+begin_src emacs-lisp
+(use-package savehist
+  :config
+  (savehist-mode t)
+  (setq savehist-additional-variables 
+  '(kill-ring search-ring regexp-search-ring)))
+#+end_src
+
 * モードライン
 ** モードラインに時間を表示する
 #+begin_src emacs-lisp
@@ -91,27 +102,16 @@
    - https://github.com/Khady/emacs.d/blob/master/setup-linum.el
 
 #+begin_src emacs-lisp
-(use-package linum
-  :init (progn (add-hook 'after-init-hook 'global-linum-mode t))
+(use-package setup-linum
+  :init
+  ;; daemon起動中に linum-modeを有効にすると落ちる.
+  (add-hook 'after-init-hook 'global-linum-mode t)
   :config
+  ;; linumを利用しないメジャーモードを列挙
   (setq linum-disabled-modes-list
-	'(eshell-mode wl-summary-mode
-	  compilation-mode text-mode
-	  dired-mode doc-view-mode image-mode))
-  (defun linum-on ()
-    (unless (or (minibufferp)
-		(member major-mode linum-disabled-modes-list)
-		(and (string-match "*" (buffer-name))))
-      (linum-mode 1)))
-  )
-
-;; setup-linumは動作しなくなった..
-;; (use-package setup-linum
-;; :init
-;;  (progn
-;;     (add-hook 'after-init-hook 'linum-on t))
-;; :config
-;; (setq linum-disabled-modes-list '(doc-view-mode image-mode))
+ 	'(eshell-mode wl-summary-mode
+ 	  compilation-mode text-mode
+ 	  dired-mode doc-view-mode image-mode)))
 #+end_src
 
 * ファイル

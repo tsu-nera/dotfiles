@@ -52,10 +52,6 @@
 
 (require 'org)
 
-;; -----------------------------------------------------------------------
-;; Name     : custom
-;; Func     : customize の出力先
-;; ------------------------------------------------------------------------
 (setq custom-file "~/.emacs.d/inits/02_custom.el")
 (if (file-exists-p (expand-file-name "~/.emacs.d/inits/02_custom.el"))
     (load (expand-file-name custom-file) t nil nil))
@@ -67,17 +63,16 @@
 ;; https://github.com/tarao/bundle-el
 ;; ------------------------------------------------------------------------
 ;; bundleを el-getで取得する
-(add-to-list 'el-get-sources '(:name bundle :type github :pkgname "tarao/bundle-el"))
+(add-to-list 'el-get-sources
+	     '(:name bundle :type github :pkgname "tarao/bundle-el"))
 (el-get 'sync 'bundle)
+
 ;; -----------------------------------------------------------------------
 ;; Name     : init-loader
 ;; Install  : git clone https://github.com/emacs-jp/init-loader
 ;; Function : init.el分割管理
 ;; ------------------------------------------------------------------------
 (bundle emacs-jp/init-loader)
-
-;; ログファイルを表示
-(setq init-loader-show-log-after-init t)
 
 ;; バイトコンパイルする
 ;; 初めのバイトコンパイルは手動で実施する必要がある
@@ -88,9 +83,9 @@
 ;; http://whiteanthrax.pkf.jp/emacs/75/
 (setq gnutls-min-prime-bits 1024)
 
-;; エラー発生時にlogを開く
-;; (custom-set-variables
-;; '(init-loader-show-log-after-init 'error-only))
+;; エラー発生時にだけlogを開く
+;; (setq init-loader-show-log-after-init t)
+(setq init-loader-show-log-after-init 'error-only)
 
 ;; -----------------------------------------------------------------------
 ;; Name     : babel-loader
@@ -110,8 +105,10 @@
 ;; タイムスタンプが新しい or .el の抽出を行なったら .el を読む
 
 ;; インデント保持
+;; これをしないと 変換された elispファイルのインデントがずれる.
 (setq org-src-preserve-indentation t)
 
+;; inits配下のorgファイルをelに変換して読み込み.
 (bl:load-dir "~/.emacs.d/inits/")
 
 (put 'dired-find-alternate-file 'disabled nil)

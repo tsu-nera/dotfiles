@@ -1,14 +1,20 @@
 * Setup メモ
 ** el-get init-loader を入れる
+
+#+begin_src bash
 $ git submodule init
 $ git submodule update
+#+end_src
 
 ** emacswiki のレシピを入れる
+
+#+begin_src text
 M-x el-get-emacswiki-build-local-recipes
+#+end_src
+
+* ディレクトリ構造
 
 * Windows での設定
-
-
   - http://futurismo.biz/archives/2465
 
 * 依存パッケージ
@@ -35,5 +41,4 @@ M-x el-get-emacswiki-build-local-recipes
    
 ** w3m
    - Windows (Cygwin) w3m
-
-     バイナリオトス: [[http://hp.vector.co.jp/authors/VA052357/w3m_w32.html][OOTA's page]]
+    バイナリ落とす: [[http://hp.vector.co.jp/authors/VA052357/w3m_w32.html][OOTA's page]]
