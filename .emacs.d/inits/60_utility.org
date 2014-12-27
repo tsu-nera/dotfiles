@@ -140,6 +140,40 @@
 (use-package elscreen-dired)
 #+end_src
 
+** Dired でカレントディレクトリを取得
+  - [[http://d.hatena.ne.jp/syohex/20111026/1319606395][cde を改良 - Life is very short]]
+
+#+begin_src emacs-lisp
+(defun elscreen-current-directory ()
+  (let* (current-dir
+         (active-file-name
+          (with-current-buffer
+              (let* ((current-screen (car (elscreen-get-conf-list 'screen-history)))
+                     (property (cadr (assoc current-screen
+                                            (elscreen-get-conf-list 'screen-property)))))
+                (marker-buffer (nth 2 property)))
+            (progn
+              (setq current-dir (expand-file-name (cadr (split-string (pwd)))))
+              (buffer-file-name)))))
+    (if active-file-name
+        (file-name-directory active-file-name)
+      current-dir)))
+
+(defun non-elscreen-current-directory ()
+  (let* (current-dir
+         (current-buffer
+          (nth 1 (assoc 'buffer-list
+                        (nth 1 (nth 1 (current-frame-configuration))))))
+         (active-file-name
+          (with-current-buffer current-buffer
+            (progn
+              (setq current-dir (expand-file-name (cadr (split-string (pwd)))))
+              (buffer-file-name)))))
+    (if active-file-name
+        (file-name-directory active-file-name)
+      current-dir)))
+#+end_src
+
 * Web Browser: ブラウザ関連
 
 #+begin_src emacs-lisp
@@ -159,24 +193,24 @@
 #+end_src
 
 ** w3m
-   eww が登場したのでもはや過去のもの. 
+    eww が登場したのでもはや過去のもの. もう使わないだろう.
 
 #+begin_src emacs-lisp
-(use-package w3m-load
-  :config
-  (setq w3m-use-cookies t)
-  (setq w3m-favicon-cache-expire-wait nil)
-  (setq w3m-home-page "http://www.google.co.jp/")
-  
-  (when windows-p
-    ;;(setq exec-path (append exec-path '("C://app//w3m-mingw32")))
-    (setq exec-path (append exec-path '("C:/cygwin64/bin")))
-    )
-
-  (setq w3m-user-agent  "Mozilla/5.0 (Linux; U; Android 2.3.3; zh-tw; 
-        HTC_Pyramid Build/GRI40) AppleWebKit/533.1 
-        (KHTML, like Gecko) Version/4.0 Mobile Safari/533.")
-)
+;; (use-package w3m-load
+;;  :config
+;;  (setq w3m-use-cookies t)
+;;  (setq w3m-favicon-cache-expire-wait nil)
+;;  (setq w3m-home-page "http://www.google.co.jp/")
+;;  
+;;  (when windows-p
+;;    ;;(setq exec-path (append exec-path '("C://app//w3m-mingw32")))
+;;    (setq exec-path (append exec-path '("C:/cygwin64/bin")))
+;;    )
+;;
+;;  (setq w3m-user-agent  "Mozilla/5.0 (Linux; U; Android 2.3.3; zh-tw; 
+;;        HTC_Pyramid Build/GRI40) AppleWebKit/533.1 
+;;        (KHTML, like Gecko) Version/4.0 Mobile Safari/533.")
+;;)
 #+end_src
 
 ** webkit

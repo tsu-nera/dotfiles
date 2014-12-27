@@ -133,7 +133,7 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
    - https://github.com/apg/ant-el
 
 #+begin_src emacs-lisp
-(autoload 'ant "ant" "" t)
+(use-package ant :commands ant)
 #+end_src
 
 * Build
@@ -151,7 +151,7 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
    project-mode に依存してる.
 
    #+begin_src emacs-lisp
-   (autoload 'emacs-gradle-project-mode "emacs-gradle-project-mode" "emacs-gradle-Project Mode" t)
+   (use-package emacs-gradle-project-mode :commands emacs-gradle-project-mode)
    #+end_src
 
 * Error Check
@@ -181,62 +181,43 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 
 #+begin_src emacs-lisp
 (use-package eclim
+  :commands eclim-mode
   :config
-;; (setq eclim-auto-save t)
-;; (setq eclim-use-yasnippet nil)
+  ;; (setq eclim-auto-save t)
+  ;; (setq eclim-use-yasnippet nil)
 
-(autoload 'eclim-mode "eclim" nil t)
-;; 手動で有効にする.
-;;(add-hook 'java-mode-hook 'eclim-mode)
+  ;; 手動で有効にする.
+  ;;(add-hook 'java-mode-hook 'eclim-mode)
 
-(add-hook 'eclim-mode-hook
-	 (lambda ()
+  ;; Displaying compilation error messages in the echo area
+  (setq help-at-pt-display-when-idle t)
+  (setq help-at-pt-timer-delay 0.1)
+  (help-at-pt-set-timer)
+  
+  ;; skip warning error
+  (setq compilation-skip-threshold 2)
 
-;; Displaying compilation error messages in the echo area
-(setq help-at-pt-display-when-idle t)
-(setq help-at-pt-timer-delay 0.1)
-(help-at-pt-set-timer)
-
-;; add keybinds
-;; (define-key eclim-mode-map (kbd "C-c C-e b") 'eclim-problems)
-(define-key eclim-mode-map (kbd "C-c C-e p q") 'eclim-problems-compilation-buffer)
-(define-key eclim-mode-map (kbd "C-c C-e p o") 'eclim-problems-open)
-(define-key eclim-mode-map (kbd "C-c C-e p n") 'eclim-problems-next)
-(define-key eclim-mode-map (kbd "C-c C-e p p") 'eclim-problems-previous)
-;; Re-map `eclim-project-create' to C so that I can use c for
-;; `eclim-problems-correct'
-(define-key eclim-mode-map (kbd "C-c C-e p C") 'eclim-project-create)
-(define-key eclim-mode-map (kbd "C-c C-e p c") 'eclim-problems-correct)
-(define-key eclim-mode-map (kbd "M-.") 'eclim-java-find-declaration)
-;; find-references = list-callers.
-(define-key eclim-mode-map (kbd "C-c C-e l") 'eclim-java-find-references)
-
-;; skip warning error
-(setq compilation-skip-threshold 2)
-
-(when linux-p
-(setq eclim-eclipse-dirs "/usr/share/eclipse")
-(setq eclim-executable "/usr/share/eclipse/eclim")
-(setq eclimd-executable "/usr/share/eclipse/eclimd")
-(setq eclimd-default-workspace "/home/tsu-nera/repo/eclipse_mooc_work")
-)
-
-))
-)
-   #+end_src
-
-** eclimd
-   eclim daemon.start-eclimd/stop-eclimd で起動・終了.
-
-#+begin_src emacs-lisp
-(use-package eclimd)
+  (bind-keys :map eclim-mode-map
+             ("C-c C-e b" . eclim-problems)
+             ("C-c C-e p q" . eclim-problems-compilation-buffer)
+             ("C-c C-e p o" . eclim-problems-open)
+             ("C-c C-e p n" . eclim-problems-next)
+             ("C-c C-e p p" . eclim-problems-previous)
+             ("C-c C-e p C" . eclim-project-create)
+             ("C-c C-e p c" . eclim-problems-correct)
+             ("M-." . eclim-java-find-declaration)
+             ("C-c C-e j t" . recompile) ;; for JUnit
+             ("C-c C-e l" . eclim-java-find-references))
+  
+  (when linux-p
+  (setq eclim-eclipse-dirs "/usr/share/eclipse")
+  (setq eclim-executable "/usr/share/eclipse/eclim")
+  (setq eclimd-executable "/usr/share/eclipse/eclimd")
+  (setq eclimd-default-workspace "/home/tsu-nera/repo/eclipse_mooc_work")
+  )
 #+end_src
 
-   心なしか, Emacs から起動するよりも, コマンドラインから起動したほうが
-   Emacs が軽く動作する.
-
 ** 自動保管
-*** use auto-complete
   - [[http://www.emacswiki.org/emacs/AutoComplete][EmacsWiki: Auto Complete]]
 
 #+begin_src emacs-lisp
@@ -253,15 +234,6 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
    ;;   (ac-emacs-eclim-config)
    (add-to-list 'ac-sources 'ac-source-emacs-eclim)
    ))
-#+end_src
-
-*** use company-mode
-
-#+begin_src emacs-lisp
-;; for company-mode
-;; (use-package company-emacs-eclim)
-;; (company-emacs-eclim-setup)
-
 #+end_src
 
 ** Program 起動
@@ -293,10 +265,23 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
     (message "Sorry cannot run current buffer."))
   (compile (concat eclim-executable " -command java_junit -p " eclim--project-name " -t " (eclim-package-and-class))))
 ;; (define-key eclim-mode-map (kbd "C-c C-e j t") 'eclim-run-test)
-(define-key eclim-mode-map (kbd "C-c C-e j t") 'recompile)
 #+end_src
 
 実は, recompile でよかったりして..
+** End of Eclim Config
+   #+begin_src emacs-lisp
+   )
+   #+end_src
+
+** eclimd
+   eclim daemon.start-eclimd/stop-eclimd で起動・終了.
+
+#+begin_src emacs-lisp
+(use-package eclimd)
+#+end_src
+
+   心なしか, Emacs から起動するよりも, コマンドラインから起動したほうが
+   Emacs が軽く動作する.
 
 * 自動補完
 ** auto-java-complete
@@ -328,7 +313,6 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 #+end_src
 
 *** config
-    eclim との機能競合を起こすので, 一旦封印しておくか.
 
 #+begin_src emacs-lisp
 (use-package ajc-java-complete-config

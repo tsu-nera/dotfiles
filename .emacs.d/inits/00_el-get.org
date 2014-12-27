@@ -41,15 +41,28 @@
       windows-p (or cygwin-p nt-p meadow-p))
 #+end_src
 
-* el-get.el
-  インストール自体は init.el で.
+** マシンごとの設定
 
-** 共通パッケージ
+#+begin_src emacs-lisp
+(when linux-p
+(setq el-get-emacs "/usr/local/bin/emacs")
+)
+#+end_src
+
+* el-get-elpa
+  MELPA との連携. M-x el-get-elpa-build-local-recipes する.
+  - http://stackoverflow.com/questions/23165158/how-do-i-install-melpa-packages-via-el-get
 
 #+begin_src emacs-lisp 
-(defvar my/el-get-packages-common
-  '(
-    ;; manager
+(require 'el-get-elpa)
+(unless (file-directory-p el-get-recipe-path-elpa)
+  (el-get-elpa-build-local-recipes))
+#+end_src
+
+* el-get 同期 Package
+#+begin_src emacs-lisp 
+(defvar my/el-get-packages-all
+ '(
     use-package
     ;; window
     popwin
@@ -68,7 +81,6 @@
     ;; text
     yasnippet
     auto-complete
-    company-mode
     anzu
     auto-highlight-symbol
     highlight-symbol
@@ -92,8 +104,8 @@
     ;; smart-compile 独自 age 改造したものを elisp においた
     expand-region
     ;; utility
-    howm
-    direx
+    ;; howm
+    ;; direx
     stripe-buffer
     tempbuf
     exec-path-from-shell
@@ -155,7 +167,7 @@
     jtags-mode
     ant
     ;; haskell
-    haskell-mode
+    ;; haskell-mode
     ac-haskell-process
     ;; anything-rdefs
     ;; visual-basic
@@ -177,23 +189,17 @@
     ;; for linux
     migemo
     magit
-    emacs-w3m
     pdf-tools
     undo-tree
     pomodoro
     joseph-single-dired
     ;; others
     ;; key-guide
-    )
-  "A list of packages to install from el-get at launch")
-#+end_src
-
-** Private パッケージ
-会社でつかわないパッケージ
-
-#+begin_src emacs-lisp 
-(defvar my/el-get-packages-private
-  '(
+    ag
+    gtags
+    guide-key
+    mmm-mode
+    auto-capitalize
     calfw
     helm-gist
     helm-github-issues
@@ -209,33 +215,13 @@
     initchart
     scala-mode2
     project-mode
-    ;; ensime
-    )
-  "A list of packages that is not necessory for my work.")
-#+end_src
-
-* el-get-elpa
-  MELPA との連携. M-x el-get-elpa-build-local-recipes する.
-  - http://stackoverflow.com/questions/23165158/how-do-i-install-melpa-packages-via-el-get
-
-#+begin_src emacs-lisp 
-(require 'el-get-elpa)
-(unless (file-directory-p el-get-recipe-path-elpa)
-  (el-get-elpa-build-local-recipes))
-#+end_src
-
-* el-get 同期
-#+begin_src emacs-lisp 
-;; auto install el-get.el
-(defvar my/el-get-packages-all
-  (append 
-  my/el-get-packages-common
-  my/el-get-packages-private
+    ensime
+    sbt-mode
+    org-sync
+    eclim
   )
   "A list of packages to install from el-get at launch.")
 
 ;; 同期する
-;; (el-get 'sync my/el-get-packages-all)
-;; (el-get 'sync my/el-get-packages-private)
+(el-get 'sync my/el-get-packages-all)
 #+end_src
-

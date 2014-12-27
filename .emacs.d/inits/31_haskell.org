@@ -6,30 +6,32 @@
   Haskell のマイナーモード.
   - https://github.com/haskell/haskell-mode
 
-#+begin_src emacs-lisp
-(autoload 'haskell-mode "haskell-mode" nil t)
-(autoload 'haskell-cabal "haskell-cabal" nil t)
-
-(add-to-list 'auto-mode-alist '("\\.hs$" . haskell-mode))
-(add-to-list 'auto-mode-alist '("\\.lhs$" . literate-haskell-mode))
-(add-to-list 'auto-mode-alist '("\\.cabal\\'" . haskell-cabal-mode))
-#+end_src
-
-モードの設定.以下のリンクが詳しい.
+  モードの設定.以下のリンクが詳しい.
   - [[http://haskell.github.io/haskell-mode/manual/latest/][Haskell Mode 13.07]]
 
-
 #+begin_src emacs-lisp
- ;; indent の有効.
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-(add-hook 'haskell-mode-hook 'font-lock-mode)
-(add-hook 'haskell-mode-hook 'imenu-add-menubar-index)
+(use-package haskell-mode
+  :commands haskell-mode
+  :mode (("\\.hs$" . haskell-mode)
+         ("\\.lhs$" . literate-haskell-mode))
+  :config
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+  (add-hook 'haskell-mode-hook 'font-lock-mode)
+  (add-hook 'haskell-mode-hook 'imenu-add-menubar-index)
+  )
 
+(use-package haskell-cabal
+  :commands haskell-cabal
+  :mode ("\\.cabal\\" . haskell-cabal-mode)
+  )
 #+end_src
 
-** Haskell Script の編集モード
+** 導入の注意
+  el-getのレシピではmakeまで実行するけれども、
+  /usr/local/binにインストールできない.
 
+** Haskell Script の編集モード
 #+begin_src emacs-lisp
 (add-to-list 'interpreter-mode-alist '("runghc" . haskell-mode))
 (add-to-list 'interpreter-mode-alist '("runhaskell" . haskell-mode))

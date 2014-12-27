@@ -59,8 +59,6 @@
 #+end_src
 
 * HTML メール対策
-  emacs-w3m をつかう. w3m が必要. (apt-get install w3m)
-
   eww がつかえるか??
   - [[http://blog.gmane.org/gmane.mail.wanderlust.general.japanese/month=20140101][Japanese discussion of the Wanderlust mail/news reader for Emacs/XEmacs]]
 
@@ -72,15 +70,6 @@
 
 ;; text/plain を html よりも優先
 (set-alist 'mime-view-type-subtype-score-alist '(text . html) 0)
-
-;; HTML メールは w3m で
-;; (use-package mime-setup)
-;; (when (locate-library "mime-w3m")
-;;   (use-package w3m-ems)
-;;   (use-package w3m-load)
-;;   (use-package mime-w3m)
-;;   (setq mime-w3m-safe-url-regexp nil)
-;;   )
 #+end_src
 
 * 無視するヘッダ

@@ -5,32 +5,33 @@
 * 一般的な設定
 #+begin_src emacs-lisp
 (use-package org-install
+  :mode ("\\.org$"  . org-mode)
   :config
-  (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+  ;; key bindings
+  (global-set-key "\C-ca" 'org-agenda)
+  (global-set-key "\C-cc" 'org-capture)
+  (global-set-key "\C-cb" 'org-iswitchb)
+  (global-set-key "\C-cl" 'org-store-link)
+  (global-set-key "\C-c\C-x\C-@" 'org-clock-out) ;; tmux で C-o は利用しているため
+  (global-set-key "\C-cC" 'cfw:open-org-calendar)
+  (global-set-key "\C-c\C-x\C-z" 'org-resolve-clocks)
+  (global-set-key "\C-c\C-x\C-g" 'org-clock-goto)
 
-;; key bindings
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-cb" 'org-iswitchb)
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-c\C-x\C-@" 'org-clock-out) ;; tmux で C-o は利用しているため
-(define-key org-mode-map "\C-co" 'org-open-at-point) ;; C-o の置き換え tmux で c-o は使っているので
-(global-set-key "\C-cC" 'cfw:open-org-calendar)
-(global-set-key "\C-c\C-x\C-z" 'org-resolve-clocks)
-(global-set-key "\C-c\C-x\C-g" 'org-clock-goto)
+  ;; C-o の置き換え tmux で c-o は使っているので
+  (define-key org-mode-map "\C-co" 'org-open-at-point)
 
-;; -----------------------------------------------------------------------
-;; Name     : tiny-function
-;; ------------------------------------------------------------------------
-;; DONE をすべてアーカイブ
-(defun my-org-archive-done-tasks ()
-  (interactive)
-  (org-map-entries 'org-archive-subtree "/DONE" 'file)))
+  ;; -----------------------------------------------------------------------
+  ;; Name     : tiny-function
+  ;; ------------------------------------------------------------------------
+  ;; DONE をすべてアーカイブ
+  (defun my-org-archive-done-tasks ()
+    (interactive)
+    (org-map-entries 'org-archive-subtree "/DONE" 'file)))
 #+end_src
 
-org-mode の src を目立たせる設定. うまく動いていないような.
-
-- [[http://orgmode.org/worg/org-contrib/babel/examples/fontify-src-code-blocks.html][Pretty fontification of source code blocks]]
+** org-mode の src を目立たせる設定
+  org-mode の src を目立たせる設定. 
+  - [[http://orgmode.org/worg/org-contrib/babel/examples/fontify-src-code-blocks.html][Pretty fontification of source code blocks]]
 
 #+begin_src emacs-lisp
 (setq org-src-fontify-natively t)
@@ -200,49 +201,49 @@ org-mode の src を目立たせる設定. うまく動いていないような.
  https://github.com/danieroux/emacs/blob/master/external/bh-org-mode.el
 
 #+begin_src emacs-lisp
-(defvar bh/organization-task-id-gtd "b66237b9-95dd-4863-bc36-bd4dbc435eca")
-(defvar bh/organization-task-id-rest "192d0802-8ed7-4c51-ad3f-04f6ae4e75f6")
+  ;; (defvar bh/organization-task-id-gtd "b66237b9-95dd-4863-bc36-bd4dbc435eca")
+  ;; (defvar bh/organization-task-id-rest "192d0802-8ed7-4c51-ad3f-04f6ae4e75f6")
 
-(defun bh/clock-in-task-by-id (id)
-  "Clock in a task by id"
-  (save-restriction
-    (widen)
-    (org-with-point-at (org-id-find id 'marker)
-      (org-clock-in '(16)))))
+  ;; (defun bh/clock-in-task-by-id (id)
+  ;;   "Clock in a task by id"
+  ;;   (save-restriction
+  ;;     (widen)
+  ;;     (org-with-point-at (org-id-find id 'marker)
+  ;;       (org-clock-in '(16)))))
 
-;; ショートカット clock-in
-(defun gtd ()
-  (interactive)
-  (find-file "~/gtd/main.org")
-  (bh/clock-in-task-by-id bh/organization-task-id-gtd)
-  )
+  ;; ;; ショートカット clock-in
+  ;; (defun gtd ()
+  ;;   (interactive)
+  ;;   (find-file "~/gtd/main.org")
+  ;;   (bh/clock-in-task-by-id bh/organization-task-id-gtd)
+  ;;   )
 
-;; http://www.emacswiki.org/emacs/FacesPerBuffer
-(defun my-org-rest-display-mode ()
-  "Sets a fixed width (monospace) font in current buffer"
-  (interactive)
-  (setq buffer-face-mode-face '(:height 1000))
-  (buffer-face-mode))
+  ;; ;; http://www.emacswiki.org/emacs/FacesPerBuffer
+  ;; (defun my-org-rest-display-mode ()
+  ;;   "Sets a fixed width (monospace) font in current buffer"
+  ;;   (interactive)
+  ;;   (setq buffer-face-mode-face '(:height 1000))
+  ;;   (buffer-face-mode))
 
-(defvar rest-display-string "\n 休憩中だよ (*'~`*)")
+  ;; (defvar rest-display-string "\n 休憩中だよ (*'~`*)")
 
-(defun rest-display ()
-  "Display rest message on buffer"
-  (let ((temp-buffer-show-function 'switch-to-buffer))
-  (with-output-to-temp-buffer "*RestMessage*"  
-  (princ rest-display-string)))
-  (my-org-rest-display-mode)
-  )
+  ;; (defun rest-display ()
+  ;;   "Display rest message on buffer"
+  ;;   (let ((temp-buffer-show-function 'switch-to-buffer))
+  ;;   (with-output-to-temp-buffer "*RestMessage*"  
+  ;;   (princ rest-display-string)))
+  ;;   (my-org-rest-display-mode)
+  ;;   )
 
-(defun rest ()
-  (interactive)
-  (find-file "~/gtd/main.org")
-  (bh/clock-in-task-by-id bh/organization-task-id-rest)
-  (rest-display)
-  )
+  ;; (defun rest ()
+  ;;   (interactive)
+  ;;   (find-file "~/gtd/main.org")
+  ;;   (bh/clock-in-task-by-id bh/organization-task-id-rest)
+  ;;   (rest-display)
+  ;;   )
 
-(global-set-key (kbd "<f7>") 'gtd)
-(global-set-key (kbd "<f8>") 'rest)
+  ;; (global-set-key (kbd "<f7>") 'gtd)
+  ;; (global-set-key (kbd "<f8>") 'rest)
 #+end_src
 
 ** Next Action
@@ -500,7 +501,8 @@ org-mode の src を目立たせる設定. うまく動いていないような.
  
 ;; this will use emacs syntax higlighting in your #+BEGIN_SRC
 ;; <language> <your-code> #+END_SRC code blocks.
-(setq org-src-fontify-natively t)
+;; 別のところで宣言
+;; (setq org-src-fontify-natively t)
 #+end_src
 
 ** images

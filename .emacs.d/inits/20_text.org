@@ -632,7 +632,6 @@
 
 ** grammar
    英語の文法をチェックしてくれる.
-
    - [[http://www.emacswiki.org/emacs/BaoqiuCui][EmacsWiki: Baoqiu Cui]]
 
 *** インストール
@@ -644,22 +643,23 @@
    C-M-g で文法チェック発動.
 
 *** 設定
+  コンパイルができなくなった... 封印.
 
 #+begin_src emacs-lisp
-  (use-package grammar
-    :if linux-p
-    :config
-    (setq grammar-program-name "~/.emacs.d/elisp/grammar/grammar")
-    ;; 黒背景用の色変更
-    (set-face-attribute 'grammar-error-face nil
-			:background "#Ff6347"
-			:foreground "#000000")
+  ; (use-package grammar
+  ;   :if linux-p
+  ;   :config
+  ;   (setq grammar-program-name "~/.emacs.d/elisp/grammar/grammar")
+  ;   ;; 黒背景用の色変更
+  ;   (set-face-attribute 'grammar-error-face nil
+  ; 			:background "#Ff6347"
+  ; 			:foreground "#000000")
     
     ;; TODO Refactoring
     ;; (add-hook 'org-mode-hook 'grammar-mode)
     ;; (add-hook 'text-mode-hook 'grammar-mode)
-    (add-hook 'twittering-edit-mode-hook 'grammar-mode)
-    )
+    ; (add-hook 'twittering-edit-mode-hook 'grammar-mode)
+    ; )
 #+end_src
 
 ** auto-capitalize

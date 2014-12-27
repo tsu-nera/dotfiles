@@ -107,6 +107,21 @@
 
    *Message* バッファを検索して, エラーがないかチェックする.
 
+*** bind-key
+    use-package のサブモジュール.
+    キー割り当ての設定関数 define-key を完全に置き換えます.
+    - [[http://rubikitch.com/2014/09/10/bind-key/][emacs bind-key.el :define-key を直接書くのは時代遅れ!Emacs の重鎮が行っているスタイリッシュキー割り当て管理術!]]
+
+    個人用に割り当てたキーを列挙できる ( M-x describe-personal-keybindings )
+
+#+begin_src text
+(global-set-key (kbd "C-c x") 'my-ctrl-c-x-command)
+(bind-key "C-c x" 'my-ctrl-c-x-command)
+
+(define-key some-other-mode-map (kbd "C-c x") 'my-ctrl-c-x-command)
+(bind-key "C-c x" 'my-ctrl-c-x-command some-other-mode-map)
+#+end_src
+
 * General Settings
 ** inits, el-get 管理外の elisp のバイトコンパイル.
    - [[http://www.bookshelf.jp/soft/meadow_18.html][Meadow/Emacs memo: バイトコンパイル]]
@@ -161,6 +176,7 @@
 #+end_src
 
 * Key Bindings
+
 ** Global Keys
    よくわすれる, C や M の意味.
    - [[http://www.emacswiki.org/emacs/Emacs%e3%83%93%e3%82%ae%e3%83%8a%e3%83%bc#toc9][EmacsWiki: Emacs ビギナー]]

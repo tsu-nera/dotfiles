@@ -52,10 +52,6 @@
 
 (require 'org)
 
-(setq custom-file "~/.emacs.d/inits/02_custom.el")
-(if (file-exists-p (expand-file-name "~/.emacs.d/inits/02_custom.el"))
-    (load (expand-file-name custom-file) t nil nil))
-
 ;; ------------------------------------------------------------------------
 ;; Name     : bundle.el
 ;; Function : an el-get wapper
