@@ -4,10 +4,9 @@
  
 * 一般的な設定
 #+begin_src emacs-lisp
-; ------------------------------------------------------------------------
-(use-package org-install)
-;; (use-package org-pomodoro)
-(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+(use-package org-install
+  :config
+  (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
 ;; key bindings
 (global-set-key "\C-ca" 'org-agenda)
@@ -23,17 +22,10 @@
 ;; -----------------------------------------------------------------------
 ;; Name     : tiny-function
 ;; ------------------------------------------------------------------------
-;; wanderlust
-;; wanderlust のメールを追跡できる
-(setq org-return-follows-link t)
-
-;; -----------------------------------------------------------------------
-;; Name     : tiny-function
-;; ------------------------------------------------------------------------
 ;; DONE をすべてアーカイブ
 (defun my-org-archive-done-tasks ()
   (interactive)
-  (org-map-entries 'org-archive-subtree "/DONE" 'file))
+  (org-map-entries 'org-archive-subtree "/DONE" 'file)))
 #+end_src
 
 org-mode の src を目立たせる設定. うまく動いていないような.
@@ -59,8 +51,7 @@ org-mode の src を目立たせる設定. うまく動いていないような.
 #+end_src
 
 ** org-open-link を dired で
-
-http://sheephead.homelinux.org/
+   - http://sheephead.homelinux.org/
 
 #+begin_src emacs-lisp
 (org-add-link-type "file+emacs+dired" 'org-open-file-with-emacs-dired)
@@ -86,31 +77,11 @@ http://sheephead.homelinux.org/
 #+end_src
 
 * GTD
+  参考:
+  - http://hpcgi1.nifty.com/spen/index.cgi?OrgMode%2fOrganize_Your_Life_In_Plain_Text!#i9
+  - [[http://hpcgi1.nifty.com/spen/index.cgi?OrgMode%2FOrg-mode%A4%C7GTD%BC%C2%C1%A9%A1%CA%CB%DD%CC%F5%A1%CB#i16][OrgMode/Org-mode で GTD 実践 (翻訳) - How I use Emacs and Org-mode to implement GTD の翻訳]]
+
 ** org-agenda
-   アジェンダ表示の対象ファイル
-
-#+begin_src emacs-lisp
-;; 
-;; (if nt-p
-;; (setq org-agenda-files '("C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\inbox.org"
-;; 			 "C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\main.org"
-;; 			 "C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\unplan.org"
-;; 			 "C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\schedule.org"))
-;; (setq org-agenda-files '("~/gtd/inbox.org"
-;; 			 "~/gtd/main.org"
-;; 			 "~/gtd/unplan.org"
-;; 			 "~/gtd/schedule.org"))
-;; )
-
-;; スピードアップのために, agenda を減らしてみる.
-;; (setq org-agenda-files '("~/gtd/inbox.org"
-;; 			 "~/gtd/main.org"
-;; 			 "~/gtd/unplan.org"
-;; 			 "~/gtd/schedule.org"))
-
-(setq org-agenda-files '("~/gtd/main.org"))
-#+end_src
-
 #+begin_src emacs-lisp
 ;; 時間表示が 1 桁の時, 0 をつける
 (setq org-agenda-time-leading-zero t)
@@ -165,7 +136,30 @@ http://sheephead.homelinux.org/
 	("n" "Next Action List" tags-todo "next")
 	)
 )
-	
+
+#+end_src
+
+*** アジェンダ表示の対象ファイル
+#+begin_src emacs-lisp
+;; 
+;; (if nt-p
+;; (setq org-agenda-files '("C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\inbox.org"
+;; 			 "C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\main.org"
+;; 			 "C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\unplan.org"
+;; 			 "C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\schedule.org"))
+;; (setq org-agenda-files '("~/gtd/inbox.org"
+;; 			 "~/gtd/main.org"
+;; 			 "~/gtd/unplan.org"
+;; 			 "~/gtd/schedule.org"))
+;; )
+
+;; スピードアップのために, agenda を減らしてみる.
+;; (setq org-agenda-files '("~/gtd/inbox.org"
+;; 			 "~/gtd/main.org"
+;; 			 "~/gtd/unplan.org"
+;; 			 "~/gtd/schedule.org"))
+
+(setq org-agenda-files '("~/gtd/main.org"))
 #+end_src
 
 *** agenda speedup
@@ -173,6 +167,7 @@ http://sheephead.homelinux.org/
 
 ** タスクの状態
    うまく動作しないので, 利用しないことにする.
+
 *** 定義
     基本の状態は以下.
 
@@ -197,10 +192,6 @@ http://sheephead.homelinux.org/
 ;;  ("SOMEDAY" :foreground "yellow" :weight bold)
 ;;  )))
 #+end_src
-
-** 参考リンク
-  - http://hpcgi1.nifty.com/spen/index.cgi?OrgMode%2fOrganize_Your_Life_In_Plain_Text!#i9
-  - [[http://hpcgi1.nifty.com/spen/index.cgi?OrgMode%2FOrg-mode%A4%C7GTD%BC%C2%C1%A9%A1%CA%CB%DD%CC%F5%A1%CB#i16][OrgMode/Org-mode で GTD 実践 (翻訳) - How I use Emacs and Org-mode to implement GTD の翻訳]]
 
 ** org-clock-in-quick
  指定したタスクを clockin するためのショートカット はじめてつくった自作 defun!!
@@ -305,14 +296,12 @@ http://sheephead.homelinux.org/
 (setq org-todo-state-tags-triggers
       (quote (("DONE" ("next")))))
 #+end_src
+** org-clock
+   org-clock
+   - http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
 
-** 未分類
 #+begin_src emacs-lisp
-;; -----------------------------------------------------------------------
-;; Name     : org-clock
-;; http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
-;; ------------------------------------------------------------------------
-;; emacs resume 時に時間計測再会
+;; emacs resume 時に時間計測再開
 (org-clock-persistence-insinuate)
 
 ;; Resume clocking task on clock-in if the clock is open
@@ -359,15 +348,18 @@ http://sheephead.homelinux.org/
      (unless effort
        (error "[Error: Is not set a effort!]"))))
 (ad-activate-regexp "is-set-effort-before-clock-in")
+#+end_src
 
-;; -----------------------------------------------------------------------
-;; Name     : org-clock-by-tags
-;; Function : タグごとに clocktable を集計
-;; TODO そのうち elisp で分離
-;; http://stackoverflow.com/questions/17353591/timetable-grouped-by-tag
-;; #+BEGIN: clocktable-by-tag :maxlevel 2 :tags ("p1" "p2")
+*** org-clock-by-tags
+    タグごとに clocktable を集計.
+    - http://stackoverflow.com/questions/17353591/timetable-grouped-by-tag
+
+    TODO そのうち elisp で分離
+
+#+begin_src emacs-lisp
+;; 宣言方法
+;;  #+BEGIN: clocktable-by-tag :maxlevel 2 :tags ("p1" "p2")
 ;;                            :tstart "2013-06-27" :tend "2013-06-28"
-;; ------------------------------------------------------------------------
 (defun clocktable-by-tag/shift-cell (n)
   (let ((str ""))
     (dotimes (i n)
@@ -422,7 +414,8 @@ http://sheephead.homelinux.org/
   注意: adjust-text.el との兼ね合いで, file+datetree が動かない. 様子見
 
 #+begin_src emacs-lisp
-(use-package org-capture)
+(use-package org-capture
+  :config
 (setq org-capture-templates
       '(
 	("i" "Inbox" entry (file+datetree "~/gtd/inbox.org") "** TODO %?\n")
@@ -441,7 +434,7 @@ http://sheephead.homelinux.org/
         "* TODO %^{Brief Description}\n%a\n%?Added: %U\n" :prepend t)
 	("c" "calfw2org" entry (file "~/gtd/schedule.org") "*  %?\n %(cfw:org-capture-day)")
 	       )
-     )
+     ))
 #+end_src
 
 * org2blog
@@ -451,19 +444,21 @@ http://sheephead.homelinux.org/
   - [[http://www.geocities.jp/km_pp1/org-mode/org-mode-document.html][Org-mode による HTML 文書作成入門]]
 
 #+begin_src emacs-lisp
-(use-package org2blog-autoloads)
+(use-package org2blog-autoloads
+  :config
+  
+  ;; パスワード設定
+  (when linux-p
+    (setq sternstunden (netrc-machine (netrc-parse "~/.netrc") "sternstunden" t))
+    (setq everclassic (netrc-machine (netrc-parse "~/.netrc") "everclassic" t))
+    (setq futurismo (netrc-machine (netrc-parse "~/.netrc") "futurismo" t))
+    )
+  (when windows-p
+    (setq futurismo (netrc-machine (netrc-parse "c:/cygwin64/home/tsu-nera/.netrc") "futurismo" t))
+    )
 
-(when linux-p
-(setq sternstunden (netrc-machine (netrc-parse "~/.netrc") "sternstunden" t))
-(setq everclassic (netrc-machine (netrc-parse "~/.netrc") "everclassic" t))
-(setq futurismo (netrc-machine (netrc-parse "~/.netrc") "futurismo" t))
-)
-
-(when windows-p
-(setq futurismo (netrc-machine (netrc-parse "c:/cygwin64/home/tsu-nera/.netrc") "futurismo" t))
-)
-
-(setq org2blog/wp-blog-alist
+  ;; ブログ設定
+  (setq org2blog/wp-blog-alist
       '(("Futurismo"
 	 :url "http://futurismo.biz/xmlrpc.php"
 	 :username "admin"
@@ -481,12 +476,11 @@ http://sheephead.homelinux.org/
 	 :password (netrc-get everclassic "password")
 	)
       )
-)
+))
 #+end_src
 
 ** WordPress で シンタックスハイライト
    SyntaxHighlighter Evolved Plugin を利用すればできるようだ.
-
    - [[http://vxlabs.com/2014/05/25/emacs-24-with-prelude-org2blog-and-wordpress/][Publish to WordPress with Emacs 24 and org2blog - vxlabs]]
    - [[http://blog.tmsrv.net/?p=82][tmaeda1981jp の blog » Blog Archive » org2blog を使用して Emacs から WordPress に投稿する]]
    - [[http://blog.binchen.org/posts/how-to-use-org2blog-effectively-as-a-programmer.html][How to use org2blog effectively as a programmer | Chen's blog]]
@@ -533,15 +527,13 @@ http://sheephead.homelinux.org/
    このサイトを参考に, 幅 670px, 高さ 447px に.
 
    - [[http://i-i-news.com/2014/08/eyecatch/#][最近ブログのアイキャッチ画像の作り方を確立したので, 自分がやっている方法を紹介します - iLOG]]
-
+     
      #+begin_src bash
      convert -resize 640x480 before.jpg after.jpg
      convert -resize 670x447 before.jpg after.jpg
      #+end_src
 
-
    縦横比を計算してくれるつーる.
-
    - [[http://www.web-jozu.com/javascript/size.html][写真の縦横比を固定して拡大縮小値を計算するツール:JavaScript サンプル |WEB 上手]]
 
 ** org-export html で表が崩れる
@@ -559,64 +551,6 @@ http://sheephead.homelinux.org/
 (setq org-html-table-header-tags (quote ("<th scope=\"%s\">" . "</th>")))
 #+end_src
 
-* スケジュール管理
-** org-gcal
-google calendar.
-
-- http://sheephead.homelinux.org/2014/03/14/7023/
-
-Google Developer Console で client-id と secret-key を取得する必要がある.
-
-- https://console.developers.google.com/project
-
-取得した情報は ~/.netrc に保存して読み出す.
-
-#+begin_src emacs-lisp
-(when linux-p
-(use-package org-gcal)
-;; password は netrc へ
-(setq GoogleCal (netrc-machine (netrc-parse "~/.netrc") "org-gcal" t))
-(setq org-gcal-client-id (netrc-get GoogleCal "login")
-      org-gcal-client-secret (netrc-get GoogleCal "password")
-      org-gcal-dir "~/org"
-      org-gcal-file-alist '(("fox10225fox@gmail.com" .  "~/gtd/schedule.org")
-      ))
-)
-#+end_src
-
-** calfw
-Emacs 用カレンダー.
-
-- [[https://github.com/kiwanami/emacs-calfw][kiwanami/emacs-calfw]]
-- [[http://d.hatena.ne.jp/kiwanami/20110723/1311434175][Emacs 用カレンダー calfw v1.2 リリース - 技術日記＠ kiwanami]]
-- [[http://d.hatena.ne.jp/kiwanami/20110619/1308495781][calfw の org-agenda 対応 calfw-org.el - 技術日記＠ kiwanami]]
-- [[http://sheephead.homelinux.org/2014/03/15/7035/][calfw と org-gcal の連携 | sheephead]]
-
-org-gcal で Google カレンダーと同期して, calfw で表示させる.
-
-org と ical のスケジュールを混ぜて表示させることが出来ます.
-以下のような感じで cfw:open-calendar-buffer を使います.
-
-#+begin_src emacs-lisp
-(use-package calfw-org)
-
-;; 対象ファイル
-(setq cfw:org-icalendars '("~/gtd/schedule.org"))
-;; First day of the week
-(setq calendar-week-start-day 1) ; 0:Sunday, 1:Monday
-
-;; cfw:open-org-calendar に集約するので, ひとまずコメントアウト.
-;; (defun my-open-calendar ()
-;;   (interactive)
-;;   (cfw:open-calendar-buffer
-;;    :view 'month
-;;    :contents-sources
-;;    (list 
-;;    ;; title, URL, color
-;;    (cfw:org-create-source "Green")  ; orgmode source
-;;    ;; (cfw:org-create-file-source "GCal" "~/gtd/schedule.org" "#268bd2")  ;; Google Calendar
-;;    )))
-#+end_src
 * org-export
   org-mode から別形式へ. つまり, なんでも org-mode でよいということ.
 
@@ -682,126 +616,6 @@ org と ical のスケジュールを混ぜて表示させることが出来ま�
 ;; (use-package ox-freemind)
 #+end_src
 
-* mobileOrg
-iphone と org-mode の同期. Dropbox を利用
-
-つかってないから, ひとまず封印.
-
-#+begin_src emacs-lisp
-;; Set to the location of your Org files on your local system
-;; (setq org-directory "~/gtd")
-;; ;; Set to the name of the file where new notes will be stored
-;; (setq org-mobile-inbox-for-pull "~/gtd/flagged.org")
-;; ;; Set to <your Dropbox root directory>/MobileOrg.
-;; (setq org-mobile-directory "~/dropbox/ アプリ/MobileOrg")
-
-;; ;; 起動と終了時に同期
-;; ;; org-mobile-directry が存在しないとハングするためなしにした
-;; ;; そのうちなんか考える
-;; ;; (add-hook 'after-init-hook 'org-mobile-pull)
-;; ;; (add-hook 'kill-emacs-hook 'org-mobile-push)
-
-;; ;; moble sync
-;; ;; http://stackoverflow.com/questions/8432108/how-to-automatically-do-org-mobile-push-org-mobile-pull-in-emacs
-;; (defvar org-mobile-sync-timer nil)
-;; (defvar org-mobile-sync-idle-secs (* 60 10))
-;; (defun org-mobile-sync ()
-;;     (interactive)
-;;       (org-mobile-pull)
-;;         (org-mobile-push))
-;; (defun org-mobile-sync-enable ()
-;;     "enable mobile org idle sync"
-;;       (interactive)
-;;         (setq org-mobile-sync-timer
-;; 	      (run-with-idle-timer org-mobile-sync-idle-secs t
-;; 				   'org-mobile-sync)));
-;; (defun org-mobile-sync-disable ()
-;;     "disable mobile org idle sync"
-;;       (interactive)
-;;         (cancel-timer org-mobile-sync-timer))
-;; (org-mobile-sync-enable)
-#+end_src
-
-* RSS Feed
-RSS Feeder for Emacs
-
-http://orgmode.org/manual/RSS-Feeds.html
-http://d.hatena.ne.jp/tamura70/20100225/org
-
-#+begin_src emacs-lisp
-(use-package org-feed)
-(defun org-feed-parse-rdf-feed (buffer)
-  "Parse BUFFER for RDF feed entries.
-Returns a list of entries, with each entry a property list,
-containing the properties `:guid' and `:item-full-text'."
-  (let (entries beg end item guid entry)
-    (with-current-buffer buffer
-      (widen)
-      (goto-char (point-min))
-      (while (re-search-forward "<item[> ]" nil t)
-	(setq beg (point)
-	      end (and (re-search-forward "</item>" nil t)
-		       (match-beginning 0)))
-	(setq item (buffer-substring beg end)
-	      guid (if (string-match "<link\\>.*?>\\(.*?\\)</link>" item)
-		       (org-match-string-no-properties 1 item)))
-	(setq entry (list :guid guid :item-full-text item))
-	(push entry entries)
-	(widen)
-	(goto-char end))
-      (nreverse entries))))
-
-(setq org-feed-retrieve-method 'wget)
-;;(setq org-feed-retrieve-method 'curl)
-
-(setq org-feed-default-template "\n* %h\n  - %U\n  - %a  - %description")
-#+end_src
-
-** 登録 feed
-
-#+begin_src emacs-lisp
-(setq org-feed-alist nil)
-;; (add-to-list 'org-feed-alist
-;;   '("Futurismo" "http://futurismo.biz/feed"
-;;     "~/org/rss.org" "Futurismo"
-;;     :parse-feed org-feed-parse-rdf-feed))
-(add-to-list 'org-feed-alist
-  '("Publickey" "http://www.publickey1.jp/atom.xml"
-    "~/org/rss.org" "PublicKey"))
-#+end_src
-
-* Wanderlust
-
-#+begin_src emacs-lisp
-(use-package org-wl)
-;; wanderlust のメールを追跡できる
-(setq org-return-follows-link t)
-#+end_src
-
-* Plantuml
-
-#+begin_src emacs-lisp
-(when linux-p
-(setq org-plantuml-jar-path "/usr/local/bin/plantuml.jar")
-(defun org-mode-init ()
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   (add-to-list 'org-babel-load-languages '(plantuml . t))))
-(add-hook 'org-mode-hook 'org-mode-init)
-)
-#+end_src
-
-* org-sync
-  チケット管理システムとの同期.
-
-  - Official [[http://orgmode.org/worg/org-contrib/gsoc2012/student-projects/org-sync/][Org-sync]]
-  - [[https://github.com/emacsmirror/org-sync][emacsmirror/org-sync · GitHub]]
-
-#+begin_src emacs-lisp
-(mapc 'load
-      '("org-element" "os" "os-bb" "os-github" "os-rmine"))
-#+end_src
-
 * org-babel
   org-babel で 実行した言語を書く. デフォルトでは emacs-lisp だけ.
   
@@ -840,12 +654,13 @@ containing the properties `:guid' and `:item-full-text'."
   (mmm-add-mode-ext-class nil "\\.org\\'" 'org-elisp))
 #+end_src
 
-** org-narrow
-  - C-x n s     (org-narrow-to-subtree) Narrow buffer to current subtree. 
-  - C-x n b     (org-narrow-to-block) Narrow buffer to current block. 
-  - C-x n w     (widen) Widen buffer to remove narrowing.
+* org-narrow
+ - C-x n s     (org-narrow-to-subtree) Narrow buffer to current subtree. 
+ - C-x n b     (org-narrow-to-block) Narrow buffer to current block. 
+ - C-x n w     (widen) Widen buffer to remove narrowing.
 
-** org-sparse-tree 
+* org-sparse-tree 
+  検索語に関連するところだけを拾い読みするのに便利.
    - [[http://rubikitch.com/2014/10/10/org-sparse-tree-indirect-buffer/][Emacs org-mode の検索機能を 16 倍パワーアップする方法 | るびきち「日刊 Emacs 」]]
 
 #+begin_src emacs-lisp
@@ -855,6 +670,187 @@ containing the properties `:guid' and `:item-full-text'."
     (condition-case _
         (org-sparse-tree arg)
       (quit (kill-buffer ibuf)))))
-(define-key org-mode-map (kbd "C-c /") 'org-sparse-tree-indirect-buffer)
+(define-key org-mode-map (kbd "C-c \\") 'org-sparse-tree-indirect-buffer)
+#+end_src
+
+* 他のツールとの連携
+** RSS Feed
+  RSS Feeder for Emacs
+  - http://orgmode.org/manual/RSS-Feeds.html
+  - http://d.hatena.ne.jp/tamura70/20100225/org
+
+#+begin_src emacs-lisp
+(use-package org-feed
+  :config
+(defun org-feed-parse-rdf-feed (buffer)
+  "Parse BUFFER for RDF feed entries.
+Returns a list of entries, with each entry a property list,
+containing the properties `:guid' and `:item-full-text'."
+  (let (entries beg end item guid entry)
+    (with-current-buffer buffer
+      (widen)
+      (goto-char (point-min))
+      (while (re-search-forward "<item[> ]" nil t)
+	(setq beg (point)
+	      end (and (re-search-forward "</item>" nil t)
+		       (match-beginning 0)))
+	(setq item (buffer-substring beg end)
+	      guid (if (string-match "<link\\>.*?>\\(.*?\\)</link>" item)
+		       (org-match-string-no-properties 1 item)))
+	(setq entry (list :guid guid :item-full-text item))
+	(push entry entries)
+	(widen)
+	(goto-char end))
+      (nreverse entries))))
+
+(setq org-feed-retrieve-method 'wget)
+;;(setq org-feed-retrieve-method 'curl)
+
+(setq org-feed-default-template "\n* %h\n  - %U\n  - %a  - %description")
+)
+#+end_src
+
+*** 登録 feed
+#+begin_src emacs-lisp
+(use-package org-feed
+  :config
+(setq org-feed-alist nil)
+;; (add-to-list 'org-feed-alist
+;;   '("Futurismo" "http://futurismo.biz/feed"
+;;     "~/org/rss.org" "Futurismo"
+;;     :parse-feed org-feed-parse-rdf-feed))
+(add-to-list 'org-feed-alist
+  '("Publickey" "http://www.publickey1.jp/atom.xml"
+    "~/org/rss.org" "PublicKey")))
+#+end_src
+
+** Wanderlust
+
+#+begin_src emacs-lisp
+(use-package org-wl
+  :config
+  ;; wanderlust のメールを追跡できる
+  (setq org-return-follows-link t))
+#+end_src
+
+** Plantuml
+
+#+begin_src emacs-lisp
+(when linux-p
+(setq org-plantuml-jar-path "/usr/local/bin/plantuml.jar")
+(defun org-mode-init ()
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   (add-to-list 'org-babel-load-languages '(plantuml . t))))
+(add-hook 'org-mode-hook 'org-mode-init)
+)
+#+end_src
+
+** org-sync
+  チケット管理システムとの同期.
+  - Official [[http://orgmode.org/worg/org-contrib/gsoc2012/student-projects/org-sync/][Org-sync]]
+  - [[https://github.com/emacsmirror/org-sync][emacsmirror/org-sync · GitHub]]
+
+#+begin_src emacs-lisp
+(mapc 'load
+      '("org-element" "os" "os-bb" "os-github" "os-rmine"))
+#+end_src
+  
+* スケジュール管理
+** org-gcal
+   google calendar.
+   - http://sheephead.homelinux.org/2014/03/14/7023/
+
+   Google Developer Console で client-id と secret-key を取得する必要がある.
+   - https://console.developers.google.com/project
+
+取得した情報は ~/.netrc に保存して読み出す.
+
+#+begin_src emacs-lisp
+(use-package org-gcal
+  :if linux-p
+  :config
+  ;; password は netrc へ
+  (setq GoogleCal (netrc-machine (netrc-parse "~/.netrc") "org-gcal" t))
+  (setq org-gcal-client-id (netrc-get GoogleCal "login")
+	org-gcal-client-secret (netrc-get GoogleCal "password")
+	org-gcal-dir "~/org"
+	org-gcal-file-alist '(("fox10225fox@gmail.com" .  "~/gtd/schedule.org")
+			      ))
+  )
+#+end_src
+
+** calfw
+   Emacs 用カレンダー.
+   - [[https://github.com/kiwanami/emacs-calfw][kiwanami/emacs-calfw]]
+   - [[http://d.hatena.ne.jp/kiwanami/20110723/1311434175][Emacs 用カレンダー calfw v1.2 リリース - 技術日記＠ kiwanami]]
+   - [[http://d.hatena.ne.jp/kiwanami/20110619/1308495781][calfw の org-agenda 対応 calfw-org.el - 技術日記＠ kiwanami]]
+   - [[http://sheephead.homelinux.org/2014/03/15/7035/][calfw と org-gcal の連携 | sheephead]]
+
+   org-gcal で Google カレンダーと同期して, calfw で表示させる.
+
+   org と ical のスケジュールを混ぜて表示させることが出来ます.
+   以下のような感じで cfw:open-calendar-buffer を使います.
+
+#+begin_src emacs-lisp
+(use-package calfw-org
+  :config
+
+;; 対象ファイル
+(setq cfw:org-icalendars '("~/gtd/schedule.org"))
+;; First day of the week
+(setq calendar-week-start-day 1) ; 0:Sunday, 1:Monday
+
+;; cfw:open-org-calendar に集約するので, ひとまずコメントアウト.
+;; (defun my-open-calendar ()
+;;   (interactive)
+;;   (cfw:open-calendar-buffer
+;;    :view 'month
+;;    :contents-sources
+;;    (list 
+;;    ;; title, URL, color
+;;    (cfw:org-create-source "Green")  ; orgmode source
+;;    ;; (cfw:org-create-file-source "GCal" "~/gtd/schedule.org" "#268bd2")  ;; Google Calendar
+;;    )))
+)
+#+end_src
+
+** mobileOrg
+  iphone と org-mode の同期. Dropbox を利用
+  つかってないから, ひとまず封印.
+
+#+begin_src emacs-lisp
+;; Set to the location of your Org files on your local system
+;; (setq org-directory "~/gtd")
+;; ;; Set to the name of the file where new notes will be stored
+;; (setq org-mobile-inbox-for-pull "~/gtd/flagged.org")
+;; ;; Set to <your Dropbox root directory>/MobileOrg.
+;; (setq org-mobile-directory "~/dropbox/ アプリ/MobileOrg")
+
+;; ;; 起動と終了時に同期
+;; ;; org-mobile-directry が存在しないとハングするためなしにした
+;; ;; そのうちなんか考える
+;; ;; (add-hook 'after-init-hook 'org-mobile-pull)
+;; ;; (add-hook 'kill-emacs-hook 'org-mobile-push)
+
+;; ;; moble sync
+;; ;; http://stackoverflow.com/questions/8432108/how-to-automatically-do-org-mobile-push-org-mobile-pull-in-emacs
+;; (defvar org-mobile-sync-timer nil)
+;; (defvar org-mobile-sync-idle-secs (* 60 10))
+;; (defun org-mobile-sync ()
+;;     (interactive)
+;;       (org-mobile-pull)
+;;         (org-mobile-push))
+;; (defun org-mobile-sync-enable ()
+;;     "enable mobile org idle sync"
+;;       (interactive)
+;;         (setq org-mobile-sync-timer
+;; 	      (run-with-idle-timer org-mobile-sync-idle-secs t
+;; 				   'org-mobile-sync)));
+;; (defun org-mobile-sync-disable ()
+;;     "disable mobile org idle sync"
+;;       (interactive)
+;;         (cancel-timer org-mobile-sync-timer))
+;; (org-mobile-sync-enable)
 #+end_src
 
