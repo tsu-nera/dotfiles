@@ -72,57 +72,61 @@
    orgcard を引く.
 
 #+begin_src emacs-lisp
-(use-package helm-orgcard)
-(setq hoc-lang-selector 'ja)
+(use-package helm-orgcard
+  :config
+  (setq hoc-lang-selector 'ja))
 #+end_src
 
 ** helm-ag
    ag 結果を helm で絞り込み
 
 #+begin_src emacs-lisp
-(use-package helm-ag)
-(global-set-key (kbd "C-x g r") 'helm-ag)
+(use-package helm-ag
+  :config
+  (global-set-key (kbd "C-x g r") 'helm-ag)
+  )
 #+end_src
 
 ** helm-migemo
    helm の日本語検索.
    - https://github.com/emacs-helm/helm-migemo
 
+  うまく動かないので, パッチをあてる.
+  - [[http://rubikitch.com/2014/12/19/helm-migemo/][emacs helm-migemo.el : helm で正しく Migemo を動作させる!]]
+
 #+begin_src emacs-lisp
-(use-package helm-migemo)
-;;; この修正が必要
-(eval-after-load "helm-migemo"
-  '(defun helm-compile-source--candidates-in-buffer (source)
-     (helm-aif (assoc 'candidates-in-buffer source)
-         (append source
-                 `((candidates
-                    . ,(or (cdr it)
-                           (lambda ()
-                             ;; Do not use `source' because other plugins
-                             ;; (such as helm-migemo) may change it
-                             (helm-candidates-in-buffer (helm-get-current-source)))))
-                   (volatile) (match identity)))
-       source)))
+(use-package helm-migemo
+  :config
+  ;;; この修正が必要
+  (defun helm-compile-source--candidates-in-buffer (source)
+    (helm-aif (assoc 'candidates-in-buffer source)
+	(append source
+		`((candidates
+		   . ,(or (cdr it)
+			  (lambda ()
+			    ;; Do not use `source' because other plugins
+			    ;; (such as helm-migemo) may change it
+			    (helm-candidates-in-buffer (helm-get-current-source)))))
+		  (volatile) (match identity)))
+      source)))
 #+end_src
 
-  うまく動かないので, パッチをあてる.
-  - [[http://rubikitch.com/2014/12/19/helm-migemo/][emacs helm-migemo.el : helm で正しく Migemo を動作させる! | MELPA Emacs Lisp Elisp パッケージ インストール 設定 使い方 スクリーンショット | るびきち「日刊 Emacs 」]]
-
 ** helm-kaomoji
-顔文字.
-
+   顔文字.
+   
 #+begin_src emacs-lisp
 (use-package helm-kaomoji)
 #+end_src
+
 ** helm-wl-address
    helm i/f でアドレス検索. 
-
    - https://github.com/kenbeese/helm-wl-address
    - [[http://qiita.com/kenbeese/items/438c1c8d664198d8527f][Emacs - wanderlust のアドレスを helm で選択する - Qiita]]
 
 #+begin_src emacs-lisp
 (use-package helm-wl-address)
 #+end_src
+
 ** helm-flyspell
    from: https://gist.github.com/cofi/3013327
 
@@ -182,9 +186,9 @@ Adapted from `flyspell-correct-word-before-point'."
 
 (global-set-key (kbd "C-x g i") 'helm-flyspell-correct)
 #+end_src
+
 ** helm-google
    google 検索.英語だけ.
-
    - https://github.com/steckerhalter/helm-google
 
    日本語だからか? うごかない.
@@ -197,12 +201,9 @@ Adapted from `flyspell-correct-word-before-point'."
 
 ** helm-gtags
    GNU Global.
-
-   うーん, 動かない. . .
-
    - [[https://github.com/syohex/emacs-helm-gtags][syohex/emacs-helm-gtags]]
 
-     error helm-process-delay-source
+   うーん, 動かない. . .error helm-process-delay-source
 
 #+begin_src emacs-lisp
 ;; (use-package helm-gtags)
@@ -235,20 +236,21 @@ Adapted from `flyspell-correct-word-before-point'."
 ** helm-etags-plus
    - [[https://github.com/jixiuf/helm-etags-plus][jixiuf/helm-etags-plus]]
 
-     C 言語では, これがまともに動く.gtags は動かない.
-     etags で TAGS を生成する.
+   C 言語では, これがまともに動く.gtags は動かない.
+   etags で TAGS を生成する.
 
 #+begin_src emacs-lisp
 (use-package helm-etags+)
 (use-package ctags-update)
 #+end_src
+
 ** helm-swoop
    - [[https://github.com/ShingoFukuyama/helm-swoop][ShingoFukuyama/helm-swoop]]
    - [[http://rubikitch.com/2014/12/25/helm-swoop/][emacs helm-swoop.el : 【これはすごい】バッファ全体を Migemo 絞り込み検索して走り回れ!]]
 
 #+begin_src emacs-lisp
-(use-package helm-swoop)
-
+(use-package helm-swoop
+  :config
 ;; Change the keybinds to whatever you like :)
 (global-set-key (kbd "M-o") 'helm-swoop)
 (global-set-key (kbd "M-O") 'helm-swoop-back-to-last-point)
@@ -276,12 +278,15 @@ Adapted from `flyspell-correct-word-before-point'."
 
 (define-key helm-swoop-map (kbd "C-s") 'swoop-action-goto-line-next)
 (define-key helm-swoop-map (kbd "C-r") 'swoop-action-goto-line-prev)
+)
 #+end_src
 
 ** imenu-anywhere
    imenu の置き換え.
 
 #+begin_src emacs-lisp
-(use-package imenu-anywhere)
-(global-set-key (kbd "C-x c i") 'helm-imenu-anywhere)
+(use-package imenu-anywhere
+  :config
+  (global-set-key (kbd "C-x c i") 'helm-imenu-anywhere)
+  )
 #+end_src
