@@ -140,13 +140,14 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 
 * Error Check
 ** flymake
+
 #+begin_src emacs-lisp
-(defun my-flymake-java-init ()
+(defun flymake-java-init ()
   (list "my-java-flymake-checks"
 	(list (flymake-init-create-temp-buffer-copy
 	       'flymake-create-temp-with-folder-structure))))
 (add-to-list 'flymake-allowed-file-name-masks
-	     '("\\.java$" my-flymake-java-init flymake-simple-cleanup))
+	     '("\\.java$" flymake-java-init flymake-simple-cleanup))
 #+end_src
 
 * eclim-emacs
@@ -163,7 +164,8 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 ** eclim
 
 #+begin_src emacs-lisp
-(use-package eclim)
+(use-package eclim
+  :config
 ;; (setq eclim-auto-save t)
 ;; (setq eclim-use-yasnippet nil)
 
@@ -204,13 +206,13 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 )
 
 ))
+)
    #+end_src
 
 ** eclimd
-   start-eclimd/stop-eclimd で起動・終了.
+   eclim daemon.start-eclimd/stop-eclimd で起動・終了.
 
 #+begin_src emacs-lisp
-;; eclim daemon
 (use-package eclimd)
 #+end_src
 
@@ -218,7 +220,6 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
    Emacs が軽く動作する.
 
 ** 自動保管
-
 *** use auto-complete
   - [[http://www.emacswiki.org/emacs/AutoComplete][EmacsWiki: Auto Complete]]
 
@@ -314,9 +315,11 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
     eclim との機能競合を起こすので, 一旦封印しておくか.
 
 #+begin_src emacs-lisp
-(use-package ajc-java-complete-config)
+(use-package ajc-java-complete-config
+  :config
 (add-hook 'java-mode-hook 'ajc-java-complete-mode)
 (add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
+)
 #+end_src
 
 

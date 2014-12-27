@@ -1,22 +1,35 @@
 * Ruby
-みんな大好き Ruby だお.
+  みんな大好き Ruby だお.
+  - [[http://futurismo.biz/archives/2213][Emacs で Ruby の開発環境をさらにめちゃガチャパワーアップしたまとめ | Futurismo]]
 
+** パスの設定
+#+begin_src emacs-lisp
+;; Setting rbenv path
+;; emacs から rbenv でいれた Ruby を利用する.
+(setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:"
+		       (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
+(setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims")
+		(cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
+#+end_src
+
+* 入力支援
 ** ruby-mode
 
 #+begin_src emacs-lisp
-(use-package ruby-mode)
+(use-package ruby-mode
+  :config
 (autoload 'ruby-mode "ruby-mode"
     "Mode for editing ruby source files" t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("[Rr]akefile$" . ruby-mode))
-
+)
 #+end_src
 
 ** enhanced-ruby-mode
-Better Ruby Mode.
- https://github.com/zenspider/enhanced-ruby-mode
+   Better Ruby Mode.
+   - https://github.com/zenspider/enhanced-ruby-mode
 
 #+begin_src emacs-lisp
 ; must be added after any path containing old ruby-mode
@@ -34,8 +47,10 @@ Better Ruby Mode.
 ;;(remove-hook 'enh-ruby-mode-hook 'erm-define-faces)
 #+end_src
 
+
 ** robe-mode
-かしこい補完.
+   かしこい補完.
+
 #+begin_src emacs-lisp
 (add-hook 'ruby-mode-hook 'robe-mode)
 (add-hook 'robe-mode-hook 'ac-robe-setup)
@@ -43,14 +58,92 @@ Better Ruby Mode.
  '(robe-highlight-capf-candidates nil))
 #+end_src
 
-** パスの設定
+** ruby-electric.el
+  electric editing commands for ruby files
+
+  かっこや do end などの対応関係を自動で補正してくれる
+
 #+begin_src emacs-lisp
-;; Setting rbenv path
-;; emacs から rbenv でいれた Ruby を利用する.
-(setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:"
-		       (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
-(setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims")
-		(cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
+(use-package  ruby-electric
+:config
+  (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
+  (setq ruby-electric-expand-delimiters-list nil)
+)
+#+end_src
+
+** ruby-block
+  かっこや do end などの対応関係を自動でハイライトしてくれる
+
+#+begin_src emacs-lisp
+(use-package ruby-block
+:config
+(ruby-block-mode t)
+(setq ruby-block-highlight-toggle t)
+)
+#+end_src
+
+** ruby-refactor
+  Ruby 用リファクタリングツール
+  - https://github.com/ajvargo/ruby-refactor.git
+
+#+begin_src emacs-lisp
+(use-package ruby-refactor
+:config
+(add-hook 'ruby-mode-hook 'ruby-refactor-mode-launch)
+)
+#+end_src
+
+* デバッグ
+** ruby-debug
+   標準ライブラリのデバッカ. ステップ実行できる.
+   elisp は ruby のソースに梱包されている.
+  
+#+begin_src emacs-lisp
+(autoload 'rubydb "rubydb3x"
+    "run rubydb on program file in buffer *gud-file*.
+the directory containing file becomes the initial working directory
+and source-file directory for your debugger." t)
+#+end_src
+
+** inf-ruby
+  emacs から irb を操作
+
+#+begin_src emacs-lisp
+(autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby process" t)
+(add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
+#+end_src
+
+** pry
+   高機能 irb
+   - git@github.com:jacott/emacs-pry.git
+     
+#+begin_src emacs-lisp
+;; (use-package pry)
+;; optional suggestions
+;;(global-set-key [S-f9] 'pry-intercept)
+;;(global-set-key [f9] 'pry-intercept-rerun)
+#+end_src
+
+** autotest
+   rspec 自動実行.
+
+#+begin_src emacs-lisp
+;; 動かん!
+;; (use-package autotest)
+#+end_src
+
+** rspec-mode
+   rspec 拡張
+
+#+begin_src emacs-lisp
+(use-package rspec-mode
+  :config
+(add-hook 'ruby-mode-hook 'rspec-mode)
+(eval-after-load 'rspec-mode
+  '(rspec-install-snippets))
+(custom-set-variables '(rspec-use-rake-flag nil))
+(custom-set-faces)
+)
 #+end_src
 
 * 静的解析
@@ -89,106 +182,12 @@ Better Ruby Mode.
   :modes (ruby-mode))
 #+end_src
 
-* ruby-debug
-標準ライブラリのデバッカ. ステップ実行できる.
-elisp は ruby のソースに梱包されている.
-
+** robocop 
+   checkstyle のようなスタイルの解析
+   gem install rubocop
+   
 #+begin_src emacs-lisp
-;;(use-package ruby-debug)
-(autoload 'rubydb "rubydb3x"
-    "run rubydb on program file in buffer *gud-file*.
-the directory containing file becomes the initial working directory
-and source-file directory for your debugger." t)
-#+end_src
-
-* 未分類
-#+begin_src emacs-lisp
-;; -----------------------------------------------------------------------
-;; Name     : ruby-electric.el --- electric editing commands for ruby files
-;; Install  :
-;; Function : かっこや do end などの対応関係を自動で補正してくれる
-;; ------------------------------------------------------------------------
-(use-package  ruby-electric)
-  (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
-  (setq ruby-electric-expand-delimiters-list nil)
-
-;; -----------------------------------------------------------------------
-;; Name     : ruby-electric.el --- electric editing commands for ruby files
-;; Install  :
-;; Function : かっこや do end などの対応関係を自動でハイライトしてくれる
-;; ------------------------------------------------------------------------
-(use-package ruby-block)
-(ruby-block-mode t)
-(setq ruby-block-highlight-toggle t)
-
-;; -----------------------------------------------------------------------
-;; Name     : RcodeTools
-;; Install  : el-get
-;; Function : Ruby 開発のツール群
-;; ------------------------------------------------------------------------
-(use-package rcodetools)
-(setq rct-find-tag-if-available nil)
-(defun ruby-mode-hook-rcodetools ()
-  (define-key ruby-mode-map "\C-c\C-t" 'ruby-toggle-buffer)
-  (define-key ruby-mode-map "\C-c\C-d" 'xmp)
-  (define-key ruby-mode-map "\M-\C-i" 'rct-complete-symbol)
-  (define-key ruby-mode-map "\C-c\C-f" 'rct-ri)
-  )
-(add-hook 'ruby-mode-hook 'ruby-mode-hook-rcodetools)
-
-;; -----------------------------------------------------------------------
-;; Name     : ruby-refactor
-;; Install  : github (el-get 登録済み)
-;;            https://github.com/ajvargo/ruby-refactor.git
-;; Function : Ruby 用リファクタリングツール
-;; ------------------------------------------------------------------------
-(use-package ruby-refactor)
-(add-hook 'ruby-mode-hook 'ruby-refactor-mode-launch)
-
-;; -----------------------------------------------------------------------
-;; Name     : inf-ruby
-;; Install  : el-get
-;; Function : emacs から irb を操作
-;; ------------------------------------------------------------------------
-(autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby process" t)
-(add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
-
-;; -----------------------------------------------------------------------
-;; Name     : robocop 
-;; Install  : checkstyle のようなスタイルの解析
-;; Function : gem install rubocop
-;; ------------------------------------------------------------------------
 ;;(use-package rubocop)
 ;;(add-hook 'ruby-mode 'rubocop-mode)
-
-;; -----------------------------------------------------------------------
-;; Name     : autotest
-;; Install  : wget 
-;; Function : rspec 自動実行
-;; ------------------------------------------------------------------------
-;; 動かん!
-;; (use-package autotest)
-
-;; -----------------------------------------------------------------------
-;; Name     : rspec-mode
-;; Install  : el-get
-;; Function : rspec 拡張
-;; ------------------------------------------------------------------------
-(use-package rspec-mode)
-(add-hook 'ruby-mode-hook 'rspec-mode)
-(eval-after-load 'rspec-mode
-  '(rspec-install-snippets))
-(custom-set-variables '(rspec-use-rake-flag nil))
-(custom-set-faces)
-
-;; -----------------------------------------------------------------------
-;; Name     : pry
-;; Install  : git@github.com:jacott/emacs-pry.git
-;; Function : 高機能 irb
-;; ------------------------------------------------------------------------
-;; (use-package pry)
-;; optional suggestions
-;;(global-set-key [S-f9] 'pry-intercept)
-;;(global-set-key [f9] 'pry-intercept-rerun)
-
 #+end_src
+

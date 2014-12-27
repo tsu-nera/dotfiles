@@ -107,11 +107,13 @@ Haskell でかかれたスクリプトを haskell-mode で編集する.
   - https://github.com/purcell/ac-haskell-process
 
 #+begin_src emacs-lisp
-(use-package ac-haskell-process) ; if not installed via package.el
-(add-hook 'interactive-haskell-mode-hook 'ac-haskell-process-setup)
-(add-hook 'haskell-interactive-mode-hook 'ac-haskell-process-setup)
-(eval-after-load "auto-complete"
-  '(add-to-list 'ac-modes 'haskell-interactive-mode))
+(use-package ac-haskell-process
+  :config
+  (add-hook 'interactive-haskell-mode-hook 'ac-haskell-process-setup)
+  (add-hook 'haskell-interactive-mode-hook 'ac-haskell-process-setup)
+  (eval-after-load "auto-complete"
+    '(add-to-list 'ac-modes 'haskell-interactive-mode))
+  )
 #+end_src
 
 * ドキュメント参照

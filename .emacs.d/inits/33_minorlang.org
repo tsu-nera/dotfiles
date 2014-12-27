@@ -1,16 +1,16 @@
 * Minor Language
-マイナーランゲージのマイナーモード
+  マイナーランゲージのマイナーモード
 
 * Oz
-   multi-paradium language
+  multi-paradium language
 
-   導入方法:
-   - http://www.eecs.ucf.edu/~leavens/ComS541Fall06/running_oz.shtml#
-
-   文法:
-   - [[https://mozart.github.io/mozart-v1/doc-1.4.0/base/index.html][The Oz Base Environment]]
-
-#+begin_src emacs-lisp :tangle yes
+  導入方法:
+  - http://www.eecs.ucf.edu/~leavens/ComS541Fall06/running_oz.shtml
+    
+  文法:
+  - [[https://mozart.github.io/mozart-v1/doc-1.4.0/base/index.html][The Oz Base Environment]]
+    
+#+begin_src emacs-lisp 
 ;;; Oz program mode with Mozart/Oz.
 ;;; You have to arrange for the Oz-related emacs lisp (.el) files
 ;;; to be in emacs's load-path, for its bin directory to be in the PATH,
@@ -48,7 +48,7 @@
 
 * Cool
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp 
 (autoload 'cool-mode "cool-mode" "Major mode for editing COOL programs" t)
 (setq auto-mode-alist
             (append '(("\\.cl\\'" . cool-mode)) auto-mode-alist))
@@ -57,7 +57,7 @@
 
 * VBA 
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp 
 (when windows-p
 (autoload 'vbasense "vbasense" "Visual Basic Mode" t)
 (add-to-list 'auto-mode-alist '("\\.\\(vbs\\|vb\\|wsf\\|frm\\|bas\\|cls\\)$" .
@@ -85,10 +85,9 @@
 #+end_src
 
 * rst-mode
+  Major mode for editing Restructured Text
 
-Restructured Text
-
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp 
 
 ;;; RST モードを見やすくする.
 (setq frame-background-mode 'dark)
@@ -106,10 +105,10 @@ Restructured Text
 #+end_src
 
 * Markdown Mode
-http://jblevins.org/projects/markdown-mode/markdown-mode.el
+  Major mode for editing markdown
+  - http://jblevins.org/projects/markdown-mode/markdown-mode.el
 
-#+begin_src emacs-lisp :tangle yes
-
+#+begin_src emacs-lisp 
 (autoload
   'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
 ;; associate .md file to markdown-mode
@@ -117,41 +116,48 @@ http://jblevins.org/projects/markdown-mode/markdown-mode.el
 #+end_src
 
 * Plant UML Mode
-
-#+begin_src emacs-lisp :tangle yes
+  Major mode for editing PlantUML
+#+begin_src emacs-lisp 
 (autoload
-  'plantuml-mode "plantuml-mode" "Major mode for editing PlantUML" t)
+  'plantuml-mode "plantuml-mode" "" t)
 (add-to-list 'auto-mode-alist '("\\.puml$" . plantuml-mode))
 (add-to-list 'auto-mode-alist '("\\.plantuml$" . plantuml-mode))
 (setq plantuml-jar-path "/usr/local/bin/plantuml.jar")
 #+end_src
 
 * Scala
-#+begin_src emacs-lisp :tangle yes
+** scala-mode2
+
+#+begin_src emacs-lisp 
 ;; Scala Mode 2
-(use-package scala-mode2)
+(use-package scala-mode2
+  :config
 ;;(autoload 'scala-mode2 "scala-mode2" "A new scala-mode for emacs24" t)
 (add-to-list 'auto-mode-alist '("\\.scala$" . scala-mode))
 (add-to-list 'auto-mode-alist '("\\.sbt$" . scala-mode))
+)
 
+#+end_src
+
+** ensime
+   ENhanced Scala Interaction Mode for Emacs.
+
+#+begin_src emacs-lisp
 ;; ensine
-(use-package ensime)
+(use-package ensime
+  :config
 ;;(autoload 'ensime-scala-mode "ensime" "ENhanced Scala Interaction Mode for Emacs" t)
 ;; This step causes the ensime-mode to be started whenever
 ;; scala-mode is started for a buffer. You may have to customize this step
 ;; if you're not using the standard scala mode.
 (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
-
-;; (use-package scala-mode-feature-electric)
-;; (add-hook 'scala-mode-hook
-;;      (lambda ()
-;;        (scala-electric-mode)))
+)
 #+end_src
 
 ** sbt mode
     https://github.com/hvesalai/sbt-mode
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp 
 (use-package sbt-mode)
 
 (add-hook 'sbt-mode-hook '(lambda ()
@@ -178,26 +184,36 @@ http://jblevins.org/projects/markdown-mode/markdown-mode.el
    ;; use sbt-run-previous-command to re-compile your code after changes
    (local-set-key (kbd "C-x '") 'sbt-run-previous-command)
 ))
-
 #+end_src
+
+** scala-electric-mode
+#+begin_src emacs-lisp
+;; (use-package scala-mode-feature-electric)
+;; (add-hook 'scala-mode-hook
+;;      (lambda ()
+;;        (scala-electric-mode)))
+#+end_src
+
 * conkeror
 #+begin_src emacs-lisp
 (autoload 'conkeror-minor-mode "conkeror-minor-mode")
 #+end_src
+
 * pukiwiki-mode
-pukiwiki-mode は minor-mode のみ使用する. firefox や chrome の Edit 機能から, Emacs を起動する.
+  pukiwiki-mode は minor-mode のみ使用する. 
+  firefox や chrome の Edit 機能から, Emacs を起動する.
 
-[[http://www.bookshelf.jp/pukiwiki/pukiwiki.php?%A5%A2%A5%A4%A5%C7%A5%A2%BD%B8%2Fpukiwiki-mode][アイデア集/pukiwiki-mode - Meadow memo]]
+  - [[http://www.bookshelf.jp/pukiwiki/pukiwiki.php?%A5%A2%A5%A4%A5%C7%A5%A2%BD%B8%2Fpukiwiki-mode][アイデア集/pukiwiki-mode - Meadow memo]]
+  - pukiwiki-mode.el  http://www.bookshelf.jp/elc/pukiwiki-mode.el
+  - http.el http://tdiary.cvs.sourceforge.net/tdiary/contrib/util/tdiary-mode/
+  - [[http://rmecab.jp/wiki/index.php?Wiki_pukiwiki-mode%A4%F2%C6%B3%C6%FE][Wiki_pukiwiki-mode を導入 - R と Linux と...]]
 
-- pukiwiki-mode.el  http://www.bookshelf.jp/elc/pukiwiki-mode.el
-- http.el http://tdiary.cvs.sourceforge.net/tdiary/contrib/util/tdiary-mode/
-- [[http://rmecab.jp/wiki/index.php?Wiki_pukiwiki-mode%A4%F2%C6%B3%C6%FE][Wiki_pukiwiki-mode を導入 - R と Linux と...]]
-
-pukiwiki-edit-mode で起動.
+  pukiwiki-edit-mode で起動.
 
 #+begin_src emacs-lisp
 (autoload 'pukiwiki-mode "pukiwiki-mode" "Major mode for Pukiwiki" t)
 #+end_src
+
 * Assembly Language
   アセンブリ言語.
   - [[http://www.emacswiki.org/emacs/AssemblyProgramming][EmacsWiki: Assembly Programming]]
@@ -242,6 +258,7 @@ pukiwiki-edit-mode で起動.
 ;;     :back "\\?>")))
 ;; (add-to-list 'auto-mode-alist '("\\.php?\\'" . xml-mode))
 #+end_src
+
 * R
 ** ESS
     Emacs を統計用 IDE にするツール. デファクトスタンダードと言える.
@@ -261,15 +278,14 @@ pukiwiki-edit-mode で起動.
 
 #+begin_src emacs-lisp
 (setq load-path (cons "/usr/share/emacs/site-lisp/ess" load-path))
-(when (locate-library "ess-site")
-  (use-package ess-site)
-
-(setq auto-mode-alist
-      (cons (cons "\\.[rR]$" 'R-mode) auto-mode-alist))
-(autoload 'R-mode "ess-site" "Emacs Speaks Statistics mode" t)
-
-;; R 起動時にワーキングディレクトリを訊ねない
-(setq ess-ask-for-ess-directory nil))
+(use-package ess-site
+  :config
+  (setq auto-mode-alist
+	(cons (cons "\\.[rR]$" 'R-mode) auto-mode-alist))
+  (autoload 'R-mode "ess-site" "Emacs Speaks Statistics mode" t)
+  
+  ;; R 起動時にワーキングディレクトリを訊ねない
+  (setq ess-ask-for-ess-directory nil))
 #+end_src
 
 ** ESS Auto-complete
@@ -308,10 +324,11 @@ pukiwiki-edit-mode で起動.
   - [[http://sheephead.homelinux.org/2010/03/02/1807/][popup.el を使って R オブジェクトの情報を popup する ess-R-object-popup.el - sheephead]]
 
 #+begin_src emacs-lisp
-(when (locate-library "ess-site")
-(use-package ess-R-object-popup)
-(define-key ess-mode-map "\C-c\C-g" 'ess-R-object-popup)
-)
+  (use-package ess-R-object-popup
+    :if (locate-library "ess-site")
+    :config
+    (define-key ess-mode-map "\C-c\C-g" 'ess-R-object-popup)
+    )
 #+end_src
 
   gist 版は古いようだ.
@@ -327,13 +344,13 @@ pukiwiki-edit-mode で起動.
   - https://github.com/emacs-helm/helm-R
 
 #+begin_src emacs-lisp
-(when (locate-library "ess-site")
-(use-package yhelm-R)
-(define-key ess-mode-map "\C-ch" 'helm-for-R)
-(define-key inferior-ess-mode-map "\C-ch" 'helm-for-R)
-)
+  (use-package helm-R
+    :if (locate-library "ess-site")
+    :config
+    (define-key ess-mode-map "\C-ch" 'helm-for-R)
+    (define-key inferior-ess-mode-map "\C-ch" 'helm-for-R)
+    )
 #+end_src
-
 
 ** org-babel-R
    org-mode で R を利用する.

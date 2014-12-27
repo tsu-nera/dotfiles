@@ -1,7 +1,9 @@
 * Python
+  Python 環境.
+
 * 入力支援
   python.el は公式, python-mode.el は Python コミュニティによって作成されたもの.
-  
+
 ** python
    Emacs にデフォルトではいっているやつ.
 
@@ -24,6 +26,7 @@
 
 ** インデント設定
    4 で設定.
+
 #+begin_src emacs-lisp
 (add-hook 'python-mode-hook
                    '(lambda ()
@@ -32,25 +35,6 @@
                         (setq python-indent 4)
                         (setq tab-width 4)))
 #+end_src
-
-** とじ括弧挿入
-   結構うざったいので封印
-
-#+begin_src emacs-lisp
-;; (add-hook 'python-mode-hook
-;;           (lambda ()
-;;             (define-key python-mode-map "\"" 'electric-pair)
-;;             (define-key python-mode-map "\'" 'electric-pair)
-;;             (define-key python-mode-map "(" 'electric-pair)
-;;             (define-key python-mode-map "[" 'electric-pair)
-;;             (define-key python-mode-map "{" 'electric-pair)))
-;; (defun electric-pair ()
-;;   "Insert character pair without sournding spaces"
-;;   (interactive)
-;;   (let (parens-require-spaces)
-;;     (insert-pair)))
-#+end_src
-
 
 * コードリーディング
 ** imenu
@@ -76,10 +60,10 @@
 * コーディング支援
 ** TODO jedi
    Python のオムニ補完 (かしこい補完) をしてくれる.
-  - [[http://qiita.com/yuu116atlab/items/2a62cb880ac863dcc8ef][emacs-jedi の install - Qiita]]
-
+   - [[http://qiita.com/yuu116atlab/items/2a62cb880ac863dcc8ef][emacs-jedi の install - Qiita]]
+    
 ** TODO Pydoc
-
+   
 ** ac-python
    auto-complete の python 強化版.
 
