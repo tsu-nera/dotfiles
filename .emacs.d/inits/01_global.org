@@ -89,6 +89,9 @@
    - [[http://qiita.com/kai2nenobu/items/5dfae3767514584f5220][Emacs - use-package で可読性の高い init.el を書く - Qiita]]
    - [[http://rubikitch.com/2014/09/09/use-package/][emacs use-package.el : Emacs の世界的権威が行っている最先端ラクラク init.el 整理術]]
 
+   参考になりすぎる init.el
+   - https://github.com/kawabata/dotfiles/blob/master/.emacs.d/init.el
+
 #+begin_src emacs-lisp
 (package-initialize)
 

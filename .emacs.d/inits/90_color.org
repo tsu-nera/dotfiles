@@ -44,7 +44,6 @@ el-get にまとめた.
    現在は, fork してカスタマイズしたものをりようしている.
 
 #+begin_src emacs-lisp
-;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/molokai-theme")
 (use-package molokai-theme-kit
   :config

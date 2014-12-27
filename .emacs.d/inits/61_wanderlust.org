@@ -9,7 +9,7 @@
 * Start of Config
 #+begin_src emacs-lisp
 (use-package wl
-  :commands wl
+  :commands (wl wl-draft wl-other-frame)
   :config
 #+end_src
 

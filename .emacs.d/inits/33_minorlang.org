@@ -277,15 +277,18 @@
    起動は M-x R.
 
 #+begin_src emacs-lisp
-(setq load-path (cons "/usr/share/emacs/site-lisp/ess" load-path))
 (use-package ess-site
-  :config
+  :load-path "/usr/share/emacs/site-lisp/ess"
+  :if (locate-library "ess-site")
+  :defer t
+  :commands R-mode
+  :init
   (setq auto-mode-alist
 	(cons (cons "\\.[rR]$" 'R-mode) auto-mode-alist))
-  (autoload 'R-mode "ess-site" "Emacs Speaks Statistics mode" t)
   
+  :config
   ;; R 起動時にワーキングディレクトリを訊ねない
-  (setq ess-ask-for-ess-directory nil))
+  (setq ess-ask-for-ess-directory nil)
 #+end_src
 
 ** ESS Auto-complete
@@ -298,10 +301,8 @@
    - [[http://kozo2.hatenablog.com/entry/2012/04/14/050121][ESS の auto-complete を試す - kozo2's blog]]
 
 #+begin_src emacs-lisp
-(when (locate-library "ess-site")
 (setq ess-use-auto-complete t)
 ;; (setq ess-use-auto-complete 'script-only)
-)
 #+end_src
 
 ** ESS R Data View
@@ -310,10 +311,8 @@
    - https://github.com/myuhe/ess-R-data-view.el
 
 #+begin_src emacs-lisp
-(when (locate-library "ess-site")
 ;; (define-key ess-mode-map (kbd "C-c v") 'ess-R-dv-ctable)
 (define-key ess-mode-map (kbd "C-c v") 'ess-R-dv-pprint)
-)
 #+end_src
 
    popwin と組み合わせると便利.
@@ -325,7 +324,6 @@
 
 #+begin_src emacs-lisp
   (use-package ess-R-object-popup
-    :if (locate-library "ess-site")
     :config
     (define-key ess-mode-map "\C-c\C-g" 'ess-R-object-popup)
     )
@@ -345,7 +343,6 @@
 
 #+begin_src emacs-lisp
   (use-package helm-R
-    :if (locate-library "ess-site")
     :config
     (define-key ess-mode-map "\C-ch" 'helm-for-R)
     (define-key inferior-ess-mode-map "\C-ch" 'helm-for-R)
@@ -362,3 +359,8 @@
    - https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org
 
    設定は, org-mode.org に移動.
+
+** End of ESS Config
+#+begin_src emacs-lisp
+)
+#+end_src
