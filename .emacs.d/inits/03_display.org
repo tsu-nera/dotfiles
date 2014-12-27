@@ -74,7 +74,6 @@
 )
 #+end_src
 
-
 * モードライン
 ** モードラインに時間を表示する
 #+begin_src emacs-lisp
@@ -87,16 +86,31 @@
 (which-function-mode 1)
 #+end_src
 
-** TODO 行番号の表示
-   Emacs Daemon が 行番号の表示でクラッシュするようになった.
-   あとで詳しく調べる.
+** 行番号の表示
+   特定の major-mode のときは抑止
+   - https://github.com/Khady/emacs.d/blob/master/setup-linum.el
 
 #+begin_src emacs-lisp
-;; (global-linum-mode t)
+(use-package linum
+  :init (progn (add-hook 'after-init-hook 'global-linum-mode t))
+  :config
+  (setq linum-disabled-modes-list
+	'(eshell-mode wl-summary-mode
+	  compilation-mode text-mode
+	  dired-mode doc-view-mode image-mode))
+  (defun linum-on ()
+    (unless (or (minibufferp)
+		(member major-mode linum-disabled-modes-list)
+		(and (string-match "*" (buffer-name))))
+      (linum-mode 1)))
+  )
 
-;; ただし, 特定の major-mode のときは抑止
-;; https://github.com/Khady/emacs.d/blob/master/setup-linum.el
-;; (use-package setup-linum)
+;; setup-linumは動作しなくなった..
+;; (use-package setup-linum
+;; :init
+;;  (progn
+;;     (add-hook 'after-init-hook 'linum-on t))
+;; :config
 ;; (setq linum-disabled-modes-list '(doc-view-mode image-mode))
 #+end_src
 
@@ -163,7 +177,6 @@
 #+begin_src emacs-lisp
 (setq completion-ignore-case t)
 #+end_src
-
 
 * ウィンドウ
 ** 定義
