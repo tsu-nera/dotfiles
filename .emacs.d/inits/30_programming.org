@@ -243,6 +243,16 @@
   )
 #+end_src
 
+** gist
+  Emacs gist interface
+  - https://github.com/defunkt/gist.el
+  - https://github.com/emacs-helm/helm-gist/blob/master/helm-gist.el
+
+#+begin_src emacs-lisp
+(use-package gist)
+;; (use-package helm-gist)
+#+end_src
+
 ** github 関連
 
  #+begin_src emacs-lisp

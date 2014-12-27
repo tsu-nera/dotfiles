@@ -24,7 +24,7 @@
 
   F1 + v + dynamic-library-alist で必要な dll をしらべる
 
- #+begin_src language
+ #+begin_src text
 Value: ((xpm "libxpm.dll" "xpm4.dll" "libXpm-nox4.dll")
  (png "libpng14-14.dll" "libpng14.dll")
  (jpeg "jpeg62.dll" "libjpeg.dll" "jpeg-62.dll" "jpeg.dll")

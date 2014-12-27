@@ -450,6 +450,7 @@
    #+end_src
 ** wgrep
    grep した結果を編集.
+   - [[http://kotatu.org/blog/2013/12/18/emacs-ag-wgrep-for-code-grep-search/][Emacs で moccur-grep と moccur-edit から ag と wgrep に移行したら爆速で快適すぎる - kotatu.org]]
 
 #+begin_src emacs-lisp
 (use-package wgrep-ag

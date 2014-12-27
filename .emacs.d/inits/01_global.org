@@ -286,20 +286,6 @@
 (setq delete-auto-save-files t)
 #+end_src
 
-* ディレクトリ管理
-** Tramp
-   リモートサーバに Emacs から乗り込む.
-
-   こんな感じで乗り込む.
-   - C-x C-f /ssh:username@hostname#portno:/path/to/your/directory
-
-   Tramp で save 時に毎回パスワードが聞かれるので, おまじない.
-   - [[http://stackoverflow.com/questions/840279/passwords-in-emacs-tramp-mode-editing][ssh - Passwords in Emacs tramp mode editing - Stack Overflow]]
-
-#+begin_src emacs-lisp
-(setq password-cache-expiry nil)
-#+end_src
-
 * netrc
   build-in のパスワード管理.
   パスワード自体は ~/.netrc に書き込む. 

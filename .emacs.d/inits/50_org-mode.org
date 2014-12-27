@@ -506,21 +506,21 @@ org-mode の src を目立たせる設定. うまく動いていないような.
 ** images
    画像ファイルは記事投稿時にサーバの upload フォルダに転送されるよう.
 
-#+begin_src language
+#+begin_src text
    # ./../img/2014-08-17-124249_785x456_scrot.png
    # http://futurismo.biz/wp-content/uploads/wpid-2014-08-17-124249_785x456_scrot.png
 #+end_src
 
    scrot で撮影した画像を,以下のように書くことで記事に挿入することができる.
 
-#+begin_src language
+#+begin_src text
  [[file:/ ファイルパス]]
 #+end_src
 
    ただし, リサイズはされない.外部コマンドと連携させる必要がある.
    ImageMagic というツールがよい.
    
-   - [[http://sachachua.com/blog/2013/09/when-i-blog-with-emacs-and-when-i-blog-with-something-else/][When I blog with Emacs and when I blog with other tools - sacha chua :: living an awesome life]]
+   - [[http://sachachua.com/blog/2013/09/when-i-blog-with-emacs-and-when-i-blog-with-something-else/][When I blog with Emacs and when I blog with other tools]]
    - [[http://d.hatena.ne.jp/weblinuxmemo/20090929/p1][コマンドラインで画像を縮小する:ImageMagick convert mogrify - Linux Memo: Vine Linux 5 設定 tips]]
    - [[http://o.inchiki.jp/obbr/125][ImageMagick で画像をリサイズする時のメモ]]
 

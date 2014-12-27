@@ -1,5 +1,5 @@
 * Color
-色関係.
+  色関係.
 
 * Default
 ** Comment
@@ -8,7 +8,6 @@
  '(font-lock-comment-delimiter-face ((t (:inherit font-lock-comment-face :foreground "gray80"))))
  '(font-lock-comment-face ((t (:foreground "gray80")))))
 #+end_src
-
 
 * Emacs Color Theme
 
@@ -30,7 +29,6 @@ el-get にまとめた.
 
 ** tangotango
    org-mode に対応してるダークテーマ.
-
    - https://github.com/juba/color-theme-tangotango
 
    #+begin_src emacs-lisp
@@ -48,34 +46,21 @@ el-get にまとめた.
 #+begin_src emacs-lisp
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/molokai-theme")
-(use-package molokai-theme-kit)
-(setq molokai-theme-kit t)
-(load-theme 'molokai t)
-
-
+(use-package molokai-theme-kit
+  :config
+  (setq molokai-theme-kit t)
+  (load-theme 'molokai t)
+)
 #+end_src
 
    自分のテーマにも, 以下のような設定で org-mode 対応できるらしい??
-
    - [[http://orgmode.org/worg/org-contrib/babel/examples/fontify-src-code-blocks.html][Pretty fontification of source code blocks]]
 
-   #+begin_src emacs-lisp
-   ;; (defface org-block-begin-line	
-   ;;   '((t (:underline "#A7A6AA" :foreground "#008ED1" :background "#EAEAFF")))
-   ;;   "Face used for the line delimiting the begin of source blocks.")
-    
-   ;;  (defface org-block-background
-   ;;  '((t (:background "#FFFFEA")))
-   ;;    "Face used for the source block background.")
-    
-   ;; (defface org-block-end-line
-   ;;   '((t (:overline "#A7A6AA" :foreground "#008ED1" :background "#EAEAFF")))
-   ;;   "Face used for the line delimiting the end of source blocks.")
-   #+end_src
+   -> mmm-mode で代用する.
 
 ** color-theme-molokai
    別の molokai
-   https://github.com/alloy-d/color-theme-molokai
+   - https://github.com/alloy-d/color-theme-molokai
 
 #+begin_src emacs-lisp
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/color-theme-molokai")
@@ -84,7 +69,6 @@ el-get にまとめた.
 
 ** Leuven-theme
    Emacs 24.4 に標準で入っているテーマ. org-mode との相性がとにかくイイ!
-
    - [[https://github.com/fniessen/emacs-leuven-theme][fniessen/emacs-leuven-theme]]
 
    #+begin_src emacs-lisp
@@ -92,13 +76,15 @@ el-get にまとめた.
    #+end_src
 
 * rainbow-mode
-数字表記に色つけしてくれる 
+  数字表記に色つけしてくれる 
 
 #+begin_src emacs-lisp
-(use-package rainbow-mode)
-(add-hook 'css-mode-hook 'rainbow-mode)
-(add-hook 'html-mode-hook 'rainbow-mode)
-(add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
+(use-package rainbow-mode
+  :config
+  (add-hook 'css-mode-hook 'rainbow-mode)
+  (add-hook 'html-mode-hook 'rainbow-mode)
+  (add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
+  )
 #+end_src
 
 * rainbow-delimiters
@@ -127,12 +113,12 @@ el-get にまとめた.
 #+end_src
 
 * pomodoro
-ここでやらないと, なぜかモードラインで表示されない.
-
+  ここでやらないと, なぜかモードラインで表示されない.
+  
 #+begin_src emacs-lisp
-(setq-default mode-line-format
-   (cons '(:eval (pomodoro:propertize-mode-line))
-    mode-line-format))
+;;(setq-default mode-line-format
+;;   (cons '(:eval (pomodoro:propertize-mode-line))
+;;    mode-line-format))
 #+end_src
 
 * ERC

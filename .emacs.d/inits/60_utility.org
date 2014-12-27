@@ -1,6 +1,5 @@
 * Utility
-
-この elisp こそ, Emacs のすごさを示すものだ.
+  この elisp こそ, Emacs のすごさを示すものだ.
 
 #+begin_src text
   Emacs は OS!
@@ -9,50 +8,36 @@
 #+end_src
 
 * elscreen
-Screen の Emacs バージョン. マルチプレクサ.
+  screen の Emacs バージョン. マルチプレクサ.
+  - https://github.com/emacs-jp/elscreen
+  - https://github.com/knu/elscreen
 
-- https://github.com/emacs-jp/elscreen
-- https://github.com/knu/elscreen
+  オリジナルはメンテナンスされていないのかな?
+  - http://www.morishima.net/~naoto/elscreen-ja/
+  - http://nishikawasasaki.hatenablog.com/entry/20110313/1300031344
 
-オリジナルはメンテナンスされていないのかな?
+  #+begin_src emacs-lisp
+(use-package elscreen
+  :config
+  (elscreen-start)
+  
+  ;; (setq elscreen-prefix-key "\C-o") ;; こっちだとダメだった
+  (elscreen-set-prefix-key "\C-o")
+  
+  ;; タブの幅
+  ;; (setq elscreen-display-tab 10)
+  
+  ; タブの左端の×を非表示
+  (setq elscreen-tab-display-kill-screen nil)
 
-- http://www.morishima.net/~naoto/elscreen-ja/
-- http://nishikawasasaki.hatenablog.com/entry/20110313/1300031344
-
-#+begin_src emacs-lisp
-(elscreen-start)
-
-;; (setq elscreen-prefix-key "\C-o") ;; こっちだとダメだった
-(elscreen-set-prefix-key "\C-o")
-
-; タブの幅
-;; (setq elscreen-display-tab 10)
-
-; タブの左端の×を非表示
-(setq elscreen-tab-display-kill-screen nil)
-
-;; <>を非表示
-(setq elscreen-tab-display-control nil)
-
-;; emacsclient で新しいタブを開く
-;; (use-package elscreen-server nil t)
-
-;; それっぽい色をつける?? つけてくれないよ.
-;; (use-package elscreen-color-theme)
-
-;; dired で o をオスと別タブで開く
-;; by wget https://raw.githubusercontent.com/knu/elscreen/master/elscreen-dired.el
-(use-package elscreen-dired)
-
-;; waanderlust 用. syohex さんのやつ
-(use-package elscreen-wl)
-
-;; 画面切り替え
-;; 使い勝手がわるいので封印した
-;; (add-hook 'after-make-frame-functions 'elscreen-create)
-;; (add-hook 'elscreen-goto-hook (lambda ()
-;;    (switch-to-buffer "*MyStartUpMessage*")))
+  ;; <>を非表示
+  (setq elscreen-tab-display-control nil)
+  
+  ;; emacsclient で新しいタブを開く
+  ;; (use-package elscreen-server nil t)
+  )
 #+end_src
+
 ** colors
 
 #+begin_src emacs-lisp
@@ -60,6 +45,9 @@ Screen の Emacs バージョン. マルチプレクサ.
  '(elscreen-tab-control-face ((t (:background "color-234" :foreground "brightwhite" :underline t))))
  '(elscreen-tab-current-screen-face ((t (:background "color-243" :foreground "brightwhite"))))
  '(elscreen-tab-other-screen-face ((t (:background "color-235" :foreground "brightwhite" :underline t)))))
+
+;; それっぽい色をつける?? つけてくれないよ.
+;; (use-package elscreen-color-theme)
 #+end_src
 
 ** screen の順番を手軽に変更
@@ -112,7 +100,6 @@ Screen の Emacs バージョン. マルチプレクサ.
 (global-set-key (kbd "C-M-<left>") 'elscreen-swap-previous)        ; screen 配置位置ずらし (左)
 #+end_src
 
-
 ** TODO org-link を elscreen で開く
    いつか.
 
@@ -123,16 +110,37 @@ Screen の Emacs バージョン. マルチプレクサ.
    revive というパッケージに依存している??
 
 #+begin_src emacs-lisp
-(use-package elscreen-persist)
-;; どうもこれを有効にすると Emacs が立ち上がらなくなるな...
-;; (elscreen-persist-mode 1)
+(use-package elscreen-persist
+  :config
+  ;; どうもこれを有効にすると Emacs が立ち上がらなくなるな...
+  ;; (elscreen-persist-mode 1)
+  )
 #+end_src
 
 *** 以下で操作
    - elscreen-persist-store
    - elscreen-persist-restore
 
-* Web Browser
+** elscreen-wl
+   waanderlust 用. syohex さんのやつ.
+   - [[http://d.hatena.ne.jp/syohex/20130129/1359471993][elscreen-wl を fork しました Life is very short]]
+
+   w をおすと別タブで開くので, ちょい便利.
+   
+#+begin_src emacs-lisp
+(use-package elscreen-wl)
+#+end_src
+
+** elscreen-dired
+   dired で o をオスと別タブで開く.
+
+   by wget https://raw.githubusercontent.com/knu/elscreen/master/elscreen-dired.el
+
+#+begin_src emacs-lisp
+(use-package elscreen-dired)
+#+end_src
+
+* Web Browser: ブラウザ関連
 
 #+begin_src emacs-lisp
 (when linux-p
@@ -249,7 +257,7 @@ Screen の Emacs バージョン. マルチプレクサ.
     以下の関数で今見ているページを外部ブラウザで開くことができる.
     &にキーバインドされている.
 
-    #+begin_src language
+    #+begin_src text
     eww-browse-with-external-link
     #+end_src
 
@@ -277,7 +285,8 @@ Screen の Emacs バージョン. マルチプレクサ.
    ) ;; end of 24.4
 #+end_src
 
-* dired
+* ディレクトリ操作
+** dired
   dired から open
 
 #+begin_src emacs-lisp
@@ -297,13 +306,13 @@ Screen の Emacs バージョン. マルチプレクサ.
 )
 #+end_src
 
-移動のたびにバッファをつくらないためには, i や a でバッファを開く.
+*** Tips
+    移動のたびにバッファをつくらないためには, i や a でバッファを開く.
+    - [[http://stackoverflow.com/questions/1839313/how-do-i-stop-emacs-dired-mode-from-opening-so-many-buffers][file management - How do I stop emacs dired mode from opening so many buffers? - Stack Overflow]]
 
-- [[http://stackoverflow.com/questions/1839313/how-do-i-stop-emacs-dired-mode-from-opening-so-many-buffers][file management - How do I stop emacs dired mode from opening so many buffers? - Stack Overflow]]
 
 ** joseph-single-dired
    バッファを複数作成しない.
-
    - https://github.com/jixiuf/joseph-single-dired
 
 #+begin_src emacs-lisp
@@ -312,86 +321,44 @@ Screen の Emacs バージョン. マルチプレクサ.
 
 ** direx
    popup dired
+   - https://github.com/m2ym/direx-el
+   - http://cx4a.blogspot.jp/2011/12/popwineldirexel.html
 
-- https://github.com/m2ym/direx-el
-- http://cx4a.blogspot.jp/2011/12/popwineldirexel.html
-
-  使っていないのと, open-junk-file とキーがかぶったので封印.
+   使っていないのと, open-junk-file とキーがかぶったので封印.
 #+begin_src emacs-lisp
 ;; (use-package direx)
 #+end_src
 
+** Tramp
+   リモートサーバに Emacs から乗り込む.
+
+   こんな感じで乗り込む.
+   - C-x C-f /ssh:username@hostname#portno:/path/to/your/directory
+
+   Tramp で save 時に毎回パスワードが聞かれるので, おまじない.
+   - [[http://stackoverflow.com/questions/840279/passwords-in-emacs-tramp-mode-editing][ssh - Passwords in Emacs tramp mode editing - Stack Overflow]]
+
+#+begin_src emacs-lisp
+(setq password-cache-expiry nil)
+#+end_src
+
 * edit-server
-Google Chrome のフォームを emacs で編集. Edit with Emacs.
-
-- https://raw.githubusercontent.com/stsquad/emacs_chrome/master/servers/edit-server.el
+  Google Chrome のフォームを emacs で編集. Edit with Emacs.
+  - https://raw.githubusercontent.com/stsquad/emacs_chrome/master/servers/edit-server.el
 
 #+begin_src emacs-lisp
-(use-package edit-server)
-(edit-server-start)
+(use-package edit-server
+  :config
+  (edit-server-start)
+  )
 #+end_src
-
-* twittering-mode
-Emacs Twitter Client
-
-- [[http://www.emacswiki.org/emacs/TwitteringMode-ja][EmacsWiki: TwitteringMode-ja]]
-
-#+begin_src emacs-lisp
-(use-package twittering-mode)
-(setq twittering-use-master-password t)
-;; パスワード暗号ファイル保存先変更 (デフォはホームディレクトリ)
-(setq twittering-private-info-file "~/.emacs.d/twittering-mode.gpg")
-
-(global-set-key (kbd "C-c C-x w") 'twittering-update-status-from-pop-up-buffer)
-#+end_src
-
-** popwin に閉じ込める
-   このアイデアは good idea.
-   - [[http://d.hatena.ne.jp/lurdan/20130225/1361806605][twittering-mode を popwin に閉じこめる - *scratch*]]
-
-* bitlbee
-  yaourt bitlbee でいれた.
-
-- [[https://wiki.archlinux.org/index.php/bitlbee][Bitlbee - ArchWiki]]
-- [[http://www.emacswiki.org/emacs/BitlBee][EmacsWiki: Bitl Bee]]
-- [[http://emacs-fu.blogspot.jp/2012/03/social-networking-with-bitlbee-and-erc.html][emacs-fu: social networking with bitlbee and erc]]
-
-まだ動かした実績はなし. . . とりあえず入れておくか.
+* パスワード管理
+** netrc
+   build-in のパスワード管理.
+   パスワード自体は ~/.netrc に書き込む. 
 
 #+begin_src emacs-lisp
-;; (use-package bitlbee)
-;; (defun i-wanna-be-social ()
-;;   "Connect to IM networks using bitlbee."
-;;   (interactive)
-;;   (erc :server "localhost" :port 6667 :nick "user"))
-#+end_src
-
-* Hown
- Function : Evernote を越えるメモ管理ツール
- http://www.gfd-dennou.org/member/uwabami/cc-env/emacs/howm_config.html
- http://d.hatena.ne.jp/TakashiHattori/20120627/1340768058
-
-#+begin_src emacs-lisp
-;; *.org を開いたら howm-mode も起動する
-;;(add-hook 'org-mode-hook 'howm-mode)
-
-;; howm のメモを置くディレクトリ (任意)
-(setq howm-directory "~/gtd/howm") ;; メニュー表示しない
-(setq howm-menu-top nil)
-;; メニューの言語設定
-(setq howm-menu-lang 'ja)
-;; howm ファイル名を設定する. org-mode を起動するため拡張子は .org にする.
-(setq howm-file-name-format "%Y%m%d-%H%M%S.org")
-(setq howm-view-title-header "*") ;; ← howm のロードより前に書くこと
-
-;; キーバインドは C-a C-a にする
-(global-unset-key (kbd "C-x C-a"))
-(setq howm-prefix (kbd "C-x C-a"))
-
-;;(autoload 'howm "howm" " Hitori Otegaru Wiki Modoki" nil)
-(use-package howm)
-(add-hook 'howm-mode-hook 'helm-howm)
-;; (use-package helm-howm)
+(use-package netrc)
 #+end_src
 
 * Shell
@@ -510,8 +477,7 @@ Emacs Twitter Client
 ;; 	  (lambda () (define-key term-raw-map (kbd "C-r") 'helm-shell-history)))
 #+end_src
 
-** Eshell
-
+** eshell
    M-p で helm-eshell-history 発動.
 
 #+begin_src emacs-lisp
@@ -624,31 +590,201 @@ Emacs Twitter Client
    http://sakito.jp/emacs/emacsshell.html#emacs
 
 #+begin_src emacs-lisp
-;; パスの引き継ぎ
-(when linux-p
-(use-package exec-path-from-shell)
-(exec-path-from-shell-initialize)
-)
-;; (let* ((zshpath (shell-command-to-string
-;; 		          "/usr/bin/env zsh -c 'printenv PATH'"))
-;;               (pathlst (split-string zshpath ":")))
-;;     (setq exec-path pathlst)
-;;       (setq eshell-path-env zshpath)
-;;         (setenv "PATH" zshpath))
+(use-package exec-path-from-shell
+  :if linux-p
+  :config
+  (exec-path-from-shell-initialize)
+  )
+#+end_src
+
+* Chat
+** twittering-mode
+  Emacs Twitter Client
+  - [[http://www.emacswiki.org/emacs/TwitteringMode-ja][EmacsWiki: TwitteringMode-ja]]
+
+#+begin_src emacs-lisp
+(use-package twittering-mode
+  :config
+  (setq twittering-use-master-password t)
+  ;; パスワード暗号ファイル保存先変更 (デフォはホームディレクトリ)
+  (setq twittering-private-info-file "~/.emacs.d/twittering-mode.gpg")
+  
+  (global-set-key (kbd "C-c C-x w") 'twittering-update-status-from-pop-up-buffer)
+  )
+#+end_src
+
+*** popwin に閉じ込める
+   このアイデアは good idea.
+   - [[http://d.hatena.ne.jp/lurdan/20130225/1361806605][twittering-mode を popwin に閉じこめる - *scratch*]]
+
+** bitlbee
+  yaourt bitlbee でいれた.
+  - [[https://wiki.archlinux.org/index.php/bitlbee][Bitlbee - ArchWiki]]
+  - [[http://www.emacswiki.org/emacs/BitlBee][EmacsWiki: Bitl Bee]]
+  - [[http://emacs-fu.blogspot.jp/2012/03/social-networking-with-bitlbee-and-erc.html][emacs-fu: social networking with bitlbee and erc]]
+
+まだ動かした実績はなし. . . とりあえず入れておくか.
+
+#+begin_src emacs-lisp
+;; (use-package bitlbee)
+;; (defun i-wanna-be-social ()
+;;   "Connect to IM networks using bitlbee."
+;;   (interactive)
+;;   (erc :server "localhost" :port 6667 :nick "user"))
+#+end_src
+
+** ERC
+   Emacs のチャットツール.
+  
+   - [[http://www.emacswiki.org/ERC][EmacsWiki: ERC]]
+   - [[http://en.wikipedia.org/wiki/ERC_(software)][ERC (software) - Wikipedia, the free encyclopedia]]
+   - [[http://emacs-fu.blogspot.jp/2009/06/erc-emacs-irc-client.html][emacs-fu: ERC: the emacs IRC client]]
+   - [[http://sleepboy-zzz.blogspot.jp/2013/07/emacs-ercirc.html][memo: Emacs ERC で IRC を試してみた]]
+
+#+begin_src emacs-lisp
+;; (use-package erc)
+
+;; ログイン情報
+;; (setq erc-server "localhost")
+;; (setq erc-port "6667")
+;; (setq erc-nick "tsu-nera")
+;; (setq erc-password "")
+
+(autoload 'erc "erc" "" t)
+(defmacro de-erc-connect (command server port nick)
+  "Create interactive command `command', for connecting to an IRC server. The
+command uses interactive mode if passed an argument."
+  (fset command
+	`(lambda (arg)
+	   (interactive "p")
+	   (if (not (= 1 arg))
+	       (call-interactively 'erc)
+	     (erc :server ,server :port ,port :nick ,nick)))))
+
+;; (de-erc-connect erc-opn "localhost" 6667 "tsu-nera")
+#+end_src
+
+*** ログアウト
+    - /PART Channel をさる
+    - /QUIT msg Server をさる
+    - [[http://www.emacswiki.org/emacs/ErcStartupFiles][EmacsWiki: Erc Startup Files]]
+
+#+begin_src emacs-lisp
+;; Kill buffers for channels after /part
+(setq erc-kill-buffer-on-part t)
+#+end_src
+
+*** ニックネームハイライト
+**** erc-highlight-nicknames
+    - [[http://www.emacswiki.org/ErcHighlightNicknames][EmacsWiki: Erc Highlight Nicknames]]
+
+ #+begin_src emacs-lisp
+;; (and
+;;   (use-package erc-highlight-nicknames)
+;;   (add-to-list 'erc-modules 'highlight-nicknames)
+;;   (erc-update-modules))
+ #+end_src
+
+**** erc-hl-nicks
+     erc-highlight-nicknames の改良版か?
+   - https://github.com/leathekd/erc-hl-nicks
+
+ #+begin_src emacs-lisp
+(use-package erc-hl-nicks)
+ #+end_src
+
+*** 通知
+**** ERC notification
+     登録した単語をみつけたら反応する.
+     - [[https://julien.danjou.info/blog/2012/erc-notifications][ERC notifications | Julien Danjou]]
+
+#+begin_src emacs-lisp
+(add-to-list 'erc-modules 'notifications)
+(erc-update-modules)
+(setq erc-pals '("tsune" "tsu-nera")
+ erc-notify-list erc-pals)
+#+end_src
+      
+**** erc-nick-notify
+     呼ばれたら反応する.
+     - [[http://www.emacswiki.org/emacs/ErcNickNotify][EmacsWiki: Erc Nick Notify]]
+     
+     notify-send しか対応していないみたい.
+    
+#+begin_src emacs-lisp
+(autoload 'erc-nick-notify-mode "erc-nick-notify"
+  "Minor mode that calls `erc-nick-notify-cmd' when his nick gets
+  mentioned in an erc channel" t)
+(eval-after-load 'erc '(erc-nick-notify-mode t))
+#+end_src
+ 
+**** erc-input-lien-position
+
+ #+begin_src emacs-lisp
+(setq erc-input-line-position -2)
+ #+end_src
+
+*** Encoding
+    #+begin_src emacs-lisp
+   ;; UTF-8
+   ;; (setq  erc-server-coding-system '(utf-8 . utf-8))
+
+   ;; Shift-JIS
+   ;; (setq erc-server-coding-system に (iso-2022-jp . iso-2022-jp))
+    #+end_src
+
+*** width を可変にする
+    デフォルトは 78 で折り返し.
+    - [[http://www.emacswiki.org/emacs/ErcFilling][EmacsWiki: Erc Filling]]
+
+#+begin_src emacs-lisp
+ (add-hook 'window-configuration-change-hook 
+	   '(lambda ()
+	      (setq erc-fill-column (- (window-width) 2))))
+#+end_src
+* Hown
+  Function : Evernote を越えるメモ管理ツール
+  - http://www.gfd-dennou.org/member/uwabami/cc-env/emacs/howm_config.html
+  - http://d.hatena.ne.jp/TakashiHattori/20120627/1340768058
+
+  使いこなせてないので封印.いつか, 使いこなしたい.
+
+#+begin_src emacs-lisp
+;; *.org を開いたら howm-mode も起動する
+;;(add-hook 'org-mode-hook 'howm-mode)
+
+;; howm のメモを置くディレクトリ (任意)
+;; (setq howm-directory "~/gtd/howm") ;; メニュー表示しない
+;; (setq howm-menu-top nil)
+;; メニューの言語設定
+;; (setq howm-menu-lang 'ja)
+;; howm ファイル名を設定する. org-mode を起動するため拡張子は .org にする.
+;; (setq howm-file-name-format "%Y%m%d-%H%M%S.org")
+;; (setq howm-view-title-header "*") ;; ← howm のロードより前に書くこと
+
+;; キーバインドは C-a C-a にする
+;; (global-unset-key (kbd "C-x C-a"))
+;; (setq howm-prefix (kbd "C-x C-a"))
+
+;;(autoload 'howm "howm" " Hitori Otegaru Wiki Modoki" nil)
+;; (use-package howm)
+;; (add-hook 'howm-mode-hook 'helm-howm)
+;; (use-package helm-howm)
 #+end_src
 
 * pdf-tools
-PDF Viewer.
+  PDF Viewer.
+  - http://sheephead.homelinux.org/2014/03/17/7076/
 
-http://sheephead.homelinux.org/2014/03/17/7076/
+  github のやつだと, コンパイルエラーするので, fork して無理やり通した.
 
-github のやつだと, コンパイルエラーするので, fork して無理やり通した.
-
-ArchLinux では, GhostScript を入れる.
+  ArchLinux では, GhostScript を入れる.
 
 #+begin_src sh
 sudo pacman -S ghostscript
 #+end_src
+
+  重いので封印. PDF は Emacs で見るにはつらいかと...
 
 #+begin_src emacs-lisp
 ;; (when linux-p
@@ -668,10 +804,9 @@ sudo pacman -S ghostscript
 ;; )
 #+end_src
 
-どうも, doc-view-mode がめちゃくちゃ遅い!linum-mode が有効なことが原因.
-以下のページを参考に, major-mode が doc-view-mode のときは, linum-mode は disable に.
-
-- [[http://stackoverflow.com/questions/16132234/how-can-i-speed-up-emacs-docview-mode][How can I speed up Emacs DocView mode? - Stack Overflow]]
+  どうも, doc-view-mode がめちゃくちゃ遅い!linum-mode が有効なことが原因.
+  以下のページを参考に, major-mode が doc-view-mode のときは, linum-mode は disable に.
+  - [[http://stackoverflow.com/questions/16132234/how-can-i-speed-up-emacs-docview-mode][How can I speed up Emacs DocView mode? - Stack Overflow]]
 
 ** WIndows 環境
    頑張ってる. まだうごかない.
@@ -682,7 +817,8 @@ sudo pacman -S ghostscript
    - libpoppwer-glib8
 
 * calfw
-Emacs 用カレンダー.
+  Emacs 用カレンダー.
+  -> org-mode に移動.
 
 * Google
 ** google-translate
@@ -691,8 +827,8 @@ Emacs 用カレンダー.
    - [[http://qiita.com/catatsuy/items/ae9875706769d4f02317][卒論を英語で書けと言われしまったあなたにおすすめの Emacs の設定 - Qiita]]
 
 #+begin_src emacs-lisp
-(use-package google-translate)
-
+(use-package google-translate
+:config
 (global-set-key "\C-xt" 'google-translate-at-point)
 (global-set-key "\C-xT" 'google-translate-query-translate)
 
@@ -703,23 +839,24 @@ Emacs 用カレンダー.
 
 ;; google-translate.el の翻訳バッファをポップアップで表示させる
 (push '("*Google Translate*") popwin:special-display-config)
+)
 #+end_src
 
 ** google-this
    Google 検索.
-   
    - [[https://github.com/Bruce-Connor/emacs-google-this][Bruce-Connor/emacs-google-this]]
 
    代表的な使用方法.
-
    - C-c / g (RET) でその場のキーワード検索.
    - C-c / w でその場のワードを検索
    - C-c / l でその行を検索
    - C-c / c Google 翻訳
 
 #+begin_src emacs-lisp
-(use-package google-this)
+(use-package google-this
+:config
 (google-this-mode 1)
+)
 #+end_src
 
 * Dictionary
@@ -751,9 +888,7 @@ Emacs 用カレンダー.
 
 * Pomodoro
   ポモドーロ関係のツール.
-
   - [[http://pomodorotechnique.com/][HOME - The Pomodoro Technique ® The Pomodoro Technique ®]]
-  - 
 
 ** 一覧
   - https://github.com/konr/tomatinho
@@ -813,176 +948,16 @@ Emacs 用カレンダー.
 ;; )
 #+end_src
 
-* e2wm
-  Emacs ようの window manager.
-
-  - [[https://github.com/kiwanami/emacs-window-manager][kiwanami/emacs-window-manager]]
-  - [[http://d.hatena.ne.jp/kiwanami/20100528/1275038929][広くなった画面を有効利用できる, Emacs 内 Window 管理ツール e2wm.el を作ってみた]]
-
-  array を利用すると, windows のようなタブで画面切り替え.
-
-  - [[http://aki2o.hatenablog.jp/entry/2014/08/19/Emacs%E3%81%A7%E3%83%90%E3%83%83%E3%83%95%E3%82%A1%E5%86%85%E5%AE%B9%E3%82%92%E7%9B%AE%E8%A6%96%E7%A2%BA%E8%AA%8D%E3%81%97%E3%81%A6%E7%9B%AE%E7%9A%84%E3%81%AE%E3%83%90%E3%83%83%E3%83%95%E3%82%A1%E3%81%AB][Emacs でバッファ内容を目視確認して目的のバッファに素早く切り替える - 死ぬまでの暇潰し]]
-
-    #+begin_src emacs-lisp
-    (use-package e2wm)
-    (global-set-key (kbd "M-+") 'e2wm:start-management)
-    (when linux-p
-    ;; 使わないから封印.
-    ;; (global-set-key (kbd "M-<tab>") 'e2wm:dp-array)
-    )
-    #+end_src
-
-** e2wm-direx
-   - [[https://github.com/aki2o/e2wm-direx][aki2o/e2wm-direx]]
-
-#+begin_src emacs-lisp
-;; (use-package e2wm-direx)
-(setq e2wm:c-code-recipe
-      '(| (:left-max-size 40)
-          (- (:upper-size-ratio 0.6)
-             tree history)
-          (- (:lower-max-size 150)
-             (| (:right-max-size 40)
-                main imenu)
-             sub)))
-
-(setq e2wm:c-code-winfo
-      '((:name main)
-        (:name tree    :plugin dired)
-        (:name history :plugin history-list)
-        (:name imenu   :plugin imenu :default-hide nil)
-        (:name sub     :buffer "*info*" :default-hide t)))
-#+end_src
-
 * psession
   セッション保存. escreen に対応してくれないかな. . .
-
-- [[https://github.com/thierryvolpiatto/psession][thierryvolpiatto/psession]]
-[[http://rubikitch.com/2014/08/21/psession/][- Emacs のデータ・バッファ・ウィンドウ構成を永続化し, 再起動時に復元する方法 るびきち× Emacs]]
-
-#+begin_src emacs-lisp
-;; (use-package psession)
-;; (autoload 'psession-mode "persistent-sessions.el")
-;; (psession-mode 1)
-#+end_src
-* gist
-  Emacs gist interface
-  - https://github.com/defunkt/gist.el
-  - https://github.com/emacs-helm/helm-gist/blob/master/helm-gist.el
+  - [[https://github.com/thierryvolpiatto/psession][thierryvolpiatto/psession]]
+  - [[http://rubikitch.com/2014/08/21/psession/][Emacs のデータ・バッファ・ウィンドウ構成を永続化し, 再起動時に復元する方法 るびきち× Emacs]]
 
 #+begin_src emacs-lisp
-(use-package gist)
-;; (use-package helm-gist)
-#+end_src
-
-* ERC
-  Emacs のチャットツール.
-  
-  - [[http://www.emacswiki.org/ERC][EmacsWiki: ERC]]
-  - [[http://en.wikipedia.org/wiki/ERC_(software)][ERC (software) - Wikipedia, the free encyclopedia]]
-  - [[http://emacs-fu.blogspot.jp/2009/06/erc-emacs-irc-client.html][emacs-fu: ERC: the emacs IRC client]]
-  - [[http://sleepboy-zzz.blogspot.jp/2013/07/emacs-ercirc.html][memo: Emacs ERC で IRC を試してみた]]
-
-#+begin_src emacs-lisp
-;; (use-package erc)
-
-;; ログイン情報
-;; (setq erc-server "localhost")
-;; (setq erc-port "6667")
-;; (setq erc-nick "tsu-nera")
-;; (setq erc-password "")
-
-(autoload 'erc "erc" "" t)
-(defmacro de-erc-connect (command server port nick)
-  "Create interactive command `command', for connecting to an IRC server. The
-command uses interactive mode if passed an argument."
-  (fset command
-	`(lambda (arg)
-	   (interactive "p")
-	   (if (not (= 1 arg))
-	       (call-interactively 'erc)
-	     (erc :server ,server :port ,port :nick ,nick)))))
-
-;; (de-erc-connect erc-opn "localhost" 6667 "tsu-nera")
-#+end_src
-
-** ログアウト
-   - /PART Channel をさる
-   - /QUIT msg Server をさる
-
-#+begin_src emacs-lisp
-;; Kill buffers for channels after /part
-(setq erc-kill-buffer-on-part t)
-#+end_src
-
-- [[http://www.emacswiki.org/emacs/ErcStartupFiles][EmacsWiki: Erc Startup Files]]
-
-** ニックネームハイライト
-*** erc-highlight-nicknames
-   - [[http://www.emacswiki.org/ErcHighlightNicknames][EmacsWiki: Erc Highlight Nicknames]]
-
-#+begin_src emacs-lisp
-;; (and
-;;   (use-package erc-highlight-nicknames)
-;;   (add-to-list 'erc-modules 'highlight-nicknames)
-;;   (erc-update-modules))
-#+end_src
-
-*** erc-hl-nicks
-    erc-highlight-nicknames の改良版か?
-  - https://github.com/leathekd/erc-hl-nicks
-
-#+begin_src emacs-lisp
-(use-package erc-hl-nicks)
-#+end_src
-
-
-** 通知
-*** ERC notification
-    登録した単語をみつけたら反応する.
-    - [[https://julien.danjou.info/blog/2012/erc-notifications][ERC notifications | Julien Danjou]]
-
-#+begin_src emacs-lisp
-(add-to-list 'erc-modules 'notifications)
-(erc-update-modules)
-(setq erc-pals '("*all" "tsune" "tsu-nera")
- erc-notify-list erc-pals)
-#+end_src
-      
-*** erc-nick-notify
-    呼ばれたら反応する.
-  - [[http://www.emacswiki.org/emacs/ErcNickNotify][EmacsWiki: Erc Nick Notify]]
-
-    notify-send しか対応していないのかな??
-    
-#+begin_src emacs-lisp
-(autoload 'erc-nick-notify-mode "erc-nick-notify"
-  "Minor mode that calls `erc-nick-notify-cmd' when his nick gets
-  mentioned in an erc channel" t)
-  (eval-after-load 'erc '(erc-nick-notify-mode t))
-#+end_src
-
-*** erc-input-lien-position
-
-#+begin_src emacs-lisp
-(setq erc-input-line-position -2)
-#+end_src
-
-** Encoding
-   #+begin_src emacs-lisp
-   ;; UTF-8
-   ;; (setq  erc-server-coding-system '(utf-8 . utf-8))
-
-   ;; Shift-JIS
-   ;; (setq erc-server-coding-system に (iso-2022-jp . iso-2022-jp))
-   #+end_src
-
-** width を可変にする
-   デフォルトは 78 で折り返し.
-   - [[http://www.emacswiki.org/emacs/ErcFilling][EmacsWiki: Erc Filling]]
-
-#+begin_src emacs-lisp
- (add-hook 'window-configuration-change-hook 
-	   '(lambda ()
-	      (setq erc-fill-column (- (window-width) 2))))
+(use-package psession
+  :disabled t
+  :config
+  (autoload 'psession-mode "persistent-sessions.el")
+  (psession-mode 1)
+  )
 #+end_src
