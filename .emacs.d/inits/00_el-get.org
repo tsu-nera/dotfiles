@@ -217,6 +217,9 @@
     eclim
     smartrep
     ac-helm
+    elscreen-interchange
+    clocktable-by-tag
+    helm-flyspell-collect
   )
   "A list of packages to install from el-get at launch.")
 

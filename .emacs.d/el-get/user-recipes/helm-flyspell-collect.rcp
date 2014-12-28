@@ -1,0 +1,3 @@
+(:name helm-flyspell-collect
+       :type git
+       :url "https://gist.github.com/2ac6ee1555bcf8597fa6.git")

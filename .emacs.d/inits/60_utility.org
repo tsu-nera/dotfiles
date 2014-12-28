@@ -41,11 +41,6 @@
 ** colors
 
    #+begin_src emacs-lisp
-;; (custom-set-faces
-;;  '(elscreen-tab-control-face ((t (:background "color-234" :foreground "brightwhite" :underline t))))
-;;  '(elscreen-tab-current-screen-face ((t (:background "color-243" :foreground "brightwhite"))))
-;;  '(elscreen-tab-other-screen-face ((t (:background "color-235" :foreground "brightwhite" :underline t)))))
-
 (custom-set-faces
  '(elscreen-tab-control-face ((t (:background "#1c1c1c" :foreground "#9e9e9e" :underline t))))
  '(elscreen-tab-current-screen-face ((t (:background "#444444" :foreground "#9e9e9e"))))
@@ -56,53 +51,15 @@
 #+end_src
 
 ** screen の順番を手軽に変更
-   from: [[http://qiita.com/fujimisakari/items/d7f1b904de11dcb018c3][Emacs - Elscreen に機能追加する - Qiita]]
+   ここから
+   - [[http://qiita.com/fujimisakari/items/d7f1b904de11dcb018c3][Emacs - Elscreen に機能追加する - Qiita]]
+   - https://gist.github.com/tsu-nera/44763febe82874785bf7
 
 #+begin_src emacs-lisp
-(defun elscreen-swap-previous ()
-  "Interchange screens selected currently and previous."
-  (interactive)
-  (cond
-   ((elscreen-one-screen-p)
-    (elscreen-message "There is only one screen, cannot swap"))
-   (t
-    (let* ((screen-list (sort (elscreen-get-screen-list) '>))
-           (previous-screen
-            (or (nth 1 (memq (elscreen-get-current-screen) screen-list))
-               (car screen-list)))
-           (current-screen (elscreen-get-current-screen))
-           (current-screen-property
-            (elscreen-get-screen-property current-screen))
-           (previous-screen-property
-            (elscreen-get-screen-property previous-screen)))
-      (elscreen-set-screen-property current-screen previous-screen-property)
-      (elscreen-set-screen-property previous-screen current-screen-property)
-      (elscreen-goto-internal (elscreen-get-current-screen)))))
-  (elscreen-previous))
-
-(defun elscreen-swap-next ()
-  "Interchange screens selected currently and next."
-  (interactive)
-  (cond
-   ((elscreen-one-screen-p)
-    (elscreen-message "There is only one screen, cannot swap"))
-   (t
-    (let* ((screen-list (sort (elscreen-get-screen-list) '<))
-           (next-screen
-            (or (nth 1 (memq (elscreen-get-current-screen) screen-list))
-               (car screen-list)))
-           (current-screen (elscreen-get-current-screen))
-           (current-screen-property
-            (elscreen-get-screen-property current-screen))
-           (next-screen-property
-            (elscreen-get-screen-property next-screen)))
-      (elscreen-set-screen-property current-screen next-screen-property)
-      (elscreen-set-screen-property next-screen current-screen-property)
-      (elscreen-goto-internal (elscreen-get-current-screen)))))
-     (elscreen-next))
-
-(global-set-key (kbd "C-M-<right>") 'elscreen-swap-next)           ; screen の配置位置ずらし (右)
-(global-set-key (kbd "C-M-<left>") 'elscreen-swap-previous)        ; screen 配置位置ずらし (左)
+(use-package elscreen-interchange
+  :bind (("C-M-<right>" . elscreen-swap-next) 
+	 ("C-M-<left>" . elscreen-swap-previous))
+  )
 #+end_src
 
 ** TODO org-link を elscreen で開く
@@ -333,6 +290,20 @@ Warning: Eager macro-expansion skipped due to cycle:
    ) ;; end of 24.4
 #+end_src
 
+** edit-server
+   Google Chrome のフォームを emacs で編集. Edit with Emacs.
+   - https://github.com/stsquad/emacs_chrome/blob/master/servers/edit-server.el
+
+ #+begin_src emacs-lisp
+(use-package edit-server
+  :defer t
+  :config
+  (setq edit-server-new-frame nil)
+  ;; 手動で起動にする.
+  ;; (edit-server-start)
+  )
+ #+end_src
+
 * ディレクトリ操作
 ** dired
   dired から open
@@ -357,7 +328,6 @@ Warning: Eager macro-expansion skipped due to cycle:
 *** Tips
     移動のたびにバッファをつくらないためには, i や a でバッファを開く.
     - [[http://stackoverflow.com/questions/1839313/how-do-i-stop-emacs-dired-mode-from-opening-so-many-buffers][file management - How do I stop emacs dired mode from opening so many buffers? - Stack Overflow]]
-
 
 ** joseph-single-dired
    バッファを複数作成しない.
@@ -390,16 +360,6 @@ Warning: Eager macro-expansion skipped due to cycle:
 (setq password-cache-expiry nil)
 #+end_src
 
-* edit-server
-  Google Chrome のフォームを emacs で編集. Edit with Emacs.
-  - https://raw.githubusercontent.com/stsquad/emacs_chrome/master/servers/edit-server.el
-
-#+begin_src emacs-lisp
-(use-package edit-server
-  :config
-  (edit-server-start)
-  )
-#+end_src
 * パスワード管理
 ** netrc
    build-in のパスワード管理.
