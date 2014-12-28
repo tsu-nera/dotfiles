@@ -219,6 +219,7 @@
     sbt-mode
     org-sync
     eclim
+    smartrep
   )
   "A list of packages to install from el-get at launch.")
 

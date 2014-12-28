@@ -160,19 +160,11 @@
 (electric-pair-mode 1)
 #+end_src
 
-** goto どっかにとんでいく処理
-   M-g の 仕様 (24.4)   goto-map は M-g にバインドされている.
-   - TAB: move-to-column
-   - p: previous-error
-   - n: next-error
-   - g: goto-line
-   - c: goto-char
-
-   参考:
-   - [[http://g000001.cddddr.org/3628335601][#:g1: M-g を活用しよう]]
+** yes or no
+  問い合わせを簡略化 A yes/no を y/n
 
 #+begin_src emacs-lisp
-(define-key goto-map [?b] #'browse-url-at-point)
+(fset 'yes-or-no-p 'y-or-n-p)
 #+end_src
 
 * Key Bindings
@@ -198,10 +190,8 @@
 
 ** key-guide
    キーバインドを教えてくれる.
-
   - https://github.com/kai2nenobu/guide-key
   - [[http://rubikitch.com/2014/08/30/guide-key/][もう迷子にならない! 今の Emacs は自動的に次のキー操作を教えてくれるゾ!!]]
-
 #+begin_src emacs-lisp
 (use-package guide-key
   :config
@@ -209,6 +199,47 @@
   (guide-key-mode 1)  ; Enable guide-key-mode
   (setq guide-key/guide-key-sequence '("C-x r" "C-x 4")))
 #+end_src
+
+** chord-key
+   複数キー同時押しにキーバインド割り当て. 
+   親指シフト的なバインドができる.
+
+   #+begin_src emacs-lisp
+(use-package key-chord
+  :config
+   (key-chord-mode 1)
+   (setq key-chord-two-keys-delay 0.08)
+   )
+   #+end_src
+
+** smartrep
+   連続操作を素敵にするキーバインド設定を可能にする.
+   - https://github.com/myuhe/smartrep.el
+   - [[http://sheephead.homelinux.org/2011/12/19/6930/][連続操作を素敵にする smartrep.el 作った - sheephead]]
+   - [[http://d.hatena.ne.jp/rubikitch/20140613/smartrep][Emacs - smartrep.el で repeat を活性化せよ -]]   
+
+   multiple-cursor と一緒に利用するのが目的.
+
+#+begin_src emacs-lisp
+(use-package smartrep)
+#+end_src
+
+** goto どっかにとんでいく処理
+   M-g の 仕様 (24.4)   goto-map は M-g にバインドされている.
+   - TAB: move-to-column
+   - p: previous-error
+   - n: next-error
+   - g: goto-line
+   - c: goto-char
+
+   参考:
+   - [[http://g000001.cddddr.org/3628335601][#:g1: M-g を活用しよう]]
+
+#+begin_src emacs-lisp
+(define-key goto-map [?b] #'browse-url-at-point)
+#+end_src
+
+
 
 * Start Up
   起動時の設定

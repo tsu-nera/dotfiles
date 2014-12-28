@@ -22,56 +22,78 @@
 
    #+begin_src emacs-lisp
 (use-package multiple-cursors
+  :bind (("C-M-c" . mc/edit-lines)
+	 ("C-M-r" . mc/mark-all-in-region)
+	 ("C-]" . mc/mark-next-like-this)
+	 ("C-M-]" . mc/mark-previous-like-this)
+	 ("C-c C-]" . mc/mark-all-like-this))
   :config
-   (global-set-key (kbd "C-M-c") 'mc/edit-lines)
-   (global-set-key (kbd "C-M-r") 'mc/mark-all-in-region)
-   
-   (global-set-key (kbd "C-]") 'mc/mark-next-like-this)
-   (global-set-key (kbd "C-M-]") 'mc/mark-previous-like-this)
-   (global-set-key (kbd "C-c C-]") 'mc/mark-all-like-this)
+  ;; smartrep によるキーバインド
+  (eval-after-load 'smartrep
+  '(progn
+     (global-unset-key "\C-t") 
+     (smartrep-define-key
+      global-map "C-t"
+      '(("C-t"      . 'mc/mark-next-like-this)
+	("n"        . 'mc/mark-next-like-this)
+	("p"        . 'mc/mark-previous-like-this)
+	("m"        . 'mc/mark-more-like-this-extended)
+	("u"        . 'mc/unmark-next-like-this)
+	("U"        . 'mc/unmark-previous-like-this)
+	("s"        . 'mc/skip-to-next-like-this)
+	("S"        . 'mc/skip-to-previous-like-this)
+	("*"        . 'mc/mark-all-like-this)
+	("d"        . 'mc/mark-all-like-this-dwim)
+	("i"        . 'mc/insert-numbers)
+	("o"        . 'mc/sort-regions)
+	("O"        . 'mc/reverse-regions)))
+     ))
    )
    #+end_src
 
 ** expand-region
    Awesome Emacs Rocks! 
 
-   リージョンを広げる
+   リージョンを広げる.
+   - https://github.com/magnars/expand-region.el
    - http://d.hatena.ne.jp/syohex/20120117/1326814127
 
    #+begin_src emacs-lisp
 (use-package expand-region
-    :config
-(global-set-key (kbd "C-\\") 'er/expand-region)
-(global-set-key (kbd "C-M-\\") 'er/contract-region)
-
-;; 選択ができるようにしておく
-;; (transient-mark-mode t)
+  :bind (("C-\\" . er/expand-region)
+	 ("C-M-\\" . er/contract-region))
+  :config
+  ;; 選択ができるようにしておく
+  ;; (transient-mark-mode t)
 )
    #+end_src
 
-** Yassnipet
+** yasnippet
    スニペット管理
+   - https://github.com/capitaomorte/yasnippet
+   - [[http://fukuyama.co/yasnippet][yasnippet 8.0 の導入からスニペットの書き方- Web 学び]]
+   - [[http://konbu13.hatenablog.com/entry/2014/01/12/113300][emacs 最強スニペット展開プラグイン yasnippet.el - プログラミングのメモ]]
 
-   #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (use-package yasnippet
+  :defer t
   :config
-(yas-load-directory "~/.emacs.d/snippets")
+  ;; いつも Yassnipet
+  (yas-global-mode 1)
 
-(yas-global-mode 1)
+  ;; スニペットの場所
+  (yas-load-directory "~/.emacs.d/snippets")
 
-;; メニューは使わない
-(setq yas/use-menu nil)
-
-;; 問い合わせを簡略化 A yes/no を y/n
-(fset 'yes-or-no-p 'y-or-n-p)
-
-;; 既存スニペットを挿入する
-(define-key yas-minor-mode-map (kbd "C-x i i") 'helm-c-yas-complete)
-;; 新規スニペットを作成するバッファを用意する
-(define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
-;; 既存スニペットを閲覧・編集する
-(define-key yas-minor-mode-map (kbd "C-x i v") 'helm-c-yas-visit-snippet-file))
-   #+end_src
+  ;; メニューは使わない
+  (setq yas/use-menu nil)
+  
+  ;; 既存スニペットを挿入する
+  (define-key yas-minor-mode-map (kbd "C-x i i") 'helm-c-yas-complete)
+  ;; 新規スニペットを作成するバッファを用意する
+  (define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
+  ;; 既存スニペットを閲覧・編集する
+  (define-key yas-minor-mode-map (kbd "C-x i v") 'helm-c-yas-visit-snippet-file))
+#+end_src
 
 ** auto-complete
    自動補完を実現する elisp.
@@ -322,8 +344,6 @@
 #+end_src
 
 ** jump-char
-   iy-go-to-char よりよさそう
-
    ;で前. , で後ろ. C-c C-c で ace-jump-mode に切り替え.
 
    - https://github.com/lewang/jump-char
@@ -331,25 +351,15 @@
    #+begin_src emacs-lisp
 (use-package jump-char
   :config
-   ;; (global-set-key (kbd "C-c f") 'jump-char-forward)
-   ;; (global-set-key (kbd "C-c F") 'jump-char-backward)
-  ;; key-chord にかえる
+  ;; (global-set-key (kbd "C-c f") 'jump-char-forward)
+  ;; (global-set-key (kbd "C-c F") 'jump-char-backward)
+  (eval-after-load 'key-chord
+    '(progn
+       (key-chord-define-global "jk" 'jump-char-forward)
+       (key-chord-define-global "jh" 'jump-char-backward)
+       ))
   )
-   #+end_src
-** chord-key
-   キーバインド割り当て. jump-char と一緒に利用.
-
-   #+begin_src emacs-lisp
-(use-package key-chord
-  :config
-   (key-chord-mode 1)
-   (setq key-chord-two-keys-delay 0.08)
-   
-   ; buffer actions
-   (key-chord-define-global "jk" 'jump-char-forward)
-   (key-chord-define-global "jh" 'jump-char-backward)
-   )
-   #+end_src
+#+end_src
 * 検索・置換
 ** ag
    高速 grep

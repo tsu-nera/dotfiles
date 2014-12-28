@@ -6,16 +6,16 @@
 #+begin_src emacs-lisp
 (use-package org-install
   :mode ("\\.org$"  . org-mode)
+  :bind  (("C-c a" . org-agenda)
+	  ("C-c c" . org-capture)
+	  ("C-c b" . org-iswitchb)
+	  ("C-c l" . org-store-link)
+	  ("C-c C-x C-@" . org-clock-out) ;; tmux で C-o は利用しているため
+	  ("C-c C" . cfw:open-org-calendar)
+	  ("C-c C-x C-z" . org-resolve-clocks)
+	  ("C-c C-x C-g" . org-clock-goto))
   :config
   ;; key bindings
-  (global-set-key "\C-ca" 'org-agenda)
-  (global-set-key "\C-cc" 'org-capture)
-  (global-set-key "\C-cb" 'org-iswitchb)
-  (global-set-key "\C-cl" 'org-store-link)
-  (global-set-key "\C-c\C-x\C-@" 'org-clock-out) ;; tmux で C-o は利用しているため
-  (global-set-key "\C-cC" 'cfw:open-org-calendar)
-  (global-set-key "\C-c\C-x\C-z" 'org-resolve-clocks)
-  (global-set-key "\C-c\C-x\C-g" 'org-clock-goto)
 
   ;; C-o の置き換え tmux で c-o は使っているので
   (define-key org-mode-map "\C-co" 'org-open-at-point)
