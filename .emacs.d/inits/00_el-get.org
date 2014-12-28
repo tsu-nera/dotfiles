@@ -214,7 +214,6 @@
     esup
     initchart
     scala-mode2
-    project-mode
     ensime
     sbt-mode
     org-sync

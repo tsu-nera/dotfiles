@@ -28,37 +28,25 @@
 
 #+begin_src emacs-lisp
 (use-package quickrun
+  :bind ("C-c r" . quickrun)
   :config
-(push '("*quickrun*") popwin:special-display-config)
-(global-set-key (kbd "C-c r") 'quickrun)
-
-(setq quickrun-timeout-seconds 20)
+  (push '("*quickrun*") popwin:special-display-config)
+  (setq quickrun-timeout-seconds 20)
 )
 #+end_src
 
 * プロジェクト管理
-** project-mode
-   Emacs global minor mode for defining and navigating projects.
-
-   GTD のプロジェクトと連携させるのはいいかもね.
-   - タスクのかたまりはプロジェクトとして管理
-   - プロジェクトは git で版数管理
-
-   #+begin_src emacs-lisp
-   (autoload 'project-mode "project-mode" "Project Mode" t)
-   #+end_src
-
 ** projectile
    Project Interaction Library for Emacs.
    - https://github.com/bbatsov/projectile
    
    自動でプロジェクトのルートディレクトリを探して, 
    それ以下のファイルを見つけたり色々できる.
-
    - [[http://blog.en30.net/2014/10/20/development-environment.html][最近の開発環境: mjolnir, projectile, peco - blog.en30.net]]
 
    #+begin_src emacs-lisp
 (use-package helm-projectile
+  :defer t
   :config
   (projectile-global-mode)
   
@@ -92,19 +80,18 @@
 
 * タグジャンプ
 ** gtags
-
   - [[http://namamugi2011.blog.fc2.com/blog-entry-42.html][GNU GLOBAL と emacs でコードリーディング | ぷろぐらま]]
 
 #+begin_src emacs-lisp
 ;; GNU global
 (use-package gtags
-  :config		 
-  (global-set-key "\M-t" 'gtags-find-tag) ;関数の定義元へ
-  (global-set-key "\M-r" 'gtags-find-rtag) ;関数の参照先へ
-  (global-set-key "\M-s" 'gtags-find-symbol) ;変数の定義元/ 参照先へ
-  ;; (global-set-key "\M-f" 'gtags-find-file) ;ファイルにジャンプ
-  (global-set-key "\M-," 'gtags-pop-stack);前のバッ ファに戻る
-  
+  :bind
+  (("\M-t" . gtags-find-tag) ;関数の定義元へ
+  ("\M-r" . gtags-find-rtag) ;関数の参照先へ
+  ("\M-s" . gtags-find-symbol) ;変数の定義元/ 参照先へ
+  ;; ("\M-f" . gtags-find-file) ;ファイルにジャンプ
+  ("\M-," . gtags-pop-stack));前のバッ ファに戻る
+  :init  
   (add-hook 'c-mode-common-hook
 	    '(lambda ()
 	       (gtags-mode 1)
@@ -118,31 +105,24 @@
 
 #+begin_src emacs-lisp
 (use-package flymake
+  :bind
+  (("M-p"  . flymake-goto-prev-error)
+  ("M-n"  . flymake-goto-next-error)
+  ("C-c d" . flymake-display-err-menu-for-current-line))
+  :init
+  ;; 全てのファイルで flymake を有効化
+  (add-hook 'find-file-hook 'flymake-find-file-hook)
   :config
+  ;; GUI の警告は表示しない
+  (setq flymake-gui-warnings-enabled nil)
 
-;; GUI の警告は表示しない
-(setq flymake-gui-warnings-enabled nil)
-
-;; 全てのファイルで flymake を有効化
-(add-hook 'find-file-hook 'flymake-find-file-hook)
-
-;; M-p/M-n で警告/ エラー行の移動
-(global-set-key "\M-p" 'flymake-goto-prev-error)
-(global-set-key "\M-n" 'flymake-goto-next-error)
-
-;; 警告エラー行の表示
-(global-set-key "\C-cd" 'flymake-display-err-menu-for-current-line)
-
-(defun my-flymake-init ()
-  (list "my-java-flymake-checks"
-        (list (flymake-init-create-temp-buffer-copy
-               'flymake-create-temp-with-folder-structure))))
-(add-to-list 'flymake-allowed-file-name-masks
-             '("\\.java$" my-flymake-init flymake-simple-cleanup))
-
-;;(use-package flymake-ruby)
-;;(add-hook 'enh-ruby-mode-hook 'flymake-ruby-load)
-)
+  (defun my-flymake-init ()
+    (list "my-java-flymake-checks"
+	  (list (flymake-init-create-temp-buffer-copy
+		 'flymake-create-temp-with-folder-structure))))
+  (add-to-list 'flymake-allowed-file-name-masks
+	       '("\\.java$" my-flymake-init flymake-simple-cleanup))
+  )
 #+end_src
 
 ** flycheck
@@ -150,41 +130,42 @@
 
 #+begin_src emacs-lisp
 (use-package flycheck
+  :defer t
+  :init
+  ;; Ruby
+  ;; (add-hook 'ruby-mode-hook 'flycheck-mode)
   :config
-;;(setq flycheck-check-syntax-automatically '(mode-enabled save))
+  ;;(setq flycheck-check-syntax-automatically '(mode-enabled save))
 
-;; Ruby
-;; (add-hook 'ruby-mode-hook 'flycheck-mode)
+  ;; definition for flycheck
+  (flycheck-define-checker ruby-rubocop
+    "A Ruby syntax and style checker using the RuboCop tool.
+     See URL `http://batsov.com/rubocop/'."
+    :command ("rubocop" "--format" "emacs" "--silent"
+	      (config-file "--config" flycheck-rubocoprc)
+	      source)
+    :error-patterns
+    ((warning line-start
+	      (file-name) ":" line ":" column ": " (or "C" "W") ": " (message)
+	      line-end)
+     (error line-start
+	    (file-name) ":" line ":" column ": " (or "E" "F") ": " (message)
+	    line-end))
+    :modes (ruby-mode))
 
-;; definition for flycheck
-(flycheck-define-checker ruby-rubocop
-  "A Ruby syntax and style checker using the RuboCop tool.
-   See URL `http://batsov.com/rubocop/'."
-  :command ("rubocop" "--format" "emacs" "--silent"
-	    (config-file "--config" flycheck-rubocoprc)
-	    source)
-  :error-patterns
-  ((warning line-start
-	    (file-name) ":" line ":" column ": " (or "C" "W") ": " (message)
-	    line-end)
-   (error line-start
-	  (file-name) ":" line ":" column ": " (or "E" "F") ": " (message)
-	  line-end))
-  :modes (ruby-mode))
-
-;; definition for flycheck
-(flycheck-define-checker ruby-rubylint
-  "A Ruby syntax and style checker using the rubylint tool."
-  :command ("ruby-lint" source)
-  :error-patterns
-  ((warning line-start
-	    (file-name) ":" line ":" column ": " (or "C" "W") ": " (message)
-	    line-end)
-   (error line-start
-	  (file-name) ":" line ":" column ": " (or "E" "F") ": " (message)
-	  line-end))
-  :modes (ruby-mode))
-)
+  ;; definition for flycheck
+  (flycheck-define-checker ruby-rubylint
+    "A Ruby syntax and style checker using the rubylint tool."
+    :command ("ruby-lint" source)
+    :error-patterns
+    ((warning line-start
+	      (file-name) ":" line ":" column ": " (or "C" "W") ": " (message)
+	      line-end)
+     (error line-start
+	    (file-name) ":" line ":" column ": " (or "E" "F") ": " (message)
+	    line-end))
+    :modes (ruby-mode))
+  )
 
 #+end_src
 
@@ -192,9 +173,10 @@
 
 #+begin_src emacs-lisp
 (use-package flycheck-color-mode-line
-  :config
+  :defer t
+  :init
   (eval-after-load "flycheck"
-  '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
+    '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
 )
 #+end_src
 
@@ -203,15 +185,19 @@
    emacs よう diff ツール
    - http://www.emacswiki.org/emacs/EdiffMode
 
-#+begin_src emacs-lisp
-;; コントロール用のバッファを同一フレーム内に表示
-(setq ediff-window-setup-function 'ediff-setup-windows-plain)
-;; 縦に分割
-(setq ediff-split-window-function 'split-window-horizontally)
-;; ウィンドウサイズによっては横分割
-(setq ediff-split-window-function (if (> (frame-width) 150)
-				      'split-window-horizontally
-				    'split-window-vertically))
+   #+begin_src emacs-lisp
+(use-package ediff
+  :defer t
+  :config
+  ;; コントロール用のバッファを同一フレーム内に表示
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+  ;; 縦に分割
+  (setq ediff-split-window-function 'split-window-horizontally)
+  ;; ウィンドウサイズによっては横分割
+  (setq ediff-split-window-function (if (> (frame-width) 150)
+					'split-window-horizontally
+				      'split-window-vertically))
+  )
 #+end_src
 
 ** tdd
@@ -234,9 +220,8 @@
 
    #+begin_src emacs-lisp
 (use-package magit
-  :commands (magit magit-svn magit-status)
-  :init
-  (define-key global-map (kbd "C-c m") 'magit-status)
+  :bind ("C-c m" . magit-status)
+  :commands (magit magit-svn)
   :config
   (setq magit-git-executable "git")
   (setq magit-emacsclient-executable "emacsclient")
