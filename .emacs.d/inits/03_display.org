@@ -269,20 +269,6 @@
   (global-set-key "\C-qk" 'windmove-up)
 #+END_SRC
 
-** ace-window
-   ace インタフェースによる切り替え.
-   - https://github.com/abo-abo/ace-window
-   - [[http://rubikitch.com/2014/12/26/ace-window/][emacs ace-window.el : C-x o を ace-jump 化しよう!]]
-
-#+begin_src emacs-lisp
-  (use-package ace-window
-    :defer t
-    :bind ("C-x o" . ace-window)
-    :config
-    (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
-  )
-#+end_src
-
 ** e2wm
    Emacs ようの window manager.
 

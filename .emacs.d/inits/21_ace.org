@@ -1,0 +1,87 @@
+* ace
+  a quick cursor jump mode for emacs.
+
+** ace-jump-mode
+   Awesome Emacs Rocks! 
+
+#+begin_src emacs-lisp
+(use-package ace-jump-mode
+  :init
+  (progn
+    (autoload 'ace-jump-mode "ace-jump-mode" nil t)
+    (bind-key "C-." 'ace-jump-mode)
+    (message "Yay, ace-jump-mode was actually loaded!")
+    ))
+
+    ;; (use-package ace-jump-mode
+    ;;   :commands ace-jump-mode
+    ;;   :init
+    ;;   (bind-key "C-." 'ace-jump-mode)
+    ;;   :config
+    ;;   (message "Yay, ace-jump-mode was actually loaded!"))
+
+
+;; (use-package ace-jump-mode
+;;   :defer t
+;; ;;  :bind ("C-x ," . ace-jump-mode)
+;;   :config
+;;   (message "Yay, ace-jump-mode was actually loaded!"))
+#+end_src
+
+** ace-jump-buffer
+#+begin_src emacs-lisp
+;; (use-package ace-jump-buffer
+;;   :defer t
+;;   :bind ("C-x m" . ace-jump-buffer)
+;;   :config
+;;   (progn
+;;     (message "Yay, ace-jump-buffer was actually loaded!")))
+#+end_src
+
+** ace-jump-zap
+   ジャンプして削除.
+   - https://github.com/waymondo/ace-jump-zap
+
+#+begin_src emacs-lisp
+;; (use-package ace-jump-zap
+;;   :defer t
+;;   :bind (("M-z" . ace-jump-zap-to-char)
+;; 	 ("M-C-z" . ace-jump-zap-to-char)))
+#+end_src
+
+** ace-isearch
+   Do ace-jump from isearch.
+
+   昔は isearch-ace-jump-mode という名前だった (気がするが)
+
+   isearch の初めの一文字を入力して待っていると, ace-jump-char 発動.
+   isearch して, しばらく入力しないと swoop 発動.
+
+   - https://github.com/tam17aki/ace-isearch
+   - [[http://ongaeshi.hatenablog.com/entry/ace-isearch][Emacs のテキスト検索の使い勝手をあげる ace-isearch と helm-swoop が便利 - ブログのおんがえし]]
+   - [[http://rubikitch.com/tag/ace-isearch/][「 ace-isearch 」タグの記事一覧 | るびきち「日刊 Emacs 」]]
+   - [[http://qiita.com/ballforest/items/7c3f2e64b59d8157bc8c][Emacs - ace-isearch : isearch と ace-jump-mode の連携 - Qiita]]
+
+   #+begin_src emacs-lisp
+;; (use-package ace-isearch
+;;   :defer t
+;;   :config
+;;    (global-ace-isearch-mode +1)
+;;    ;; (setq ace-isearch-use-function-from-isearch nil)
+;;    (define-key isearch-mode-map (kbd "M-o") 'helm-multi-swoop-all-from-isearch)
+;;    )
+   #+end_src
+
+** ace-window
+   ace インタフェースによる切り替え.
+   - https://github.com/abo-abo/ace-window
+   - [[http://rubikitch.com/2014/12/26/ace-window/][emacs ace-window.el : C-x o を ace-jump 化しよう!]]
+
+#+begin_src emacs-lisp
+;; (use-package ace-window
+;;   :defer t
+;;   :bind ("C-x o" . ace-window)
+;;   :config
+;;   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+;;   )
+#+end_src

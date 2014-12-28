@@ -98,6 +98,9 @@
 ;; use-package が存在しないときはなにもしない
 (unless (require 'use-package nil t)
   (defmacro use-package (&rest args)))
+
+;; for debug 0.01秒以上 loadにかかったらreportを出す.
+(setq use-package-verbose t)
 #+end_src
 
 *** パッケージが存在しないとき
@@ -106,21 +109,6 @@
    Could not load package hoge
 
    *Message* バッファを検索して, エラーがないかチェックする.
-
-*** bind-key
-    use-package のサブモジュール.
-    キー割り当ての設定関数 define-key を完全に置き換えます.
-    - [[http://rubikitch.com/2014/09/10/bind-key/][emacs bind-key.el :define-key を直接書くのは時代遅れ!Emacs の重鎮が行っているスタイリッシュキー割り当て管理術!]]
-
-    個人用に割り当てたキーを列挙できる ( M-x describe-personal-keybindings )
-
-#+begin_src text
-(global-set-key (kbd "C-c x") 'my-ctrl-c-x-command)
-(bind-key "C-c x" 'my-ctrl-c-x-command)
-
-(define-key some-other-mode-map (kbd "C-c x") 'my-ctrl-c-x-command)
-(bind-key "C-c x" 'my-ctrl-c-x-command some-other-mode-map)
-#+end_src
 
 * General Settings
 ** inits, el-get 管理外の elisp のバイトコンパイル.
@@ -168,7 +156,6 @@
 #+end_src
 
 * Key Bindings
-
 ** Global Keys
    よくわすれる, C や M の意味.
    - [[http://www.emacswiki.org/emacs/Emacs%e3%83%93%e3%82%ae%e3%83%8a%e3%83%bc#toc9][EmacsWiki: Emacs ビギナー]]
@@ -192,6 +179,7 @@
    キーバインドを教えてくれる.
   - https://github.com/kai2nenobu/guide-key
   - [[http://rubikitch.com/2014/08/30/guide-key/][もう迷子にならない! 今の Emacs は自動的に次のキー操作を教えてくれるゾ!!]]
+
 #+begin_src emacs-lisp
 (use-package guide-key
   :config
@@ -239,7 +227,21 @@
 (define-key goto-map [?b] #'browse-url-at-point)
 #+end_src
 
+** bind-key
+   use-package のサブモジュール.
+   キー割り当ての設定関数 define-key を完全に置き換えます.
+   - [[http://rubikitch.com/2014/09/10/bind-key/][emacs bind-key.el :define-key を直接書くのは時代遅れ!Emacs の重鎮が行っているスタイリッシュキー割り当て管理術!]]
+      
+   個人用に割り当てたキーを列挙できる ( M-x describe-personal-keybindings )
 
+*** example
+#+begin_src text
+(global-set-key (kbd "C-c x") 'my-ctrl-c-x-command)
+(bind-key "C-c x" 'my-ctrl-c-x-command)
+
+(define-key some-other-mode-map (kbd "C-c x") 'my-ctrl-c-x-command)
+(bind-key "C-c x" 'my-ctrl-c-x-command some-other-mode-map)
+#+end_src
 
 * Start Up
   起動時の設定

@@ -220,6 +220,7 @@
     org-sync
     eclim
     smartrep
+    ac-helm
   )
   "A list of packages to install from el-get at launch.")
 

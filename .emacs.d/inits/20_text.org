@@ -71,28 +71,35 @@
 ** yasnippet
    スニペット管理
    - https://github.com/capitaomorte/yasnippet
+   - [[http://www.emacswiki.org/emacs/Yasnippet][EmacsWiki: Yasnippet]]
    - [[http://fukuyama.co/yasnippet][yasnippet 8.0 の導入からスニペットの書き方- Web 学び]]
    - [[http://konbu13.hatenablog.com/entry/2014/01/12/113300][emacs 最強スニペット展開プラグイン yasnippet.el - プログラミングのメモ]]
 
+   yas/ と書いてあるのは, ver8.0 以下の古い書き方.yas-と書くのが最新.
+
 #+begin_src emacs-lisp
 (use-package yasnippet
-  :defer t
+  :init (global-unset-key "\C-xi")
+  :bind (("C-x i i" . helm-yas-complete)
+	 ("C-x i v" . helm-yas-visit-snippet-file)
+	 ("C-x i n" . yas-new-snippet))
   :config
-  ;; いつも Yassnipet
+  (setq yas-snippet-dirs
+      '("~/.emacs.d/snippets" ;; my snipets dir
+        "~/.emacs.d/el-get/repo/yasnippet/snippets" ;; original repo dir
+        ))
   (yas-global-mode 1)
 
-  ;; スニペットの場所
-  (yas-load-directory "~/.emacs.d/snippets")
-
   ;; メニューは使わない
-  (setq yas/use-menu nil)
+  (setq yas-use-menu nil)
   
   ;; 既存スニペットを挿入する
-  (define-key yas-minor-mode-map (kbd "C-x i i") 'helm-c-yas-complete)
-  ;; 新規スニペットを作成するバッファを用意する
-  (define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
+  ;; (define-key yas-minor-mode-map (kbd "C-x i i") 'helm-yas-complete)
   ;; 既存スニペットを閲覧・編集する
-  (define-key yas-minor-mode-map (kbd "C-x i v") 'helm-c-yas-visit-snippet-file))
+  ;; (define-key yas-minor-mode-map (kbd "C-x i v") 'helm-yas-visit-snippet-file))
+  ;; 新規スニペットを作成するバッファを用意する
+  ;; (define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
+ )
 #+end_src
 
 ** auto-complete
@@ -111,84 +118,66 @@
    #+begin_src emacs-lisp
 (use-package auto-complete)
 (use-package auto-complete-config
-    :config
-(ac-config-default)
+  :bind   ("M-/" . auto-complete)
+  :config
+  (ac-config-default)
 
-;; グローバルで auto-complete を利用
-(global-auto-complete-mode t)
-;; 追加メジャーモード
-(add-to-list 'ac-modes 'org-mode)
+  ;; グローバルで auto-complete を利用
+  (global-auto-complete-mode t)
+  ;; 追加メジャーモード
+  (add-to-list 'ac-modes 'org-mode)
+  
+  ;; メニュー表示を遅延
+  ;; (setq ac-auto-show-menu 0.5)
+  (setq ac-auto-show-menu t)
 
-;; メニュー表示を遅延
-;; (setq ac-auto-show-menu 0.5)
-(setq ac-auto-show-menu t)
+  ;; 高さは 20 まで.
+  (setq ac-menu-height 20)
 
-;; 高さは 20 まで.
-(setq ac-menu-height 20)
+  ;; 色を変更
+  ;; (set-face-background 'ac-candidate-face "lightgray")
+  (set-face-background 'ac-candidate-face "orange")
+  (set-face-underline 'ac-candidate-face "darkgray")
+  (set-face-background 'ac-selection-face "steelblue")
 
-;; 色を変更
-;; (set-face-background 'ac-candidate-face "lightgray")
-(set-face-background 'ac-candidate-face "orange")
-(set-face-underline 'ac-candidate-face "darkgray")
-(set-face-background 'ac-selection-face "steelblue")
+  ;; 補完候補が 1 つのときはそれを採用.
+  (setq ac-dwim t)
 
-;; 補完候補が 1 つのときはそれを採用.
-(setq ac-dwim t)
+  ;; (setq ac-auto-start nil)
+  (setq ac-auto-start 3)           ; 3 文字以上から補完スタート 
+  ;; (setq ac-auto-show-menu 0.8)     ; 0.8 秒でメニュー表示
+  (setq ac-use-comphist t)         ; 補完候補をソート
+  (setq ac-candidate-limit nil)    ; 補完候補表示を無制限に
 
-;; (setq ac-auto-start nil)
-(setq ac-auto-start 3)           ; 3 文字以上から補完スタート 
-;; (setq ac-auto-show-menu 0.8)     ; 0.8 秒でメニュー表示
-(setq ac-use-comphist t)         ; 補完候補をソート
-(setq ac-candidate-limit nil)    ; 補完候補表示を無制限に
+  ;; 補完キーでトリガさせる.
+  ;; 手動で補完を起動する
+  (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
 
-;; 補完キーでトリガさせる.
-;; 手動で補完を起動する
-(define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
-(global-set-key "\M-/" 'auto-complete)
+  (setq ac-use-menu-map t)
+  ;; デフォルトで設定済み
+  ;; (define-key ac-menu-map "\C-n" 'ac-next)
+  ;; (define-key ac-menu-map "\C-p" 'ac-previous)
+  ;; Ctrl ではなくて, Alt に割り当てる.
+  (define-key ac-menu-map (kbd "M-n") 'ac-next)
+  (define-key ac-menu-map (kbd "M-p") 'ac-previous)
 
-(setq ac-use-menu-map t)
-;; デフォルトで設定済み
-;; (define-key ac-menu-map "\C-n" 'ac-next)
-;; (define-key ac-menu-map "\C-p" 'ac-previous)
-;; Ctrl ではなくて, Alt に割り当てる.
-(define-key ac-menu-map (kbd "M-n") 'ac-next)
-(define-key ac-menu-map (kbd "M-p") 'ac-previous)
+  ;; ヘルプを表示
+  (define-key ac-completing-map (kbd "M-h") 'ac-quick-help)
 
-;; ヘルプを表示
-(define-key ac-completing-map (kbd "M-h") 'ac-quick-help)
-
-(setq ac-sources '(ac-source-abbrev ac-source-words-in-buffer))
-
-;; for ruby programming
-;; よくわからないので, 封印
-;; (add-hook 'ruby-mode-hook
-;; 	  (lambda ()
-;; 	    (use-package rcodetools)
-;; 	    (use-package auto-complete-ruby)
-;; 	    ;; (load-auto-complete)
-;; 	    (make-local-variable 'ac-omni-completion-sources)
-;; 	    (setq ac-omni-completion-sources
-;; 		  '(("\\.\\=" . (ac-source-rcodetools))))))
-
-;; for yassnipet
-(setf (symbol-function 'yas-active-keys)
-      (lambda ()
-        (remove-duplicates
-         (mapcan #'yas--table-all-keys (yas--get-snippet-tables)))))
-)
+  (setq ac-sources '(ac-source-abbrev ac-source-words-in-buffer))
+  )
    #+end_src
 
 *** ac-helm
-    helm インターフェースを利用する. 
-    これは多げさかな. .
+    helm インターフェースを利用する. これは多げさかな. .
 
-    #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (use-package ac-helm
+  :bind  ("C-:" . ac-complete-with-helm)
   :config
-  (global-set-key (kbd "C-:") 'ac-complete-with-helm)
   (define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)
   )
-    #+end_src
+#+end_src
 
 ** company-mode
    補完のフレームワーク.auto-complete との違いがわからない.
@@ -210,11 +199,12 @@
 ** undo-tree
    C-x u にバインディング.
 
-   #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (use-package undo-tree
+  :defer t
   :config
   (global-undo-tree-mode))
-   #+end_src
+#+end_src
 
 ** keisen
    罫線を引く
@@ -269,62 +259,6 @@
 ;; default is 16
 (setq global-mark-ring-max 64)
 #+end_src
-  
-** ace-jump-mode
-   Awesome Emacs Rocks! 
-
-   #+begin_src emacs-lisp
-(autoload
-  'ace-jump-mode
-  "ace-jump-mode"
-  "Emacs quick move minor mode"
-  t)
-;; you can select the key you prefer to
-(define-key global-map (kbd "C-x ,") 'ace-jump-mode)
-   #+end_src
-
-** ace-jump-buffer
-   #+begin_src emacs-lisp
-(autoload
-  'ace-jump-buffer
-  "ace-jump-buffer"
-  "Emacs quick move to buffer minor mode"
-  t)
-(define-key global-map (kbd "C-x m") 'ace-jump-buffer)
-   #+end_src
-
-** ace-jump-zap
-   ジャンプして削除.
-
-   - https://github.com/waymondo/ace-jump-zap
-
-#+begin_src emacs-lisp
-(global-set-key (kbd "M-z") 'ace-jump-zap-to-char)
-(global-set-key (kbd "M-C-z") 'ace-jump-zap-up-to-char)
-#+end_src
-
-** ace-isearch
-   Do ace-jump from isearch.
-
-   昔は isearch-ace-jump-mode という名前だった (気がするが)
-
-   isearch の初めの一文字を入力して待っていると, ace-jump-char 発動.
-   isearch して, しばらく入力しないと swoop 発動.
-
-   - https://github.com/tam17aki/ace-isearch
-   - [[http://ongaeshi.hatenablog.com/entry/ace-isearch][Emacs のテキスト検索の使い勝手をあげる ace-isearch と helm-swoop が便利 - ブログのおんがえし]]
-   - [[http://rubikitch.com/tag/ace-isearch/][「 ace-isearch 」タグの記事一覧 | るびきち「日刊 Emacs 」]]
-   - [[http://qiita.com/ballforest/items/7c3f2e64b59d8157bc8c][Emacs - ace-isearch : isearch と ace-jump-mode の連携 - Qiita]]
-
-   #+begin_src emacs-lisp
-(use-package ace-isearch
-  :config
-   (global-ace-isearch-mode +1)
-   ;; (setq ace-isearch-use-function-from-isearch nil)
-   (define-key isearch-mode-map (kbd "M-o") 'helm-multi-swoop-all-from-isearch)
-   )
-   #+end_src
-
 ** iy-go-to-char
    前後の char へ移動する. ace-jump-mode があれば不要かな. . .
    - https://github.com/doitian/iy-go-to-char
@@ -366,12 +300,13 @@
 
    #+begin_src emacs-lisp
 (use-package ag
+  :defer t
   :config
-(custom-set-variables
- '(ag-highlight-search t)  ; 検索結果の中の検索語をハイライトする
- '(ag-reuse-window 'nil)   ; 現在のウィンドウを検索結果表示に使う
- '(ag-reuse-buffers 'nil)) ; 現在のバッファを検索結果表示に使う
-)
+  (custom-set-variables
+   '(ag-highlight-search t)  ; 検索結果の中の検索語をハイライトする
+   '(ag-reuse-window 'nil)   ; 現在のウィンドウを検索結果表示に使う
+   '(ag-reuse-buffers 'nil)) ; 現在のバッファを検索結果表示に使う
+  )
    #+end_src
 
 ** migemo
@@ -418,56 +353,40 @@
 
    #+begin_src emacs-lisp
 (use-package anzu
+  :defer t
   :config
-(global-anzu-mode +1)
-(set-face-attribute 'anzu-mode-line nil
-		    :foreground "yellow" :weight 'bold)
+  (global-anzu-mode +1)
+  (set-face-attribute 'anzu-mode-line nil
+		      :foreground "yellow" :weight 'bold)
 
-(custom-set-variables
- '(anzu-mode-lighter "")
- '(anzu-deactivate-region t)
- '(anzu-search-threshold 1000)
- '(anzu-replace-to-string-separator " => "))
-)
-   #+end_src
-
-** swoop
-   Peculiar buffer navigation for Emacs.
-   -> helm-swoop に変更. helm のほうが高速.
-
-  - [[http://fukuyama.co/emacs-swoop][Emacs バッファ内高速ナビゲーション Swoop.el を作りました. - Web 学び]]
-
-   #+begin_src emacs-lisp
-;; (use-package swoop)
-;; (global-set-key (kbd "M-o")   'swoop)
-;; (global-set-key (kbd "C-M-o") 'swoop-multi)
-;; ;; (global-set-key (kbd "M-o")   'swoop-pcre-regexp)
-;; (global-set-key (kbd "C-S-o") 'swoop-back-to-last-position)
-
-;; (define-key isearch-mode-map (kbd "M-o") 'swoop-from-isearch)
-;; (define-key swoop-map (kbd "M-o") 'swoop-multi-from-swoop)
-	
-;; ;; サイズ変更禁止
-;; (setq swoop-font-size-change: nil)
+  (custom-set-variables
+   '(anzu-mode-lighter "")
+   '(anzu-deactivate-region t)
+   '(anzu-search-threshold 1000)
+   '(anzu-replace-to-string-separator " => "))
+  )
    #+end_src
 
 ** iedit
    グラフィカルな置換. C-;で発動.
    - https://github.com/tsdh/iedit
 
-   #+begin_src emacs-lisp
-(use-package iedit)
-   #+end_src
+#+begin_src emacs-lisp
+(use-package iedit :defer t)
+#+end_src
+
 ** wgrep
    grep した結果を編集.
    - [[http://kotatu.org/blog/2013/12/18/emacs-ag-wgrep-for-code-grep-search/][Emacs で moccur-grep と moccur-edit から ag と wgrep に移行したら爆速で快適すぎる - kotatu.org]]
 
 #+begin_src emacs-lisp
 (use-package wgrep-ag
-  :config
-  (autoload 'wgrep-ag-setup "wgrep-ag")
-  (add-hook 'ag-mode-hook 'wgrep-ag-setup)
-  (define-key ag-mode-map (kbd "r") 'wgrep-change-to-wgrep-mode)
+  :commands wgrep-ag-setup
+  :init
+  (eval-after-load 'ag
+      '(progn
+	(add-hook 'ag-mode-hook 'wgrep-ag-setup)
+	(define-key ag-mode-map (kbd "r") 'wgrep-change-to-wgrep-mode)))
   )
 #+end_src
 
@@ -510,11 +429,12 @@
 
    isearch 中にタブを押すと勝手に補完してくれる.
 
-#+begin_src emacs-lisp
+   #+begin_src emacs-lisp
 (eval-after-load "isearch"
   '(progn
-     (use-package isearch-dabbrev)
-     (define-key isearch-mode-map (kbd "<tab>") 'isearch-dabbrev-expand)))
+     (use-package isearch-dabbrev
+       (define-key isearch-mode-map (kbd "<tab>") 'isearch-dabbrev-expand))
+     ))
 #+end_src
 
 * 日本語
@@ -535,13 +455,13 @@
 (use-package text-adjust
   :config
    (defun text-adjust-space-before-save-if-needed ()
-   (when (memq major-mode
-               '(org-mode text-mode wl-draft-mode))
-	       (text-adjust-buffer)))
-	       ;;           (text-adjust-space-buffer)))
-    (defalias 'spacer 'text-adjust-space-buffer)
-    (add-hook 'before-save-hook 'text-adjust-space-before-save-if-needed)
-    )
+     (when (memq major-mode
+		 '(org-mode text-mode wl-draft-mode))
+       (text-adjust-buffer)))
+   ;;           (text-adjust-space-buffer)))
+   (defalias 'spacer 'text-adjust-space-buffer)
+   (add-hook 'before-save-hook 'text-adjust-space-before-save-if-needed)
+   )
    #+end_src
 
 ** yspel
@@ -550,7 +470,7 @@
    - [[http://ubulog.blogspot.jp/2010/09/emacs.html][ubulog: Emacs から校正支援する]]
 
    #+begin_src emacs-lisp
-   (use-package yspel)
+   (use-package yspel :defer t)
    #+end_src
 
 * 英語
@@ -599,12 +519,10 @@
 
    #+begin_src emacs-lisp
 (use-package flyspell
+  :bind (("C-c <f8>" . flyspell-mode)
+	 ("C-c <f9>" . ispell-word)
+	 ("C-c <f10>" . flyspell-buffer))
   :config
-  ;; キーバインドを設定.
-  (global-set-key (kbd "C-c <f8>") 'flyspell-mode)
-  (global-set-key (kbd "C-c <f9>") 'ispell-word)
-  (global-set-key (kbd "C-c <f10>") 'flyspell-buffer)
-
   ;; どうも flyspell と ac-complete は相性が悪い?
   ;; (ac-flyspell-workaround)
   )
@@ -684,13 +602,12 @@
    #+begin_src emacs-lisp
 ;; This code is from README
 (use-package auto-capitalize
+  :defer t
+  :init
+  (add-hook 'twittering-edit-mode-hook
+	    '(lambda ()
+	       (turn-on-auto-capitalize-mode)))
   :config
-
-;; Enable auto-capitalize-mode
-(add-hook 'twittering-edit-mode-hook
-          '(lambda ()
-             (turn-on-auto-capitalize-mode)))
-
 ;; (defvar programing-hooks
 ;;   ;; Add your preference programming mode hook like ruby-mode-hook
 ;;   '(twittering-edit-mode-hook

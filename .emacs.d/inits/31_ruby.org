@@ -17,14 +17,14 @@
 
 #+begin_src emacs-lisp
 (use-package ruby-mode
+  :commands ruby-mode
+  :mode   (("\\.rb$" . ruby-mode)
+	   ("Capfile$" . ruby-mode)
+	   ("Gemfile$" . ruby-mode)
+	   ("[Rr]akefile$" . ruby-mode))
   :config
-(autoload 'ruby-mode "ruby-mode"
-    "Mode for editing ruby source files" t)
-(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("[Rr]akefile$" . ruby-mode))
-)
+  (message "ruby-mode is called=============================")
+  )
 #+end_src
 
 ** enhanced-ruby-mode
@@ -46,7 +46,6 @@
 
 ;;(remove-hook 'enh-ruby-mode-hook 'erm-define-faces)
 #+end_src
-
 
 ** robe-mode
    かしこい補完.
@@ -137,13 +136,15 @@ and source-file directory for your debugger." t)
 
 #+begin_src emacs-lisp
 (use-package rspec-mode
+  :commands rspec-mode
+  :init
+  (add-hook 'ruby-mode-hook 'rspec-mode)
   :config
-(add-hook 'ruby-mode-hook 'rspec-mode)
-(eval-after-load 'rspec-mode
-  '(rspec-install-snippets))
-(custom-set-variables '(rspec-use-rake-flag nil))
-(custom-set-faces)
-)
+  (message "now")
+  (rspec-install-snippets)
+  (custom-set-variables '(rspec-use-rake-flag nil))
+  (custom-set-faces)
+  )
 #+end_src
 
 * 静的解析
