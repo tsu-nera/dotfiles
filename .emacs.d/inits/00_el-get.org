@@ -5,7 +5,7 @@
 ** マシンごとの設定
 
 #+begin_src emacs-lisp
-(when linux-p
+(when (eq system-type 'gnu/linux)
   (setq el-get-emacs "/usr/local/bin/emacs")
 )
 #+end_src

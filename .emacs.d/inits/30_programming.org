@@ -167,7 +167,7 @@
 	   (local-file (file-relative-name
 			temp-file
 			(file-name-directory buffer-file-name))))
-      ((list ) "pyflakes" (list local-file)))))
+      (list "pyflakes" (list local-file)))))
 
 (add-to-list 'flymake-allowed-file-name-masks
 	     '("\\.py$" flymake-pyflakes-init))
@@ -182,8 +182,11 @@
 ** flycheck
    静的文法チェック.
 
+   コンパイルエラーが取れないので一旦動作停止.
+
 #+begin_src emacs-lisp
 (use-package flycheck
+  :disabled t
   :defer t
   :init
   ;; Ruby
@@ -227,6 +230,7 @@
 
 #+begin_src emacs-lisp
 (use-package flycheck-color-mode-line
+  :disabled t
   :defer t
   :init
   (eval-after-load "flycheck"
