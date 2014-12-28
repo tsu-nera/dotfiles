@@ -220,6 +220,7 @@
     elscreen-interchange
     clocktable-by-tag
     helm-flyspell-collect
+    cde
   )
   "A list of packages to install from el-get at launch.")
 
