@@ -15,7 +15,6 @@
 
 * 基本設定
 #+begin_src emacs-lisp
-
 ; この行がないと imap サーバに繋がらない
 (setq ssl-certificate-verification-policy 1)
 
@@ -86,34 +85,6 @@
 "^X-Mailer:" "^X-Newsreader:" "^User-Agent:"
 "^X-Face:" "^X-Mail-Count:" "^X-ML-COUNT:"
 )))
-;; ;; 隠すメールヘッダを指定.
-;; (setq wl-message-ignored-field-list
-;; (append mime-view-ignored-field-list
-;; '(".*Received:" ".*Path:" ".*Id:" "^References:"
-;; "^Replied:" "^Errors-To:"
-;; "^Lines:" "^Sender:" ".*Host:" "^Xref:"
-;; "^Content-Type:" "^Content-Transfer-Encoding:"
-;; "^Precedence:"
-;; "^Status:" "^X-VM-.*:"
-;; "^X-Info:" "^X-PGP" "^X-Face-Version:"
-;; "^X-UIDL:" "^X-Dispatcher:"
-;; "^MIME-Version:" "^X-ML" "^Message-I.:"
-;; "^Delivered-To:" "^Mailing-List:"
-;; "^ML-Name:" "^Reply-To:" "Date:"
-;; "^X-Loop" "^X-List-Help:"
-;; "^X-Trace:" "^X-Complaints-To:"
-;; "^Received-SPF:" "^Message-ID:"
-;; "^MIME-Version:" "^Content-Transfer-Encoding:"
-;; "^Authentication-Results:"
-;; "^X-Priority:" "^X-MSMail-Priority:"
-;; "^X-Mailer:" "^X-MimeOLE:"
-
-;; ;; add for gmail
-;; "^Received-SPF:" "Delivered-To:" "Authentication-Results:"
-;; "DKIM-Signature:" "DomainKey-Signature:"
-;; "MIME-Version:" "Message-ID:"
-;; "List-Unsubscribe:"
-;; )))
 #+end_src
 
 * Summary
@@ -136,21 +107,26 @@
 ;; 添付ファイルを開くためのおまじない
 (setq mime-play-delete-file-immediately nil)
 
-;;;---------------------------------------------------
 ;; ファイル名が日本語の添付ファイルをデコードする
-(eval-after-load "mime"
-'(defadvice mime-entity-filename
-(after eword-decode-for-broken-MUA activate)
-"Decode eworded file name for *BROKEN* MUA."
-(when (stringp ad-return-value)
-(setq ad-return-value (eword-decode-string ad-return-value t)))))
+(use-package mine
+  :defer t
+  :config
+  '(defadvice mime-entity-filename
+       (after eword-decode-for-broken-MUA activate)
+     "Decode eworded file name for *BROKEN* MUA."
+     (when (stringp ad-return-value)
+       (setq ad-return-value (eword-decode-string ad-return-value t)))))
 
 ;; ファイル名が日本語の添付ファイルをエンコードする [semi-gnus-ja: 6046]
-(eval-after-load "std11"
-'(defadvice std11-wrap-as-quoted-string (before encode-string activate)
-"Encode a string."
-(use-package eword-encode)
-(ad-set-arg 0 (or (eword-encode-string (ad-get-arg 0)) "" )) ))
+(use-package std11
+  :defer t
+  :config
+  '(defadvice std11-wrap-as-quoted-string (before encode-string activate)
+     "Encode a string."
+     (use-package eword-encode
+       (ad-set-arg 0 (or (eword-encode-string (ad-get-arg 0)) "" ))
+       )
+     ))
 
 ;; 添付ファイルがある場合は「@」を表示
 ;; (setq elmo-msgdb-extra-fields
@@ -160,7 +136,7 @@
 ;; '((?@ (wl-summary-line-attached)))))
 #+end_src
 
-* 検索
+* TODO 検索
   Summary モードで V を入力.
   - [[http://cns-guide.sfc.keio.ac.jp/2004/7/6/4.html][6.4 メッセージの検索]]
 
@@ -172,27 +148,6 @@
 ** mu
   linux のみ. Windows ではつかえない.
   - [[https://code.google.com/p/mu0/][mu0 - mu is a collection of utilties for indexing and searching Maildirs - Google Project Hosting]]
-  
-* Tips
-** Yassnipet
-   draft-mode で yassnipet を有効化. うまくうごかない. . .
-
-   #+begin_src emacs-lisp
-(add-hook 'wl-draft-mode-hook
-          '(lambda ()
-             (yas-minor-mode)))
-   #+end_src
-
-** Password
-  パスワードを省略するためには, パスワード入力後に以下を入力.
-
-#+begin_src language
-M-x elmo-passwd-alist-save
-#+end_src
-
-** NEWS
-   見たら q を押すと, また見ますか? と聞かれるので No を選択.
-   - [[http://d.hatena.ne.jp/fujimisakari/20120204/1328375322][wanderlust を起動すると毎回 NEWS が起動してしまう - 安定の漢になるために]]
 
 * windows
 ** init file の置き場所
@@ -225,7 +180,27 @@ M-x elmo-passwd-alist-save
 ;; (setq ssl-program-name "c:/cygwin64/bin/gnutls-cli.exe")
 ;; (setq ssl-program-arguments '("--insecure" "-p" service host))
 #+end_src
+  
+* Tips
+** Yassnipet
+   draft-mode で yassnipet を有効化. 
 
+   #+begin_src emacs-lisp
+ (add-hook 'wl-draft-mode-hook
+           '(lambda ()
+              (yas-minor-mode)))
+   #+end_src
+
+** Password
+  パスワードを省略するためには, パスワード入力後に以下を入力.
+
+#+begin_src language
+M-x elmo-passwd-alist-save
+#+end_src
+
+** NEWS
+   見たら q を押すと, また見ますか? と聞かれるので No を選択.
+   - [[http://d.hatena.ne.jp/fujimisakari/20120204/1328375322][wanderlust を起動すると毎回 NEWS が起動してしまう - 安定の漢になるために]]
 
 * End of Config
 #+begin_src emacs-lisp

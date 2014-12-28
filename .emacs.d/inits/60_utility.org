@@ -132,9 +132,18 @@
 
    w をおすと別タブで開くので, ちょい便利.
    
-#+begin_src emacs-lisp
-(use-package elscreen-wl)
+ #+begin_src emacs-lisp
+(when windows-p (require 'elscreen-wl))
 #+end_src
+
+どこかで無限ループになっているな... 1 秒くらいここでかかっている.
+
+#+begin_src text
+Warning: Eager macro-expansion skipped due to cycle:
+  … => (load "wl-e21.el") => (macroexpand-all …) => (macroexpand (eval-when-compile …)) => (load "wl-folder.el") => (macroexpand-all …) => (macroexpand (eval-when-compile …)) => (load "wl.el") => (load "wl-e21.el")
+#+end_src
+
+家では wanderlust はあまりつかわないから, windows 環境だけで利用する.
 
 ** elscreen-dired
    dired で o をオスと別タブで開く.
