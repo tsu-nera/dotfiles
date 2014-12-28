@@ -177,6 +177,15 @@
 (global-set-key (kbd "C-h")     'backward-delete-char)
 #+end_src
 
+ もともとは, C-h はミニバッファでヘルプを見るための割り当て.
+ - [[http://openlab.dino.co.jp/2007/09/25/23251372.html][Ctrl+h で Emacs のヘルプが見たくない人のための設定 - ディノオープンラボラトリ]]
+
+#+begin_src emacs-lisp
+;; (load "term/bobcat")
+;; (when (fboundp 'terminal-init-bobcat)
+;;   (terminal-init-bobcat))
+#+end_src
+
 ** key-guide
    キーバインドを教えてくれる.
   - https://github.com/kai2nenobu/guide-key

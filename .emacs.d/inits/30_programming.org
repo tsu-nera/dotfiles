@@ -285,19 +285,16 @@
 ** gist
   Emacs gist interface
   - https://github.com/defunkt/gist.el
-  - https://github.com/emacs-helm/helm-gist/blob/master/helm-gist.el
 
 #+begin_src emacs-lisp
 (use-package gist)
-;; (use-package helm-gist)
 #+end_src
 
+  helm-gist というのもあるけど, 使い方わからない.
+  - https://github.com/emacs-helm/helm-gist/blob/master/helm-gist.el
+
 ** github 関連
-
  #+begin_src emacs-lisp
-(use-package helm-github-issues :disabled t)
-(use-package helm-open-github :disabled t)
-
 ;; git 管理のシンボリックリンクで質問されないためのおまじない.
 ;; 参考: http://openlab.dino.co.jp/2008/10/30/212934368.html
 ;;; avoid "Symbolic link to Git-controlled source file;; follow link? (yes or no)

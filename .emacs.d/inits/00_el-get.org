@@ -199,7 +199,6 @@
     mmm-mode
     auto-capitalize
     calfw
-    helm-gist
     helm-github-issues
     helm-open-github
     helm-ag

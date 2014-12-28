@@ -557,6 +557,9 @@
     ))
     #+end_src
 
+*** helm-flyspell-collect
+    -> helm.org へ
+
 *** end of flyspell config
 #+begin_src emacs-lisp
 )

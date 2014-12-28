@@ -5,44 +5,26 @@
   ダウンロードしたら, make でコンパイルする.
 
 * 組み込み helm
-** Basic Setting 
+  helm project にもとから入っているもの.
+  - https://github.com/emacs-helm/helm
 
+** Basic Setting 
 #+begin_src emacs-lisp
 (use-package helm-config
   :config
-  (helm-mode 1)
+  (helm-mode 1) ;; 基本的な設定はこれで実施される.
 #+end_src
 
 #+begin_src emacs-lisp
-;; (eval-when-compile (use-package cl))
-
-;;; ミニバッファで C-h でヘルプでないようにする
-(load "term/bobcat")
-(when (fboundp 'terminal-init-bobcat)
-  (terminal-init-bobcat))
-
-(use-package async-bytecomp)
-(use-package helm-descbinds)
-(use-package helm-gist)
-
-;; (use-package helm-command)
-;; (use-package helm-c-yasnippet)
-;; (use-package gist)
-
-(use-package helm-github-issues :commands helm-github-issues)
-
-;; (setq helm-idle-delay             0.2
-;;       helm-input-idle-delay       0.2
-;;       helm-candidate-number-limit 200)
-
-(global-set-key (kbd "C-x C-r") 'helm-recentf)
-(global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "M-r") 'helm-occur)
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-x C-b") 'helm-elscreen)
-;; helm-semantic-or-imenu C-x c i でバインドされている. 便利.
-;; (global-set-key (kbd "C-x g g") 'helm-google-suggest)
+(global-set-key (kbd "C-x C-r") 'helm-recentf) ;; 最近利用したファイルを検索
+(global-set-key (kbd "M-y") 'helm-show-kill-ring) ;; 最近消したクリップボード履歴
+(global-set-key (kbd "M-r") 'helm-occur) ;; バッファを検索
+(global-set-key (kbd "M-x") 'helm-M-x) ;; M-x を 絞り込み
+(global-set-key (kbd "C-x C-b") 'helm-elscreen) ;; elscreen のタブを切り替え
 #+end_src
+
+** helm-semantic-or-imenu
+   imenu の強化版. helm-semantic-or-imenu C-x c i でバインドされている. 便利.
 
 ** helm-buffer-list
    default. バッファの絞り込み.
@@ -73,23 +55,44 @@
   - C-x r l' – list your bookmarks
   - M-x bookmark-delete' – delete a bookmark by name これも helm が発動する.
 
+** End of Helm Config
+
+#+begin_src emacs-lisp
+)
+#+end_src
+    
 * 拡張 helm
+  github から拾ってきたり, emacs-helm からとってきたもの.
+  - https://github.com/emacs-helm
+
+** helm-descbinds
+   コマンド割り当てを調べる.
+   - https://github.com/emacs-helm/helm-descbinds
+
+#+begin_src emacs-lisp
+(use-package helm-descbinds
+  :commands helm-descbinds
+  :config (helm-descbinds-mode 1)
+  )
+#+end_src
+
 ** helm-orgcard
    orgcard を引く.
+   - https://github.com/emacs-helm/helm-orgcard
 
 #+begin_src emacs-lisp
 (use-package helm-orgcard
-  :config
-  (setq hoc-lang-selector 'ja))
+  :commands helm-orgcard
+  :config (setq hoc-lang-selector 'ja))
 #+end_src
 
 ** helm-ag
-   ag 結果を helm で絞り込み
+   ag 結果を helm で絞り込み. 
+   - https://github.com/syohex/emacs-helm-ag
 
 #+begin_src emacs-lisp
 (use-package helm-ag
-  :config
-  (global-set-key (kbd "C-x g r") 'helm-ag)
+  :bind ("C-x g r" . helm-ag)
   )
 #+end_src
 
@@ -103,25 +106,95 @@
 #+begin_src emacs-lisp
 (use-package helm-migemo
   :config
-  ;;; この修正が必要
-  (defun helm-compile-source--candidates-in-buffer (source)
-    (helm-aif (assoc 'candidates-in-buffer source)
-	(append source
-		`((candidates
-		   . ,(or (cdr it)
-			  (lambda ()
-			    ;; Do not use `source' because other plugins
-			    ;; (such as helm-migemo) may change it
-			    (helm-candidates-in-buffer (helm-get-current-source)))))
-		  (volatile) (match identity)))
-      source)))
+  (require 'my-patch-helm-migemo)
+)
 #+end_src
 
 ** helm-kaomoji
    顔文字.
    
 #+begin_src emacs-lisp
-(use-package helm-kaomoji)
+(use-package helm-kaomoji :commands helm-kaomoji)
+#+end_src
+
+** helm-flyspell
+   - from:  https://gist.github.com/cofi/3013327
+   - forked: https://gist.github.com/tsu-nera/2ac6ee1555bcf8597fa6
+
+#+begin_src emacs-lisp
+(eval-after-load 'flyspell
+    '(use-package helm-flyspell-correct
+       :bind ("C-x g i" . helm-flyspell-correct)
+       ))
+#+end_src
+
+** helm-etags-plus
+   - [[https://github.com/jixiuf/helm-etags-plus][jixiuf/helm-etags-plus]]
+
+   C 言語では, これがまともに動く. gtags は動かない.
+   etags で TAGS を生成する.
+
+   - helm-etags-select C-x c e
+
+#+begin_src emacs-lisp
+(use-package helm-etags+ :defer t)
+(use-package ctags-update :defer t)
+#+end_src
+
+** helm-swoop
+   - [[https://github.com/ShingoFukuyama/helm-swoop][ShingoFukuyama/helm-swoop]]
+   - [[http://rubikitch.com/2014/12/25/helm-swoop/][emacs helm-swoop.el : 【これはすごい】バッファ全体を Migemo 絞り込み検索して走り回れ!]]
+
+#+begin_src emacs-lisp
+(use-package helm-swoop
+  :bind (("M-o" . helm-swoop)
+	 ("M-O" . helm-swoop-back-to-last-point)
+	 ("C-x M-o" . helm-multi-swoop)
+	 ("C-M-o" . helm-multi-swoop-all))
+  :config
+  ;; When doing isearch, hand the word over to helm-swoop
+  (define-key isearch-mode-map (kbd "M-o") 'helm-swoop-from-isearch)
+  ;; From helm-swoop to helm-multi-swoop-all
+  (define-key helm-swoop-map (kbd "M-o") 'helm-multi-swoop-all-from-helm-swoop)
+  ;; When doing evil-search, hand the word over to helm-swoop
+  ;; (define-key evil-motion-state-map (kbd "M-i") 'helm-swoop-from-evil-search)
+
+  ;; Save buffer when helm-multi-swoop-edit complete
+  (setq helm-multi-swoop-edit-save t)
+
+  ;; If this value is t, split window inside the current window
+  (setq helm-swoop-split-with-multiple-windows nil)
+
+  ;; Split direcion. 'split-window-vertically or 'split-window-horizontally
+  (setq helm-swoop-split-direction 'split-window-vertically)
+
+  ;; If nil, you can slightly boost invoke speed in exchange for text color
+  (setq helm-swoop-speed-or-color nil)
+
+  (define-key helm-swoop-map (kbd "C-s") 'swoop-action-goto-line-next)
+  (define-key helm-swoop-map (kbd "C-r") 'swoop-action-goto-line-prev)
+)
+#+end_src
+
+** (helm-) imenu-anywhere
+   imenu の置き換え.
+   - https://github.com/vspinu/imenu-anywhere
+   - [[http://rubikitch.com/2014/12/17/imenu-anywhere/][簡易関数定義ジャンプ imenu を ido/helm 化した上で他のファイルまで拡張する!]]
+
+#+begin_src emacs-lisp
+(use-package imenu-anywhere
+  :bind ("C-x c i" . helm-imenu-anywhere))
+#+end_src
+
+* 未使用中...
+** helm-github-issues
+#+begin_src emacs-lisp
+(use-package helm-github-issues :commands helm-github-issues :disabled t)
+#+end_src
+
+** helm-open-github
+#+begin_src emacs-lisp
+(use-package helm-open-github :commands helm-open-github :disabled t)
 #+end_src
 
 ** helm-wl-address
@@ -129,68 +202,10 @@
    - https://github.com/kenbeese/helm-wl-address
    - [[http://qiita.com/kenbeese/items/438c1c8d664198d8527f][Emacs - wanderlust のアドレスを helm で選択する - Qiita]]
 
-#+begin_src emacs-lisp
-(use-package helm-wl-address)
-#+end_src
-
-** helm-flyspell
-   from: https://gist.github.com/cofi/3013327
+   使いこなせていなかったりする.
 
 #+begin_src emacs-lisp
-(defun helm-flyspell-correct ()
-  "Use helm for flyspell correction.
-Adapted from `flyspell-correct-word-before-point'."
-  (interactive)
-  ;; use the correct dictionary
-  (flyspell-accept-buffer-local-defs)
-  (let ((cursor-location (point))
-	(word (flyspell-get-word))
-	(opoint (point)))
-    (if (consp word)
-	(let ((start (car (cdr word)))
-	      (end (car (cdr (cdr word))))
-	      (word (car word))
-	      poss ispell-filter)
-	  ;; now check spelling of word.
-	  (ispell-send-string "%\n")	;put in verbose mode
-	  (ispell-send-string (concat "^" word "\n"))
-	  ;; wait until ispell has processed word
-	  (while (progn
-		   (accept-process-output ispell-process)
-		   (not (string= "" (car ispell-filter)))))
-	  ;; Remove leading empty element
-	  (setq ispell-filter (cdr ispell-filter))
-	  ;; ispell process should return something after word is sent.
-	  ;; Tag word as valid (i.e., skip) otherwise
-	  (or ispell-filter
-	      (setq ispell-filter '(*)))
-	  (if (consp ispell-filter)
-	      (setq poss (ispell-parse-output (car ispell-filter))))
-	  (cond
-	   ((or (eq poss t) (stringp poss))
-	    ;; don't correct word
-	    t)
-	   ((null poss)
-	    ;; ispell error
-	    (error "Ispell: error in Ispell process"))
-	   (t
-	    ;; The word is incorrect, we have to propose a replacement.
-	    (flyspell-do-correct (helm-comp-read "Correction: "
-						 (append
-						  (third poss)
-						  '(("Save word" . save)
-						    ("Accept (session)" . session)
-						    ("Accept (buffer)" . buffer)))
-						 :name (format "%s [%s]" word (or ispell-local-dictionary
-										  ispell-dictionary
-										  "Default"))
-						 :must-match t
-						 :alistp t)
-				 
-				 poss word cursor-location start end opoint)))
-	  (ispell-pdict-save t)))))
-
-(global-set-key (kbd "C-x g i") 'helm-flyspell-correct)
+(use-package helm-wl-address :disabled t)
 #+end_src
 
 ** helm-google
@@ -201,9 +216,18 @@ Adapted from `flyspell-correct-word-before-point'."
 
 #+begin_src emacs-lisp
 ;; (use-package helm-google)
-;; (global-set-key (kbd "C-x g g") 'helm-google)
+;; (global-set-key (kbd "C-x g g"
+;;		     ) 'helm-google)
 ;; (setq helm-google-tld "co.jp")
 #+end_src
+
+
+** helm-google-suggest
+
+#+begin_src emacs-lisp
+;; (global-set-key (kbd "C-x g g") 'helm-google-suggest)
+#+end_src
+
 
 ** helm-gtags
    GNU Global.
@@ -239,66 +263,3 @@ Adapted from `flyspell-correct-word-before-point'."
 ;;      (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)))
 #+end_src
 
-** helm-etags-plus
-   - [[https://github.com/jixiuf/helm-etags-plus][jixiuf/helm-etags-plus]]
-
-   C 言語では, これがまともに動く.gtags は動かない.
-   etags で TAGS を生成する.
-
-#+begin_src emacs-lisp
-(use-package helm-etags+)
-(use-package ctags-update)
-#+end_src
-
-** helm-swoop
-   - [[https://github.com/ShingoFukuyama/helm-swoop][ShingoFukuyama/helm-swoop]]
-   - [[http://rubikitch.com/2014/12/25/helm-swoop/][emacs helm-swoop.el : 【これはすごい】バッファ全体を Migemo 絞り込み検索して走り回れ!]]
-
-#+begin_src emacs-lisp
-(use-package helm-swoop
-  :config
-;; Change the keybinds to whatever you like :)
-(global-set-key (kbd "M-o") 'helm-swoop)
-(global-set-key (kbd "M-O") 'helm-swoop-back-to-last-point)
-(global-set-key (kbd "C-x M-o") 'helm-multi-swoop)
-(global-set-key (kbd "C-M-o") 'helm-multi-swoop-all)
-
-;; When doing isearch, hand the word over to helm-swoop
-(define-key isearch-mode-map (kbd "M-o") 'helm-swoop-from-isearch)
-;; From helm-swoop to helm-multi-swoop-all
-(define-key helm-swoop-map (kbd "M-o") 'helm-multi-swoop-all-from-helm-swoop)
-;; When doing evil-search, hand the word over to helm-swoop
-;; (define-key evil-motion-state-map (kbd "M-i") 'helm-swoop-from-evil-search)
-
-;; Save buffer when helm-multi-swoop-edit complete
-(setq helm-multi-swoop-edit-save t)
-
-;; If this value is t, split window inside the current window
-(setq helm-swoop-split-with-multiple-windows nil)
-
-;; Split direcion. 'split-window-vertically or 'split-window-horizontally
-(setq helm-swoop-split-direction 'split-window-vertically)
-
-;; If nil, you can slightly boost invoke speed in exchange for text color
-;; (setq helm-swoop-speed-or-color nil)
-
-(define-key helm-swoop-map (kbd "C-s") 'swoop-action-goto-line-next)
-(define-key helm-swoop-map (kbd "C-r") 'swoop-action-goto-line-prev)
-)
-#+end_src
-
-** imenu-anywhere
-   imenu の置き換え.
-
-#+begin_src emacs-lisp
-(use-package imenu-anywhere
-  :config
-  (global-set-key (kbd "C-x c i") 'helm-imenu-anywhere)
-  )
-#+end_src
-
-* End of Helm Config
-
-#+begin_src emacs-lisp
-)
-#+end_src
