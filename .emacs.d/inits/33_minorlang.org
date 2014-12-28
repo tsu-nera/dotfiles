@@ -17,7 +17,7 @@
 ;;; and for the OZHOME environment variable to be set properly.
 (use-package oz
   :commands (run-oz oz-mode oz-gump-mode oz-new-buffer)
-  :mode () ("\\.oz$'" . oz-mode) ("\\.ozg$'" . oz-gump-mode)
+  :mode (("\\.oz$'" . oz-mode) ("\\.ozg$'" . oz-gump-mode))
   :init
   (add-hook 'oz-mode-hook
 	    (lambda ()
@@ -96,7 +96,7 @@
   - http://jblevins.org/projects/markdown-mode/markdown-mode.el
 
   #+begin_src emacs-lisp
-(use-package markdown-mode.el
+(use-package markdown-mode
   :commands markdown-mode
   :mode ("\\.md$" . markdown-mode)
   )
