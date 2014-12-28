@@ -92,6 +92,8 @@
    参考になりすぎる init.el
    - https://github.com/kawabata/dotfiles/blob/master/.emacs.d/init.el
 
+   遅延ロードが動いていないように見えるけど気のせいかな??
+
 #+begin_src emacs-lisp
 (package-initialize)
 
@@ -99,8 +101,8 @@
 (unless (require 'use-package nil t)
   (defmacro use-package (&rest args)))
 
-;; for debug 0.01秒以上 loadにかかったらreportを出す.
-(setq use-package-verbose t)
+;; for debug 0.01 秒以上 load にかかったら report を出す.
+;; (setq use-package-verbose t)
 #+end_src
 
 *** パッケージが存在しないとき
