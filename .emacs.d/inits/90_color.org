@@ -79,7 +79,7 @@ el-get にまとめた.
 
 #+begin_src emacs-lisp
 (use-package rainbow-mode
-  :config
+  :init
   (add-hook 'css-mode-hook 'rainbow-mode)
   (add-hook 'html-mode-hook 'rainbow-mode)
   (add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
@@ -87,9 +87,8 @@ el-get にまとめた.
 #+end_src
 
 * rainbow-delimiters
-かっこの深さに応じて色付けしてくれる.
-
-- [[https://github.com/jlr/rainbow-delimiters][jlr/rainbow-delimiters]]
+  かっこの深さに応じて色付けしてくれる.
+  - [[https://github.com/jlr/rainbow-delimiters][jlr/rainbow-delimiters]]
 
 #+begin_src emacs-lisp
 (use-package rainbow-delimiters)
@@ -100,15 +99,18 @@ el-get にまとめた.
   Sublime Text のようなミニマップ.
 
 #+begin_src emacs-lisp
-(use-package minimap)
-(setq minimap-window-location 'right)
-(setq minimap-minimum-width 15)
-(global-set-key (kbd "C-c n") 'minimap-mode)
+(use-package minimap
+  :disabled t
+  :config
+  (setq minimap-window-location 'right)
+  (setq minimap-minimum-width 15)
+  (global-set-key (kbd "C-c n") 'minimap-mode)
 
-;; (when (display-graphic-p)
-;;   (use-package minimap)
-;;   ;; enable minimap
-;;   (global-set-key (kbd "C-c n") 'minimap-toggle))
+  ;; (when (display-graphic-p)
+  ;;   (use-package minimap)
+  ;;   ;; enable minimap
+  ;;   (global-set-key (kbd "C-c n") 'minimap-toggle))
+)
 #+end_src
 
 * pomodoro
