@@ -45,7 +45,7 @@
 
 #+begin_src emacs-lisp
 (when linux-p
-(setq el-get-emacs "/usr/local/bin/emacs")
+  (setq el-get-emacs "/usr/local/bin/emacs")
 )
 #+end_src
 
