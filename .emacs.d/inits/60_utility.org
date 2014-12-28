@@ -40,11 +40,16 @@
 
 ** colors
 
-#+begin_src emacs-lisp
+   #+begin_src emacs-lisp
+;; (custom-set-faces
+;;  '(elscreen-tab-control-face ((t (:background "color-234" :foreground "brightwhite" :underline t))))
+;;  '(elscreen-tab-current-screen-face ((t (:background "color-243" :foreground "brightwhite"))))
+;;  '(elscreen-tab-other-screen-face ((t (:background "color-235" :foreground "brightwhite" :underline t)))))
+
 (custom-set-faces
- '(elscreen-tab-control-face ((t (:background "color-234" :foreground "brightwhite" :underline t))))
- '(elscreen-tab-current-screen-face ((t (:background "color-243" :foreground "brightwhite"))))
- '(elscreen-tab-other-screen-face ((t (:background "color-235" :foreground "brightwhite" :underline t)))))
+ '(elscreen-tab-control-face ((t (:background "#1c1c1c" :foreground "#9e9e9e" :underline t))))
+ '(elscreen-tab-current-screen-face ((t (:background "#444444" :foreground "#9e9e9e"))))
+ '(elscreen-tab-other-screen-face ((t (:background "#262626" :foreground "#9e9e9e" :underline t)))))
 
 ;; それっぽい色をつける?? つけてくれないよ.
 ;; (use-package elscreen-color-theme)
