@@ -221,6 +221,7 @@
     clocktable-by-tag
     helm-flyspell-collect
     cde
+    eww-lnum
   )
   "A list of packages to install from el-get at launch.")
 

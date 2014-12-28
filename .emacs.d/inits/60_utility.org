@@ -250,14 +250,18 @@ Warning: Eager macro-expansion skipped due to cycle:
 
     #+begin_src emacs-lisp
 (with-eval-after-load "eww"
-(use-package eww-lnum)
-  (define-key eww-mode-map "f" 'eww-lnum-follow)
-  (define-key eww-mode-map "F" 'eww-lnum-universal))
-(defun eww-lnum-read-interactive--not-truncate-lines (&rest them)
-  (let ((truncate-lines nil))
-    (apply them)))
-(advice-add 'eww-lnum-read-interactive :around
-            'eww-lnum-read-interactive--not-truncate-lines)
+  (use-package eww-lnum
+    :commnds (eww-lnum-follow eww-lnum-universal)
+    :init
+    (define-key eww-mode-map "f" 'eww-lnum-follow)
+    (define-key eww-mode-map "F" 'eww-lnum-universal)
+    :config
+    (defun eww-lnum-read-interactive--not-truncate-lines (&rest them)
+      (let ((truncate-lines nil))
+	(apply them)))
+    (advice-add 'eww-lnum-read-interactive :around
+		'eww-lnum-read-interactive--not-truncate-lines)
+  ))
     #+end_src
 
 #+begin_src emacs-lisp
@@ -340,149 +344,14 @@ Warning: Eager macro-expansion skipped due to cycle:
    パスワード自体は ~/.netrc に書き込む. 
 
 #+begin_src emacs-lisp
-(use-package netrc)
+(use-package netrc :defer t)
 #+end_src
 
 * Shell
-** term-mode
-   http://sakito.jp/emacs/emacsshell.html#emacs
-
-#+begin_src emacs-lisp
-;; shell の存在を確認
-(defun skt:shell ()
-  (or (executable-find "zsh")
-      (executable-find "bash")
-      ;; Emacs + Cygwin を利用する人は Zsh の代りにこれにしてください
-      ;; (executable-find "f_zsh")
-      ;; Emacs + Cygwin を利用する人は Bash の代りにこれにしてください
-      ;; (executable-find "f_bash") 
-      (executable-find "cmdproxy")
-      (error "can't find 'shell' command in PATH!!")))
-
-;; Shell 名の設定
-(setq shell-file-name (skt:shell))
-(setenv "SHELL" shell-file-name)
-(setq explicit-shell-file-name shell-file-name)
-
-;; エスケープを綺麗に表示する (ls とか)
-;;(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
-;;(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
-
-;; http://d.hatena.ne.jp/mooz/20090613/p1
-;; コントロールシーケンスを利用した色指定が使えるように
-;;(use-package ansi-color)
-;;(autoload 'ansi-color-for-comint-mode-on "ansi-color"
-;;    "Set `ansi-color-for-comint-mode' to t." t)
-
-(add-hook 'term-mode-hook
-	  '(lambda ()
-	    ;; zsh のヒストリファイル名を設定
-	    (setq comint-input-ring-file-name "~/.zsh-histry")
-	    ;; ヒストリの最大数
-	    (setq comint-input-ring-size 1024)
-	    ;; 既存の zsh ヒストリファイルを読み込み
-	    (comint-read-input-ring t)
-	    ;; zsh like completion (history-beginning-search)
-	    (local-set-key "\M-p" 'comint-previous-matching-input-from-input)
-	    (local-set-key "\M-n" 'comint-next-matching-input-from-input)
-	    ;; 色の設定
-	    ;; (setq ansi-color-names-vector
-	    ;;  ["#000000"           ; black
-	    ;;   "#ff6565"           ; red
-	    ;;   "#93d44f"           ; green
-	    ;;   "#eab93d"           ; yellow
-	    ;;   "#204a87"           ; blue
-	    ;;   "#ce5c00"           ; magenta
-	    ;;   "#89b6e2"           ; cyan
-	    ;;   "#ffffff"]          ; white
-	    ;;  )
-	    ;; (ansi-color-for-comint-mode-on)
-	    )
-	  )
-
-;; utf-8
-(set-language-environment  'utf-8)
-(prefer-coding-system 'utf-8)
-
-;; Emacs が保持する terminfo を利用する
-(setq system-uses-terminfo nil)
-
-;;タブ補完できないときのおまじない.
-;; http://stackoverflow.com/questions/18278310/emacs-ansi-term-not-tab-completing
-(add-hook 'term-mode-hook (lambda ()
-        (setq yas-dont-activate t)))
-
-;;shell の割り込みを機能させる
-(defadvice term-interrupt-subjob (around ad-term-interrupt-subjob activate)
-  (term-send-raw-string (kbd "C-c")))
-
-;;シェルの行数を増やす
-(add-hook 'term-mode-hook
-(lambda ()
-(setq term-buffer-maximum-size 10000)))
-
-;; my-keybinds for keybinds -e
-(defun term-send-forward-char ()
-  (interactive)
-  (term-send-raw-string "\C-f"))
-
-(defun term-send-backward-char ()
-  (interactive)
-  (term-send-raw-string "\C-b"))
-
-(defun term-send-previous-line ()
-  (interactive)
-  (term-send-raw-string "\C-p"))
-
-(defun term-send-next-line ()
-  (interactive)
-  (term-send-raw-string "\C-n"))
-
-(add-hook 'term-mode-hook
-          '(lambda ()
-             (let* ((key-and-func
-                     `(("\C-p"           term-send-previous-line)
-                       ("\C-n"           term-send-next-line)
-                       ("\C-b"           term-send-backward-char)
-                       ("\C-f"           term-send-forward-char)
-                       (,(kbd "C-h")     term-send-backspace)
-                       (,(kbd "C-y")     term-paste)
-                       (,(kbd "ESC ESC") term-send-raw)
-                       (,(kbd "C-S-p")   multi-term-prev)
-                       (,(kbd "C-S-n")   multi-term-next)
-                       )))
-               (loop for (keybind function) in key-and-func do
-                     (define-key term-raw-map keybind function)))))
-
-;; (use-package helm-shell-history)
-;; (add-hook 'term-mode-hook
-;; 	  (lambda () (define-key term-raw-map (kbd "C-r") 'helm-shell-history)))
-#+end_src
-
 ** eshell
    M-p で helm-eshell-history 発動.
 
 #+begin_src emacs-lisp
-;; eshell
-;; http://nishikawasasaki.hatenablog.com/entry/2012/09/12/233116
-;; eshell での補完に auto-complete.el を使う
-;; (use-package pcomplete)
-;; (add-to-list 'ac-modes 'eshell-mode)
-;; (ac-define-source pcomplete
-;;   '((candidates . pcomplete-completions)))
-;; (defun my-ac-eshell-mode ()
-;;   (setq ac-sources
-;;         '(ac-source-pcomplete
-;;           ac-source-filename
-;;           ac-source-files-in-current-dir
-;;           ac-source-words-in-buffer
-;;           ac-source-dictionary)))
-;; (add-hook 'eshell-mode-hook
-;;           (lambda ()
-;;             (my-ac-eshell-mode)
-;;             (define-key eshell-mode-map (kbd "C-i") 'auto-complete)
-;;             (define-key eshell-mode-map [(tab)] 'auto-complete)))
-
 ;; helm で補完
 (add-hook 'eshell-mode-hook
           #'(lambda ()
@@ -496,17 +365,6 @@ Warning: Eager macro-expansion skipped due to cycle:
               (define-key eshell-mode-map
                 (kbd "M-p")
                 'helm-eshell-history)))
-
-;; http://d.hatena.ne.jp/khiker/20060919/1158686507
-;; キーバインドの変更
-;; (add-hook 'eshell-mode-hook
-;; 	  '(lambda ()
-;; 	     (progn
-;; 	       (define-key eshell-mode-map "\C-a" 'eshell-bol)
-;; 	       (define-key eshell-mode-map "\C-p" 'eshell-previous-matching-input-from-input)
-;; 	       (define-key eshell-mode-map "\C-n" 'eshell-next-matching-input-from-input)
-;; 	       )
-;; 	     ))
 
 (setq eshell-prompt-function
       (lambda ()
@@ -586,12 +444,11 @@ Warning: Eager macro-expansion skipped due to cycle:
 
 #+begin_src emacs-lisp
 (use-package twittering-mode
+  :bind ("C-c C-x w" . twittering-update-status-from-pop-up-buffer)
   :config
   (setq twittering-use-master-password t)
   ;; パスワード暗号ファイル保存先変更 (デフォはホームディレクトリ)
   (setq twittering-private-info-file "~/.emacs.d/twittering-mode.gpg")
-  
-  (global-set-key (kbd "C-c C-x w") 'twittering-update-status-from-pop-up-buffer)
   )
 #+end_src
 
@@ -624,26 +481,27 @@ Warning: Eager macro-expansion skipped due to cycle:
    - [[http://sleepboy-zzz.blogspot.jp/2013/07/emacs-ercirc.html][memo: Emacs ERC で IRC を試してみた]]
 
 #+begin_src emacs-lisp
-;; (use-package erc)
+(use-package erc
+  :commands erc
+  :config
 
-;; ログイン情報
-;; (setq erc-server "localhost")
-;; (setq erc-port "6667")
-;; (setq erc-nick "tsu-nera")
-;; (setq erc-password "")
+  ;; ログイン情報
+  ;; (setq erc-server "localhost")
+  ;; (setq erc-port "6667")
+  ;; (setq erc-nick "tsu-nera")
+  ;; (setq erc-password "")
 
-(autoload 'erc "erc" "" t)
-(defmacro de-erc-connect (command server port nick)
-  "Create interactive command `command', for connecting to an IRC server. The
+  (defmacro de-erc-connect (command server port nick)
+    "Create interactive command `command', for connecting to an IRC server. The
 command uses interactive mode if passed an argument."
-  (fset command
-	`(lambda (arg)
-	   (interactive "p")
-	   (if (not (= 1 arg))
-	       (call-interactively 'erc)
-	     (erc :server ,server :port ,port :nick ,nick)))))
-
-;; (de-erc-connect erc-opn "localhost" 6667 "tsu-nera")
+    (fset command
+	  `(lambda (arg)
+	     (interactive "p")
+	     (if (not (= 1 arg))
+		 (call-interactively 'erc)
+	       (erc :server ,server :port ,port :nick ,nick)))))
+  
+  ;; (de-erc-connect erc-opn "localhost" 6667 "tsu-nera")
 #+end_src
 
 *** ログアウト
@@ -672,7 +530,7 @@ command uses interactive mode if passed an argument."
    - https://github.com/leathekd/erc-hl-nicks
 
  #+begin_src emacs-lisp
-(use-package erc-hl-nicks)
+(use-package erc-hl-nicks :defer t)
  #+end_src
 
 *** 通知
@@ -684,7 +542,7 @@ command uses interactive mode if passed an argument."
 (add-to-list 'erc-modules 'notifications)
 (erc-update-modules)
 (setq erc-pals '("tsune" "tsu-nera")
- erc-notify-list erc-pals)
+      erc-notify-list erc-pals)
 #+end_src
       
 **** erc-nick-notify
@@ -693,11 +551,11 @@ command uses interactive mode if passed an argument."
      
      notify-send しか対応していないみたい.
     
-#+begin_src emacs-lisp
-(autoload 'erc-nick-notify-mode "erc-nick-notify"
-  "Minor mode that calls `erc-nick-notify-cmd' when his nick gets
-  mentioned in an erc channel" t)
-(eval-after-load 'erc '(erc-nick-notify-mode t))
+     #+begin_src emacs-lisp
+(use-package erc-nick-notify
+  :commands erc-nick-notify-mode
+  :config
+  (erc-nick-notify-mode t))
 #+end_src
  
 **** erc-input-lien-position
@@ -720,10 +578,15 @@ command uses interactive mode if passed an argument."
     - [[http://www.emacswiki.org/emacs/ErcFilling][EmacsWiki: Erc Filling]]
 
 #+begin_src emacs-lisp
- (add-hook 'window-configuration-change-hook 
-	   '(lambda ()
-	      (setq erc-fill-column (- (window-width) 2))))
+(add-hook 'window-configuration-change-hook 
+	  '(lambda ()
+	     (setq erc-fill-column (- (window-width) 2))))
 #+end_src
+*** End of ERC Config
+#+begin_src emacs-lisp
+)
+#+end_src
+
 * Hown
   Function : Evernote を越えるメモ管理ツール
   - http://www.gfd-dennou.org/member/uwabami/cc-env/emacs/howm_config.html
@@ -805,23 +668,21 @@ sudo pacman -S ghostscript
 * Google
 ** google-translate
    Google 翻訳.
-
    - [[http://qiita.com/catatsuy/items/ae9875706769d4f02317][卒論を英語で書けと言われしまったあなたにおすすめの Emacs の設定 - Qiita]]
 
 #+begin_src emacs-lisp
 (use-package google-translate
-:config
-(global-set-key "\C-xt" 'google-translate-at-point)
-(global-set-key "\C-xT" 'google-translate-query-translate)
-
-;; 翻訳のデフォルト値を設定 (ja -> en) (無効化は C-u する)
-(custom-set-variables
- '(google-translate-default-source-language "ja")
- '(google-translate-default-target-language "en"))
-
-;; google-translate.el の翻訳バッファをポップアップで表示させる
-(push '("*Google Translate*") popwin:special-display-config)
-)
+  :bind (("C-x t" . google-translate-at-point)
+	 ("C-x T" . google-translate-query-translate))
+  :config
+  ;; 翻訳のデフォルト値を設定 (ja -> en) (無効化は C-u する)
+  (custom-set-variables
+   '(google-translate-default-source-language "ja")
+   '(google-translate-default-target-language "en"))
+  
+  ;; google-translate.el の翻訳バッファをポップアップで表示させる
+  (push '("*Google Translate*") popwin:special-display-config)
+  )
 #+end_src
 
 ** google-this
@@ -836,8 +697,9 @@ sudo pacman -S ghostscript
 
 #+begin_src emacs-lisp
 (use-package google-this
-:config
-(google-this-mode 1)
+  :defer t
+  :config
+  (google-this-mode 1)
 )
 #+end_src
 
@@ -853,7 +715,7 @@ sudo pacman -S ghostscript
     とくに, キーバインドはつけてない.
 
 #+begin_src emacs-lisp
-(use-package search-web)
+(use-package search-web :defer t)
 ;; 英辞郎 ... なんかうごかないな.
 ;; (define-key global-map (kbd "C-x g e") (lambda () (interactive) (search-web-at-point "eow")))
 ;; (define-key global-map (kbd "C-x g C-e") (lambda () (interactive) (search-web-region "eow")))
@@ -865,7 +727,7 @@ sudo pacman -S ghostscript
    M-x codic xxx
 
 #+begin_src emacs-lisp
-(use-package codic)
+(use-package codic :defer t)
 #+end_src
 
 * Pomodoro
@@ -931,9 +793,11 @@ sudo pacman -S ghostscript
 #+end_src
 
 * psession
-  セッション保存. escreen に対応してくれないかな. . .
+  セッション保存. elscreen に対応してくれないかな. . .
   - [[https://github.com/thierryvolpiatto/psession][thierryvolpiatto/psession]]
   - [[http://rubikitch.com/2014/08/21/psession/][Emacs のデータ・バッファ・ウィンドウ構成を永続化し, 再起動時に復元する方法 るびきち× Emacs]]
+
+  -> elscreen-persist に以降したので一旦封印.
 
 #+begin_src emacs-lisp
 (use-package psession
