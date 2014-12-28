@@ -221,13 +221,11 @@
 ;; (setq helm-google-tld "co.jp")
 #+end_src
 
-
 ** helm-google-suggest
 
 #+begin_src emacs-lisp
 ;; (global-set-key (kbd "C-x g g") 'helm-google-suggest)
 #+end_src
-
 
 ** helm-gtags
    GNU Global.

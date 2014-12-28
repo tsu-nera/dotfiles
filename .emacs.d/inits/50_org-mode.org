@@ -1,4 +1,6 @@
 * org-mode
+  最強のタスク管理ツール.
+
   こまったらここを見れば日本語訳がある
   - http://orgmode.jp/
  
@@ -30,8 +32,8 @@
 #+end_src
 
 ** org-mode の src を目立たせる設定
-  org-mode の src を目立たせる設定. 
-  - [[http://orgmode.org/worg/org-contrib/babel/examples/fontify-src-code-blocks.html][Pretty fontification of source code blocks]]
+   org-mode の src を目立たせる設定. 
+   - [[http://orgmode.org/worg/org-contrib/babel/examples/fontify-src-code-blocks.html][Pretty fontification of source code blocks]]
 
 #+begin_src emacs-lisp
 (setq org-src-fontify-natively t)
@@ -39,7 +41,6 @@
 #+end_src
 
 ** スタートアップ設定
-
 #+begin_src emacs-lisp
 ;; アスタリスクはかくす
 (setq org-hide-leading-stars t)
@@ -194,60 +195,20 @@
 ;;  )))
 #+end_src
 
-** org-clock-in-quick
+** my/org-clockin-gtd
  指定したタスクを clockin するためのショートカット はじめてつくった自作 defun!!
-
- http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
- https://github.com/danieroux/emacs/blob/master/external/bh-org-mode.el
+ - http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
+ - https://github.com/danieroux/emacs/blob/master/external/bh-org-mode.el
 
 #+begin_src emacs-lisp
-  ;; (defvar bh/organization-task-id-gtd "b66237b9-95dd-4863-bc36-bd4dbc435eca")
-  ;; (defvar bh/organization-task-id-rest "192d0802-8ed7-4c51-ad3f-04f6ae4e75f6")
-
-  ;; (defun bh/clock-in-task-by-id (id)
-  ;;   "Clock in a task by id"
-  ;;   (save-restriction
-  ;;     (widen)
-  ;;     (org-with-point-at (org-id-find id 'marker)
-  ;;       (org-clock-in '(16)))))
-
-  ;; ;; ショートカット clock-in
-  ;; (defun gtd ()
-  ;;   (interactive)
-  ;;   (find-file "~/gtd/main.org")
-  ;;   (bh/clock-in-task-by-id bh/organization-task-id-gtd)
-  ;;   )
-
-  ;; ;; http://www.emacswiki.org/emacs/FacesPerBuffer
-  ;; (defun my-org-rest-display-mode ()
-  ;;   "Sets a fixed width (monospace) font in current buffer"
-  ;;   (interactive)
-  ;;   (setq buffer-face-mode-face '(:height 1000))
-  ;;   (buffer-face-mode))
-
-  ;; (defvar rest-display-string "\n 休憩中だよ (*'~`*)")
-
-  ;; (defun rest-display ()
-  ;;   "Display rest message on buffer"
-  ;;   (let ((temp-buffer-show-function 'switch-to-buffer))
-  ;;   (with-output-to-temp-buffer "*RestMessage*"  
-  ;;   (princ rest-display-string)))
-  ;;   (my-org-rest-display-mode)
-  ;;   )
-
-  ;; (defun rest ()
-  ;;   (interactive)
-  ;;   (find-file "~/gtd/main.org")
-  ;;   (bh/clock-in-task-by-id bh/organization-task-id-rest)
-  ;;   (rest-display)
-  ;;   )
-
-  ;; (global-set-key (kbd "<f7>") 'gtd)
-  ;; (global-set-key (kbd "<f8>") 'rest)
+(use-package my-org-clockin-gtd
+  :bind (("<f7>" . my/gtd)
+	 ("<f8>" . my/rest))
+  )
 #+end_src
 
 ** Next Action
-   http://qiita.com/takaxp/items/4dfa11a81e18b29143ec
+   - http://qiita.com/takaxp/items/4dfa11a81e18b29143ec
 
 #+begin_src emacs-lisp
 (defvar my-next-tag "next")
