@@ -1,13 +1,20 @@
-* Helm
+* helm
   絞りこみインターフェイス.
   - https://github.com/emacs-helm
 
   ダウンロードしたら, make でコンパイルする.
 
-* Default 設定
+* 組み込み helm
+** Basic Setting 
 
 #+begin_src emacs-lisp
-(eval-when-compile (use-package cl))
+(use-package helm-config
+  :config
+  (helm-mode 1)
+#+end_src
+
+#+begin_src emacs-lisp
+;; (eval-when-compile (use-package cl))
 
 ;;; ミニバッファで C-h でヘルプでないようにする
 (load "term/bobcat")
@@ -15,14 +22,14 @@
   (terminal-init-bobcat))
 
 (use-package async-bytecomp)
-(use-package helm-config)
-(use-package helm-command)
 (use-package helm-descbinds)
-(use-package helm-c-yasnippet)
-(use-package gist)
 (use-package helm-gist)
-(autoload 'helm-github-issues "helm-github-issues"
-  "Helm interface for github issues" nil t)
+
+;; (use-package helm-command)
+;; (use-package helm-c-yasnippet)
+;; (use-package gist)
+
+(use-package helm-github-issues :commands helm-github-issues)
 
 ;; (setq helm-idle-delay             0.2
 ;;       helm-input-idle-delay       0.2
@@ -35,7 +42,6 @@
 (global-set-key (kbd "C-x C-b") 'helm-elscreen)
 ;; helm-semantic-or-imenu C-x c i でバインドされている. 便利.
 ;; (global-set-key (kbd "C-x g g") 'helm-google-suggest)
-(helm-mode 1)
 #+end_src
 
 ** helm-buffer-list
@@ -67,7 +73,7 @@
   - C-x r l' – list your bookmarks
   - M-x bookmark-delete' – delete a bookmark by name これも helm が発動する.
 
-* 拡張 lisp
+* 拡張 helm
 ** helm-orgcard
    orgcard を引く.
 
@@ -289,4 +295,10 @@ Adapted from `flyspell-correct-word-before-point'."
   :config
   (global-set-key (kbd "C-x c i") 'helm-imenu-anywhere)
   )
+#+end_src
+
+* End of Helm Config
+
+#+begin_src emacs-lisp
+)
 #+end_src

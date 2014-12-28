@@ -104,13 +104,15 @@
 
 * Plant UML Mode
   Major mode for editing PlantUML.
+  - [[http://plantuml.sourceforge.net/emacs.html][PlantUML]]
+  - [[http://futurismo.biz/archives/2305][EmacsからPlantUMLを便利につかう方法 | Futurismo]]
 
   #+begin_src emacs-lisp
-(use-package plant-mode
+(use-package plantuml-mode
   :if linux-p
-  :commands 
-  :mode (("\\.puml$" . plant-mode)
-	 ("\\.plantuml$" . plant-mode))
+  :commands plantuml-mode
+  :mode (("\\.puml$" . plantuml-mode)
+	 ("\\.plantuml$" . plantuml-mode))
   :config
   (setq plantuml-jar-path "/usr/local/bin/plantuml.jar")
   )
