@@ -14,7 +14,7 @@
   :commands haskell-mode
   :mode (("\\.hs$" . haskell-mode)
          ("\\.lhs$" . literate-haskell-mode))
-  :config
+  :init
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
   (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
   (add-hook 'haskell-mode-hook 'font-lock-mode)
@@ -23,7 +23,7 @@
 
 (use-package haskell-cabal
   :commands haskell-cabal
-  :mode ("\\.cabal\\" . haskell-cabal-mode)
+  :mode ("\\.cabal$" . haskell-cabal-mode)
   )
 #+end_src
 
@@ -83,10 +83,12 @@ Haskell でかかれたスクリプトを haskell-mode で編集する.
 ** Settings
    - [[http://www.mew.org/~kazu/proj/ghc-mod/en/preparation.html][Preparing Emacs front-end]]
 
-#+begin_src emacs-lisp
-(autoload 'ghc-init "ghc" nil t)
-(autoload 'ghc-debug "ghc" nil t)
-(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+   #+begin_src emacs-lisp
+(use-package ghc
+  :commands (ghc-init ghc-debug ghc)
+  :init
+  (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+  )
 #+end_src
 
   Emacs での使い方は以下のページに書いてある.
@@ -95,10 +97,6 @@ Haskell でかかれたスクリプトを haskell-mode で編集する.
 * エラーチェック
 ** flymake
    構文チェック.
-
-#+begin_src emacs-lisp
-(add-hook 'haskell-mode-hook (lambda () (flymake-mode)))
-#+end_src
 
 ** hlint
    コードチェック. cabal install hlint でインストールする.
@@ -110,9 +108,10 @@ Haskell でかかれたスクリプトを haskell-mode で編集する.
 
 #+begin_src emacs-lisp
 (use-package ac-haskell-process
-  :config
+  :init
   (add-hook 'interactive-haskell-mode-hook 'ac-haskell-process-setup)
   (add-hook 'haskell-interactive-mode-hook 'ac-haskell-process-setup)
+  :config
   (eval-after-load "auto-complete"
     '(add-to-list 'ac-modes 'haskell-interactive-mode))
   )

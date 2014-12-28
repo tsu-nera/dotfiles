@@ -22,8 +22,7 @@
 	   ("Capfile$" . ruby-mode)
 	   ("Gemfile$" . ruby-mode)
 	   ("[Rr]akefile$" . ruby-mode))
-  :config
-  (message "ruby-mode is called=============================")
+  :interpreter "ruby"
   )
 #+end_src
 
@@ -50,11 +49,16 @@
 ** robe-mode
    かしこい補完.
 
-#+begin_src emacs-lisp
-(add-hook 'ruby-mode-hook 'robe-mode)
-(add-hook 'robe-mode-hook 'ac-robe-setup)
-(custom-set-variables
- '(robe-highlight-capf-candidates nil))
+   #+begin_src emacs-lisp
+(use-package robe-mode
+  :defer t
+  :init
+  (add-hook 'ruby-mode-hook 'robe-mode)
+  (add-hook 'robe-mode-hook 'ac-robe-setup)
+  :config
+  (custom-set-variables
+   '(robe-highlight-capf-candidates nil))
+  )
 #+end_src
 
 ** ruby-electric.el
@@ -64,8 +68,10 @@
 
 #+begin_src emacs-lisp
 (use-package  ruby-electric
-:config
+  :defer t
+  :init
   (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
+  :config
   (setq ruby-electric-expand-delimiters-list nil)
 )
 #+end_src
@@ -75,9 +81,11 @@
 
 #+begin_src emacs-lisp
 (use-package ruby-block
-:config
-(ruby-block-mode t)
-(setq ruby-block-highlight-toggle t)
+  :defer t
+  :init
+  (add-hook 'ruby-mode-hook '(lambda () (ruby-block-mode t)))
+  :config
+  (setq ruby-block-highlight-toggle t)
 )
 #+end_src
 
@@ -87,8 +95,9 @@
 
 #+begin_src emacs-lisp
 (use-package ruby-refactor
-:config
-(add-hook 'ruby-mode-hook 'ruby-refactor-mode-launch)
+  :defer t
+  :init
+  (add-hook 'ruby-mode-hook '(lambda () (ruby-refactor-mode-launch)))
 )
 #+end_src
 
@@ -98,18 +107,18 @@
    elisp は ruby のソースに梱包されている.
   
 #+begin_src emacs-lisp
-(autoload 'rubydb "rubydb3x"
-    "run rubydb on program file in buffer *gud-file*.
-the directory containing file becomes the initial working directory
-and source-file directory for your debugger." t)
+(use-package rubydb :commands rubydb)
 #+end_src
 
 ** inf-ruby
   emacs から irb を操作
 
-#+begin_src emacs-lisp
-(autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby process" t)
-(add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
+  #+begin_src emacs-lisp
+(use-package inf-ruby
+  :commands inf-ruby
+  :init
+  (add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
+  )
 #+end_src
 
 ** pry
@@ -140,7 +149,6 @@ and source-file directory for your debugger." t)
   :init
   (add-hook 'ruby-mode-hook 'rspec-mode)
   :config
-  (message "now")
   (rspec-install-snippets)
   (custom-set-variables '(rspec-use-rake-flag nil))
   (custom-set-faces)
@@ -151,8 +159,6 @@ and source-file directory for your debugger." t)
 ** flycheck
 
 #+begin_src emacs-lisp
-;; (add-hook 'ruby-mode-hook 'flycheck-mode)
-
 ;; definition for flycheck
 (flycheck-define-checker ruby-rubocop
   "A Ruby syntax and style checker using the RuboCop tool.

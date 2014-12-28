@@ -3,28 +3,32 @@
 
   そんな感じの Java 設定です.
   
-* Global Setting
-** indent
+* Mode
+** java-mode
+   default の モード
+*** indent
    なんか, Eclipse と Emacs でインデントあってない.
    - [[http://d.hatena.ne.jp/mzp/20090618/emacs][インデントの設定まとめ - みずぴー日記]]
    - [[http://stackoverflow.com/questions/5556558/getting-consistent-indentation-in-eclipse-and-emacs][Getting consistent indentation in Eclipse and Emacs - Stack Overflow]]
    - [[http://yohshiy.blog.fc2.com/blog-entry-172.html][Emacs でのタブ幅の設定 | プログラマーズ雑記帳]]
 
 #+begin_src emacs-lisp
-(add-hook 'java-mode-hook
-	 (lambda ()
-	 ;; タブ幅
-	 (setq tab-width 2)
-	 ;; タブはとりあえず有効. プロジェクトによって変える.
-	 (setq indent-tabs-mode t)
-	 (setq c-basic-offset 2)))
+(use-package java-mode
+  :mode "\\.java$"
+  :init
+  (add-hook 'java-mode-hook
+	    (lambda ()
+	      ;; タブ幅
+	      (setq tab-width 2)
+	      ;; タブはとりあえず有効. プロジェクトによって変える.
+	      (setq indent-tabs-mode t)
+	      (setq c-basic-offset 2)))
+  )
 #+end_src
 
-* Mode
 ** malabar-mode
    A better Java mode for Emacs.
-
-   https://github.com/m0smith/malabar-mode
+   - https://github.com/m0smith/malabar-mode
 
    el-get で取得. fringe-helper に依存. ダウンロードしたら, mvn package.
 
@@ -69,7 +73,6 @@
 ** Basic Config
 #+begin_src emacs-lisp
 (use-package jde
-  :defer t
   :load-path "jdee/lisp"
   :commands jde
   :config
@@ -155,17 +158,6 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
    #+end_src
 
 * Error Check
-** flymake
-
-#+begin_src emacs-lisp
-(defun flymake-java-init ()
-  (list "my-java-flymake-checks"
-	(list (flymake-init-create-temp-buffer-copy
-	       'flymake-create-temp-with-folder-structure))))
-(add-to-list 'flymake-allowed-file-name-masks
-	     '("\\.java$" flymake-java-init flymake-simple-cleanup))
-#+end_src
-
 * eclim-emacs
    Emacs から Eclipse をつかう.
 
@@ -313,7 +305,6 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 #+end_src
 
 *** config
-
 #+begin_src emacs-lisp
 (use-package ajc-java-complete-config
   :config
@@ -321,7 +312,6 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 (add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
 )
 #+end_src
-
 
 * log4j
 #+begin_src emacs-lisp
@@ -335,5 +325,3 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 #+begin_src emacs-lisp
 (use-package jtags)
 #+end_src
-
-* Android

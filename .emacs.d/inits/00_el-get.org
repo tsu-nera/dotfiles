@@ -170,10 +170,8 @@
     ;; haskell-mode
     ac-haskell-process
     ;; anything-rdefs
-    ;; visual-basic
     vbasense
     visual-basic-mode
-    ;; minor-mode
     rainbow-mode
     yaml-mode
     markdown-mode

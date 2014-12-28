@@ -6,7 +6,8 @@
 
 #+begin_src emacs-lisp
 (use-package cc-mode
-  :config
+  :defer t
+  :init
   ;; c-mode-common-hook は C/C++ の設定
   (add-hook 'c-mode-common-hook
 	    (lambda ()
@@ -16,30 +17,3 @@
 	      ))
   )
 #+end_src
-
-* flymake
-  C/C++ に関わる設定.
-
-#+begin_src emacs-lisp
-(defun flymake-cc-init ()
-  (let* ((temp-file   (flymake-init-create-temp-buffer-copy
-		       'flymake-create-temp-inplace))
-	 (local-file  (file-relative-name
-		       temp-file
-		       (file-name-directory buffer-file-name))))
-    (list "g++" (list "-Wall" "-Wextra" "-fsyntax-only" local-file))))
-
-(push '("\\.c$" flymake-cc-init) flymake-allowed-file-name-masks)
-(push '("\\.cpp$" flymake-cc-init) flymake-allowed-file-name-masks)
-
-(add-hook 'c++-mode-hook
-	  '(lambda ()
-	     (flymake-mode t))) (use-package flymake)
-
-(add-hook 'c-mode-hook
-	  '(lambda ()
-	     (flymake-mode t))) (use-package flymake)
-#+end_src
-
-
-

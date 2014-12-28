@@ -27,25 +27,25 @@
 ** インデント設定
    4 で設定.
 
-#+begin_src emacs-lisp
-(add-hook 'python-mode-hook
-                   '(lambda ()
-                        (setq indent-tabs-mode nil)
-                        (setq indent-level 4)
-                        (setq python-indent 4)
-                        (setq tab-width 4)))
+   #+begin_src emacs-lisp
+(use-package python-mode
+  :mode "\\.py$"
+  :interpreter "python"
+  :init
+  (add-hook 'python-mode-hook
+	    '(lambda ()
+	       (setq indent-tabs-mode nil)
+	       (setq indent-level 4)
+	       (setq python-indent 4)
+	       (setq tab-width 4)
+	       (setq imenu-create-index-function 'python-imenu-create-index)
+	       ))
+  )
 #+end_src
 
 * コードリーディング
 ** imenu
    - [[http://qiita.com/lambdasakura@github/items/ceb9bc6fb008c959ec4b][Emacs の Python 開発環境構築メモ - Qiita]]
-
-#+begin_src emacs-lisp
-(semantic-mode 1) 
-(add-hook 'python-mode-hook
-  (lambda ()
-    (setq imenu-create-index-function 'python-imenu-create-index)))
-#+end_src
 
 * リファクタリング
   主に名前変更の Elisp を導入.
@@ -81,10 +81,11 @@
    システムの version が 3 で, Emacs からは 2 を利用したいときは,
    以下のようにすれば実行コマンドをオーバライドできる.
    
-#+begin_src emacs-lisp
-(quickrun-add-command "python"
-		      '((:command . "python2"))
-		      :override t)
+   #+begin_src emacs-lisp
+(eval-after-load 'quickrun
+  '(progn
+     (quickrun-add-command "python" '((:command . "python2"))
+			   :override t)))
 #+end_src
 
 ** TODO iPython
@@ -102,20 +103,7 @@
    Emacswiki を参考に設定.
    - [[http://www.emacswiki.org/PythonProgrammingInEmacs][EmacsWiki: Python Programming In Emacs]]
 
-#+begin_src emacs-lisp
-(when (load "flymake" t)
-  (defun flymake-pyflakes-init ()
-     ; Make sure it's not a remote buffer or flymake would not work
-     (when (not (subsetp (list (current-buffer)) (tramp-list-remote-buffers)))
-      (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                         'flymake-create-temp-inplace))
-             (local-file (file-relative-name
-                          temp-file
-                          (file-name-directory buffer-file-name))))
-        (list "pyflakes" (list local-file)))))
-  (add-to-list 'flymake-allowed-file-name-masks
-               '("\\.py\\'" flymake-pyflakes-init)))
-#+end_src
+   -> programming.org に移動.
 
 * Links
   - [[http://www.emacswiki.org/PythonProgrammingInEmacs][EmacsWiki: Python Programming In Emacs]]

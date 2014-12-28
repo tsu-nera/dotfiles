@@ -15,114 +15,105 @@
 ;;; You have to arrange for the Oz-related emacs lisp (.el) files
 ;;; to be in emacs's load-path, for its bin directory to be in the PATH,
 ;;; and for the OZHOME environment variable to be set properly.
+(use-package oz
+  :commands (run-oz oz-mode oz-gump-mode oz-new-buffer)
+  :mode () ("\\.oz$'" . oz-mode) ("\\.ozg$'" . oz-gump-mode)
+  :init
+  (add-hook 'oz-mode-hook
+	    (lambda ()
+	      (define-key oz-mode-map "\C-c\C-b" 'oz-feed-buffer)
+	      (define-key oz-mode-map "\C-c\C-l" 'oz-feed-line)
+	      (define-key oz-mode-map "\C-c\C-r" 'oz-feed-region)
+	      ))
+  :config
+  ;; indent を 3 から 2 へ変更
+  (setq oz-indent-chars 2)
 
-;; ruby 実行時に warning がでるので, 一旦封印
-;; (when linux-p
-;; (or (getenv "OZHOME")
-;;     (setenv "OZHOME" 
-;;             "/mnt/win/opt/mozart"))   ; or wherever Mozart is installed
-;; (setenv "PATH" (concat (getenv "OZHOME") "/bin:" (getenv "PATH")))
-;; )
-
-(autoload 'run-oz "oz" "" t)
-(autoload 'oz-mode "oz" "" t)
-(autoload 'oz-gump-mode "oz" "" t)
-(autoload 'oz-new-buffer "oz" "" t)
-
-(add-to-list 'auto-mode-alist '("\\.oz$'" . oz-mode))
-(add-to-list 'auto-mode-alist '("\\.ozg$'" . oz-gump-mode))
-
-(add-hook 'oz-mode-hook
-	  (lambda ()
-	    (define-key oz-mode-map "\C-c\C-b" 'oz-feed-buffer)
-	    (define-key oz-mode-map "\C-c\C-l" 'oz-feed-line)
-	    (define-key oz-mode-map "\C-c\C-r" 'oz-feed-region)
-	    ))
-
-;; indent を 3 から 2 へ変更
-(setq oz-indent-chars 2)
-
-(eval-after-load "auto-complete"
+  (eval-after-load "auto-complete"
   '(add-to-list 'ac-modes 'oz-mode))
+  )
 #+end_src
-
 * Cool
-
-#+begin_src emacs-lisp 
-(autoload 'cool-mode "cool-mode" "Major mode for editing COOL programs" t)
-(setq auto-mode-alist
-            (append '(("\\.cl\\'" . cool-mode)) auto-mode-alist))
-
+  
+#+begin_src emacs-lisp
+(use-package cool-mode
+  :mode "\\.cl$"
+  )
 #+end_src
 
 * VBA 
+** vbasense
+#+begin_src emacs-lisp
+(use-package vbasense
+  :if windows-p
+  :commands vbasense
+  :mode "\\.\\(vbs\\|vb\\|wsf\\|frm\\|bas\\|cls\\)$"
+  :config
+  (setq vbasense-popup-help-key "C-:")
+  (setq vbasense-jump-to-definition-key "C->")
 
-#+begin_src emacs-lisp 
-(when windows-p
-(autoload 'vbasense "vbasense" "Visual Basic Mode" t)
-(add-to-list 'auto-mode-alist '("\\.\\(vbs\\|vb\\|wsf\\|frm\\|bas\\|cls\\)$" .
-				vbasense))
-(setq vbasense-popup-help-key "C-:")
-(setq vbasense-jump-to-definition-key "C->")
+  ;;(customize-group "vbasense")
+  ;; use recommmended setting
+  (vbasense-config-default)
 
-;;(customize-group "vbasense")
-;; use recommmended setting
-(vbasense-config-default)
+  ;; (custom-set-variables
+  ;; '(vbasense-tli-files "C:/Program Files/Microsoft Office/OFFICE11/EXCEL.EXE"))
+  ;; "c:/Program Files/Common Files/Microsoft Shared/VBA/VBA6/VBE6.DLL"
+  ;; "c:/Program Files/Common Files/Microsoft Shared/VBA/VBA6/VBE6EXT.OLB"
+  ;; "c:/Program Files/Common Files/Microsoft Shared/OFFICE11/MSO.DLL"
+  ;; "c:/WINDOWS/system32/stdole2.tlb")
+  ;; 	   )
+  )
+#+end_src
 
-;; (custom-set-variables
-;; '(vbasense-tli-files "C:/Program Files/Microsoft Office/OFFICE11/EXCEL.EXE"))
-;; "c:/Program Files/Common Files/Microsoft Shared/VBA/VBA6/VBE6.DLL"
-;; "c:/Program Files/Common Files/Microsoft Shared/VBA/VBA6/VBE6EXT.OLB"
-;; "c:/Program Files/Common Files/Microsoft Shared/OFFICE11/MSO.DLL"
-;; "c:/WINDOWS/system32/stdole2.tlb")
-;; 	   )
+** visual-basic-mode
 
-;; visual-basic-mode
-(autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode" t)
-(add-to-list 'auto-mode-alist '("\\.\\(vbs\\|vb\\|wsf\\|frm\\|bas\\|cls\\)$" .
-				visual-basic-mode))
-)
+#+begin_src emacs-lisp
+(use-package visual-basic-mode
+  :commands visual-line-mode
+  :mode "\\.\\(vbs\\|vb\\|wsf\\|frm\\|bas\\|cls\\)$"
+  )
 #+end_src
 
 * rst-mode
   Major mode for editing Restructured Text
 
 #+begin_src emacs-lisp 
-
-;;; RST モードを見やすくする.
-(setq frame-background-mode 'dark)
-
-(autoload 'rst "rst-mode" "Rst mode for Sphinx" t)
-;;; *.rst, *.rest ファイルを rst-mode で Open
-(setq auto-mode-alist
-      (append '(("\\.rst$" . rst-mode)
-		("\\.rest$" . rst-mode)
-		) auto-mode-alist))
-
-;; 全部スペースでインデントしましょう
-;; (add-hook 'rst-mode-hook '(lambda () (setq indent-tabs-mode nil)))
-
+(use-package rst
+  :commands rst-mode
+  :mode (("\\.rst$" . rst-mode) ("\\.rest$" . rst-mode))
+  :config
+  ;; RST モードを見やすくする.
+  (setq frame-background-mode 'dark)
+  
+  ;; 全部スペースでインデントしましょう
+  ;; (add-hook 'rst-mode-hook '(lambda () (setq indent-tabs-mode nil)))
+)
 #+end_src
 
 * Markdown Mode
   Major mode for editing markdown
   - http://jblevins.org/projects/markdown-mode/markdown-mode.el
 
-#+begin_src emacs-lisp 
-(autoload
-  'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
-;; associate .md file to markdown-mode
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+  #+begin_src emacs-lisp
+(use-package markdown-mode.el
+  :commands markdown-mode
+  :mode ("\\.md$" . markdown-mode)
+  )
 #+end_src
 
 * Plant UML Mode
-  Major mode for editing PlantUML
-#+begin_src emacs-lisp 
-(autoload
-  'plantuml-mode "plantuml-mode" "" t)
-(add-to-list 'auto-mode-alist '("\\.puml$" . plantuml-mode))
-(add-to-list 'auto-mode-alist '("\\.plantuml$" . plantuml-mode))
-(setq plantuml-jar-path "/usr/local/bin/plantuml.jar")
+  Major mode for editing PlantUML.
+
+  #+begin_src emacs-lisp
+(use-package plant-mode
+  :if linux-p
+  :commands 
+  :mode (("\\.puml$" . plant-mode)
+	 ("\\.plantuml$" . plant-mode))
+  :config
+  (setq plantuml-jar-path "/usr/local/bin/plantuml.jar")
+  )
 #+end_src
 
 * Scala
@@ -131,36 +122,33 @@
 #+begin_src emacs-lisp 
 ;; Scala Mode 2
 (use-package scala-mode2
-  :config
-;;(autoload 'scala-mode2 "scala-mode2" "A new scala-mode for emacs24" t)
-(add-to-list 'auto-mode-alist '("\\.scala$" . scala-mode))
-(add-to-list 'auto-mode-alist '("\\.sbt$" . scala-mode))
+  :commands scala-mode2
+  :mode (("\\.scala$" . scala-mode) ("\\.sbt$" . scala-mode))
 )
-
 #+end_src
 
 ** ensime
    ENhanced Scala Interaction Mode for Emacs.
+   
+   This step causes the ensime-mode to be started whenever
+   scala-mode is started for a buffer. You may have to customize this step
+   if you're not using the standard scala mode.
 
 #+begin_src emacs-lisp
-;; ensine
 (use-package ensime
-  :config
-;;(autoload 'ensime-scala-mode "ensime" "ENhanced Scala Interaction Mode for Emacs" t)
-;; This step causes the ensime-mode to be started whenever
-;; scala-mode is started for a buffer. You may have to customize this step
-;; if you're not using the standard scala mode.
-(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+  :commands ensime-scala-mode
+  :init
+  (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 )
 #+end_src
 
 ** sbt mode
-    https://github.com/hvesalai/sbt-mode
+    - https://github.com/hvesalai/sbt-mode
 
 #+begin_src emacs-lisp 
-(use-package sbt-mode)
-
-(add-hook 'sbt-mode-hook '(lambda ()
+(use-package sbt-mode
+  :init
+  (add-hook 'sbt-mode-hook '(lambda ()
   ;; compilation-skip-threshold tells the compilation minor-mode
   ;; which type of compiler output can be skipped. 1 = skip info
   ;; 2 = skip info and warnings.
@@ -174,16 +162,17 @@
   ;; more than one line to scala console prompt before sending it
   ;; for interpretation. It will keep your command history cleaner.
   (local-set-key (kbd "M-RET") 'comint-accumulate)
-))
+  ))
 
-(add-hook 'scala-mode-hook '(lambda ()
+  (add-hook 'scala-mode-hook '(lambda ()
    ;; sbt-find-definitions is a command that tries to find (with grep)
    ;; the definition of the thing at point.
    (local-set-key (kbd "M-.") 'sbt-find-definitions)
 
    ;; use sbt-run-previous-command to re-compile your code after changes
    (local-set-key (kbd "C-x '") 'sbt-run-previous-command)
-))
+   ))
+)
 #+end_src
 
 ** scala-electric-mode
@@ -196,7 +185,7 @@
 
 * conkeror
 #+begin_src emacs-lisp
-(autoload 'conkeror-minor-mode "conkeror-minor-mode")
+(use-package conkeror-minor-mode :commands conkeror-minor-mode)
 #+end_src
 
 * pukiwiki-mode
@@ -208,10 +197,8 @@
   - http.el http://tdiary.cvs.sourceforge.net/tdiary/contrib/util/tdiary-mode/
   - [[http://rmecab.jp/wiki/index.php?Wiki_pukiwiki-mode%A4%F2%C6%B3%C6%FE][Wiki_pukiwiki-mode を導入 - R と Linux と...]]
 
-  pukiwiki-edit-mode で起動.
-
 #+begin_src emacs-lisp
-(autoload 'pukiwiki-mode "pukiwiki-mode" "Major mode for Pukiwiki" t)
+(use-package pukiwiki-mode :commands (pukiwiki-mode pukiwiki-edit-mode))
 #+end_src
 
 * Assembly Language
@@ -225,9 +212,10 @@
    - [[https://github.com/ejmr/php-mode][ejmr/php-mode]]
 
 #+begin_src emacs-lisp
-(autoload 'php-mode "php-mode" "Major mode for editing PHP programs" t)
-(setq auto-mode-alist
-            (append '(("\\.php\\'" . php-mode)) auto-mode-alist))
+(use-package php-mode
+  :commands php-mode
+  :mode "\\.php$"
+)
 #+end_src
 
 ** mmm-mode

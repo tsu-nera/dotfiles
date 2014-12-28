@@ -372,7 +372,7 @@
    - https://github.com/tsdh/iedit
 
 #+begin_src emacs-lisp
-(use-package iedit :defer t)
+(use-package iedit)
 #+end_src
 
 ** wgrep
@@ -513,7 +513,6 @@
 
 ** flyspell
    リアルタイム, スペルチェック.
-
    - [[http://www.gfd-dennou.org/member/uwabami/cc-env/emacs/flyspell_config.html][Youhei SASAKI's official site: flyspell-mode の設定]]
    - [[http://d.hatena.ne.jp/mooz/20100423/p1][flyspell-mode の修正候補表示を popup.el で - mooz deceives you]]
 
@@ -525,7 +524,6 @@
   :config
   ;; どうも flyspell と ac-complete は相性が悪い?
   ;; (ac-flyspell-workaround)
-  )
 #+end_src
 
 *** あるモードのみ flysell を起動
@@ -539,6 +537,7 @@
     '(
     c-mode-common-hook
     ruby-mode-hook
+    java-mode-hook    
     emacs-lisp-mode-hook   
     ))
     #+end_src
@@ -557,6 +556,12 @@
     twittering-edit-mode
     ))
     #+end_src
+
+*** end of flyspell config
+#+begin_src emacs-lisp
+)
+#+end_src
+
 
 ** grammar
    英語の文法をチェックしてくれる.
