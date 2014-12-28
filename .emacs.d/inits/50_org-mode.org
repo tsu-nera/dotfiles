@@ -195,19 +195,7 @@
 ;;  )))
 #+end_src
 
-** my/org-clockin-gtd
- 指定したタスクを clockin するためのショートカット はじめてつくった自作 defun!!
- - http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
- - https://github.com/danieroux/emacs/blob/master/external/bh-org-mode.el
-
-#+begin_src emacs-lisp
-(use-package my-org-clockin-gtd
-  :bind (("<f7>" . my/gtd)
-	 ("<f8>" . my/rest))
-  )
-#+end_src
-
-** Next Action
+** TODO Next Action
    - http://qiita.com/takaxp/items/4dfa11a81e18b29143ec
 
 #+begin_src emacs-lisp
@@ -253,14 +241,14 @@
 #+end_src
 
 ** next タグの除去
-   
 #+begin_src emacs-lisp
 (setq org-todo-state-tags-triggers
       (quote (("DONE" ("next")))))
 #+end_src
+
 ** org-clock
-   org-clock
-   - http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
+  org-clock. org-mode での時間管理.
+  - http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
 
 #+begin_src emacs-lisp
 ;; emacs resume 時に時間計測再開
@@ -303,8 +291,10 @@
 ; 時間になったら音をならす
 ;;(setq org-clock-sound "/usr/share/sounds/LinuxMint/stereo/desktop-login.ogg")
 ;;(setq org-clock-sound t)
+#+end_src
 
-;; 必ず時間見積り
+*** 必ず時間見積り
+#+begin_src emacs-lisp
 (defadvice org-clock-in (before is-set-effort-before-clock-in)
    (let ((effort (org-entry-get (point) "Effort")))
      (unless effort
@@ -312,59 +302,31 @@
 (ad-activate-regexp "is-set-effort-before-clock-in")
 #+end_src
 
-*** org-clock-by-tags
-    タグごとに clocktable を集計.
-    - http://stackoverflow.com/questions/17353591/timetable-grouped-by-tag
-
-    TODO そのうち elisp で分離
+*** my/org-clockin-gtd
+ 指定したタスクを clockin するためのショートカット はじめてつくった自作 defun!!
+ - http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
+ - https://github.com/danieroux/emacs/blob/master/external/bh-org-mode.el
 
 #+begin_src emacs-lisp
-;; 宣言方法
-;;  #+BEGIN: clocktable-by-tag :maxlevel 2 :tags ("p1" "p2")
-;;                            :tstart "2013-06-27" :tend "2013-06-28"
-(defun clocktable-by-tag/shift-cell (n)
-  (let ((str ""))
-    (dotimes (i n)
-      (setq str (concat str "| ")))
-    str))
+(use-package my-org-clockin-gtd
+  :bind (("<f7>" . my/gtd)
+	 ("<f8>" . my/rest))
+  )
+#+end_src
 
-(defun clocktable-by-tag/insert-tag (params)
-  (let ((tag (plist-get params :tags)))
-    (insert "|--\n")
-    (insert (format "| %s | *Tag time* |\n" tag))
-    (let ((total 0))
-;;      (mapcar
-      (mapc
-       (lambda (file)
-	 (let ((clock-data (with-current-buffer (find-file-noselect file)
-			     (org-clock-get-table-data (buffer-name) params))))
-	   (when (> (nth 1 clock-data) 0)
-	     (setq total (+ total (nth 1 clock-data)))
-	     (insert (format "| | File *%s* | %.2f |\n"
-			     (file-name-nondirectory file)
-			     (/ (nth 1 clock-data) 60.0)))
-	     (dolist (entry (nth 2 clock-data))
-	       (insert (format "| | . %s%s | %s %.2f |\n"
-			       (org-clocktable-indent-string (nth 0 entry))
-			       (nth 1 entry)
-			       (clocktable-by-tag/shift-cell (nth 0 entry))
-			       (/ (nth 3 entry) 60.0)))))))
-       (org-agenda-files))
-      (save-excursion
-	(re-search-backward "*Tag time*")
-	(org-table-next-field)
-	(org-table-blank-field)
-	(insert (format "*%.2f*" (/ total 60.0)))))
-    (org-table-align)))
+*** org-clock-by-tags
+   タグごとに clocktable を集計.
+    - http://stackoverflow.com/questions/17353591/timetable-grouped-by-tag
+    - https://gist.github.com/tsu-nera/d9ffa6a51a6e7bdb957b
+      
+#+begin_src text
+ 宣言方法
+  #+BEGIN: clocktable-by-tag :maxlevel 2 :tags ("p1" "p2")
+                            :tstart "2013-06-27" :tend "2013-06-28"
+#+end_src
 
-(defun org-dblock-write:clocktable-by-tag (params)
-  (insert "| Tag | Headline | Time (h) |\n")
-  (insert "|     |          | <r>  |\n")
-  (let ((tags (plist-get params :tags)))
-    (mapcar (lambda (tag)
-	      (setq params (plist-put params :tags tag))
-	      (clocktable-by-tag/insert-tag params))
-	    tags)))
+#+begin_src emacs-lisp
+(use-package clocktable-by-tag)
 #+end_src
 
 * org-capture
@@ -534,14 +496,29 @@
   | org (Org format)               | ox-org.el       |
   | texinfo (Texinfo format)       | ox-texinfo.el   |
 
-** ox-rst
+** ox-wk
+   dokuwiki 変換.
+
+#+begin_src emacs-lisp
+(use-package ox-wk :defer t)
+#+end_src
+
+** ox-mk
+   markdown 変換
+
+#+begin_src emacs-lisp
+(use-package ox-md :defer t)
+#+end_src
+
+** 未使用中
+*** ox-rst
    org-mode から reStructredText への変換
 
 #+begin_src emacs-lisp
 ;; (use-package ox-rst)
 #+end_src
 
-** ox-pandoc
+*** ox-pandoc
    org-mode から reStructredText への変換. ox-rst を使うからいらないかも.
 
 #+begin_src emacs-lisp
@@ -549,28 +526,14 @@
 ;; (setq org-pandoc-output-format 'rst)
 #+end_src
 
-** ox-taskjuggler
+*** ox-taskjuggler
    TaskJuggler 変換.
 
 #+begin_src emacs-lisp
 ;; (use-package ox-taskjuggler)
 #+end_src
 
-** ox-wk
-   dokuwiki 変換.
-
-#+begin_src emacs-lisp
-(use-package ox-wk)
-#+end_src
-
-** ox-mk
-   markdown 変換
-
-#+begin_src emacs-lisp
-(use-package ox-md)
-#+end_src
-
-** ox-freemind
+*** ox-freemind
    freemind もできるんだー.
 
    ただし, ArchLinux では freemind がとてもつかいにくい...
@@ -637,26 +600,27 @@
 #+end_src
 
 * 他のツールとの連携
-** RSS Feed
+** RSS Feed 
   RSS Feeder for Emacs
   - http://orgmode.org/manual/RSS-Feeds.html
   - http://d.hatena.ne.jp/tamura70/20100225/org
 
 #+begin_src emacs-lisp
 (use-package org-feed
+  :disabled t
   :config
-(defun org-feed-parse-rdf-feed (buffer)
-  "Parse BUFFER for RDF feed entries.
+  (defun org-feed-parse-rdf-feed (buffer)
+    "Parse BUFFER for RDF feed entries.
 Returns a list of entries, with each entry a property list,
 containing the properties `:guid' and `:item-full-text'."
-  (let (entries beg end item guid entry)
-    (with-current-buffer buffer
-      (widen)
-      (goto-char (point-min))
-      (while (re-search-forward "<item[> ]" nil t)
-	(setq beg (point)
-	      end (and (re-search-forward "</item>" nil t)
-		       (match-beginning 0)))
+    (let (entries beg end item guid entry)
+      (with-current-buffer buffer
+	(widen)
+	(goto-char (point-min))
+	(while (re-search-forward "<item[> ]" nil t)
+	((set  ) q beg (point)
+	 end (and (re-search-forward "</item>" nil t)
+		  (match-beginning 0)))
 	(setq item (buffer-substring beg end)
 	      guid (if (string-match "<link\\>.*?>\\(.*?\\)</link>" item)
 		       (org-match-string-no-properties 1 item)))
@@ -664,33 +628,35 @@ containing the properties `:guid' and `:item-full-text'."
 	(push entry entries)
 	(widen)
 	(goto-char end))
-      (nreverse entries))))
+	(nreverse entries))))
+  
+  (setq org-feed-retrieve-method 'wget)
+  ;;(setq org-feed-retrieve-method 'curl)
 
-(setq org-feed-retrieve-method 'wget)
-;;(setq org-feed-retrieve-method 'curl)
-
-(setq org-feed-default-template "\n* %h\n  - %U\n  - %a  - %description")
+  (setq org-feed-default-template "\n* %h\n  - %U\n  - %a  - %description")
 )
 #+end_src
 
 *** 登録 feed
 #+begin_src emacs-lisp
 (use-package org-feed
+  :disabled t
   :config
-(setq org-feed-alist nil)
-;; (add-to-list 'org-feed-alist
-;;   '("Futurismo" "http://futurismo.biz/feed"
-;;     "~/org/rss.org" "Futurismo"
-;;     :parse-feed org-feed-parse-rdf-feed))
-(add-to-list 'org-feed-alist
-  '("Publickey" "http://www.publickey1.jp/atom.xml"
-    "~/org/rss.org" "PublicKey")))
+  (setq org-feed-alist nil)
+  ;; (add-to-list 'org-feed-alist
+  ;;   '("Futurismo" "http://futurismo.biz/feed"
+  ;;     "~/org/rss.org" "Futurismo"
+  ;;     :parse-feed org-feed-parse-rdf-feed))
+  (add-to-list 'org-feed-alist
+	       '("Publickey" "http://www.publickey1.jp/atom.xml"
+		 "~/org/rss.org" "PublicKey")))
 #+end_src
 
 ** Wanderlust
 
 #+begin_src emacs-lisp
 (use-package org-wl
+  :defer t
   :config
   ;; wanderlust のメールを追跡できる
   (setq org-return-follows-link t))
@@ -709,14 +675,14 @@ containing the properties `:guid' and `:item-full-text'."
 )
 #+end_src
 
-** org-sync
+** org-sync (未使用)
   チケット管理システムとの同期.
   - Official [[http://orgmode.org/worg/org-contrib/gsoc2012/student-projects/org-sync/][Org-sync]]
   - [[https://github.com/emacsmirror/org-sync][emacsmirror/org-sync · GitHub]]
 
-#+begin_src emacs-lisp
-(mapc 'load
-      '("org-element" "os" "os-bb" "os-github" "os-rmine"))
+  #+begin_src emacs-lisp
+;; (mapc 'load
+;      '("org-element" "os" "os-bb" "os-github" "os-rmine"))
 #+end_src
   
 * スケジュール管理
@@ -732,6 +698,7 @@ containing the properties `:guid' and `:item-full-text'."
 #+begin_src emacs-lisp
 (use-package org-gcal
   :if linux-p
+  :defer t
   :config
   ;; password は netrc へ
   (setq GoogleCal (netrc-machine (netrc-parse "~/.netrc") "org-gcal" t))
@@ -757,28 +724,29 @@ containing the properties `:guid' and `:item-full-text'."
 
 #+begin_src emacs-lisp
 (use-package calfw-org
+  :defer t
   :config
+  ;; 対象ファイル
+  (setq cfw:org-icalendars '("~/gtd/schedule.org"))
+  ;; First day of the week
+  (setq calendar-week-start-day 1) ; 0:Sunday, 1:Monday
 
-;; 対象ファイル
-(setq cfw:org-icalendars '("~/gtd/schedule.org"))
-;; First day of the week
-(setq calendar-week-start-day 1) ; 0:Sunday, 1:Monday
-
-;; cfw:open-org-calendar に集約するので, ひとまずコメントアウト.
-;; (defun my-open-calendar ()
-;;   (interactive)
-;;   (cfw:open-calendar-buffer
-;;    :view 'month
-;;    :contents-sources
-;;    (list 
-;;    ;; title, URL, color
-;;    (cfw:org-create-source "Green")  ; orgmode source
-;;    ;; (cfw:org-create-file-source "GCal" "~/gtd/schedule.org" "#268bd2")  ;; Google Calendar
-;;    )))
+  ;; cfw:open-org-calendar に集約するので, ひとまずコメントアウト.
+  ;; (defun my-open-calendar ()
+  ;;   (interactive)
+  ;;   (cfw:open-calendar-buffer
+  ;;    :view 'month
+  ;;    :contents-sources
+  ;;    (list 
+  ;;    ;; title, URL, color
+  ;;    (cfw:org-create-source "Green")  ; orgmode source
+  ;;    ;; (cfw:org-create-file-source "GCal" "~/gtd/schedule.org" "#268bd2")
+  ;; Google Calendar
+  ;;    )))
 )
 #+end_src
 
-** mobileOrg
+** mobileOrg (未使用)
   iphone と org-mode の同期. Dropbox を利用
   つかってないから, ひとまず封印.
 
