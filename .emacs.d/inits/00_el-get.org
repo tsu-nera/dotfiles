@@ -189,3 +189,19 @@
 ;; 同期する
 (el-get 'sync my/el-get-packages-all)
 #+end_src
+
+* Windows
+  - [[https://github.com/dimitri/el-get/wiki/Installation-on-Windows][Installation on Windows · dimitri/el-get Wiki]]
+  - [[http://stackoverflow.com/questions/17219643/cant-install-emacs-el-get-package-emacs-cant-connect-to-the-internet][windows - can't install emacs el-get package, emacs can't connect to the internet - Stack Overflow]]
+  - [[https://github.com/Bruce-Connor/paradox/issues/5][fails without GnuTLS · Issue #5 · Bruce-Connor/paradox]]
+
+  gist にアクセスできない...
+
+#+begin_src text
+Contacting host: api.github.com:443
+Opening TLS connection to `api.github.com'...
+Opening TLS connection with `gnutls-cli --insecure -p 443 api.github.com'...failed
+Opening TLS connection with `gnutls-cli --insecure -p 443 api.github.com --protocols ssl3'...failed
+Opening TLS connection with `openssl s_client -connect api.github.com:443 -no_ssl2 -ign_eof'...failed
+Opening TLS connection to `api.github.com'...failed
+#+end_src
