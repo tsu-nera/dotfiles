@@ -15,6 +15,7 @@
 #+begin_src emacs-lisp
 (use-package java-mode
   :mode "\\.java$"
+  :interpreter "java"
   :init
   (add-hook 'java-mode-hook
 	    (lambda ()

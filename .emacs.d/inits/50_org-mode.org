@@ -17,7 +17,7 @@
 	  ("C-c C-x C-z" . org-resolve-clocks)
 	  ("C-c C-x C-g" . org-clock-goto))
   :init
-  ;; ここが initである理由は, init.elですでにorgをloadしているから.
+  ;; ここが init である理由は, init.el ですでに org を load しているから.
   
   ;; C-o の置き換え tmux で c-o は使っているので
   (define-key org-mode-map "\C-co" 'org-open-at-point)
@@ -551,9 +551,27 @@
 #+begin_src emacs-lisp
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((R . t))
+ '((R . t)
+   (java . t))
  )
 #+end_src
+
+** 出力方法
+   :results raw をかくと, 結果がコードにかかれる.
+   ただし, tangle したときは無視される.
+   - [[http://d.hatena.ne.jp/tamura70/20100310/org][Emacs org-mode を使ってみる: (35) org-babel-perl を使う 1/4 ]]
+
+   #+begin_src text
+   #+begin_src java :results raw
+   #+end_src
+
+** java
+   クラス名を指定する.
+   - [[http://lists.gnu.org/archive/html/emacs-orgmode/2011-07/msg00946.html][Re:How-to evaluate Java-snippets in org-mode/org-babel?]]
+
+   #+begin_src text
+   #+begin_src java :classname packagename/classname
+   #+end_src
 
 ** mmm-mode
    mmm-mode を利用すると, org-mode のなかに major-mode が共存できる.
