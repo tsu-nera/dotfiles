@@ -683,19 +683,22 @@ sudo pacman -S ghostscript
 ** google-translate
    Google 翻訳.
    - [[http://qiita.com/catatsuy/items/ae9875706769d4f02317][卒論を英語で書けと言われしまったあなたにおすすめの Emacs の設定 - Qiita]]
+   - [[http://rubikitch.com/2014/12/07/google-translate/][emacs google-translate.el : Google 翻訳で言語自動判別しつつ英訳・和訳する!]]
+   
+   TODO: 英語から日本語への変換をキーバインドする.
 
 #+begin_src emacs-lisp
 (use-package google-translate
-  :bind (("C-x t" . google-translate-at-point)
+  :bind (("C-x t" . google-translate-enja-or-jaen)
 	 ("C-x T" . google-translate-query-translate))
+  :init
+  ;; ;; 翻訳のデフォルト値を設定 (ja -> en) (無効化は C-u する)
+  ;; -> patchで自動判別
+  ;; (custom-set-variables
+  ;;  '(google-translate-default-source-language "ja")
+  ;;  '(google-translate-default-target-language "en"))
   :config
-  ;; 翻訳のデフォルト値を設定 (ja -> en) (無効化は C-u する)
-  (custom-set-variables
-   '(google-translate-default-source-language "ja")
-   '(google-translate-default-target-language "en"))
-  
-  ;; google-translate.el の翻訳バッファをポップアップで表示させる
-  (push '("*Google Translate*") popwin:special-display-config)
+  (use-package my-patch-google-translate)
   )
 #+end_src
 

@@ -39,15 +39,12 @@
   (push '("*twittering-edit*" :regexp t) popwin:special-display-config)
   (push '("R data view" :regexp t) popwin:special-display-config)
   ;; (push '("^\*terminal<.+" :regexp t) popwin:special-display-config)
+  (push '("*Google Translate*") popwin:special-display-config)
+  (push "*Shell Command Output*" popwin:special-display-config) ;; M-!
+  (push '(compilation-mode :noselect t) popwin:special-display-config) ;; M-x compile
   
   ;; M-x dired-jump-other-window
   (push '(dired-mode :position bottom) popwin:special-display-config)
-  
-  ;; M-!
-  (push "*Shell Command Output*" popwin:special-display-config)
-  
-  ;; M-x compile
-  (push '(compilation-mode :noselect t) popwin:special-display-config)
   
   ;; Direx 使わなくなったので..
   ;; (push '(direx:direx-mode :position left :width 40 :dedicated t)
