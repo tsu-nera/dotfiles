@@ -28,39 +28,45 @@
 ;; 2 つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
 (add-to-load-path "elisp" "inits" "el-get" "elpa" "local" "mylisp")
 #+end_src
-** Dired でカレントディレクトリを取得
-  - [[http://d.hatena.ne.jp/syohex/20111026/1319606395][cde を改良 - Life is very short]]
 
-#+begin_src emacs-lisp
-;; .emacs 等設定ファイルに追加
-(defun elscreen-current-directory ()
-  (let* (current-dir
-         (active-file-name
-          (with-current-buffer
-              (let* ((current-screen (car (elscreen-get-conf-list 'screen-history)))
-                     (property (cadr (assoc current-screen
-                                            (elscreen-get-conf-list 'screen-property)))))
-                (marker-buffer (nth 2 property)))
-            (progn
-              (setq current-dir (expand-file-name (cadr (split-string (pwd)))))
-              (buffer-file-name)))))
-    (if active-file-name
-        (file-name-directory active-file-name)
-      current-dir)))
+** 環境による場合分け
+   el-get 実行前に, 環境による場合分けのマクロを定義.
 
-(defun non-elscreen-current-directory ()
-  (let* (current-dir
-         (current-buffer
-          (nth 1 (assoc 'buffer-list
-                        (nth 1 (nth 1 (current-frame-configuration))))))
-         (active-file-name
-          (with-current-buffer current-buffer
-            (progn
-              (setq current-dir (expand-file-name (cadr (split-string (pwd)))))
-              (buffer-file-name)))))
-    (if active-file-name
-        (file-name-directory active-file-name)
-      current-dir)))
+#+begin_src emacs-lisp 
+;; -----------------------------------------------------------------------
+;; Function : 環境による場合分けの方法
+;;   http://d.hatena.ne.jp/tomoya/20090811/1250006208
+;; ------------------------------------------------------------------------
+(defun x->bool (elt) (not (not elt)))
+
+;; emacs-version predicates
+(setq emacs22-p (string-match "^22" emacs-version)
+      emacs23-p (string-match "^23" emacs-version)
+      emacs23.0-p (string-match "^23\.0" emacs-version)
+      emacs23.1-p (string-match "^23\.1" emacs-version)
+      emacs23.2-p (string-match "^23\.2" emacs-version)
+      emacs24.3-p (string-match "^24\.3" emacs-version)
+      emacs24.4-p (string-match "^24\.4" emacs-version)
+)
+
+;; system-type predicates
+(setq darwin-p  (eq system-type 'darwin)
+      ns-p      (eq window-system 'ns)
+      carbon-p  (eq window-system 'mac)
+      linux-p   (eq system-type 'gnu/linux)
+      colinux-p (when linux-p
+		  (let ((file "/proc/modules"))
+		    (and
+		     (file-readable-p file)
+		     (x->bool
+		      (with-temp-buffer
+			(insert-file-contents file)
+			(goto-char (point-min))
+			(re-search-forward "^cofuse\.+" nil t))))))
+      cygwin-p  (eq system-type 'cygwin)
+      nt-p      (eq system-type 'windows-nt)
+      meadow-p  (featurep 'meadow)
+      windows-p (or cygwin-p nt-p meadow-p))
 #+end_src
 
 * Macros
@@ -113,15 +119,6 @@
    *Message* バッファを検索して, エラーがないかチェックする.
 
 * General Settings
-** inits, el-get 管理外の elisp のバイトコンパイル.
-   - [[http://www.bookshelf.jp/soft/meadow_18.html][Meadow/Emacs memo: バイトコンパイル]]
-   - [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Compilation-Functions.html#Compilation-Functions][Compilation Functions - GNU Emacs Lisp Reference Manual]]
-
-#+begin_src emacs-lisp
-(byte-recompile-directory "~/.emacs.d/elisp/" 0)
-(byte-recompile-directory "~/.emacs.d/mylisp/" 0)
-#+end_src
-
 ** customize の出力先
 #+begin_src emacs-lisp
 (setq custom-file "~/.emacs.d/inits/02_custom.el")
@@ -274,11 +271,19 @@
                                   free-vars
                                   callargs
                                   redefine
-                                  obsolete
+                                  obsolete 
                                   noruntime
                                   cl-functions
                                   interactive-only
                                   ))
+#+end_src
+** inits, el-get 管理外の elisp のバイトコンパイル.
+   - [[http://www.bookshelf.jp/soft/meadow_18.html][Meadow/Emacs memo: バイトコンパイル]]
+   - [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Compilation-Functions.html#Compilation-Functions][Compilation Functions - GNU Emacs Lisp Reference Manual]]
+
+#+begin_src emacs-lisp
+(byte-recompile-directory "~/.emacs.d/elisp/" 0)
+(byte-recompile-directory "~/.emacs.d/mylisp/" 0)
 #+end_src
 
 ** 時間計測

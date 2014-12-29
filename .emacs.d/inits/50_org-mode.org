@@ -22,13 +22,9 @@
   ;; C-o の置き換え tmux で c-o は使っているので
   (define-key org-mode-map "\C-co" 'org-open-at-point)
 
-  ;; -----------------------------------------------------------------------
-  ;; Name     : tiny-function
-  ;; ------------------------------------------------------------------------
-  ;; DONE をすべてアーカイブ
-  (defun my-org-archive-done-tasks ()
-    (interactive)
-    (org-map-entries 'org-archive-subtree "/DONE" 'file)))
+  ;; RET でリンクを追う.
+  (setq org-return-follows-link t)
+  )
 #+end_src
 
 ** org-mode の src を目立たせる設定
@@ -244,6 +240,13 @@
 #+begin_src emacs-lisp
 (setq org-todo-state-tags-triggers
       (quote (("DONE" ("next")))))
+#+end_src
+
+** DONE をすべてアーカイブ
+#+begin_src emacs-lisp
+  (defun my-org-archive-done-tasks ()
+    (interactive)
+    (org-map-entries 'org-archive-subtree "/DONE" 'file))
 #+end_src
 
 ** org-clock
@@ -659,7 +662,7 @@ containing the properties `:guid' and `:item-full-text'."
   :defer t
   :config
   ;; wanderlust のメールを追跡できる
-  (setq org-return-follows-link t))
+  )
 #+end_src
 
 ** Plantuml

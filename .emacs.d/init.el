@@ -100,11 +100,23 @@
 ;;  +begin_src emacs-lisp - +end_src 部分をファイル名.el というファイルに抽出
 ;; タイムスタンプが新しい or .el の抽出を行なったら .el を読む
 
+;; ignore warinig
+;; byte-compile warning の無視
+;; http://tsengf.blogspot.jp/2011/06/disable-byte-compile-warning-in-emacs.html
+;; ignore byte-compile warnings 
+(setq byte-compile-warnings '(not nresolved
+                                  free-vars
+                                  callargs
+                                  redefine
+                                  obsolete 
+                                  noruntime
+                                  cl-functions
+                                  interactive-only
+                                  ))
+
 ;; インデント保持
 ;; これをしないと 変換された elispファイルのインデントがずれる.
 (setq org-src-preserve-indentation t)
 
-;; inits配下のorgファイルをelに変換して読み込み.
+;; inits配下のorgファイルをelcに変換して読み込み.
 (bl:load-dir "~/.emacs.d/inits/")
-
-(put 'dired-find-alternate-file 'disabled nil)

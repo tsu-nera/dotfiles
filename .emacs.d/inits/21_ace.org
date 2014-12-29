@@ -53,12 +53,23 @@
    ace インタフェースによる切り替え.
    - https://github.com/abo-abo/ace-window
    - [[http://rubikitch.com/2014/12/26/ace-window/][emacs ace-window.el : C-x o を ace-jump 化しよう!]]
-
+   - [[http://oremacs.com/2014/12/20/poyekhali!/][Poyekhali! · (or emacs]]
 
 #+begin_src emacs-lisp
 (use-package ace-window
-   :bind ("C-x o" . ace-window)
-   :config
-   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
-   )
+  :bind (("C-x o" . ace-window)
+	 ("C-x C-o" . ace-maximize-window))
+  :config
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  
+  (defun ace-maximize-window ()
+    "Ace maximize window."
+    (interactive)
+    (setq aw--current-op
+	  (lambda (aj)
+	    (let ((wnd (aj-position-window aj)))
+	      (select-window wnd)
+	      (delete-other-windows))))
+    (aw--doit " Ace - Maximize Window"))
+  )
 #+end_src

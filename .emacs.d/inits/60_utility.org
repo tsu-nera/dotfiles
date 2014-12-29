@@ -283,8 +283,13 @@ Warning: Eager macro-expansion skipped due to cycle:
 
 * ディレクトリ操作
 ** dired
-  dired から open
 
+#+begin_src emacs-lisp
+;; ディレクトリから表示
+(setq ls-lisp-dirs-first t)
+#+end_src
+
+*** dired から open
 #+begin_src emacs-lisp
 (when linux-p
 (defun dired-open-file ()
@@ -302,9 +307,18 @@ Warning: Eager macro-expansion skipped due to cycle:
 )
 #+end_src
 
-*** Tips
+*** 移動のたびに新規バッファをつくらない
     移動のたびにバッファをつくらないためには, i や a でバッファを開く.
-    - [[http://stackoverflow.com/questions/1839313/how-do-i-stop-emacs-dired-mode-from-opening-so-many-buffers][file management - How do I stop emacs dired mode from opening so many buffers? - Stack Overflow]]
+    - [[http://stackoverflow.com/questions/1839313/how-do-i-stop-emacs-dired-mode-from-opening-so-many-buffers][file management - How do I stop emacs dired mode from opening so
+      many buffers? - Stack Overflow]]
+
+    or 
+
+#+begin_src emacs-lisp
+(put 'dired-find-alternate-file 'disabled nil)
+#+end_src
+
+  - [[http://macemacsjp.sourceforge.jp/index.php?EmacsDired][EmacsDired - MacEmacs]]
 
 ** joseph-single-dired
    バッファを複数作成しない.

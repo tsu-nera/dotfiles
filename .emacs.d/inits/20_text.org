@@ -433,6 +433,7 @@
 (eval-after-load "isearch"
   '(progn
      (use-package isearch-dabbrev
+       :init
        (define-key isearch-mode-map (kbd "<tab>") 'isearch-dabbrev-expand))
      ))
 #+end_src
