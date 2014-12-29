@@ -156,10 +156,11 @@
 
 #+begin_src emacs-lisp
 (use-package open-junk-file
-  :defer t
+  :commands open-junk-file
+  :init
+  (define-key goto-map [?j] 'open-junk-file)
   :config
-  (setq open-junk-file-format "~/tmp/%Y-%m-%d-%H%M%S.")
-  (define-key goto-map [?j] 'open-junk-file))
+  (setq open-junk-file-format "~/tmp/%Y-%m-%d-%H%M%S."))
 #+end_src
 
 ** uniquify
@@ -337,7 +338,7 @@ p   なんかうまくうごいていない.
 ** Set Mark をハイライト
   - [[http://www.emacswiki.org/emacs/VisibleMark][EmacsWiki: Visible Mark]]
 
-** Bookmarks をハイライト
+** bm: Bookmarks をハイライト
   - [[https://github.com/joodland/bm][joodland/bm]]
 
 #+begin_src emacs-lisp
@@ -366,13 +367,16 @@ p   なんかうまくうごいていない.
   (add-something-to-mode-hooks '(c++ emacs-lisp ruby text scala) 'fic-ext-mode))
 #+end_src
 
-** シンボルをハイライト
-   highlight-symbol/auto-highlight-symbol
+** highlight-symbol/auto-highlight-symbol
+   シンボルをハイライト
    - http://shibayu36.hatenablog.com/entry/2013/12/30/190354
 
+   -> hl-anything に置き換えるのでお役ご免...
+
 #+begin_src emacs-lisp
-(use-package auto-highlight-symbol-config)
+(use-package auto-highlight-symbol-config :disabled t)
 (use-package highlight-symbol
+  :disabled t
   :bind (("<f4>" . highlight-symbol-at-point)
 	 ("C-<f4>" . highlight-symbol-next)
 	 ("S-<f4>" . highlight-symbol-prev)
@@ -382,7 +386,27 @@ p   なんかうまくうごいていない.
   (setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1")))
 #+end_src
 
-** 対応する括弧を光らせる.
+** hl-anything
+   - https://github.com/boyw165/hl-anything
+   - [[http://rubikitch.com/2014/12/28/hl-anything/][シンボル・ region を「永続的に」色付けする! 全バッファ対応 ]]
+
+   永続的に, ハイライトを保持することが可能になる.
+   - M-x hl-save-highlights
+   - M-x hl-restore-highlights
+
+   マウスで選択しても, シンボルも, 色付けできる.
+   色付けするたびにカラフルに色が変わる.
+
+#+begin_src emacs-lisp
+(use-package hl-anything
+  :bind  (("<f4>" . hl-highlight-thingatpt-local)
+	  ("ESC <f4>" . hl-unhighlight-all-local))
+  :config
+  (hl-highlight-mode 1)
+  )
+#+end_src
+
+** 対応する括弧を光らせる
 #+begin_src emacs-lisp
 ;; turn on highlight matching brackets when cursor is on one
 (show-paren-mode 1)

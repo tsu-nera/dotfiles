@@ -70,23 +70,6 @@
 #+end_src
 
 * Macros
-  Special Thanks
-  - http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
-
-#+begin_src emacs-lisp
-;;  add-hook を簡潔に
-(defmacro add-hook-fn (name &rest body)
-    `(add-hook ,name #'(lambda () ,@body)))
-
-;; global-set-key も簡潔に
-(defmacro global-set-key-fn (key args &rest body)
-  `(global-set-key ,key (lambda ,args ,@body)))
-
-;;  複数の要素をリストに追加
-(defmacro append-to-list (to lst)
-  `(setq ,to (append ,lst ,to)))
-#+end_src
-
 ** use-package
    autoload/eval-after-load の記述を簡潔に書くための elisp.
    - https://github.com/jwiegley/use-package

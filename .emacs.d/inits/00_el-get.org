@@ -184,6 +184,7 @@
     cde
     eww-lnum
     ghc-mod
+    hl-anything
   )
   "A list of packages to install from el-get at launch.")
 

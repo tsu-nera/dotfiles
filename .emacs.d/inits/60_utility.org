@@ -116,7 +116,7 @@ Warning: Eager macro-expansion skipped due to cycle:
   - [[http://d.hatena.ne.jp/syohex/20111026/1319606395][cde を改良 - Life is very short]]
 
 #+begin_src emacs-lisp
-(use-package cde :defer t)
+(use-package cde)
 #+end_src
 
 * Web Browser: ブラウザ関連
