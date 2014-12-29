@@ -16,9 +16,9 @@
 	  ("C-c C" . cfw:open-org-calendar)
 	  ("C-c C-x C-z" . org-resolve-clocks)
 	  ("C-c C-x C-g" . org-clock-goto))
-  :config
-  ;; key bindings
-
+  :init
+  ;; ここが initである理由は, init.elですでにorgをloadしているから.
+  
   ;; C-o の置き換え tmux で c-o は使っているので
   (define-key org-mode-map "\C-co" 'org-open-at-point)
 

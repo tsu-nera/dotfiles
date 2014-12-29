@@ -183,6 +183,7 @@
     helm-flyspell-collect
     cde
     eww-lnum
+    ghc-mod
   )
   "A list of packages to install from el-get at launch.")
 

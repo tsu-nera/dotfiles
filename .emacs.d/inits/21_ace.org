@@ -6,7 +6,7 @@
 
 #+begin_src emacs-lisp
 (use-package ace-jump-mode
-  :bind ("C-." . ace-jump-mode)
+  :bind ("C-x ," . ace-jump-mode)
   )
 #+end_src
 

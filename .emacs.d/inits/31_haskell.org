@@ -2,6 +2,9 @@
   純粋関数型言語.
   - [[https://www.haskell.org/haskellwiki/Emacs][Emacs - HaskellWiki]]
 
+** links
+  - [[http://tim.dysinger.net/posts/2014-02-18-haskell-with-emacs.html][Haskell Development on Emacs]]
+
 * haskell-mode
   Haskell のマイナーモード.
   - https://github.com/haskell/haskell-mode
@@ -14,29 +17,18 @@
   :commands haskell-mode
   :mode (("\\.hs$" . haskell-mode)
          ("\\.lhs$" . literate-haskell-mode))
+  :interpreter (("runghc" . haskell-mode)
+		("runhaskell" . haskell-mode))
   :init
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
   (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
   (add-hook 'haskell-mode-hook 'font-lock-mode)
   (add-hook 'haskell-mode-hook 'imenu-add-menubar-index)
-  )
-
-(use-package haskell-cabal
-  :commands haskell-cabal
-  :mode ("\\.cabal$" . haskell-cabal-mode)
-  )
+  (add-hook 'haskell-mode-hook 'inf-haskell-mode) ;; C-c, C-l で起動.
+  :config
 #+end_src
-
-** 導入の注意
-  el-getのレシピではmakeまで実行するけれども、
-  /usr/local/binにインストールできない.
 
 ** Haskell Script の編集モード
-#+begin_src emacs-lisp
-(add-to-list 'interpreter-mode-alist '("runghc" . haskell-mode))
-(add-to-list 'interpreter-mode-alist '("runhaskell" . haskell-mode))
-#+end_src
-
 Haskell でかかれたスクリプトを haskell-mode で編集する.
 
 #+begin_src haskell
@@ -50,12 +42,6 @@ Haskell でかかれたスクリプトを haskell-mode で編集する.
 (setq haskell-program-name "/usr/bin/ghci")
 #+end_src
 
- C-c, C-l でも起動.
-
-#+begin_src emacs-lisp
-(add-hook 'haskell-mode-hook 'inf-haskell-mode) ;; enable
-#+end_src
-
   ghci の起動とファイルの読み込みを一緒に行う設定.
 
 #+begin_src emacs-lisp
@@ -65,7 +51,20 @@ Haskell でかかれたスクリプトを haskell-mode で編集する.
 (ad-activate 'inferior-haskell-load-file)
 #+end_src
 
- -[[http://d.hatena.ne.jp/pogin/20140121/1390299797][  inferior-haskell-mode で設定すると便利なこと - プログラムとかのの blog]]
+ - [[http://d.hatena.ne.jp/pogin/20140121/1390299797][inferior-haskell-mode で設定すると便利なこと - プログラムとかのの blog]]
+
+** End of Haskell-mode
+#+begin_src emacs-lisp
+)
+#+end_src
+
+* haskell-cabal-mode
+#+begin_src emacs-lisp
+(use-package haskell-cabal
+  :commands haskell-cabal
+  :mode ("\\.cabal$" . haskell-cabal-mode)
+  )
+#+end_src
 
 * gcd-mod
   Haskell 開発を助ける機能がそろったツール.

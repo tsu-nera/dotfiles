@@ -121,6 +121,7 @@
   (add-hook 'find-file-hook 'flymake-find-file-hook)
   (add-hook 'c++-mode-hook '(lambda () (flymake-mode t)))
   (add-hook 'c-mode-hook '(lambda () (flymake-mode t)))
+  (add-hook 'haskell-mode-hook (lambda () (flymake-mode t)))
   :config
   ;; GUI の警告は表示しない
   (setq flymake-gui-warnings-enabled nil)
@@ -152,11 +153,6 @@
 #+end_src
 
 *** Haskell
-
-#+begin_src emacs-lisp
-(add-hook 'haskell-mode-hook (lambda () (flymake-mode)))
-#+end_src
-
 *** Python
 
 #+begin_src emacs-lisp
