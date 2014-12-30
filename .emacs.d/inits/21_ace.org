@@ -73,3 +73,15 @@
     (aw--doit " Ace - Maximize Window"))
   )
 #+end_src
+
+** ace-link
+   ace インタフェースによるリンクの選択
+   - https://github.com/abo-abo/ace-link
+
+#+begin_src emacs-lisp
+(use-package ace-link
+  :config
+  (ace-link-setup-default)
+  (define-key org-mode-map (kbd "C-c M-o") 'ace-link-org)
+)
+#+end_src

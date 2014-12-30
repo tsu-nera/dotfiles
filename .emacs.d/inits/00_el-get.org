@@ -185,6 +185,7 @@
     eww-lnum
     ghc-mod
     hl-anything
+    ace-link
   )
   "A list of packages to install from el-get at launch.")
 
