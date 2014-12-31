@@ -1,6 +1,7 @@
 * Color
   色関係.
 
+
 * Default
 ** Comment
 #+begin_src emacs-lisp
@@ -40,7 +41,6 @@ el-get にまとめた.
 
 ** Molokai
    Install  : https://raw2.github.com/hbin/molokai-theme/master/molokai-theme-kit.el
-
    現在は, fork してカスタマイズしたものをりようしている.
 
 #+begin_src emacs-lisp
@@ -54,7 +54,6 @@ el-get にまとめた.
 
    自分のテーマにも, 以下のような設定で org-mode 対応できるらしい??
    - [[http://orgmode.org/worg/org-contrib/babel/examples/fontify-src-code-blocks.html][Pretty fontification of source code blocks]]
-
    -> mmm-mode で代用する.
 
 ** color-theme-molokai
@@ -83,6 +82,45 @@ el-get にまとめた.
   (add-hook 'css-mode-hook 'rainbow-mode)
   (add-hook 'html-mode-hook 'rainbow-mode)
   (add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
+  )
+#+end_src
+
+* rainbow-delimiters
+   *注意* テーマ読み込みのあとに配置すること.
+
+   かっこの深さに応じて色付けしてくれる.
+   - https://github.com/Fanael/rainbow-delimiters
+
+   かっこの強調をどきつくする. これはいいなぁ.
+   - [[http://d.hatena.ne.jp/murase_syuka/20140815/1408061850][rainbow-delimiters.el の括弧色付けをデフォルトより強調する方法 - 会者定離で以降]]
+   - [[http://yoo2080.wordpress.com/2013/12/21/small-rainbow-delimiters-tutorial/][Small rainbow-delimiters tutorial | Yoo Box]]
+
+   #+begin_src emacs-lisp
+(use-package rainbow-delimiters
+  :init
+  (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'scheme-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
+  :config
+  ;; these setting should be placed after load-theme
+  ;; using stronger colors
+  (require 'cl-lib)
+  (require 'color)
+
+  ;; 関数にしないとうまくいかない...手動で有効に
+  (defun rainbow-delimiters-using-stronger-colors ()
+    (interactive)
+  (cl-loop
+   for index from 1 to rainbow-delimiters-max-face-count
+   do
+   (let ((face (intern (format "rainbow-delimiters-depth-%d-face" index))))
+     (cl-callf color-saturate-name (face-foreground face) 100))))
+
+  ;; making unmatched parens stand out more
+  (set-face-attribute 'rainbow-delimiters-unmatched-face nil
+		      :foreground 'unspecified
+		      :inherit 'error
+		      :strike-through t)
   )
 #+end_src
 
@@ -118,10 +156,13 @@ el-get にまとめた.
   - https://github.com/emacs-jp/replace-colorthemes/blob/master/blue-erc-theme.el
   - https://github.com/emacs-jp/replace-colorthemes/blob/master/dark-erc-theme.el
 
- #+begin_src emacs-lisp
+  #+begin_src emacs-lisp
+(when windows-p 
  (add-to-list 'custom-theme-load-path "~/.emacs.d/elisp")
  (load-theme 'blue-erc t t)
  (enable-theme 'blue-erc)
  ;; (load-theme 'dark-erc t t)
  ;; (enable-theme 'dark-erc)
+ )
  #+end_src
+

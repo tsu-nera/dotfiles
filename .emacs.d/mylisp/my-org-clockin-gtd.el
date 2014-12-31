@@ -30,6 +30,12 @@
   (my/clock-in-task-by-id my/organization-task-id-gtd)
   )
 
+(defun my/gtd ()
+  (interactive)
+  (find-file "~/gtd/main.org")
+  (my/clock-in-task-by-id my/organization-task-id-gtd)
+  )
+
 (defun my/rest ()
   (interactive)
   (find-file "~/gtd/main.org")

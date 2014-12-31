@@ -125,9 +125,10 @@
 #+end_src
 
 ** 自動閉じ括弧挿入
+   -> smartparens に置き換え
 
 #+begin_src emacs-lisp
-(electric-pair-mode 1)
+;; (electric-pair-mode 1)
 #+end_src
 
 ** yes or no

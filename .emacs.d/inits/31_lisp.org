@@ -1,10 +1,18 @@
 * Lisp
-  Lips 系言語のためのページ
+  Lisper のための Emacs 設定.
+
+  Emacs の原点, メッカみたいなページ.
 
 * General
 ** smartparens
    - https://github.com/Fuco1/smartparens
+   - https://github.com/Fuco1/smartparens/wiki
    - [[http://kiririmode.hatenablog.jp/entry/20131231/p1][smartparens.el での括弧処理 - 理系学生日記]]
+
+#+begin_src emacs-lisp
+(require 'smartparens-config)
+(smartparens-global-mode t)
+#+end_src
 
 ** paredit
    Lisp コードで頻出する括弧類のバランスを維持することを目的としたもの.
@@ -16,30 +24,6 @@
    - [[http://kiririmode.hatenablog.jp/entry/20131231/p1][smartparens.el での括弧処理 - 理系学生日記]]
    - https://github.com/Fuco1/smartparens/wiki/Paredit-and-smartparens
 
-** rainbow-delimiters
-   かっこの深さに応じて色付けしてくれる.
-   - https://github.com/Fanael/rainbow-delimiters
-
-   かっこの強調
-   - [[http://d.hatena.ne.jp/murase_syuka/20140815/1408061850][rainbow-delimiters.el の括弧色付けをデフォルトより強調する方法 - 会者定離で以降]]
-
-#+begin_src emacs-lisp
-(use-package rainbow-delimiters
-  :init
-  (add-hook 'emacs-lock-mode-hook 'rainbow-delimiters-mode)
-  (add-hook 'scheme-mode-hook 'rainbow-delimiters-mode)
-  :defer t
-  :config
-  (require 'cl-lib)
-  (require 'color)
-  (cl-loop
-   for index from 1 to rainbow-delimiters-max-face-count
-   do
-   (let ((face (intern (format "rainbow-delimiters-depth-%d-face" index))))
-     (cl-callf color-saturate-name (face-foreground face) 50)))
-  )
-#+end_src
-
 ** eldoc
    Lisp 系言語の関数のヘルプをミニバッファに表示.
 
@@ -47,7 +31,6 @@
 ;; ダンウロードしちゃったので一応.宣言.
 (use-package elodc-extension :disabled t)
 #+end_src
-
 
 * Emacs Lisp
 ** Tips
