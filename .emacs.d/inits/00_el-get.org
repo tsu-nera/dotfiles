@@ -186,6 +186,7 @@
     ghc-mod
     hl-anything
     ace-link
+    ddskk
   )
   "A list of packages to install from el-get at launch.")
 

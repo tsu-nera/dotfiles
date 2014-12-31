@@ -43,7 +43,7 @@
 	 ("C-]" . mc/mark-next-like-this)
 	 ("C-M-]" . mc/mark-previous-like-this)
 	 ("C-c C-]" . mc/mark-all-like-this))
-  :config
+  :init
   ;; smartrep によるキーバインド
   (eval-after-load 'smartrep
   '(progn
@@ -252,7 +252,6 @@
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
 #+end_src
 
-
 * 移動
   まずは, 基本まとめ.
  
@@ -455,7 +454,30 @@
      ))
 #+end_src
 
-* 日本語
+* 日本語入力
+** ddskk
+   Emacs 用の IME
+   - [[http://openlab.ring.gr.jp/skk/doc-ja.html][SKK Openlab - ドキュメント]]
+   - https://github.com/skk-dev/ddskk
+   - [[http://www.bookshelf.jp/texi/skk/skk.html][SKK Manual:]]
+   - https://github.com/skk-dev/ddskk/blob/master/nicola/README.NICOLA.ja
+
+   お試し利用中.
+
+#+begin_src emacs-lisp
+(use-package skk-autoloads
+  :if linux-p
+  :bind (("C-x C-j" . skk-mode)
+	 ("C-x j" . skk-auto-fill-mode))
+  :config
+  ;; 親指シフト
+  (setq skk-use-kana-keyboard t)
+  (setq skk-kanagaki-keyboard-type 'omelet-jis)
+)
+#+end_src
+
+  - [[http://sleepboy-zzz.blogspot.jp/2014/12/emacsgoogleskk_29.html#Message-complete][memo: Emacs で Google 日本語入力の SKK サーバーを利用するようにした]]
+
 ** text-adjust
    - text-adjust-codecheck : 半角カナ, 規格外文字を「〓」に置き換える.
    - text-adjust-hankaku   : 全角英数文字を半角にする.
@@ -491,7 +513,7 @@
    (use-package yspel :defer t)
    #+end_src
 
-* 英語
+* 英語入力
 ** aspell
    昔は ispell, 今は aspell が主流らしい.
 

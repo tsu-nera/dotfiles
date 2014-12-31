@@ -806,3 +806,14 @@ containing the properties `:guid' and `:item-full-text'."
 ;; (org-mobile-sync-enable)
 #+end_src
 
+* Pandoc
+  pandoc を利用すれば, 多彩なフォーマットを org-mode に変換可能だ.
+  - [[http://futurismo.biz/archives/2403][org-mode で書いたテキストを Pandoc で Restructured Text に変換する | Futurismo]]
+  - [[http://sky-y.github.io/site-pandoc-jp/users-guide/][Pandoc ユーザーズガイド 日本語版 - Japanese Pandoc User's Association]]
+
+** html2org
+  Rubikichi さんの記事:
+  - [[http://rubikitch.com/2014/10/07/pandoc-2/][Emacs ユーザならば Web ページを Pandoc で org-mode に変換して読もう るびきち「日刊 Emacs 」]]
+  - [[http://rubikitch.com/2014/09/22/pandoc/][万能ドキュメント変換器 Pandoc いいね! | るびきち「日刊 Emacs 」]]
+
+  

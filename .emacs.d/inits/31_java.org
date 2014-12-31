@@ -326,3 +326,10 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 #+begin_src emacs-lisp
 (use-package jtags :disabled t)
 #+end_src
+* その他
+ へんなエラーがでる暫定対処.
+ - [[http://sourceforge.net/p/cedet/mailman/message/8181859/][CEDET / Mailing Lists]]
+ 
+#+begin_src emacs-lisp
+(setq semantic-idle-scheduler-max-buffer-size 1)
+#+end_src
