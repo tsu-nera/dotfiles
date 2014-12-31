@@ -188,6 +188,9 @@
     ace-link
     ddskk
     ac-skk
+    scheme-complete
+    eldoc-extension
+    smartparens
   )
   "A list of packages to install from el-get at launch.")
 

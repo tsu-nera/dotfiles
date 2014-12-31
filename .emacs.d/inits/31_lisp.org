@@ -4,11 +4,49 @@
 * General
 ** smartparens
    - https://github.com/Fuco1/smartparens
+   - [[http://kiririmode.hatenablog.jp/entry/20131231/p1][smartparens.el での括弧処理 - 理系学生日記]]
+
 ** paredit
    Lisp コードで頻出する括弧類のバランスを維持することを目的としたもの.
    - [[http://www.daregada.sakuraweb.com/paredit_tutorial_ja.html][ParEdit チュートリアル]]
    - [[http://emacsrocks.com/e14.html][Emacs Rocks!]]
    - https://github.com/Fuco1/smartparens
+
+   smartparens のほうが人気??
+   - [[http://kiririmode.hatenablog.jp/entry/20131231/p1][smartparens.el での括弧処理 - 理系学生日記]]
+   - https://github.com/Fuco1/smartparens/wiki/Paredit-and-smartparens
+
+** rainbow-delimiters
+   かっこの深さに応じて色付けしてくれる.
+   - https://github.com/Fanael/rainbow-delimiters
+
+   かっこの強調
+   - [[http://d.hatena.ne.jp/murase_syuka/20140815/1408061850][rainbow-delimiters.el の括弧色付けをデフォルトより強調する方法 - 会者定離で以降]]
+
+#+begin_src emacs-lisp
+(use-package rainbow-delimiters
+  :init
+  (add-hook 'emacs-lock-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'scheme-mode-hook 'rainbow-delimiters-mode)
+  :defer t
+  :config
+  (require 'cl-lib)
+  (require 'color)
+  (cl-loop
+   for index from 1 to rainbow-delimiters-max-face-count
+   do
+   (let ((face (intern (format "rainbow-delimiters-depth-%d-face" index))))
+     (cl-callf color-saturate-name (face-foreground face) 50)))
+  )
+#+end_src
+
+** eldoc
+   Lisp 系言語の関数のヘルプをミニバッファに表示.
+
+#+begin_src emacs-lisp
+;; ダンウロードしちゃったので一応.宣言.
+(use-package elodc-extension :disabled t)
+#+end_src
 
 
 * Emacs Lisp
@@ -20,6 +58,7 @@
 #+end_src
 
 * Scheme
+  SICP 用に設定.
   - [[http://ja.wikipedia.org/wiki/Scheme][Scheme - Wikipedia]]
 
 ** Gauche 
@@ -34,24 +73,147 @@ gosh -V
 | Gauche scheme shell | version 0.9.4 [utf-8 | pthreads] | x86_64-unknown-linux-gnu |
 
 ** scheme-mode
-   Default で Emacs にはいっている.
+  Default で Emacs にはいっている. 以下の設定を参考にした.
+  - [[http://karetta.jp/book-node/gauche-hacks/004640][Emacs から Gauche を使う - karetta.jp]]
+  - [[https://hayate2255.wordpress.com/2013/02/03/windows7-emacs-gauche-%E3%81%AE%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89/][Windows + Emacs + Gauche の環境構築 | 小さいモノは美しい]]
 
-** gosh-mode
-   scheme-mode の拡張.
-   - [[http://d.hatena.ne.jp/mhayashi1120/20110103/1294013522][gosh-mode.el - まにっき]]
-   - https://github.com/mhayashi1120/Emacs-gosh-mode
+#+begin_src emacs-lisp
+;; UTF-8 に統一
+(setq process-coding-system-alist
+      (cons '("gosh" utf-8 . utf-8) process-coding-system-alist))
 
-   scheme-mode を継承しているので, 基本的な操作は変わらないそうだ.
+(setq scheme-program-name "gosh -i")
+(autoload 'scheme-mode "cmuscheme" "Major mode for Scheme." t)
+(autoload 'run-scheme "cmuscheme" "Run an inferior Scheme process." t)
 
+;; 別のウィンドウに gosh を動作させる
+(defun scheme-other-window ()
+  "Run Gauche on other window"
+  (interactive)
+  (split-window-horizontally (/ (frame-width) 2))
+  (let ((buf-name (buffer-name (current-buffer))))
+    (scheme-mode)
+    (switch-to-buffer-other-window
+     (get-buffer-create "*scheme*"))
+    (run-scheme scheme-program-name)
+    (switch-to-buffer-other-window
+     (get-buffer-create buf-name))))
 
+(define-key global-map "\C-cS" 'scheme-other-window)
+#+end_src
+
+** SICP を info で読む
+  - [[http://d.hatena.ne.jp/mahata/20080921/1221958711][Emacs の info として SICP を読む - 大切なものは目に見えない - mahata の日記 (はてなブランチ)]]
+  - [[http://d.hatena.ne.jp/tequilasunset/20110220/p4][SICP 読むための設定とか - Clipboard]]
+  - [[http://d.hatena.ne.jp/khiker/20070406/sicp][計算機プログラムの構造と解 - とりあえず暇だったし何となく始めたブログ]]
+
+#+begin_src bash
+# sicp.info 取得
+wget http://www.neilvandyke.org/sicp-texi/sicp.info.gz
+gunzip sicp.info.gz
+
+# /usr/local/info に sicp.info をコピー.
+$ sudo mkdir -p /usr/local/info
+$ sudo cp sicp.info /usr/local/info
+
+# dir ファイルを編集.
+$ sudo emacs /usr/local/share/info/dir
+
+# 次の二行を追記.
+ The Algorithmic Language Scheme
+ * SICP : (sicp.info). Structure and Interpretation of Computer Programs.
+#+end_src
+
+** 未使用
+*** gosh-mode
+    scheme-mode の拡張.
+    - [[http://d.hatena.ne.jp/mhayashi1120/20110103/1294013522][gosh-mode.el - まにっき]]
+    - https://github.com/mhayashi1120/Emacs-gosh-mode
+
+    scheme-mode を継承しているので, 基本的な操作は変わらないそうだ.
+   
+    el-get で取得. リボジトリから取得後に make && make install
+
+ #+begin_src emacs-lisp
+(use-package gosh-config :disabled t)
+ #+end_src
+
+    M-x gosh-run で gosh が起動すれば OK.
+
+    scheme-mode に比べて情報がすくないのと,
+    すごさがわからないので, ひとまずは scheme-mode を利用することにした.
+  
+    なれてきたらそのうちもう一度挑戦する.
+
+*** scheme-complete
+    auto-complete で補完をすることができる.
+    デフォルト設定で, そこそこの補完候補が出る.
+
+    scheme-complete というものもあるそうなので,気休め程度に導入.
+
+    本家のサーバ落ちた?? github の mirror より取得.
+    - https://github.com/emacsmirror/scheme-complete
+
+    以下を参考にして, 
+    auto-complete の source に scheme-complete の情報源を加える.
+    - [[http://d.hatena.ne.jp/kobapan/20091205/1259972925][scheme-complete.el を auto-complete.el で使う - ガットポンポコ]]
+  
+    メンテされていないのと, auto-complete で何とかなるので削除.
+
+ #+begin_src emacs-lisp
+;; (autoload 'scheme-smart-complete "scheme-complete" nil t)
+;; (autoload 'scheme-get-current-symbol-info "scheme-complete" nil t)
+
+;; (eval-after-load 'scheme
+;;   '(define-key scheme-mode-map "\e\t" 'scheme-smart-complete))
+
+;; scheme-mode-hook
+;; (defvar ac-source-scheme
+;;   '((candidates
+;;      . (lambda ()
+;;          (require 'scheme-complete)
+;;          (all-completions ac-target (car (scheme-current-env))))))
+;;   "Source for scheme keywords.")
+
+;; (add-hook 'scheme-mode-hook
+;;           '(lambda ()
+;;              (make-local-variable 'ac-sources)
+;;              (setq ac-sources (append ac-sources '(ac-source-scheme)))))
+ #+end_src
+
+*** eldoc
+    - [[http://yohshiy.blog.fc2.com/blog-entry-251.html][Emacs Lisp モードを便利にする機能 3 選 (auto-complete, eldoc, rainbow-delimiters) | プログラマーズ雑記帳]]
+    - [[http://www29.atwiki.jp/sicpstudygroup/pages/45.html][sicpstudygroup @ ウィキ - 環境設定例集]]
+
+    scheme の eldoc は scheme-complete と合わせて利用するらしいが,
+    eldoc error void-function eldoc-current-symbol とでてエラーする.
+
+    #+begin_src emacs-lisp
+;; (require 'eldoc-extension)
+;; (add-hook 'scheme-mode-hook
+;;   (lambda ()
+;;     ;; Gauche の場合, 次の 2 個の変数を設定しておいたほうがよいのかも.
+;;     (setq default-scheme-implementation 'gauche)
+;;     (setq *current-scheme-implementation* 'gauche)
+;;     ;; eldoc-mode
+;;     (set (make-local-variable 'eldoc-documentation-function)
+;; 	 'scheme-get-current-symbol-info)
+;;     (eldoc-mode t)
+;;     )
+;;   )
+;; (setq lisp-indent-function 'scheme-smart-indent-function)
+ #+end_src
+
+*** flymake 設定
+    glint というものがあるらしい. 
+    gauche 0.8.13 でしか動作しないようなので試していない.
+    - [[http://www.koguro.net/prog/codecheck/index-j.html][glint]]
+    - [[http://d.hatena.ne.jp/higepon/20080309/1205043148][小黒さんの Scheme における glint + Emacs + flymake を試してみた - Higepon's blog]]
 
 ** Scheme 文法
    こんなのみつけた.
    - [[http://www.sampou.org/scheme/t-y-scheme/t-y-scheme-Z-H-1.html][独習 Scheme 三週間 Teach Yourself Scheme in Fixnum Days]]
 
 ** Bookmarks
-  - [[http://karetta.jp/book-node/gauche-hacks/004640][Emacs から Gauche を使う - karetta.jp]]
   - [[http://qiita.com/da1/items/02f7d2f157c7145d58f2][Scheme - SICP を読むためにやっておくと便利かもしれないこと - Qiita]]  
-  - [[http://d.hatena.ne.jp/tequilasunset/20110220/p4][SICP 読むための設定とか - Clipboard]]
-  - [[http://d.hatena.ne.jp/mahata/20080921/1221958711][Emacs の info として SICP を読む - 大切なものは目に見えない - mahata の日記 (はてなブランチ)]]
 

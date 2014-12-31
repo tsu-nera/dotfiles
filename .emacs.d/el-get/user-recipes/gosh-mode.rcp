@@ -1,0 +1,3 @@
+(:name gosh-mode
+       :type github
+       :pkgname "mhayashi1120/Emacs-gosh-mode")

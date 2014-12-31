@@ -86,15 +86,6 @@ el-get にまとめた.
   )
 #+end_src
 
-* rainbow-delimiters
-  かっこの深さに応じて色付けしてくれる.
-  - [[https://github.com/jlr/rainbow-delimiters][jlr/rainbow-delimiters]]
-
-#+begin_src emacs-lisp
-(use-package rainbow-delimiters)
-(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-#+end_src
-
 * minimap
   Sublime Text のようなミニマップ.
 

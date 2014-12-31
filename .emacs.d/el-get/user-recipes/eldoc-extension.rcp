@@ -1,0 +1,3 @@
+(:name eldoc-extension
+       :type github
+       :pkgname "emacsmirror/eldoc-extension")

@@ -120,3 +120,4 @@
 
 ;; inits配下のorgファイルをelcに変換して読み込み.
 (bl:load-dir "~/.emacs.d/inits/")
+(put 'downcase-region 'disabled nil)
