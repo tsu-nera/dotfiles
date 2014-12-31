@@ -10,10 +10,11 @@
    - [[http://kiririmode.hatenablog.jp/entry/20131231/p1][smartparens.el での括弧処理 - 理系学生日記]]
 
 #+begin_src emacs-lisp
-(require 'smartparens-config)
-(smartparens-global-mode t)
+(use-package smartparens-config
+  :config
+  (smartparens-global-mode t)
 #+end_src
-  
+ 
 *** default
   smartparens-config では以下が設定される.
   - https://github.com/Fuco1/smartparens/blob/master/smartparens-config.el
@@ -80,6 +81,11 @@
   (sp-local-pair "(" nil :bind "C-("))
 #+end_src
 
+*** end of config
+#+begin_src emacs-lisp
+)
+#+end_src
+
 ** paredit
    Lisp コードで頻出する括弧類のバランスを維持することを目的としたもの.
    - [[http://www.daregada.sakuraweb.com/paredit_tutorial_ja.html][ParEdit チュートリアル]]
@@ -127,28 +133,26 @@ gosh -V
   - [[https://hayate2255.wordpress.com/2013/02/03/windows7-emacs-gauche-%E3%81%AE%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89/][Windows + Emacs + Gauche の環境構築 | 小さいモノは美しい]]
 
 #+begin_src emacs-lisp
-;; UTF-8 に統一
-(setq process-coding-system-alist
-      (cons '("gosh" utf-8 . utf-8) process-coding-system-alist))
+(use-package scheme
+  :commands (scheme-mode run-scheme)
+  :bind  ("C-c S" . scheme-other-window)
+  :config
+  (setq process-coding-system-alist
+	(cons '("gosh" utf-8 . utf-8) process-coding-system-alist))
+  (setq scheme-program-name "gosh -i")
 
-(setq scheme-program-name "gosh -i")
-(autoload 'scheme-mode "cmuscheme" "Major mode for Scheme." t)
-(autoload 'run-scheme "cmuscheme" "Run an inferior Scheme process." t)
-
-;; 別のウィンドウに gosh を動作させる
-(defun scheme-other-window ()
-  "Run Gauche on other window"
-  (interactive)
-  (split-window-horizontally (/ (frame-width) 2))
-  (let ((buf-name (buffer-name (current-buffer))))
-    (scheme-mode)
-    (switch-to-buffer-other-window
-     (get-buffer-create "*scheme*"))
-    (run-scheme scheme-program-name)
-    (switch-to-buffer-other-window
-     (get-buffer-create buf-name))))
-
-(define-key global-map "\C-cS" 'scheme-other-window)
+  ;; 別のウィンドウに gosh を動作させる
+  (defun scheme-other-window ()
+    "Run Gauche on other window"
+    (interactive)
+    (split-window-horizontally (/ (frame-width) 2))
+    (let ((buf-name (buffer-name (current-buffer))))
+      (scheme-mode)
+      (switch-to-buffer-other-window
+       (get-buffer-create "*scheme*"))
+      (run-scheme scheme-program-name)
+      (switch-to-buffer-other-window
+       (get-buffer-create buf-name)))))
 #+end_src
 
 ** SICP を info で読む
