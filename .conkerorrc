@@ -75,7 +75,7 @@ define_webjump("hatena","javascript:(function(){var%20d=(new%20Date);var%20s=doc
 
 // create link
 // define_webjump("link_markdown","javascript:(function(){prompt('Copy to Clipboard','['+document.title.replace(/([\[\]])/g,'\\$1')+']'+'('+location.href+')');})();");
-define_webjump("link_orgmode","javascript:(function(){prompt('Copy to Clipboard','['+'['+location.href+']'+'['+document.title.replace(/([\[\]])/g,'\\$1')+']'+']');})();");
+define_webjump("@","javascript:(function(){prompt('Copy to Clipboard','['+'['+location.href+']'+'['+document.title.replace(/([\[\]])/g,'\\$1')+']'+']');})();");
 
 // google search with japanese
 define_webjump("g", "http://www.google.co.jp/search?q=%s", $alternative = "http://www.google.co.jp/");

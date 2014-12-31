@@ -187,6 +187,7 @@
     hl-anything
     ace-link
     ddskk
+    ac-skk
   )
   "A list of packages to install from el-get at launch.")
 

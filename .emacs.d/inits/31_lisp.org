@@ -4,12 +4,12 @@
 * General
 ** smartparens
    - https://github.com/Fuco1/smartparens
-
 ** paredit
    Lisp コードで頻出する括弧類のバランスを維持することを目的としたもの.
    - [[http://www.daregada.sakuraweb.com/paredit_tutorial_ja.html][ParEdit チュートリアル]]
    - [[http://emacsrocks.com/e14.html][Emacs Rocks!]]
    - https://github.com/Fuco1/smartparens
+
 
 * Emacs Lisp
 ** Tips
@@ -18,3 +18,40 @@
 #+begin_src emacs-lisp
 ;; (setq debug-on-error t)
 #+end_src
+
+* Scheme
+  - [[http://ja.wikipedia.org/wiki/Scheme][Scheme - Wikipedia]]
+
+** Gauche 
+   Scheme 処理系をインストール.(ゴーシュ)
+   - [[http://practical-scheme.net/gauche/index-j.html][Gauche - A Scheme Implementation]]
+
+#+begin_src bash
+gosh -V
+#+end_src
+
+#+RESULTS:
+| Gauche scheme shell | version 0.9.4 [utf-8 | pthreads] | x86_64-unknown-linux-gnu |
+
+** scheme-mode
+   Default で Emacs にはいっている.
+
+** gosh-mode
+   scheme-mode の拡張.
+   - [[http://d.hatena.ne.jp/mhayashi1120/20110103/1294013522][gosh-mode.el - まにっき]]
+   - https://github.com/mhayashi1120/Emacs-gosh-mode
+
+   scheme-mode を継承しているので, 基本的な操作は変わらないそうだ.
+
+
+
+** Scheme 文法
+   こんなのみつけた.
+   - [[http://www.sampou.org/scheme/t-y-scheme/t-y-scheme-Z-H-1.html][独習 Scheme 三週間 Teach Yourself Scheme in Fixnum Days]]
+
+** Bookmarks
+  - [[http://karetta.jp/book-node/gauche-hacks/004640][Emacs から Gauche を使う - karetta.jp]]
+  - [[http://qiita.com/da1/items/02f7d2f157c7145d58f2][Scheme - SICP を読むためにやっておくと便利かもしれないこと - Qiita]]  
+  - [[http://d.hatena.ne.jp/tequilasunset/20110220/p4][SICP 読むための設定とか - Clipboard]]
+  - [[http://d.hatena.ne.jp/mahata/20080921/1221958711][Emacs の info として SICP を読む - 大切なものは目に見えない - mahata の日記 (はてなブランチ)]]
+

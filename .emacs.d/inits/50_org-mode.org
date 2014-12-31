@@ -552,7 +552,9 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((R . t)
-   (java . t))
+   (java . t)
+   (shell . t)   
+   )
  )
 #+end_src
 
