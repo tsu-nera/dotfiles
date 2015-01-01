@@ -1,0 +1,3 @@
+(:name ac-ja
+       :type github
+       :pkgname "myuhe/ac-ja.el")

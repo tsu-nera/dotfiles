@@ -188,6 +188,7 @@
     ace-link
     ddskk
     ac-skk
+    ac-ja
     scheme-complete
     eldoc-extension
     smartparens

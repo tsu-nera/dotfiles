@@ -64,7 +64,6 @@
 
 ** TODO org-link を elscreen で開く
    いつか.
-
 ** elscreen-persistent
    - [[http://www.robario.com/2014/12/08][elscreen を永続化する elscreen-persist を書いた #Emacs @robario]]
    - [[http://rubikitch.com/2014/12/11/elscreen-persist/][elscreen のウィンドウ構成が windows.el ばりに再起動時に復元できるゾ! ]]
@@ -704,7 +703,7 @@ sudo pacman -S ghostscript
 #+end_src
 
 ** google-this
-   Google 検索.
+   Google 検索. これは便利だぁ.
    - [[https://github.com/Bruce-Connor/emacs-google-this][Bruce-Connor/emacs-google-this]]
 
    代表的な使用方法.

@@ -141,7 +141,8 @@
   ;; グローバルで auto-complete を利用
   (global-auto-complete-mode t)
   ;; 追加メジャーモード
-  (add-to-list 'ac-modes 'org-mode)
+  ;; -> org-mode と auto-complete の共用はバクあり.
+  ;; (add-to-list 'ac-modes 'org-mode)
   
   ;; メニュー表示を遅延
   ;; (setq ac-auto-show-menu 0.5)
@@ -165,24 +166,26 @@
   (setq ac-use-comphist t)         ; 補完候補をソート
   (setq ac-candidate-limit nil)    ; 補完候補表示を無制限に
 
+  (setq ac-use-menu-map t)
+  
   ;; 補完キーでトリガさせる.
   ;; 手動で補完を起動する
   (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
 
-  (setq ac-use-menu-map t)
-  ;; デフォルトで設定済み
-  ;; (define-key ac-menu-map "\C-n" 'ac-next)
-  ;; (define-key ac-menu-map "\C-p" 'ac-previous)
+  ;; デフォルトは C-n or C-p
   ;; Ctrl ではなくて, Alt に割り当てる.
   (define-key ac-menu-map (kbd "M-n") 'ac-next)
   (define-key ac-menu-map (kbd "M-p") 'ac-previous)
 
   ;; ヘルプを表示
   (define-key ac-completing-map (kbd "M-h") 'ac-quick-help)
-
-  (setq ac-sources '(ac-source-abbrev ac-source-words-in-buffer))
-  )
    #+end_src
+
+*** 辞書登録  
+
+#+begin_src emacs-lisp
+  (setq ac-sources '(ac-source-abbrev ac-source-words-in-buffer))
+#+end_src
 
 *** ac-helm
     helm インターフェースを利用する. これは多げさかな. .
@@ -194,6 +197,11 @@
   (define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)
   )
 #+end_src
+
+*** end of config
+    #+begin_src emacs-lisp
+    )
+    #+end_src
 
 ** company-mode
    補完のフレームワーク.auto-complete との違いがわからない.
@@ -462,31 +470,183 @@
    - [[http://www.bookshelf.jp/texi/skk/skk.html][SKK Manual:]]
    - https://github.com/skk-dev/ddskk/blob/master/nicola/README.NICOLA.ja
 
-   お試し利用中.
+   設定例のかき集め.
+   - [[http://mugijiru.seesaa.net/article/275755984.html][暇だったから ddskk の設定いじった: 麦汁三昧]]
+
+   #+begin_src emacs-lisp
+(use-package skk-autoloads
+  :if linux-p ;; とりあえず Linux 環境だけで
+  :init (global-unset-key "\C-xj")
+  :bind (("C-x C-j" . skk-mode) ("C-x j" . skk-mode)
+	 ;; ("C-x j" . skk-auto-fill-mode)
+	 )
+  :config
+  (setq skk-egg-like-newline t) ;; Enter で改行しない
+  (setq skk-byte-compile-init-file t) ;; 自動バイトコンパイル
+
+  ;; ローマ字 prefix をみて補完する
+  (setq skk-comp-use-prefix t)
+  ;; 補完時にサイクルする
+  (setq skk-comp-circulate t)
+  ;; 個人辞書の文字コードを指定
+  (setq skk-jisyo-code 'utf-8)
+#+end_src
+
+*** 動的補完
+   - [[http://d.hatena.ne.jp/tomoya/20090711/1247314350][僕の ddskk の設定です. - 日々, とんは語る. ]]
 
 #+begin_src emacs-lisp
-(use-package skk-autoloads
-  :if linux-p
-  :bind (("C-x C-j" . skk-mode)
-	 ("C-x j" . skk-auto-fill-mode))
-  :config
+;; 候補表示
+(setq skk-show-candidates-always-pop-to-buffer t) ; 変換候補の表示位置
+(setq skk-henkan-show-candidates-rows 2) ; 候補表示件数を 2 列に
+
+;; 動的候補表示
+(setq skk-dcomp-activate t)			 ; 動的補完
+(setq skk-dcomp-multiple-activate t) ; 動的補完の複数候補表示
+(setq skk-dcomp-multiple-rows 10)	 ; 動的補完の候補表示件数
+#+end_src
+
+*** 親指シフト
+    われは親指シフター. 
+    -  [[http://futurismo.biz/archives/2881][Emacs DDSKK で NICOLA 親指シフト入力をする | Futurismo]]
+
+#+begin_src emacs-lisp
   ;; 親指シフト
   (setq skk-use-kana-keyboard t)
   (setq skk-kanagaki-keyboard-type 'omelet-jis)
+#+end_src
+
+*** end of skk config
+
+#+begin_src emacs-lisp
 )
 #+end_src
 
-*** TODO ac-skk
-    動かないのでまたあとで.
-    - [[http://sheephead.homelinux.org/2011/10/11/6869/][auto-complete-mode で日本語を補完する ac-ja.el を作った - sheephead]]
-    - https://github.com/myuhe/ac-skk.el
+*** 辞書設定
+   - [[http://openlab.ring.gr.jp/skk/dic-ja.html][SKK Openlab - 辞書]]
 
-#+begin_src emacs-lisp
-;; (use-package ac-skk :defer t)
+   ローカルに辞書を置く場合と, サーバに問い合わせる場合がある.
+
+   ruby: gem install google-ime-skk
+   - https://github.com/hitode909/google-ime-skk
+   - [[http://hitode909.hatenablog.com/entry/20110421/1303274561][Google IME SKK サーバー 作った - hitode909 の日記]]
+
+   go:
+   - [[http://sleepboy-zzz.blogspot.jp/2014/12/emacsgoogleskk_29.html#Message-complete][memo: Emacs で Google 日本語入力の SKK サーバーを利用するようにした]]
+   - https://github.com/akiym/go-skkserv
+
+#+begin_src bash
+go get github.com/akiym/go-skkserv
 #+end_src
 
-*** TODO 辞書
-   - [[http://sleepboy-zzz.blogspot.jp/2014/12/emacsgoogleskk_29.html#Message-complete][memo: Emacs で Google 日本語入力の SKK サーバーを利用するようにした]]
+   サーバの設定例.
+   - [[http://www.bookshelf.jp/texi/skk/skk_3.html#SEC13][SKK Manual: はじめの設定]]
+   - [[http://www.bookshelf.jp/texi/skk/skk_5.html#SEC107][SKK Manual: 便利な応用機能]]
+
+   起動は, .profile に以下を記述している
+
+#+begin_src bash
+# skk server
+google-ime-skk &
+#+end_src
+     
+#+begin_src emacs-lisp
+(setq skk-large-jisyo "~/.emacs.d/dic/SKK-JISYO.L")
+
+(require 'skk-server)
+;; 辞書サーバを利用する場合の設定
+(setq skk-server-host "0.0.0.0"
+      skk-server-prog "google-ime-skk" ;; パスは通っているようだ.
+      skk-server-portnum 55100)
+
+;; 辞書サーバが使用不能になると辞書ファイルを 
+;; Emacs のバッファに読み込んで 検索を行う.
+(setq skk-server-inhibit-startup-server nil) ;; 通信エラー時はローカル辞書を.
+(setq skk-server-jisyo "~/.emacs.d/dic/SKK-JISYO.L")
+
+(add-to-list 'skk-search-prog-list
+	     '(skk-server-completion-search) t)
+(add-to-list 'skk-search-prog-list
+	     '(skk-comp-by-server-completion) t)
+
+;; 一応手動で起動する手段を用意するが, 起動は OS 側で実施する予定
+(defun my/boot-skk-server ()
+  "Start SKK server"
+  (interactive)    
+  (unless (skk-server-live-p)
+    (async-shell-command skk-server-prog (get-buffer-create "*google-ime-skk*"))
+    (setq skkserv-process (skk-open-server-1))
+    (when (skk-server-live-p)
+      (set-process-coding-system skkserv-process 'utf-8 'utf-8))))
+
+(defun my/skk-close-server ()
+  (interactive)
+  (when (skk-server-live-p)
+    (skk-disconnect-server)
+    (kill-process (get-buffer-process "*google-ime-skk*"))
+    (message "Server disconnected")))
+(add-hook 'kill-emacs-hook 'my/skk-close-server)
+
+;; 辞書登録の際に送り仮名を削除
+(setq skk-check-okurigana-on-touroku 'auto)
+;;漢字登録のミスをチェックする
+(setq skk-check-okurigana-on-touroku t)
+
+#+end_src
+
+*** ac-skk
+    auto-complete-mode source for DDSKK a.k.a Japanese input method
+    - https://github.com/myuhe/ac-skk.el
+
+    tinysegmenter に依存
+    - https://github.com/myuhe/tinysegmenter.el
+    - [[http://sheephead.homelinux.org/2011/10/11/6869/][auto-complete-mode で日本語を補完する ac-ja.el を作った - sheephead]]    
+
+    *廃止*  
+    - org-mode と auto-complete の間には不具合あり 
+    - 使い方がよくわからない.
+
+#+begin_src emacs-lisp
+(use-package ac-ja
+  :disabled t
+  :config
+  ;;補完候補としたい辞書ファイルの場所を指定.
+  ;; (setq ac-skk-jisyo-file "~/.emacs.d/dic/SKK-JISYO.L")
+  ;;補完候補生成に必要な中間ファイルを置く場所を指定.
+  (setq ac-skk-alist-file "~/.emacs.d/ac-skk-alist.el")
+  
+  (setq ac-sources (append ac-sources '(ac-source-dabbrev-ja)))
+  
+  ;; skk-kakutei の後に atuo-complete-mode による補完を実行する advice
+  (defadvice skk-kakutei (after ad-skk-kakutei last)
+    (unless (minibufferp)
+      (ac-start)))
+
+  ;; skk-kakutei の advice を活性化
+  (add-hook 'skk-mode-hook 
+	    (lambda () 
+	      (interactive)
+	      (ad-activate 'skk-kakutei)))
+  ;; skk-mode から抜ける時に skk-kakutei の advice を不活性化.
+  (defadvice skk-mode-exit (before ad-skk-mode-exit last)
+    (ad-deactivate 'skk-kakutei))
+  )
+
+(use-package ac-skk
+  :disabled t
+  :init (ac-skk-enable))
+#+end_src
+
+** context-sk
+   プログラムファイルのコード部分で「かな」とかになってた場合に
+   自動的に英字入力モードに戻してくれる.
+   - [[http://mugijiru.seesaa.net/article/201540864.html][ddskk で, コード中では自動的に日本語入力をオフにする: 麦汁三昧]]
+
+#+begin_src emacs-lisp
+(add-hook 'skk-load-hook
+	  (lambda ()
+	    (use-package context-skk)))
+#+end_src
 
 ** text-adjust
    - text-adjust-codecheck : 半角カナ, 規格外文字を「〓」に置き換える.
@@ -495,14 +655,17 @@
    - text-adjust-space     : 全角文字と半角文字の間に空白を入れる.
 
    これは便利だ.
+   書込みテスト
 
    - [[http://www.emacswiki.org/emacs/InsertSpaceBetweenZenkakuAndHankaku][EmacsWiki: Insert Space Between Zenkaku And Hankaku]]
    - [[http://d.hatena.ne.jp/rubikitch/20090220/text_adjust][全角文字と半角文字の間に自動でスペースを開ける text-adjust.el を使ってみた ]]
    - http://www.rubyist.net/~rubikitch/archive/mell.el
    - http://www.rubyist.net/~rubikitch/archive/text-adjust.el
 
-  #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (use-package text-adjust
+  :init
+  (add-hook 'before-save-hook 'text-adjust-space-before-save-if-needed)
   :config
    (defun text-adjust-space-before-save-if-needed ()
      (when (memq major-mode
@@ -510,9 +673,8 @@
        (text-adjust-buffer)))
    ;;           (text-adjust-space-buffer)))
    (defalias 'spacer 'text-adjust-space-buffer)
-   (add-hook 'before-save-hook 'text-adjust-space-before-save-if-needed)
    )
-   #+end_src
+#+end_src
 
 ** yspel
    Yahoo の文章校正ツールを利用した日本語スペルチェック!

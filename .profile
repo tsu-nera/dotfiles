@@ -44,3 +44,7 @@ nm-applet &
 
 # サウンド
 cinnamon-sound-applet &
+
+# skk server
+google-ime-skk &
+

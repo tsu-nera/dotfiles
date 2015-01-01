@@ -46,7 +46,7 @@ el-get にまとめた.
 #+begin_src emacs-lisp
 (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/molokai-theme")
 (use-package molokai-theme-kit
-  :config
+  :init
   (setq molokai-theme-kit t)
   (load-theme 'molokai t)
 )

@@ -11,3 +11,4 @@ desc "reboot emacs twice"
 task :reboot2 => :reboot do
   system("emacsclient -e \"(kill-emacs)\";emacs --daemon")
 end
+
