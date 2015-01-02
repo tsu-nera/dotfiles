@@ -29,7 +29,7 @@
 #+end_src
 
 ** Haskell Script の編集モード
-Haskell でかかれたスクリプトを haskell-mode で編集する.
+   Haskell でかかれたスクリプトを haskell-mode で編集する.
 
 #+begin_src haskell
 #!/usr/bin/env runhaskell

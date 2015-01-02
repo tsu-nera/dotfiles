@@ -5,6 +5,7 @@
 
 * General
 ** smartparens
+   smart + parens
    - https://github.com/Fuco1/smartparens
    - https://github.com/Fuco1/smartparens/wiki
    - [[http://kiririmode.hatenablog.jp/entry/20131231/p1][smartparens.el での括弧処理 - 理系学生日記]]
@@ -20,6 +21,11 @@
   - https://github.com/Fuco1/smartparens/blob/master/smartparens-config.el
 
 *** example
+  覚えておきたいのは,
+  - かっこで囲む xx sp-pair M-(
+  - かっこを外す sp-unwrap C-M-s
+  
+  Example:
   -  https://github.com/Fuco1/smartparens/wiki/Example-configuration
 
 #+begin_src emacs-lisp
@@ -42,7 +48,7 @@
 (define-key sp-keymap (kbd "C-M-k") 'sp-kill-sexp)
 (define-key sp-keymap (kbd "C-M-w") 'sp-copy-sexp)
 
-(define-key sp-keymap (kbd "M-<delete>") 'sp-unwrap-sexp)
+(define-key sp-keymap (kbd "C-M-s") 'sp-unwrap-sexp)
 (define-key sp-keymap (kbd "M-<backspace>") 'sp-backward-unwrap-sexp)
 
 (define-key sp-keymap (kbd "C-<right>") 'sp-forward-slurp-sexp)
@@ -78,7 +84,9 @@
 
 ;;; lisp modes
 (sp-with-modes sp--lisp-modes
-  (sp-local-pair "(" nil :bind "C-("))
+  (sp-local-pair "(" nil :bind "M-("))
+
+(sp-pair "(" ")" :wrap "M-(")
 #+end_src
 
 *** end of config
@@ -97,14 +105,44 @@
    - https://github.com/Fuco1/smartparens/wiki/Paredit-and-smartparens
 
 ** eldoc
-   Lisp 系言語の関数のヘルプをミニバッファに表示.
+   Lisp 系言語の関数で,
+   カーソル位置の関数の仮引数をエコーエリアに表示してくれる.
+   標準添付されている.
+
+
+   eldoc-extention だと,関数のドキュメントまで出してくれる.
+   - [[http://d.hatena.ne.jp/rubikitch/20090207/1233936430][Emacs 23 の eldoc.el と eldoc-extensions.el がいい感じ - rubikichi]]
 
 #+begin_src emacs-lisp
-;; ダンウロードしちゃったので一応.宣言.
-(use-package elodc-extension :disabled t)
+;; ダウンロードしちゃったので一応.宣言.
+(use-package eldoc-extension)
 #+end_src
 
 * Emacs Lisp
+** ielm (Inferior Emacs Lisp Mode)
+   Emacs のインタラクティブシェル. M-x ielm 
+   - [[http://www.emacswiki.org/emacs/InferiorEmacsLispMode][EmacsWiki: Inferior Emacs Lisp Mode]]
+     
+   M-x load-library foo でライブラリをロード
+ 
+** Eval
+   - eval-buffer    C-x C-l (わりあてた)
+   - eval-region
+   - eval-last-sexp C-x C-e
+
+   参考:
+   - [[http://shuzo-kino.hateblo.jp/entry/2013/10/27/153038][emacs-lisp を反映するときのコマンド一覧 - Bye Bye Moore]]
+
+#+begin_src emacs-lisp
+(defun my-inf-elisp ()
+  (interactive)
+  (eval-buffer)
+  (other-window 1)
+  (eshell)
+)
+(define-key emacs-lisp-mode-map (kbd "C-c C-l") 'my-inf-elisp)
+#+end_src
+
 ** Tips
   以下を評価するとスタック情報がみえる.
 

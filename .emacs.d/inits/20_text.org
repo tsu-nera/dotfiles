@@ -499,7 +499,14 @@
   (setq skk-large-jisyo "~/.emacs.d/etc/dict/SKK-JISYO.L")
 #+end_src
 
-*** 動的補完
+*** 変換モード
+    - [fj] で変換モード.
+    - 文の途中から Q を押す.
+    - C-g でぬける
+    - 変換モードで [dk] でカタカナ変換.
+
+*** 動的候補
+
    - [[http://d.hatena.ne.jp/tomoya/20090711/1247314350][僕の ddskk の設定です. - 日々, とんは語る. ]]
 
 #+begin_src emacs-lisp

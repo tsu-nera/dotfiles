@@ -739,10 +739,8 @@ sudo pacman -S ghostscript
 
 #+begin_src emacs-lisp
 (use-package google-this
-  :defer t
   :config
-  (google-this-mode 1)
-)
+  (google-this-mode 1))
 #+end_src
 
 * Dictionary
