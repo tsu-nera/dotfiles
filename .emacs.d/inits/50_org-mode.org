@@ -297,12 +297,13 @@
 #+end_src
 
 *** 必ず時間見積り
+    一時無効
 #+begin_src emacs-lisp
-(defadvice org-clock-in (before is-set-effort-before-clock-in)
-   (let ((effort (org-entry-get (point) "Effort")))
-     (unless effort
-       (error "[Error: Is not set a effort!]"))))
-(ad-activate-regexp "is-set-effort-before-clock-in")
+;; (defadvice org-clock-in (before is-set-effort-before-clock-in)
+;;   (let ((effort (org-entry-get (point) "Effort")))
+;;     (unless effort
+;;       (error "[Error: Is not set a effort!]"))))
+;; (ad-activate-regexp "is-set-effort-before-clock-in")
 #+end_src
 
 *** my/org-clockin-gtd

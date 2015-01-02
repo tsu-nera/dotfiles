@@ -136,7 +136,7 @@
 ;; '((?@ (wl-summary-line-attached)))))
 #+end_src
 
-* TODO 検索
+* 検索
   Summary モードで V を入力.
   - [[http://cns-guide.sfc.keio.ac.jp/2004/7/6/4.html][6.4 メッセージの検索]]
 
@@ -146,8 +146,29 @@
   - [[http://emacs-21.ki.nu/application/wl-namazu.html][Emacs Application/wl-namazu]]
    
 ** mu
+  インデックス検索ができるようになるので, 高速な検索を期待できる.
+
   linux のみ. Windows ではつかえない.
   - [[https://code.google.com/p/mu0/][mu0 - mu is a collection of utilties for indexing and searching Maildirs - Google Project Hosting]]
+
+  でも Cygwin で利用できるかも??mu4e に移行するのもてかと.
+  - [[http://emacs-fu.blogspot.jp/2011/03/searching-e-mails-with-wanderlust-and.html][emacs-fu: searching e-mails with wanderlust and mu]]
+  - [[http://uwabami.junkhub.org/log/20110901.html][平衡点 (2011-09-01)]]
+
+  動かせなかったげれども、一応設定を書いておく。
+  いつか動かせるように。。。
+
+#+begin_src emacs-lisp
+;; (require 'elmo-search)
+;; (elmo-search-register-engine
+;;     'mu 'local-file
+;;     :prog "/usr/bin/mu" ;; or wherever you've installed it
+;;     :args '("find" pattern "--fields" "l") :charset 'utf-8)
+
+;; (setq elmo-search-default-engine 'mu)
+;; ;; for when you type "g" in folder or summary.
+;; (setq wl-default-spec "[")
+#+end_src
 
 * windows
 ** init file の置き場所
@@ -196,6 +217,12 @@
 
 #+begin_src language
 M-x elmo-passwd-alist-save
+#+end_src
+
+  保存場所の指定.
+
+#+begin_src emacs-lisp
+(setq elmo-passwd-alist-file-name "~/wl-passwd.gpg")
 #+end_src
 
 ** NEWS

@@ -1,7 +1,6 @@
 * Color
   色関係.
 
-
 * Default
 ** Comment
 #+begin_src emacs-lisp
@@ -10,34 +9,34 @@
  '(font-lock-comment-face ((t (:foreground "gray80")))))
 #+end_src
 
+** 透過度
+   alpha 変数に設定する. (set-frame-parameter nil 'alpha 80)
+
+   今のテーマだと動かない. .
+   - [[http://qiita.com/marcy_o/items/ba0d018a03381a964f24][cocoa emacs の透明度を変更する elisp - Qiita]]
+
+#+begin_src emacs-lisp
+(defun set-alpha (alpha-num)
+  "set frame parameter 'alpha"
+  (interactive "nAlpha: ")
+  (set-frame-parameter nil 'alpha (cons alpha-num '(90))))
+#+end_src
+
 * Emacs Color Theme
+  A collection of custom themes for Emacs.
+  - https://github.com/owainlewis/emacs-color-themes
 
-A collection of custom themes for Emacs.
-
-- https://github.com/owainlewis/emacs-color-themes
-
-会社だと, エラーするかもしれないため, マニュアルで入れることにした.
+  会社だと, エラーするかもしれないため, マニュアルで入れることにした.
 
 #+begin_src sh
 $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-color-themes && ./install.sh
 #+end_src
 
-el-get にまとめた.
+  デフォルトで load される ?? 
 
 #+begin_src emacs-lisp
-(use-package emacs-color-themes)
+(use-package emacs-color-themes :disabled t)
 #+end_src
-
-** tangotango
-   org-mode に対応してるダークテーマ.
-   - https://github.com/juba/color-theme-tangotango
-
-   #+begin_src emacs-lisp
-;;   (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/color-theme-tangotango")
-;;   (load-theme 'tangotango t)
-   #+end_src
-
-   tangotango と molokai をあわせると意外にいいかも??
 
 ** Molokai
    Install  : https://raw2.github.com/hbin/molokai-theme/master/molokai-theme-kit.el
@@ -56,22 +55,33 @@ el-get にまとめた.
    - [[http://orgmode.org/worg/org-contrib/babel/examples/fontify-src-code-blocks.html][Pretty fontification of source code blocks]]
    -> mmm-mode で代用する.
 
-** color-theme-molokai
-   別の molokai
-   - https://github.com/alloy-d/color-theme-molokai
+** not used
+*** tangotango
+    org-mode に対応してるダークテーマ.
+    - https://github.com/juba/color-theme-tangotango
 
-#+begin_src emacs-lisp
+    #+begin_src emacs-lisp
+;;   (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/color-theme-tangotango")
+;;   (load-theme 'tangotango t)
+    #+end_src
+
+    tangotango と molokai をあわせると意外にいいかも??
+
+*** Leuven-theme
+    Emacs 24.4 に標準で入っているテーマ. org-mode との相性がとにかくイイ!
+    - [[https://github.com/fniessen/emacs-leuven-theme][fniessen/emacs-leuven-theme]]
+
+    #+begin_src emacs-lisp
+;;   (load-theme 'leuven t)
+    #+end_src
+*** color-theme-molokai
+    別の molokai
+    - https://github.com/alloy-d/color-theme-molokai
+
+ #+begin_src emacs-lisp
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/color-theme-molokai")
 ;; (load-theme 'molokai t)
-#+end_src
-
-** Leuven-theme
-   Emacs 24.4 に標準で入っているテーマ. org-mode との相性がとにかくイイ!
-   - [[https://github.com/fniessen/emacs-leuven-theme][fniessen/emacs-leuven-theme]]
-
-   #+begin_src emacs-lisp
-;;   (load-theme 'leuven t)
-   #+end_src
+ #+end_src
 
 * rainbow-mode
   数字表記に色つけしてくれる 

@@ -98,10 +98,8 @@
     org-pandoc
     deferred
     ;; color
-    color-theme
+    emacs-color-theme
     molokai-theme
-    color-theme-leuven
-    color-theme-tangotango
     rainbow-delimiters
     ;; programming
     flymake
@@ -195,8 +193,12 @@
   )
   "A list of packages to install from el-get at launch.")
 
+;; 以下の2つは普段は封印しておく
+
 ;; 同期する
-(el-get 'sync my/el-get-packages-all)
+;; (el-get 'sync my/el-get-packages-all)
+;; Whether or not to byte-compile packages at init
+;; (setq el-get-byte-compile-at-init t)
 #+end_src
 
 * Windows

@@ -1,4 +1,4 @@
-(:name color-theme
+(:name emacs-color-theme
        :type github
        :website "https://github.com/owainlewis/emacs-color-themes"
        :description "A collection of custom themes for Emacs."

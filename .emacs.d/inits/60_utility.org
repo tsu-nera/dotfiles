@@ -624,7 +624,8 @@ command uses interactive mode if passed an argument."
 	     (setq erc-fill-column (- (window-width) 2))))
 #+end_src
 *** End of ERC Config
-#+begin_src emacs-lisp)
+#+begin_src emacs-lisp
+)
 #+end_src
 
 * Hown
