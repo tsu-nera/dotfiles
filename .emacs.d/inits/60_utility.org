@@ -552,7 +552,7 @@ command uses interactive mode if passed an argument."
 *** 通知
 **** ERC notification
      登録した単語をみつけたら反応する.
-     - [[https://julien.danjou.info/blog/2012/erc-notifications][ERC notifications | Julien Danjou]]
+     - [[https://julien.danjou.info/blog/2012/erc-notifications][ERC notifications Julien Danjou]]
 
 #+begin_src emacs-lisp
 (add-to-list 'erc-modules 'notifications)
@@ -579,11 +579,12 @@ command uses interactive mode if passed an argument."
 (setq erc-input-line-position -2)
  #+end_src
 
-**** notify-nic.el
+**** growl
      Growl できるっぽい. Growl for windows で通知できるか??
      - [[http://www.emacswiki.org/emacs/ErcGrowl][EmacsWiki: Erc Growl]]
      - https://github.com/samaaron/samaaron-pack/blob/master/config/erc-growl.el
      - https://gist.github.com/danielsz/ac19353e718dde3dea72
+     - [[http://qiita.com/rohinomiya/items/5e485d6700eac256af9f][Windows で Growl 通知を行う - Qiita]]
 
     Growl を利用すると, Alt+x, Alt+Shift+x が利用できなくなるという
     致命的な問題がある.
@@ -593,6 +594,16 @@ command uses interactive mode if passed an argument."
     で Alt+X とかいてあるところをべつのものに修正すればいい.
     - [[http://stackoverflow.com/questions/6495050/how-can-i-use-alt-as-meta-key-in-windows-for-emacs-23-especially-m-x][How can I use Alt as meta key in Windows for Emacs 23, especially M-x? - Stack Overflow]]
     - https://groups.google.com/forum/#!topic/growl-for-windows/Yu3bo3EZ9SA
+
+    To Do Chi Ku という通知用のインタファースもあるが動かなかった
+    - [[http://www.emacswiki.org/emacs/ToDoChiKu][EmacsWiki: To Do Chi Ku]]
+    - [[http://justinsboringpage.blogspot.jp/2009/09/making-emacs-growl.html][justinhj's coding blog: Making emacs growl]]
+
+#+begin_src emacs-lisp
+(when windows-p
+  (use-package my-growl-fow-windows)
+  )
+#+end_src
 
 *** Encoding
     #+begin_src emacs-lisp
@@ -613,8 +624,7 @@ command uses interactive mode if passed an argument."
 	     (setq erc-fill-column (- (window-width) 2))))
 #+end_src
 *** End of ERC Config
-#+begin_src emacs-lisp
-)
+#+begin_src emacs-lisp)
 #+end_src
 
 * Hown
