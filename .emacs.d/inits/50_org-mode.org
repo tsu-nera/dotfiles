@@ -313,8 +313,8 @@
 
 #+begin_src emacs-lisp
 (use-package my-org-clockin-gtd
-  :bind (("<f7>" . my/gtd)
-	 ("<f8>" . my/rest))
+  :bind (("<f7>" . mygtd:gtd)
+	 ("<f8>" . mygtd:rest))
   )
 #+end_src
 

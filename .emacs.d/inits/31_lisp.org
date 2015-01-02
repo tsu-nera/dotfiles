@@ -126,21 +126,26 @@
    M-x load-library foo でライブラリをロード
  
 ** Eval
-   - eval-buffer    C-x C-l (わりあてた)
+   - eval-buffer
    - eval-region
    - eval-last-sexp C-x C-e
 
    参考:
    - [[http://shuzo-kino.hateblo.jp/entry/2013/10/27/153038][emacs-lisp を反映するときのコマンド一覧 - Bye Bye Moore]]
 
+   eshell を inf として利用する.
+   - [[http://futurismo.biz/archives/2894][Emacs での eval について調べてみた | Futurismo]]
+
 #+begin_src emacs-lisp
 (defun my-inf-elisp ()
   (interactive)
   (eval-buffer)
+  (if (one-window-p)
+    (split-window))
   (other-window 1)
   (eshell)
 )
-(define-key emacs-lisp-mode-map (kbd "C-c C-l") 'my-inf-elisp)
+(define-key emacs-lisp-mode-map (kbd "C-c S") 'my-inf-elisp)
 #+end_src
 
 ** Tips
@@ -173,7 +178,6 @@ gosh -V
 #+begin_src emacs-lisp
 (use-package scheme
   :commands (scheme-mode run-scheme)
-  :bind  ("C-c S" . scheme-other-window)
   :config
   (setq process-coding-system-alist
 	(cons '("gosh" utf-8 . utf-8) process-coding-system-alist))
@@ -190,7 +194,10 @@ gosh -V
        (get-buffer-create "*scheme*"))
       (run-scheme scheme-program-name)
       (switch-to-buffer-other-window
-       (get-buffer-create buf-name)))))
+       (get-buffer-create buf-name))))
+  
+  (define-key scheme-mode-map (kbd "C-c S") 'scheme-other-window)
+  )
 #+end_src
 
 ** SICP を info で読む

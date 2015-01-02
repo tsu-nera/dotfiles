@@ -132,14 +132,15 @@
    - http://cx4a.org/software/auto-complete/manual.ja.html
      
    #+begin_src emacs-lisp
-(use-package auto-complete)
-(use-package auto-complete-config
+(use-package auto-complete
   :bind   ("M-/" . auto-complete)
   :config
+  (require 'auto-complete-config)
   (ac-config-default)
 
   ;; グローバルで auto-complete を利用
   (global-auto-complete-mode t)
+  
   ;; 追加メジャーモード
   ;; -> org-mode と auto-complete の共用はバクあり.
   ;; (add-to-list 'ac-modes 'org-mode)
@@ -233,6 +234,15 @@
 ** keisen
    罫線を引く
    - http://www.pitecan.com/Keisen/keisen.el
+   - http://www.bookshelf.jp/soft/meadow_36.html
+
+   ボヤキ: 
+   - [[http://futurismo.biz/archives/1972][秀丸のような罫線マクロないかな・・・ | Futurismo]]
+   - http://hide.maruo.co.jp/lib/macro/draw310.html
+
+   picture-mode:
+   - http://d.hatena.ne.jp/tamura70/20100125/ditaa
+   - http://tototoshi.hatenablog.com/entry/20100614/1276520246
 
    #+begin_src emacs-lisp
 ;;(use-package keisen)
@@ -479,7 +489,7 @@
      あいうえおがしいうかと変換される.
 
    #+begin_src emacs-lisp
-(use-package skk-autoload
+(use-package skk-autoloads
   :if linux-p
   :init (global-unset-key "\C-xj")
   (setq skk-use-kana-keyboard t)
