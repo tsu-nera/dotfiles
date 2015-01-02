@@ -464,7 +464,7 @@
 
 * 日本語入力
 ** ddskk
-   Emacs 用の IME
+   Emacs 用の IME.
    - [[http://openlab.ring.gr.jp/skk/doc-ja.html][SKK Openlab - ドキュメント]]
    - https://github.com/skk-dev/ddskk
    - [[http://www.bookshelf.jp/texi/skk/skk.html][SKK Manual:]]
@@ -473,13 +473,16 @@
    設定例のかき集め.
    - [[http://mugijiru.seesaa.net/article/275755984.html][暇だったから ddskk の設定いじった: 麦汁三昧]]
 
+    windows 環境だと, フォルダで make をしないと利用できない.
+
+    -> なんか, windows では利用できない.
+     あいうえおがしいうかと変換される.
+
    #+begin_src emacs-lisp
-(use-package skk-autoloads
-  :if linux-p ;; とりあえず Linux 環境だけで
+(use-package skk-autoload
+  :if linux-p
   :init (global-unset-key "\C-xj")
-  :bind (("C-x C-j" . skk-mode) ("C-x j" . skk-mode)
-	 ;; ("C-x j" . skk-auto-fill-mode)
-	 )
+  :bind (("C-x C-j" . skk-mode) ("C-x j" . skk-mode))
   :config
   (setq skk-egg-like-newline t) ;; Enter で改行しない
   (setq skk-byte-compile-init-file t) ;; 自動バイトコンパイル
@@ -490,6 +493,8 @@
   (setq skk-comp-circulate t)
   ;; 個人辞書の文字コードを指定
   (setq skk-jisyo-code 'utf-8)
+
+  (setq skk-large-jisyo "~/.emacs.d/etc/dict/SKK-JISYO.L")
 #+end_src
 
 *** 動的補完
@@ -510,6 +515,8 @@
     われは親指シフター. 
     -  [[http://futurismo.biz/archives/2881][Emacs DDSKK で NICOLA 親指シフト入力をする | Futurismo]]
 
+    windows 環境だと, フォルダで make をしないと利用できない.
+
 #+begin_src emacs-lisp
   ;; 親指シフト
   (setq skk-use-kana-keyboard t)
@@ -522,7 +529,7 @@
 )
 #+end_src
 
-*** 辞書設定
+*** サーバ辞書設定
    - [[http://openlab.ring.gr.jp/skk/dic-ja.html][SKK Openlab - 辞書]]
 
    ローカルに辞書を置く場合と, サーバに問い合わせる場合がある.
@@ -551,47 +558,47 @@ google-ime-skk &
 #+end_src
      
 #+begin_src emacs-lisp
-(setq skk-large-jisyo "~/.emacs.d/dic/SKK-JISYO.L")
+(use-package skk-server
+  :if linux-p
+  :config
+  ;; 辞書サーバを利用する場合の設定
+  (setq skk-server-host "0.0.0.0"
+	skk-server-prog "google-ime-skk" ;; パスは通っているようだ.
+	skk-server-portnum 55100)
 
-(require 'skk-server)
-;; 辞書サーバを利用する場合の設定
-(setq skk-server-host "0.0.0.0"
-      skk-server-prog "google-ime-skk" ;; パスは通っているようだ.
-      skk-server-portnum 55100)
+  ;; 辞書サーバが使用不能になると辞書ファイルを 
+  ;; Emacs のバッファに読み込んで 検索を行う.
+  (setq skk-server-inhibit-startup-server nil) ;; 通信エラー時はローカル辞書を.
+  (setq skk-server-jisyo "~/.emacs.d/dic/SKK-JISYO.L")
 
-;; 辞書サーバが使用不能になると辞書ファイルを 
-;; Emacs のバッファに読み込んで 検索を行う.
-(setq skk-server-inhibit-startup-server nil) ;; 通信エラー時はローカル辞書を.
-(setq skk-server-jisyo "~/.emacs.d/dic/SKK-JISYO.L")
+  (add-to-list 'skk-search-prog-list
+	       '(skk-server-completion-search) t)
+  (add-to-list 'skk-search-prog-list
+	       '(skk-comp-by-server-completion) t)
 
-(add-to-list 'skk-search-prog-list
-	     '(skk-server-completion-search) t)
-(add-to-list 'skk-search-prog-list
-	     '(skk-comp-by-server-completion) t)
+  ;; 一応手動で起動する手段を用意するが, 起動は OS 側で実施する予定
+  (defun my/boot-skk-server ()
+    "Start SKK server"
+    (interactive)    
+    (unless (skk-server-live-p)
+      (async-shell-command skk-server-prog (get-buffer-create "*google-ime-skk*"))
+      (setq skkserv-process (skk-open-server-1))
+      (when (skk-server-live-p)
+	(set-process-coding-system skkserv-process 'utf-8 'utf-8))))
 
-;; 一応手動で起動する手段を用意するが, 起動は OS 側で実施する予定
-(defun my/boot-skk-server ()
-  "Start SKK server"
-  (interactive)    
-  (unless (skk-server-live-p)
-    (async-shell-command skk-server-prog (get-buffer-create "*google-ime-skk*"))
-    (setq skkserv-process (skk-open-server-1))
+  (defun my/skk-close-server ()
+    (interactive)
     (when (skk-server-live-p)
-      (set-process-coding-system skkserv-process 'utf-8 'utf-8))))
+      (skk-disconnect-server)
+      (kill-process (get-buffer-process "*google-ime-skk*"))
+      (message "Server disconnected")))
+  (add-hook 'kill-emacs-hook 'my/skk-close-server)
 
-(defun my/skk-close-server ()
-  (interactive)
-  (when (skk-server-live-p)
-    (skk-disconnect-server)
-    (kill-process (get-buffer-process "*google-ime-skk*"))
-    (message "Server disconnected")))
-(add-hook 'kill-emacs-hook 'my/skk-close-server)
-
-;; 辞書登録の際に送り仮名を削除
-(setq skk-check-okurigana-on-touroku 'auto)
-;;漢字登録のミスをチェックする
-(setq skk-check-okurigana-on-touroku t)
-
+  ;; 辞書登録の際に送り仮名を削除
+  (setq skk-check-okurigana-on-touroku 'auto)
+  ;;漢字登録のミスをチェックする
+  (setq skk-check-okurigana-on-touroku t)
+  )
 #+end_src
 
 *** ac-skk

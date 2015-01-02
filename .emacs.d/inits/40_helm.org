@@ -19,7 +19,7 @@
 (global-set-key (kbd "C-x C-r") 'helm-recentf) ;; 最近利用したファイルを検索
 (global-set-key (kbd "M-y") 'helm-show-kill-ring) ;; 最近消したクリップボード履歴
 (global-set-key (kbd "M-r") 'helm-occur) ;; バッファを検索
-(global-set-key (kbd "M-x") 'helm-M-x) ;; M-x を 絞り込み
+(global-set-key (kbd "M-x") 'helm-M-x) ;; M-X を 絞り込み
 (global-set-key (kbd "C-x C-b") 'helm-elscreen) ;; elscreen のタブを切り替え
 #+end_src
 

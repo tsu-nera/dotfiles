@@ -565,7 +565,7 @@ command uses interactive mode if passed an argument."
      呼ばれたら反応する.
      - [[http://www.emacswiki.org/emacs/ErcNickNotify][EmacsWiki: Erc Nick Notify]]
      
-     notify-send しか対応していないみたい.
+     notify-send しか対応していないみたい. Linux 用..
     
      #+begin_src emacs-lisp
 (use-package erc-nick-notify
@@ -575,10 +575,24 @@ command uses interactive mode if passed an argument."
 #+end_src
  
 **** erc-input-lien-position
-
  #+begin_src emacs-lisp
 (setq erc-input-line-position -2)
  #+end_src
+
+**** notify-nic.el
+     Growl できるっぽい. Growl for windows で通知できるか??
+     - [[http://www.emacswiki.org/emacs/ErcGrowl][EmacsWiki: Erc Growl]]
+     - https://github.com/samaaron/samaaron-pack/blob/master/config/erc-growl.el
+     - https://gist.github.com/danielsz/ac19353e718dde3dea72
+
+    Growl を利用すると, Alt+x, Alt+Shift+x が利用できなくなるという
+    致命的な問題がある.
+
+    %USERPROFILE%\Local Settings\Application Data\Growl\2.0.0.0\user.config
+
+    で Alt+X とかいてあるところをべつのものに修正すればいい.
+    - [[http://stackoverflow.com/questions/6495050/how-can-i-use-alt-as-meta-key-in-windows-for-emacs-23-especially-m-x][How can I use Alt as meta key in Windows for Emacs 23, especially M-x? - Stack Overflow]]
+    - https://groups.google.com/forum/#!topic/growl-for-windows/Yu3bo3EZ9SA
 
 *** Encoding
     #+begin_src emacs-lisp
