@@ -765,35 +765,34 @@ google-ime-skk &
 #+end_src
 
 *** あるモードのみ flysell を起動
-
     コメント領域のところだけ有効.
 
-    #+begin_src emacs-lisp
-    (mapc
-    (lambda (hook)
-    (add-hook hook 'flyspell-prog-mode))
-    '(
-    c-mode-common-hook
-    ruby-mode-hook
-    java-mode-hook    
-    emacs-lisp-mode-hook   
-    ))
-    #+end_src
+#+begin_src emacs-lisp
+(mapc
+ (lambda (hook)
+   (add-hook hook 'flyspell-prog-mode))
+ '(
+   c-mode-common-hook
+   ruby-mode-hook
+   java-mode-hook    
+   emacs-lisp-mode-hook   
+   ))
+#+end_src
 
     特定のモードで有効.
 
-    #+begin_src emacs-lisp
-    (mapc
-    (lambda (hook)
-    (add-hook hook
-    '(lambda () (flyspell-mode 1))))
-    '(
-    text-mode-hook
-    org-mode-hook
-    wl-draft-mode-hook
-    twittering-edit-mode
-    ))
-    #+end_src
+#+begin_src emacs-lisp
+(mapc
+ (lambda (hook)
+   (add-hook hook
+	     '(lambda () (flyspell-mode 1))))
+ '(
+   text-mode-hook
+   org-mode-hook
+   wl-draft-mode-hook
+   twittering-edit-mode
+   ))
+#+end_src
 
 *** helm-flyspell-collect
     -> helm.org へ

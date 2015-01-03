@@ -34,6 +34,11 @@
 ;;               el-get-emacswiki-base-url
 ;;               "http://raw.github.com/emacsmirror/emacswiki.org/master/")
 
+;; .loaddefs 関係でエラーするときは、 autoloadsを無効にする。
+;; 150103 おかしな関数が autoloadsに追加されると、
+;; ここで動かなくなる。そういう場合は、以前バージョンに戻して様子見
+;; (setq el-get-use-autoloads nil)
+
 ;; ------------------------------------------------------------------------
 ;; Name     : org-mode
 ;; ------------------------------------------------------------------------
@@ -49,28 +54,7 @@
                                             ".." org-dir)))))
   (setq load-path (append (list org-dir org-contrib-dir)
                           (or load-path nil))))
-
 (require 'org)
-
-;; ------------------------------------------------------------------------
-;; フォルダを再帰的にロードパスに追加
-;; ------------------------------------------------------------------------
-;; @ load-path
-;; for Emacs 23 under
-(when (> emacs-major-version 23)
-  (defvar user-emacs-directory "~/.emacs.d"))
-
-;; load-path の追加関数
-(defun add-to-load-path (&rest paths)
-  (let (path)
-    (dolist (path paths paths)
-      (let ((default-directory (expand-file-name (concat user-emacs-directory path))))
-	(add-to-list 'load-path default-directory)
-	(if (fboundp 'normal-top-level-add-subdirs-to-load-path)
-	    (normal-top-level-add-subdirs-to-load-path))))))
-;; load-path に追加するフォルダ
-;; 2 つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
-(add-to-load-path "elisp" "inits" "el-get" "elpa" "local" "mylisp")
 
 ;; ------------------------------------------------------------------------
 ;; Name     : bundle.el
@@ -88,7 +72,9 @@
 ;; Install  : git clone https://github.com/emacs-jp/init-loader
 ;; Function : init.el分割管理
 ;; ------------------------------------------------------------------------
- (bundle emacs-jp/init-loader)
+(bundle emacs-jp/init-loader)
+;; (require 'bundle)
+;; (require 'init-loader)
 
 ;; バイトコンパイルする
 ;; 初めのバイトコンパイルは手動で実施する必要がある
@@ -108,8 +94,9 @@
 ;; Function : inits.org分割管理
 ;; Refs     : https://github.com/takaishi/babel-loader.el
 ;; ------------------------------------------------------------------------
-(bundle takaishi/babel-loader.el)
+;; (bundle takaishi/babel-loader.el)
 (require 'org-element)
+(add-to-list 'load-path (locate-user-emacs-file "el-get/repo/babel-loader.el"))
 (require 'babel-loader)
 
 ;; Refs;

@@ -99,6 +99,7 @@
 
 #+begin_src emacs-lisp
 (use-package setup-linum
+  :disabled t
   :init
   ;; daemon 起動中に linum-mode を有効にすると落ちる.
   (add-hook 'after-init-hook 'global-linum-mode t)
