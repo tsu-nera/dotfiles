@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: srcR
+# key: srcR
+# --
+#+begin_src R :session ex
+$1	      
+#+end_src
+$0
