@@ -239,6 +239,11 @@
 ;; (add-to-list 'auto-mode-alist '("\\.php?\\'" . xml-mode))
 #+end_src
 
+* yaml-mode
+#+begin_src emacs-lisp
+(use-package yaml-mode :commands yaml-mode)
+#+end_src
+
 * R
 ** ESS
     Emacs を統計用 IDE にするツール. デファクトスタンダードと言える.
@@ -336,6 +341,7 @@
    org-mode で R を利用する.
    - [[http://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html][R Source Code Blocks in Org Mode]]
    - [[http://sheephead.homelinux.org/2010/05/25/1868/][Emacs 上のマルチな実行環境, Org-babel - sheephead]]
+   - https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org
 
    R 言語と org-mode で Reproducible Research を.
    - https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org

@@ -1,0 +1,20 @@
+#!/bin/sh
+# -*- mode: shell-script -*-
+#
+# org-wk-export-to-wiki files with org-mode
+#
+DIR=`pwd`
+FILES=""
+
+for i in $@; do
+    FILES="$FILES \"$i\""
+done
+
+emacs -Q --batch \
+    --eval "(progn
+     (add-to-list 'load-path \"/usr/share/emacs/site-lisp/org\")
+     (require 'org)(require 'ob)(require 'ob-tangle)
+     (mapc (lambda (file)
+            (find-file (expand-file-name file \"$DIR\"))
+            (org-babel-tangle)
+            (kill-buffer)) '($FILES)))" 2>&1 | grep tangled

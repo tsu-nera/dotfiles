@@ -559,14 +559,46 @@
  )
 #+end_src
 
+  評価するときにいちいち質問されないようにする.
+
+#+begin_src emacs-lisp
+(setq org-confirm-babel-evaluate nil)
+#+end_src
+
+  org-mode でファイルをひらくときに,inline-image があれば読み込み.
+
+#+begin_src emacs-lisp
+(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)   
+(add-hook 'org-mode-hook 'org-display-inline-images)   
+#+end_src
+
 ** 出力方法
-   :results raw をかくと, 結果がコードにかかれる.
-   ただし, tangle したときは無視される.
+*** :results
+    - [[http://orgmode.org/worg/org-contrib/babel/header-args.html][Header arguments and result types in Org Babel]]
+
+**** raw    
+   結果がコードにかかれる. ただし, tangle したときは無視される.
    - [[http://d.hatena.ne.jp/tamura70/20100310/org][Emacs org-mode を使ってみる: (35) org-babel-perl を使う 1/4 ]]
 
    #+begin_src text
    #+begin_src java :results raw
    #+end_src
+
+**** code
+   begin_src end_src で囲まれて出力される.
+
+   ブログを書くときに便利.
+
+*** :exports
+    export するときの挙動をきめる.
+    - :export code
+    - :export result
+    - :export both
+    - :export none
+
+    参考:
+    - [[http://orgmode.org/manual/Exporting-code-blocks.html][Exporting code blocks - The Org Manual]]
+
 
 ** インタプリタ
    インタプリタをもつ言語では, :session hogehoge を記述することで,
@@ -607,8 +639,6 @@
   (mmm-add-classes
    '((org-elisp
       :submode emacs-lisp-mode
-;;      :front "^#\\+begin_src emacs-lisp"
-;;      :back  "^#\\+end_src")))
       :front "#\\+begin_src emacs-lisp"
       :back  "#\\+end_src")))
   (mmm-add-mode-ext-class nil "\\.org\\'" 'org-elisp))

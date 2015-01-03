@@ -1,0 +1,6 @@
+---
+- hosts: amazon-aws-ubuntu
+  sudo: yes
+  tasks:
+    - name: "apt-get install git"
+      apt: pkg=git

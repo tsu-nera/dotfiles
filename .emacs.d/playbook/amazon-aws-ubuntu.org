@@ -1,0 +1,56 @@
+* Amazon AWS Ubuntu
+
+** ping
+#+begin_src bash
+mkdir -p ~/.emacs.d/playbook
+cd ~/.emacs.d/playbook
+echo '54.65.121.127' >> hosts
+#+end_src
+
+   以下の作業はすべて,~/.emacs.d/playbook で実施.
+
+   ansible.cfg ファイルを作成.
+
+   #+begin_src text
+   [defaults]
+   hostfile = ./hosts
+   remote_user = ubuntu
+   private_key_file = ~/.ssh/archlinux.pem
+   host_key_checking = False
+   #+end_src
+
+   ping する.
+
+#+begin_src bash :results raw :export both 
+ansible all -m ping -i hosts
+#+end_src
+
+#+RESULTS:
+54.65.121.127 | success >> {
+    "changed": false, 
+    "ping": "pong"
+}
+
+#+begin_src bash :results raw :export both 
+ansible all -i hosts -a 'uname -r'
+#+end_src
+
+#+RESULTS:
+54.65.121.127 | success | rc=0 >>
+3.13.0-36-generic
+
+** initial tools
+
+#+begin_src yaml :tangle yes
+---
+- hosts: amazon-aws-ubuntu
+  sudo: yes
+  tasks:
+    - name: "apt-get install git"
+      apt: pkg=git    
+#+end_src
+
+* Bookmarks
+  - [[http://answersforaws.com/episodes/2-ansible-and-aws/][Ansible and AWS - Answers for AWS]]
+  - [[http://qiita.com/janus_wel/items/faac04f2ec2cdb50d074][ssh config を汚さずに Ansible で Vagrant ホストを扱う - Qiita]]
+  - [[http://qiita.com/seizans/items/f5f052aec1592c47767f][Ansible で git clone させる - Qiita]]
