@@ -568,6 +568,13 @@
    #+begin_src java :results raw
    #+end_src
 
+** インタプリタ
+   インタプリタをもつ言語では, :session hogehoge を記述することで,
+   hogehoge バッファでセッションが開始する.
+
+   なにがうれしいかというと, 複数の code block の間で,
+   変数を共有することができる.
+
 ** java
    クラス名を指定する.
    - [[http://lists.gnu.org/archive/html/emacs-orgmode/2011-07/msg00946.html][Re:How-to evaluate Java-snippets in org-mode/org-babel?]]
@@ -575,6 +582,9 @@
    #+begin_src text
    #+begin_src java :classname packagename/classname
    #+end_src
+
+** R
+   -> minorlang.org へ.
 
 ** mmm-mode
    mmm-mode を利用すると, org-mode のなかに major-mode が共存できる.

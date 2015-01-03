@@ -105,7 +105,7 @@
 * Plant UML Mode
   Major mode for editing PlantUML.
   - [[http://plantuml.sourceforge.net/emacs.html][PlantUML]]
-  - [[http://futurismo.biz/archives/2305][EmacsからPlantUMLを便利につかう方法 | Futurismo]]
+  - [[http://futurismo.biz/archives/2305][Emacs から PlantUML を便利につかう方法 | Futurismo]]
 
   #+begin_src emacs-lisp
 (use-package plantuml-mode
@@ -291,8 +291,11 @@
    - https://github.com/myuhe/ess-R-data-view.el
 
 #+begin_src emacs-lisp
-;; (define-key ess-mode-map (kbd "C-c v") 'ess-R-dv-ctable)
-(define-key ess-mode-map (kbd "C-c v") 'ess-R-dv-pprint)
+(use-package ess-R-data-view
+  :config
+  ;; (define-key ess-mode-map (kbd "C-c v") 'ess-R-dv-ctable)
+  (define-key ess-mode-map (kbd "C-c v") 'ess-R-dv-pprint)
+  )
 #+end_src
 
    popwin と組み合わせると便利.
@@ -331,14 +334,24 @@
 
 ** org-babel-R
    org-mode で R を利用する.
-   - [[http://d.hatena.ne.jp/tamura70/20100315/org][Emacs org-mode を使ってみる: (40) org-babel-R を使う 1/2 - 屯遁のパズルとプログラミングの日記]]
-   - [[http://d.hatena.ne.jp/tamura70/20100316/org][Emacs org-mode を使ってみる: (41) org-babel-R を使う 2/2 - 屯遁のパズルとプログラミングの日記]]
    - [[http://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html][R Source Code Blocks in Org Mode]]
+   - [[http://sheephead.homelinux.org/2010/05/25/1868/][Emacs 上のマルチな実行環境, Org-babel - sheephead]]
 
    R 言語と org-mode で Reproducible Research を.
    - https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org
 
    設定は, org-mode.org に移動.
+
+*** template
+    ファイル名とサイズを指定する.
+   - [[http://d.hatena.ne.jp/tamura70/20100315/org][Emacs org-mode を使ってみる: (40) org-babel-R を使う 1/2 - 屯遁のパズルとプログラミングの日記]]
+   - [[http://d.hatena.ne.jp/tamura70/20100316/org][Emacs org-mode を使ってみる: (41) org-babel-R を使う 2/2 - 屯遁のパズルとプログラミングの日記]]
+
+#+BEGIN_SRC R :file hogehoge.png :width 400 :height 400 :results graphics 
+  plot (matrix (rnorm (100), ncol=2), type="l")
+#+END_SRC
+
+  C-c C-c で eval.
 
 ** End of ESS Config
 #+begin_src emacs-lisp

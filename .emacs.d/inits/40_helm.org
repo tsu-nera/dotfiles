@@ -117,7 +117,8 @@
 (use-package helm-kaomoji :commands helm-kaomoji)
 #+end_src
 
-** helm-flyspell
+** TODO helm-flyspell
+   すごく便利だったのに, 動かなくなった. . .
    - from:  https://gist.github.com/cofi/3013327
    - forked: https://gist.github.com/tsu-nera/2ac6ee1555bcf8597fa6
 

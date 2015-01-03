@@ -181,6 +181,21 @@
 ;;   (terminal-init-bobcat))
 #+end_src
 
+*** カーソル位置の単語を削除
+    現在位置の word を削除
+    - [[http://dev.ariel-networks.com/wp/documents/aritcles/emacs/part16][「 Emacs のトラノマキ」連載第 16 回「元 Vimmer が考える Emacs の再設計」 (深町英太郎) ]]
+
+#+begin_src emacs-lisp
+(defun kill-word-at-point ()
+  (interactive)
+  (let ((char (char-to-string (char-after (point)))))
+    (cond
+     ((string= " " char) (delete-horizontal-space))
+     ((string-match "[\t\n -@\[-`{-~]" char) (kill-word 1))
+     (t (forward-char) (backward-word) (kill-word 1)))))
+(global-set-key "\M-d" 'kill-word-at-point)
+#+end_src
+
 ** key-guide
    キーバインドを教えてくれる.
   - https://github.com/kai2nenobu/guide-key

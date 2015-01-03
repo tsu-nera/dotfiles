@@ -190,6 +190,10 @@
     scheme-complete
     eldoc-extension
     smartparens
+    ess-R-data-view
+    ess-R-object-popup
+    ctable
+    helm-R
   )
   "A list of packages to install from el-get at launch.")
 
