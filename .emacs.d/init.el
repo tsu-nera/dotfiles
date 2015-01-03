@@ -53,6 +53,26 @@
 (require 'org)
 
 ;; ------------------------------------------------------------------------
+;; フォルダを再帰的にロードパスに追加
+;; ------------------------------------------------------------------------
+;; @ load-path
+;; for Emacs 23 under
+(when (> emacs-major-version 23)
+  (defvar user-emacs-directory "~/.emacs.d"))
+
+;; load-path の追加関数
+(defun add-to-load-path (&rest paths)
+  (let (path)
+    (dolist (path paths paths)
+      (let ((default-directory (expand-file-name (concat user-emacs-directory path))))
+	(add-to-list 'load-path default-directory)
+	(if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+	    (normal-top-level-add-subdirs-to-load-path))))))
+;; load-path に追加するフォルダ
+;; 2 つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
+(add-to-load-path "elisp" "inits" "el-get" "elpa" "local" "mylisp")
+
+;; ------------------------------------------------------------------------
 ;; Name     : bundle.el
 ;; Function : an el-get wapper
 ;; Refs     : 
@@ -68,7 +88,7 @@
 ;; Install  : git clone https://github.com/emacs-jp/init-loader
 ;; Function : init.el分割管理
 ;; ------------------------------------------------------------------------
-(bundle emacs-jp/init-loader)
+ (bundle emacs-jp/init-loader)
 
 ;; バイトコンパイルする
 ;; 初めのバイトコンパイルは手動で実施する必要がある

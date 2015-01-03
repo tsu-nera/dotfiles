@@ -680,12 +680,12 @@ sudo pacman -S ghostscript
      (setq pdf-info-epdfinfo-program
 	   (concat (el-get-package-directory "pdf-tools")
 		   "src/epdfinfo"))
-     :mode (("\\.pdf$" . pdf-view-mode)
-     ;; :config
+     :mode (("\\.pdf$" . pdf-view-mode))
+     :config
+     (use-package pdf-isearch)
      ;; (use-package pdf-annot)
      ;; (use-package pdf-history) 
-     ;; (use-package pdf-info) 
-     ;; (use-package pdf-isearch) 
+     ;; (use-package pdf-info)
      ;; (use-package pdf-links) 
      ;; (use-package pdf-misc) 
      ;; (use-package pdf-occur) 

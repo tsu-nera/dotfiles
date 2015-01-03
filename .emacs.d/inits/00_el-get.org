@@ -98,7 +98,7 @@
     org-pandoc
     deferred
     ;; color
-    emacs-color-theme
+    color-theme
     molokai-theme
     rainbow-delimiters
     ;; programming

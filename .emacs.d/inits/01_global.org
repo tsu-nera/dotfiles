@@ -10,23 +10,25 @@
    Special Thanks
    - http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
 
-#+begin_src emacs-lisp
-;; @ load-path
-;; for Emacs 23 under
-(when (> emacs-major-version 23)
-  (defvar user-emacs-directory "~/.emacs.d"))
+   -> init.el へ移動
 
-;; load-path の追加関数
-(defun add-to-load-path (&rest paths)
-  (let (path)
-    (dolist (path paths paths)
-      (let ((default-directory (expand-file-name (concat user-emacs-directory path))))
-	(add-to-list 'load-path default-directory)
-	(if (fboundp 'normal-top-level-add-subdirs-to-load-path)
-	    (normal-top-level-add-subdirs-to-load-path))))))
-;; load-path に追加するフォルダ
-;; 2 つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
-(add-to-load-path "elisp" "inits" "el-get" "elpa" "local" "mylisp")
+#+begin_src emacs-lisp
+;; ;; @ load-path
+;; ;; for Emacs 23 under
+;; (when (> emacs-major-version 23)
+;;   (defvar user-emacs-directory "~/.emacs.d"))
+
+;; ;; load-path の追加関数
+;; (defun add-to-load-path (&rest paths)
+;;   (let (path)
+;;     (dolist (path paths paths)
+;;       (let ((default-directory (expand-file-name (concat user-emacs-directory path))))
+;; 	(add-to-list 'load-path default-directory)
+;; 	(if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+;; 	    (normal-top-level-add-subdirs-to-load-path))))))
+;; ;; load-path に追加するフォルダ
+;; ;; 2 つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
+;; (add-to-load-path "elisp" "inits" "el-get" "elpa" "local" "mylisp")
 #+end_src
 
 ** 環境による場合分け
