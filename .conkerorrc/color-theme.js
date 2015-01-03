@@ -272,3 +272,4 @@ function hacker_news_box(color) {
           ".current-comment > td.default { border: solid 2px " + color + " !important; }"
          ], $domains = ["news.ycombinator.com"]);
 };
+

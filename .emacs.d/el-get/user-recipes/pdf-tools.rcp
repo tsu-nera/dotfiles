@@ -1,6 +1,0 @@
-(:name pdf-tools
-       :type github
-       :website "https://github.com/tsu-nera/pdf-tools"
-       :description "Emacs support library for PDF files."
-       :pkgname "tsu-nera/pdf-tools"
-       )

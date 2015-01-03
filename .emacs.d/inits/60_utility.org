@@ -660,9 +660,12 @@ command uses interactive mode if passed an argument."
 
 * pdf-tools
   PDF Viewer.
+  - https://github.com/politza/pdf-tools
+  - http://www.dailymotion.com/video/x2bc1is_pdf-tools-tourdeforce_tech?forcedQuality%3Dhd720
   - http://sheephead.homelinux.org/2014/03/17/7076/
 
   github のやつだと, コンパイルエラーするので, fork して無理やり通した.
+  -> patch とりこまれた
 
   ArchLinux では, GhostScript を入れる.
 
@@ -670,28 +673,35 @@ command uses interactive mode if passed an argument."
 sudo pacman -S ghostscript
 #+end_src
 
-  重いので封印. PDF は Emacs で見るにはつらいかと...
-
 #+begin_src emacs-lisp
-;; (when linux-p
-;; (use-package pdf-tools)
-;; (use-package pdf-annot)
-;; (use-package pdf-history) 
-;; (use-package pdf-info) 
-;; (use-package pdf-isearch) 
-;; (use-package pdf-links) 
-;; (use-package pdf-misc) 
-;; (use-package pdf-occur) 
-;; (use-package pdf-outline) 
-;; (use-package pdf-render) 
-;; (use-package pdf-sync) 
-;; (use-package tablist-filter)
-;; (use-package tablist)
-;; )
+ (when linux-p
+   (use-package pdf-tools :defer t
+     :init
+     (setq pdf-info-epdfinfo-program
+	   (concat (el-get-package-directory "pdf-tools")
+		   "src/epdfinfo"))
+     :mode (("\\.pdf$" . pdf-view-mode)
+     ;; :config
+     ;; (use-package pdf-annot)
+     ;; (use-package pdf-history) 
+     ;; (use-package pdf-info) 
+     ;; (use-package pdf-isearch) 
+     ;; (use-package pdf-links) 
+     ;; (use-package pdf-misc) 
+     ;; (use-package pdf-occur) 
+     ;; (use-package pdf-outline) 
+     ;; (use-package pdf-render) 
+     ;; (use-package pdf-sync) 
+     ;; (use-package tablist-filter)
+     ;; (use-package tablist)
+     ))
 #+end_src
 
   どうも, doc-view-mode がめちゃくちゃ遅い!linum-mode が有効なことが原因.
-  以下のページを参考に, major-mode が doc-view-mode のときは, linum-mode は disable に.
+  以下のページを参考に, major-mode が 
+  - doc-view-mode
+  - pdf-view-mode
+  のときは, linum-mode は disable に.
   - [[http://stackoverflow.com/questions/16132234/how-can-i-speed-up-emacs-docview-mode][How can I speed up Emacs DocView mode? - Stack Overflow]]
 
 ** WIndows 環境
