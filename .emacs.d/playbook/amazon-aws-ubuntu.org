@@ -44,9 +44,7 @@ ansible all -i hosts -a 'uname -r'
 54.64.58.11 | success | rc=0 >>
 3.13.0-36-generic
 
-** initial tools
-   - [[http://gihyo.jp/admin/serial/01/ubuntu-recipe/0235][第 235 回  Ubuntu 12.04 で Emacs 24.1 を使う:Ubuntu Weekly Recipe|gihyo.jp … 技術評論社]]
-   - [[http://emacs.tsutomuonoda.com/emacs24-1-ubuntu-install/][Emacs24.1 を Ubuntu にインストールする | Emacs の elisp インストール・設定・使い方]]
+** ansible settig
 
 #+begin_src yaml :tangle yes
 ---
@@ -55,47 +53,73 @@ ansible all -i hosts -a 'uname -r'
   vars:
     home_dir: /home/ubuntu
     emacs_dir: emacs
-    dotfiles_dir: ditfiles
+    dotfiles_dir: dotfiles
   tasks:
-    # - name: apt-get update
-    #   command: apt-get update
+#+end_src
+
+** initial tools
+   - libncurses5-dev は tputs error 対策
+   - gnutls-bin は el-get
+   - texinfo for makeinfo
+
+#+begin_src yaml :tangle no
+    - name: apt-get update
+      command: apt-get update
     - name: apt-get install git
       apt: pkg=git
     - name: apt-get install tools
-      apt: pkg=automake,make,g++,build-essential,autoconf,texinfo
-    - name: apt-get install image libraries
-      apt: pkg=libXpm-dev,libjpeg-dev,libgif-dev libtiff4-dev, libncurses5-dev, libgtk2.0
+      apt: pkg=build-essential,autoconf,automake,libncurses5-dev, gnutls-bin, texinfo
 #+end_src
+
+*** bookmarks
+   - [[http://gihyo.jp/admin/serial/01/ubuntu-recipe/0235][第 235 回  Ubuntu 12.04 で Emacs 24.1 を使う:Ubuntu Weekly Recipe|gihyo.jp … 技術評論社]]
+   - [[http://emacs.tsutomuonoda.com/emacs24-1-ubuntu-install/][Emacs24.1 を Ubuntu にインストールする | Emacs の elisp インストール・設定・使い方]]
 
 ** install emacs
   - [[http://qiita.com/seizans/items/f5f052aec1592c47767f][Ansible で git clone させる - Qiita]]
 
-#+begin_src yaml :tangle yes
+    make -j オブションをつけたら, メモリ枯渇で make が停止した.
+
+#+begin_src yaml :tangle no
     - name: get emacs from git repository
-      git: repo=git://git.savannah.gnu.org/emacs.git
-           dest=~/ update=no accept_hostkey=True
-    - name: setup emacs building
-      command: ./autogen.sh && ./configure chdir={{home_dir}}/{{emacs_dir}}
+      git: repo=git://git.savannah.gnu.org/emacs.git dest={{home_dir}}/{{emacs_dir}} accept_hostkey=yes
+    - name: make emacs configure file
+      command: ./autogen.sh chdir={{home_dir}}/{{emacs_dir}}
+    - name: make emacs Makefile
+      command: ./configure --prefix=/usr/local --without-makeinfo --without-all chdir={{home_dir}}/{{emacs_dir}}
+#      command: ./autogen.sh && ./configure --prefix=/usr/local --without-makeinfo chdir={{home_dir}}/{{emacs_dir}}
     - name: make emacs
       command: make chdir={{home_dir}}/{{emacs_dir}}
-      debug: var=ls_result.stdout
     - name: install emacs
       command: make install chdir={{home_dir}}/{{emacs_dir}}
-      debug: var=ls_result.stdout
 #+end_src
 
 ** install dotfiles
-#+begin_src yaml :tangle yes
+#+begin_src yaml :tangle no
     - name: clone dotfiles
-      git: repo=git@github.com:tsu-nera/dotfiles.git
-           dest=~/ update=no accept_hostkey=True
+      git: repo=https://github.com/tsu-nera/dotfiles.git dest={{home_dir}}/{{dotfiles_dir}}
     - name: make lnlinks
-      command: ./make_lnlink  chdir={{home_dir}}/{{dotfiles_dir}}
+      command: ./make_lnlink chdir={{home_dir}}/{{dotfiles_dir}}
 #+end_src
 
-** install elisps
+** install additinal tools for emacs
 #+begin_src yaml :tangle yes
+    - name: install additinal tools for pdf-tools
+      apt: pkg=libpng-dev,libz-dev,libpoppler-glib-dev,libpoppler-private-dev 
+    - name: install additinal tools for magit
+      apt: pkg=texinfo
+    - name: install additinal tools for org2blog
+      apt: pkg=bzr
+    - name: install additinal tools for cmigemo
+      apt: pkg=cmigemo
+#+end_src
 
+** boot emacs
+#+begin_src yaml :tangle yes
+    - name: boot emacs first 
+      command: emacs --daemon
+    - name: reboot emacs
+      command: emacsclient -e '(progn (defun yes-or-no-p (p) t) (kill-emacs))' && emacs --daemon
 #+end_src
 
 * Bookmarks

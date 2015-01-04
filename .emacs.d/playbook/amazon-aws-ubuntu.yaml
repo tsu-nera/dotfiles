@@ -4,22 +4,13 @@
   vars:
     home_dir: /home/ubuntu
     emacs_dir: emacs
+    dotfiles_dir: dotfiles
   tasks:
-    - name: apt-get update
-      command: apt-get update
-    - name: apt-get install git
-      apt: pkg=git
-    - name: apt-get install tools
-      apt: pkg=automake,make,g++,build-essential,autoconf,texinfo
-    - name: apt-get install image libraries
-      apt: pkg=libmagickwand-dev,libselinux1-dev,libgnutls-dev,libxml2-dev
 
-    - name: get emacs from git repository
-      git: repo=git://git.savannah.gnu.org/emacs.git
-           dest=~/ update=no accept_hostkey=True
-    - name: setup emacs building
-      command: ./autogen.sh && ./configure --with-x-toolkit=no chdir={{home_dir}}/{{emacs_dir}}
-    - name: make emacs
-      command: make chdir={{home_dir}}/{{emacs_dir}}
-    - name: install emacs
-      command: make install chdir={{home_dir}}/{{emacs_dir}}
+    - name: install additinal tools for pdf-tools
+      apt: pkg=libpng-dev,libz-dev,libpoppler-glib-dev,libpoppler-private-dev 
+
+    - name: boot emacs first 
+      command: emacs --daemon
+    - name: reboot emacs
+      command: emacsclient -e '(progn (defun yes-or-no-p (p) t) (kill-emacs))' && emacs --daemon

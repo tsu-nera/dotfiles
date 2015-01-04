@@ -94,7 +94,7 @@
 ;; Function : inits.org分割管理
 ;; Refs     : https://github.com/takaishi/babel-loader.el
 ;; ------------------------------------------------------------------------
-;; (bundle takaishi/babel-loader.el)
+(bundle takaishi/babel-loader.el)
 (require 'org-element)
 (add-to-list 'load-path (locate-user-emacs-file "el-get/repo/babel-loader.el"))
 (require 'babel-loader)
@@ -127,5 +127,7 @@
 
 ;; inits配下のorgファイルをelcに変換して読み込み.
 (bl:load-dir "~/.emacs.d/inits/")
+
+;;自動挿入された?? 
 (put 'downcase-region 'disabled nil)
 (put 'set-goal-column 'disabled nil)

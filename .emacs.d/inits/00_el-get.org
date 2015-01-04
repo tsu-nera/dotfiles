@@ -82,7 +82,6 @@
     imenu-anywhere
     ;; helm
     helm
-    helm-c-yasnippet
     helm-descbinds
     helm-orgcard
     helm-gtags
@@ -129,8 +128,6 @@
     ;; haskell-mode
     ac-haskell-process
     ;; anything-rdefs
-    vbasense
-    visual-basic-mode
     rainbow-mode
     yaml-mode
     markdown-mode
@@ -194,14 +191,20 @@
     ess-R-object-popup
     ctable
     helm-R
-    ansible
-  )
+;;    ansible
+    (when windows-p
+    vbasense
+    visual-basic-mode
+    )
+    )
   "A list of packages to install from el-get at launch.")
 
-;; 以下の2つは普段は封印しておく
+;; 以下の 2 つは普段は封印しておく
 
 ;; 同期する
-;; (el-get 'sync my/el-get-packages-all)
+(el-get 'sync my/el-get-packages-all)
+
+;; まちがって repo 配下の elc も消しちゃったらこれを有効にしとて byte compile
 ;; Whether or not to byte-compile packages at init
 ;; (setq el-get-byte-compile-at-init t)
 #+end_src
@@ -213,6 +216,8 @@
 
   gist にアクセスできない...
 
+  Linux だと, gnutls-bin をいれる.
+
 #+begin_src text
 Contacting host: api.github.com:443
 Opening TLS connection to `api.github.com'...
@@ -221,3 +226,4 @@ Opening TLS connection with `gnutls-cli --insecure -p 443 api.github.com --proto
 Opening TLS connection with `openssl s_client -connect api.github.com:443 -no_ssl2 -ign_eof'...failed
 Opening TLS connection to `api.github.com'...failed
 #+end_src
+
