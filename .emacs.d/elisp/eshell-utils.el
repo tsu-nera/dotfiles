@@ -56,7 +56,7 @@
 ;;     ;; not the starting directory
 ;;     (mapc #'find-file (mapcar #'expand-file-name (eshell-flatten-list (reverse args))))))
 
-;; Ctrl + L
+;; http://stackoverflow.com/questions/7733668/command-to-clear-shell-while-using-emacs-shell
 (defun eshell/clear ()
   "Clear the current buffer, leaving one prompt at the top."
   (interactive)

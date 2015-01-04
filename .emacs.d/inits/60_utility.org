@@ -433,9 +433,9 @@ Warning: Eager macro-expansion skipped due to cycle:
          ;; 別シェルを生成
          ("C-c C-x t" . eshell/make-new-eshell))
   :init
-  (add-hook 'eshell-mode-hook
-	    #'(lambda ()
-		(define-key eshell-mode-map (kbd "C-L") 'eshell/clear)))
+;;  (add-hook 'eshell-mode-hook
+;;	    #'(lambda ()
+;;		(define-key eshell-mode-map (kbd "C-l") 'eshell/clear)))
   )
 #+end_src
 

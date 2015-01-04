@@ -11,10 +11,15 @@
       apt: pkg=git
     - name: apt-get install tools
       apt: pkg=automake,make,g++,build-essential,autoconf,texinfo
+    - name: apt-get install image libraries
+      apt: pkg=libmagickwand-dev,libselinux1-dev,libgnutls-dev,libxml2-dev
 
     - name: get emacs from git repository
       git: repo=git://git.savannah.gnu.org/emacs.git
            dest=~/ update=no accept_hostkey=True
-      
+    - name: setup emacs building
+      command: ./autogen.sh && ./configure --with-x-toolkit=no chdir={{home_dir}}/{{emacs_dir}}
+    - name: make emacs
+      command: make chdir={{home_dir}}/{{emacs_dir}}
     - name: install emacs
-      command: ./autogen.sh && ./configure && make && make install chdir={{home_dir}}/{{emacs_dir}}
+      command: make install chdir={{home_dir}}/{{emacs_dir}}
