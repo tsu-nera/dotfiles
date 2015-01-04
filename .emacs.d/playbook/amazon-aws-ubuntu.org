@@ -1,4 +1,4 @@
-* Amazon AWS Ubuntu
+3* Amazon AWS Ubuntu
 
   固定 IP は有料.
 
@@ -48,18 +48,28 @@ ansible all -i hosts -a 'uname -r'
 ---
 - hosts: defaults
   sudo: yes
+  vars:
+    home_dir: /home/ubuntu
+    emacs_dir: emacs
   tasks:
-    - name: "apt-get install git"
-      apt: pkg=git    
+    - name: apt-get update
+      command: apt-get update
+    - name: apt-get install git
+      apt: pkg=git
+    - name: apt-get install tools
+      apt: pkg=automake,make,g++,build-essential,autoconf,texinfo
 #+end_src
 
 ** git clone
   - [[http://qiita.com/seizans/items/f5f052aec1592c47767f][Ansible で git clone させる - Qiita]]
 
 #+begin_src yaml :tangle yes
-    - name: "get emacs from git repository"
+    - name: get emacs from git repository
       git: repo=git://git.savannah.gnu.org/emacs.git
-           dest=/home/ubuntu accept_hostkey=True
+           dest=~/ update=no accept_hostkey=True
+      
+    - name: install emacs
+      command: ./autogen.sh && ./configure && make && make install chdir={{home_dir}}/{{emacs_dir}}
 #+end_src
 
 * Bookmarks

@@ -491,7 +491,8 @@
    #+begin_src emacs-lisp
 (use-package skk-autoloads
   :if linux-p
-  :init (global-unset-key "\C-xj")
+  :init
+  (global-unset-key "\C-xj")
   (setq skk-use-kana-keyboard t)
   (setq skk-kanagaki-keyboard-type 'omelet-jis)
   :bind (("C-x C-j" . skk-mode) ("C-x j" . skk-mode))
