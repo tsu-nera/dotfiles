@@ -105,8 +105,11 @@
   こんなの見つけた. ac-haskell-process.
   - https://github.com/purcell/ac-haskell-process
 
+  ちょくちょくエラーでてるから一旦封印しておく.
+
 #+begin_src emacs-lisp
 (use-package ac-haskell-process
+  :disabled t
   :init
   (add-hook 'interactive-haskell-mode-hook 'ac-haskell-process-setup)
   (add-hook 'haskell-interactive-mode-hook 'ac-haskell-process-setup)
