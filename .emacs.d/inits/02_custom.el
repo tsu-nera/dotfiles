@@ -16,4 +16,7 @@
  '(elscreen-tab-other-screen-face ((t (:background "#262626" :foreground "#9e9e9e" :underline t))))
  '(font-lock-comment-delimiter-face ((t (:inherit font-lock-comment-face :foreground "gray80"))))
  '(font-lock-comment-face ((t (:foreground "gray80"))))
- '(minibuffer-prompt ((t (:foreground "cyan")))))
+ '(helm-selection ((t (:background "ForestGreen" :underline t))))
+ '(helm-source-header ((t (:background "#22083397778B" :foreground "white" :weight bold :height 1.3 :family "Sans Serif"))))
+ '(minibuffer-prompt ((t (:foreground "cyan"))))
+ '(stripe-highlight ((t (:background "#444444")))))
