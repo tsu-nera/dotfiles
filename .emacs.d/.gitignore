@@ -1,6 +1,5 @@
 eshell
 org-gcal
-local/
 *#
 *.elc
 tramp
@@ -11,3 +10,6 @@ twittering-mode.gpg
 jdee
 projectile-bookmarks.eld
 .hl-save
+
+/.local/*
+!/.local/README.org
