@@ -59,7 +59,7 @@ ansible all -i hosts -a 'uname -r'
 
 ** initial tools
    - libncurses5-dev は tputs error 対策
-   - gnutls-bin は el-get
+   - gnutls-bin for el-get
    - texinfo for makeinfo
 
 #+begin_src yaml :tangle no
@@ -67,8 +67,8 @@ ansible all -i hosts -a 'uname -r'
       command: apt-get update
     - name: apt-get install git
       apt: pkg=git
-    - name: apt-get install tools
-      apt: pkg=build-essential,autoconf,automake,libncurses5-dev, gnutls-bin, texinfo
+    - name: apt-get install build tools
+      apt: pkg=build-essential,autoconf,automake,libncurses5-dev,gnutls-bin,texinfo
 #+end_src
 
 *** bookmarks
@@ -86,8 +86,7 @@ ansible all -i hosts -a 'uname -r'
     - name: make emacs configure file
       command: ./autogen.sh chdir={{home_dir}}/{{emacs_dir}}
     - name: make emacs Makefile
-      command: ./configure --prefix=/usr/local --without-makeinfo --without-all chdir={{home_dir}}/{{emacs_dir}}
-#      command: ./autogen.sh && ./configure --prefix=/usr/local --without-makeinfo chdir={{home_dir}}/{{emacs_dir}}
+      command: ./configure --prefix=/usr/local --without-makeinfo --with-x-toolkit=no --without-all chdir={{home_dir}}/{{emacs_dir}}
     - name: make emacs
       command: make chdir={{home_dir}}/{{emacs_dir}}
     - name: install emacs
@@ -100,26 +99,36 @@ ansible all -i hosts -a 'uname -r'
       git: repo=https://github.com/tsu-nera/dotfiles.git dest={{home_dir}}/{{dotfiles_dir}}
     - name: make lnlinks
       command: ./make_lnlink chdir={{home_dir}}/{{dotfiles_dir}}
+      sudo: yes
+      sudo_user: ubuntu
 #+end_src
 
 ** install additinal tools for emacs
-#+begin_src yaml :tangle yes
+#+begin_src yaml :tangle no
     - name: install additinal tools for pdf-tools
       apt: pkg=libpng-dev,libz-dev,libpoppler-glib-dev,libpoppler-private-dev 
     - name: install additinal tools for magit
       apt: pkg=texinfo
     - name: install additinal tools for org2blog
       apt: pkg=bzr
+    - name: install additinal tools for exectable-find
+      apt: pkg=mercurial
     - name: install additinal tools for cmigemo
       apt: pkg=cmigemo
+    - name: install additinal tools for ag
+      apt: pkg=silversearcher-ag
 #+end_src
 
 ** boot emacs
 #+begin_src yaml :tangle yes
     - name: boot emacs first 
       command: emacs --daemon
+      sudo: yes
+      sudo_user: ubuntu
     - name: reboot emacs
       command: emacsclient -e '(progn (defun yes-or-no-p (p) t) (kill-emacs))' && emacs --daemon
+      command: emacs --daemon
+      sudo: yes
 #+end_src
 
 * Bookmarks

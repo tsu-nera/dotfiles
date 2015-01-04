@@ -209,7 +209,6 @@
     scala-mode2
     ensime
     sbt-mode
-    org-sync
     eclim
     smartrep
     ac-helm
