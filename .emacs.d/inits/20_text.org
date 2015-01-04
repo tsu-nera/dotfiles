@@ -585,6 +585,7 @@ google-ime-skk &
 (use-package skk-server
   :if linux-p
   :config
+  (require 'skk-vars)
   ;; 辞書サーバを利用する場合の設定
   (setq skk-server-host "0.0.0.0"
 	skk-server-prog "google-ime-skk" ;; パスは通っているようだ.
