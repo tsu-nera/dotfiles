@@ -491,12 +491,12 @@
    #+begin_src emacs-lisp
 (use-package skk-autoloads
   :if linux-p
+  :bind (("C-x C-j" . skk-mode) ("C-x j" . skk-mode))
   :init
   (global-unset-key "\C-xj")
   (setq skk-use-kana-keyboard t)
   (setq skk-kanagaki-keyboard-type 'omelet-jis)
-  :bind (("C-x C-j" . skk-mode) ("C-x j" . skk-mode))
-  :config
+
   (setq skk-egg-like-newline t) ;; Enter で改行しない
   (setq skk-byte-compile-init-file t) ;; 自動バイトコンパイル
 
@@ -563,6 +563,8 @@
    - https://github.com/akiym/go-skkserv
 
 #+begin_src bash
+
+
 go get github.com/akiym/go-skkserv
 #+end_src
 
@@ -576,6 +578,8 @@ go get github.com/akiym/go-skkserv
 # skk server
 google-ime-skk &
 #+end_src
+
+ Symbol's value s valiable is void: skkserv-process がでる.
      
 #+begin_src emacs-lisp
 (use-package skk-server
