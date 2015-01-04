@@ -244,6 +244,19 @@
 (use-package yaml-mode :commands yaml-mode)
 #+end_src
 
+* ansible
+  - https://github.com/k1LoW/emacs-ansible
+  - [[http://k1low.hatenablog.com/entry/2014/05/27/231132][Ansible の Playbook を書くときに便利になるかもしれない ansible.el を書いてみた - Copy/Cut/Paste/Hatena]]
+
+  submodule で ansible repo を clone していて,
+  重かったのでいったん休止.
+
+#+begin_src emacs-lisp
+(use-package ansible
+  :disabled t
+  :commands ansible)
+#+end_src
+
 * R
 ** ESS
     Emacs を統計用 IDE にするツール. デファクトスタンダードと言える.

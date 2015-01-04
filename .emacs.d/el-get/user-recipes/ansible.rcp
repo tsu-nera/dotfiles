@@ -1,0 +1,3 @@
+(:name ansible
+       :type github
+       :pkgname "k1LoW/emacs-ansible")

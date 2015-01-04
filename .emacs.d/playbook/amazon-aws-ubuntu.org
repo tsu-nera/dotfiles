@@ -1,10 +1,12 @@
 * Amazon AWS Ubuntu
 
+  固定 IP は有料.
+
 ** ping
 #+begin_src bash
 mkdir -p ~/.emacs.d/playbook
 cd ~/.emacs.d/playbook
-echo '54.65.121.127' >> hosts
+echo '54.65.121.127' > hosts
 #+end_src
 
    以下の作業はすべて,~/.emacs.d/playbook で実施.
@@ -21,36 +23,47 @@ echo '54.65.121.127' >> hosts
 
    ping する.
 
-#+begin_src bash :results raw :export both 
+#+begin_src bash :results raw silent :export both 
 ansible all -m ping -i hosts
 #+end_src
 
 #+RESULTS:
-54.65.121.127 | success >> {
+54.64.58.11 | success >> {
     "changed": false, 
     "ping": "pong"
 }
+
 
 #+begin_src bash :results raw :export both 
 ansible all -i hosts -a 'uname -r'
 #+end_src
 
 #+RESULTS:
-54.65.121.127 | success | rc=0 >>
+54.64.58.11 | success | rc=0 >>
 3.13.0-36-generic
 
 ** initial tools
 
 #+begin_src yaml :tangle yes
 ---
-- hosts: amazon-aws-ubuntu
+- hosts: defaults
   sudo: yes
   tasks:
     - name: "apt-get install git"
       apt: pkg=git    
 #+end_src
 
+** git clone
+  - [[http://qiita.com/seizans/items/f5f052aec1592c47767f][Ansible で git clone させる - Qiita]]
+
+#+begin_src yaml :tangle yes
+    - name: "get emacs from git repository"
+      git: repo=git://git.savannah.gnu.org/emacs.git
+           dest=/home/ubuntu accept_hostkey=True
+#+end_src
+
 * Bookmarks
   - [[http://answersforaws.com/episodes/2-ansible-and-aws/][Ansible and AWS - Answers for AWS]]
   - [[http://qiita.com/janus_wel/items/faac04f2ec2cdb50d074][ssh config を汚さずに Ansible で Vagrant ホストを扱う - Qiita]]
   - [[http://qiita.com/seizans/items/f5f052aec1592c47767f][Ansible で git clone させる - Qiita]]
+  - [[http://mosuke5.hateblo.jp/entry/2014/11/16/153223][Ansible, ソースインストールする際の Palybook の書き方 - Goldstine 研究所]]

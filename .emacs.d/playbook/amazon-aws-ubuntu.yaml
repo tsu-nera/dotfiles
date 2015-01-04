@@ -1,6 +1,10 @@
 ---
-- hosts: amazon-aws-ubuntu
+- hosts: defaults
   sudo: yes
   tasks:
     - name: "apt-get install git"
-      apt: pkg=git
+      apt: pkg=git    
+
+    - name: "get emacs from git repository"
+      git: repo=git://git.savannah.gnu.org/emacs.git
+           dest=/home/ubuntu accept_hostkey=True
