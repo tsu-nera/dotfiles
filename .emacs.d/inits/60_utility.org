@@ -398,6 +398,13 @@ Warning: Eager macro-expansion skipped due to cycle:
 ;; これで正規表現がつかえるようになる??
 (setq eshell-prompt-regexp "^[^#$]*[$#] ")
 
+;; windows環境だと、shift-jisにしよう
+(when windows-p
+  (add-hook
+   'eshell-mode-hook
+   '(lambda ()
+      (set-buffer-process-coding-system 'sjis 'sjis))))
+
 (setq eshell-prompt-function
       (lambda ()
         (concat "[tsu-nera"
@@ -521,9 +528,13 @@ Warning: Eager macro-expansion skipped due to cycle:
    - [[http://sleepboy-zzz.blogspot.jp/2013/07/emacs-ercirc.html][memo: Emacs ERC で IRC を試してみた]]
 
 #+begin_src emacs-lisp
-(use-package erc
-  :commands erc
-  :config
+;; (use-package erc
+;;  :commands erc
+;;  :config
+
+;; 調子がわるいので、use-packageをやめてみる.
+(when windows-p
+(require 'erc)
 
   ;; ログイン情報
   ;; (setq erc-server "localhost")

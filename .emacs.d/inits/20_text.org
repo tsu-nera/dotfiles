@@ -109,13 +109,6 @@
 
   ;; メニューは使わない
   (setq yas-use-menu nil)
-  
-  ;; 既存スニペットを挿入する
-  ;; (define-key yas-minor-mode-map (kbd "C-x i i") 'helm-yas-complete)
-  ;; 既存スニペットを閲覧・編集する
-  ;; (define-key yas-minor-mode-map (kbd "C-x i v") 'helm-yas-visit-snippet-file))
-  ;; 新規スニペットを作成するバッファを用意する
-  ;; (define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
  )
 #+end_src
 
