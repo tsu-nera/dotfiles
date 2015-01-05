@@ -98,6 +98,7 @@
   :init (global-unset-key "\C-xi")
   :bind (("C-x i i" . helm-yas-complete)
 	 ("C-x i v" . helm-yas-visit-snippet-file)
+	 ;; helm-yas-xxx は autoloadされているっぽい.
 	 ("C-x i n" . yas-new-snippet))
   :config
   (setq yas-snippet-dirs

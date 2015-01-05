@@ -132,6 +132,7 @@
     helm-google
     helm-etags-plus
     helm-swoop
+    helm-c-yasnippet
     org-mode
     org-pandoc
     deferred
