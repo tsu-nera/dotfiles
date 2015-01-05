@@ -15,4 +15,4 @@
 
 (add-hook 'erc-text-matched-hook 'my-erc-nick-hook)
 
-(provide 'my-growl-fow-windows)
+(provide 'my-growl-for-windows)

@@ -183,6 +183,7 @@ alias r='ruby'
 alias l='less'
 alias t='task'
 alias o='xdg-open'
+alias c='cygstart'
 alias forced_git_local_destroy='git fetch origin;git reset --hard origin/master'
 
 #alias cd=cdls

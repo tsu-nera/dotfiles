@@ -669,6 +669,11 @@ google-ime-skk &
   :disabled t
   :init (ac-skk-enable))
 #+end_src
+*** TODO workaround
+
+#+begin_src emacs-lisp
+(require 'skk-vars) ;; これをかかないと Emacs 終了時に終了できない??
+#+end_src
 
 ** context-sk
    プログラムファイルのコード部分で「かな」とかになってた場合に

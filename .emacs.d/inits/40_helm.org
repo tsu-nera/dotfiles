@@ -4,6 +4,9 @@
 
   ダウンロードしたら, make でコンパイルする.
 
+  windows 環境で helm-autoloads がないと言われた時は,
+  Cygwin を利用して make することで, autoloads ファイルを生成.
+
 * 組み込み helm
   helm project にもとから入っているもの.
   - https://github.com/emacs-helm/helm

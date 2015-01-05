@@ -477,7 +477,6 @@ Warning: Eager macro-expansion skipped due to cycle:
   )
 #+end_src
 
-
 * Chat
 ** twittering-mode
   Emacs Twitter Client
@@ -626,9 +625,12 @@ command uses interactive mode if passed an argument."
 
 #+begin_src emacs-lisp
 (when windows-p
-  (use-package my-growl-fow-windows)
+  (use-package my-growl-for-windows)
   )
 #+end_src
+
+#+RESULTS:
+: Could not load package my-growl-fow-windows
 
 *** Encoding
     #+begin_src emacs-lisp
