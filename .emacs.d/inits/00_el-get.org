@@ -93,8 +93,6 @@
     pcre2el
     ht
     iedit
-    flyspell
-    yspel
     fic-ext-mode
     codic
     google-this
@@ -241,6 +239,8 @@
 (defvar my/el-get-packages-linux
   '(
     pdf-tools
+    flyspell
+;;    yspel
     )
   "A list of packages to install from el-get at launch for linux")
 

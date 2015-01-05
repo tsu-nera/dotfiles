@@ -98,7 +98,7 @@
   :init (global-unset-key "\C-xi")
   :bind (("C-x i i" . helm-yas-complete)
 	 ("C-x i v" . helm-yas-visit-snippet-file)
-	 ;; helm-yas-xxx は autoloadされているっぽい.
+	 ;; helm-yas-xxx は autoload されているっぽい.
 	 ("C-x i n" . yas-new-snippet))
   :config
   (setq yas-snippet-dirs
@@ -709,7 +709,6 @@ google-ime-skk &
 
 ** yspel
    Yahoo の文章校正ツールを利用した日本語スペルチェック!
-
    - [[http://ubulog.blogspot.jp/2010/09/emacs.html][ubulog: Emacs から校正支援する]]
 
    #+begin_src emacs-lisp
@@ -761,6 +760,7 @@ google-ime-skk &
 
    #+begin_src emacs-lisp
 (use-package flyspell
+  :if linux-p
   :bind (("C-c <f8>" . flyspell-mode)
 	 ("C-c <f9>" . ispell-word)
 	 ("C-c <f10>" . flyspell-buffer))
@@ -806,6 +806,15 @@ google-ime-skk &
 #+begin_src emacs-lisp
 )
 #+end_src
+
+
+** TODO helm-flyspell
+   自前のものではなくて, こっちをつかったほうがいいか??
+   - [[https://github.com/pronobis/helm-flyspell][pronobis/helm-flyspell]]
+
+** TODO flyspell-lazy
+   こっちのほうがよさそう..
+   - https://github.com/rolandwalker/flyspell-lazy
 
 ** grammar
    英語の文法をチェックしてくれる.
