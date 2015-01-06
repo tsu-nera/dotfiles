@@ -67,5 +67,13 @@
     (mygtd:clock-in-task-by-id mygtd:organization-task-id-rest)
     (mygtd:display-rest-message-to-buffer)
     (setq mygtd:rest-timer (run-with-timer 0 1 'mygtd::tick))))
-  
+
+(defun mygtd:reset-rest-timer ()
+  (interactive)
+  (print "Reset timer!!")
+  (if mygtd:rest-timer
+    (cancel-timer mygtd:rest-timer))
+  (setq mygtd:rest-timer nil)
+  (setq mygtd:rest-count-sec 0))
+
 (provide 'my-org-clockin-gtd)
