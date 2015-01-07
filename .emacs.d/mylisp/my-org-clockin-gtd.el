@@ -51,8 +51,6 @@
   (setq mygtd:rest-timer nil)
   (setq mygtd:rest-count-sec 0))
 
-(add-hook 'org-clock-in-hook 'mygtd:reset-rest-timer)
-
 ;;;###autoload
 (defun mygtd:gtd ()
   (interactive)
