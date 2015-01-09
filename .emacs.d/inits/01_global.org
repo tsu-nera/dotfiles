@@ -37,6 +37,7 @@
    記述方法は以下の記事がとても詳しい. ここでは省略.
    - [[http://qiita.com/kai2nenobu/items/5dfae3767514584f5220][Emacs - use-package で可読性の高い init.el を書く - Qiita]]
    - [[http://rubikitch.com/2014/09/09/use-package/][emacs use-package.el : Emacs の世界的権威が行っている最先端ラクラク init.el 整理術]]
+   - [[http://www.lunaryorn.com/2015/01/06/my-emacs-configuration-with-use-package.html][My Emacs Configuration with use-package – lunarsite]]
 
    参考になりすぎる init.el
    - https://github.com/kawabata/dotfiles/blob/master/.emacs.d/init.el
@@ -70,7 +71,9 @@
 #+end_src
 
 ** generic-x
-   いろんなメジャーモード
+   いろんなメジャーモード.
+   
+   rubikichi さんの本では, これは default にすべき! と書いてあった.
 
 #+begin_src emacs-lisp
 (use-package generic-x)

@@ -105,9 +105,13 @@
   :config
   ;; linum を利用しないメジャーモードを列挙
   (setq linum-disabled-modes-list
- 	'(eshell-mode wl-summary-mode
- 	  compilation-mode text-mode
- 	  dired-mode doc-view-mode image-mode pdf-view-mode
+ 	'(eshell-mode
+	  wl-summary-mode
+	  compilation-mode
+	  dired-mode
+	  doc-view-mode
+	  image-mode
+	  pdf-view-mode
 	  )))
 #+end_src
 

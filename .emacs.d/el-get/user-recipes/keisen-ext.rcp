@@ -1,0 +1,4 @@
+(:name keisen-ext
+       :description "Keisen Utilities for Emacs."
+       :type github
+       :pkgname "tsu-nera/emacs-keisen-ext")

@@ -226,9 +226,11 @@
     ess-R-object-popup
     ctable
     helm-R
-;;    ansible
-      )
-    "A list of packages to install from el-get at launch.")
+    ;;    ansible
+    lispxmp
+    vlfi
+    )
+ "A list of packages to install from el-get at launch.")
 
 (defvar my/el-get-packages-windows
   '(vbasense

@@ -308,6 +308,8 @@
    - [[http://sheephead.homelinux.org/2013/05/10/7019/][R のデータビューワ ess-R-data-view.el というのを作りました - sheephead]]
    - https://github.com/myuhe/ess-R-data-view.el
 
+   no ESS process is associated with ... と出てきたら, C-c C-s で
+
 #+begin_src emacs-lisp
 (use-package ess-R-data-view
   :config

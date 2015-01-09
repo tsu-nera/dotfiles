@@ -17,6 +17,15 @@
    (add-to-list 'auto-mode-alist '("\\.log$" . read-only-mode))
    #+end_src
 
+** vlfi
+   View Large File
+   - https://github.com/m00natic/vlfi
+
+
+   #+begin_src emacs-lisp
+   (use-package vlf-setup)
+   #+end_src
+
 * 編集
 ** cua-mode
    矩形編集.
@@ -234,23 +243,32 @@
    - [[http://futurismo.biz/archives/1972][秀丸のような罫線マクロないかな・・・ | Futurismo]]
    - http://hide.maruo.co.jp/lib/macro/draw310.html
 
-   picture-mode:
-   - http://d.hatena.ne.jp/tamura70/20100125/ditaa
-   - http://tototoshi.hatenablog.com/entry/20100614/1276520246
+  -> なんか線が微妙にずれるので, picture-init に乗り換え.
 
-   #+begin_src emacs-lisp
-;;(use-package keisen)
-;;; Control+ 矢印キーで罫線を引く場合
-;; (global-set-key (kbd "C-M-f") 'keisen-right-move)
-;;(global-set-key (kbd "C-M-b") 'keisen-left-move)
-;;(global-set-key (kbd "C-M-p") 'keisen-up-move)
-;;(global-set-key (kbd "C-M-n") 'keisen-down-move)
+  #+begin_src emacs-lisp
+(use-package keisen
+  :disabled t
+  :bind (("C-M-<right>" . keisen-right-move)
+	 ("C-M-<left>" . keisen-left-move)
+	 ("C-M-<up>" . keisen-up-move)
+	 ("C-M-<down>" . keisen-down-move)))
+  #+end_src
 
-;;(global-set-key [(C-right)] 'keisen-right-move)
-;;(global-set-key [(C-left)] 'keisen-left-move)
-;;(global-set-key [(C-up)] 'keisen-up-move)
-;;(global-set-key [(C-down)] 'keisen-down-move)
-   #+end_src
+** picture-mode
+   図形を書くためのツール. Emacs 標準実装.
+   - [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Picture-Mode.html][Picture Mode - GNU Emacs Manual]]
+   - [[http://tototoshi.hatenablog.com/entry/20100614/1276520246][Emacs picture-mode でお絵描き - tototoshi の日記]]
+
+   なんか, picture-mode-exit が動作しないのだが...
+
+** keisen-ext
+   picture-mode の拡張
+   - [[http://d.hatena.ne.jp/tamura70/20100125/ditaa][Emacs picture-mode の拡張 - 屯遁のパズルとプログラミングの日記]]
+   - [[http://hide.maruo.co.jp/lib/macro/draw310.html][秀まるおのホームページ (サイトー企画)-OASYS 風罫線マクロ Ver 3.10]]
+
+#+begin_src emacs-lisp
+(use-package keisen-ext)
+#+end_src
 
 ** auto-fill-mode
    デフォルト搭載. 勝手に折り返してくれる.
@@ -263,6 +281,10 @@
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
 #+end_src
+
+** artist-mode
+   マウスで絵がかけるモード. Emacs 標準装備.
+   - [[http://emacs-fu.blogspot.jp/2009/01/drawing-pictures.html][emacs-fu: drawing pictures]]
 
 * 移動
   まずは, 基本まとめ.
@@ -807,7 +829,6 @@ google-ime-skk &
 )
 #+end_src
 
-
 ** TODO helm-flyspell
    自前のものではなくて, こっちをつかったほうがいいか??
    - [[https://github.com/pronobis/helm-flyspell][pronobis/helm-flyspell]]
@@ -907,3 +928,10 @@ google-ime-skk &
 ;;              (turn-on-auto-capitalize-mode)))
 )
    #+end_src
+* Others
+** 文字数カウント
+   - count-words
+   - count-words-region
+   
+** ライバルの秀丸.
+   - [[http://www.maruo.co.jp/_library/info.asp?sno=hls0000&i=0][秀丸エディタマクロライブラリ:ダウンロード情報]] 

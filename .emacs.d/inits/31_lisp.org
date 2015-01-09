@@ -24,11 +24,11 @@
   覚えておきたいのは,
   - かっこで囲む xx sp-pair M-(
   - かっこを外す sp-unwrap C-M-s
-  
+
   Example:
   -  https://github.com/Fuco1/smartparens/wiki/Example-configuration
 
-#+begin_src emacs-lisp
+    #+begin_src emacs-lisp
 (define-key sp-keymap (kbd "C-M-f") 'sp-forward-sexp)
 (define-key sp-keymap (kbd "C-M-b") 'sp-backward-sexp)
 
@@ -53,15 +53,17 @@
 
 (define-key sp-keymap (kbd "C-<right>") 'sp-forward-slurp-sexp)
 (define-key sp-keymap (kbd "C-<left>") 'sp-forward-barf-sexp)
-(define-key sp-keymap (kbd "C-M-<left>") 'sp-backward-slurp-sexp)
-(define-key sp-keymap (kbd "C-M-<right>") 'sp-backward-barf-sexp)
+
+;; picture-initと競合
+;; (define-key sp-keymap (kbd "C-M-<left>") 'sp-backward-slurp-sexp)
+;; (define-key sp-keymap (kbd "C-M-<right>") 'sp-backward-barf-sexp)
 
 (define-key sp-keymap (kbd "M-D") 'sp-splice-sexp)
 (define-key sp-keymap (kbd "C-M-<delete>") 'sp-splice-sexp-killing-forward)
 (define-key sp-keymap (kbd "C-M-<backspace>") 'sp-splice-sexp-killing-backward)
 (define-key sp-keymap (kbd "C-S-<backspace>") 'sp-splice-sexp-killing-around)
 
-;; multiple-cursorとバッティング
+;; multiple-cursor とバッティング
 ;; (define-key sp-keymap (kbd "C-]") 'sp-select-next-thing-exchange)
 ;; (define-key sp-keymap (kbd "C-<left_bracket>") 'sp-select-previous-thing)
 ;; (define-key sp-keymap (kbd "C-M-]") 'sp-select-next-thing)
@@ -85,15 +87,15 @@
 
 ;;; lisp modes
 (sp-with-modes sp--lisp-modes
-  (sp-local-pair "(" nil :bind "M-("))
+(sp-local-pair "(" nil :bind "M-("))
 
 (sp-pair "(" ")" :wrap "M-(")
-#+end_src
+    #+end_src
 
 *** end of config
-#+begin_src emacs-lisp
+    #+begin_src emacs-lisp
 )
-#+end_src
+    #+end_src
 
 ** paredit
    Lisp コードで頻出する括弧類のバランスを維持することを目的としたもの.
@@ -147,6 +149,20 @@
   (eshell)
 )
 (define-key emacs-lisp-mode-map (kbd "C-c S") 'my-inf-elisp)
+#+end_src
+
+** lispxmp
+   評価結果を横に出す.
+   - [[http://d.hatena.ne.jp/rubikitch/20090313/lispxmp][xmpfilter のような自動注釈を Emacs Lisp で実現する lispxmp.el をリリース]]
+   - https://github.com/emacsmirror/lispxmp
+
+   使い方.
+   - M-; M-; で ; =>を挿入
+   - lispxmp で 評価
+
+#+begin_src emacs-lisp
+(use-package lispxmp 
+  :bind ("C-c C-d" . lispxmp))
 #+end_src
 
 ** Tips
