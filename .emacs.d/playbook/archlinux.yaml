@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  user: tsu-nera
+  vars:
+    home_dir: /home/tsu-nera
+    emacs_dir: repo/emacs
+    dotfiles_dir: dotfiles
+    dotemacss_dir: dotfiles/.emacs.d
+  name: "Emacs Auto Update"
+  tasks:
+
+    - name: setup initial tools
+      pacman: name=git,cvs,bzr,mercurial,openssh
+      sudo: yes
+
+    - name: clean inits files
+      command: rake clobber chdir={{home_dir}}/{{dotemacss_dir}}
+    - name: boot emacs first 
+      command: emacs --daemon
+    - name: reboot emacs
+      command: emacsclient -e '(progn (defun yes-or-no-p (p) t) (kill-emacs))' && emacs --daemon

@@ -44,7 +44,7 @@ ansible all -i hosts -a 'uname -r'
 54.64.58.11 | success | rc=0 >>
 3.13.0-36-generic
 
-** ansible settig
+** ansible setting
 
 #+begin_src yaml :tangle yes
 ---
@@ -62,7 +62,7 @@ ansible all -i hosts -a 'uname -r'
    - gnutls-bin for el-get
    - texinfo for makeinfo
 
-#+begin_src yaml :tangle no
+#+begin_src yaml :tangle yes
     - name: apt-get update
       command: apt-get update
     - name: apt-get install git
@@ -80,7 +80,7 @@ ansible all -i hosts -a 'uname -r'
 
     make -j オブションをつけたら, メモリ枯渇で make が停止した.
 
-#+begin_src yaml :tangle no
+#+begin_src yaml :tangle yes
     - name: get emacs from git repository
       git: repo=git://git.savannah.gnu.org/emacs.git dest={{home_dir}}/{{emacs_dir}} accept_hostkey=yes
     - name: make emacs configure file
@@ -94,7 +94,7 @@ ansible all -i hosts -a 'uname -r'
 #+end_src
 
 ** install dotfiles
-#+begin_src yaml :tangle no
+#+begin_src yaml :tangle yes
     - name: clone dotfiles
       git: repo=https://github.com/tsu-nera/dotfiles.git dest={{home_dir}}/{{dotfiles_dir}}
     - name: make lnlinks
@@ -104,7 +104,7 @@ ansible all -i hosts -a 'uname -r'
 #+end_src
 
 ** install additinal tools for emacs
-#+begin_src yaml :tangle no
+#+begin_src yaml :tangle yes
     - name: install additinal tools for pdf-tools
       apt: pkg=libpng-dev,libz-dev,libpoppler-glib-dev,libpoppler-private-dev 
     - name: install additinal tools for magit

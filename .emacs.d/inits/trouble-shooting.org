@@ -1,7 +1,18 @@
 * トラブルシューティング
 
-* 起動時に <html> エラーとでる.
-  proxy パスワードが失敗すると html の el をダウンロードしてしまう
-  ことが原因.
+* 起動時
+** 起動時に <html> エラーとでる.
+   proxy パスワードが失敗すると html の el をダウンロードしてしまう
+   ことが原因.
 
-  grep "アクセス遮断"で検索して該当ファイルを削除.
+   grep "アクセス遮断"で検索して該当ファイルを削除.
+
+* ビルド時
+** compile エラー
+   タグを以前のものに戻す. git co xxx
+   - http://git.savannah.gnu.org/cgit/emacs.git
+
+** bootstrap エラー
+   - make bootstrap をする.
+
+   make clean を強力にしたもの.

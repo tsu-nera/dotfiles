@@ -1,0 +1,61 @@
+* ArchLinux
+
+#+begin_src yaml :tangle yes
+---
+- hosts: localhost
+  user: tsu-nera
+  vars:
+    home_dir: /home/tsu-nera
+    emacs_dir: repo/emacs
+    dotfiles_dir: dotfiles
+    dotemacss_dir: dotfiles/.emacs.d
+  name: "Emacs Auto Update"
+  tasks:
+#+end_src
+
+** initial tools
+
+#+begin_src yaml :tangle yes
+    - name: setup initial tools
+      pacman: name=git,cvs,bzr,mercurial,openssh
+      sudo: yes
+#+end_src
+
+** install emacs
+   emacs のインストールは普段はやらないことにする.
+   
+   有効にするときは, :tangle yes にする.
+
+#+begin_src yaml :tangle no
+    - name: get emacs from git repository
+      git: repo=git://git.savannah.gnu.org/emacs.git dest={{home_dir}}/{{emacs_dir}} accept_hostkey=yes
+      register: emacsrepo
+#+end_src
+
+  以下はアップデートがあったときのみ実施する
+
+#+begin_src yaml :tangle no
+    - name: make emacs configure file
+      command: ./autogen.sh chdir={{home_dir}}/{{emacs_dir}}
+      when: emacsrepo.changed
+    - name: make emacs Makefile
+      command: ./configure --prefix=/usr/local chdir={{home_dir}}/{{emacs_dir}}
+    - name: make emacs
+      when: emacsrepo.changed
+      command: make chdir={{home_dir}}/{{emacs_dir}}
+    - name: install emacs
+      command: make install chdir={{home_dir}}/{{emacs_dir}}
+      sudo: yes
+      when: emacsrepo.changed
+#+end_src
+
+** boot emacs
+   
+#+begin_src yaml :tangle yes
+    - name: clean inits files
+      command: rake clobber chdir={{home_dir}}/{{dotemacss_dir}}
+    - name: boot emacs first 
+      command: emacs --daemon
+    - name: reboot emacs
+      command: emacsclient -e '(progn (defun yes-or-no-p (p) t) (kill-emacs))' && emacs --daemon
+#+end_src
