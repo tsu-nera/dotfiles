@@ -330,7 +330,7 @@
 #+end_src
 
 ** 80 行目をハイライト
-p   なんかうまくうごいていない.
+   なんかうまくうごいていない.
 
 #+begin_src emacs-lisp
 ;; (use-package highlight-80+)
@@ -348,8 +348,7 @@ p   なんかうまくうごいていない.
   :defer t
   :bind   (("<C-f5>" . bm-toggle)
 	   ("<f5>"  . bm-next)
-	   ("<S-f5>" . bm-previous))
-  )
+	   ("<S-f5>" . bm-previous)))
 #+end_src
 
 ** TO-DO をハイライト
@@ -376,7 +375,7 @@ p   なんかうまくうごいていない.
    -> hl-anything に置き換えるのでお役ご免...
 
 #+begin_src emacs-lisp
-(use-package auto-highlight-symbol-config :disabled t)
+(use-package auto-highlight-symbol-config)
 (use-package highlight-symbol
   :disabled t
   :bind (("<f4>" . highlight-symbol-at-point)
@@ -448,3 +447,12 @@ Add proper word wrapping
     * 0 → 元に戻す
 
   from: [[http://qiita.com/tnoda_/items/ee7804a34e75f4c35d70][Emacs で文字の大きさを一時的に変更する C-x C-0 - Qiita]]
+
+** 行間を開けてやや見やすくする
+
+#+begin_src emacs-lisp
+(setq-default line-spacing 0.1)
+#+end_src
+
+** 全角半角で 文字が崩れる
+  - [[http://stickydiary.blog88.fc2.com/blog-entry-107.html][Emacs で等幅フォントの半角文字・全角文字の横幅比 1:2 を必ず達成するフォント設定 - Sticky Diary]]
