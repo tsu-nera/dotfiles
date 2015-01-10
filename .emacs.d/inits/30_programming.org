@@ -4,10 +4,14 @@
 ** Emacs as IDE 
    優れた IDE が備えるべき機能は以下
    - シンタックスハイライト
+     - major-jode
    - 検索・置換
    - タグジャンプ
    - コード補間
+     - auto-complete
    - エラーチェック
+     - flymake
+     - flycheck
    - リファクタリング
    - インタープリタ・デバッカ
   
@@ -121,16 +125,16 @@
 
 #+begin_src emacs-lisp
 (use-package flymake
-  :bind
-  (("M-p"  . flymake-goto-prev-error)
-  ("M-n"  . flymake-goto-next-error)
-  ("C-c d" . flymake-display-err-menu-for-current-line))
+  :bind (("M-p"  . flymake-goto-prev-error)
+	 ("M-n"  . flymake-goto-next-error)
+	 ("C-c d" . flymake-display-err-menu-for-current-line))
   :init
-  ;; 全てのファイルで flymake を有効化
   (add-hook 'find-file-hook 'flymake-find-file-hook)
   (add-hook 'c++-mode-hook '(lambda () (flymake-mode t)))
   (add-hook 'c-mode-hook '(lambda () (flymake-mode t)))
   (add-hook 'haskell-mode-hook (lambda () (flymake-mode t)))
+  (add-hook 'emacs-lisp-mode-hook
+	    (function (lambda () (if buffer-file-name (flymake-mode t)))))
   :config
   ;; GUI の警告は表示しない
   (setq flymake-gui-warnings-enabled nil)
@@ -176,6 +180,41 @@
 
 (add-to-list 'flymake-allowed-file-name-masks
 	     '("\\.py$" flymake-pyflakes-init))
+#+end_src
+
+*** Emacs lisp
+    - [[http://www.lunaport.net/blog/2010/02/windowsflymake-elisp-1.html][Windows でも手軽に flymake elisp (修正版) - るなぽブログ]]
+
+#+begin_src emacs-lisp
+(defun flymake-elisp-init ()
+  (unless (string-match "^ " (buffer-name))
+    (let* ((temp-file   (flymake-init-create-temp-buffer-copy
+                         'flymake-create-temp-inplace))
+           (local-file  (file-relative-name
+                         temp-file
+                         (file-name-directory buffer-file-name))))
+      (list
+       (expand-file-name invocation-name invocation-directory)
+       (list
+        "-Q" "--batch" "--eval"
+        (prin1-to-string
+         (quote
+          (dolist (file command-line-args-left)
+            (with-temp-buffer
+              (insert-file-contents file)
+              (emacs-lisp-mode)
+              (let ((parse-sexp-ignore-comments t))
+                (condition-case data
+                    (scan-sexps (point-min) (point-max))
+                  (scan-error
+                   (goto-char (nth 2 data))
+                   (princ (format "%s:%s: error: Unmatched bracket or quote\n"
+                                  file (line-number-at-pos))))))))
+          )
+         )
+        local-file)))))
+
+(push '("\\.el$" flymake-elisp-init) flymake-allowed-file-name-masks)
 #+end_src
 
 *** End of flymake
