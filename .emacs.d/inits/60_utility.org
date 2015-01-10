@@ -427,8 +427,8 @@ Warning: Eager macro-expansion skipped due to cycle:
         (list "less" "eshell/less")
         (list "l" "eshell/less")		
         (list "forced_git_local_destroy" "git fetch origin;git reset --hard origin/master")
-       )
-       eshell-command-aliases-list))
+       )))
+;;       eshell-command-aliases-list))
 #+end_src
 
 *** eshell-utils

@@ -52,15 +52,6 @@
   (setq el-get-notify-type 'message))
 #+end_src
 
-* el-get-elpa
-  MELPA との連携. M-x el-get-elpa-build-local-recipes する.
-  - http://stackoverflow.com/questions/23165158/how-do-i-install-melpa-packages-via-el-get
-
-#+begin_src emacs-lisp 
-(require 'el-get-elpa)
-(unless (file-directory-p el-get-recipe-path-elpa)
-  (el-get-elpa-build-local-recipes))
-#+end_src
 
 * el-get 同期 Package
 #+begin_src emacs-lisp 
@@ -226,7 +217,7 @@
     ess-R-object-popup
     ctable
     helm-R
-    ;;    ansible
+    ;; ansible
     lispxmp
     vlfi
     )
@@ -246,36 +237,53 @@
     )
   "A list of packages to install from el-get at launch for linux")
 
-;; 以下の 2 つは普段は封印しておく
-
 ;; 同期する
-(el-get 'sync my/el-get-packages-all)
-
-(when windows-p
-  (el-get 'sync my/el-get-packages-windows))
-(when linux-p
-  (el-get 'sync my/el-get-packages-linux))
+;; (el-get 'sync my/el-get-packages-all)
+;; (when windows-p
+;;   (el-get 'sync my/el-get-packages-windows))
+;; (when linux-p
+;;   (el-get 'sync my/el-get-packages-linux))
 
 ;; まちがって repo 配下の elc も消しちゃったらこれを有効にしとて byte compile
 ;; Whether or not to byte-compile packages at init
 ;; (setq el-get-byte-compile-at-init t)
 #+end_src
 
-* Windows
-  - [[https://github.com/dimitri/el-get/wiki/Installation-on-Windows][Installation on Windows · dimitri/el-get Wiki]]
-  - [[http://stackoverflow.com/questions/17219643/cant-install-emacs-el-get-package-emacs-cant-connect-to-the-internet][windows - can't install emacs el-get package, emacs can't connect to the internet - Stack Overflow]]
-  - [[https://github.com/Bruce-Connor/paradox/issues/5][fails without GnuTLS · Issue #5 · Bruce-Connor/paradox]]
+* Tips
+** el-get-is-lazy
+   パッケージが存在しないときは, el-get で取得する.
 
-  gist にアクセスできない...
+   追加しわすれに気づけないので, コメントアウト.
 
-  Linux だと, gnutls-bin をいれる.
+#+begin_src emacs-lisp
+;; (setq el-get-is-lazy t)
+#+end_src
 
-#+begin_src text
+** Windows
+   - [[https://github.com/dimitri/el-get/wiki/Installation-on-Windows][Installation on Windows · dimitri/el-get Wiki]]
+   - [[http://stackoverflow.com/questions/17219643/cant-install-emacs-el-get-package-emacs-cant-connect-to-the-internet][windows - can't install emacs el-get package, emacs can't connect to the internet - Stack Overflow]]
+   - [[https://github.com/Bruce-Connor/paradox/issues/5][fails without GnuTLS · Issue #5 · Bruce-Connor/paradox]]
+
+   gist にアクセスできない...
+
+   Linux だと, gnutls-bin をいれる.
+
+ #+begin_src text
 Contacting host: api.github.com:443
 Opening TLS connection to `api.github.com'...
 Opening TLS connection with `gnutls-cli --insecure -p 443 api.github.com'...failed
 Opening TLS connection with `gnutls-cli --insecure -p 443 api.github.com --protocols ssl3'...failed
 Opening TLS connection with `openssl s_client -connect api.github.com:443 -no_ssl2 -ign_eof'...failed
 Opening TLS connection to `api.github.com'...failed
-#+end_src
+ #+end_src
+
+** el-get-elpa
+   MELPA との連携. M-x el-get-elpa-build-local-recipes する.
+   - http://stackoverflow.com/questions/23165158/how-do-i-install-melpa-packages-via-el-get
+
+ #+begin_src emacs-lisp 
+;; (require 'el-get-elpa)
+;; (unless (file-directory-p el-get-recipe-path-elpa)
+;;   (el-get-elpa-build-local-recipes))
+ #+end_src
 

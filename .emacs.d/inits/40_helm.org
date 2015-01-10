@@ -14,6 +14,7 @@
 ** Basic Setting 
 #+begin_src emacs-lisp
 (use-package helm-config
+;;  :idle (helm-mode 1) ;; 基本的な設定はこれで実施される.
   :config
   (helm-mode 1) ;; 基本的な設定はこれで実施される.
 #+end_src

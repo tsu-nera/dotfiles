@@ -12,8 +12,9 @@
 
 #+begin_src emacs-lisp
 (use-package smartparens-config
+  :defer t
+  :idle (smartparens-global-mode t)
   :config
-  (smartparens-global-mode t)
 #+end_src
  
 *** default
@@ -54,7 +55,7 @@
 (define-key sp-keymap (kbd "C-<right>") 'sp-forward-slurp-sexp)
 (define-key sp-keymap (kbd "C-<left>") 'sp-forward-barf-sexp)
 
-;; picture-initÇ∆ã£çá
+;; picture-init Ç∆ã£çá
 ;; (define-key sp-keymap (kbd "C-M-<left>") 'sp-backward-slurp-sexp)
 ;; (define-key sp-keymap (kbd "C-M-<right>") 'sp-backward-barf-sexp)
 

@@ -62,6 +62,15 @@
 
    *Message* バッファを検索して, エラーがないかチェックする.
 
+   かつて, :ensure t で el-get のサポートがあったが削除された.
+   
+   use-package の機能ではなく, 
+   el-get の機能で, el-get-is-lazy というものがあるので.
+   - https://github.com/jwiegley/use-package/issues/51
+
+*** idle の設定
+     (xxx-mode t) 時間がかかるので, :idle を指定するといい.
+
 * General Settings
 ** customize の出力先
 #+begin_src emacs-lisp
@@ -164,9 +173,10 @@
 
 #+begin_src emacs-lisp
 (use-package guide-key
+  :defer t
+  :idle (guide-key-mode 1)  ; Enable guide-key-mode
   :config
   (setq guide-key/popup-window-position 'bottom)
-  (guide-key-mode 1)  ; Enable guide-key-mode
   (setq guide-key/guide-key-sequence '("C-x r" "C-x 4")))
 #+end_src
 
@@ -174,13 +184,13 @@
    複数キー同時押しにキーバインド割り当て. 
    親指シフト的なバインドができる.
 
-   #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (use-package key-chord
+  :defer t
+  :idle (key-chord-mode 1)
   :config
-   (key-chord-mode 1)
-   (setq key-chord-two-keys-delay 0.08)
-   )
-   #+end_src
+  (setq key-chord-two-keys-delay 0.08))
+#+end_src
 
 ** smartrep
    連続操作を素敵にするキーバインド設定を可能にする.
@@ -255,9 +265,11 @@
    - [[http://www.bookshelf.jp/soft/meadow_18.html][Meadow/Emacs memo: バイトコンパイル]]
    - [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Compilation-Functions.html#Compilation-Functions][Compilation Functions - GNU Emacs Lisp Reference Manual]]
 
-#+begin_src emacs-lisp
-(byte-recompile-directory "~/.emacs.d/elisp/" 0)
-(byte-recompile-directory "~/.emacs.d/mylisp/" 0)
+   #+begin_src emacs-lisp
+(use-package byte-compile
+  :idle
+  (byte-recompile-directory "~/.emacs.d/elisp/" 0)
+  (byte-recompile-directory "~/.emacs.d/mylisp/" 0))
 #+end_src
 
 ** 時間計測

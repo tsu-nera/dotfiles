@@ -148,11 +148,10 @@
   :commands rspec-mode
   :init
   (add-hook 'ruby-mode-hook 'rspec-mode)
+  :idle (rspec-install-snippets)
   :config
-  (rspec-install-snippets)
   (custom-set-variables '(rspec-use-rake-flag nil))
-  (custom-set-faces)
-  )
+  (custom-set-faces))
 #+end_src
 
 * 静的解析

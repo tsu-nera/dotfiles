@@ -7,6 +7,36 @@
     dotfiles_dir: dotfiles
   tasks:
 
+    - name: apt-get update
+      command: apt-get update
+    - name: apt-get install git
+      apt: pkg=git
+    - name: apt-get install build tools
+      apt: pkg=build-essential,autoconf,automake,libncurses5-dev,gnutls-bin,texinfo
+
+    - name: apt-get install emacs
+      apt: pkg=emacs
+
+    - name: clone dotfiles
+      git: repo=https://github.com/tsu-nera/dotfiles.git dest={{home_dir}}/{{dotfiles_dir}}
+    - name: make lnlinks
+      command: ./make_lnlink chdir={{home_dir}}/{{dotfiles_dir}}
+      sudo: yes
+      sudo_user: ubuntu
+
+    - name: install additinal tools for pdf-tools
+      apt: pkg=libpng-dev,libz-dev,libpoppler-glib-dev,libpoppler-private-dev 
+    - name: install additinal tools for magit
+      apt: pkg=texinfo
+    - name: install additinal tools for org2blog
+      apt: pkg=bzr
+    - name: install additinal tools for exectable-find
+      apt: pkg=mercurial
+    - name: install additinal tools for cmigemo
+      apt: pkg=cmigemo
+    - name: install additinal tools for ag
+      apt: pkg=silversearcher-ag
+
     - name: boot emacs first 
       command: emacs --daemon
       sudo: yes

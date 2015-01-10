@@ -109,16 +109,14 @@
 	 ("C-x i v" . helm-yas-visit-snippet-file)
 	 ;; helm-yas-xxx は autoload されているっぽい.
 	 ("C-x i n" . yas-new-snippet))
+  :idle (yas-global-mode 1)
   :config
   (setq yas-snippet-dirs
       '("~/.emacs.d/snippets" ;; my snipets dir
-        "~/.emacs.d/el-get/repo/yasnippet/snippets" ;; original repo dir
-        ))
-  (yas-global-mode 1)
+        "~/.emacs.d/el-get/repo/yasnippet/snippets")) ;; original repo dir
 
   ;; メニューは使わない
-  (setq yas-use-menu nil)
- )
+  (setq yas-use-menu nil))
 #+end_src
 
 ** auto-complete
@@ -725,8 +723,7 @@ google-ime-skk &
 		 '(org-mode text-mode wl-draft-mode))
        (text-adjust-buffer)))
    ;;           (text-adjust-space-buffer)))
-   (defalias 'spacer 'text-adjust-space-buffer)
-   )
+   (defalias 'spacer 'text-adjust-space-buffer))
 #+end_src
 
 ** yspel
@@ -734,7 +731,7 @@ google-ime-skk &
    - [[http://ubulog.blogspot.jp/2010/09/emacs.html][ubulog: Emacs から校正支援する]]
 
    #+begin_src emacs-lisp
-   (use-package yspel :defer t)
+   ;; (use-package yspel :defer t)
    #+end_src
 
 * 英語入力
@@ -752,19 +749,16 @@ google-ime-skk &
    echo "lang en_US" >> ~/.aspell.conf
    #+end_src
 
-   aspell にパスを通す.
-
-   #+begin_src emacs-lisp
+ #+begin_src emacs-lisp
+(use-package ispell
+  :defer t
+  :config
+  ;; aspell にパスを通す.
    (when (file-executable-p "/usr/bin/aspell")
-   (setq-default ispell-program-name "aspell"))
-   #+end_src
-
-   日本語はスキップ.
-
-   #+begin_src emacs-lisp
-   (eval-after-load "ispell"
-      '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
-   #+end_src
+     (setq-default ispell-program-name "aspell"))
+  ;; 日本語はスキップ.
+   '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
+#+end_src
 
    - バッファ全体をスペルチェック M-x ispell-buffer
    - 選択範囲だけスペルチェック M-x ispell-region
@@ -848,7 +842,7 @@ google-ime-skk &
    - INCDIRS = -I. -I/usr/include/link-grammar に Makefile を修正.
 
    C-M-g で文法チェック発動.
-
+   
 *** 設定
   コンパイルができなくなった... 封印.
 
@@ -878,9 +872,12 @@ google-ime-skk &
    - turn-on-auto-capitalize-mode
    - auto-capitalize-mode.
 
+   つかってないな. . 封印.
+
    #+begin_src emacs-lisp
 ;; This code is from README
 (use-package auto-capitalize
+  :disabled t
   :defer t
   :init
   (add-hook 'twittering-edit-mode-hook
