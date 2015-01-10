@@ -1,0 +1,4 @@
+(:name redshank
+       :description "Common Lisp Editing Extensions"
+       :type github
+       :pkgname "emacsmirror/redshank")

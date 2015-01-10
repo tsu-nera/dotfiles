@@ -1,6 +1,16 @@
 * Programming
   いろいろなプログラミング言語に関わる設定.
 
+** Emacs as IDE 
+   優れた IDE が備えるべき機能は以下
+   - シンタックスハイライト
+   - 検索・置換
+   - タグジャンプ
+   - コード補間
+   - エラーチェック
+   - リファクタリング
+   - インタープリタ・デバッカ
+  
 * コンパイル
 ** smart-compile
    コマンドからコンパイル実行. 独自改造したものが, elisp にある.
@@ -31,8 +41,7 @@
   :bind ("C-c r" . quickrun)
   :config
   (push '("*quickrun*") popwin:special-display-config)
-  (setq quickrun-timeout-seconds 20)
-)
+  (setq quickrun-timeout-seconds 20))
 #+end_src
 
 * プロジェクト管理
@@ -174,7 +183,6 @@
 )
 #+end_src
 
-
 ** flycheck
    静的文法チェック.
 
@@ -232,6 +240,17 @@
   (eval-after-load "flycheck"
     '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
 )
+#+end_src
+
+* リファクタリング
+** emacs-refactor
+   - https://github.com/chrisbarrett/emacs-refactor
+
+#+begin_src emacs-lisp
+(use-package emr
+  :init
+  (define-key prog-mode-map (kbd "M-RET") 'emr-show-refactor-menu)
+  (add-hook 'prog-mode-hook 'emr-initialize))
 #+end_src
 
 * Utils

@@ -113,13 +113,16 @@
 ** Backup/Autosave
    .emacs.d/backup にバックアップファイルを保存する.
 
-   make-auto-save-file-name: Wrong type argument: stringp, (\, (expand-file-name "~/.emacs.d/backup"))
+   make-auto-save-file-name: Wrong type argument: stringp, (\,
+   (expand-file-name "~/.emacs.d/backup"))
+
+   うまく動いていないので, 封印.
    
 #+begin_src emacs-lisp
-(add-to-list 'backup-directory-alist 
-	     (cons "." "~/.emacs.d/backup"))
-(setq auto-save-file-name-transforms
-      `((".*" ,(expand-file-name "~/.emacs.d/backup") t)))
+;; (add-to-list 'backup-directory-alist 
+;; 	     (cons "." "~/.emacs.d/backup"))
+;; (setq auto-save-file-name-transforms
+;;       `((".*" ,(expand-file-name "~/.emacs.d/backup") t)))
 #+end_src
 
 * Key Bindings

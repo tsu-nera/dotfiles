@@ -1,0 +1,4 @@
+(:name paredit
+       :description "Minor mode for editing parentheses"
+       :type github
+       :pkgname "emacsmirror/paredit")
