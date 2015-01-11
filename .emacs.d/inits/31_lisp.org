@@ -27,7 +27,10 @@
   - かっこを外す sp-unwrap C-M-s
 
   Example:
-  -  https://github.com/Fuco1/smartparens/wiki/Example-configuration
+  - https://github.com/Fuco1/smartparens/wiki/Example-configuration
+
+  TODO: かっこの色か気持ち悪いので, あとで編集する.
+  - https://github.com/Fuco1/smartparens/wiki/User-interface
 
     #+begin_src emacs-lisp
 (define-key sp-keymap (kbd "C-M-f") 'sp-forward-sexp)

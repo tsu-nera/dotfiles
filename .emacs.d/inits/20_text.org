@@ -135,15 +135,15 @@
    #+begin_src emacs-lisp
 (use-package auto-complete
   :bind   ("M-/" . auto-complete)
-  :idle
+  :config
   (require 'auto-complete-config)
   (ac-config-default)
   ;; グローバルで auto-complete を利用
   (global-auto-complete-mode t)
-  :config
+
   ;; 追加メジャーモード
   ;; -> org-mode と auto-complete の共用はバクあり.
-  ;; (add-to-list 'ac-modes 'org-mode)
+  (add-to-list 'ac-modes 'org-mode)
 
   ;; メニュー表示を遅延
   ;; (setq ac-auto-show-menu 0.5)

@@ -444,7 +444,7 @@ Add proper word wrapping
   - デフォルトでは C-x C-0
     * + 連打→拡大
     * - 連打→縮小
-    * 0 → 元に戻す
+    * 0 元に戻す
 
   from: [[http://qiita.com/tnoda_/items/ee7804a34e75f4c35d70][Emacs で文字の大きさを一時的に変更する C-x C-0 - Qiita]]
 
