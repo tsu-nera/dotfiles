@@ -70,7 +70,6 @@
 
 *** idle の設定
      (xxx-mode t) 時間がかかるので, :idle を指定するといい.
-
 * General Settings
 ** customize の出力先
 #+begin_src emacs-lisp
@@ -264,6 +263,18 @@
                                   interactive-only
                                   ))
 #+end_src
+** el-get の遅延実行
+
+#+begin_src emacs-lisp
+(use-package el-get
+  :idle
+  (el-get 'sync my/el-get-packages-all)
+  (when windows-p
+    (el-get 'sync my/el-get-packages-windows))
+  (when linux-p
+    (el-get 'sync my/el-get-packages-linux)))
+#+end_src
+
 ** inits, el-get 管理外の elisp のバイトコンパイル.
    - [[http://www.bookshelf.jp/soft/meadow_18.html][Meadow/Emacs memo: バイトコンパイル]]
    - [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Compilation-Functions.html#Compilation-Functions][Compilation Functions - GNU Emacs Lisp Reference Manual]]
@@ -274,7 +285,6 @@
   (byte-recompile-directory "~/.emacs.d/elisp/" 0)
   (byte-recompile-directory "~/.emacs.d/mylisp/" 0))
 #+end_src
-
 ** 時間計測
    これは普段は封印している. 時間を知りたくなったときに利用する.
 

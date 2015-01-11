@@ -240,11 +240,13 @@
   "A list of packages to install from el-get at launch for linux")
 
 ;; 同期する
-(el-get 'sync my/el-get-packages-all)
-(when windows-p
-  (el-get 'sync my/el-get-packages-windows))
-(when linux-p
-  (el-get 'sync my/el-get-packages-linux))
+;; -> use-packageで遅延評価するために場所を移動.
+
+;; (el-get 'sync my/el-get-packages-all)
+;; (when windows-p
+;;   (el-get 'sync my/el-get-packages-windows))
+;; (when linux-p
+;;   (el-get 'sync my/el-get-packages-linux))
 
 ;; まちがって repo 配下の elc も消しちゃったらこれを有効にしとて byte compile
 ;; Whether or not to byte-compile packages at init
