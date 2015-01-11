@@ -45,15 +45,26 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
 #+begin_src emacs-lisp
 (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/molokai-theme")
 (use-package molokai-theme-kit
-  :init
+  :config
   (setq molokai-theme-kit t)
-  (load-theme 'molokai t)
-)
+  ;; window-systemが判定できない.
+  (load-theme 'molokai t))
 #+end_src
 
    自分のテーマにも, 以下のような設定で org-mode 対応できるらしい??
    - [[http://orgmode.org/worg/org-contrib/babel/examples/fontify-src-code-blocks.html][Pretty fontification of source code blocks]]
    -> mmm-mode で代用する.
+
+*** 正式版
+
+#+begin_src emacs-lisp
+(add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/monokai-emacs")
+(use-package monokai-theme
+  :disabled t
+  :init
+  (load-theme 'monokai t))
+#+end_src
+
 
 ** not used
 *** tangotango
@@ -175,4 +186,3 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
  ;; (enable-theme 'dark-erc)
  )
  #+end_src
-

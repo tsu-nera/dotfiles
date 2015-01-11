@@ -326,7 +326,8 @@
 * ハイライト
 ** 現在行をハイライト
 #+begin_src emacs-lisp
-(global-hl-line-mode 1)
+;;(unless (eq window-system nil)
+  (global-hl-line-mode 1)
 #+end_src
 
 ** 80 行目をハイライト

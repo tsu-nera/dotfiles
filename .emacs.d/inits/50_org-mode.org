@@ -635,8 +635,12 @@
   (setq mmm-submode-decoration-level 1)
   
   ;; (set-face-bold-p 'mmm-default-submode-face t) ;太字
-  (set-face-background 'mmm-default-submode-face "#242424") ;背景色
-  
+
+  ;; 背景色
+  ;;  (if (eq window-system nil)
+  ;;      (set-face-background 'mmm-default-submode-face nil)
+  (set-face-background 'mmm-default-submode-face "#242424")
+    
   (mmm-add-classes
    '((org-elisp
       :submode emacs-lisp-mode
@@ -649,8 +653,6 @@
       :submode R-mode
        :front "^#\\+begin_src R[ \t]*\n?"
        :back "^#\\+end_src")))
-;;      :front "^#+begin_src R*"
-;;      :back  "^#+end_src")))
   (mmm-add-mode-ext-class 'org-mode nil 'org-R))
 #+end_src
 

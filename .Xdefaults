@@ -54,7 +54,9 @@ URxvt.pointerBlank:         true
 URxvt*iso14755: false
 
 ! Color
-urxvt*shading: 20
+! スケスケにするためのパラメータ
+! urxvt*shading: 20 
+urxvt*shading: 10
 URxvt*inheritPixmap: true
 
 ! Molokai
