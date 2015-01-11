@@ -2,8 +2,7 @@
 # name: srcR
 # key: srcR
 # --
-#+name: $1
-#+begin_src R :session ex :export both
-$2	      
+#+begin_src R :session ex :export both :results code
+$1
 #+end_src
 $0

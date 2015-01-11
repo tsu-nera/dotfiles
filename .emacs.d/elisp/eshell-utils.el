@@ -17,6 +17,9 @@
         (dir default-directory))
     (labels
         ((_my-toggle-term (target)
+	   (if (get-buffer "*eshell*")
+	       (switch-to-buffer "*eshell*")
+	     (eshell))
            (if (null (member (buffer-name (second target)) ignore-list))
                (if (equal "*eshell*" (buffer-name (window-buffer)))
                    (switch-to-buffer (second target))

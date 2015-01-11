@@ -42,9 +42,9 @@
 (setq org-hide-leading-stars t)
 
 ;; 初期状態は見出しを表示
-(setq org-startup-folded (quote content))
+(setq org-startup-folded (quote 自動インデント))
 
-;; 自動インデント
+;; content
 ;; (setq org-indent-mode t)
 #+end_src
 
@@ -628,8 +628,8 @@
 #+begin_src emacs-lisp
 (use-package mmm-mode
   :config
-  ;; (setq mmm-global-mode 'maybe) ;; 自動推測
-  (setq mmm-global-mode 't) ;; つねに利用
+  (setq mmm-global-mode 'maybe) ;; 自動推測
+  ;; (setq mmm-global-mode 't) ;; つねに利用
   
   ;; (setq mmm-submode-decoration-level 2)
   (setq mmm-submode-decoration-level 1)
@@ -642,7 +642,16 @@
       :submode emacs-lisp-mode
       :front "#\\+begin_src emacs-lisp"
       :back  "#\\+end_src")))
-  (mmm-add-mode-ext-class nil "\\.org\\'" 'org-elisp))
+  (mmm-add-mode-ext-class nil "\\.org\\'" 'org-elisp)
+
+  (mmm-add-classes
+   '((org-R
+      :submode R-mode
+       :front "^#\\+begin_src R[ \t]*\n?"
+       :back "^#\\+end_src")))
+;;      :front "^#+begin_src R*"
+;;      :back  "^#+end_src")))
+  (mmm-add-mode-ext-class 'org-mode nil 'org-R))
 #+end_src
 
 * org-narrow

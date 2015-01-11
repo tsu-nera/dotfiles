@@ -283,7 +283,10 @@
   :init
   (setq auto-mode-alist
 	(cons (cons "\\.[rR]$" 'R-mode) auto-mode-alist))
-  
+  ;; うまく有効にならないので、hookを追加してみる.
+  (add-hook 'R-mode-hook  '(lambda ()
+			     (auto-complete-mode)
+			     (setq ess-use-auto-complete t)))
   :config
   ;; R 起動時にワーキングディレクトリを訊ねない
   (setq ess-ask-for-ess-directory nil)

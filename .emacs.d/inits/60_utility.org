@@ -312,6 +312,21 @@ Warning: Eager macro-expansion skipped due to cycle:
 )
 #+end_src
 
+*** dired から term へ
+    - [[http://oremacs.com/2015/01/10/dired-ansi-term/][dired and ansi-term: BFF · (or emacs]]
+
+    eshell-cmd がないと怒られる.
+
+#+begin_src emacs-lisp
+;; (define-key dired-mode-map (kbd "'")
+;;   (lambda ()
+;;     (interactive)
+;;     (eshell-cmd
+;;      (format "cd %s"
+;;              (expand-file-name
+;;               default-directory)))))
+#+end_src
+
 *** 移動のたびに新規バッファをつくらない
     移動のたびにバッファをつくらないためには, i や a でバッファを開く.
     - [[http://stackoverflow.com/questions/1839313/how-do-i-stop-emacs-dired-mode-from-opening-so-many-buffers][file management - How do I stop emacs dired mode from opening so
@@ -333,16 +348,6 @@ Warning: Eager macro-expansion skipped due to cycle:
 (use-package joseph-single-dired)
 #+end_src
 
-** direx
-   popup dired
-   - https://github.com/m2ym/direx-el
-   - http://cx4a.blogspot.jp/2011/12/popwineldirexel.html
-
-   使っていないのと, open-junk-file とキーがかぶったので封印.
-#+begin_src emacs-lisp
-;; (use-package direx)
-#+end_src
-
 ** Tramp
    リモートサーバに Emacs から乗り込む.
 
@@ -356,6 +361,23 @@ Warning: Eager macro-expansion skipped due to cycle:
 (setq password-cache-expiry nil)
 #+end_src
 
+** dired-x
+   dired の拡張.
+
+#+begin_src emacs-lisp
+(use-package dired-x)
+#+end_src
+** direx
+   popup dired
+   - https://github.com/m2ym/direx-el
+   - http://cx4a.blogspot.jp/2011/12/popwineldirexel.html
+
+   使っていないのと, open-junk-file とキーがかぶったので封印.
+#+begin_src emacs-lisp
+;; (use-package direx)
+#+end_src
+
+
 * パスワード管理
 ** netrc
    build-in のパスワード管理.
@@ -364,6 +386,7 @@ Warning: Eager macro-expansion skipped due to cycle:
 #+begin_src emacs-lisp
 (use-package netrc :defer t)
 #+end_src
+
 
 * Shell
   いろいろシェルはあるのだけれども,
@@ -399,7 +422,7 @@ Warning: Eager macro-expansion skipped due to cycle:
 ;; これで正規表現がつかえるようになる??
 (setq eshell-prompt-regexp "^[^#$]*[$#] ")
 
-;; windows環境だと、shift-jisにしよう
+;; windows 環境だと, shift-jis にしよう
 (when windows-p
   (add-hook
    'eshell-mode-hook
@@ -441,6 +464,7 @@ Warning: Eager macro-expansion skipped due to cycle:
          ;; 別シェルを生成
          ("C-c C-x t" . eshell/make-new-eshell))
   :init
+  (define-key dired-mode-map (kbd "`") 'eshell/toggle-buffer)
 ;;  (add-hook 'eshell-mode-hook
 ;;	    #'(lambda ()
 ;;		(define-key eshell-mode-map (kbd "C-l") 'eshell/clear)))
@@ -533,7 +557,7 @@ Warning: Eager macro-expansion skipped due to cycle:
 ;;  :commands erc
 ;;  :config
 
-;; 調子がわるいので、use-packageをやめてみる.
+;; 調子がわるいので, use-package をやめてみる.
 (when windows-p
 (require 'erc)
 
@@ -714,26 +738,25 @@ sudo pacman -S ghostscript
 
 #+begin_src emacs-lisp
  (when linux-p
-   (use-package pdf-tools :defer t
+   (use-package pdf-tools 
      :init
      (setq pdf-info-epdfinfo-program
 	   (concat (el-get-package-directory "pdf-tools")
 		   "src/epdfinfo"))
      :mode (("\\.pdf$" . pdf-view-mode))
+     :defer t
      :config
      (use-package pdf-isearch)
-     ;; (use-package pdf-annot)
-     ;; (use-package pdf-history) 
-     ;; (use-package pdf-info)
-     ;; (use-package pdf-links) 
-     ;; (use-package pdf-misc) 
-     ;; (use-package pdf-occur) 
-     ;; (use-package pdf-outline) 
-     ;; (use-package pdf-render) 
-     ;; (use-package pdf-sync) 
-     ;; (use-package tablist-filter)
-     ;; (use-package tablist)
-     ))
+     (use-package pdf-annot)
+     (use-package pdf-history) 
+     (use-package pdf-info)
+     (use-package pdf-links) 
+     (use-package pdf-misc) 
+     (use-package pdf-occur) 
+     (use-package pdf-outline) 
+     (use-package pdf-sync) 
+     (use-package tablist-filter)
+     (use-package tablist)))
 #+end_src
 
   どうも, doc-view-mode がめちゃくちゃ遅い!linum-mode が有効なことが原因.

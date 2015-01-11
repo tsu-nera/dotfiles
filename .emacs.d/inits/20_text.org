@@ -135,17 +135,16 @@
    #+begin_src emacs-lisp
 (use-package auto-complete
   :bind   ("M-/" . auto-complete)
-  :config
+  :idle
   (require 'auto-complete-config)
   (ac-config-default)
-
   ;; グローバルで auto-complete を利用
   (global-auto-complete-mode t)
-  
+  :config
   ;; 追加メジャーモード
   ;; -> org-mode と auto-complete の共用はバクあり.
   ;; (add-to-list 'ac-modes 'org-mode)
-  
+
   ;; メニュー表示を遅延
   ;; (setq ac-auto-show-menu 0.5)
   (setq ac-auto-show-menu t)
@@ -367,6 +366,9 @@
 
 (use-package migemo
   :if linux-p
+  :idle
+  (migemo-init)
+  (load-library "migemo")
   :config
   (setq migemo-options '("-q" "--emacs"))
   (setq migemo-user-dictionary nil)
@@ -374,24 +376,8 @@
   (setq migemo-coding-system 'utf-8-unix)
 
   (setq migemo-command "cmigemo")
-  (setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict")
-  (load-library "migemo")
-  (migemo-init)
-  )
+  (setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict"))
 
-(use-package migemo
-  :if windows-p
-  :config
-  (setq migemo-options '("-q" "--emacs"))
-  (setq migemo-user-dictionary nil)
-  (setq migemo-regex-dictionary nil)
-  (setq migemo-coding-system 'utf-8-unix)
-
-  (setq migemo-command "c:/app/cmigemo-default-win64/cmigemo.exe")
-  (setq migemo-dictionary "c:/app/cmigemo-default-win64/dict/utf-8/migemo-dict")
-  (load-library "migemo")
-  (migemo-init)
-  )
    #+end_src
 ** anzu
    インタラクティブ検索, 置換
