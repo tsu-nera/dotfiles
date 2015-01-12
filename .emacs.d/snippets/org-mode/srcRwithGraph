@@ -3,7 +3,7 @@
 # key: srcRwithGraph
 # --
 #+name: $1
-#+begin_src R :file $2.png :width 600 :height 600 :results graphics :session ex
+#+begin_src R :file $2.png :width 500 :height 500 :results graphics :session ex
 $3	      
 #+end_src
 $0

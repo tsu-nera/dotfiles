@@ -737,13 +737,14 @@ google-ime-skk &
 
  #+begin_src emacs-lisp
 (use-package ispell
-  :defer t
-  :config
+  :init
   ;; aspell にパスを通す.
-   (when (file-executable-p "/usr/bin/aspell")
-     (setq-default ispell-program-name "aspell"))
-  ;; 日本語はスキップ.
-   '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
+  (when (file-executable-p "/usr/bin/aspell")
+    (setq-default ispell-program-name "aspell")
+    ;; パフォーマンス向上
+    (add-to-list 'ispell-extra-args "--sug-mode=ultra")
+    ;; 日本語はスキップ.
+    '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+"))))
 #+end_src
 
    - バッファ全体をスペルチェック M-x ispell-buffer
@@ -766,56 +767,38 @@ google-ime-skk &
   :bind (("C-c <f8>" . flyspell-mode)
 	 ("C-c <f9>" . ispell-word)
 	 ("C-c <f10>" . flyspell-buffer))
+  :init
+  ;; 特定のモードで有効.
+  (mapc
+   (lambda (hook)
+     (add-hook hook 'flyspell-mode))
+   '(text-mode-hook
+     org-mode-hook
+     wl-draft-mode-hook
+     twittering-edit-mode))
+  ;; コメント領域のところだけ有効.
+  (mapc
+   (lambda (hook)
+     (add-hook hook 'flyspell-prog-mode))
+   '(c-mode-common-hook
+     ruby-mode-hook
+     java-mode-hook    
+     emacs-lisp-mode-hook))
   :config
   ;; どうも flyspell と ac-complete は相性が悪い?
   ;; (ac-flyspell-workaround)
+  )
 #+end_src
 
-*** あるモードのみ flysell を起動
-    コメント領域のところだけ有効.
-
-#+begin_src emacs-lisp
-(mapc
- (lambda (hook)
-   (add-hook hook 'flyspell-prog-mode))
- '(
-   c-mode-common-hook
-   ruby-mode-hook
-   java-mode-hook    
-   emacs-lisp-mode-hook   
-   ))
-#+end_src
-
-    特定のモードで有効.
-
-#+begin_src emacs-lisp
-(mapc
- (lambda (hook)
-   (add-hook hook
-	     '(lambda () (flyspell-mode 1))))
- '(
-   text-mode-hook
-   org-mode-hook
-   wl-draft-mode-hook
-   twittering-edit-mode
-   ))
-#+end_src
-
-*** helm-flyspell-collect
-    -> helm.org へ
-
-*** end of flyspell config
-#+begin_src emacs-lisp
-)
-#+end_src
-
-** TODO helm-flyspell
-   自前のものではなくて, こっちをつかったほうがいいか??
-   - [[https://github.com/pronobis/helm-flyspell][pronobis/helm-flyspell]]
-
-** TODO flyspell-lazy
-   こっちのほうがよさそう..
+** flyspell-lazy
+   flyspell を lazy に改良.
    - https://github.com/rolandwalker/flyspell-lazy
+
+#+begin_src emacs-lisp
+(use-package flyspell-lazy
+  :init
+  (flyspell-lazy-mode 1))
+#+end_src
 
 ** grammar
    英語の文法をチェックしてくれる.

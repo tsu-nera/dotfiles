@@ -201,7 +201,6 @@
     ac-helm
     elscreen-interchange
     clocktable-by-tag
-    helm-flyspell-collect
     cde
     eww-lnum
     ghc-mod
@@ -222,6 +221,8 @@
     vlfi
     emacs-refactor
     keisen-ext
+    flyspell-lazy
+    helm-flyspell
     )
  "A list of packages to install from el-get at launch.")
 

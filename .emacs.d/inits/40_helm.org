@@ -121,16 +121,25 @@
 (use-package helm-kaomoji :commands helm-kaomoji)
 #+end_src
 
-** TODO helm-flyspell
+** helm-flyspell-collect
    すごく便利だったのに, 動かなくなった. . .
    - from:  https://gist.github.com/cofi/3013327
    - forked: https://gist.github.com/tsu-nera/2ac6ee1555bcf8597fa6
 
 #+begin_src emacs-lisp
-(eval-after-load 'flyspell
-    '(use-package helm-flyspell-correct
-       :bind ("C-x g i" . helm-flyspell-correct)
-       ))
+;; (eval-after-load 'flyspell
+;;   '(use-package helm-flyspell-correct
+;;      :disabled t
+;;      :bind ("C-x g i" . helm-flyspell-correct)))
+#+end_src
+
+** helm-flyspell
+   自前のものではなくて, こっちをつかったほうがいいか?? 
+   - [[https://github.com/pronobis/helm-flyspell][pronobis/helm-flyspell]]
+
+#+begin_src emacs-lisp
+(use-package helm-flyspell
+  :bind ("C-x g i" . helm-flyspell-correct))
 #+end_src
 
 ** helm-etags-plus
