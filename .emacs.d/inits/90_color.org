@@ -47,7 +47,7 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
 (use-package molokai-theme-kit
   :config
   (setq molokai-theme-kit t)
-  ;; window-systemが判定できない.
+  ;; window-system が判定できない.
   (load-theme 'molokai t))
 #+end_src
 
@@ -186,3 +186,11 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
  ;; (enable-theme 'dark-erc)
  )
  #+end_src
+
+* emacs powerline
+  - https://github.com/jonathanchu/emacs-powerline  
+
+#+begin_src emacs-lisp
+(use-package powerline)
+#+end_src
+

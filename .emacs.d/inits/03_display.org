@@ -434,8 +434,7 @@ Add proper word wrapping
 
 #+begin_src emacs-lisp
 (when linux-p
-  (add-to-list 'default-frame-alist '(font . "ricty-13"))
-)
+  (add-to-list 'default-frame-alist '(font . "ricty-13.5")))
 #+end_src
 
 ** サイズ変更
