@@ -78,10 +78,16 @@
    ace インタフェースによるリンクの選択
    - https://github.com/abo-abo/ace-link
 
+   o をおすと発動.
+  
+  - ace-link-info in Info-mode 
+  - ace-link-help in help-mode 
+  - ace-link-eww in eww-mode 
+
 #+begin_src emacs-lisp
 (use-package ace-link
-  :config
+  :idle
   (ace-link-setup-default)
-  (define-key org-mode-map (kbd "C-c M-o") 'ace-link-org)
-)
+  :config
+  (define-key org-mode-map (kbd "C-c M-o") 'ace-link-org))
 #+end_src

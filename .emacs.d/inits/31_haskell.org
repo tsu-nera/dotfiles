@@ -62,8 +62,7 @@
 #+begin_src emacs-lisp
 (use-package haskell-cabal
   :commands haskell-cabal
-  :mode ("\\.cabal$" . haskell-cabal-mode)
-  )
+  :mode ("\\.cabal$" . haskell-cabal-mode))
 #+end_src
 
 * gcd-mod
@@ -86,12 +85,16 @@
 (use-package ghc
   :commands (ghc-init ghc-debug ghc)
   :init
-  (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
-  )
+  (add-hook 'haskell-mode-hook (lambda () (ghc-init))))
 #+end_src
 
   Emacs での使い方は以下のページに書いてある.
   - [[http://www.mew.org/~kazu/proj/ghc-mod/en/emacs.html][Usage of Emacs front-end]]
+
+* TODO emacs-haskell
+  新手のモード
+  - https://github.com/knupfer/haskell-emacs  
+
 
 * エラーチェック
 ** flymake

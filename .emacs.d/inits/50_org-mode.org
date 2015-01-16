@@ -639,7 +639,7 @@
   ;; 背景色
   ;;  (if (eq window-system nil)
   ;;      (set-face-background 'mmm-default-submode-face nil)
-  (set-face-background 'mmm-default-submode-face "#242424")
+  ;; (set-face-background 'mmm-default-submode-face "#242424")
     
   (mmm-add-classes
    '((org-elisp
@@ -729,13 +729,10 @@ containing the properties `:guid' and `:item-full-text'."
 #+end_src
 
 ** Wanderlust
+   wanderlust のメールを追跡できる.
 
 #+begin_src emacs-lisp
-(use-package org-wl
-  :defer t
-  :config
-  ;; wanderlust のメールを追跡できる
-  )
+(use-package org-wl)
 #+end_src
 
 ** Plantuml

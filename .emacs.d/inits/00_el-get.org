@@ -223,6 +223,8 @@
     keisen-ext
     flyspell-lazy
     helm-flyspell
+    monokai-emacs
+    powerline
     )
  "A list of packages to install from el-get at launch.")
 

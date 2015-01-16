@@ -172,6 +172,23 @@
   :bind ("C-c C-d" . lispxmp))
 #+end_src
 
+** indent
+   - [[http://dept-info.labri.u-bordeaux.fr/~strandh/Teaching/PFS/Common/Strandh-Tutorial/indentation.html][Indenting Common Lisp]]
+   - [[http://www.emacswiki.org/emacs/IndentingLisp][我的 Wiki:Indenting Lisp]]
+   - https://github.com/bbatsov/emacs-lisp-style-guide     
+
+#+begin_src emacs-lisp
+(put 'if 'lisp-indent-function nil)
+(put 'when 'lisp-indent-function 1)
+(put 'unless 'lisp-indent-function 1)
+(put 'do 'lisp-indent-function 2)
+(put 'do* 'lisp-indent-function 2)
+#+end_src
+
+  - indent-region (C-M-\)
+  - lisp-indent-line (tab key)
+  - indent-sexp (C-M-q) 
+
 ** Tips
   以下を評価するとスタック情報がみえる.
 

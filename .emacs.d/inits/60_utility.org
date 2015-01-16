@@ -737,26 +737,43 @@ sudo pacman -S ghostscript
 #+end_src
 
 #+begin_src emacs-lisp
- (when linux-p
-   (use-package pdf-tools 
-     :init
-     (setq pdf-info-epdfinfo-program
-	   (concat (el-get-package-directory "pdf-tools")
-		   "src/epdfinfo"))
-     :mode (("\\.pdf$" . pdf-view-mode))
-     :defer t
-     :config
-     (use-package pdf-isearch)
-     (use-package pdf-annot)
-     (use-package pdf-history) 
-     (use-package pdf-info)
-     (use-package pdf-links) 
-     (use-package pdf-misc) 
-     (use-package pdf-occur) 
-     (use-package pdf-outline) 
-     (use-package pdf-sync) 
-     (use-package tablist-filter)
-     (use-package tablist)))
+(use-package pdf-tools
+  :if linux-p
+  :init
+  (setq pdf-info-epdfinfo-program
+	(concat (el-get-package-directory "pdf-tools") "src/epdfinfo"))
+  (add-hook 'pdf-view-mode
+ 	    (lambda ()
+	      (pdf-isearch-minor-mode)))
+  :mode (("\\.pdf$" . pdf-view-mode)))
+;;  :config
+  
+  
+  
+
+;; (defconst 
+;; '(pdf-history-minor-mode
+;; 
+;; pdf-links-minor-mode
+;; pdf-misc-minor-mode
+;; pdf-outline-minor-mode
+;; pdf-misc-size-indication-minor-mode
+;; pdf-misc-menu-bar-minor-mode
+;; pdf-annot-minor-mode
+;; pdf-sync-minor-mode
+;; pdf-misc-context-menu-minor-mode
+;; pdf-cache-prefetch-minor-mode))	      
+	      ;; (use-package pdf-isearch)
+	      ;; (use-package pdf-annot)
+	      ;; (use-package pdf-history) 
+	      ;; (use-package pdf-info)
+	      ;; (use-package pdf-links) 
+	      ;; (use-package pdf-misc) 
+	      ;; (use-package pdf-occur) 
+	      ;; (use-package pdf-outline) 
+	      ;; (use-package pdf-sync) 
+	      ;; (use-package tablist-filter)
+	      ;; (use-package tablist))))
 #+end_src
 
   どうも, doc-view-mode がめちゃくちゃ遅い!linum-mode が有効なことが原因.

@@ -483,7 +483,7 @@
    設定例のかき集め.
    - [[http://mugijiru.seesaa.net/article/275755984.html][暇だったから ddskk の設定いじった: 麦汁三昧]]
 
-    windows 環境だと, フォルダで make をしないと利用できない.
+   フォルダで make をしないと利用できない.
 
     -> なんか, windows では利用できない.
      あいうえおがしいうかと変換される.
@@ -535,7 +535,8 @@
     われは親指シフター. 
     -  [[http://futurismo.biz/archives/2881][Emacs DDSKK で NICOLA 親指シフト入力をする | Futurismo]]
 
-    windows 環境だと, フォルダで make をしないと利用できない.
+    - ddskk フォルダで make && make install
+      - nicola フォルダで make
 
 #+begin_src emacs-lisp
 ;; 親指シフト
