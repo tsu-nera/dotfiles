@@ -124,6 +124,12 @@
 ;;       `((".*" ,(expand-file-name "~/.emacs.d/backup") t)))
 #+end_src
 
+**  symlink は必ず追いかける
+
+#+begin_src emacs-lisp
+(setq vc-follow-symlinks t)
+#+end_src
+
 * Key Bindings
 ** Global Keys
    よくわすれる, C や M の意味.

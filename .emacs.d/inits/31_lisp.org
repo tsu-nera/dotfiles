@@ -190,10 +190,10 @@
   - indent-sexp (C-M-q) 
 
 ** Tips
-  以下を評価するとスタック情報がみえる.
+  以下を有効にするとスタック情報がみえる.
 
 #+begin_src emacs-lisp
-;; (setq debug-on-error t)
+(setq debug-on-error nil)
 #+end_src
 
 * Scheme

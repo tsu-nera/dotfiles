@@ -13,9 +13,54 @@
    - [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Read-Only-Buffers.html][Read Only Buffers - GNU Emacs Lisp Reference Manual]]
 
 *** ログファイルは readonly で開く.
+    -> viewer へ.
+
    #+begin_src emacs-lisp
-   (add-to-list 'auto-mode-alist '("\\.log$" . read-only-mode))
+   ;; (add-to-list 'auto-mode-alist '("\\.log$" . read-only-mode))
    #+end_src
+
+*** view-mode
+    閲覧モード.
+    - [[http://d.hatena.ne.jp/rubikitch/20081104/1225745862][Ctrl+ 中指か薬指を使うキー操作が多い Emacs で指の負担を軽くする方法]]
+    - [[http://d.hatena.ne.jp/khiker/20061027/1161982764/][view-mode - とりあえず暇だったし何となく始めたブログ]]
+    - [[http://valvallow.blogspot.jp/2010/05/emacs-view-mode.html][vallog: Emacs view-mode がステキ便利]]
+
+#+begin_src emacs-lisp
+(use-package view
+  :config
+  (setq view-read-only t)
+
+  ;; less っぼく.
+  (define-key view-mode-map (kbd "p") 'View-scroll-page-backward)
+  (define-key view-mode-map (kbd "n") 'View-scroll-page-forward)
+  (define-key view-mode-map (kbd "n") 'View-scroll-page-forward)
+  (define-key view-mode-map (kbd "v") 'View-exit)
+
+  ;; vi ぼく
+  (define-key view-mode-map (kbd "h") 'backward-char)
+  (define-key view-mode-map (kbd "l") 'forward-char)
+  (define-key view-mode-map (kbd "j") 'next-line)
+  (define-key view-mode-map (kbd "k") 'previous-line))
+#+end_src
+
+*** viewer-mode
+    View-mode extension
+    - [[http://emacswiki.org/emacs/viewer.el][EmacsWiki: viewer.el]]
+
+#+begin_src emacs-lisp
+(use-package viewer
+  :config
+  ;; 書き込み不能ファイルは書き込みにならないように
+  (viewer-stay-in-setup)
+  
+  ;; view-mode のとき mode-line に色付け
+  (setq viewer-modeline-color-unwritable "tomato")
+  (setq viewer-modeline-color-view "orange")
+  (viewer-change-modeline-color-setup)
+
+  ;; log ファイルは viewer
+  (setq view-mode-by-default-regexp "\\.log$"))
+#+end_src
 
 ** vlfi
    View Large File
