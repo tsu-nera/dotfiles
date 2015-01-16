@@ -175,11 +175,25 @@ Warning: Eager macro-expansion skipped due to cycle:
 
 ** eww
    24.4 から搭載の Web ブラウザ.
-
    - http://bzr.savannah.gnu.org/lh/emacs/trunk/annotate/head:/lisp/net/eww.el
 
+   最新版を emacs repo からとってきて, eww.el を local directory においてる.
+
+   - n (eww-next-url)
+   - p (eww-previous-url) 
+   - l (eww-back-url) 
+   - r (eww-forward-url) 
+   - H (eww-list-histories) 
+   - &(eww-browse-with-external-browser)
+   - b (eww-add-bookmark)
+   - B (eww-list-bookmarks)
+   - q (quit-window)
+   
 #+begin_src emacs-lisp
-  (when emacs24.4-p
+(use-package eww
+  :bind ("C-q <C-return>" . eww)
+  :config
+  (define-key eww-mode-map "r" 'eww-reload)
 #+end_src
 
 *** default の検索エンジンを変更
@@ -205,21 +219,6 @@ Warning: Eager macro-expansion skipped due to cycle:
 
     #+begin_src emacs-lisp
    ;; (setq eww-search-prefix "https://duckduckgo.com/html/?kl=jp-jp&k1=-1&kc=1&kf=-1&q=")
-    #+end_src
-
-*** eww をすぐに起動するためのショートカット
-    以下のページを参考にして, eww を起動するためのキーバインドを設定した.
-    - http://steckerhalter.co.vu/posts/emacs-tips-and-tricks.html
-
-    #+begin_src emacs-lisp
-   (defun stk/eww-browse-kill-ring ()
-     (interactive)
-     (eww (current-kill 0 t)))
-    
-   ;; eww 起動
-   (global-set-key (kbd "C-q <C-return>") 'eww)
-   ;; 前のページへ
-   (global-set-key (kbd "C-q RET") 'stk/eww-browse-kill-ring)
     #+end_src
 
 *** eww 複数起動はできない??
@@ -251,25 +250,47 @@ Warning: Eager macro-expansion skipped due to cycle:
 
     -> ace-link でおきかえのため, 一旦 disable.
 
-    #+begin_src emacs-lisp
-(with-eval-after-load "eww"
-  (use-package eww-lnum
-    :disabled t
-    :commands (eww-lnum-follow eww-lnum-universal)
-    :init
-    (define-key eww-mode-map "f" 'eww-lnum-follow)
-    (define-key eww-mode-map "F" 'eww-lnum-universal)
-    :config
-    (defun eww-lnum-read-interactive--not-truncate-lines (&rest them)
-      (let ((truncate-lines nil))
-	(apply them)))
-    (advice-add 'eww-lnum-read-interactive :around
-		'eww-lnum-read-interactive--not-truncate-lines)
-  ))
-    #+end_src
+#+begin_src emacs-lisp
+(use-package eww-lnum
+  :disabled t
+  :commands (eww-lnum-follow eww-lnum-universal)
+  :init
+  (define-key eww-mode-map "f" 'eww-lnum-follow)
+  (define-key eww-mode-map "F" 'eww-lnum-universal)
+  :config
+  (defun eww-lnum-read-interactive--not-truncate-lines (&rest them)
+    (let ((truncate-lines nil))
+      (apply them)))
+  (advice-add 'eww-lnum-read-interactive :around
+	      'eww-lnum-read-interactive--not-truncate-lines))
+#+end_src
+
+*** 背景色の設定
+    - [[http://rubikitch.com/2014/11/19/eww-nocolor/][Emacs24.4 組み込みブラウザ eww で目の疲れを 1/10 にする方法 | るびきち「日刊 Emacs 」]]
 
 #+begin_src emacs-lisp
-   ) ;; end of 24.4
+(defvar eww-disable-colorize t)
+(defun shr-colorize-region--disable (orig start end fg &optional bg &rest _)
+  (unless eww-disable-colorize
+    (funcall orig start end fg)))
+(advice-add 'shr-colorize-region :around 'shr-colorize-region--disable)
+(advice-add 'eww-colorize-region :around 'shr-colorize-region--disable)
+(defun eww-disable-color ()
+  "eww で文字色を反映させない"
+  (interactive)
+  (setq-local eww-disable-colorize t)
+  (eww-reload))
+(defun eww-enable-color ()
+  "eww で文字色を反映させる"
+  (interactive)
+  (setq-local eww-disable-colorize nil)
+  (eww-reload))
+#+end_src
+
+*** end of config
+
+#+begin_src emacs-lisp
+   )
 #+end_src
 
 ** edit-server
