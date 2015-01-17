@@ -7,7 +7,7 @@
 #+begin_src emacs-lisp
 (custom-set-faces
  '(font-lock-comment-delimiter-face ((t (:inherit font-lock-comment-face :foreground "gray80"))))
- '(font-lock-comment-face ((t (:foreground "gray80")))))
+  '(font-lock-comment-face ((t (:foreground "gray80")))))
 #+end_src
 
 ** 透過度
@@ -194,5 +194,11 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
 #+begin_src emacs-lisp
 (use-package powerline
   :init
-  (powerline-default-theme))
+  (powerline-default-theme)
+  :config
+  ;; windowsだと色が変.
+  (when windows-p
+    (custom-set-faces
+     '(mode-line ((t (:background "#3E3D31" :distant-foreground "black" :foreground "#F8F8F2" :box (:line-width 1 :color "gray20" :style unspecified)))))
+     '(mode-line-buffer-id ((t (:foreground "#F92672" :weight bold)))))))
 #+end_src
