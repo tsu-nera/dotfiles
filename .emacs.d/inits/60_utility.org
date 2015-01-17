@@ -401,6 +401,19 @@ Warning: Eager macro-expansion skipped due to cycle:
 (define-key org-mode-map (kbd "C-x @ @") 'eww-yank-page-org-link)
 #+end_src
 
+*** eww-hatebu
+    - 
+    - [[http://d.hatena.ne.jp/syohex/20150116/1421424603][eww ではてなブックマーク数を表示する拡張を書いた - Life is very short]]    
+
+#+begin_src emacs-lisp
+(use-package eww-hatebu
+  :config
+  (eww-hatebu-setup)
+  (custom-set-faces
+   '(eww-hatebu-bookmarks
+     ((t (:foreground "#A6E22E"))))))
+#+end_src
+
 *** end of config
 
 #+begin_src emacs-lisp

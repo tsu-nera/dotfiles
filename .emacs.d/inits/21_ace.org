@@ -6,12 +6,12 @@
 
 #+begin_src emacs-lisp
 (use-package ace-jump-mode
-  :bind ("C-x ," . ace-jump-mode)
-  :config
+  :bind ("C-x ," . ace-jump-mode))
+  ; :config
   ; 文字が小さいので :height を設定
-  (custom-set-faces
-   '(ace-jump-face-foreground
-     ((t (:foreground "red" :box nil :weight ultra-bold :height 2.0))))))
+  ;(custom-set-faces
+  ; '(ace-jump-face-foreground
+  ;   ((t (:foreground "red" :box nil :weight ultra-bold :height 2.0))))))
 #+end_src
 
 ** ace-jump-buffer
@@ -75,7 +75,6 @@
 	      (select-window wnd)
 	      (delete-other-windows))))
     (aw--doit " Ace - Maximize Window")))
-
 #+end_src
 
 ** ace-link

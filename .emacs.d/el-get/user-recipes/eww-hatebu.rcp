@@ -1,0 +1,3 @@
+(:name eww-hatebu
+       :type github
+       :pkgname "syohex/emacs-eww-hatebu")
