@@ -7,7 +7,11 @@
 #+begin_src emacs-lisp
 (use-package ace-jump-mode
   :bind ("C-x ," . ace-jump-mode)
-  )
+  :config
+  ; 文字が小さいので :height を設定
+  (custom-set-faces
+   '(ace-jump-face-foreground
+     ((t (:foreground "red" :box nil :weight ultra-bold :height 2.0))))))
 #+end_src
 
 ** ace-jump-buffer
@@ -60,7 +64,7 @@
   :bind (("C-x o" . ace-window)
 	 ("C-x C-o" . ace-maximize-window))
   :config
-  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  ;; (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
   
   (defun ace-maximize-window ()
     "Ace maximize window."
@@ -70,8 +74,8 @@
 	    (let ((wnd (aj-position-window aj)))
 	      (select-window wnd)
 	      (delete-other-windows))))
-    (aw--doit " Ace - Maximize Window"))
-  )
+    (aw--doit " Ace - Maximize Window")))
+
 #+end_src
 
 ** ace-link
@@ -86,9 +90,9 @@
 
 #+begin_src emacs-lisp
 (use-package ace-link
-  :idle
-  (ace-link-setup-default)
+  :commands (ace-link ace-link-eww ace-link-org)
   :config
+  (ace-link-setup-default)
   (define-key org-mode-map (kbd "C-c M-o") 'ace-link-org)
-  (define-key eww-mode-map "f" 'ace-link-eww)
+  (define-key eww-mode-map "f" 'ace-link-eww))
 #+end_src

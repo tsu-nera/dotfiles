@@ -19,7 +19,7 @@
 (setq ssl-certificate-verification-policy 1)
 
 ;; 画面を普通のメーラみたいな 3 ペインに
-(setq wl-stay-folder-window t)
+;; (setq wl-stay-folder-window t)
 
 ;; 大きなメッセージを分割して送信しない (デフォルトは t で分割する)
 (setq mime-edit-split-message nil)

@@ -191,7 +191,6 @@ Warning: Eager macro-expansion skipped due to cycle:
    
 #+begin_src emacs-lisp
 (use-package eww
-  :init
   :bind ("C-q <C-return>" . eww)
   :commands eww-disable-images
   :config
@@ -312,6 +311,7 @@ Warning: Eager macro-expansion skipped due to cycle:
 
 #+begin_src emacs-lisp
 (use-package helm-eww-bookmark
+  :disabled t
   :config
    (define-key eww-mode-map "B" 'helm-eww-bookmark))
 #+end_src

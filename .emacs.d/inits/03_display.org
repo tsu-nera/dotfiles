@@ -426,6 +426,16 @@ Add proper word wrapping
 #+end_src
 
 * フォント
+
+** お試し
+  フォントを試したいときは, 以下の S 式でいろいろ評価してみる.
+ 
+#+begin_src text
+(set-frame-font "noto-12")
+#+end_src
+
+   - [[http://d.hatena.ne.jp/kitokitoki/20110502/p2][emacs での Ricty の導入手順 - わからん]]
+
 ** Ricty
    http://d.hatena.ne.jp/kitokitoki/20110502/p2
 
@@ -436,6 +446,14 @@ Add proper word wrapping
 (when linux-p
   (add-to-list 'default-frame-alist '(font . "Ricty-13.5")))
 #+end_src
+
+** Noto 
+   google と adobe が開発したフォント
+
+#+begin_src emacs-lisp
+;; (set-frame-font "Noto Sans CJK JP-13")
+#+end_src
+
 
 ** サイズ変更
    text-scale-adjust という関数で変更する.(C-x C-0)
