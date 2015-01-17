@@ -54,8 +54,8 @@
   (viewer-stay-in-setup)
   
   ;; view-mode のとき mode-line に色付け
-  (setq viewer-modeline-color-unwritable "tomato")
-  (setq viewer-modeline-color-view "orange")
+  (setq viewer-modeline-color-unwritable "blue")
+  (setq viewer-modeline-color-view "purple")
   (viewer-change-modeline-color-setup)
 
   ;; log ファイルは viewer
@@ -66,10 +66,10 @@
    View Large File
    - https://github.com/m00natic/vlfi
 
-
    #+begin_src emacs-lisp
    (use-package vlf-setup)
    #+end_src
+
 
 * 編集
 ** cua-mode
@@ -310,18 +310,6 @@
 
 #+begin_src emacs-lisp
 (use-package keisen-ext)
-#+end_src
-
-** auto-fill-mode
-   デフォルト搭載. 勝手に折り返してくれる.
-   - [[http://www.emacswiki.org/emacs/AutoFillMode][EmacsWiki: Auto Fill Mode]]
-
-#+begin_src emacs-lisp
-;;; 一行が 80 字以上になった時には自動改行する
-(setq fill-column 80)
-;;(setq-default auto-fill-mode t)
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
-(add-hook 'org-mode-hook 'turn-on-auto-fill)
 #+end_src
 
 ** artist-mode

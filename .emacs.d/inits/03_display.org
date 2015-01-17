@@ -17,6 +17,26 @@
 (global-auto-revert-mode 1)
 #+end_src
 
+** 折り返し設定
+  - [[http://d.hatena.ne.jp/beiz23/20090713/1247476145][emacs で truncate-lines を t にしているのに折り返ししてくれない. - beiz のノート]]
+
+#+begin_src emacs-lisp
+;; 画面からはみ出たら切り捨て.
+(setq truncate-partial-width-windows nil)
+(setq truncate-lines t)
+#+end_src
+** auto-fill-mode
+   デフォルト搭載. 勝手に折り返してくれる.
+   - [[http://www.emacswiki.org/emacs/AutoFillMode][EmacsWiki: Auto Fill Mode]]
+
+#+begin_src emacs-lisp
+;;; 一行が 80 字以上になった時には自動改行する
+(setq fill-column 80)
+;;(setq-default auto-fill-mode t)
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
+#+end_src
+
 ** Popwin
    バッファのポップアップ表示. Popup Manager for Emacs.
    - [[https://github.com/m2ym/popwin-el][m2ym/popwin-el]]

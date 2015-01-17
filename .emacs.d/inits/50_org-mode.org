@@ -23,8 +23,7 @@
   (define-key org-mode-map "\C-co" 'org-open-at-point)
 
   ;; RET でリンクを追う.
-  (setq org-return-follows-link t)
-  )
+  (setq org-return-follows-link t))
 #+end_src
 
 ** org-mode の src を目立たせる設定
@@ -46,6 +45,9 @@
 
 ;; content
 ;; (setq org-indent-mode t)
+
+;; 折り返さない
+;; (setq org-startup-truncated は org-mode nil)
 #+end_src
 
 ** org-open-link を dired で
@@ -739,13 +741,15 @@ containing the properties `:guid' and `:item-full-text'."
 
 #+begin_src emacs-lisp
 (when linux-p
-(setq org-plantuml-jar-path "/usr/local/bin/plantuml.jar")
-(defun org-mode-init ()
+  (setq org-plantuml-jar-path "/usr/local/bin/plantuml.jar")
+  
+(defun org-babel-plantuml-init ()
   (org-babel-do-load-languages
    'org-babel-load-languages
    (add-to-list 'org-babel-load-languages '(plantuml . t))))
-(add-hook 'org-mode-hook 'org-mode-init)
-)
+
+(add-hook 'org-mode-hook 'org-babel-plantuml-init))
+
 #+end_src
 
 ** org-sync (未使用)

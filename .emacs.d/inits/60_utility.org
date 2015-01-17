@@ -191,8 +191,8 @@ Warning: Eager macro-expansion skipped due to cycle:
    
 #+begin_src emacs-lisp
 (use-package eww
-  :bind ("C-q <C-return>" . eww)
-  :commands eww-disable-images
+  :commands (eww-disable-images eww-search)
+  :bind (("C-q <C-return>" . eww) ("C-x g g" . eww-search))
   :config
   (define-key eww-mode-map "r" 'eww-reload)
   (define-key eww-mode-map "c 0" 'eww-copy-page-url)
@@ -227,13 +227,20 @@ Warning: Eager macro-expansion skipped due to cycle:
    ;; (setq eww-search-prefix "https://duckduckgo.com/html/?kl=jp-jp&k1=-1&kc=1&kf=-1&q=")
     #+end_src
 
+*** 検索
+#+begin_src emacs-lisp
+ (defun eww-search (term)
+    (interactive "sSearch terms: ")
+    (eww-browse-url (concat eww-search-prefix term)))
+#+end_src
+
 *** eww 複数起動はできない??
     eww を複数起動はできないようだ.
     画面を 2 分割して, 別の画面を表示したり,
     elscreen を利用して, タブブラウザ的なことはできなかった.
 
-    => patch があったので, もうすぐ取り込まれるかと.
-    http://emacs.1067599.n5.nabble.com/bug-16211-eww-should-support-multiple-eww-buffers-td306918.html
+    バッファ名を rename すればいい.
+    - eww-list-buffers
 
 *** 外部ブラウザでリンクを開く (eww-browse-with-external-link)
     テキストブラウザは地味なので, ときには別のブラウザでも Web ページを閲覧したい.
@@ -336,7 +343,9 @@ Warning: Eager macro-expansion skipped due to cycle:
 (defun shr-put-image-alt (spec alt &optional flags)
   (insert alt))
 ;; はじめから非表示
-;; (add-hook 'eww-mode-hook 'eww-mode-hook--disable-image)
+(defun eww-mode-hook--disable-image ()
+  (setq-local shr-put-image-function 'shr-put-image-alt))
+(add-hook 'eww-mode-hook 'eww-mode-hook--disable-image)
 #+end_src
 
 *** 検索
