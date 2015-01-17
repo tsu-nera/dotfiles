@@ -18,8 +18,7 @@
 ** ace-jump-buffer
    #+begin_src emacs-lisp
 (use-package ace-jump-buffer
-  :bind ("C-x m" . ace-jump-buffer)
-  )
+  :bind ("C-x m" . ace-jump-buffer))
 #+end_src
 
 ** ace-jump-zap
@@ -45,14 +44,13 @@
    - [[http://rubikitch.com/tag/ace-isearch/][「 ace-isearch 」タグの記事一覧 | るびきち「日刊 Emacs 」]]
    - [[http://qiita.com/ballforest/items/7c3f2e64b59d8157bc8c][Emacs - ace-isearch : isearch と ace-jump-mode の連携 - Qiita]]
 
-   #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (use-package ace-isearch
   :config
-   (global-ace-isearch-mode +1)
-   ;; (setq ace-isearch-use-function-from-isearch nil)
-   (define-key isearch-mode-map (kbd "M-o") 'helm-multi-swoop-all-from-isearch)
-   )
-   #+end_src
+  (global-ace-isearch-mode 1)
+  ;; (setq ace-isearch-use-function-from-isearch nil)
+  (define-key isearch-mode-map (kbd "M-o") 'helm-multi-swoop-all-from-isearch))
+#+end_src
 
 ** ace-window
    ace インタフェースによる切り替え.
