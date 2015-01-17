@@ -136,6 +136,8 @@ Warning: Eager macro-expansion skipped due to cycle:
 (define-key goto-map [?b] #'browse-url-at-point)
 #+end_src
 
+** 複数のブラウザを使い分け
+
 ** w3m
     eww が登場したのでもはや過去のもの. もう使わないだろう.
 
@@ -192,7 +194,9 @@ Warning: Eager macro-expansion skipped due to cycle:
 #+begin_src emacs-lisp
 (use-package eww
   :commands (eww-disable-images eww-search)
-  :bind (("C-q <C-return>" . eww) ("C-x g g" . eww-search))
+  :bind (("C-q <C-return>" . eww)
+	 ("C-x g g" . eww-search)
+	 ("C-c p" . browse-url-with-eww))
   :config
   (define-key eww-mode-map "r" 'eww-reload)
   (define-key eww-mode-map "c 0" 'eww-copy-page-url)
@@ -232,6 +236,27 @@ Warning: Eager macro-expansion skipped due to cycle:
  (defun eww-search (term)
     (interactive "sSearch terms: ")
     (eww-browse-url (concat eww-search-prefix term)))
+#+end_src
+
+*** 現在の url を eww で開く
+  - [[http://tototoshi.hatenablog.com/entry/20100630/1277897703][カーソル位置の URL をブラウザで開く - tototoshi の日記]]
+  - [[http://stackoverflow.com/questions/9033050/how-to-setup-emacs-to-folow-links-in-two-ways-depend-on-ctrl-key][browser - How to setup Emacs to folow links in two ways depend on CTRL key - Stack Overflow]]
+  - [[http://ergoemacs.org/emacs/elisp_thing-at-point.html][Emacs Lisp: Using thing-at-point]]
+  - [[http://tech.actindi.net/3498443215][アクトインディ技術部隊報告書]]
+
+  #+begin_src emacs-lisp
+;; これだと org-link が利用できない...
+(defun browse-url-with-eww ()
+  (interactive)
+  (let ((url-region (bounds-of-thing-at-point 'url)))
+    ;; url
+    (if url-region
+      (eww-browse-url (buffer-substring-no-properties (car url-region)
+						      (cdr url-region))))
+    ;; org-link
+    (setq browse-url-browser-function 'eww-browse-url)
+    (org-open-at-point)
+    (setq browse-url-browser-function 'browse-url-generic)))
 #+end_src
 
 *** eww 複数起動はできない??
