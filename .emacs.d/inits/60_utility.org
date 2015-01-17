@@ -189,11 +189,12 @@ Warning: Eager macro-expansion skipped due to cycle:
    - B (eww-list-bookmarks)
    - q (quit-window)
 
-   見にくいときは, R eww-readable を!
+   見にくいときは, R eww-readable をすると, 
+   余計なリンクやサイドバーが消えて見えやすくなる.
    
 #+begin_src emacs-lisp
 (use-package eww
-  :commands (eww-disable-images eww-search)
+  :commands (eww-disable-images)
   :bind (("C-q <C-return>" . eww)
 	 ("C-x g g" . eww-search)
 	 ("C-c p" . browse-url-with-eww))
@@ -209,9 +210,6 @@ Warning: Eager macro-expansion skipped due to cycle:
 *** default の検索エンジンを変更
     google jp を設定する. default では, duckduckgo が設定されている.
 
-    - 結局やめた. なぜなら, 色がへん.
-    - leuven-theme ならばそんなにへんじゃないので復活
-   
     #+begin_src emacs-lisp
    (setq eww-search-prefix "http://www.google.co.jp/search?q=")
     #+end_src
@@ -247,7 +245,6 @@ Warning: Eager macro-expansion skipped due to cycle:
   - [[http://tech.actindi.net/3498443215][アクトインディ技術部隊報告書]]
 
   #+begin_src emacs-lisp
-;; これだと org-link が利用できない...
 (defun browse-url-with-eww ()
   (interactive)
   (let ((url-region (bounds-of-thing-at-point 'url)))
@@ -262,11 +259,8 @@ Warning: Eager macro-expansion skipped due to cycle:
 #+end_src
 
 *** eww 複数起動はできない??
-    eww を複数起動はできないようだ.
-    画面を 2 分割して, 別の画面を表示したり,
-    elscreen を利用して, タブブラウザ的なことはできなかった.
-
     バッファ名を rename すればいい.
+    - http://ergoemacs.org/emacs/emacs_eww_web_browser.html
 
 #+begin_src emacs-lisp
 (defun eww-mode-hook--rename-buffer ()
@@ -276,6 +270,7 @@ Warning: Eager macro-expansion skipped due to cycle:
 #+end_src
 
     - eww-list-buffers
+      生成した eww を一覧で表示.
 
 *** 外部ブラウザでリンクを開く (eww-browse-with-external-link)
     テキストブラウザは地味なので, ときには別のブラウザでも Web ページを閲覧したい.
@@ -388,6 +383,22 @@ Warning: Eager macro-expansion skipped due to cycle:
     
 #+begin_src emacs-lisp
 ;; (use-package eww-weblio)
+#+end_src
+
+*** get-link
+    eww-copy-page-url (w) で現在の URL をクリップボードにコピー.
+
+    #+begin_src emacs-lisp
+(defvar eww-org-link-buffer "")
+(defun eww-copy-page-org-link ()
+  (interactive)
+  (setq eww-org-link-buffer
+	(format "[[%s][%s]]" (eww-current-url) (eww-current-title))))
+(defun eww-yank-page-org-link ()
+  (interactive)
+  (insert eww-org-link-buffer))
+(define-key eww-mode-map (kbd "@") 'eww-copy-page-org-link)
+(define-key org-mode-map (kbd "C-x @ @") 'eww-yank-page-org-link)
 #+end_src
 
 *** end of config
