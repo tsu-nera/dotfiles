@@ -116,7 +116,11 @@ Add proper word wrapping
      どのフォントが利用できるかは, helm-select-xfont で調べる.
 
 ** Ricty
-  -  http://d.hatena.ne.jp/kitokitoki/20110502/p2
+  - http://d.hatena.ne.jp/kitokitoki/20110502/p2
+  - https://github.com/yascentur/Ricty
+
+ Ricty Diminished ならば, 生成する必要なし.
+  - https://github.com/yascentur/RictyDiminished
 
    no window モードは X の設定にしたがっているので, 
    .Xdefaults の設定を調整する必要あり.
@@ -124,6 +128,8 @@ Add proper word wrapping
 #+begin_src emacs-lisp
 (when linux-p
   (add-to-list 'default-frame-alist '(font . "Ricty-13.5")))
+(when windows-p
+  (add-to-list 'default-frame-alist '(font . "Ricty Diminished-13.5")))
 #+end_src
 
 ** Noto 
@@ -132,8 +138,8 @@ Add proper word wrapping
    - [[https://www.google.com/get/noto/][Google Noto Fonts]]
 
    #+begin_src emacs-lisp
-(when windows-p
-  (set-frame-font "Noto Sans CJK JP Light-12"))
+;; (when windows-p
+;;  (set-frame-font "Noto Sans CJK JP Light-12"))
 ;; (set-frame-font "Noto Sans CJK JP-13")
 #+end_src
 

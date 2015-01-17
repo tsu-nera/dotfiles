@@ -176,8 +176,7 @@ Warning: Eager macro-expansion skipped due to cycle:
 ** eww
    24.4 から搭載の Web ブラウザ.
    - http://bzr.savannah.gnu.org/lh/emacs/trunk/annotate/head:/lisp/net/eww.el
-
-   最新版を emacs repo からとってきて, eww.el を local directory においてる.
+   - [[http://www.gnu.org/software/emacs/manual/html_mono/eww.html#Advanced][Emacs Web Wowser]]
 
    - N (eww-next-url)
    - P (eww-previous-url) 

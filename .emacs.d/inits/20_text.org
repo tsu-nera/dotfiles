@@ -526,9 +526,9 @@
     -> なんか, windows では利用できない.
      あいうえおがしいうかと変換される.
 
-   #+begin_src emacs-lisp
+  #+begin_src emacs-lisp
 (use-package skk-autoloads
-  :if linux-p
+;;  :if linux-p
   :bind (("C-x C-j" . skk-mode) ("C-x j" . skk-mode))
   :init
   (global-unset-key "\C-xj")
@@ -555,8 +555,7 @@
     - 変換モードで [dk] でカタカナ変換.
 
 *** 動的候補
-
-   - [[http://d.hatena.ne.jp/tomoya/20090711/1247314350][僕の ddskk の設定です. - 日々, とんは語る. ]]
+    - [[http://d.hatena.ne.jp/tomoya/20090711/1247314350][僕の ddskk の設定です. - 日々, とんは語る. ]]
 
 #+begin_src emacs-lisp
 ;; 候補表示
@@ -571,15 +570,22 @@
 
 *** 親指シフト
     われは親指シフター. 
-    -  [[http://futurismo.biz/archives/2881][Emacs DDSKK で NICOLA 親指シフト入力をする | Futurismo]]
+    - [[http://futurismo.biz/archives/2881][Emacs DDSKK で NICOLA 親指シフト入力をする | Futurismo]]
+    - [[https://github.com/skk-dev/ddskk/blob/master/nicola/README.NICOLA.ja][ddskk/README.NICOLA.ja at master · skk-dev/ddskk]]
 
     - ddskk フォルダで make && make install
       - nicola フォルダで make
+	windows 環境だと, cygwin で make が失敗したので, eshell で実施した.
+	どうも, make install をするとダメだな.. make だけ.
 
 #+begin_src emacs-lisp
 ;; 親指シフト
 (setq skk-use-kana-keyboard t)
 (setq skk-kanagaki-keyboard-type 'omelet-jis)
+
+(when windows-p
+  (setq skk-nicola-lshift-keys '([non-convert]))
+  (setq skk-nicola-rshift-keys '([convert])))
 #+end_src
 
 *** end of skk config
