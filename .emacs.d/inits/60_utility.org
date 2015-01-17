@@ -124,14 +124,12 @@ Warning: Eager macro-expansion skipped due to cycle:
 
 #+begin_src emacs-lisp
 (when linux-p
-  (setq browse-url-generic-program (executable-find "conkeror"))
-  (setq browse-url-browser-function 'browse-url-generic)
-)
+(setq browse-url-generic-program (executable-find "conkeror"))
+(setq browse-url-browser-function 'browse-url-generic))
 
 (when windows-p
 ; Windows 環境のデフォルト
- (setq browse-url-browser-function 'browse-url-default-windows-browser)
-)
+ (setq browse-url-browser-function 'browse-url-default-windows-browser))
 
 ;; 今のポイントしている URL を開く
 (global-set-key (kbd "C-c u") 'browse-url-at-point)
@@ -248,6 +246,13 @@ Warning: Eager macro-expansion skipped due to cycle:
     #+begin_src text
     eww-browse-with-external-link
     #+end_src
+
+    以下の設定で, ブラウザを conkeror に指定.
+    - http://www.emacswiki.org/emacs/Conkeror
+
+#+begin_src emacs-lisp
+(setq shr-external-browser 'browse-url-generic)
+#+end_src
 
 *** conkerror のような番号づけ
     eww-lnum を入れると, conkeror のようにリンク先を選択できる.

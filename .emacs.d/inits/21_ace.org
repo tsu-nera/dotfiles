@@ -89,5 +89,6 @@
   :idle
   (ace-link-setup-default)
   :config
-  (define-key org-mode-map (kbd "C-c M-o") 'ace-link-org))
+  (define-key org-mode-map (kbd "C-c M-o") 'ace-link-org)
+  (define-key eww-mode-map "f" 'ace-link-eww)
 #+end_src
