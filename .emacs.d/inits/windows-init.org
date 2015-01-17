@@ -3,8 +3,6 @@
   Emacs の素晴らしいところは, Linux でも Windows でも,
   同じ Emacs の世界ですごせるところにある.
 
-  - C:/app にツールはおくことにする.
-  - Program file にはおかないこと.
 
 * バイナリ取得
   - [[http://futurismo.biz/archives/2465][Windows で Emacs を利用する | Futurismo]]
@@ -27,6 +25,15 @@
    emacs-w64: git リポジトリの latest snapshot から絶えずビルドしているバイナリ.
    おそらくこれがもっとも最新の開発版.
    - [[http://sourceforge.net/projects/emacsbinw64/][emacs-w64 | SourceForge.net]]
+
+* ツールの取得
+  - C:/app にツールはおくことにする.
+  - Program file にはなるべくおかない
+
+** Chocolatey
+   パッケージ管理にはなるべく chocolatey を利用しよう.
+   - [[https://chocolatey.org/][Chocolatey Gallery]]
+   - [[http://hayashikejinan.com/windows/1145/][Chocolatey は Windows ユーザー希望の星となり得るか, インストール~使い方など【パッケージ管理】]]
 
 * 画像
   Official に情報あり
@@ -87,6 +94,30 @@ Value: ((xpm "libxpm.dll" "xpm4.dll" "libXpm-nox4.dll")
 #+begin_src emacs-lisp
 (setq helm-ag-base-command "c:/app/ag4mingw/ag.exe --nogroup")
 #+end_src
+
+* cmigemo
+  - [[http://www.kaoriya.net/software/cmigemo/][C/Migemo - KaoriYa]]
+
+* auto-compression-mode: gzip
+  eww では, auto-compression-mode によって, gzip が必要なようだ.
+  - [[http://www.emacswiki.org/emacs/AutoCompressionMode][EmacsWiki: Auto Compression Mode]]
+
+  以下から windows 用のバイナリが手に入る.
+  - [[http://www2.nc-toyama.ac.jp/Lab/mkawai/sotuken/guide/gzip/gzip.html][GNU File Compress/Uncompress Tool gzip for Windows]]
+
+* Trouble about Windows
+** magit
+   変更していないのに変更したように見える.
+
+#+begin_src text
+old mode 100755 new mode 100644
+#+end_src
+
+  これは, 権限が変更されたから. 権限の変更は管理しないようにする.
+
+  #+begin_src bash
+  git config core.filemode false
+  #+end_src
 
 * Tips
   - [[http://gregorygrubbs.com/emacs/10-tips-emacs-windows/][10 Tips for Powerful Emacs on Windows]]

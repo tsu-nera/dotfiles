@@ -6,6 +6,7 @@
 .emacs-places
 .w3m
 *.cache
+*#
 
 /.xmonad/*
 !/.xmonad/xmonad.hs
@@ -60,3 +61,5 @@ gtd
 tmp
 /.emacs.d/eww-bookmarks
 /.emacs.d/inits/tsu-nera*
+/.skk-jisyo
+/.skk-record
