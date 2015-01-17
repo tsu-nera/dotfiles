@@ -6,12 +6,13 @@
 
 #+begin_src emacs-lisp
 (use-package ace-jump-mode
-  :bind ("C-x ," . ace-jump-mode))
-  ; :config
-  ; 文字が小さいので :height を設定
-  ;(custom-set-faces
-  ; '(ace-jump-face-foreground
-  ;   ((t (:foreground "red" :box nil :weight ultra-bold :height 2.0))))))
+  :bind ("C-x ," . ace-jump-mode)
+  :config
+  (custom-set-faces
+   '(ace-jump-face-foreground
+     ((t (:foreground "red" :box nil :weight ultra-bold :height 1.3))))))
+;; 文字が小さいので :height を設定
+;; ((t (:foreground "red" :box nil :weight ultra-bold :height 2.0))))))
 #+end_src
 
 ** ace-jump-buffer
