@@ -114,28 +114,6 @@
 (which-function-mode 1)
 #+end_src
 
-** 行番号の表示
-   特定の major-mode のときは抑止
-   - https://github.com/Khady/emacs.d/blob/master/setup-linum.el
-
-#+begin_src emacs-lisp
-(use-package setup-linum
-  :init
-  ;; daemon 起動中に linum-mode を有効にすると落ちる.
-  (add-hook 'after-init-hook 'global-linum-mode t)
-  :config
-  ;; linum を利用しないメジャーモードを列挙
-  (setq linum-disabled-modes-list
- 	'(eshell-mode
-	  wl-summary-mode
-	  compilation-mode
-	  dired-mode
-	  doc-view-mode
-	  image-mode
-	  pdf-view-mode
-	  )))
-#+end_src
-
 * ファイル
 ** 定義
    名前がつけられたバッファ.
@@ -325,6 +303,28 @@
 #+end_src
 
 ** スクロールバーを消す
+** linum: 行番号の表示
+   特定の major-mode のときは抑止
+   - https://github.com/Khady/emacs.d/blob/master/setup-linum.el
+
+#+begin_src emacs-lisp
+(use-package setup-linum
+  :init
+  ;; daemon 起動中に linum-mode を有効にすると落ちる.
+  (add-hook 'after-init-hook 'global-linum-mode t)
+  :config
+  ;; linum を利用しないメジャーモードを列挙
+  (setq linum-disabled-modes-list
+ 	'(eshell-mode
+	  wl-summary-mode
+	  compilation-mode
+	  dired-mode
+	  doc-view-mode
+	  image-mode
+	  pdf-view-mode
+	  eww-mode)))
+#+end_src
+
 #+begin_src emacs-lisp
 (set-scroll-bar-mode nil)
 (when linux-p

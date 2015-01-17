@@ -19,7 +19,7 @@
    ;; (add-to-list 'auto-mode-alist '("\\.log$" . read-only-mode))
    #+end_src
 
-*** view-mode
+** view-mode
     閲覧モード.
     - [[http://d.hatena.ne.jp/rubikitch/20081104/1225745862][Ctrl+ 中指か薬指を使うキー操作が多い Emacs で指の負担を軽くする方法]]
     - [[http://d.hatena.ne.jp/khiker/20061027/1161982764/][view-mode - とりあえず暇だったし何となく始めたブログ]]
@@ -43,7 +43,7 @@
   (define-key view-mode-map (kbd "k") 'previous-line))
 #+end_src
 
-*** viewer-mode
+** viewer-mode
     View-mode extension
     - [[http://emacswiki.org/emacs/viewer.el][EmacsWiki: viewer.el]]
 
@@ -69,7 +69,6 @@
    #+begin_src emacs-lisp
    (use-package vlf-setup)
    #+end_src
-
 
 * 編集
 ** cua-mode

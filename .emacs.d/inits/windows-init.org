@@ -1,22 +1,32 @@
-* Windows 環境専用設定
+#+TITLE: Windows Configuration
+* はじめに
+  Emacs の素晴らしいところは, Linux でも Windows でも,
+  同じ Emacs の世界ですごせるところにある.
+
+  - C:/app にツールはおくことにする.
+  - Program file にはおかないこと.
+
+* バイナリ取得
+  - [[http://futurismo.biz/archives/2465][Windows で Emacs を利用する | Futurismo]]
+
+** Official
   Official.
   - http://ftp.gnu.org/gnu/emacs/windows/
-  - [[http://gregorygrubbs.com/emacs/10-tips-emacs-windows/][10 Tips for Powerful Emacs on Windows]]
+ 
+  公式リポジトリは 64bit がおいてない.
 
-** ショートカットから外部のアプリケーションを起動
-   - [[http://stackoverflow.com/questions/2284319/opening-files-with-default-windows-application-from-within-emacs][Opening files with default Windows application from within emacs - Stack Overflow]]
+** UnOfficial
+   NTEmacs: Windows 用にビルドした GNU Emacs の通称. 
+   日本人がメンテナンスしている.
+   - [[https://github.com/chuntaro/NTEmacs64][chuntaro/NTEmacs64]]
+   - [[http://cha.la.coocan.jp/doc/NTEmacs.html][NTEmacs / Emacs for Windows]]
 
-#+begin_src emacs-lisp
-(defun w32-browser 
-  (doc) 
-  (w32-shell-execute 1 doc))
+   gnupack: Cygwin 用.
+   - [[http://d.hatena.ne.jp/ksugita0510/][gnupack の開発メモ]]
 
-(eval-after-load "dired" 
-  '(define-key dired-mode-map [f6] 
-     (lambda () 
-       (interactive) 
-       (w32-browser (dired-replace-in-string "/" "\\" (dired-get-filename))))))
-#+end_src
+   emacs-w64: git リポジトリの latest snapshot から絶えずビルドしているバイナリ.
+   おそらくこれがもっとも最新の開発版.
+   - [[http://sourceforge.net/projects/emacsbinw64/][emacs-w64 | SourceForge.net]]
 
 * 画像
   Official に情報あり
@@ -37,7 +47,6 @@ Value: ((xpm "libxpm.dll" "xpm4.dll" "libXpm-nox4.dll")
  (gnutls "libgnutls-28.dll" "libgnutls-26.dll")
  (libxml2 "libxml2-2.dll" "libxml2.dll"))
 #+end_src
-
 
  .dll が必要. 以下のサイトから入手.
 
@@ -72,8 +81,30 @@ Value: ((xpm "libxpm.dll" "xpm4.dll" "libXpm-nox4.dll")
 #+end_src
 
 * ag
+  高速 grep.
   - [[http://blog.kowalczyk.info/software/the-silver-searcher-for-windows.html][The Silver Searcher windows port]]
 
 #+begin_src emacs-lisp
-;; (setq helm-ag-base-command "c:/app/ag4mingw/ag.exe --nogroup")
+(setq helm-ag-base-command "c:/app/ag4mingw/ag.exe --nogroup")
+#+end_src
+
+* Tips
+  - [[http://gregorygrubbs.com/emacs/10-tips-emacs-windows/][10 Tips for Powerful Emacs on Windows]]
+
+**  init ファイルの設定方法
+   - [[http://www.gnu.org/software/emacs/manual/html_node/efaq-w32/Location-of-init-file.html#Location-of-init-file][Location of init file - GNU Emacs FAQ For MS Windows]]
+
+** ショートカットから外部のアプリケーションを起動
+   - [[http://stackoverflow.com/questions/2284319/opening-files-with-default-windows-application-from-within-emacs][Opening files with default Windows application from within emacs - Stack Overflow]]
+
+#+begin_src emacs-lisp
+(defun w32-browser 
+  (doc) 
+  (w32-shell-execute 1 doc))
+
+(eval-after-load "dired" 
+  '(define-key dired-mode-map [f6] 
+     (lambda () 
+       (interactive) 
+       (w32-browser (dired-replace-in-string "/" "\\" (dired-get-filename))))))
 #+end_src
