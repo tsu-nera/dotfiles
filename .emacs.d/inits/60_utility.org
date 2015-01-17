@@ -179,21 +179,30 @@ Warning: Eager macro-expansion skipped due to cycle:
 
    最新版を emacs repo からとってきて, eww.el を local directory においてる.
 
-   - n (eww-next-url)
-   - p (eww-previous-url) 
+   - N (eww-next-url)
+   - P (eww-previous-url) 
    - l (eww-back-url) 
    - r (eww-forward-url) 
    - H (eww-list-histories) 
-   - &(eww-browse-with-external-browser)
+   - & (eww-browse-with-external-browser)
    - b (eww-add-bookmark)
    - B (eww-list-bookmarks)
    - q (quit-window)
+
+   見にくいときは, R eww-readable を!
    
 #+begin_src emacs-lisp
 (use-package eww
+  :init
   :bind ("C-q <C-return>" . eww)
+  :commands eww-disable-images
   :config
   (define-key eww-mode-map "r" 'eww-reload)
+  (define-key eww-mode-map "c 0" 'eww-copy-page-url)
+  (define-key eww-mode-map "N" 'eww-next-url)
+  (define-key eww-mode-map "P" 'eww-previous-url)
+  (define-key eww-mode-map "p" 'scroll-down)
+  (define-key eww-mode-map "n" 'scroll-up)
 #+end_src
 
 *** default の検索エンジンを変更
@@ -285,6 +294,51 @@ Warning: Eager macro-expansion skipped due to cycle:
   (interactive)
   (setq-local eww-disable-colorize nil)
   (eww-reload))
+#+end_src
+
+*** helm-eww-history
+    - [[http://rubikitch.com/2014/11/26/helm-eww/][helm-eww.el – Emacs 組み込み Web ブラウザ eww で URL の履歴を helm する ]]
+
+#+begin_src emacs-lisp
+(use-package helm-eww-history)
+#+end_src
+
+*** helm-eww-bookmarks
+
+#+begin_src emacs-lisp
+(use-package helm-eww-bookmark
+  :config
+   (define-key eww-mode-map "B" 'helm-eww-bookmark))
+#+end_src
+
+*** proxy 越え
+   - [[http://rubikitch.com/2014/11/17/eww-proxy/][Emacs で proxy を使う設定 – この 1 行で eww も package も広告避けもバッチリ! | るびきち「日刊 Emacs 」]]
+
+*** 画像表示
+   -  [[http://rubikitch.com/2014/11/25/eww-image/][Emacs24.4/Emacs25 の eww で画像を非表示にする方法! よりテキストブラウザらしく]]
+
+#+begin_src emacs-lisp
+(defun eww-disable-images ()
+  "eww で画像表示させない"
+  (interactive)
+  (setq-local shr-put-image-function 'shr-put-image-alt)
+  (eww-reload))
+(defun eww-enable-images ()
+  "eww で画像表示させる"
+  (interactive)
+  (setq-local shr-put-image-function 'shr-put-image)
+  (eww-reload))
+(defun shr-put-image-alt (spec alt &optional flags)
+  (insert alt))
+;; はじめから非表示
+;; (add-hook 'eww-mode-hook 'eww-mode-hook--disable-image)
+#+end_src
+
+*** 検索
+    - http://rubikitch.com/2014/11/20/eww-weblio/
+    
+#+begin_src emacs-lisp
+;; (use-package eww-weblio)
 #+end_src
 
 *** end of config

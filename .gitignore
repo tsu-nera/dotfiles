@@ -58,3 +58,5 @@
 /.emacs.d/etc/dict/SKK-JISYO.L
 gtd
 tmp
+/.emacs.d/eww-bookmarks
+/.emacs.d/inits/tsu-nera*

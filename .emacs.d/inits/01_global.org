@@ -1,6 +1,10 @@
 * Welcome To Emacs!!
-  最新版の emacs github mirror.
-  - https://github.com/mirrors/emacs
+  最新の開発リポジトリ.
+  - http://git.savannah.gnu.org/cgit/emacs.git
+
+#+begin_src bash
+git clone git://git.savannah.gnu.org/emacs.git
+#+end_src
 
   人気パッケージダウンロードランキング!!
   - http://melpa.org
@@ -70,6 +74,14 @@
 
 *** idle の設定
      (xxx-mode t) 時間がかかるので, :idle を指定するといい.
+
+* workaround
+#+begin_src emacs-lisp
+(require 'eieio)
+(defun class-slot-initarg (class-name slot)
+  (eieio--class-slot-initarg (eieio--class-v class-name) slot))
+#+end_src
+
 * General Settings
 ** customize の出力先
 #+begin_src emacs-lisp

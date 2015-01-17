@@ -1,0 +1,3 @@
+(:name helm-eww-bookmark
+       :type github
+       :pkgname "mytoh/helm-eww-bookmark")
