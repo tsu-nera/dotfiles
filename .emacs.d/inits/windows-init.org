@@ -3,7 +3,6 @@
   Emacs の素晴らしいところは, Linux でも Windows でも,
   同じ Emacs の世界ですごせるところにある.
 
-
 * バイナリ取得
   - [[http://futurismo.biz/archives/2465][Windows で Emacs を利用する | Futurismo]]
 
@@ -29,6 +28,7 @@
 * ツールの取得
   - C:/app にツールはおくことにする.
   - Program file にはなるべくおかない
+  - cygwin の環境変数にパスを通す.
 
 ** Chocolatey
    パッケージ管理にはなるべく chocolatey を利用しよう.
@@ -96,7 +96,6 @@ Value: ((xpm "libxpm.dll" "xpm4.dll" "libXpm-nox4.dll")
 #+end_src
 
 * cmigemo
-  - [[http://www.kaoriya.net/software/cmigemo/][C/Migemo - KaoriYa]]
 
 * auto-compression-mode: gzip
   eww では, auto-compression-mode によって, gzip が必要なようだ.

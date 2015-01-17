@@ -647,14 +647,15 @@ Warning: Eager macro-expansion skipped due to cycle:
 
 ** exec-path-from-shell
    環境変数 PATH を引き継ぐ.
-   http://sakito.jp/emacs/emacsshell.html#emacs
+   - [[https://github.com/purcell/exec-path-from-shell][purcell/exec-path-from-shell]]
+   - http://sakito.jp/emacs/emacsshell.html#emacs
 
 #+begin_src emacs-lisp
 (use-package exec-path-from-shell
-  :if linux-p
   :config
-  (exec-path-from-shell-initialize)
-  )
+  (when (memq window-system '(mac ns))
+    (exec-path-from-shell-initialize)))
+;;   (exec-path-from-shell-initialize))
 #+end_src
 
 * Chat
