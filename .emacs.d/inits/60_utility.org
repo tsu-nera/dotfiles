@@ -413,6 +413,9 @@ Warning: Eager macro-expansion skipped due to cycle:
      ((t (:foreground "#A6E22E"))))))
 #+end_src
 
+*** auto-hightlight-symbol で語句をハイライト
+    -> auto-hightlight-symbol 参照.
+
 *** end of config
 
 #+begin_src emacs-lisp

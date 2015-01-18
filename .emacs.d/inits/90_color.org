@@ -47,14 +47,31 @@
   (add-something-to-mode-hooks '(c++ emacs-lisp ruby text scala) 'fic-ext-mode))
 #+end_src
 
-** highlight-symbol/auto-highlight-symbol
+** auto-highlight-symbol
+   自動的にシンボルをハイライトする.
+   - https://github.com/emacsmirror/auto-highlight-symbol   
+
+   なんかもうメンテナンスされていないようにみえる.
+   -[[http://qiita.com/aKenjiKato/items/f465993ac8e62db69592][ カーソルが乗っているシンボルをすべてハイライトする - Qiita]]
+
+   起動時に 有効にならないな...
+
+#+begin_src emacs-lisp
+(use-package auto-highlight-symbol
+  :init
+  (add-hook 'eww-mode-hook 'auto-highlight-symbol-mode)
+  :config
+  (global-auto-highlight-symbol-mode t))
+  
+#+end_src
+
+** highlight-symbol
    シンボルをハイライト
    - http://shibayu36.hatenablog.com/entry/2013/12/30/190354
 
    -> hl-anything に置き換えるのでお役ご免...
 
 #+begin_src emacs-lisp
-(use-package auto-highlight-symbol-config)
 (use-package highlight-symbol
   :disabled t
   :bind (("<f4>" . highlight-symbol-at-point)
@@ -82,8 +99,7 @@
   :bind  (("<f4>" . hl-highlight-thingatpt-local)
 	  ("ESC <f4>" . hl-unhighlight-all-local))
   :config
-  (hl-highlight-mode 1)
-  )
+  (hl-highlight-mode 1))
 #+end_src
 
 ** 対応する括弧を光らせる
