@@ -50,7 +50,8 @@
 (define-key sp-keymap (kbd "C-M-a") 'sp-beginning-of-sexp)
 (define-key sp-keymap (kbd "C-M-e") 'sp-end-of-sexp)
 
-;; カッコのなかを削除・コピー
+;; カッコのなかを削除・コピー(かたまり単位)
+;; sp-kill/copy-hiblid-sexpというものもある
 (define-key sp-keymap (kbd "C-M-k") 'sp-kill-sexp)
 (define-key sp-keymap (kbd "C-M-w") 'sp-copy-sexp)
 
