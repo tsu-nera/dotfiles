@@ -127,7 +127,7 @@ Add proper word wrapping
 
 #+begin_src emacs-lisp
 (when linux-p
-  (add-to-list 'default-frame-alist '(font . "Ricty-13.5")))
+  (add-to-list 'default-frame-alist '(font . "Ricty-13")))
 (when windows-p
   (add-to-list 'default-frame-alist '(font . "Ricty Diminished-13.5")))
 #+end_src

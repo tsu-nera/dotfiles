@@ -47,7 +47,7 @@
 ;; (setq org-indent-mode t)
 
 ;; 折り返さない
-;; (setq org-startup-truncated は org-mode nil)
+;; (setq org-startup-truncated nil)
 #+end_src
 
 ** org-open-link を dired で

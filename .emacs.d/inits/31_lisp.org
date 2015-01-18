@@ -1,14 +1,14 @@
 * Lisp
-  Lisper ‚Ì‚½‚ß‚Ì Emacs İ’è.
+  Lisper ã®ãŸã‚ã® Emacs è¨­å®š.
 
-  Emacs ‚ÌŒ´“_, ƒƒbƒJ‚İ‚½‚¢‚Èƒy[ƒW.
+  Emacs ã®åŸç‚¹, ãƒ¡ãƒƒã‚«ã¿ãŸã„ãªãƒšãƒ¼ã‚¸.
 
 * General
 ** smartparens
    smart + parens
    - https://github.com/Fuco1/smartparens
    - https://github.com/Fuco1/smartparens/wiki
-   - [[http://kiririmode.hatenablog.jp/entry/20131231/p1][smartparens.el ‚Å‚ÌŠ‡ŒÊˆ— - —ŒnŠw¶“ú‹L]]
+   - [[http://kiririmode.hatenablog.jp/entry/20131231/p1][smartparens.el ã§ã®æ‹¬å¼§å‡¦ç† - ç†ç³»å­¦ç”Ÿæ—¥è¨˜]]
 
 #+begin_src emacs-lisp
 (use-package smartparens-config
@@ -17,18 +17,18 @@
 #+end_src
  
 *** default
-  smartparens-config ‚Å‚ÍˆÈ‰º‚ªİ’è‚³‚ê‚é.
+  smartparens-config ã§ã¯ä»¥ä¸‹ãŒè¨­å®šã•ã‚Œã‚‹.
   - https://github.com/Fuco1/smartparens/blob/master/smartparens-config.el
 
 *** example
-  Šo‚¦‚Ä‚¨‚«‚½‚¢‚Ì‚Í,
-  - ‚©‚Á‚±‚ÅˆÍ‚Ş xx sp-pair M-(
-  - ‚©‚Á‚±‚ğŠO‚· sp-unwrap C-M-s
+  è¦šãˆã¦ãŠããŸã„ã®ã¯,
+  - ã‹ã£ã“ã§å›²ã‚€ xx sp-pair M-(
+  - ã‹ã£ã“ã‚’å¤–ã™ sp-unwrap C-M-s
 
   Example:
   - https://github.com/Fuco1/smartparens/wiki/Example-configuration
 
-  TODO: ‚©‚Á‚±‚ÌF‚©‹C‚¿ˆ«‚¢‚Ì‚Å, ‚ ‚Æ‚Å•ÒW‚·‚é.
+  TODO: ã‹ã£ã“ã®è‰²ã‹æ°—æŒã¡æ‚ªã„ã®ã§, ã‚ã¨ã§ç·¨é›†ã™ã‚‹.
   - https://github.com/Fuco1/smartparens/wiki/User-interface
 
     #+begin_src emacs-lisp
@@ -38,7 +38,7 @@
 (define-key sp-keymap (kbd "C-M-n") 'sp-next-sexp) ;; next
 (define-key sp-keymap (kbd "C-M-p") 'sp-previous-sexp) ;; previous
 
-;; ˆê’i’†‚Ì/ ŠO‚ÌƒJƒbƒR‚ÉˆÚ“®.
+;; ä¸€æ®µä¸­ã®/ å¤–ã®ã‚«ãƒƒã‚³ã«ç§»å‹•.
 (define-key sp-keymap (kbd "C-M-d") 'sp-down-sexp) ;; down
 (define-key sp-keymap (kbd "C-M-u") 'sp-up-sexp) ;; up
 
@@ -46,22 +46,22 @@
 ;; (define-key sp-keymap (kbd "C-M-u") 'sp-backward-down-sexp)
 ;; (define-key sp-keymap (kbd "C-M-t") 'sp-transpose-sexp)
 
-;; ‚©‚Á‚±‚Ìæ“ª‚Æ––”ö‚ÉˆÚ“®.
+;; ã‹ã£ã“ã®å…ˆé ­ã¨æœ«å°¾ã«ç§»å‹•.
 (define-key sp-keymap (kbd "C-M-a") 'sp-beginning-of-sexp)
 (define-key sp-keymap (kbd "C-M-e") 'sp-end-of-sexp)
 
-;; ƒJƒbƒR‚Ì‚È‚©‚ğíœEƒRƒs[
+;; ã‚«ãƒƒã‚³ã®ãªã‹ã‚’å‰Šé™¤ãƒ»ã‚³ãƒ”ãƒ¼
 (define-key sp-keymap (kbd "C-M-k") 'sp-kill-sexp)
 (define-key sp-keymap (kbd "C-M-w") 'sp-copy-sexp)
 
-;; ‚©‚Á‚±‚ğŠO‚·
+;; ã‹ã£ã“ã‚’å¤–ã™
 (define-key sp-keymap (kbd "C-M-s") 'sp-unwrap-sexp)
 ;; (define-key sp-keymap (kbd "M-<backspace>") 'sp-backward-unwrap-sexp)
 
 ;; (define-key sp-keymap (kbd "C-<right>") 'sp-forward-slurp-sexp)
 ;; (define-key sp-keymap (kbd "C-<left>") 'sp-forward-barf-sexp
 
-;; picture-init ‚Æ‹£‡
+;; picture-init ã¨ç«¶åˆ
 ;; (define-key sp-keymap (kbd "C-M-<left>") 'sp-backward-slurp-sexp)
 ;; (define-key sp-keymap (kbd "C-M-<right>") 'sp-backward-barf-sexp)
 
@@ -70,7 +70,7 @@
 ;; (define-key sp-keymap (kbd "C-M-<backspace>") 'sp-splice-sexp-killing-backward)
 ;; (define-key sp-keymap (kbd "C-S-<backspace>") 'sp-splice-sexp-killing-around)
 
-;; multiple-cursor ‚ÆƒoƒbƒeƒBƒ“ƒO
+;; multiple-cursor ã¨ãƒãƒƒãƒ†ã‚£ãƒ³ã‚°
 ;; (define-key sp-keymap (kbd "C-]") 'sp-select-next-thing-exchange)
 ;; (define-key sp-keymap (kbd "C-<left_bracket>") 'sp-select-previous-thing)
 ;; (define-key sp-keymap (kbd "C-M-]") 'sp-select-next-thing)
@@ -105,46 +105,46 @@
     #+end_src
 
     **) paredit
-   Lisp ƒR[ƒh‚Å•po‚·‚éŠ‡ŒÊ—Ş‚Ìƒoƒ‰ƒ“ƒX‚ğˆÛ‚·‚é‚±‚Æ‚ğ–Ú“I‚Æ‚µ‚½‚à‚Ì.
-   - [[http://www.daregada.sakuraweb.com/paredit_tutorial_ja.html][ParEdit ƒ`ƒ…[ƒgƒŠƒAƒ‹]]
+   Lisp ã‚³ãƒ¼ãƒ‰ã§é »å‡ºã™ã‚‹æ‹¬å¼§é¡ã®ãƒãƒ©ãƒ³ã‚¹ã‚’ç¶­æŒã™ã‚‹ã“ã¨ã‚’ç›®çš„ã¨ã—ãŸã‚‚ã®.
+   - [[http://www.daregada.sakuraweb.com/paredit_tutorial_ja.html][ParEdit ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«]]
    - [[http://emacsrocks.com/e14.html][Emacs Rocks!]]
    - https://github.com/Fuco1/smartparens
 
-   smartparens ‚Ì‚Ù‚¤‚ªl‹C??
-   - [[http://kiririmode.hatenablog.jp/entry/20131231/p1][smartparens.el ‚Å‚ÌŠ‡ŒÊˆ— - —ŒnŠw¶“ú‹L]]
+   smartparens ã®ã»ã†ãŒäººæ°—??
+   - [[http://kiririmode.hatenablog.jp/entry/20131231/p1][smartparens.el ã§ã®æ‹¬å¼§å‡¦ç† - ç†ç³»å­¦ç”Ÿæ—¥è¨˜]]
    - https://github.com/Fuco1/smartparens/wiki/Paredit-and-smartparens
 
 ** eldoc
-   Lisp ŒnŒ¾Œê‚ÌŠÖ”‚Å,
-   ƒJ[ƒ\ƒ‹ˆÊ’u‚ÌŠÖ”‚Ì‰¼ˆø”‚ğƒGƒR[ƒGƒŠƒA‚É•\¦‚µ‚Ä‚­‚ê‚é.
-   •W€“Y•t‚³‚ê‚Ä‚¢‚é.
+   Lisp ç³»è¨€èªã®é–¢æ•°ã§,
+   ã‚«ãƒ¼ã‚½ãƒ«ä½ç½®ã®é–¢æ•°ã®ä»®å¼•æ•°ã‚’ã‚¨ã‚³ãƒ¼ã‚¨ãƒªã‚¢ã«è¡¨ç¤ºã—ã¦ãã‚Œã‚‹.
+   æ¨™æº–æ·»ä»˜ã•ã‚Œã¦ã„ã‚‹.
 
 
-   eldoc-extention ‚¾‚Æ,ŠÖ”‚ÌƒhƒLƒ…ƒƒ“ƒg‚Ü‚Åo‚µ‚Ä‚­‚ê‚é.
-   - [[http://d.hatena.ne.jp/rubikitch/20090207/1233936430][Emacs 23 ‚Ì eldoc.el ‚Æ eldoc-extensions.el ‚ª‚¢‚¢Š´‚¶ - rubikichi]]
+   eldoc-extention ã ã¨,é–¢æ•°ã®ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã¾ã§å‡ºã—ã¦ãã‚Œã‚‹.
+   - [[http://d.hatena.ne.jp/rubikitch/20090207/1233936430][Emacs 23 ã® eldoc.el ã¨ eldoc-extensions.el ãŒã„ã„æ„Ÿã˜ - rubikichi]]
 
 #+begin_src emacs-lisp
-;; ƒ_ƒEƒ“ƒ[ƒh‚µ‚¿‚á‚Á‚½‚Ì‚Åˆê‰.éŒ¾.
+;; ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ã¡ã‚ƒã£ãŸã®ã§ä¸€å¿œ.å®£è¨€.
 (use-package eldoc-extension)
 #+end_src
 
 * Emacs Lisp
 ** ielm (Inferior Emacs Lisp Mode)
-   Emacs ‚ÌƒCƒ“ƒ^ƒ‰ƒNƒeƒBƒuƒVƒFƒ‹. M-x ielm 
+   Emacs ã®ã‚¤ãƒ³ã‚¿ãƒ©ã‚¯ãƒ†ã‚£ãƒ–ã‚·ã‚§ãƒ«. M-x ielm 
    - [[http://www.emacswiki.org/emacs/InferiorEmacsLispMode][EmacsWiki: Inferior Emacs Lisp Mode]]
      
-   M-x load-library foo ‚Åƒ‰ƒCƒuƒ‰ƒŠ‚ğƒ[ƒh
+   M-x load-library foo ã§ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ãƒ­ãƒ¼ãƒ‰
  
 ** Eval
    - eval-buffer
    - eval-region
    - eval-last-sexp C-x C-e
 
-   Ql:
-   - [[http://shuzo-kino.hateblo.jp/entry/2013/10/27/153038][emacs-lisp ‚ğ”½‰f‚·‚é‚Æ‚«‚ÌƒRƒ}ƒ“ƒhˆê—— - Bye Bye Moore]]
+   å‚è€ƒ:
+   - [[http://shuzo-kino.hateblo.jp/entry/2013/10/27/153038][emacs-lisp ã‚’åæ˜ ã™ã‚‹ã¨ãã®ã‚³ãƒãƒ³ãƒ‰ä¸€è¦§ - Bye Bye Moore]]
 
-   eshell ‚ğ inf ‚Æ‚µ‚Ä—˜—p‚·‚é.
-   - [[http://futurismo.biz/archives/2894][Emacs ‚Å‚Ì eval ‚É‚Â‚¢‚Ä’²‚×‚Ä‚İ‚½ | Futurismo]]
+   eshell ã‚’ inf ã¨ã—ã¦åˆ©ç”¨ã™ã‚‹.
+   - [[http://futurismo.biz/archives/2894][Emacs ã§ã® eval ã«ã¤ã„ã¦èª¿ã¹ã¦ã¿ãŸ | Futurismo]]
 
 #+begin_src emacs-lisp
 (defun my-inf-elisp ()
@@ -159,13 +159,13 @@
 #+end_src
 
 ** lispxmp
-   •]‰¿Œ‹‰Ê‚ğ‰¡‚Éo‚·.
-   - [[http://d.hatena.ne.jp/rubikitch/20090313/lispxmp][xmpfilter ‚Ì‚æ‚¤‚È©“®’ß‚ğ Emacs Lisp ‚ÅÀŒ»‚·‚é lispxmp.el ‚ğƒŠƒŠ[ƒX]]
+   è©•ä¾¡çµæœã‚’æ¨ªã«å‡ºã™.
+   - [[http://d.hatena.ne.jp/rubikitch/20090313/lispxmp][xmpfilter ã®ã‚ˆã†ãªè‡ªå‹•æ³¨é‡ˆã‚’ Emacs Lisp ã§å®Ÿç¾ã™ã‚‹ lispxmp.el ã‚’ãƒªãƒªãƒ¼ã‚¹]]
    - https://github.com/emacsmirror/lispxmp
 
-   g‚¢•û.
-   - M-; M-; ‚Å ; =>‚ğ‘}“ü
-   - lispxmp ‚Å •]‰¿
+   ä½¿ã„æ–¹.
+   - M-; M-; ã§ ; =>ã‚’æŒ¿å…¥
+   - lispxmp ã§ è©•ä¾¡
 
 #+begin_src emacs-lisp
 (use-package lispxmp 
@@ -174,7 +174,7 @@
 
 ** indent
    - [[http://dept-info.labri.u-bordeaux.fr/~strandh/Teaching/PFS/Common/Strandh-Tutorial/indentation.html][Indenting Common Lisp]]
-   - [[http://www.emacswiki.org/emacs/IndentingLisp][‰ä“I Wiki:Indenting Lisp]]
+   - [[http://www.emacswiki.org/emacs/IndentingLisp][æˆ‘çš„ Wiki:Indenting Lisp]]
    - https://github.com/bbatsov/emacs-lisp-style-guide     
 
 #+begin_src emacs-lisp
@@ -190,18 +190,18 @@
   - indent-sexp (C-M-q) 
 
 ** Tips
-  ˆÈ‰º‚ğ—LŒø‚É‚·‚é‚ÆƒXƒ^ƒbƒNî•ñ‚ª‚İ‚¦‚é.
+  ä»¥ä¸‹ã‚’æœ‰åŠ¹ã«ã™ã‚‹ã¨ã‚¹ã‚¿ãƒƒã‚¯æƒ…å ±ãŒã¿ãˆã‚‹.
 
 #+begin_src emacs-lisp
 (setq debug-on-error nil)
 #+end_src
 
 * Scheme
-  SICP —p‚Éİ’è.
+  SICP ç”¨ã«è¨­å®š.
   - [[http://ja.wikipedia.org/wiki/Scheme][Scheme - Wikipedia]]
 
 ** Gauche 
-   Scheme ˆ—Œn‚ğƒCƒ“ƒXƒg[ƒ‹.(ƒS[ƒVƒ…)
+   Scheme å‡¦ç†ç³»ã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«.(ã‚´ãƒ¼ã‚·ãƒ¥)
    - [[http://practical-scheme.net/gauche/index-j.html][Gauche - A Scheme Implementation]]
 
 #+begin_src bash
@@ -212,9 +212,9 @@ gosh -V
 | Gauche scheme shell | version 0.9.4 [utf-8 | pthreads] | x86_64-unknown-linux-gnu |
 
 ** scheme-mode
-  Default ‚Å Emacs ‚É‚Í‚¢‚Á‚Ä‚¢‚é. ˆÈ‰º‚Ìİ’è‚ğQl‚É‚µ‚½.
-  - [[http://karetta.jp/book-node/gauche-hacks/004640][Emacs ‚©‚ç Gauche ‚ğg‚¤ - karetta.jp]]
-  - [[https://hayate2255.wordpress.com/2013/02/03/windows7-emacs-gauche-%E3%81%AE%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89/][Windows + Emacs + Gauche ‚ÌŠÂ‹«\’z | ¬‚³‚¢ƒ‚ƒm‚Í”ü‚µ‚¢]]
+  Default ã§ Emacs ã«ã¯ã„ã£ã¦ã„ã‚‹. ä»¥ä¸‹ã®è¨­å®šã‚’å‚è€ƒã«ã—ãŸ.
+  - [[http://karetta.jp/book-node/gauche-hacks/004640][Emacs ã‹ã‚‰ Gauche ã‚’ä½¿ã† - karetta.jp]]
+  - [[https://hayate2255.wordpress.com/2013/02/03/windows7-emacs-gauche-%E3%81%AE%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89/][Windows + Emacs + Gauche ã®ç’°å¢ƒæ§‹ç¯‰ | å°ã•ã„ãƒ¢ãƒã¯ç¾ã—ã„]]
 
 #+begin_src emacs-lisp
 (use-package scheme
@@ -224,7 +224,7 @@ gosh -V
 	(cons '("gosh" utf-8 . utf-8) process-coding-system-alist))
   (setq scheme-program-name "gosh -i")
 
-  ;; •Ê‚ÌƒEƒBƒ“ƒhƒE‚É gosh ‚ğ“®ì‚³‚¹‚é
+  ;; åˆ¥ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã« gosh ã‚’å‹•ä½œã•ã›ã‚‹
   (defun scheme-other-window ()
     "Run Gauche on other window"
     (interactive)
@@ -241,63 +241,63 @@ gosh -V
   )
 #+end_src
 
-** SICP ‚ğ info ‚Å“Ç‚Ş
-  - [[http://d.hatena.ne.jp/mahata/20080921/1221958711][Emacs ‚Ì info ‚Æ‚µ‚Ä SICP ‚ğ“Ç‚Ş - ‘åØ‚È‚à‚Ì‚Í–Ú‚ÉŒ©‚¦‚È‚¢ - mahata ‚Ì“ú‹L (‚Í‚Ä‚Èƒuƒ‰ƒ“ƒ`)]]
-  - [[http://d.hatena.ne.jp/tequilasunset/20110220/p4][SICP “Ç‚Ş‚½‚ß‚Ìİ’è‚Æ‚© - Clipboard]]
-  - [[http://d.hatena.ne.jp/khiker/20070406/sicp][ŒvZ‹@ƒvƒƒOƒ‰ƒ€‚Ì\‘¢‚Æ‰ğ - ‚Æ‚è‚ ‚¦‚¸‰É‚¾‚Á‚½‚µ‰½‚Æ‚È‚­n‚ß‚½ƒuƒƒO]]
+** SICP ã‚’ info ã§èª­ã‚€
+  - [[http://d.hatena.ne.jp/mahata/20080921/1221958711][Emacs ã® info ã¨ã—ã¦ SICP ã‚’èª­ã‚€ - å¤§åˆ‡ãªã‚‚ã®ã¯ç›®ã«è¦‹ãˆãªã„ - mahata ã®æ—¥è¨˜ (ã¯ã¦ãªãƒ–ãƒ©ãƒ³ãƒ)]]
+  - [[http://d.hatena.ne.jp/tequilasunset/20110220/p4][SICP èª­ã‚€ãŸã‚ã®è¨­å®šã¨ã‹ - Clipboard]]
+  - [[http://d.hatena.ne.jp/khiker/20070406/sicp][è¨ˆç®—æ©Ÿãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®æ§‹é€ ã¨è§£ - ã¨ã‚Šã‚ãˆãšæš‡ã ã£ãŸã—ä½•ã¨ãªãå§‹ã‚ãŸãƒ–ãƒ­ã‚°]]
 
 #+begin_src bash
-# sicp.info æ“¾
+# sicp.info å–å¾—
 wget http://www.neilvandyke.org/sicp-texi/sicp.info.gz
 gunzip sicp.info.gz
 
-# /usr/local/info ‚É sicp.info ‚ğƒRƒs[.
+# /usr/local/info ã« sicp.info ã‚’ã‚³ãƒ”ãƒ¼.
 $ sudo mkdir -p /usr/local/info
 $ sudo cp sicp.info /usr/local/info
 
-# dir ƒtƒ@ƒCƒ‹‚ğ•ÒW.
+# dir ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ç·¨é›†.
 $ sudo emacs /usr/local/share/info/dir
 
-# Ÿ‚Ì“ñs‚ğ’Ç‹L.
+# æ¬¡ã®äºŒè¡Œã‚’è¿½è¨˜.
  The Algorithmic Language Scheme
  * SICP : (sicp.info). Structure and Interpretation of Computer Programs.
 #+end_src
 
-** –¢g—p
+** æœªä½¿ç”¨
 *** gosh-mode
-    scheme-mode ‚ÌŠg’£.
-    - [[http://d.hatena.ne.jp/mhayashi1120/20110103/1294013522][gosh-mode.el - ‚Ü‚É‚Á‚«]]
+    scheme-mode ã®æ‹¡å¼µ.
+    - [[http://d.hatena.ne.jp/mhayashi1120/20110103/1294013522][gosh-mode.el - ã¾ã«ã£ã]]
     - https://github.com/mhayashi1120/Emacs-gosh-mode
 
-    scheme-mode ‚ğŒp³‚µ‚Ä‚¢‚é‚Ì‚Å, Šî–{“I‚È‘€ì‚Í•Ï‚í‚ç‚È‚¢‚»‚¤‚¾.
+    scheme-mode ã‚’ç¶™æ‰¿ã—ã¦ã„ã‚‹ã®ã§, åŸºæœ¬çš„ãªæ“ä½œã¯å¤‰ã‚ã‚‰ãªã„ãã†ã .
    
-    el-get ‚Åæ“¾. ƒŠƒ{ƒWƒgƒŠ‚©‚çæ“¾Œã‚É make && make install
+    el-get ã§å–å¾—. ãƒªãƒœã‚¸ãƒˆãƒªã‹ã‚‰å–å¾—å¾Œã« make && make install
 
  #+begin_src emacs-lisp
 (use-package gosh-config :disabled t)
  #+end_src
 
-    M-x gosh-run ‚Å gosh ‚ª‹N“®‚·‚ê‚Î OK.
+    M-x gosh-run ã§ gosh ãŒèµ·å‹•ã™ã‚Œã° OK.
 
-    scheme-mode ‚É”ä‚×‚Äî•ñ‚ª‚·‚­‚È‚¢‚Ì‚Æ,
-    ‚·‚²‚³‚ª‚í‚©‚ç‚È‚¢‚Ì‚Å, ‚Ğ‚Æ‚Ü‚¸‚Í scheme-mode ‚ğ—˜—p‚·‚é‚±‚Æ‚É‚µ‚½.
+    scheme-mode ã«æ¯”ã¹ã¦æƒ…å ±ãŒã™ããªã„ã®ã¨,
+    ã™ã”ã•ãŒã‚ã‹ã‚‰ãªã„ã®ã§, ã²ã¨ã¾ãšã¯ scheme-mode ã‚’åˆ©ç”¨ã™ã‚‹ã“ã¨ã«ã—ãŸ.
   
-    ‚È‚ê‚Ä‚«‚½‚ç‚»‚Ì‚¤‚¿‚à‚¤ˆê“x’§í‚·‚é.
+    ãªã‚Œã¦ããŸã‚‰ãã®ã†ã¡ã‚‚ã†ä¸€åº¦æŒ‘æˆ¦ã™ã‚‹.
 
 *** scheme-complete
-    auto-complete ‚Å•âŠ®‚ğ‚·‚é‚±‚Æ‚ª‚Å‚«‚é.
-    ƒfƒtƒHƒ‹ƒgİ’è‚Å, ‚»‚±‚»‚±‚Ì•âŠ®Œó•â‚ªo‚é.
+    auto-complete ã§è£œå®Œã‚’ã™ã‚‹ã“ã¨ãŒã§ãã‚‹.
+    ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆè¨­å®šã§, ãã“ãã“ã®è£œå®Œå€™è£œãŒå‡ºã‚‹.
 
-    scheme-complete ‚Æ‚¢‚¤‚à‚Ì‚à‚ ‚é‚»‚¤‚È‚Ì‚Å,‹C‹x‚ß’ö“x‚É“±“ü.
+    scheme-complete ã¨ã„ã†ã‚‚ã®ã‚‚ã‚ã‚‹ãã†ãªã®ã§,æ°—ä¼‘ã‚ç¨‹åº¦ã«å°å…¥.
 
-    –{‰Æ‚ÌƒT[ƒo—‚¿‚½?? github ‚Ì mirror ‚æ‚èæ“¾.
+    æœ¬å®¶ã®ã‚µãƒ¼ãƒè½ã¡ãŸ?? github ã® mirror ã‚ˆã‚Šå–å¾—.
     - https://github.com/emacsmirror/scheme-complete
 
-    ˆÈ‰º‚ğQl‚É‚µ‚Ä, 
-    auto-complete ‚Ì source ‚É scheme-complete ‚Ìî•ñŒ¹‚ğ‰Á‚¦‚é.
-    - [[http://d.hatena.ne.jp/kobapan/20091205/1259972925][scheme-complete.el ‚ğ auto-complete.el ‚Åg‚¤ - ƒKƒbƒgƒ|ƒ“ƒ|ƒR]]
+    ä»¥ä¸‹ã‚’å‚è€ƒã«ã—ã¦, 
+    auto-complete ã® source ã« scheme-complete ã®æƒ…å ±æºã‚’åŠ ãˆã‚‹.
+    - [[http://d.hatena.ne.jp/kobapan/20091205/1259972925][scheme-complete.el ã‚’ auto-complete.el ã§ä½¿ã† - ã‚¬ãƒƒãƒˆãƒãƒ³ãƒã‚³]]
   
-    ƒƒ“ƒe‚³‚ê‚Ä‚¢‚È‚¢‚Ì‚Æ, auto-complete ‚Å‰½‚Æ‚©‚È‚é‚Ì‚Åíœ.
+    ãƒ¡ãƒ³ãƒ†ã•ã‚Œã¦ã„ãªã„ã®ã¨, auto-complete ã§ä½•ã¨ã‹ãªã‚‹ã®ã§å‰Šé™¤.
 
  #+begin_src emacs-lisp
 ;; (autoload 'scheme-smart-complete "scheme-complete" nil t)
@@ -321,17 +321,17 @@ $ sudo emacs /usr/local/share/info/dir
  #+end_src
 
 *** eldoc
-    - [[http://yohshiy.blog.fc2.com/blog-entry-251.html][Emacs Lisp ƒ‚[ƒh‚ğ•Ö—˜‚É‚·‚é‹@”\ 3 ‘I (auto-complete, eldoc, rainbow-delimiters) | ƒvƒƒOƒ‰ƒ}[ƒYG‹L’ ]]
-    - [[http://www29.atwiki.jp/sicpstudygroup/pages/45.html][sicpstudygroup @ ƒEƒBƒL - ŠÂ‹«İ’è—áW]]
+    - [[http://yohshiy.blog.fc2.com/blog-entry-251.html][Emacs Lisp ãƒ¢ãƒ¼ãƒ‰ã‚’ä¾¿åˆ©ã«ã™ã‚‹æ©Ÿèƒ½ 3 é¸ (auto-complete, eldoc, rainbow-delimiters) | ãƒ—ãƒ­ã‚°ãƒ©ãƒãƒ¼ã‚ºé›‘è¨˜å¸³]]
+    - [[http://www29.atwiki.jp/sicpstudygroup/pages/45.html][sicpstudygroup @ ã‚¦ã‚£ã‚­ - ç’°å¢ƒè¨­å®šä¾‹é›†]]
 
-    scheme ‚Ì eldoc ‚Í scheme-complete ‚Æ‡‚í‚¹‚Ä—˜—p‚·‚é‚ç‚µ‚¢‚ª,
-    eldoc error void-function eldoc-current-symbol ‚Æ‚Å‚ÄƒGƒ‰[‚·‚é.
+    scheme ã® eldoc ã¯ scheme-complete ã¨åˆã‚ã›ã¦åˆ©ç”¨ã™ã‚‹ã‚‰ã—ã„ãŒ,
+    eldoc error void-function eldoc-current-symbol ã¨ã§ã¦ã‚¨ãƒ©ãƒ¼ã™ã‚‹.
 
     #+begin_src emacs-lisp
 ;; (require 'eldoc-extension)
 ;; (add-hook 'scheme-mode-hook
 ;;   (lambda ()
-;;     ;; Gauche ‚Ìê‡, Ÿ‚Ì 2 ŒÂ‚Ì•Ï”‚ğİ’è‚µ‚Ä‚¨‚¢‚½‚Ù‚¤‚ª‚æ‚¢‚Ì‚©‚à.
+;;     ;; Gauche ã®å ´åˆ, æ¬¡ã® 2 å€‹ã®å¤‰æ•°ã‚’è¨­å®šã—ã¦ãŠã„ãŸã»ã†ãŒã‚ˆã„ã®ã‹ã‚‚.
 ;;     (setq default-scheme-implementation 'gauche)
 ;;     (setq *current-scheme-implementation* 'gauche)
 ;;     ;; eldoc-mode
@@ -343,16 +343,16 @@ $ sudo emacs /usr/local/share/info/dir
 ;; (setq lisp-indent-function 'scheme-smart-indent-function)
  #+end_src
 
-*** flymake İ’è
-    glint ‚Æ‚¢‚¤‚à‚Ì‚ª‚ ‚é‚ç‚µ‚¢. 
-    gauche 0.8.13 ‚Å‚µ‚©“®ì‚µ‚È‚¢‚æ‚¤‚È‚Ì‚Å‚µ‚Ä‚¢‚È‚¢.
+*** flymake è¨­å®š
+    glint ã¨ã„ã†ã‚‚ã®ãŒã‚ã‚‹ã‚‰ã—ã„. 
+    gauche 0.8.13 ã§ã—ã‹å‹•ä½œã—ãªã„ã‚ˆã†ãªã®ã§è©¦ã—ã¦ã„ãªã„.
     - [[http://www.koguro.net/prog/codecheck/index-j.html][glint]]
-    - [[http://d.hatena.ne.jp/higepon/20080309/1205043148][¬•‚³‚ñ‚Ì Scheme ‚É‚¨‚¯‚é glint + Emacs + flymake ‚ğ‚µ‚Ä‚İ‚½ - Higepon's blog]]
+    - [[http://d.hatena.ne.jp/higepon/20080309/1205043148][å°é»’ã•ã‚“ã® Scheme ã«ãŠã‘ã‚‹ glint + Emacs + flymake ã‚’è©¦ã—ã¦ã¿ãŸ - Higepon's blog]]
 
-** Scheme •¶–@
-   ‚±‚ñ‚È‚Ì‚İ‚Â‚¯‚½.
-   - [[http://www.sampou.org/scheme/t-y-scheme/t-y-scheme-Z-H-1.html][“ÆK Scheme OTŠÔ Teach Yourself Scheme in Fixnum Days]]
+** Scheme æ–‡æ³•
+   ã“ã‚“ãªã®ã¿ã¤ã‘ãŸ.
+   - [[http://www.sampou.org/scheme/t-y-scheme/t-y-scheme-Z-H-1.html][ç‹¬ç¿’ Scheme ä¸‰é€±é–“ Teach Yourself Scheme in Fixnum Days]]
 
 ** Bookmarks
-  - [[http://qiita.com/da1/items/02f7d2f157c7145d58f2][Scheme - SICP ‚ğ“Ç‚Ş‚½‚ß‚É‚â‚Á‚Ä‚¨‚­‚Æ•Ö—˜‚©‚à‚µ‚ê‚È‚¢‚±‚Æ - Qiita]]  
+  - [[http://qiita.com/da1/items/02f7d2f157c7145d58f2][Scheme - SICP ã‚’èª­ã‚€ãŸã‚ã«ã‚„ã£ã¦ãŠãã¨ä¾¿åˆ©ã‹ã‚‚ã—ã‚Œãªã„ã“ã¨ - Qiita]]  
 
