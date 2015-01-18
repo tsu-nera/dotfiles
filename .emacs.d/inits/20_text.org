@@ -198,10 +198,10 @@
 
   ;; 色を変更
   ;; (set-face-background 'ac-candidate-face "lightgray")
-  (set-face-background 'ac-candidate-face "orange")
-  (set-face-underline 'ac-candidate-face "darkgray")
-  (set-face-background 'ac-selection-face "steelblue")
-
+  ;; (set-face-background 'ac-candidate-face "orange")
+  ;; (set-face-underline 'ac-candidate-face "darkgray")
+  ;; (set-face-background 'ac-selection-face "steelblue")
+  
   ;; 補完候補が 1 つのときはそれを採用.
   (setq ac-dwim t)
 
@@ -532,6 +532,8 @@
   :bind (("C-x C-j" . skk-mode) ("C-x j" . skk-mode))
   :init
   (global-unset-key "\C-xj")
+
+  ;; キーボード配置の設定
   (setq skk-use-kana-keyboard t)
   (setq skk-kanagaki-keyboard-type 'omelet-jis)
 
@@ -559,13 +561,14 @@
 
 #+begin_src emacs-lisp
 ;; 候補表示
-(setq skk-show-candidates-always-pop-to-buffer t) ; 変換候補の表示位置
-(setq skk-henkan-show-candidates-rows 2) ; 候補表示件数を 2 列に
+;; (setq skk-show-candidates-always-pop-to-buffer t) ; 変換候補の表示位置
+;; (setq skk-henkan-show-candidates-rows 2) ; 候補表示件数を 2 列に
 
 ;; 動的候補表示
-(setq skk-dcomp-activate t)			 ; 動的補完
-(setq skk-dcomp-multiple-activate t) ; 動的補完の複数候補表示
-(setq skk-dcomp-multiple-rows 10)	 ; 動的補完の候補表示件数
+;; org-mode で文字がずれるのが嫌だ
+;; (setq skk-dcomp-activate t)			 ; 動的補完
+;; (setq skk-dcomp-multiple-activate t) ; 動的補完の複数候補表示
+;; (setq skk-dcomp-multiple-rows 10)	 ; 動的補完の候補表示件数
 #+end_src
 
 *** 親指シフト
