@@ -34,7 +34,7 @@
   (define-key view-mode-map (kbd "p") 'View-scroll-page-backward)
   (define-key view-mode-map (kbd "n") 'View-scroll-page-forward)
   (define-key view-mode-map (kbd "n") 'View-scroll-page-forward)
-  (define-key view-mode-map (kbd "v") 'View-exit)
+  (define-key view-mode-map (kbd "v") 'read-only-mode)
 
   ;; vi ぼく
   (define-key view-mode-map (kbd "h") 'backward-char)
@@ -512,10 +512,35 @@
 * 日本語入力
 ** ddskk
    Emacs 用の IME.
-   - [[http://openlab.ring.gr.jp/skk/doc-ja.html][SKK Openlab - ドキュメント]]
    - https://github.com/skk-dev/ddskk
+
+*** SKK とは
+   そもそも SKK とはなにかについてまとめる
+   
+   - [[http://openlab.ring.gr.jp/skk/doc-ja.html][SKK Openlab - ドキュメント]]
    - [[http://www.bookshelf.jp/texi/skk/skk.html][SKK Manual:]]
-   - https://github.com/skk-dev/ddskk/blob/master/nicola/README.NICOLA.ja
+   - [[http://dic.nicovideo.jp/a/skk][SKK とは (エスケイケイとは)  - ニコニコ大百科]]
+
+**** 特徴
+   - SKK の最大の特徴は, 形態素解析
+   - ひらがなはすべて確定の状態で打ち出される
+   - エンターキーを押す必要が少なくなる
+   - 変換する文字が候補一覧のバッファを出さずに出たら, 
+     そのまま入力を続行すれば確定される「暗黙の確定」
+   - エンターキーをできる限り迫害できる日本語入力システム.
+   - 変換候補の単語に英字が一つずつ割り当てられ,
+     変換したい候補の英字をタイプすることで選択され確定する
+
+**** メリット
+    - 文章を頭から流れるように書くことができる. 
+      必要時に適宜漢字変換を行い, また一度に一語しか変換できないため, 
+      SKK で文章を書くということは人間本来の文章の書き方に非常に良く似ている
+    - 文章の書き方に非常に良く似ている
+    - 変換はユーザーが全て決める = 誤変換が減る
+
+**** デメリット
+
+*** 設定
 
    設定例のかき集め.
    - [[http://mugijiru.seesaa.net/article/275755984.html][暇だったから ddskk の設定いじった: 麦汁三昧]]
@@ -546,6 +571,10 @@
   ;; 個人辞書の文字コードを指定
   (setq skk-jisyo-code 'utf-8)
 
+  ;; migemoを利用するため isearch中は無効
+  (setq skk-isearch-mode-enable nil)
+  (setq skk-isearch-start-mode 'latin)
+  
   (setq skk-large-jisyo "~/.emacs.d/etc/dict/SKK-JISYO.L")
 #+end_src
 
@@ -574,6 +603,7 @@
     われは親指シフター. 
     - [[http://futurismo.biz/archives/2881][Emacs DDSKK で NICOLA 親指シフト入力をする | Futurismo]]
     - [[https://github.com/skk-dev/ddskk/blob/master/nicola/README.NICOLA.ja][ddskk/README.NICOLA.ja at master · skk-dev/ddskk]]
+    - https://github.com/skk-dev/ddskk/blob/master/nicola/README.NICOLA.ja
 
     - ddskk フォルダで make && make install
       - nicola フォルダで make
