@@ -226,6 +226,7 @@
     monokai-emacs
     powerline
     viewer
+    eww-hatebu
     )
  "A list of packages to install from el-get at launch.")
 
