@@ -610,8 +610,6 @@
    - https://github.com/akiym/go-skkserv
 
 #+begin_src bash
-
-
 go get github.com/akiym/go-skkserv
 #+end_src
 

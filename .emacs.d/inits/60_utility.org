@@ -392,7 +392,9 @@ Warning: Eager macro-expansion skipped due to cycle:
 (defun eww-copy-page-org-link ()
   (interactive)
   (setq eww-org-link-buffer
-	(format "[[%s][%s]]" (eww-current-url) (eww-current-title))))
+	(format "[[%s][%s]]" (eww-current-url) (eww-current-title)))
+  (message "stored org-link: %s" eww-org-link-buffer))
+  
 (defun eww-yank-page-org-link ()
   (interactive)
   (insert eww-org-link-buffer))
