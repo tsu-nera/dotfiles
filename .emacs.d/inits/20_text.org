@@ -571,7 +571,7 @@
   ;; 個人辞書の文字コードを指定
   (setq skk-jisyo-code 'utf-8)
 
-  ;; migemoを利用するため isearch中は無効
+  ;; migemo を利用するため isearch 中は無効
   (setq skk-isearch-mode-enable nil)
   (setq skk-isearch-start-mode 'latin)
   
@@ -609,6 +609,10 @@
       - nicola フォルダで make
 	windows 環境だと, cygwin で make が失敗したので, eshell で実施した.
 	どうも, make install をするとダメだな.. make だけ.
+
+    - windows だと, 変換が Google IME に取られてしまって,
+      skk がうまく動作しない. 
+      IME の設定が画面から Henkan をすべて無効にすればよい.
 
 #+begin_src emacs-lisp
 ;; 親指シフト
@@ -658,11 +662,12 @@ google-ime-skk &
      
 #+begin_src emacs-lisp
 (use-package skk-server
-  :if linux-p
+;;  :if linux-p
   :config
   (require 'skk-vars)
   ;; 辞書サーバを利用する場合の設定
-  (setq skk-server-host "0.0.0.0"
+  (setq ;; skk-server-host "0.0.0.0"
+        skk-server-host "localhost" ;; windowsだとこっち
 	skk-server-prog "google-ime-skk" ;; パスは通っているようだ.
 	skk-server-portnum 55100)
 

@@ -6,6 +6,9 @@
 git clone git://git.savannah.gnu.org/emacs.git
 #+end_src
 
+  github のクローン
+  - https://github.com/emacs-mirror/emacs
+
   人気パッケージダウンロードランキング!!
   - http://melpa.org
 
