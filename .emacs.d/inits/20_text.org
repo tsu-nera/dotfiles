@@ -662,7 +662,6 @@ google-ime-skk &
      
 #+begin_src emacs-lisp
 (use-package skk-server
-;;  :if linux-p
   :config
   (require 'skk-vars)
   ;; 辞書サーバを利用する場合の設定
