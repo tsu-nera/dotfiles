@@ -21,7 +21,7 @@
 #+begin_src emacs-lisp
 (use-package eww
   :commands (eww-disable-images)
-  :bind (("C-q <C-return>" . eww)
+  :bind (("C-t <C-return>" . eww)
 	 ("C-x g g" . eww-search)
 	 ("C-c p" . browse-url-with-eww))
   :config
@@ -83,6 +83,15 @@
 (setq shr-external-browser 'browse-url-generic)
 #+end_src
 
+** User-Agent の設定
+   w3m でも同じようなはなしがあったような気がする. 
+   モバイル用のほうが見やすかったり.
+   - [[https://lists.gnu.org/archive/html/emacs-devel/2014-01/msg01659.html][Changing user agent on eww]]
+   - [[http://rubikitch.com/2015/01/19/url-user-agent/][EWW などの Emacs における HTTP アクセスの User-Agent を変更する方法 | るびきち「日刊 Emacs 」]]
+
+   るびきちさんの記事を参考: 以下で自分の User-Agent を調べる.
+   - http://www.cman.jp/network/support/go_access.cgi
+
 ** 現在の url を eww で開く
   - [[http://tototoshi.hatenablog.com/entry/20100630/1277897703][カーソル位置の URL をブラウザで開く - tototoshi の日記]]
   - [[http://stackoverflow.com/questions/9033050/how-to-setup-emacs-to-folow-links-in-two-ways-depend-on-ctrl-key][browser - How to setup Emacs to folow links in two ways depend on CTRL key - Stack Overflow]]
@@ -141,6 +150,7 @@
 
 ** proxy 越え
   - [[http://rubikitch.com/2014/11/17/eww-proxy/][Emacs で proxy を使う設定 – この 1 行で eww も package も広告避けもバッチリ! | るびきち「日刊 Emacs 」]]
+
 
 ** 画像表示
    -  [[http://rubikitch.com/2014/11/25/eww-image/][Emacs24.4/Emacs25 の eww で画像を非表示にする方法! よりテキストブラウザらしく]]

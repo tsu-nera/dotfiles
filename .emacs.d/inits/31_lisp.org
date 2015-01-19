@@ -50,8 +50,8 @@
 (define-key sp-keymap (kbd "C-M-a") 'sp-beginning-of-sexp)
 (define-key sp-keymap (kbd "C-M-e") 'sp-end-of-sexp)
 
-;; カッコのなかを削除・コピー(かたまり単位)
-;; sp-kill/copy-hiblid-sexpというものもある
+;; カッコのなかを削除・コピー (かたまり単位)
+;; sp-kill/copy-hiblid-sexp というものもある
 (define-key sp-keymap (kbd "C-M-k") 'sp-kill-sexp)
 (define-key sp-keymap (kbd "C-M-w") 'sp-copy-sexp)
 
@@ -105,7 +105,7 @@
     #+begin_src emacs-lisp
     #+end_src
 
-    **) paredit
+** paredit
    Lisp コードで頻出する括弧類のバランスを維持することを目的としたもの.
    - [[http://www.daregada.sakuraweb.com/paredit_tutorial_ja.html][ParEdit チュートリアル]]
    - [[http://emacsrocks.com/e14.html][Emacs Rocks!]]
@@ -114,6 +114,10 @@
    smartparens のほうが人気??
    - [[http://kiririmode.hatenablog.jp/entry/20131231/p1][smartparens.el での括弧処理 - 理系学生日記]]
    - https://github.com/Fuco1/smartparens/wiki/Paredit-and-smartparens
+
+** lispy
+   vi-like Paredit. 便利そう.
+   - https://github.com/abo-abo/lispy
 
 ** eldoc
    Lisp 系言語の関数で,

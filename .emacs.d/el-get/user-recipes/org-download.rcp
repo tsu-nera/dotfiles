@@ -1,0 +1,3 @@
+(:name org-download
+       :type github
+       :pkgname "abo-abo/org-download")

@@ -677,6 +677,26 @@
 (define-key org-mode-map (kbd "C-c \\") 'org-sparse-tree-indirect-buffer)
 #+end_src
 
+* Trial
+** org-screenshot
+   スクリーンショットを撮影して, org-mode に挿入する 
+   - https://github.com/dfeich/org-screenshot
+
+** org-download
+   ドラッグ & ドロップで画像をコピーできる.
+   - https://github.com/abo-abo/org-download
+   - [[http://oremacs.com/2015/01/18/sprucing-up-org-download/#][Sprucing up org-download · (or emacs]]
+
+   動画もある. Awesome!!
+   - https://www.youtube.com/watch?v=dAojpHR-6Uo
+
+#+begin_src emacs-lisp
+(use-package org-download
+  :config
+  ;; scrot をつかってる
+  (setq org-download-screenshot-method "scrot"))
+#+end_src
+
 * 他のツールとの連携
 ** RSS Feed 
   RSS Feeder for Emacs
