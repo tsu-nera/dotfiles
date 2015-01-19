@@ -58,11 +58,11 @@
 #+end_src
 
 * HTML メール対策
-  eww がつかえるか??
+  eww を利用.
   - [[http://blog.gmane.org/gmane.mail.wanderlust.general.japanese/month=20140101][Japanese discussion of the Wanderlust mail/news reader for Emacs/XEmacs]]
-
+    
 #+begin_src emacs-lisp
-;; HTML ファイルは表示しない.
+;; HTML ファイルは表示しない. -> 利用するようにした.
 ;; (setq mime-setup-enable-inline-html nil)
 
 (setq mime-setup-enable-inline-html 'shr) ;; eww を利用する.
@@ -155,8 +155,8 @@
   - [[http://emacs-fu.blogspot.jp/2011/03/searching-e-mails-with-wanderlust-and.html][emacs-fu: searching e-mails with wanderlust and mu]]
   - [[http://uwabami.junkhub.org/log/20110901.html][平衡点 (2011-09-01)]]
 
-  動かせなかったげれども、一応設定を書いておく。
-  いつか動かせるように。。。
+  動かせなかったげれども, 一応設定を書いておく.
+  いつか動かせるように. . .
 
 #+begin_src emacs-lisp
 ;; (require 'elmo-search)
