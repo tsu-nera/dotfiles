@@ -91,11 +91,11 @@
    w をおすと別タブで開くので, ちょい便利.
    
  #+begin_src emacs-lisp
-;; (when windows-p
-;;   (use-package elscreen-wl :defer t))
+(when windows-p
+  (use-package elscreen-wl))
 #+end_src
 
-どこかで無限ループになっているな... 1 秒くらいここでかかっている.
+ どこかで無限ループになっているな... 1 秒くらいここでかかっている.
 
 #+begin_src text
 Warning: Eager macro-expansion skipped due to cycle:
