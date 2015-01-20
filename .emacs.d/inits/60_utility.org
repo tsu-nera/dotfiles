@@ -124,12 +124,14 @@ Warning: Eager macro-expansion skipped due to cycle:
 
 #+begin_src emacs-lisp
 (when linux-p
-(setq browse-url-generic-program (executable-find "conkeror"))
-(setq browse-url-browser-function 'browse-url-generic))
+  (setq browse-url-generic-program (executable-find "conkeror")))
 
+;; 
 (when windows-p
-; Windows 環境のデフォルト
- (setq browse-url-browser-function 'browse-url-default-windows-browser))
+  ;;  (setq browse-url-browser-function 'browse-url-default-windows-browser))
+  (setq browse-url-generic-program 'browse-url-firefox))
+
+(setq browse-url-browser-function 'browse-url-generic)
 
 ;; 今のポイントしている URL を開く
 (global-set-key (kbd "C-c u") 'browse-url-at-point)

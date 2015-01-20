@@ -108,8 +108,7 @@
 						      (cdr url-region))))
     ;; org-link
     (setq browse-url-browser-function 'eww-browse-url)
-    (org-open-at-point)
-    (setq browse-url-browser-function 'browse-url-generic)))
+    (org-open-at-point)))
 #+end_src
 
 ** eww 複数起動する

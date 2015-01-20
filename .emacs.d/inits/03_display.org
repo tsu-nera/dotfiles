@@ -333,6 +333,15 @@
   )
 #+end_src
 
+*** linum を軽くするおまじない
+    - [[http://d.hatena.ne.jp/daimatz/20120215/1329248780][linum-mode を軽くする - daimatz メモ]]
+
+#+begin_src emacs-lisp
+(setq linum-delay t)
+(defadvice linum-schedule (around my-linum-schedule () activate)
+  (run-with-idle-timer 0.2 nil #'linum-update-current))
+#+end_src
+
 ** 最大化表示
    Emacs は世界を統べるものなので, 最大化してもまったく問題ない.
 #+begin_src emacs-lisp
