@@ -270,24 +270,7 @@
   (global-set-key "\C-qk" 'windmove-up)
 #+END_SRC
 
-** e2wm
-   Emacs ようの window manager.
-
-   - [[https://github.com/kiwanami/emacs-window-manager][kiwanami/emacs-window-manager]]
-   - [[http://d.hatena.ne.jp/kiwanami/20100528/1275038929][広くなった画面を有効利用できる, Emacs 内 Window 管理ツール e2wm.el を作ってみた]]
-
-   array を利用すると, windows のようなタブで画面切り替え.
-
-   - [[http://aki2o.hatenablog.jp/entry/2014/08/19/Emacs%E3%81%A7%E3%83%90%E3%83%83%E3%83%95%E3%82%A1%E5%86%85%E5%AE%B9%E3%82%92%E7%9B%AE%E8%A6%96%E7%A2%BA%E8%AA%8D%E3%81%97%E3%81%A6%E7%9B%AE%E7%9A%84%E3%81%AE%E3%83%90%E3%83%83%E3%83%95%E3%82%A1%E3%81%AB][Emacs でバッファ内容を目視確認して目的のバッファに素早く切り替える - 死ぬまでの暇潰し]]
-
-    #+begin_src emacs-lisp
- (use-package e2wm
-  :defer t
-  :bind ("M-+" . e2wm:start-management)
-  )
-#+end_src
-
-* フレーム
+** フレーム
 ** 定義
    ウィンドウシステムにおけるウィンドウを Emacs では, フレームと呼ぶ.
    1 つのフレームは, 複数のウィンドウからなる.
