@@ -126,6 +126,8 @@
    - [[http://emacs-fu.blogspot.jp/2009/06/erc-emacs-irc-client.html][emacs-fu: ERC: the emacs IRC client]]
    - [[http://sleepboy-zzz.blogspot.jp/2013/07/emacs-ercirc.html][memo: Emacs ERC で IRC を試してみた]]
 
+   - [[http://www.emacswiki.org/emacs/ErcStartupFiles][EmacsWiki: Erc Startup Files]]
+
 #+begin_src emacs-lisp
 ;; (use-package erc
 ;;  :commands erc
@@ -149,7 +151,20 @@ command uses interactive mode if passed an argument."
 	     (interactive "p")
 	     (if (not (= 1 arg))
 		 (call-interactively 'erc)
-	       (erc :server ,server :port ,port :nick ,nick)))))
+		 (erc :server ,server :port ,port :nick ,nick)))))
+  
+ (defmacro asf-erc-bouncer-connect (command server port nick ssl pass)
+   "Create interactive command `command', for connecting to an IRC server. The
+   command uses interactive mode if passed an argument."
+   (fset command
+         `(lambda (arg)
+           (interactive "p")
+	   (if (not (= 1 arg))
+	       (call-interactively 'erc)
+	     (let ((erc-connect-function ',(if ssl
+					       'erc-open-ssl-stream
+					     'open-network-stream)))
+ 	       (erc :server ,server :port ,port :nick ,nick :password ,pass))))))
   
   ;; (de-erc-connect erc-opn "localhost" 6667 "tsu-nera")
 #+end_src
@@ -180,7 +195,7 @@ command uses interactive mode if passed an argument."
    - https://github.com/leathekd/erc-hl-nicks
 
  #+begin_src emacs-lisp
-(use-package erc-hl-nicks :defer t)
+(use-package erc-hl-nicks)
  #+end_src
 
 *** 通知
@@ -235,12 +250,13 @@ command uses interactive mode if passed an argument."
 
 #+begin_src emacs-lisp
 (when windows-p
-  (use-package my-growl-for-windows)
-  )
+  (use-package my-growl-for-windows))
 #+end_src
 
-#+RESULTS:
-: Could not load package my-growl-fow-windows
+*** erc-match
+#+begin_src emacs-lisp
+(use-package erc-match)
+#+end_src
 
 *** Encoding
     #+begin_src emacs-lisp
