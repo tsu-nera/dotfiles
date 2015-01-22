@@ -510,3 +510,76 @@ sudo pacman -S ghostscript
   (psession-mode 1)
   )
 #+end_src
+* emms
+  Emacs のためのメディアプレーヤー
+  - [[http://www.gnu.org/software/emms/][EMMS - Emacs Multimedia System]]
+  - [[http://www.emacswiki.org/emacs/EMMS][EmacsWiki: EMMS]]
+
+** 基本操作
+   - [[http://www.gnu.org/software/emms/manual/index.html#Top][The Emms Manual]]
+   まず, emms を起動する. playlist が表示される.
+
+  - emms-play-xxx: 音楽再生
+  - emms-add-xxx:  音楽をプレイリストに追加.
+  - emms-start: プレイリストを再生
+
+  基本コマンドは以下を参照.
+  - [[http://www.gnu.org/software/emms/manual/Basic-Commands.html#Basic-Commands][Basic Commands - The Emms Manual]]
+
+  Emacs で SoundCloud を聞く方法
+  - https://github.com/r0man/soundklaus.el
+
+** Settings
+
+#+begin_src emacs-lisp
+(use-package emms-setup
+  :if linux-p
+  :init
+  (eval-after-load 'smartrep
+  '(progn
+     (smartrep-define-key
+	 global-map "C-x C-9"
+       '(("+"      . 'emms-volume-raise)
+	 ("-"      . 'emms-volume-lower)
+	 ("n"      . 'emms-next)
+	 ("p"      . 'emms-previous)))))
+  :config
+  (require 'emms-volume)
+  ;; (emms-standard)
+  (emms-all)
+;; (emms-default-players)
+;; (setq emms-player-list '(emms-player-mpg321
+;;                          emms-player-ogg123
+;;                          emms-player-mplayer))
+  (setq emms-source-file-default-directory "~/Music/"))
+#+end_src
+
+  その他として helm-emms が C-x c #にある.
+
+** vlc
+   https をサポートに追加する.
+
+#+begin_src emacs-lisp
+(use-package emms-player-vlc
+  :config
+  (setq emms-player-list '(emms-player-vlc))
+  (define-emms-simple-player vlc '(file url)
+    (concat "\\`\\(https?\\|mms\\)://\\|"
+	    (emms-player-simple-regexp
+	     "ogg" "mp3" "wav" "mpg" "mpeg" "wmv" "wma"
+	     "mov" "avi" "divx" "ogm" "ogv" "asf" "mkv"
+	     "rm" "rmvb" "mp4" "flac" "vob" "m4a" "ape"))
+    "vlc" "--intf=rc"))
+#+end_src
+
+** Stream
+   ストリームを再生できる. 
+   (emms-all) をするか, (require 'emms-streams) で有効になる.
+   emms-streams で Default で登録されてる URL がでる.
+
+   WCPE, Classical Music
+   - http://www.ibiblio.org/wcpe/wcpe.pls
+
+   BBC Classic (Raido3)
+   - http://www.bbc.co.uk/radio/listen/live/r3_aaclca.pls
+
