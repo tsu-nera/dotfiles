@@ -57,12 +57,18 @@
 #+end_src
 
 ** クイック検索
-    検索で, 新しいバッファで検索結果を開く.
+   検索で, 新しいバッファで検索結果を開く.
+   検索結果にハイライトをつける.
 
 #+begin_src emacs-lisp
- (defun eww-search (term)
-   (interactive "sSearch terms: ")
-   (eww-browse-url (concat eww-search-prefix term)))
+(defun eww-search (term)
+  (interactive "sSearch terms: ")
+  (setq eww-hl-search-word term)
+  (eww-browse-url (concat eww-search-prefix term)))
+
+(add-hook 'eww-after-render-hook (lambda ()
+				     (highlight-regexp eww-hl-search-word)
+				     (setq eww-hl-search-word nil)))
 #+end_src
 
 ** 現在の url を 外部ブラウザ で開く (eww-browse-with-external-link)
@@ -229,9 +235,6 @@
 
 ** auto-hightlight-symbol で語句をハイライト
    -> auto-hightlight-symbol 参照.
-
-** 検索結果を highlight
-   highlight-regexp を利用する.
 
 * Unused
 ** conkerror のような番号づけ
