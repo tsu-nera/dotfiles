@@ -220,7 +220,6 @@
    (define-key eww-mode-map "B" 'helm-eww-bookmark))
 #+end_src
 
-
 ** eww-eieio
     - http://rubikitch.com/2014/11/20/eww-weblio/
     
@@ -231,8 +230,8 @@
 ** auto-hightlight-symbol で語句をハイライト
    -> auto-hightlight-symbol 参照.
 
-
-
+** 検索結果を highlight
+   highlight-regexp を利用する.
 
 * Unused
 ** conkerror のような番号づけ

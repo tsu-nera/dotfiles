@@ -6,7 +6,9 @@
 
 #+begin_src emacs-lisp
 (use-package ace-jump-mode
-  :bind ("C-x ," . ace-jump-mode)
+  :bind (("C-x ," . ace-jump-mode)
+	 ("C-x ;" . ace-jump-word-mode)
+	 ("C-x C-;" . ace-jump-line-mode))
   :config
   (custom-set-faces
    '(ace-jump-face-foreground
@@ -48,8 +50,9 @@
 (use-package ace-isearch
   :config
   (global-ace-isearch-mode 1)
-  ;; (setq ace-isearch-use-function-from-isearch nil)
-  (define-key isearch-mode-map (kbd "M-o") 'helm-multi-swoop-all-from-isearch))
+  (setq ace-isearch-use-function-from-isearch nil) ;; swoopは無効
+  ;;(define-key isearch-mode-map (kbd "M-o") 'helm-multi-swoop-all-from-isearch)
+  )
 #+end_src
 
 ** ace-window
