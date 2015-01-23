@@ -125,7 +125,19 @@
 ;;   (exec-path-from-shell-initialize))
 #+end_src
 
+** Emacs の起動フォルダを変更する.
+   C-x C-f で開くディレクトリがデフォルト. 
+   Windows だと, Emacs の起動ディレクトリになってしまう.
+   
+   default-directory を利用する
 
+   #+begin_src emacs-lisp
+(when windows-p
+  (setq default-directory "C:/cygwin64/home/tsu-nera"))
+#+end_src
+
+   - [[http://stackoverflow.com/questions/60464/changing-the-default-folder-in-emacs][customization - Changing the default folder in Emacs - Stack Overflow]]
+   - [[http://blog.cosscoss.biz/?p=477][Windows の Emacs (NTEmacs) で起動時ディレクトリを HOME ディレクトリに変更できない問題解決! | こすブ]]
 
 * ファイラ
 ** dired

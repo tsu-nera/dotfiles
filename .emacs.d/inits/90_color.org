@@ -375,8 +375,8 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
   (powerline-default-theme)
   :config
   ;; windows だと色が変.
-  (when windows-p
-    (custom-set-faces
-     '(mode-line ((t (:background "#3E3D31" :distant-foreground "black" :foreground "#F8F8F2" :box (:line-width 1 :color "gray20" :style unspecified)))))
-     '(mode-line-buffer-id ((t (:foreground "#F92672" :weight bold)))))))
+   (when windows-p
+     (custom-set-faces
+      '(mode-line ((t (:background "#3E3D31" :distant-foreground "black" :foreground "#F8F8F2" :box (:line-width 1 :color "gray20" :style unspecified))))))))
+  ;;     '(mode-line-buffer-id ((t (:foreground "#F92672" :weight bold)))))))
 #+end_src

@@ -227,6 +227,7 @@
     powerline
     viewer
     eww-hatebu
+    org-download
     )
  "A list of packages to install from el-get at launch.")
 
