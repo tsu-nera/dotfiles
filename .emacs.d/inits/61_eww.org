@@ -27,8 +27,6 @@
   :config
   (define-key eww-mode-map "r" 'eww-reload)
   (define-key eww-mode-map "c 0" 'eww-copy-page-url)
-  (define-key eww-mode-map "N" 'eww-next-url)
-  (define-key eww-mode-map "P" 'eww-previous-url)
   (define-key eww-mode-map "p" 'scroll-down)
   (define-key eww-mode-map "n" 'scroll-up)
 #+end_src
@@ -57,9 +55,7 @@
 #+end_src
 
 ** クイック検索
-   - 検索で, 新しいバッファで検索結果を開く.
    - 検索結果にハイライトをつける.
-   - 検索結果を isearch する
 
 #+begin_src emacs-lisp
 (defun eww-search (term)
@@ -211,6 +207,10 @@
      ((t (:foreground "#A6E22E"))))))
 #+end_src
 
+  はてなブックマークは, メールからのブックマーク機能を利用する.
+  wl-draft を起動して, コメント書いて送信.
+  - [[http://b.hatena.ne.jp/help/entry/basic][ブックマークを投稿する - はてなブックマークヘルプ]]
+
 ** helm-eww-history
   - [[http://rubikitch.com/2014/11/26/helm-eww/][helm-eww.el – Emacs 組み込み Web ブラウザ eww で URL の履歴を helm する ]]
 
@@ -219,19 +219,12 @@
 #+end_src
 
 ** helm-eww-bookmarks
+   - https://github.com/mytoh/helm-eww-bookmark/blob/master/helm-eww-bookmark.el
 
 #+begin_src emacs-lisp
 (use-package helm-eww-bookmark
-  :disabled t
   :config
-   (define-key eww-mode-map "B" 'helm-eww-bookmark))
-#+end_src
-
-** eww-eieio
-    - http://rubikitch.com/2014/11/20/eww-weblio/
-    
-#+begin_src emacs-lisp
-;; (use-package eww-weblio)
+  (define-key eww-mode-map "B" 'helm-eww-bookmark))
 #+end_src
 
 ** auto-hightlight-symbol で語句をハイライト

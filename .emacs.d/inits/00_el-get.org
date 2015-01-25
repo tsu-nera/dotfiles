@@ -227,6 +227,7 @@
     viewer
     eww-hatebu
     org-download
+    helm-eww-bookmarks
     )
  "A list of packages to install from el-get at launch.")
 

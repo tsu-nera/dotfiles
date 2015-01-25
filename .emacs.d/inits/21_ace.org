@@ -50,7 +50,7 @@
 (use-package ace-isearch
   :config
   (global-ace-isearch-mode 1)
-  (setq ace-isearch-use-function-from-isearch nil) ;; swoopは無効
+  (setq ace-isearch-use-function-from-isearch nil) ;; swoop は無効
   ;;(define-key isearch-mode-map (kbd "M-o") 'helm-multi-swoop-all-from-isearch)
   )
 #+end_src

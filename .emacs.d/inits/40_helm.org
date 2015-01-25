@@ -225,7 +225,9 @@
    使いこなせていなかったりする.
 
 #+begin_src emacs-lisp
-(use-package helm-wl-address :disabled t)
+(use-package helm-wl-address
+  :init
+  (add-hook 'wl-draft-mode-hook 'helm-wl-address-activate-tab))
 #+end_src
 
 ** helm-google

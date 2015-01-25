@@ -62,7 +62,6 @@
   (add-hook 'eww-mode-hook 'auto-highlight-symbol-mode)
   :config
   (global-auto-highlight-symbol-mode t))
-  
 #+end_src
 
 ** highlight-symbol

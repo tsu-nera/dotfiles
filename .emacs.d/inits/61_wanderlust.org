@@ -173,7 +173,7 @@
 * windows
 ** init file の置き場所
   cygwin の~/dotfiles を Home にしているので,
-  dotfiles に.wl, .address, .folders を配置.
+  dotfiles に.wl, .addresses, .folders を配置.
 
 ** gmail との連携
    windows だと gmail で送信できない. gnutls-cli がない.
