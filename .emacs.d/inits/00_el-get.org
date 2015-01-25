@@ -228,6 +228,7 @@
     eww-hatebu
     org-download
     helm-eww-bookmarks
+    git-gutter
     )
  "A list of packages to install from el-get at launch.")
 

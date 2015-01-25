@@ -23,8 +23,8 @@
 
 #+begin_src emacs-lisp
 ;; 画面からはみ出たら切り捨て.
-(set-default 'truncate-lines t)
-(setq truncate-partial-width-windows t)
+(set-default 'truncate-lines nil)
+(setq truncate-partial-width-windows nil)
 #+end_src
 
 ** auto-fill-mode

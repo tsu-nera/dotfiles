@@ -351,6 +351,17 @@
   helm-gist というのもあるけど, 使い方わからない.
   - https://github.com/emacs-helm/helm-gist/blob/master/helm-gist.el
 
+** git-gutter
+   前回分との差分が見えるツール
+   - https://github.com/syohex/emacs-git-gutter
+
+#+begin_src emacs-lisp
+(use-package git-gutter
+  :idle
+  (global-git-gutter-mode +1)
+  (git-gutter:linum-setup))
+#+end_src
+     
 ** github 関連
  #+begin_src emacs-lisp
 ;; git 管理のシンボリックリンクで質問されないためのおまじない.
