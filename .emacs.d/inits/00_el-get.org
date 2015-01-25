@@ -209,7 +209,6 @@
     ddskk
     ac-skk
     ac-ja
-    scheme-complete
     eldoc-extension
     smartparens
     ess-R-data-view

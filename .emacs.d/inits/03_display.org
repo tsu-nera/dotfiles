@@ -19,12 +19,14 @@
 
 ** 折り返し設定
   - [[http://d.hatena.ne.jp/beiz23/20090713/1247476145][emacs で truncate-lines を t にしているのに折り返ししてくれない. - beiz のノート]]
+  - [[http://www.emacswiki.org/emacs/TruncateLines][Truncate Lines]]
 
 #+begin_src emacs-lisp
 ;; 画面からはみ出たら切り捨て.
-(setq truncate-partial-width-windows nil)
-(setq truncate-lines t)
+(set-default 'truncate-lines t)
+(setq truncate-partial-width-windows t)
 #+end_src
+
 ** auto-fill-mode
    デフォルト搭載. 勝手に折り返してくれる.
    - [[http://www.emacswiki.org/emacs/AutoFillMode][EmacsWiki: Auto Fill Mode]]

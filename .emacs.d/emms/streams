@@ -1,4 +1,2 @@
-(("Klara Low" "http://www.listenlive.eu/vrtklara-low.m3u" 1 streamlist)
-("Klara Mid" "http://www.listenlive.eu/vrtklara-mid.m3u" 1 streamlist)
-("Klara High" "http://www.listenlive.eu/vrtklara-high.m3u" 1 streamlist)
-("BBC Classic" "http://www.bbc.co.uk/radio/listen/live/r3_aaclca.pls" 1 streamlist))
+(("Klara Mid" "http://www.listenlive.eu/vrtklara-mid.m3u" 1 streamlist)
+ ("BBC Classic" "http://www.bbc.co.uk/radio/listen/live/r3_aaclca.pls" 1 streamlist))

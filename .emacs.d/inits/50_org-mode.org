@@ -821,7 +821,6 @@ containing the properties `:guid' and `:item-full-text'."
 
 #+begin_src emacs-lisp
 (use-package calfw-org
-  :defer t
   :config
   ;; 対象ファイル
   (setq cfw:org-icalendars '("~/gtd/schedule.org"))
