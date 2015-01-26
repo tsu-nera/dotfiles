@@ -563,14 +563,17 @@ sudo pacman -S ghostscript
   (require 'emms-volume)
   ;; (emms-standard)
   (emms-all)
-;; (emms-default-players)
-;; (setq emms-player-list '(emms-player-mpg321
-;;                          emms-player-ogg123
-;;                          emms-player-mplayer))
-  (setq emms-source-file-default-directory "~/Music/"))
-#+end_src
+  ;; (emms-default-players)
+  ;; (setq emms-player-list '(emms-player-mpg321
+  ;;                          emms-player-ogg123
+  ;;                          emms-player-mplayer))
+  (setq emms-stream-default-action "play")
+  (setq emms-source-file-default-directory "~/Music/")
+  ;; RET が動かないので
+  (define-key emms-stream-mode-map (kbd "C-c C-c") 'emms-stream-play))
+  #+end_src
 
-  その他として helm-emms が C-x c #にある.
+  その他として helm-emms が C-x c #にある. 便利.
 
 ** vlc
    https をサポートに追加する.

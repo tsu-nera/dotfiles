@@ -355,11 +355,12 @@
    前回分との差分が見えるツール
    - https://github.com/syohex/emacs-git-gutter
 
+   いつも有効にすると遅いので, 必要なときに手動で有効に.(org-mode で遅い)
+
 #+begin_src emacs-lisp
-(use-package git-gutter
-  :idle
-  (global-git-gutter-mode +1)
-  (git-gutter:linum-setup))
+(use-package git-gutter)
+  ;; (global-git-gutter-mode +1)
+  ;; (git-gutter:linum-setup))
 #+end_src
      
 ** github 関連

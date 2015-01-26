@@ -77,7 +77,6 @@
 	 ("C-<f4>" . highlight-symbol-next)
 	 ("S-<f4>" . highlight-symbol-prev)
 	 ("ESC <f4>" . highlight-symbol-remove-all))
-
   :config
   (setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1")))
 #+end_src
@@ -376,6 +375,6 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
   ;; windows だと色が変.
    (when windows-p
      (custom-set-faces
-      '(mode-line ((t (:background "#3E3D31" :distant-foreground "black" :foreground "#F8F8F2" :box (:line-width 1 :color "gray20" :style unspecified))))))))
-  ;;     '(mode-line-buffer-id ((t (:foreground "#F92672" :weight bold)))))))
+      '(mode-line ((t (:background "#3E3D31" :distant-foreground "black" :foreground "#F8F8F2" :box (:line-width 1 :color "gray20" :style unspecified)))))
+      '(mode-line-buffer-id ((t (:foreground "#F92672" :weight bold)))))))
 #+end_src
