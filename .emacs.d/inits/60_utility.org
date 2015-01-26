@@ -16,8 +16,8 @@
 
 ;; 
 (when windows-p
-  ;;  (setq browse-url-browser-function 'browse-url-default-windows-browser))
-  (setq browse-url-generic-program 'browse-url-firefox))
+  (setq browse-url-browser-function 'browse-url-default-windows-browser))
+;;  (setq browse-url-generic-program 'browse-url-firefox))
 
 (setq browse-url-browser-function 'browse-url-generic)
 
