@@ -23,9 +23,17 @@
 
 #+begin_src emacs-lisp
 ;; 画面からはみ出たら切り捨て.
-(set-default 'truncate-lines nil)
+(set-default 'truncate-lines t)
+;; C-x 3 でも はみ出し切り捨て
 (setq truncate-partial-width-windows nil)
 #+end_src
+
+これではなぜか有効にならないので, 手動で変更する.
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-c y") 'toggle-truncate-lines)
+#+end_src
+
 
 ** auto-fill-mode
    デフォルト搭載. 勝手に折り返してくれる.

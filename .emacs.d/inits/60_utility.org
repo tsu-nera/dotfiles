@@ -326,33 +326,18 @@ command uses interactive mode if passed an argument."
 sudo pacman -S ghostscript
 #+end_src
 
+  うーん, minor-mode が hook で有効にならないな...
+
 #+begin_src emacs-lisp
 (use-package pdf-tools
   :if linux-p
   :init
   (setq pdf-info-epdfinfo-program
 	(concat (el-get-package-directory "pdf-tools") "src/epdfinfo"))
-  (add-hook 'pdf-view-mode
- 	    (lambda ()
-	      (pdf-isearch-minor-mode)))
+  (add-hook 'pdf-view-mode-hook 'pdf-tools-enable-minor-modes)
+  ;; (add-hook 'pdf-tools-enabled-hook 'pdf-tools-enable-minor-modes)
   :mode (("\\.pdf$" . pdf-view-mode)))
 ;;  :config
-  
-  
-  
-
-;; (defconst 
-;; '(pdf-history-minor-mode
-;; 
-;; pdf-links-minor-mode
-;; pdf-misc-minor-mode
-;; pdf-outline-minor-mode
-;; pdf-misc-size-indication-minor-mode
-;; pdf-misc-menu-bar-minor-mode
-;; pdf-annot-minor-mode
-;; pdf-sync-minor-mode
-;; pdf-misc-context-menu-minor-mode
-;; pdf-cache-prefetch-minor-mode))	      
 	      ;; (use-package pdf-isearch)
 	      ;; (use-package pdf-annot)
 	      ;; (use-package pdf-history) 
@@ -540,16 +525,20 @@ sudo pacman -S ghostscript
   - emms-start: プレイリストを再生
 
   基本コマンドは以下を参照.
-  - [[http://www.gnu.org/software/emms/manual/Basic-Commands.html#Basic-Commands][Basic Commands - The Emms Manual]]
+  - [[http://www.gnu.org/software/emms/manual/Basic-Commands.html#Basic-Commands][Basic Commands - The Emms Ma+nual]]
 
   Emacs で SoundCloud を聞く方法
   - https://github.com/r0man/soundklaus.el
+
+  参考になる config
+  - https://github.com/thierryvolpiatto/emacs-tv-config/blob/master/emms-mpd-config.el
 
 ** Settings
 
 #+begin_src emacs-lisp
 (use-package emms-setup
   :if linux-p
+  :commands emms-stream-init ;; for helm-emms
   :init
   (eval-after-load 'smartrep
   '(progn
@@ -567,10 +556,12 @@ sudo pacman -S ghostscript
   ;; (setq emms-player-list '(emms-player-mpg321
   ;;                          emms-player-ogg123
   ;;                          emms-player-mplayer))
-  (setq emms-stream-default-action "play")
   (setq emms-source-file-default-directory "~/Music/")
   ;; RET が動かないので
-  (define-key emms-stream-mode-map (kbd "C-c C-c") 'emms-stream-play))
+  (define-key emms-stream-mode-map (kbd "C-c C-c") 'emms-stream-play)
+
+  ;; emms-streams で RET を押したときのデフォルト操作
+  (setq emms-stream-default-action "play")
   #+end_src
 
   その他として helm-emms が C-x c #にある. 便利.
@@ -581,14 +572,25 @@ sudo pacman -S ghostscript
 #+begin_src emacs-lisp
 (use-package emms-player-vlc
   :config
-  (setq emms-player-list '(emms-player-vlc))
-  (define-emms-simple-player vlc '(file url)
-    (concat "\\`\\(https?\\|mms\\)://\\|"
-	    (emms-player-simple-regexp
-	     "ogg" "mp3" "wav" "mpg" "mpeg" "wmv" "wma"
-	     "mov" "avi" "divx" "ogm" "ogv" "asf" "mkv"
-	     "rm" "rmvb" "mp4" "flac" "vob" "m4a" "ape"))
-    "vlc" "--intf=rc"))
+       (setq emms-player-list '(emms-player-vlc))
+       (define-emms-simple-player vlc '(file url)
+	 (concat "\\`\\(https?\\|mms\\)://\\|"
+	      (emms-player-simple-regexp
+	       "ogg" "mp3" "wav" "mpg" "mpeg" "wmv" "wma"
+	       "mov" "avi" "divx" "ogm" "ogv" "asf" "mkv"
+	       "rm" "rmvb" "mp4" "flac" "vob" "m4a" "ape"))
+	 "vlc" "--intf=rc"))
+#+end_src
+
+** volume
+   - [[https://www.gnu.org/software/emms/manual/Volume.html][Volume - The Emms Manual]]
+   - [[http://anthony.lecigne.net/2014-08-16-emms-mplayer.html][Control the volume with MPlayer in EMMS]]
+
+   .asoundrc を作成して, default のカードを変更した.
+  - [[https://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Advanced Linux Sound Architecture (日本語) - ArchWiki]]
+
+#+begin_src emacs-lisp
+(setq emms-volume-amixer-control "Master")
 #+end_src
 
 ** Stream
@@ -602,3 +604,7 @@ sudo pacman -S ghostscript
    BBC Classic (Raido3)
    - http://www.bbc.co.uk/radio/listen/live/r3_aaclca.pls
 
+** End of Config
+#+begin_src emacs-lisp
+)
+#+end_src
