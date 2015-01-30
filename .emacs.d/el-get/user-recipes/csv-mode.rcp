@@ -1,0 +1,3 @@
+(:name csv-mode
+       :type github
+       :pkgname "emacsmirror/csv-mode")

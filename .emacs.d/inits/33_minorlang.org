@@ -393,3 +393,17 @@
 #+begin_src emacs-lisp
 )
 #+end_src
+
+* csv-mode
+  csv のためのモード.
+  - https://github.com/emacsmirror/csv-mode
+  - http://www.emacswiki.org/emacs/CsvMode
+
+  powerline が有効だとエラーする.
+  csv を使いたいときは, powerline を無効にすること.
+
+  - https://github.com/emacsmirror/csv-mode/pull/2
+  
+#+begin_src emacs-lisp
+(use-package csv-mode)
+#+end_src

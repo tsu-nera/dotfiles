@@ -227,8 +227,9 @@
     viewer
     eww-hatebu
     org-download
-    helm-eww-bookmarks
+    helm-eww-bookmark
     git-gutter
+    csv-mode
     )
  "A list of packages to install from el-get at launch.")
 

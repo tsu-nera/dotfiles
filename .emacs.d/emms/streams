@@ -1,4 +1,5 @@
 (("Klara Mid" "http://www.listenlive.eu/vrtklara-mid.m3u" 1 streamlist)
  ("BBC Classic" "http://www.bbc.co.uk/radio/listen/live/r3_aaclca.pls" 1 streamlist)
  ("NHK FM" "http://mfile.akamai.com/129933/live/reflector:46051.asx" 1 streamlist)
- ("Ottava" "https://www.youtube.com/watch?v=VpEvNgSfvj8" 1 streamlist))
+ ("Ottava" "https://www.youtube.com/watch?v=VpEvNgSfvj8" 1 streamlist)
+ ("ORF OE1" "http://mp3stream3.apasf.apa.at:8000/listen.pls" 1 streamlist))
