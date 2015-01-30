@@ -138,3 +138,4 @@ old mode 100755 new mode 100644
        (interactive) 
        (w32-browser (dired-replace-in-string "/" "\\" (dired-get-filename))))))
 #+end_src
+

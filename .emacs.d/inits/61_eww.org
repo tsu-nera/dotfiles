@@ -83,7 +83,8 @@
    - http://www.emacswiki.org/emacs/Conkeror
 
 #+begin_src emacs-lisp
-(setq shr-external-browser 'browse-url-generic)
+(when linux-p
+  (setq shr-external-browser 'browse-url-generic))
 #+end_src
 
 ** User-Agent の設定

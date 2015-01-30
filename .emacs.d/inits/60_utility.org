@@ -554,7 +554,9 @@ sudo pacman -S ghostscript
   ;; (setq emms-player-list '(emms-player-mpg321
   ;;                          emms-player-ogg123
   ;;                          emms-player-mplayer))
-  (setq emms-source-file-default-directory "~/Music/")
+  (when linux-p
+    (setq emms-source-file-default-directory "~/Music/"))
+  
   ;; RET が動かないので
   (define-key emms-stream-mode-map (kbd "C-c C-c") 'emms-stream-play)
 
