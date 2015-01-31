@@ -389,6 +389,18 @@
 
   C-c C-c で eval.
 
+** R-autoyas
+   Automatically create yasnippets for R
+   - https://github.com/mlf176f2/r-autoyas.el
+
+#+begin_src emacs-lisp
+(use-package r-autoyas
+  :commands r-autoyas-ess-activate
+  :init
+  (add-hook 'ess-mode-hook 'r-autoyas-ess-activate))
+#+end_src
+
+
 ** End of ESS Config
 #+begin_src emacs-lisp
 )

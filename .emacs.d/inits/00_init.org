@@ -285,6 +285,7 @@
     helm-eww-bookmark
     git-gutter
     csv-mode
+    r-autoyas
     )
  "A list of packages to install from el-get at launch.")
 
@@ -325,9 +326,9 @@
   (when linux-p
     (setq el-get-emacs "/usr/local/bin/emacs"))
 
-  (when windows-p
-    ;; 通知は minibuffer のみ
-    (setq el-get-notify-type 'message))
+  ;; 通知は minibuffer のみ
+  (setq el-get-notify-type 'message)
+  
   :idle
   (el-get 'sync my/el-get-packages-all)
   (when windows-p

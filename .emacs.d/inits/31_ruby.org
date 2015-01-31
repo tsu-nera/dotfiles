@@ -148,7 +148,8 @@
   :commands rspec-mode
   :init
   (add-hook 'ruby-mode-hook 'rspec-mode)
-  :idle (rspec-install-snippets)
+  :idle
+  ;; (rspec-install-snippets)
   :config
   (custom-set-variables '(rspec-use-rake-flag nil))
   (custom-set-faces))

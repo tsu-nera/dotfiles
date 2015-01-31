@@ -154,7 +154,6 @@
 ** proxy 越え
   - [[http://rubikitch.com/2014/11/17/eww-proxy/][Emacs で proxy を使う設定 – この 1 行で eww も package も広告避けもバッチリ! | るびきち「日刊 Emacs 」]]
 
-
 ** 画像表示
    -  [[http://rubikitch.com/2014/11/25/eww-image/][Emacs24.4/Emacs25 の eww で画像を非表示にする方法! よりテキストブラウザらしく]]
 
@@ -193,6 +192,31 @@
   (insert eww-org-link-buffer))
 (define-key eww-mode-map (kbd "@") 'eww-copy-page-org-link)
 (define-key org-mode-map (kbd "C-x @ @") 'eww-yank-page-org-link)
+#+end_src
+
+** 画面の表示幅変更
+   - https://github.com/GriffinSchneider/emacs-config/blob/master/eww-customizations.el
+
+#+begin_src emacs-lisp
+(defvar gcs-shr-width 110)
+
+(defadvice shr-insert-document (around force-shr-width activate)
+  (let ((shr-width (min (1- (window-width)) gcs-shr-width)))
+    ad-do-it))
+
+(defun eww-increase-width ()
+  (interactive)
+  (make-local-variable 'gcs-shr-width)
+  (setq gcs-shr-width (+ 10 gcs-shr-width))
+  (eww-reload))
+(defun eww-decrease-width ()
+  (interactive)
+  (make-local-variable 'gcs-shr-width)
+  (setq gcs-shr-width (- gcs-shr-width 10))
+  (eww-reload))
+
+(define-key eww-mode-map (read-kbd-macro "+") 'eww-increase-width)
+(define-key eww-mode-map (read-kbd-macro "-") 'eww-decrease-width)
 #+end_src
 
 * External Elisps

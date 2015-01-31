@@ -1,0 +1,3 @@
+(:name yasnippet-ess-mode 
+       :type github
+       :pkgname "mlf176f2/yasnippet-ess-mode")
