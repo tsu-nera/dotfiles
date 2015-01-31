@@ -677,12 +677,10 @@
 (define-key org-mode-map (kbd "C-c \\") 'org-sparse-tree-indirect-buffer)
 #+end_src
 
-* Trial
-** org-screenshot
-   スクリーンショットを撮影して, org-mode に挿入する 
-   - https://github.com/dfeich/org-screenshot
-
-** org-download
+* org-screenshot
+  スクリーンショットを撮影して, org-mode に挿入する 
+  - https://github.com/dfeich/org-screenshot
+* org-download
    ドラッグ & ドロップで画像をコピーできる.
    - https://github.com/abo-abo/org-download
    - [[http://oremacs.com/2015/01/18/sprucing-up-org-download/#][Sprucing up org-download · (or emacs]]
@@ -772,17 +770,35 @@ containing the properties `:guid' and `:item-full-text'."
 
 #+end_src
 
-** org-sync (未使用)
-  チケット管理システムとの同期.
-  - Official [[http://orgmode.org/worg/org-contrib/gsoc2012/student-projects/org-sync/][Org-sync]]
-  - [[https://github.com/emacsmirror/org-sync][emacsmirror/org-sync · GitHub]]
+** Pandoc
+   pandoc を利用すれば, 多彩なフォーマットを org-mode に変換可能だ.
+   - [[http://futurismo.biz/archives/2403][org-mode で書いたテキストを Pandoc で Restructured Text に変換する | Futurismo]]
+   - [[http://sky-y.github.io/site-pandoc-jp/users-guide/][Pandoc ユーザーズガイド 日本語版 - Japanese Pandoc User's Association]]
 
-  #+begin_src emacs-lisp
-;; (mapc 'load
-;      '("org-element" "os" "os-bb" "os-github" "os-rmine"))
+*** html2org
+   Rubikichi さんの記事:
+   - [[http://rubikitch.com/2014/10/07/pandoc-2/][Emacs ユーザならば Web ページを Pandoc で org-mode に変換して読もう るびきち「日刊 Emacs 」]]
+   - [[http://rubikitch.com/2014/09/22/pandoc/][万能ドキュメント変換器 Pandoc いいね! | るびきち「日刊 Emacs 」]]
+
+** calfw-org
+   Emacs 用カレンダー.
+   - [[https://github.com/kiwanami/emacs-calfw][kiwanami/emacs-calfw]]
+   - [[http://d.hatena.ne.jp/kiwanami/20110723/1311434175][Emacs 用カレンダー calfw v1.2 リリース - 技術日記＠ kiwanami]]
+   - [[http://d.hatena.ne.jp/kiwanami/20110619/1308495781][calfw の org-agenda 対応 calfw-org.el - 技術日記＠ kiwanami]]
+
+   org-gcal と連携させることで,
+   Google カレンダーと同期して, calfw で表示させることもできる.
+   - [[http://sheephead.homelinux.org/2014/03/15/7035/][calfw と org-gcal の連携 | sheephead]]
+
+#+begin_src emacs-lisp
+(use-package calfw-org
+  :config
+  ;; 対象ファイル
+  (setq cfw:org-icalendars '("~/gtd/schedule.org"))
+  ;; First day of the week  0:Sunday, 1:Monday
+  (setq calendar-week-start-day 1))
 #+end_src
-  
-* スケジュール管理
+
 ** org-gcal
    google calendar.
    - http://sheephead.homelinux.org/2014/03/14/7023/
@@ -790,56 +806,27 @@ containing the properties `:guid' and `:item-full-text'."
    Google Developer Console で client-id と secret-key を取得する必要がある.
    - https://console.developers.google.com/project
 
-取得した情報は ~/.netrc に保存して読み出す.
+   取得した情報は ~/.netrc に保存して読み出す.
+
+   - org-gcal-fetch で同期
 
 #+begin_src emacs-lisp
 (use-package org-gcal
   :if linux-p
-  :defer t
+  :init
+  (define-key cfw:calendar-mode-map "v" 'org-gcal-fetch)
+  (define-key cfw:calendar-mode-map "&" 'browse-google-calendar)  
   :config
   ;; password は netrc へ
   (setq GoogleCal (netrc-machine (netrc-parse "~/.netrc") "org-gcal" t))
   (setq org-gcal-client-id (netrc-get GoogleCal "login")
 	org-gcal-client-secret (netrc-get GoogleCal "password")
 	org-gcal-dir "~/org"
-	org-gcal-file-alist '(("fox10225fox@gmail.com" .  "~/gtd/schedule.org")
-			      ))
-  )
-#+end_src
+	org-gcal-file-alist '(("fox10225fox@gmail.com" .  "~/gtd/schedule.org")))
 
-** calfw
-   Emacs 用カレンダー.
-   - [[https://github.com/kiwanami/emacs-calfw][kiwanami/emacs-calfw]]
-   - [[http://d.hatena.ne.jp/kiwanami/20110723/1311434175][Emacs 用カレンダー calfw v1.2 リリース - 技術日記＠ kiwanami]]
-   - [[http://d.hatena.ne.jp/kiwanami/20110619/1308495781][calfw の org-agenda 対応 calfw-org.el - 技術日記＠ kiwanami]]
-   - [[http://sheephead.homelinux.org/2014/03/15/7035/][calfw と org-gcal の連携 | sheephead]]
-
-   org-gcal で Google カレンダーと同期して, calfw で表示させる.
-
-   org と ical のスケジュールを混ぜて表示させることが出来ます.
-   以下のような感じで cfw:open-calendar-buffer を使います.
-
-#+begin_src emacs-lisp
-(use-package calfw-org
-  :config
-  ;; 対象ファイル
-  (setq cfw:org-icalendars '("~/gtd/schedule.org"))
-  ;; First day of the week
-  (setq calendar-week-start-day 1) ; 0:Sunday, 1:Monday
-
-  ;; cfw:open-org-calendar に集約するので, ひとまずコメントアウト.
-  ;; (defun my-open-calendar ()
-  ;;   (interactive)
-  ;;   (cfw:open-calendar-buffer
-  ;;    :view 'month
-  ;;    :contents-sources
-  ;;    (list 
-  ;;    ;; title, URL, color
-  ;;    (cfw:org-create-source "Green")  ; orgmode source
-  ;;    ;; (cfw:org-create-file-source "GCal" "~/gtd/schedule.org" "#268bd2")
-  ;; Google Calendar
-  ;;    )))
-)
+  (defun browse-google-calendar
+      (interactive)
+    (browse-url "https://www.google.com/calendar/render?hl=ja")))
 #+end_src
 
 ** mobileOrg (未使用)
@@ -881,15 +868,4 @@ containing the properties `:guid' and `:item-full-text'."
 ;; (org-mobile-sync-enable)
 #+end_src
 
-* Pandoc
-  pandoc を利用すれば, 多彩なフォーマットを org-mode に変換可能だ.
-  - [[http://futurismo.biz/archives/2403][org-mode で書いたテキストを Pandoc で Restructured Text に変換する | Futurismo]]
-  - [[http://sky-y.github.io/site-pandoc-jp/users-guide/][Pandoc ユーザーズガイド 日本語版 - Japanese Pandoc User's Association]]
-
-** html2org
-  Rubikichi さんの記事:
-  - [[http://rubikitch.com/2014/10/07/pandoc-2/][Emacs ユーザならば Web ページを Pandoc で org-mode に変換して読もう るびきち「日刊 Emacs 」]]
-  - [[http://rubikitch.com/2014/09/22/pandoc/][万能ドキュメント変換器 Pandoc いいね! | るびきち「日刊 Emacs 」]]
-
-  
 
