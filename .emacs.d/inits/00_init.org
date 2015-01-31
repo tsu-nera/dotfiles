@@ -1,15 +1,13 @@
-* El-get
-  Emacs 用パッケージマネージャー
-  - https://github.com/dimitri/el-get
+* 初期設定
+  はじめにやっておきたい設定をここにかく.
+  - use-package
+  - el-get
 
-** 環境による場合分け
-   el-get 実行前に, 環境による場合分けのマクロを定義.
+* 環境による場合分け
+  環境による場合分けのマクロを定義.
+  - http://d.hatena.ne.jp/tomoya/20090811/1250006208
 
 #+begin_src emacs-lisp 
-;; -----------------------------------------------------------------------
-;; Function : 環境による場合分けの方法
-;;   http://d.hatena.ne.jp/tomoya/20090811/1250006208
-;; ------------------------------------------------------------------------
 (defun x->bool (elt) (not (not elt)))
 
 ;; emacs-version predicates
@@ -19,8 +17,7 @@
       emacs23.1-p (string-match "^23\.1" emacs-version)
       emacs23.2-p (string-match "^23\.2" emacs-version)
       emacs24.3-p (string-match "^24\.3" emacs-version)
-      emacs24.4-p (string-match "^24\.4" emacs-version)
-)
+      emacs24.4-p (string-match "^24\.4" emacs-version))
 
 ;; system-type predicates
 (setq darwin-p  (eq system-type 'darwin)
@@ -42,16 +39,74 @@
       windows-p (or cygwin-p nt-p meadow-p))
 #+end_src
 
-** マシンごとの設定
-#+begin_src emacs-lisp
-(when linux-p
-  (setq el-get-emacs "/usr/local/bin/emacs"))
+* フォルダを再帰的にロードパスに追加
+   Special Thanks
+   - http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
 
-(when windows-p
-  ;; 通知は minibuffer のみ
-  (setq el-get-notify-type 'message))
+#+begin_src emacs-lisp
+;; @ load-path
+;; for Emacs 23 under
+(defvar user-emacs-directory "~/.emacs.d")
+
+;; load-path の追加関数
+(defun add-to-load-path (&rest paths)
+  (let (path)
+    (dolist (path paths paths)
+      (let ((default-directory (expand-file-name (concat user-emacs-directory path))))
+	(add-to-list 'load-path default-directory)
+	(if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+	    (normal-top-level-add-subdirs-to-load-path))))))
+
+;; load-path に追加するフォルダ
+;; 2 つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
+(add-to-load-path "elisp" "inits" "el-get" "elpa" "local" "mylisp")
 #+end_src
 
+* use-package
+   autoload/eval-after-load の記述を簡潔に書くための elisp.
+   - https://github.com/jwiegley/use-package
+
+   記述方法は以下の記事がとても詳しい. ここでは省略.
+   - [[http://qiita.com/kai2nenobu/items/5dfae3767514584f5220][Emacs - use-package で可読性の高い init.el を書く - Qiita]]
+   - [[http://rubikitch.com/2014/09/09/use-package/][emacs use-package.el : Emacs の世界的権威が行っている最先端ラクラク init.el 整理術]]
+   - [[http://www.lunaryorn.com/2015/01/06/my-emacs-configuration-with-use-package.html][My Emacs Configuration with use-package – lunarsite]]
+
+   参考になりすぎる init.el
+   - https://github.com/kawabata/dotfiles/blob/master/.emacs.d/init.el
+
+   遅延ロードが動いていないように見えるけど気のせいかな??
+
+#+begin_src emacs-lisp
+;; (package-initialize)
+
+;; use-package が存在しないときはなにもしない
+;; (unless (require 'use-package nil t)
+;;  (defmacro use-package (&rest args)))
+(require 'use-package)
+
+;; for debug 0.01 秒以上 load にかかったら report を出す.
+;; (setq use-package-verbose t)
+#+end_src
+
+** パッケージが存在しないとき
+  もしパッケージが存在しないときは, 以下のようなメッセージが吐かれる.
+
+  Could not load package hoge
+
+  *Message* バッファを検索して, エラーがないかチェックする.
+
+  かつて, :ensure t で el-get のサポートがあったが削除された.
+   
+  use-package の機能ではなく, 
+  el-get の機能で, el-get-is-lazy というものがあるので.
+  - https://github.com/jwiegley/use-package/issues/51
+
+** idle の設定
+    (xxx-mode t) 時間がかかるので, :idle を指定するといい.
+
+* El-get
+  Emacs 用パッケージマネージャー
+  - https://github.com/dimitri/el-get
 
 * el-get 同期 Package
 #+begin_src emacs-lisp 
@@ -248,7 +303,7 @@
   "A list of packages to install from el-get at launch for linux")
 
 ;; 同期する
-;; -> use-packageで遅延評価するために場所を移動.
+;; -> use-package で遅延評価するために場所を移動.
 
 ;; (el-get 'sync my/el-get-packages-all)
 ;; (when windows-p
@@ -261,7 +316,26 @@
 ;; (setq el-get-byte-compile-at-init t)
 #+end_src
 
-* Tips
+** el-get 遅延実行
+
+#+begin_src emacs-lisp
+(use-package el-get
+  :init
+  ;; マシンごとの設定
+  (when linux-p
+    (setq el-get-emacs "/usr/local/bin/emacs"))
+
+  (when windows-p
+    ;; 通知は minibuffer のみ
+    (setq el-get-notify-type 'message))
+  :idle
+  (el-get 'sync my/el-get-packages-all)
+  (when windows-p
+    (el-get 'sync my/el-get-packages-windows))
+  (when linux-p
+    (el-get 'sync my/el-get-packages-linux)))
+#+end_src
+
 ** el-get-is-lazy
    パッケージが存在しないときは, el-get で取得する.
 
@@ -299,3 +373,6 @@ Opening TLS connection to `api.github.com'...failed
 ;;   (el-get-elpa-build-local-recipes))
  #+end_src
 
+** el-get-cli
+   Command line interface for el-get
+   - https://github.com/tarao/el-get-cli

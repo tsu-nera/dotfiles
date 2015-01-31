@@ -12,79 +12,6 @@ git clone git://git.savannah.gnu.org/emacs.git
   人気パッケージダウンロードランキング!!
   - http://melpa.org
 
-* Functions
-** フォルダを再帰的にロードパスに追加
-   Special Thanks
-   - http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
-
-#+begin_src emacs-lisp
-;; @ load-path
-;; for Emacs 23 under
-(when (> emacs-major-version 23)
-  (defvar user-emacs-directory "~/.emacs.d"))
-
-;; load-path の追加関数
-(defun add-to-load-path (&rest paths)
-  (let (path)
-    (dolist (path paths paths)
-      (let ((default-directory (expand-file-name (concat user-emacs-directory path))))
-	(add-to-list 'load-path default-directory)
-	(if (fboundp 'normal-top-level-add-subdirs-to-load-path)
-	    (normal-top-level-add-subdirs-to-load-path))))))
-;; load-path に追加するフォルダ
-;; 2 つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
-(add-to-load-path "elisp" "inits" "el-get" "elpa" "local" "mylisp")
-#+end_src
-
-* Macros
-** use-package
-   autoload/eval-after-load の記述を簡潔に書くための elisp.
-   - https://github.com/jwiegley/use-package
-
-   記述方法は以下の記事がとても詳しい. ここでは省略.
-   - [[http://qiita.com/kai2nenobu/items/5dfae3767514584f5220][Emacs - use-package で可読性の高い init.el を書く - Qiita]]
-   - [[http://rubikitch.com/2014/09/09/use-package/][emacs use-package.el : Emacs の世界的権威が行っている最先端ラクラク init.el 整理術]]
-   - [[http://www.lunaryorn.com/2015/01/06/my-emacs-configuration-with-use-package.html][My Emacs Configuration with use-package – lunarsite]]
-
-   参考になりすぎる init.el
-   - https://github.com/kawabata/dotfiles/blob/master/.emacs.d/init.el
-
-   遅延ロードが動いていないように見えるけど気のせいかな??
-
-#+begin_src emacs-lisp
-(package-initialize)
-
-;; use-package が存在しないときはなにもしない
-(unless (require 'use-package nil t)
-  (defmacro use-package (&rest args)))
-
-;; for debug 0.01 秒以上 load にかかったら report を出す.
-;; (setq use-package-verbose t)
-#+end_src
-
-*** パッケージが存在しないとき
-   もしパッケージが存在しないときは, 以下のようなメッセージが吐かれる.
-
-   Could not load package hoge
-
-   *Message* バッファを検索して, エラーがないかチェックする.
-
-   かつて, :ensure t で el-get のサポートがあったが削除された.
-   
-   use-package の機能ではなく, 
-   el-get の機能で, el-get-is-lazy というものがあるので.
-   - https://github.com/jwiegley/use-package/issues/51
-
-*** idle の設定
-     (xxx-mode t) 時間がかかるので, :idle を指定するといい.
-
-* workaround
-#+begin_src emacs-lisp
-(require 'eieio)
-(defun class-slot-initarg (class-name slot)
-  (eieio--class-slot-initarg (eieio--class-v class-name) slot))
-#+end_src
-
 * General Settings
 ** customize の出力先
 #+begin_src emacs-lisp
@@ -313,10 +240,18 @@ git clone git://git.savannah.gnu.org/emacs.git
                                   interactive-only
                                   ))
 #+end_src
-** el-get の遅延実行
 
+** el-get
 #+begin_src emacs-lisp
 (use-package el-get
+  :init
+  ;; マシンごとの設定
+  (when linux-p
+    (setq el-get-emacs "/usr/local/bin/emacs"))
+
+  (when windows-p
+    ;; 通知は minibuffer のみ
+    (setq el-get-notify-type 'message))
   :idle
   (el-get 'sync my/el-get-packages-all)
   (when windows-p
@@ -435,4 +370,11 @@ git clone git://git.savannah.gnu.org/emacs.git
 #+begin_src emacs-lisp
 (setq visible-bell t)
 (setq ring-bell-function 'ignore)
+#+end_src
+
+* workaround
+#+begin_src emacs-lisp
+(require 'eieio)
+(defun class-slot-initarg (class-name slot)
+  (eieio--class-slot-initarg (eieio--class-v class-name) slot))
 #+end_src
