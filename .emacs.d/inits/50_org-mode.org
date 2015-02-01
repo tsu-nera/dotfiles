@@ -5,6 +5,9 @@
   - http://orgmode.jp/
  
 * 一般的な設定
+  - C-c C-h helm-descbind
+  - 
+  
 #+begin_src emacs-lisp
 (use-package org-install
   :mode ("\\.org$"  . org-mode)
