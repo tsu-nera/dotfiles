@@ -609,3 +609,39 @@ sudo pacman -S ghostscript
 #+begin_src emacs-lisp
 )
 #+end_src
+
+* camcorder
+  Emacs からスクリーンショットを撮影.
+  - https://github.com/Bruce-Connor/camcorder.el
+
+  gif 動画が作成できる.
+
+  names に依存.
+  - https://github.com/Bruce-Connor/names/
+
+  他, 以下のツールが必要
+  - recordmydesktop
+  - mplayer
+  - imagemagick
+
+  autoload でエラーするので, 
+  el-get でインストールしないで, マニュアルインストール.
+
+#+begin_src emacs-lisp
+(use-package camcorder
+  :if linux-p
+  :init
+  (define-key camcorder-mode-map (kbd "<f9>") 'camcorder-stop)
+  (define-key camcorder-mode-map (kbd "C-x <f9>") 'camcorder-pause)
+  :config
+  (require 'names)
+  (setq camcorder-output-directory "~/futurismo/blog/img")
+  (setq camcorder-recording-command
+	'("recordmydesktop" " --fps 20" " --no-sound"
+	  " --windowid " window-id " -o " temp-file
+	  " && mkdir -p " temp-dir
+	  " && cd " temp-dir
+	  " && mplayer -ao null " temp-file " -vo png:z=9"
+	  " && convert -resize 640x " temp-dir "* " file
+	  "; rm -r " temp-file " " temp-dir)))
+#+end_src
