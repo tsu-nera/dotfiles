@@ -149,6 +149,9 @@
 
    yas/ と書いてあるのは, ver8.0 以下の古い書き方.yas-と書くのが最新.
 
+   記法はここにある.
+   - [[http://yasnippet-doc-jp.googlecode.com/svn/trunk/doc-jp/snippet-development.html][Writing snippets]]
+
 #+begin_src emacs-lisp
 (use-package yasnippet
   :init (global-unset-key "\C-xi")

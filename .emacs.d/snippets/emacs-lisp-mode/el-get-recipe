@@ -1,0 +1,9 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: el-get-recipe
+# key : el-get-recipe
+# binding: direct-keybinding
+# --
+(:name $1
+       :type github
+       :pkgname "$2")
+$0
