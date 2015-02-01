@@ -57,7 +57,17 @@
   - C-x r m' – set a bookmark at the current location (e.g. in a file)
   - C-x r b' – jump to a bookmark
   - C-x r l' – list your bookmarks
-  - M-x bookmark-delete' – delete a bookmark by name これも helm が発動する.
+  - M-x bookmark-delete' – delete a bookmark by name これも helm が発
+    動する.
+
+** helm-net
+   helm browse url and search web.
+   - https://github.com/emacs-helm/helm/blob/master/helm-net.el
+
+   3 種類の検索方法
+   - helm-google-suggest
+   - helm-yahoo-suggest
+   - helm-wikipedia-suggest
 
 ** End of Helm Config
 
@@ -231,22 +241,28 @@
 #+end_src
 
 ** helm-google
-   google 検索.英語だけ.
+   google 検索. 
    - https://github.com/steckerhalter/helm-google
 
-   日本語だからか? うごかない.
+   helm-resume と組み合わせるといい.
 
 #+begin_src emacs-lisp
-;; (use-package helm-google)
-;; (global-set-key (kbd "C-x g g"
-;;		     ) 'helm-google)
-;; (setq helm-google-tld "co.jp")
-#+end_src
-
-** helm-google-suggest
-
-#+begin_src emacs-lisp
-;; (global-set-key (kbd "C-x g g") 'helm-google-suggest)
+(use-package helm-google
+  :bind
+  ("C-x g s" . helm-google)
+  :config
+  (setq helm-google-tld "co.jp")
+  ;; eww で表示
+  (setq helm-source-google
+	`((name . "Google")
+	  (init . (lambda () (require 'google)))
+	  (action ("Browse URL" . eww-browse-url))
+	  (display-to-real . helm-google-display-to-real)
+	  (candidates . helm-google-search)
+	  (requires-pattern)
+	  (nohighlight)
+	  (multiline)
+	  (volatile))))
 #+end_src
 
 ** helm-gtags

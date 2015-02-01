@@ -1,6 +1,6 @@
-/* ------------------------------
- Make sure you press D to activate dark theme
-   ------------------------------ */
+/* ---------------------------------------------
+   Make sure you press D to activate dark theme
+   --------------------------------------------- */
 
 register_user_stylesheet(
     make_css_data_uri(
@@ -126,7 +126,7 @@ global_color_theme(
          // + 'line-height: 14px !important;'
          'font-size: 14px !important;'+
          '}'
-         ], $url_prefixes = ["http", "about"]),
+        ], $url_prefixes = ["http", "about"]),
 
      make_css_data_uri(
          ['em { background-color: #444444 !important;}'
@@ -175,7 +175,7 @@ global_color_theme(
           ':visited img { border: dashed 1px darkmagenta !important; margin: 5px !important; }'
          ], $domains = ["bbs.archlinux.org",
                         "crunchbang.org",
-                       "google.com"]),
+			"google.com"]),
 
      make_css_data_uri(
          ['#entries { padding-left: 5px !important; padding-right: 5px !important; }', // don't add padding on left side
@@ -237,7 +237,7 @@ global_color_theme(
         ['*:not(img) { background: #4c4c4c ! important; color: #cccccc !important }',
          ':link, :link * { color: #8ac6f2 !important }',
          ':visited, :visited * { color: #95e454 !important }']
-            , $url_prefixes = ["http", "about"])]);
+        , $url_prefixes = ["http", "about"])]);
 
 global_color_theme(
     "gnome+", "M-d",
@@ -267,9 +267,8 @@ global_color_theme(
 
 function hacker_news_box(color) {
     return make_css_data_uri(
-         [".current { border: solid 2px " + color + " !important; }"+
-          "td.default { border :solid 2px transparent !important; }"+
-          ".current-comment > td.default { border: solid 2px " + color + " !important; }"
-         ], $domains = ["news.ycombinator.com"]);
+        [".current { border: solid 2px " + color + " !important; }"+
+         "td.default { border :solid 2px transparent !important; }"+
+         ".current-comment > td.default { border: solid 2px " + color + " !important; }"
+        ], $domains = ["news.ycombinator.com"]);
 };
-
