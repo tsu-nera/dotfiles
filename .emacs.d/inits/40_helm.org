@@ -129,8 +129,7 @@
 #+begin_src emacs-lisp
 (use-package helm-migemo
   :config
-  (require 'my-patch-helm-migemo)
-)
+  (require 'my-patch-helm-migemo))
 #+end_src
 
 ** helm-kaomoji

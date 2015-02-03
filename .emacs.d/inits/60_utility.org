@@ -642,6 +642,6 @@ sudo pacman -S ghostscript
 	  " && mkdir -p " temp-dir
 	  " && cd " temp-dir
 	  " && mplayer -ao null " temp-file " -vo png:z=9"
-	  " && convert -resize 640x " temp-dir "* " file
+	  " && convert -resize 640x -colors 32 " temp-dir "* " file
 	  "; rm -r " temp-file " " temp-dir)))
 #+end_src
