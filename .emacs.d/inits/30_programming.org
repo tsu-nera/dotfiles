@@ -57,60 +57,55 @@
    それ以下のファイルを見つけたり色々できる.
    - [[http://blog.en30.net/2014/10/20/development-environment.html][最近の開発環境: mjolnir, projectile, peco - blog.en30.net]]
 
-   #+begin_src emacs-lisp
-(use-package helm-projectile
-  :defer t
-  :config
+#+begin_src emacs-lisp
+(use-package projectile
+  :idle
   (projectile-global-mode)
-  
+  :config
   (when windows-p
-    (setq projectile-indexing-method 'alien)
-    )
+    (setq projectile-indexing-method 'alien))
   
-  (helm-projectile-on)
-
-  ;; プロジェクトに関連するファイルを helm-for-files に追加
-  (defadvice helm-for-files (around update-helm-list activate)
-    (let ((helm-for-files-preferred-list
-	   (helm-for-files-update-list)))
-      ad-do-it))
-  
-  (defun helm-for-files-update-list ()
-    `(helm-source-buffers-list
-      helm-source-recentf
-      helm-source-ghq
-      helm-source-files-in-current-dir
-      helm-source-file-cache
-      ,(if (projectile-project-p)
-	   helm-source-projectile-files-list)))
-
-  ;; helm-ag をプロジェクトルートから
-  (defun projectile-helm-ag ()
-    (interactive)
-    (helm-ag (projectile-project-root)))
-)
+  ;; gtagsがあればそっちを
+  (when (executable-find "gtags")
+    (setq projectile-tags-file-name "GTAGS")
+    (setq projectile-tags-command "gtags")))
 #+end_src
 
 * タグジャンプ
-** gtags
-  - [[http://namamugi2011.blog.fc2.com/blog-entry-42.html][GNU GLOBAL と emacs でコードリーディング | ぷろぐらま]]
+** GNU global: gtags
+   ソースタギングシステム.
+    - [[http://www.gnu.org/software/global/global.html][GNU GLOBAL source code tagging system]]
+    - C, C++, Yacc, Java, PHP4 and assembly
 
+    Pygments を利用すると, もっと多言語に適用できる.
+    - [[https://github.com/yoshizow/global-pygments-plugin][yoshizow/global-pygments-plugin]]
+    - Awk, Dos batch, COBOL, C, C++, C#, Erlang, Fortran, 
+    - Java, JavaScript, Lisp, Lua, Pascal, Perl, PHP, Python, 
+    - Ruby, Matlab, OCaml, Scheme, Tcl, TeX, Verilog, Vhdl and Vim
+
+   以下からダウンロード. Windows ようのバイナリあり.
+   - [[http://www.gnu.org/software/global/download.html][Getting GLOBAL]]
+
+*** Bookmarks
+    - [[http://uguisu.skr.jp/Windows/gtags.html][GNU GLOBAL (gtags) ソースコードタグシステムの使い方]]
+    - [[http://qiita.com/5t111111/items/c14ac68f762ce71a7760][Ruby - GNU GLOBAL への Pygments パーサー取り込みでソースコード読みが信じられないくらいに捗るはず - Qiita]]
+
+*** Emacs と
+   - [[http://namamugi2011.blog.fc2.com/blog-entry-42.html][GNU GLOBAL と emacs でコードリーディング | ぷろぐらま]]
 
 #+begin_src emacs-lisp
-;; GNU global
 (use-package gtags
   :bind
   (("\M-t" . gtags-find-tag) ;関数の定義元へ
-  ("\M-r" . gtags-find-rtag) ;関数の参照先へ
-  ("\M-s" . gtags-find-symbol) ;変数の定義元/ 参照先へ
-  ;; ("\M-f" . gtags-find-file) ;ファイルにジャンプ
-  ("\M-," . gtags-pop-stack));前のバッ ファに戻る
+   ("\M-r" . gtags-find-rtag) ;関数の参照先へ
+   ("\M-s" . gtags-find-symbol) ;変数の定義元/ 参照先へ
+   ;; ("\M-f" . gtags-find-file) ;ファイルにジャンプ
+   ("\M-," . gtags-pop-stack));前のバッ ファに戻る
   :init  
   (add-hook 'c-mode-common-hook
 	    '(lambda ()
 	       (gtags-mode 1)
-	       (gtags-make-complete-list)))
-  )
+	       (gtags-make-complete-list))))
 #+end_src
 
 ** semantic mode

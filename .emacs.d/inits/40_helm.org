@@ -163,14 +163,13 @@
 ** helm-etags-plus
    - [[https://github.com/jixiuf/helm-etags-plus][jixiuf/helm-etags-plus]]
 
-   C 言語では, これがまともに動く. gtags は動かない.
-   etags で TAGS を生成する.
+   C 言語では, これがまともに動く. gtags は動かない etags で TAGS を生成する.
 
    - helm-etags-select C-x c e
 
 #+begin_src emacs-lisp
-(use-package helm-etags+ :defer t)
-(use-package ctags-update :defer t)
+(use-package helm-etags+)
+(use-package ctags-update)
 #+end_src
 
 ** helm-swoop
@@ -218,23 +217,73 @@
   :bind ("C-x c i" . helm-imenu-anywhere))
 #+end_src
 
-* 未使用中...
-** helm-github-issues
+** helm-projectile
+   - [[https://github.com/bbatsov/projectile/blob/master/helm-projectile.el][projectile/helm-projectile.el at master · bbatsov/projectile]]
+
 #+begin_src emacs-lisp
-(use-package helm-github-issues :commands helm-github-issues :disabled t)
+(use-package helm-projectile
+  :idle
+  (helm-projectile-on)
+  :config
+  ;; プロジェクトに関連するファイルを helm-for-files に追加
+  (defadvice helm-for-files (around update-helm-list activate)
+    (let ((helm-for-files-preferred-list
+	   (helm-for-files-update-list)))
+      ad-do-it))
+  
+  (defun helm-for-files-update-list ()
+    `(helm-source-buffers-list
+      helm-source-recentf
+      helm-source-ghq
+      helm-source-files-in-current-dir
+      helm-source-file-cache
+      ,(if (projectile-project-p)
+	   helm-source-projectile-files-list)))
+
+  ;; helm-ag をプロジェクトルートから
+  (defun projectile-helm-ag ()
+    (interactive)
+    (helm-ag (projectile-project-root))))
 #+end_src
 
-** helm-open-github
+** helm-gtags
+   GNU Global.
+   - [[https://github.com/syohex/emacs-helm-gtags][syohex/emacs-helm-gtags]]
+
+   うーん, 動かない. . .error helm-process-delay-source
+
 #+begin_src emacs-lisp
-(use-package helm-open-github :commands helm-open-github :disabled t)
+(use-package helm-gtags
+  :init
+  ;;; Enable helm-gtags-mode
+  (add-hook 'c-mode-hook 'helm-gtags-mode)
+  (add-hook 'c++-mode-hook 'helm-gtags-mode)
+  (add-hook 'asm-mode-hook 'helm-gtags-mode)
+  (add-hook 'java-mode-hook 'helm-gtags-mode)
+  :config
+  ;; customize
+  (setq
+   helm-gtags-ignore-case t
+   helm-gtags-auto-update t
+   helm-gtags-use-input-at-cursor t
+   helm-gtags-pulse-at-cursor t
+   ;; helm-gtags-suggested-key-mapping t
+   )
+  ;; key bindings
+  (define-key helm-gtags-mode-map (kbd "M-t") 'helm-gtags-find-tag)
+  (define-key helm-gtags-mode-map (kbd "M-e") 'helm-gtags-find-rtag)
+  (define-key helm-gtags-mode-map (kbd "M-s") 'helm-gtags-find-symbol)
+  (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack))
 #+end_src
+
+
 
 ** helm-wl-address
    helm i/f でアドレス検索. 
    - https://github.com/kenbeese/helm-wl-address
    - [[http://qiita.com/kenbeese/items/438c1c8d664198d8527f][Emacs - wanderlust のアドレスを helm で選択する - Qiita]]
 
-   使いこなせていなかったりする.
+   .addresses を作成すること.
 
 #+begin_src emacs-lisp
 (use-package helm-wl-address
@@ -267,37 +316,15 @@
 	  (volatile))))
 #+end_src
 
-** helm-gtags
-   GNU Global.
-   - [[https://github.com/syohex/emacs-helm-gtags][syohex/emacs-helm-gtags]]
-
-   うーん, 動かない. . .error helm-process-delay-source
-
+* 未使用中...
+** helm-github-issues
 #+begin_src emacs-lisp
-;; (use-package helm-gtags)
+(use-package helm-github-issues :commands helm-github-issues :disabled t)
+#+end_src
 
-;; ;;; Enable helm-gtags-mode
-;; (add-hook 'c-mode-hook 'helm-gtags-mode)
-;; (add-hook 'c++-mode-hook 'helm-gtags-mode)
-;; (add-hook 'asm-mode-hook 'helm-gtags-mode)
-;; (add-hook 'java-mode-hook 'helm-gtags-mode)
-
-;; ;; customize
-;; (setq
-;;  helm-gtags-ignore-case t
-;;  helm-gtags-auto-update t
-;;  helm-gtags-use-input-at-cursor t
-;;  helm-gtags-pulse-at-cursor t
-
-;; ;; helm-gtags-suggested-key-mapping t
-;;  )
-
-;; ;; key bindings
-;; (eval-after-load "helm-gtags"
-;;   '(progn
-;;      (define-key helm-gtags-mode-map (kbd "M-t") 'helm-gtags-find-tag)
-;;      (define-key helm-gtags-mode-map (kbd "M-r") 'helm-gtags-find-rtag)
-;;      (define-key helm-gtags-mode-map (kbd "M-s") 'helm-gtags-find-symbol)
-;;      (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)))
+** helm-open-github
+   
+#+begin_src emacs-lisp
+(use-package helm-open-github :commands helm-open-github :disabled t)
 #+end_src
 
