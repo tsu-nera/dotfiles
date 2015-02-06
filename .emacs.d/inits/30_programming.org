@@ -65,7 +65,7 @@
   (when windows-p
     (setq projectile-indexing-method 'alien))
   
-  ;; gtagsがあればそっちを
+  ;; gtags があればそっちを
   (when (executable-find "gtags")
     (setq projectile-tags-file-name "GTAGS")
     (setq projectile-tags-command "gtags")))
@@ -128,6 +128,7 @@
   (add-hook 'c++-mode-hook '(lambda () (flymake-mode t)))
   (add-hook 'c-mode-hook '(lambda () (flymake-mode t)))
   (add-hook 'haskell-mode-hook (lambda () (flymake-mode t)))
+;; (add-hook 'java-mode-hook '(lambda () (flymake-mode t)))
   (add-hook 'emacs-lisp-mode-hook
 	    (function (lambda () (if buffer-file-name (flymake-mode t)))))
   :config
@@ -137,6 +138,11 @@
 
 *** Java
 #+begin_src emacs-lisp
+(defun my-java-flymake-init ()
+  (list "javac" (list (flymake-init-create-temp-buffer-copy
+                       'flymake-create-temp-with-folder-structure))))
+(add-to-list 'flymake-allowed-file-name-masks '("\\.java$" my-java-flymake-init flymake-simple-cleanup))
+
 (defun flymake-java-init ()
   (list "my-java-flymake-checks"
 	(list (flymake-init-create-temp-buffer-copy
@@ -218,62 +224,34 @@
 #+end_src
 
 ** flycheck
-   静的文法チェック.
+   静的文法チェック. flymake の後継. flymake から乗り換えよう.
+   - [[https://github.com/flycheck/flycheck][flycheck/flycheck]]
+   - [[http://www.flycheck.org/en/latest/][Flycheck - Modern Emacs syntax checking ]]
 
-   コンパイルエラーが取れないので一旦動作停止.
+   Default のサポート言語
+   - [[http://www.flycheck.org/en/latest/guide/languages.html][Supported languages - Flycheck 0.23-cvs]]
 
+*** Usage
+    - C-c ! c (flycheck-buffer) 現在の行を評価
+    - C-c ! n (flycheck-next-error)
+    - C-c ! p (flycheck-previous-error)
+    - C-c ! l (flycheck-list-errors) 
+
+*** Config
 #+begin_src emacs-lisp
 (use-package flycheck
-  :disabled t
-  :defer t
   :init
-  ;; Ruby
-  ;; (add-hook 'ruby-mode-hook 'flycheck-mode)
-  :config
-  ;;(setq flycheck-check-syntax-automatically '(mode-enabled save))
-
-  ;; definition for flycheck
-  (flycheck-define-checker ruby-rubocop
-    "A Ruby syntax and style checker using the RuboCop tool.
-     See URL `http://batsov.com/rubocop/'."
-    :command ("rubocop" "--format" "emacs" "--silent"
-	      (config-file "--config" flycheck-rubocoprc)
-	      source)
-    :error-patterns
-    ((warning line-start
-	      (file-name) ":" line ":" column ": " (or "C" "W") ": " (message)
-	      line-end)
-     (error line-start
-	    (file-name) ":" line ":" column ": " (or "E" "F") ": " (message)
-	    line-end))
-    :modes (ruby-mode))
-
-  ;; definition for flycheck
-  (flycheck-define-checker ruby-rubylint
-    "A Ruby syntax and style checker using the rubylint tool."
-    :command ("ruby-lint" source)
-    :error-patterns
-    ((warning line-start
-	      (file-name) ":" line ":" column ": " (or "C" "W") ": " (message)
-	      line-end)
-     (error line-start
-	    (file-name) ":" line ":" column ": " (or "E" "F") ": " (message)
-	    line-end))
-    :modes (ruby-mode))
-  )
-
+  (add-hook 'after-init-hook #'global-flycheck-mode))
 #+end_src
 
-*** flycheck-color-mode-line
+** flycheck-color-mode-line
+   エラーがあればモードラインが光る.
 
 #+begin_src emacs-lisp
 (use-package flycheck-color-mode-line
-  :disabled t
-  :defer t
   :init
   (eval-after-load "flycheck"
-    '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
-)
+    '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode)))
 #+end_src
 
 * リファクタリング

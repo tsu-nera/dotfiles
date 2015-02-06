@@ -160,18 +160,6 @@
   :bind ("C-x g i" . helm-flyspell-correct))
 #+end_src
 
-** helm-etags-plus
-   - [[https://github.com/jixiuf/helm-etags-plus][jixiuf/helm-etags-plus]]
-
-   C 言語では, これがまともに動く. gtags は動かない etags で TAGS を生成する.
-
-   - helm-etags-select C-x c e
-
-#+begin_src emacs-lisp
-(use-package helm-etags+)
-(use-package ctags-update)
-#+end_src
-
 ** helm-swoop
    - [[https://github.com/ShingoFukuyama/helm-swoop][ShingoFukuyama/helm-swoop]]
    - [[http://rubikitch.com/2014/12/25/helm-swoop/][emacs helm-swoop.el : 【これはすごい】バッファ全体を Migemo 絞り込み検索して走り回れ!]]
@@ -276,8 +264,6 @@
   (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack))
 #+end_src
 
-
-
 ** helm-wl-address
    helm i/f でアドレス検索. 
    - https://github.com/kenbeese/helm-wl-address
@@ -326,5 +312,17 @@
    
 #+begin_src emacs-lisp
 (use-package helm-open-github :commands helm-open-github :disabled t)
+#+end_src
+
+** helm-etags-plus
+   - [[https://github.com/jixiuf/helm-etags-plus][jixiuf/helm-etags-plus]]
+
+   C 言語では, これがまともに動く. gtags は動かない etags で TAGS を生成する.
+
+   - helm-etags-select C-x c e
+
+#+begin_src emacs-lisp
+(use-package helm-etags+ :disabled t)
+(use-package ctags-update :disabled t)
 #+end_src
 

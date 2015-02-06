@@ -14,7 +14,7 @@
 
 #+begin_src emacs-lisp
 (use-package java-mode
-  :mode "\\.java$"
+  :mode ("\\.java$" . java-mode)
   :interpreter "java"
   :init
   (add-hook 'java-mode-hook
@@ -158,6 +158,21 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
    #+end_src
 
 * Error Check
+** flycheck-java
+   - [[https://github.com/akorobov/flycheck-java][akorobov/flycheck-java]]
+
+   ECJ (Eclipse Compiler for java) を利用する.
+   - [[http://knjname.hateblo.jp/entry/2014/07/06/025542][Ant で Eclipse の ECJ (Eclipse Compiler for Java) を使う - knjname のブログ]]
+
+   Eclipse に梱包されているが, 単体でも取得可能.
+   - [[https://www.archlinux.org/packages/extra/any/eclipse-ecj/][Arch Linux - eclipse-ecj 4.4-1 (any)]]
+   - http://www.java2s.com/Code/Jar/e/ecj.htm
+
+#+begin_src emacs-lisp
+(setq flycheck-java-ecj-jar-path "c:/app/ecj-4.2.2.jar")
+(use-package flycheck-java)
+#+end_src
+
 * 自動補完
 ** auto-java-complete
    auto-complete の Java 用.
@@ -204,6 +219,8 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
   - gtags
   - ctags
   - jtags
+
+  helm-gtags が最強.
 
 ** Jtags
   - [[http://sourceforge.net/projects/jtags/][jtags - Emacs package for editing Java | SourceForge.net]]
@@ -334,3 +351,4 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 #+begin_src emacs-lisp
 (setq semantic-idle-scheduler-max-buffer-size 1)
 #+end_src
+
