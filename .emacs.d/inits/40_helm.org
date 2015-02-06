@@ -27,7 +27,7 @@
 (global-set-key (kbd "M-r") 'helm-occur) ;; バッファを検索
 (global-set-key (kbd "M-x") 'helm-M-x) ;; M-X を 絞り込み
 (global-set-key (kbd "C-x C-b") 'helm-elscreen) ;; elscreen のタブを切り替え
-(define-key org-mode-map (kbd "C-c h") 'helm-org-headlines)
+(define-key org-mode-map (kbd "C-c h") 'helm-org-in-buffer-headings)
 #+end_src
 
 ** helm-semantic-or-imenu

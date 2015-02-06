@@ -1,12 +1,14 @@
 * org-mode
   最強のタスク管理ツール.
 
+  Manual
+  - http://orgmode.org/org.html
+
   こまったらここを見れば日本語訳がある
   - http://orgmode.jp/
  
 * 一般的な設定
   - C-c C-h helm-descbind
-  - 
   
 #+begin_src emacs-lisp
 (use-package org-install
