@@ -57,60 +57,55 @@
    それ以下のファイルを見つけたり色々できる.
    - [[http://blog.en30.net/2014/10/20/development-environment.html][最近の開発環境: mjolnir, projectile, peco - blog.en30.net]]
 
-   #+begin_src emacs-lisp
-(use-package helm-projectile
-  :defer t
-  :config
+#+begin_src emacs-lisp
+(use-package projectile
+  :idle
   (projectile-global-mode)
-  
+  :config
   (when windows-p
-    (setq projectile-indexing-method 'alien)
-    )
+    (setq projectile-indexing-method 'alien))
   
-  (helm-projectile-on)
-
-  ;; プロジェクトに関連するファイルを helm-for-files に追加
-  (defadvice helm-for-files (around update-helm-list activate)
-    (let ((helm-for-files-preferred-list
-	   (helm-for-files-update-list)))
-      ad-do-it))
-  
-  (defun helm-for-files-update-list ()
-    `(helm-source-buffers-list
-      helm-source-recentf
-      helm-source-ghq
-      helm-source-files-in-current-dir
-      helm-source-file-cache
-      ,(if (projectile-project-p)
-	   helm-source-projectile-files-list)))
-
-  ;; helm-ag をプロジェクトルートから
-  (defun projectile-helm-ag ()
-    (interactive)
-    (helm-ag (projectile-project-root)))
-)
+  ;; gtags があればそっちを
+  (when (executable-find "gtags")
+    (setq projectile-tags-file-name "GTAGS")
+    (setq projectile-tags-command "gtags")))
 #+end_src
 
 * タグジャンプ
-** gtags
-  - [[http://namamugi2011.blog.fc2.com/blog-entry-42.html][GNU GLOBAL と emacs でコードリーディング | ぷろぐらま]]
+** GNU global: gtags
+   ソースタギングシステム.
+    - [[http://www.gnu.org/software/global/global.html][GNU GLOBAL source code tagging system]]
+    - C, C++, Yacc, Java, PHP4 and assembly
 
+    Pygments を利用すると, もっと多言語に適用できる.
+    - [[https://github.com/yoshizow/global-pygments-plugin][yoshizow/global-pygments-plugin]]
+    - Awk, Dos batch, COBOL, C, C++, C#, Erlang, Fortran, 
+    - Java, JavaScript, Lisp, Lua, Pascal, Perl, PHP, Python, 
+    - Ruby, Matlab, OCaml, Scheme, Tcl, TeX, Verilog, Vhdl and Vim
+
+   以下からダウンロード. Windows ようのバイナリあり.
+   - [[http://www.gnu.org/software/global/download.html][Getting GLOBAL]]
+
+*** Bookmarks
+    - [[http://uguisu.skr.jp/Windows/gtags.html][GNU GLOBAL (gtags) ソースコードタグシステムの使い方]]
+    - [[http://qiita.com/5t111111/items/c14ac68f762ce71a7760][Ruby - GNU GLOBAL への Pygments パーサー取り込みでソースコード読みが信じられないくらいに捗るはず - Qiita]]
+
+*** Emacs と
+   - [[http://namamugi2011.blog.fc2.com/blog-entry-42.html][GNU GLOBAL と emacs でコードリーディング | ぷろぐらま]]
 
 #+begin_src emacs-lisp
-;; GNU global
 (use-package gtags
   :bind
   (("\M-t" . gtags-find-tag) ;関数の定義元へ
-  ("\M-r" . gtags-find-rtag) ;関数の参照先へ
-  ("\M-s" . gtags-find-symbol) ;変数の定義元/ 参照先へ
-  ;; ("\M-f" . gtags-find-file) ;ファイルにジャンプ
-  ("\M-," . gtags-pop-stack));前のバッ ファに戻る
+   ("\M-r" . gtags-find-rtag) ;関数の参照先へ
+   ("\M-s" . gtags-find-symbol) ;変数の定義元/ 参照先へ
+   ;; ("\M-f" . gtags-find-file) ;ファイルにジャンプ
+   ("\M-," . gtags-pop-stack));前のバッ ファに戻る
   :init  
   (add-hook 'c-mode-common-hook
 	    '(lambda ()
 	       (gtags-mode 1)
-	       (gtags-make-complete-list)))
-  )
+	       (gtags-make-complete-list))))
 #+end_src
 
 ** semantic mode
@@ -133,6 +128,7 @@
   (add-hook 'c++-mode-hook '(lambda () (flymake-mode t)))
   (add-hook 'c-mode-hook '(lambda () (flymake-mode t)))
   (add-hook 'haskell-mode-hook (lambda () (flymake-mode t)))
+;; (add-hook 'java-mode-hook '(lambda () (flymake-mode t)))
   (add-hook 'emacs-lisp-mode-hook
 	    (function (lambda () (if buffer-file-name (flymake-mode t)))))
   :config
@@ -142,6 +138,11 @@
 
 *** Java
 #+begin_src emacs-lisp
+(defun my-java-flymake-init ()
+  (list "javac" (list (flymake-init-create-temp-buffer-copy
+                       'flymake-create-temp-with-folder-structure))))
+(add-to-list 'flymake-allowed-file-name-masks '("\\.java$" my-java-flymake-init flymake-simple-cleanup))
+
 (defun flymake-java-init ()
   (list "my-java-flymake-checks"
 	(list (flymake-init-create-temp-buffer-copy
@@ -223,62 +224,34 @@
 #+end_src
 
 ** flycheck
-   静的文法チェック.
+   静的文法チェック. flymake の後継. flymake から乗り換えよう.
+   - [[https://github.com/flycheck/flycheck][flycheck/flycheck]]
+   - [[http://www.flycheck.org/en/latest/][Flycheck - Modern Emacs syntax checking ]]
 
-   コンパイルエラーが取れないので一旦動作停止.
+   Default のサポート言語
+   - [[http://www.flycheck.org/en/latest/guide/languages.html][Supported languages - Flycheck 0.23-cvs]]
 
+*** Usage
+    - C-c ! c (flycheck-buffer) 現在の行を評価
+    - C-c ! n (flycheck-next-error)
+    - C-c ! p (flycheck-previous-error)
+    - C-c ! l (flycheck-list-errors) 
+
+*** Config
 #+begin_src emacs-lisp
 (use-package flycheck
-  :disabled t
-  :defer t
   :init
-  ;; Ruby
-  ;; (add-hook 'ruby-mode-hook 'flycheck-mode)
-  :config
-  ;;(setq flycheck-check-syntax-automatically '(mode-enabled save))
-
-  ;; definition for flycheck
-  (flycheck-define-checker ruby-rubocop
-    "A Ruby syntax and style checker using the RuboCop tool.
-     See URL `http://batsov.com/rubocop/'."
-    :command ("rubocop" "--format" "emacs" "--silent"
-	      (config-file "--config" flycheck-rubocoprc)
-	      source)
-    :error-patterns
-    ((warning line-start
-	      (file-name) ":" line ":" column ": " (or "C" "W") ": " (message)
-	      line-end)
-     (error line-start
-	    (file-name) ":" line ":" column ": " (or "E" "F") ": " (message)
-	    line-end))
-    :modes (ruby-mode))
-
-  ;; definition for flycheck
-  (flycheck-define-checker ruby-rubylint
-    "A Ruby syntax and style checker using the rubylint tool."
-    :command ("ruby-lint" source)
-    :error-patterns
-    ((warning line-start
-	      (file-name) ":" line ":" column ": " (or "C" "W") ": " (message)
-	      line-end)
-     (error line-start
-	    (file-name) ":" line ":" column ": " (or "E" "F") ": " (message)
-	    line-end))
-    :modes (ruby-mode))
-  )
-
+  (add-hook 'after-init-hook #'global-flycheck-mode))
 #+end_src
 
-*** flycheck-color-mode-line
+** flycheck-color-mode-line
+   エラーがあればモードラインが光る.
 
 #+begin_src emacs-lisp
 (use-package flycheck-color-mode-line
-  :disabled t
-  :defer t
   :init
   (eval-after-load "flycheck"
-    '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
-)
+    '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode)))
 #+end_src
 
 * リファクタリング

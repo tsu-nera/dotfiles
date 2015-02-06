@@ -1,0 +1,3 @@
+(:name flycheck-java
+       :type github
+       :pkgname "akorobov/flycheck-java")

@@ -14,16 +14,16 @@
 
 #+begin_src emacs-lisp
 (use-package java-mode
-  :mode "\\.java$"
+  :mode ("\\.java$" . java-mode)
   :interpreter "java"
   :init
   (add-hook 'java-mode-hook
 	    (lambda ()
 	      ;; タブ幅
-	      (setq tab-width 2)
+	      (setq tab-width 4)
 	      ;; タブはとりあえず有効. プロジェクトによって変える.
 	      (setq indent-tabs-mode t)
-	      (setq c-basic-offset 2))))
+	      (setq c-basic-offset 4))))
 #+end_src
 
 ** malabar-mode
@@ -158,6 +158,77 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
    #+end_src
 
 * Error Check
+** flycheck-java
+   - [[https://github.com/akorobov/flycheck-java][akorobov/flycheck-java]]
+
+   ECJ (Eclipse Compiler for java) を利用する.
+   - [[http://knjname.hateblo.jp/entry/2014/07/06/025542][Ant で Eclipse の ECJ (Eclipse Compiler for Java) を使う - knjname のブログ]]
+
+   Eclipse に梱包されているが, 単体でも取得可能.
+   - [[https://www.archlinux.org/packages/extra/any/eclipse-ecj/][Arch Linux - eclipse-ecj 4.4-1 (any)]]
+   - http://www.java2s.com/Code/Jar/e/ecj.htm
+
+#+begin_src emacs-lisp
+(setq flycheck-java-ecj-jar-path "c:/app/ecj-4.2.2.jar")
+(use-package flycheck-java)
+#+end_src
+
+* 自動補完
+** auto-java-complete
+   auto-complete の Java 用.
+   - [[http://www.emacswiki.org/emacs/AutoJavaComplete][EmacsWiki: Auto Java Complete]]
+   - https://github.com/emacs-java/auto-java-complete
+   - http://www.emacswiki.org/emacs/ajc-java-complete-my-config-example.el
+
+*** Install
+    参考: https://github.com/emacs-java/auto-java-complete/blob/master/Install
+
+    - AutoComplete と Yasnippet を事前にインストールする必要がある.
+    - github からリポジトリ取得.
+    - テンプレートタグを解凍
+
+#+begin_src bash
+% bunzip2 java_base2.tag.bz2
+% mv java_base2.tag ~/.java_base.tag
+#+end_src
+
+  自分の環境に合わせてタグを生成するには,
+  - CLASSPATH を設定
+  - Tag を生成.
+
+#+begin_src bash
+% javac Tags.java
+% java Tags
+#+end_src
+
+*** config
+#+begin_src emacs-lisp
+(use-package ajc-java-complete-config
+  :init
+  (add-hook 'java-mode-hook 'ajc-java-complete-mode)
+  (add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook))
+
+#+end_src
+* log4j
+#+begin_src emacs-lisp
+(use-package log4j-mode :defer t)
+#+end_src
+
+* タグジャンプ
+  Java は以下が利用できるようだ. gtags が一番よさそう.
+  - gtags
+  - ctags
+  - jtags
+
+  helm-gtags が最強.
+
+** Jtags
+  - [[http://sourceforge.net/projects/jtags/][jtags - Emacs package for editing Java | SourceForge.net]]
+  - [[http://jtags.sourceforge.net/][jtags - Emacs minor mode for editing and browsing Java source code]]
+
+#+begin_src emacs-lisp
+(use-package jtags :disabled t)
+#+end_src
 * eclim-emacs
    Emacs から Eclipse をつかう.
 
@@ -273,56 +344,6 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 
    心なしか, Emacs から起動するよりも, コマンドラインから起動したほうが
    Emacs が軽く動作する.
-
-* 自動補完
-** auto-java-complete
-   auto-complete の Java 用.
-   - [[http://www.emacswiki.org/emacs/AutoJavaComplete][EmacsWiki: Auto Java Complete]]
-   - https://github.com/emacs-java/auto-java-complete
-   - http://www.emacswiki.org/emacs/ajc-java-complete-my-config-example.el
-
-*** Install
-    参考: https://github.com/emacs-java/auto-java-complete/blob/master/Install
-
-    - AutoComplete と Yasnippet を事前にインストールする必要がある.
-    - github からリポジトリ取得.
-    - テンプレートタグを解凍
-
-#+begin_src bash
-% bunzip2 java_base2.tag.bz2
-% mv java_base2.tag ~/.java_base.tag
-#+end_src
-
-  自分の環境に合わせてタグを生成するには,
-
-    - CLASSPATH を設定
-    - Tag を生成.
-
-#+begin_src bash
-% javac Tags.java
-% java Tags
-#+end_src
-
-*** config
-#+begin_src emacs-lisp
-(use-package ajc-java-complete-config
-  :init
-  (add-hook 'java-mode-hook 'ajc-java-complete-mode)
-  (add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook))
-#+end_src
-
-* log4j
-#+begin_src emacs-lisp
-(use-package log4j-mode :defer t)
-#+end_src
-
-* Jtags
-  - [[http://sourceforge.net/projects/jtags/][jtags - Emacs package for editing Java | SourceForge.net]]
-  - [[http://jtags.sourceforge.net/][jtags - Emacs minor mode for editing and browsing Java source code]]
-
-#+begin_src emacs-lisp
-(use-package jtags :disabled t)
-#+end_src
 * その他
  へんなエラーがでる暫定対処.
  - [[http://sourceforge.net/p/cedet/mailman/message/8181859/][CEDET / Mailing Lists]]
@@ -330,3 +351,4 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 #+begin_src emacs-lisp
 (setq semantic-idle-scheduler-max-buffer-size 1)
 #+end_src
+
