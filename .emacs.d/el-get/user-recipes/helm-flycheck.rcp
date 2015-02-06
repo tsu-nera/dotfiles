@@ -1,0 +1,3 @@
+(:name helm-flycheck
+       :type github
+       :pkgname "yasuyk/helm-flycheck")

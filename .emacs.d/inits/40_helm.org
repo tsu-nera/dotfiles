@@ -302,6 +302,15 @@
 	  (volatile))))
 #+end_src
 
+** helm-flycheck
+
+#+begin_src emacs-lisp
+(use-package helm-flycheck
+  :config
+  (define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck))
+#+end_src
+
+
 * 未使用中...
 ** helm-github-issues
 #+begin_src emacs-lisp

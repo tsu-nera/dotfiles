@@ -238,10 +238,12 @@
     - C-c ! l (flycheck-list-errors) 
 
 *** Config
+    一応手動起動にする.
+    
 #+begin_src emacs-lisp
-(use-package flycheck
-  :init
-  (add-hook 'after-init-hook #'global-flycheck-mode))
+(use-package flycheck)
+;;  :init
+;;  (add-hook 'after-init-hook #'global-flycheck-mode))
 #+end_src
 
 ** flycheck-color-mode-line

@@ -168,9 +168,11 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
    - [[https://www.archlinux.org/packages/extra/any/eclipse-ecj/][Arch Linux - eclipse-ecj 4.4-1 (any)]]
    - http://www.java2s.com/Code/Jar/e/ecj.htm
 
+   動かんよ.
+
 #+begin_src emacs-lisp
+(use-package flycheck-java :disabled t)
 (setq flycheck-java-ecj-jar-path "c:/app/ecj-4.2.2.jar")
-(use-package flycheck-java)
 #+end_src
 
 * 自動補完

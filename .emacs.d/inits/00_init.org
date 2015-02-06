@@ -286,6 +286,7 @@
     git-gutter
     csv-mode
     r-autoyas
+    helm-flycheck
     )
  "A list of packages to install from el-get at launch.")
 
