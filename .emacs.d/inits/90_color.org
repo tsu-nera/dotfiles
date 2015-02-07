@@ -24,7 +24,6 @@
 
 #+begin_src emacs-lisp
 (use-package bm
-  :defer t
   :bind   (("<C-f5>" . bm-toggle)
 	   ("<f5>"  . bm-next)
 	   ("<S-f5>" . bm-previous)))

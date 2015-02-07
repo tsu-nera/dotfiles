@@ -200,8 +200,11 @@
    - https://github.com/vspinu/imenu-anywhere
    - [[http://rubikitch.com/2014/12/17/imenu-anywhere/][簡易関数定義ジャンプ imenu を ido/helm 化した上で他のファイルまで拡張する!]]
 
+   うまく動かないので, disabled
+
 #+begin_src emacs-lisp
 (use-package imenu-anywhere
+  :disabled t
   :bind ("C-x c i" . helm-imenu-anywhere))
 #+end_src
 
@@ -334,4 +337,3 @@
 (use-package helm-etags+ :disabled t)
 (use-package ctags-update :disabled t)
 #+end_src
-

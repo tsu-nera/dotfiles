@@ -57,11 +57,18 @@
    それ以下のファイルを見つけたり色々できる.
    - [[http://blog.en30.net/2014/10/20/development-environment.html][最近の開発環境: mjolnir, projectile, peco - blog.en30.net]]
 
+   .projectile ファイルをマニュアルで作成することで,
+   そのフォルダを Route Folder と認識出来る.
+
+   以下で GTAGS を作成.
+   - projectile-regenerate-tags
+
 #+begin_src emacs-lisp
 (use-package projectile
   :idle
   (projectile-global-mode)
   :config
+  ;; windows indexing 高速化のおまじない.
   (when windows-p
     (setq projectile-indexing-method 'alien))
   
@@ -125,8 +132,8 @@
 	 ("C-c d" . flymake-display-err-menu-for-current-line))
   :init
   (add-hook 'find-file-hook 'flymake-find-file-hook)
-  (add-hook 'c++-mode-hook '(lambda () (flymake-mode t)))
-  (add-hook 'c-mode-hook '(lambda () (flymake-mode t)))
+;;  (add-hook 'c++-mode-hook '(lambda () (flymake-mode t)))
+;;  (add-hook 'c-mode-hook '(lambda () (flymake-mode t)))
   (add-hook 'haskell-mode-hook (lambda () (flymake-mode t)))
 ;; (add-hook 'java-mode-hook '(lambda () (flymake-mode t)))
   (add-hook 'emacs-lisp-mode-hook
@@ -137,6 +144,7 @@
 #+end_src
 
 *** Java
+    Java は flycheck 対応していない...
 #+begin_src emacs-lisp
 (defun my-java-flymake-init ()
   (list "javac" (list (flymake-init-create-temp-buffer-copy
@@ -153,17 +161,18 @@
 #+end_src
 
 *** C/C++ 
+    flycheck を利用するので封印
 #+begin_src emacs-lisp
-(defun flymake-cc-init ()
-  (let* ((temp-file   (flymake-init-create-temp-buffer-copy
-		       'flymake-create-temp-inplace))
-	 (local-file  (file-relative-name
-		       temp-file
-		       (file-name-directory buffer-file-name))))
-    (list "g++" (list "-Wall" "-Wextra" "-fsyntax-only" local-file))))
+;; (defun flymake-cc-init ()
+;;   (let* ((temp-file   (flymake-init-create-temp-buffer-copy
+;; 		       'flymake-create-temp-inplace))
+;; 	 (local-file  (file-relative-name
+;; 		       temp-file
+;; 		       (file-name-directory buffer-file-name))))
+;;     (list "g++" (list "-Wall" "-Wextra" "-fsyntax-only" local-file))))
 
-(push '("\\.c$" flymake-cc-init) flymake-allowed-file-name-masks)
-(push '("\\.cpp$" flymake-cc-init) flymake-allowed-file-name-masks)
+;; (push '("\\.c$" flymake-cc-init) flymake-allowed-file-name-masks)
+;; (push '("\\.cpp$" flymake-cc-init) flymake-allowed-file-name-masks)
 #+end_src
 
 *** Haskell
@@ -242,8 +251,8 @@
     
 #+begin_src emacs-lisp
 (use-package flycheck)
-;;  :init
-;;  (add-hook 'after-init-hook #'global-flycheck-mode))
+  ;; :init
+  ;; (add-hook 'after-init-hook #'global-flycheck-mode))
 #+end_src
 
 ** flycheck-color-mode-line

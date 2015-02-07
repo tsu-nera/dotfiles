@@ -407,12 +407,11 @@
 	 :password (netrc-get sternstunden "password")
 	)
 	("EverClassic"
-	:url "http://everclassic.biz/xmlrpc.php"
-	 :username (netrc-get everclassic "login")
-	 :password (netrc-get everclassic "password")
-	)
-      )
-))
+	 :url "http://everclassic.biz/xmlrpc.php"
+	 :username "admin"	 
+	 ;; :username (netrc-get everclassic "login")
+	 ;; :password (netrc-get everclassic "password")
+	))))
 #+end_src
 
 ** WordPress で シンタックスハイライト
