@@ -64,8 +64,9 @@
   (eww-browse-url (concat eww-search-prefix term)))
 
 (add-hook 'eww-after-render-hook (lambda ()
+				   (unless (eq eww-hl-search-word nil)
 				   (highlight-regexp eww-hl-search-word)
-				   (setq eww-hl-search-word nil)))
+				   (setq eww-hl-search-word nil))))
 #+end_src
 
 ** 現在の url を 外部ブラウザ で開く (eww-browse-with-external-link)

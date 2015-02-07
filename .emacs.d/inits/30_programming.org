@@ -63,6 +63,20 @@
    以下で GTAGS を作成.
    - projectile-regenerate-tags
 
+   Prefix key of Projectile is C-c p. Some notable features: 
+   - Jump to any file in the project: C-c p f. 
+   - Jump to any directory in the project: C-c p d. 
+   - List buffers local to current project: C-c p b. 
+   - Jump to recently visited files in project: C-c p e. 
+   - Grep in project: C-c p g s 
+   - Multi-occur in project buffers: C-c p o. 
+   - Simple refactoring with text replace in current project: C-c p r. 
+   - Switch visited projects (visited once an Projectile remembers): C-c p p. 
+
+   Useful commands for working with C/C++ projects: 
+   - Run compilation command at project root: C-c p c. By default, Projectile prompts the make command. 
+   - Switch between .h and .c or .cpp: C-c p a. (便利!!)
+
 #+begin_src emacs-lisp
 (use-package projectile
   :idle
