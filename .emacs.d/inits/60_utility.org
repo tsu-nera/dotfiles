@@ -610,3 +610,13 @@ sudo pacman -S ghostscript
 	  " && convert -resize 640x -colors 32 " temp-dir "* " file
 	  "; rm -r " temp-file " " temp-dir)))
 #+end_src
+* jazzradio
+  ジャズだって聴ける! 
+  - https://github.com/syohex/emacs-jazzradio
+  - [[http://d.hatena.ne.jp/syohex/20150208/1423395606][ジャズだって聴ける. そう, Emacs ならね. - Life is very short]]
+
+  本当はクラシックが聴きたいけど. クラシックは emms-stream で我慢.
+
+#+begin_src emacs-lisp
+(use-package jazzradio :if linux-p)
+#+end_src

@@ -450,7 +450,9 @@
    - https://github.com/tsdh/iedit
 
 #+begin_src emacs-lisp
-(use-package iedit)
+(use-package iedit
+  ;; ace-jump-word-modeからkeybindingをもらう.
+  :bind ("C-x ;" . iedit-mode))
 #+end_src
 
 ** wgrep
