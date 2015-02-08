@@ -321,12 +321,11 @@
 * git
 ** magit
    Emacs の Git Client.
+   - https://github.com/magit/magit
+   - http://qiita.com/takc923/items/c7a11ff30caedc4c5ba7
 
-   https://github.com/magit/magit
-   http://qiita.com/takc923/items/c7a11ff30caedc4c5ba7
-
-   チーとシーと
-   http://daemianmack.com/magit-cheatsheet.html
+   チートシート
+   - http://daemianmack.com/magit-cheatsheet.html
 
    #+begin_src emacs-lisp
 (use-package magit
@@ -335,8 +334,29 @@
   :config
   (setq magit-git-executable "git")
   (setq magit-emacsclient-executable "emacsclient")
-  )
 #+end_src
+
+*** magit-log で時刻表示
+    - [[http://rubikitch.com/2015/01/30/magit-time-format/][magit のログで, コミット日時を時刻で表示させる設定 | るびきち]]
+
+#+begin_src emacs-lisp
+(defvar magit-log-time-format "%y-%m-%d %H:%M")
+(defun magit-format-duration--format-date (duration spec width)
+  (format-time-string magit-log-time-format
+                      (seconds-to-time (- (float-time) duration))))
+(advice-add 'magit-format-duration :override
+            'magit-format-duration--format-date)
+(defun magit-log-margin-set-timeunit-width--fixed ()
+  (setq magit-log-margin-timeunit-width 12))
+(advice-add 'magit-log-margin-set-timeunit-width :override
+            'magit-log-margin-set-timeunit-width--fixed)
+(setq magit-log-margin-spec '(33 nil magit-duration-spec))
+#+end_src
+
+*** end of config
+    #+begin_src emacs-lisp
+    )
+    #+end_src
 
 ** gist
   Emacs gist interface
