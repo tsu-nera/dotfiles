@@ -287,6 +287,7 @@
     csv-mode
     r-autoyas
     helm-flycheck
+    helm-bm
     )
  "A list of packages to install from el-get at launch.")
 

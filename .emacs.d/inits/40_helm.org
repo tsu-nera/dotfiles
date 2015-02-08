@@ -315,6 +315,13 @@
   (define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck))
 #+end_src
 
+** helm-bm
+   - [[https://github.com/yasuyk/helm-bm][yasuyk/helm-bm · GitHub]]
+
+#+begin_src emacs-lisp
+(use-package helm-bm
+  :bind ("C-<f5>" . helm-bm))
+#+end_src
 
 * 未使用中...
 ** helm-github-issues

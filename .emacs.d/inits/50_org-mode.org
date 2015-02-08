@@ -41,14 +41,15 @@
 #+end_src
 
 ** スタートアップ設定
+   - [[http://orgmode.org/manual/In_002dbuffer-settings.html][In-buffer settings - The Org Manual]]
+
 #+begin_src emacs-lisp
 ;; アスタリスクはかくす
 (setq org-hide-leading-stars t)
 
 ;; 初期状態は見出しを表示
-(setq org-startup-folded (quote 自動インデント))
+(setq org-startup-folded 'content)
 
-;; content
 ;; (setq org-indent-mode t)
 
 ;; 折り返さない
