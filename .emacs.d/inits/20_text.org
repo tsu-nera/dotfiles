@@ -869,6 +869,9 @@ google-ime-skk &
      ruby-mode-hook
      java-mode-hook    
      emacs-lisp-mode-hook))
+  
+  ;; C-; は ieditにわたすので、無効にしておく.
+  (setq flyspell-auto-correct-binding nil)
   :config
   ;; どうも flyspell と ac-complete は相性が悪い?
   ;; (ac-flyspell-workaround)

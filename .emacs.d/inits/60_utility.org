@@ -9,6 +9,7 @@
 #+end_src
 
 * Web Browser: ブラウザ関連
+  - [[http://www.emacswiki.org/emacs/BrowseUrl][EmacsWiki: Browse Url]]
 
 #+begin_src emacs-lisp
 (when linux-p
@@ -24,41 +25,6 @@
 (define-key goto-map [?b] #'browse-url-at-point)
 #+end_src
 
-** w3m
-    eww が登場したのでもはや過去のもの. もう使わないだろう.
-
-#+begin_src emacs-lisp
-;; (use-package w3m-load
-;;  :config
-;;  (setq w3m-use-cookies t)
-;;  (setq w3m-favicon-cache-expire-wait nil)
-;;  (setq w3m-home-page "http://www.google.co.jp/")
-;;  
-;;  (when windows-p
-;;    ;;(setq exec-path (append exec-path '("C://app//w3m-mingw32")))
-;;    (setq exec-path (append exec-path '("C:/cygwin64/bin")))
-;;    )
-;;
-;;  (setq w3m-user-agent  "Mozilla/5.0 (Linux; U; Android 2.3.3; zh-tw; 
-;;        HTC_Pyramid Build/GRI40) AppleWebKit/533.1 
-;;        (KHTML, like Gecko) Version/4.0 Mobile Safari/533.")
-;;)
-#+end_src
-
-** webkit
-   うごかない. . . .
-   - [[https://github.com/linuxdeepin/deepin-emacs/tree/master/site-lisp/extensions/webkit][deepin-emacs/site-lisp/extensions/webkit at master · linuxdeepin/deepin-emacs]]
-
-     - webkit/helm-webkit from github
-     - epc from el-get
-     - Pyqt5  yaourt -S python2-pyqt5 qt5-webkit
-     - PythonXlib yaourt -S python2-xlib
-
-#+begin_src emacs-lisp
-;; (use-package webkit)
-;; (use-package helm-webkit)
-#+end_src
-
 ** edit-server
    Google Chrome のフォームを emacs で編集. Edit with Emacs.
    - https://github.com/stsquad/emacs_chrome/blob/master/servers/edit-server.el
@@ -66,10 +32,9 @@
  #+begin_src emacs-lisp
 (use-package edit-server
   :config
-  (setq edit-server-new-frame nil)
   ;; 手動で起動にする.
   ;; (edit-server-start)
-  )
+  (setq edit-server-new-frame nil))
  #+end_src
 
 * パスワード管理
