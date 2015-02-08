@@ -170,6 +170,18 @@
 
 *** agenda speedup
     - [[http://orgmode.org/worg/agenda-optimization.html][Agenda speedup and optimization]]
+    - [[http://rubikitch.com/2014/11/29/org-agenda-cache/][【もう遅くない】 Emacs org-agenda による予定表を瞬時に表示させる方法 ]]
+
+#+begin_src emacs-lisp
+(defun org-agenda-cache (&optional regenerate)
+  (interactive "P")
+  (when (or regenerate (null (get-buffer "*Org Agenda*")))
+    (setq current-prefix-arg nil)
+    (org-agenda nil "a"))
+  (switch-to-buffer "*Org Agenda*")
+  (delete-other-windows))
+(define-key org-agenda-mode-map (kbd "q") 'quit-window)
+#+end_src
 
 ** タスクの状態
    うまく動作しないので, 利用しないことにする.
