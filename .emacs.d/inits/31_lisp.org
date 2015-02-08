@@ -194,6 +194,14 @@
   - lisp-indent-line (tab key)
   - indent-sexp (C-M-q) 
 
+** document
+   便利な関数がたくさんある.
+
+   - describe-function 関数を調べる <f1>-f
+   - apropos 変数を調べる <f1>-a
+   - helm-apropos C-x c a
+   - find-function 関数定義のソースに飛ぶ (これ便利)
+
 ** Tips
   以下を有効にするとスタック情報がみえる.
 

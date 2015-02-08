@@ -227,7 +227,7 @@
   (defun helm-for-files-update-list ()
     `(helm-source-buffers-list
       helm-source-recentf
-      helm-source-ghq
+      ;; helm-source-ghq
       helm-source-files-in-current-dir
       helm-source-file-cache
       ,(if (projectile-project-p)

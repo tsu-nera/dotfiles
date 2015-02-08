@@ -13,7 +13,7 @@
 #+begin_src emacs-lisp
 (when linux-p
   (setq browse-url-generic-program (executable-find "conkeror"))
-  (setq browse-url-browser-function 'browse-url-windows))
+  (setq browse-url-browser-function 'browse-url-generic))
 
 ;; generic default browser
 (when windows-p
