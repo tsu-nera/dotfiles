@@ -232,6 +232,15 @@
 #+begin_src emacs-lisp
 ;; (use-package direx)
 #+end_src
+** dired-filetype-face
+   dired で file-type にしたがって色付けをする.
+   - https://github.com/jixiuf/dired-filetype-face
+   - http://www.emacswiki.org/emacs/DiredFileTypeFaces
+
+#+begin_src emacs-lisp
+(use-package dired-filetype-face)
+#+end_src
+
 * elscreen
   screen の Emacs バージョン. マルチプレクサ.
   - https://github.com/emacs-jp/elscreen

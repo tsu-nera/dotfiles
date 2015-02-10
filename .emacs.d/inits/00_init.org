@@ -288,6 +288,7 @@
     r-autoyas
     helm-flycheck
     helm-bm
+    dired-filetype-face
     )
  "A list of packages to install from el-get at launch.")
 
@@ -301,6 +302,7 @@
   '(
     pdf-tools
     flyspell
+    jazzradio
 ;;    yspel
     )
   "A list of packages to install from el-get at launch for linux")

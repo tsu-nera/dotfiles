@@ -1,0 +1,3 @@
+(:name dired-filetype-face
+       :type github
+       :pkgname "jixiuf/dired-filetype-face")
