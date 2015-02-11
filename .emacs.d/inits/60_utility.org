@@ -548,6 +548,9 @@ sudo pacman -S ghostscript
 	 "vlc" "--intf=rc"))
 #+end_src
 
+** mplayer
+   - windows http://sourceforge.net/projects/mplayerwin/
+
 ** volume
    - [[https://www.gnu.org/software/emms/manual/Volume.html][Volume - The Emms Manual]]
    - [[http://anthony.lecigne.net/2014-08-16-emms-mplayer.html][Control the volume with MPlayer in EMMS]]
@@ -616,7 +619,19 @@ sudo pacman -S ghostscript
   - [[http://d.hatena.ne.jp/syohex/20150208/1423395606][ジャズだって聴ける. そう, Emacs ならね. - Life is very short]]
 
   本当はクラシックが聴きたいけど. クラシックは emms-stream で我慢.
+  内部では mplayer を利用している.
+
+  - mplayer
+  - curl
 
 #+begin_src emacs-lisp
-(use-package jazzradio :if linux-p)
+(use-package jazzradio)
 #+end_src
+
+** Windows
+   1. curl を cygwin 経由でいれる.
+   2. mplayer を入れる
+      http://sourceforge.net/projects/mplayerwin/
+   3. mpayer にパスを通す.
+
+   mplayer2 では動かなかった.
