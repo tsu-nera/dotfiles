@@ -500,7 +500,6 @@ sudo pacman -S ghostscript
 
 #+begin_src emacs-lisp
 (use-package emms-setup
-  :if linux-p
   :commands emms-stream-init ;; for helm-emms
   :init
   (eval-after-load 'smartrep
@@ -535,6 +534,7 @@ sudo pacman -S ghostscript
    https をサポートに追加する.
 
 #+begin_src emacs-lisp
+(when linux-p
 (use-package emms-player-vlc
   :config
        (setq emms-player-list '(emms-player-vlc))
@@ -545,7 +545,7 @@ sudo pacman -S ghostscript
 	       "mov" "avi" "divx" "ogm" "ogv" "asf" "mkv"
 	       "rm" "rmvb" "mp4" "flac" "vob" "m4a" "ape"
 	       "asx"))
-	 "vlc" "--intf=rc"))
+	 "vlc" "--intf=rc")))
 #+end_src
 
 ** mplayer
@@ -558,8 +558,9 @@ sudo pacman -S ghostscript
    .asoundrc を作成して, default のカードを変更した.
   - [[https://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Advanced Linux Sound Architecture (日本語) - ArchWiki]]
 
-#+begin_src emacs-lisp
-(setq emms-volume-amixer-control "Master")
+  #+begin_src emacs-lisp
+(when linux-p
+  (setq emms-volume-amixer-control "Master"))
 #+end_src
 
 ** Stream
