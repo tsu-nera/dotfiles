@@ -201,6 +201,19 @@
 ;; (setq ssl-program-name "c:/cygwin64/bin/gnutls-cli.exe")
 ;; (setq ssl-program-arguments '("--insecure" "-p" service host))
 #+end_src
+
+** fetchmail
+会社では, fetchmail を利用中
+
+#+begin_src emacs-lisp
+(when windows-p
+(defun fetchmail-fetch ()
+  (interactive)
+  (shell-command "fetchmail"))
+(define-key wl-summary-mode-map (kbd "<f9>") 'fetchmail-fetch)
+(define-key wl-folder-mode-map (kbd "<f9>") 'fetchmail-fetch)
+(define-key wl-draft-mode-map (kbd "<f9>") 'fetchmail-fetch))'
+#+end_src
   
 * Tips
 ** Yassnipet
