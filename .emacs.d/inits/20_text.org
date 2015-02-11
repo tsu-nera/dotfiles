@@ -863,17 +863,19 @@ google-ime-skk &
      org-mode-hook
      wl-draft-mode-hook
      twittering-edit-mode))
+  
   ;; コメント領域のところだけ有効.
-  (mapc
-   (lambda (hook)
-     (add-hook hook 'flyspell-prog-mode))
-   '(c-mode-common-hook
-     ruby-mode-hook
-     java-mode-hook    
-     emacs-lisp-mode-hook))
+  ;; ieditを阻害するので封印
+  ;;  (mapc
+  ;;   (lambda (hook)
+  ;;     (add-hook hook 'flyspell-prog-mode))
+  ;;   '(c-mode-common-hook
+  ;;     ruby-mode-hook
+  ;;     java-mode-hook    
+  ;;     emacs-lisp-mode-hook))
   :config
   ;; C-; は ieditにわたすので、無効にしておく.
-  (setq flyspell-auto-correct-binding nil)
+  ;; (setq flyspell-auto-correct-binding nil)
   ;; どうも flyspell と ac-complete は相性が悪い?
   ;; (ac-flyspell-workaround)
   )

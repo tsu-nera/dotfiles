@@ -1,5 +1,5 @@
 * Minor Language
-  マイナーランゲージのマイナーモード
+  マイナーランゲージのマイナーモード. 量が増えてきたら別ベージに独立.
 
 * Oz
   multi-paradium language
@@ -33,12 +33,12 @@
   '(add-to-list 'ac-modes 'oz-mode))
   )
 #+end_src
+
 * Cool
   
 #+begin_src emacs-lisp
 (use-package cool-mode
-  :mode "\\.cl$"
-  )
+  :mode "\\.cl$")
 #+end_src
 
 * VBA 
@@ -72,61 +72,6 @@
 (use-package visual-basic-mode
   :commands visual-line-mode
   :mode "\\.\\(vbs\\|vb\\|wsf\\|frm\\|bas\\|cls\\)$"
-  )
-#+end_src
-
-* rst-mode
-  Major mode for editing Restructured Text
-
-#+begin_src emacs-lisp 
-(use-package rst
-  :commands rst-mode
-  :mode (("\\.rst$" . rst-mode) ("\\.rest$" . rst-mode))
-  :config
-  ;; RST モードを見やすくする.
-  (setq frame-background-mode 'dark)
-  
-  ;; 全部スペースでインデントしましょう
-  ;; (add-hook 'rst-mode-hook '(lambda () (setq indent-tabs-mode nil)))
-)
-#+end_src
-
-* Markdown Mode
-  Major mode for editing markdown
-  - http://jblevins.org/projects/markdown-mode/markdown-mode.el
-
-  #+begin_src emacs-lisp
-(use-package markdown-mode
-  :commands markdown-mode
-  :mode ("\\.md$" . markdown-mode)
-  )
-#+end_src
-
-* textile-mode
-  Redmine wiki の記述用.
-  - [[http://dev.nozav.org/textile-mode.html][Textile-mode · dev.nozav.org]]
-
-  el-get じゃとれないかも
-  - http://dev.nozav.org/scripts/textile-mode.el.
-  
-#+begin_src emacs-lisp
-(use-package textile-mode
-  :mode ("\\.textile$" . textile-mode))
-#+end_src
-
-* Plant UML Mode
-  Major mode for editing PlantUML.
-  - [[http://plantuml.sourceforge.net/emacs.html][PlantUML]]
-  - [[http://futurismo.biz/archives/2305][Emacs から PlantUML を便利につかう方法 | Futurismo]]
-
-  #+begin_src emacs-lisp
-(use-package plantuml-mode
-  :if linux-p
-  :commands plantuml-mode
-  :mode (("\\.puml$" . plantuml-mode)
-	 ("\\.plantuml$" . plantuml-mode))
-  :config
-  (setq plantuml-jar-path "/usr/local/bin/plantuml.jar")
   )
 #+end_src
 
@@ -197,24 +142,6 @@
 ;;        (scala-electric-mode)))
 #+end_src
 
-* conkeror
-#+begin_src emacs-lisp
-(use-package conkeror-minor-mode :commands conkeror-minor-mode)
-#+end_src
-
-* pukiwiki-mode
-  pukiwiki-mode は minor-mode のみ使用する. 
-  firefox や chrome の Edit 機能から, Emacs を起動する.
-
-  - [[http://www.bookshelf.jp/pukiwiki/pukiwiki.php?%A5%A2%A5%A4%A5%C7%A5%A2%BD%B8%2Fpukiwiki-mode][アイデア集/pukiwiki-mode - Meadow memo]]
-  - pukiwiki-mode.el  http://www.bookshelf.jp/elc/pukiwiki-mode.el
-  - http.el http://tdiary.cvs.sourceforge.net/tdiary/contrib/util/tdiary-mode/
-  - [[http://rmecab.jp/wiki/index.php?Wiki_pukiwiki-mode%A4%F2%C6%B3%C6%FE][Wiki_pukiwiki-mode を導入 - R と Linux と...]]
-
-#+begin_src emacs-lisp
-(use-package pukiwiki-mode :commands (pukiwiki-mode pukiwiki-edit-mode))
-#+end_src
-
 * Assembly Language
   アセンブリ言語.
   - [[http://www.emacswiki.org/emacs/AssemblyProgramming][EmacsWiki: Assembly Programming]]
@@ -251,171 +178,90 @@
 ;; (add-to-list 'auto-mode-alist '("\\.php?\\'" . xml-mode))
 #+end_src
 
-* yaml-mode
-#+begin_src emacs-lisp
+
+* DSL
+** yaml-mode
+ #+begin_src emacs-lisp
 (use-package yaml-mode :commands yaml-mode)
-#+end_src
+ #+end_src
 
-* ansible
-  - https://github.com/k1LoW/emacs-ansible
-  - [[http://k1low.hatenablog.com/entry/2014/05/27/231132][Ansible の Playbook を書くときに便利になるかもしれない ansible.el を書いてみた - Copy/Cut/Paste/Hatena]]
+** rst-mode
+   Major mode for editing Restructured Text
 
-  submodule で ansible repo を clone していて,
-  重かったのでいったん休止.
+ #+begin_src emacs-lisp 
+(use-package rst
+  :commands rst-mode
+  :mode (("\\.rst$" . rst-mode) ("\\.rest$" . rst-mode))
+  :config
+  ;; RST モードを見やすくする.
+  (setq frame-background-mode 'dark)
+  
+  ;; 全部スペースでインデントしましょう
+  ;; (add-hook 'rst-mode-hook '(lambda () (setq indent-tabs-mode nil)))
+)
+ #+end_src
 
-#+begin_src emacs-lisp
+
+** Plant UML Mode
+   Major mode for editing PlantUML.
+   - [[http://plantuml.sourceforge.net/emacs.html][PlantUML]]
+   - [[http://futurismo.biz/archives/2305][Emacs から PlantUML を便利につかう方法 | Futurismo]]
+
+   #+begin_src emacs-lisp
+(use-package plantuml-mode
+  :if linux-p
+  :commands plantuml-mode
+  :mode (("\\.puml$" . plantuml-mode)
+	 ("\\.plantuml$" . plantuml-mode))
+  :config
+  (setq plantuml-jar-path "/usr/local/bin/plantuml.jar")
+  )
+ #+end_src
+
+** ansible
+   - https://github.com/k1LoW/emacs-ansible
+   - [[http://k1low.hatenablog.com/entry/2014/05/27/231132][Ansible の Playbook を書くときに便利になるかもしれない ansible.el を書いてみた - Copy/Cut/Paste/Hatena]]
+
+   submodule で ansible repo を clone していて,
+   重かったのでいったん休止.
+
+ #+begin_src emacs-lisp
 (use-package ansible
   :disabled t
   :commands ansible)
-#+end_src
-
-* R
-** ESS
-    Emacs を統計用 IDE にするツール. デファクトスタンダードと言える.
-
-    - Official: [[http://ess.r-project.org/][ESS - Emacs Speaks Statistics]]
-    - github: https://github.com/emacs-ess/ESS
-    - メチャクチャ詳しい: [[http://www.okada.jp.org/RWiki/?ESS][ESS - RjpWiki]]
-    - [[http://www.emacswiki.org/emacs/EmacsSpeaksStatistics][EmacsWiki: Emacs Speaks Statistics]]
-    - [[http://d.hatena.ne.jp/a_bicky/20120415/1334490586][ESS で快適 R ライフ ~設定編~(2012 年度版) - あらびき日記]]
-    - [[http://d.hatena.ne.jp/a_bicky/20120422/1335086814][ESS で快適 R ライフ ~操作編~(2012 年度版) - あらびき日記]]
-
-   yaourt でインストール. yaourt -S emacs-ess.
-   emacs 自体は独自のものを利用しているため,
-   ビルドファイルで Emacs をコメントアウトした.
-
-   起動は M-x R.
-
-#+begin_src emacs-lisp
-(use-package ess-site
-  :load-path "/usr/share/emacs/site-lisp/ess"
-  :if (locate-library "ess-site")
-  :defer t
-  :commands R-mode
-  :init
-  (setq auto-mode-alist
-	(cons (cons "\\.[rR]$" 'R-mode) auto-mode-alist))
-  ;; うまく有効にならないので, hook を追加してみる.
-  (add-hook 'R-mode-hook  '(lambda ()
-			     (auto-complete-mode)
-			     (setq ess-use-auto-complete t)))
-  :config
-  ;; R 起動時にワーキングディレクトリを訊ねない
-  (setq ess-ask-for-ess-directory nil)
-#+end_src
-
-** ESS Auto-complete
-   R 言語の入力自動補完をするために, auto-complete を利用する.
-   - [[http://www.emacswiki.org/emacs/ESSAuto-complete][EmacsWiki: ESSAuto-complete]]   
-
-   ac-R.el はふるいっぽい.
-   - [[http://www.emacswiki.org/emacs/AutoCompleteSources#toc2][EmacsWiki: Auto Complete Sources]]
-   - [[http://stackoverflow.com/questions/4682459/emacs-autocomplete-mode-extension-for-ess-and-r][Emacs autocomplete-mode extension for ESS and R - Stack Overflow]]
-   - [[http://kozo2.hatenablog.com/entry/2012/04/14/050121][ESS の auto-complete を試す - kozo2's blog]]
-
-#+begin_src emacs-lisp
-(setq ess-use-auto-complete t)
-;; (setq ess-use-auto-complete 'script-only)
-#+end_src
-
-** ESS R Data View
-   データの中身がみれる.
-   - [[http://sheephead.homelinux.org/2013/05/10/7019/][R のデータビューワ ess-R-data-view.el というのを作りました - sheephead]]
-   - https://github.com/myuhe/ess-R-data-view.el
-
-   no ESS process is associated with ... と出てきたら, C-c C-s で
-
-#+begin_src emacs-lisp
-(use-package ess-R-data-view
-  :config
-  ;; (define-key ess-mode-map (kbd "C-c v") 'ess-R-dv-ctable)
-  (define-key ess-mode-map (kbd "C-c v") 'ess-R-dv-pprint)
-  )
-#+end_src
-
-   popwin と組み合わせると便利.
-   
-** ess-R-object-popup
-  オブジェクトの中身をポップアップで表示.
-  - https://github.com/myuhe/ess-R-object-popup.el
-  - [[http://sheephead.homelinux.org/2010/03/02/1807/][popup.el を使って R オブジェクトの情報を popup する ess-R-object-popup.el - sheephead]]
-
-#+begin_src emacs-lisp
-  (use-package ess-R-object-popup
-    :config
-    (define-key ess-mode-map "\C-c\C-g" 'ess-R-object-popup)
-    )
-#+end_src
-
-  gist 版は古いようだ.
-  - https://gist.github.com/myuhe/318365
-
-  no ESS process is associated with this buffer というエラー
-  がでたら C-c C-s を叩く.
-  - [[http://stackoverflow.com/questions/13930713/ess-rdired-i-get-this-error-no-ess-process-is-associated-with-this-buffer-now][r - ess-rdired: I get this error "no ESS process is associated with this buffer now" - Stack Overflow]]
-
-** helm-R
-  helm インタフェースで 関数のヘルプをひくことができる.
-  - [[http://sheephead.homelinux.org/2010/05/24/1846/][R のための anything インターフェイス, anything-R.el を作った. - sheephead]]
-  - https://github.com/emacs-helm/helm-R
-
-#+begin_src emacs-lisp
-  (use-package helm-R
-    :config
-    (define-key ess-mode-map "\C-ch" 'helm-for-R)
-    (define-key inferior-ess-mode-map "\C-ch" 'helm-for-R)
-    )
-#+end_src
-
-** org-babel-R
-   org-mode で R を利用する.
-   - [[http://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html][R Source Code Blocks in Org Mode]]
-   - [[http://sheephead.homelinux.org/2010/05/25/1868/][Emacs 上のマルチな実行環境, Org-babel - sheephead]]
-   - https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org
-
-   R 言語と org-mode で Reproducible Research を.
-   - https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org
-
-   設定は, org-mode.org に移動.
-
-*** template
-    ファイル名とサイズを指定する.
-   - [[http://d.hatena.ne.jp/tamura70/20100315/org][Emacs org-mode を使ってみる: (40) org-babel-R を使う 1/2 - 屯遁のパズルとプログラミングの日記]]
-   - [[http://d.hatena.ne.jp/tamura70/20100316/org][Emacs org-mode を使ってみる: (41) org-babel-R を使う 2/2 - 屯遁のパズルとプログラミングの日記]]
-
-#+BEGIN_SRC R :file hogehoge.png :width 400 :height 400 :results graphics 
-  plot (matrix (rnorm (100), ncol=2), type="l")
-#+END_SRC
-
-  C-c C-c で eval.
-
-** R-autoyas
-   Automatically create yasnippets for R
-   - https://github.com/mlf176f2/r-autoyas.el
-
-#+begin_src emacs-lisp
-(use-package r-autoyas
-  :commands r-autoyas-ess-activate
-  :init
-  (add-hook 'ess-mode-hook 'r-autoyas-ess-activate))
-#+end_src
+ #+end_src
 
 
-** End of ESS Config
-#+begin_src emacs-lisp
-)
-#+end_src
+* wiki
+** textile-mode
+   Redmine wiki の記述用.
+   - [[http://dev.nozav.org/textile-mode.html][Textile-mode · dev.nozav.org]]
 
-* csv-mode
-  csv のためのモード.
-  - https://github.com/emacsmirror/csv-mode
-  - http://www.emacswiki.org/emacs/CsvMode
-
-  powerline が有効だとエラーする.
-  csv を使いたいときは, powerline を無効にすること.
-
-  - https://github.com/emacsmirror/csv-mode/pull/2
+   el-get じゃとれないかも
+   - http://dev.nozav.org/scripts/textile-mode.el.
   
-#+begin_src emacs-lisp
-(use-package csv-mode)
-#+end_src
+ #+begin_src emacs-lisp
+(use-package textile-mode
+  :mode ("\\.textile$" . textile-mode))
+ #+end_src
+
+
+** pukiwiki-mode
+   pukiwiki-mode は minor-mode のみ使用する. 
+   firefox や chrome の Edit 機能から, Emacs を起動する.
+
+   - [[http://www.bookshelf.jp/pukiwiki/pukiwiki.php?%A5%A2%A5%A4%A5%C7%A5%A2%BD%B8%2Fpukiwiki-mode][アイデア集/pukiwiki-mode - Meadow memo]]
+   - pukiwiki-mode.el  http://www.bookshelf.jp/elc/pukiwiki-mode.el
+   - http.el http://tdiary.cvs.sourceforge.net/tdiary/contrib/util/tdiary-mode/
+   - [[http://rmecab.jp/wiki/index.php?Wiki_pukiwiki-mode%A4%F2%C6%B3%C6%FE][Wiki_pukiwiki-mode を導入 - R と Linux と...]]
+
+ #+begin_src emacs-lisp
+(use-package pukiwiki-mode :commands (pukiwiki-mode pukiwiki-edit-mode))
+ #+end_src
+
+* Othres
+** conkeror
+ #+begin_src emacs-lisp
+(use-package conkeror-minor-mode :commands conkeror-minor-mode)
+ #+end_src
+ 
