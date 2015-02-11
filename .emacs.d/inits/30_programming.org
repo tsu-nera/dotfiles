@@ -48,6 +48,18 @@
   (setq quickrun-timeout-seconds 20))
 #+end_src
 
+** rake
+   Interaction with rake command tool.
+   - https://github.com/asok/rake
+
+#+begin_src emacs-lisp
+(use-package rake
+  :init
+  (define-key ruby-mode-map (kbd "C-!") 'rake)
+  :config
+  (setq rake-completion-system 'helm))
+#+end_src
+
 * プロジェクト管理
 ** projectile
    Project Interaction Library for Emacs.
