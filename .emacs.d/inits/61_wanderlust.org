@@ -211,8 +211,8 @@
   (interactive)
   (shell-command "fetchmail"))
 (define-key wl-summary-mode-map (kbd "<f9>") 'fetchmail-fetch)
-(define-key wl-folder-mode-map (kbd "<f9>") 'fetchmail-fetch)
-(define-key wl-draft-mode-map (kbd "<f9>") 'fetchmail-fetch))'
+;; (define-key wl-folder-mode-map (kbd "<f9>") 'fetchmail-fetch)
+(define-key wl-draft-mode-map (kbd "<f9>") 'fetchmail-fetch))
 #+end_src
   
 * Tips

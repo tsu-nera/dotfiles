@@ -626,7 +626,36 @@ sudo pacman -S ghostscript
   - curl
 
 #+begin_src emacs-lisp
-(use-package jazzradio)
+(use-package jazzradio
+  :config
+  (defun my/jazzradio-switch(my/jazzradio-channel-url my/jazzradio-playlist-base-url) ()
+	 (unless jazzradio--process
+	   (jazzradio--stop))
+	 (setq jazzradio--process nil)
+	 (setq jazzradio--channels-cache  nil)
+	 (setq jazzradio-channel-url my/jazzradio-channel-url)
+	 (setq jazzradio-playlist-base-url my/jazzradio-playlist-base-url)
+	 (jazzradio))
+  (defun jazzradio--reset ()
+    (interactive)
+    (my/jazzradio-switch 
+    "http://ephemeron:dayeiph0ne%40pp@api.audioaddict.com/v1/jazzradio/mobile/batch_update?stream_set_key="
+    "http://listen.jazzradio.com/webplayer/"))
+  (defun technoradio ()
+    (interactive)    
+    (my/jazzradio-switch
+    "http://ephemeron:dayeiph0ne%40pp@api.audioaddict.com/v1/di/mobile/batch_update?stream_set_key="
+    "http://listen.di.fm/webplayer/"))
+  (defun classicradio ()
+    (interactive)    
+    (my/jazzradio-switch
+    "http://ephemeron:dayeiph0ne%40pp@api.audioaddict.com/v1/radiotunes/mobile/batch_update?stream_set_key="
+    "http://listen.radiotunes.com/webplayer/"))
+  (defun rockradio ()
+    (interactive)    
+    (my/jazzradio-switch
+     "http://ephemeron:dayeiph0ne%40pp@api.audioaddict.com/v1/rockradio/mobile/batch_update?stream_set_key=")
+    "http://listen.rockradio.com/webplayer/"))
 #+end_src
 
 ** Windows

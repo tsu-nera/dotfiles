@@ -579,3 +579,5 @@ bindkey '^xk'  peco-kill-process   # C-x k
 bindkey '^x^f' peco-find-file      # C-x C-f
 bindkey '^xo'  peco-open-app       # C-x o
 fi
+
+source ~/.zshenv

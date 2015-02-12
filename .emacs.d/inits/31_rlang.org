@@ -21,7 +21,6 @@
 (use-package ess-site
   :load-path "/usr/share/emacs/site-lisp/ess"
   :if (locate-library "ess-site")
-  :defer t
   :commands R-mode
   :init
   (setq auto-mode-alist
@@ -139,13 +138,32 @@
 
 * Markdown Mode
   Major mode for editing markdown
-  - http://jblevins.org/projects/markdown-mode/markdown-mode.el
+  - http://jblevins.org/projects/markdown-mode/markdown-modee.el
 
   #+begin_src emacs-lisp
 (use-package markdown-mode
   :commands markdown-mode
   :mode ("\\.md$" . markdown-mode)
-  )
+  :init
+  (defun markdown-unset-tab ()
+    "markdown-mode-hook"
+    (interactive)
+    (define-key markdown-mode-map (kbd "<tab>") nil))
+  (add-hook 'markdown-mode-hook '(lambda () (markdown-unset-tab)))
+  (add-hook 'poly-markdown+r-mode-hook '(lambda () (markdown-unset-tab))))
+#+end_src
+
+** realtime-preview
+   Markdown を eww でリアルタイムプレビューする.
+   - https://github.com/niku/realtime-preview.el
+   - [[http://niku.name/articles/2014/11/17/Emacs%E3%81%A0%E3%81%91%E3%81%A7Markdown%E3%81%AE%E3%83%AA%E3%82%A2%E3%83%AB%E3%82%BF%E3%82%A4%E3%83%A0%E3%83%97%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC%E3%82%92%E3%81%99%E3%82%8B][2014/11/17/Emacs だけで Markdown のリアルタイムプレビューをする ]]
+
+#+begin_src language
+gem install redcarpet
+#+end_src
+
+#+begin_src emacs-lisp
+(use-package realtime-preview.el :disabled t)
 #+end_src
 
 * csv-mode
@@ -162,20 +180,39 @@
 (use-package csv-mode)
 #+end_src
 
-* rmd-mode
-  R Markdown mode. RStudio と knitr に対応させたモード.
+* polymode
+  複数のモードを共存させる. これを利用して R と markdown を共存.
   - [[http://johnstantongeddes.org/open%20science/2014/03/26/Rmd-polymode.html][Using ESS with .Rmd files | John Stanton-Geddes]]
-  - [[http://stackoverflow.com/questions/16172345/how-can-i-use-emacs-ess-mode-with-r-markdown][How can I use Emacs ESS mode with R markdown? - Stack Overflow]]
   - [[http://stackoverflow.com/questions/16567348/knitr-markdown-highlighting-in-emacs][r - knitr Markdown highlighting in Emacs? - Stack Overflow]]
+  - https://github.com/vspinu/polymode
+
+#+begin_src emacs-lisp
+(use-package poly-markdown
+  :init
+  ;; MARKDOWN
+  (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode)))
+
+(use-package poly-R
+  :init
+  ;; R modes
+  (add-to-list 'auto-mode-alist '("\\.Snw" . poly-noweb+r-mode))
+  (add-to-list 'auto-mode-alist '("\\.Rnw" . poly-noweb+r-mode))
+  (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode)))
+#+end_src
+
+* R Markdown
+  ess-swv-knit で Rmd を md に変換できる.
   - [[http://d.hatena.ne.jp/a_bicky/20140221/1392941055#][R でレポートを作成するのに knitr が超便利 - あらびき日記]]
-  - [[http://roughtheory.com/posts/ess-rmarkdown.html][Using R Markdown in Emacs]]
+
+  html に変換するには, 以下の方法がある.
   - https://twitter.com/braingrasper/status/436689893624778752
+  - [[http://roughtheory.com/posts/ess-rmarkdown.html][Using R Markdown in Emacs]]
 
 #+begin_src emacs-lisp
 (defun rmarkdown-to-html ()
+  (interactive)
   "Run knitr::knit2html on the current file"
   "https://gist.github.com/kohske/9128031"
-  (interactive)
   (shell-command
    (format "Rscript -e \"knitr::knit2html ('%s')\""
 	   (shell-quote-argument (buffer-file-name)))))
@@ -184,9 +221,9 @@
 ;; library (rmarkdown); render ("file_name.Rmd")
 
 (defun ess-rmarkdown ()
+  (interactive)
   "Compile R markdown (.Rmd). Should work for any output type."
   "http://roughtheory.com/posts/ess-rmarkdown.html"
-  (interactive)
   ; Check if attached R-session
   (condition-case nil
       (ess-get-process)
@@ -205,5 +242,5 @@
 	(switch-to-buffer rmd-buf)
 	(ess-show-buffer (buffer-name sbuffer) nil)))))
 
-;; (define-key polymode-mode-map "\M-ns" 'ess-rmarkdown)
+(define-key polymode-mode-map "\M-ns" 'ess-rmarkdown)
 #+end_src

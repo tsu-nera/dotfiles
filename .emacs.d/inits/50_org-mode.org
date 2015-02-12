@@ -454,6 +454,18 @@
 ;; (setq org-src-fontify-natively t)
 #+end_src
 
+
+更新すると, 設定が消えた! syntaxhighlighter.php に追記する.
+
+#+begin_src language
+            // add myself
+	    'elisp'         => 'clojure',
+	    'emacs-lisp'    => 'clojure',
+            'shell'         => 'sh',
+            'language'      => 'text',            
+#+end_src
+
+
 ** images
    画像ファイルは記事投稿時にサーバの upload フォルダに転送されるよう.
 
