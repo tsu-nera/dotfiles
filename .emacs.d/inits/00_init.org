@@ -290,6 +290,8 @@
     helm-bm
     dired-filetype-face
     jazzradio
+    rake
+    origami
     )
  "A list of packages to install from el-get at launch.")
 

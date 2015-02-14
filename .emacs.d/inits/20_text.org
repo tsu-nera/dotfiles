@@ -70,6 +70,33 @@
    (use-package vlf-setup)
    #+end_src
 
+** origami
+   A folding minor mode for Emacs 
+   - https://github.com/gregsexton/origami.el
+   - [[http://rubikitch.com/2015/01/03/origami/][elisp,Clojure,C 系言語で org-mode 風の折畳みをする| るびきち「日刊 Emacs 」]]
+
+#+begin_src emacs-lisp
+(use-package origami
+  :init
+  (add-hook 'view-mode-hook 'view-mode-hook--origami)
+  :commands view-mode-hook--origami
+  :config
+  (define-minor-mode origami-view-mode
+    "TAB に origami の折畳みを割り当てる"
+    nil "折紙"
+    '(("\C-i" . origami-cycle))
+    (or origami-mode (origami-mode 1)))
+  
+  (defun origami-cycle (recursive)
+    "origami の機能を org 風にまとめる"
+    (interactive "P")
+    (call-interactively
+     (if recursive 'origami-toggle-all-nodes 'origami-toggle-node)))
+  (defun view-mode-hook--origami ()
+    (when (memq major-mode (mapcar 'car origami-parser-alist))
+      (origami-view-mode (if view-mode 1 -1)))))
+#+end_src
+
 * 編集
 ** cua-mode
    矩形編集.
@@ -451,7 +478,7 @@
 
 #+begin_src emacs-lisp
 (use-package iedit
-  ;; ace-jump-word-modeからkeybindingをもらう.
+  ;; ace-jump-word-mode から keybinding をもらう.
   :bind ("C-x ;" . iedit-mode))
 #+end_src
 
@@ -865,7 +892,7 @@ google-ime-skk &
      twittering-edit-mode))
   
   ;; コメント領域のところだけ有効.
-  ;; ieditを阻害するので封印
+  ;; iedit を阻害するので封印
   ;;  (mapc
   ;;   (lambda (hook)
   ;;     (add-hook hook 'flyspell-prog-mode))
@@ -874,7 +901,7 @@ google-ime-skk &
   ;;     java-mode-hook    
   ;;     emacs-lisp-mode-hook))
   :config
-  ;; C-; は ieditにわたすので、無効にしておく.
+  ;; C-; は iedit にわたすので, 無効にしておく.
   ;; (setq flyspell-auto-correct-binding nil)
   ;; どうも flyspell と ac-complete は相性が悪い?
   ;; (ac-flyspell-workaround)

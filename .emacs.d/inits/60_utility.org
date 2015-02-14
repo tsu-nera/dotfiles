@@ -685,32 +685,14 @@ sudo pacman -S ghostscript
 
 #+begin_src emacs-lisp
 (use-package moz
-  :disabled t
-  :init
-  ;; (add-hook 'php-mode-hook 'auto-reload-firefox-on-after-save-hook)
-  ;; (add-hook 'html-mode-hook 'auto-reload-firefox-on-after-save-hook)
-  ;; (add-hook 'css-mode-hook 'auto-reload-firefox-on-after-save-hook)
+  :commands (moz-reload)
   :config
-  (defun auto-reload-firefox-on-after-save-hook ()
-    (add-hook 'after-save-hook
-	      '(lambda ()
-		 (interactive)
-		 (comint-send-string (inferior-moz-process) "
-function reload (){
-  var i;
-  for (i=0;i<gBrowser.browsers.length;++i){
-    var host=gBrowser.getBrowserAtIndex (i).currentURI.host;
-    if (host=='localhost') break;
-  }
-  if (i>=gBrowser.browsers.length) return;
-  gBrowser.selectedTab=gBrowser.tabContainer.childNodes[i];
-  BrowserReload ();
-}
-reload ();
-"
-				     )))))
+  (defun moz-reload ()
+    (interactive)
+    (comint-send-string (inferior-moz-process) "BrowserReload();")))
 #+end_src
 
 ** conkeror 連携
-  - [[http://truongtx.me/2013/10/01/mozrepl-in-combination-with-emacs-for-developing-conkeror/#][Mozrepl in combination with Emacs for developing Conkeror]]
   - [[https://github.com/bard/mozrepl/wiki/Use-with-Conkeror][Use with Conkeror · bard/mozrepl Wiki]]
+  - [[http://truongtx.me/2013/10/01/mozrepl-in-combination-with-emacs-for-developing-conkeror/#][Mozrepl in combination with Emacs for developing Conkeror]]
+    
