@@ -628,7 +628,7 @@ sudo pacman -S ghostscript
 #+begin_src emacs-lisp
 (use-package jazzradio
   :config
-  (defun my/jazzradio-switch(my/jazzradio-channel-url my/jazzradio-playlist-base-url) ()
+  (defun my/jazzradio-switch (my/jazzradio-channel-url my/jazzradio-playlist-base-url) ()
 	 (unless jazzradio--process
 	   (jazzradio--stop))
 	 (setq jazzradio--process nil)
@@ -665,3 +665,52 @@ sudo pacman -S ghostscript
    3. mpayer にパスを通す.
 
    mplayer2 では動かなかった.
+
+* mozRepl
+  Emacs で保存時に firefox を reload する.
+  - [[https://github.com/bard/mozrepl/wiki][Home · bard/mozrepl Wiki]]
+  - https://github.com/bard/mozrepl/blob/master/chrome/content/moz.el
+  - [[http://d.hatena.ne.jp/hnw/20110506][Emacs+Firefox+MozRepl でファイルセーブと同時にリロード - hnw の日記]]
+  - [[http://qiita.com/hakomo/items/9a99115f8911b55957bb][Emacs で保存時に Firefox のタブを探してリロード - Qiita]]
+  - [[http://www.emacswiki.org/emacs/MozRepl][EmacsWiki: Moz Repl]]
+
+  Alt-T でツールバー表示.
+
+** keybindings
+  - C-c C-s" run-mozilla
+  - C-M-x"  moz-send-defun
+  - C-c C-c" moz-send-defun-and-go
+  - C-c C-r" moz-send-region
+  - C-c C-l" moz-save-buffer-and-send
+
+#+begin_src emacs-lisp
+(use-package moz
+  :disabled t
+  :init
+  ;; (add-hook 'php-mode-hook 'auto-reload-firefox-on-after-save-hook)
+  ;; (add-hook 'html-mode-hook 'auto-reload-firefox-on-after-save-hook)
+  ;; (add-hook 'css-mode-hook 'auto-reload-firefox-on-after-save-hook)
+  :config
+  (defun auto-reload-firefox-on-after-save-hook ()
+    (add-hook 'after-save-hook
+	      '(lambda ()
+		 (interactive)
+		 (comint-send-string (inferior-moz-process) "
+function reload (){
+  var i;
+  for (i=0;i<gBrowser.browsers.length;++i){
+    var host=gBrowser.getBrowserAtIndex (i).currentURI.host;
+    if (host=='localhost') break;
+  }
+  if (i>=gBrowser.browsers.length) return;
+  gBrowser.selectedTab=gBrowser.tabContainer.childNodes[i];
+  BrowserReload ();
+}
+reload ();
+"
+				     )))))
+#+end_src
+
+** conkeror 連携
+  - [[http://truongtx.me/2013/10/01/mozrepl-in-combination-with-emacs-for-developing-conkeror/#][Mozrepl in combination with Emacs for developing Conkeror]]
+  - [[https://github.com/bard/mozrepl/wiki/Use-with-Conkeror][Use with Conkeror · bard/mozrepl Wiki]]

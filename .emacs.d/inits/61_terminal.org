@@ -53,6 +53,7 @@
 
 ;; eshell の alias 設定
 ;; http://www.emacswiki.org/emacs/EshellAlias
+;; eshell上では eshell/hogeというコマンドは hogeに置き換えられる.
 (setq eshell-command-aliases-list
       (append
        (list
@@ -62,7 +63,6 @@
 	(list "emacs" "find-file $1")
 	(list "m" "find-file $1")
 	(list "mc" "find-file $1")	
-        (list "less" "eshell/less $1")
         (list "l" "eshell/less $1")		
         (list "forced_git_local_destroy" "git fetch origin;git reset --hard origin/master")
        )))

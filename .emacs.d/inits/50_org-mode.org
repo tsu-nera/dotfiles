@@ -633,6 +633,7 @@
     参考:
     - [[http://orgmode.org/manual/Exporting-code-blocks.html][Exporting code blocks - The Org Manual]]
 
+*** 
 
 ** インタプリタ
    インタプリタをもつ言語では, :session hogehoge を記述することで,
@@ -649,8 +650,6 @@
    #+begin_src java :classname packagename/classname
    #+end_src
 
-** R
-   -> minorlang.org へ.
 
 ** mmm-mode
    mmm-mode を利用すると, org-mode のなかに major-mode が共存できる.

@@ -181,18 +181,10 @@
    eww-copy-page-url (w) で現在の URL をクリップボードにコピー.
 
 #+begin_src emacs-lisp
-(defvar eww-org-link-buffer "")
 (defun eww-copy-page-org-link ()
   (interactive)
-  (setq eww-org-link-buffer
-	(format "[[%s][%s]]" (eww-current-url) (eww-current-title)))
-  (message "stored org-link: %s" eww-org-link-buffer))
-  
-(defun eww-yank-page-org-link ()
-  (interactive)
-  (insert eww-org-link-buffer))
-(define-key eww-mode-map (kbd "@") 'eww-copy-page-org-link)
-(define-key org-mode-map (kbd "C-x @ @") 'eww-yank-page-org-link)
+  (my/copy-org-link (eww-current-url) (eww-current-title)))
+(define-key eww-mode-map (kbd "0") 'eww-copy-page-org-link)
 #+end_src
 
 ** 画面の表示幅変更

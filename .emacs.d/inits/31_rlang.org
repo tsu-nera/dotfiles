@@ -162,8 +162,21 @@
 gem install redcarpet
 #+end_src
 
+重すぎて使えない...
+
 #+begin_src emacs-lisp
 (use-package realtime-preview.el :disabled t)
+#+end_src
+
+** moz-markdwon-viewer
+   - [[http://d.hatena.ne.jp/syohex/20121122/1353598333][Emacs + MozRepl + Github Markdown API を使った Markdown Viewer - Life is very short]]
+   - https://github.com/syohex/emacs-moz-markdown-viewer
+
+#+begin_src emacs-lisp
+(use-package moz-markdown-viewer
+  :config
+  (eval-after-load 'markdown-mode
+    '(define-key markdown-mode-map (kbd "C-c C-r") 'moz-markdown-viewer:render)))
 #+end_src
 
 * csv-mode

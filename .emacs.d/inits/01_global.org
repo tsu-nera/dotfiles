@@ -66,7 +66,7 @@ git clone git://git.savannah.gnu.org/emacs.git
 ;;       `((".*" ,(expand-file-name "~/.emacs.d/backup") t)))
 #+end_src
 
-**  symlink は必ず追いかける
+** symlink は必ず追いかける
 
 #+begin_src emacs-lisp
 (setq vc-follow-symlinks t)
@@ -370,6 +370,39 @@ git clone git://git.savannah.gnu.org/emacs.git
 #+begin_src emacs-lisp
 (setq visible-bell t)
 (setq ring-bell-function 'ignore)
+#+end_src
+
+** カレントディレクトリのパス取得
+   - [[http://ergoemacs.org/emacs/emacs_copy_file_path.html][Emacs Lisp: Copy File Path of Current Buffer]]
+   - [[http://qiita.com/ShingoFukuyama/items/8f1d3342180d42ad9f78][Emacs - 開いているファイル/ フォルダのパスをクリップボードに保存する - Qiita]]
+
+#+begin_src emacs-lisp
+(defun my/get-curernt-path ()
+    (if (equal major-mode 'dired-mode)
+	default-directory
+	(buffer-file-name)))
+
+(defun my/copy-current-path ()                                                         
+  (interactive)
+  (let ((fPath (my/get-curernt-path)))
+    (when fPath
+      (message "stored path: %s" fPath)
+      (kill-new (file-truename fPath)))))
+
+(defun my/copy-current-org-link-path ()
+  (interactive)
+  (let* ((fPath (my/get-curernt-path))
+	 (fName (file-relative-name fPath)))
+    (my/copy-org-link fPath fName)))
+
+(defun my/copy-org-link (my/current-path my/current-title)
+  (let ((orgPath
+	 (format "[[%s][%s]]" my/current-path my/current-title)))
+    (message "stored org-link: %s" orgPath)
+    (kill-new orgPath)))
+
+(global-set-key (kbd "C-c 0") 'my/copy-current-path)
+(global-set-key (kbd "C-x @ @") 'my/copy-current-org-link-path)
 #+end_src
 
 * workaround
