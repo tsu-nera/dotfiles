@@ -60,6 +60,10 @@
   (setq rake-completion-system 'helm))
 #+end_src
 
+** helm-make
+   #+begin_src emacs-lisp
+   #+end_src
+
 * プロジェクト管理
 ** projectile
    Project Interaction Library for Emacs.
@@ -272,8 +276,8 @@
     - C-c ! p (flycheck-previous-error)
     - C-c ! l (flycheck-list-errors) 
 
-*** Config
-    一応手動起動にする.
+*** Configuration
+    - [[http://qiita.com/senda-akiha/items/cddb02cfdbc0c8c7bc2b][Emacs - Flycheck でモダンなシンタックスチェック - Qiita]]
     
 #+begin_src emacs-lisp
 (use-package flycheck)
@@ -281,15 +285,22 @@
   ;; (add-hook 'after-init-hook #'global-flycheck-mode))
 #+end_src
 
-** flycheck-color-mode-line
-   エラーがあればモードラインが光る.
+*** extensions
+**** flycheck-pos-tip
+     ポップアップで注意事項を表示する. 
 
-#+begin_src emacs-lisp
+**** flycheck-color-mode-line
+     エラーがあればモードラインが光る. flycheck のサブモジュール.
+     - https://github.com/flycheck/flycheck-color-mode-line
+
+     光らないが, powerline のせいか?
+     
+  #+begin_src emacs-lisp
 (use-package flycheck-color-mode-line
   :init
   (eval-after-load "flycheck"
     '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode)))
-#+end_src
+  #+end_src
 
 * リファクタリング
 ** emacs-refactor
@@ -329,6 +340,50 @@
 #+begin_src emacs-lisp
 (use-package tdd :disabled t)
 #+end_src
+
+** origami
+   A folding minor mode for Emacs 
+   - https://github.com/gregsexton/origami.el
+   - [[http://rubikitch.com/2015/01/03/origami/][elisp,Clojure,C 系言語で org-mode 風の折畳みをする| るびきち「日刊 Emacs 」]]
+
+#+begin_src emacs-lisp
+(use-package origami
+  :init
+  (add-hook 'view-mode-hook 'view-mode-hook--origami)
+  ;; お試しで, C 言語で有効にしてみよう
+  (add-hook 'c-mode-common-hook 'origami-mode)
+  :commands view-mode-hook--origami
+  :config
+  (define-minor-mode origami-view-mode
+    "TAB に origami の折畳みを割り当てる"
+    nil "折紙"
+    '(("\C-i" . origami-cycle))
+    (or origami-mode (origami-mode 1)))
+  (defun origami-cycle (recursive)
+    "origami の機能を org 風にまとめる"
+    (interactive "P")
+    (call-interactively
+     (if recursive 'origami-toggle-all-nodes 'origami-toggle-node)))
+  (defun view-mode-hook--origami ()
+    (when (memq major-mode (mapcar 'car origami-parser-alist))
+      (origami-view-mode (if view-mode 1 -1))))
+
+  ;; indent と競合するなぁ. org-mode のようになってほしい.
+  ;; (define-key origami-mode-map (kbd "C-i") 'origami-forward-toggle-node)
+  (define-key origami-mode-map (kbd "TAB") 'origami-forward-toggle-node)
+  (define-key origami-mode-map (kbd "<backtab>") 'origami-toggle-all-nodes))
+#+end_src
+
+** smart-newline
+   空気を読んでくれる newline
+   - [[http://ainame.hateblo.jp/entry/2013/12/08/162032][smart-newline.el という拡張 #emacs - ainame の日記]]
+   - https://github.com/ainame/smart-newline.el
+
+   #+begin_src emacs-lisp
+   (use-package smart-newline
+     :init
+     (define-key global-map (kbd "C-j") 'smart-newline))
+   #+end_src
 
 * git
 ** magit

@@ -16,6 +16,9 @@
 	      )))
 #+end_src
 
+** Key bindings
+   - M-j, C-M-j コメントで * を入れて改行してくれる.
+
 * エラーチェック
 ** flycheck
 

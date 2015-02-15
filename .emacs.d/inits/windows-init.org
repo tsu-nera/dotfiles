@@ -139,3 +139,19 @@ old mode 100755 new mode 100644
        (w32-browser (dired-replace-in-string "/" "\\" (dired-get-filename))))))
 #+end_src
 
+** Emacs からボリューム変更
+   - [[http://qiita.com/natsutan/items/706a7ee72008abda8842][Windows の音量を Emacs から制御する - Qiita]]
+
+#+begin_src emacs-lisp
+(defun volume-up ()
+  (interactive)
+  (call-process "mcvc.exe" nil nil nil "m+10"))
+(defun volume-down ()
+  (interactive)
+  (call-process "mcvc.exe" nil nil nil "m-10"))
+
+;; キーバインド
+;;(global-set-key (kbd "C-;") 'volume-up)
+; (global-set-key (kbd "C-:") 'volume-down)
+#+end_src
+
