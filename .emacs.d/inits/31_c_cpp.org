@@ -42,6 +42,31 @@
 
 * エラーチェック
 ** flycheck
+   gcc, clnag, cppcheck が default のチェッカーとして用意されている.
+   - [[https://flycheck.readthedocs.org/en/latest/guide/languages.html#c-c][Supported languages - Flycheck 0.23-cvs]]
+
+   参考: 今は自分で定義しなくても build-in されているよう.
+   - https://github.com/jedrz/.emacs.d/blob/master/setup-flycheck.el
+   - [[http://qiita.com/akisute3@github/items/6fb94c30f92dae2a24ee][Emacs - flycheck で C/C++ のエラーチェック定義を追加する - Qiita]]
+
+   gcc だとなにも検出してくれない.なんでだろう.
+
 #+begin_src emacs-lisp
 (add-hook 'c-mode-common-hook 'flycheck-mode)
+(defmacro flycheck-define-clike-checker (name command modes)
+  `(flycheck-define-checker ,(intern (format "%s" name))
+     ,(format "A %s checker using %s" name (car command))
+     :command (,@command source-inplace)
+     :error-patterns
+     ((warning line-start (file-name) ":" line ":" column ": 警告:" (message) line-end)
+      (error line-start (file-name) ":" line ":" column ": エラー:" (message) line-end))
+     :modes ',modes))
+(flycheck-define-clike-checker c-gcc-ja
+			       ("gcc" "-fsyntax-only" "-Wall" "-Wextra")
+			       c-mode)
+(add-to-list 'flycheck-checkers 'c-gcc-ja)
+(flycheck-define-clike-checker c++-g++-ja
+			       ("g++" "-fsyntax-only" "-Wall" "-Wextra" "-std=c++11")
+			       c++-mode)
+(add-to-list 'flycheck-checkers 'c++-g++-ja)
 #+end_src

@@ -14,6 +14,10 @@
      - flycheck
    - リファクタリング
    - インタープリタ・デバッカ
+
+** prog-mode
+   programming のためのメジャーモード.
+   - [[http://www.emacswiki.org/emacs/ProgMode][EmacsWiki: Prog Mode]]
   
 * コンパイル
 ** smart-compile
@@ -274,18 +278,25 @@
    - [[http://www.flycheck.org/en/latest/guide/languages.html][Supported languages - Flycheck 0.23-cvs]]
 
 *** Usage
-    - C-c ! c (flycheck-buffer) 現在の行を評価
+    基本の使い方
+    - C-c ! c (flycheck-buffer) 現在のバッファを検査
+    - C-c ! C (flycheck-clear)  
     - C-c ! n (flycheck-next-error)
     - C-c ! p (flycheck-previous-error)
     - C-c ! l (flycheck-list-errors) 
+
+    以下で checker を切り替える
+    - C-c ! s
 
 *** Configuration
     - [[http://qiita.com/senda-akiha/items/cddb02cfdbc0c8c7bc2b][Emacs - Flycheck でモダンなシンタックスチェック - Qiita]]
     
 #+begin_src emacs-lisp
-(use-package flycheck)
+(use-package flycheck
   ;; :init
-  ;; (add-hook 'after-init-hook #'global-flycheck-mode))
+  ;; (add-hook 'after-init-hook #'global-flycheck-mode)
+  :config
+  (setq flycheck-highlighting-mode 'lines))
 #+end_src
 
 *** extensions
@@ -354,7 +365,7 @@
   :init
   (add-hook 'view-mode-hook 'view-mode-hook--origami)
   ;; お試しで, C 言語で有効にしてみよう
-  (add-hook 'c-mode-common-hook 'origami-mode)
+  ;; (add-hook 'c-mode-common-hook 'origami-mode)
   :commands view-mode-hook--origami
   :config
   (define-minor-mode origami-view-mode
