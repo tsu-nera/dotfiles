@@ -1,0 +1,3 @@
+(:name helm-make
+       :type github
+       :pkgname "abo-abo/helm-make")

@@ -61,7 +61,10 @@
 #+end_src
 
 ** helm-make
+   - https://github.com/abo-abo/helm-make
+
    #+begin_src emacs-lisp
+   (use-package helm-make)
    #+end_src
 
 * プロジェクト管理

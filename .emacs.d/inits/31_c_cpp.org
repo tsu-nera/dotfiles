@@ -4,6 +4,16 @@
   - [[http://at-aka.blogspot.jp/2006/12/emacs-c.html][clmemo@aka: Emacs で C 言語プログラミングを始める人へのイントロダクション]]
   - [[http://sakito.jp/emacs/emacsobjectivec.html][Emacs で iPhone アプリ開発を快適にするための設定 : 紹介マニア]]
 
+** cc-mode
+   C, C++, Objc, Java などなどをいっぺんに設定するモード
+   - [[http://cc-mode.sourceforge.net/][CC Mode]]
+
+   マニュアル.
+   - [[http://cc-mode.sourceforge.net/html-manual/index.html][CC Mode Manual]]
+
+   c-mode-common-hook は java にも適用されてしまうようだ.
+   - [[http://www.gnu.org/software/emacs/manual/html_node/ccmode/CC-Hooks.html][CC Hooks - CC Mode Manual]]
+
 #+begin_src emacs-lisp
 (use-package cc-mode
   :init
@@ -19,9 +29,19 @@
 ** Key bindings
    - M-j, C-M-j コメントで * を入れて改行してくれる.
 
+** c-mode
+   C 言語固有設定
+
+** c++-mode
+   C++ 言語固有設定.
+   - [[http://www.emacswiki.org/emacs/CPlusPlusMode][EmacsWiki: C Plus Plus Mode]]
+
+#+begin_src emacs-lisp
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+#+end_src
+
 * エラーチェック
 ** flycheck
-
 #+begin_src emacs-lisp
 (add-hook 'c-mode-common-hook 'flycheck-mode)
 #+end_src

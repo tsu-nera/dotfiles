@@ -329,6 +329,17 @@
   :bind ("C-<f5>" . helm-bm))
 #+end_src
 
+** helm-make
+   helm interface for make
+   - https://github.com/abo-abo/helm-make
+
+#+begin_src emacs-lisp
+(use-package helm-make
+  :init
+  (define-key c-mode-map (kbd "M-\"") 'helm-make-projectile)
+  (define-key c++-mode-map (kbd "M-\"") 'helm-make-projectile))
+#+end_src
+
 * 未使用中...
 ** helm-github-issues
 #+begin_src emacs-lisp
