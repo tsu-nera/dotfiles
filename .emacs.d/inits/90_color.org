@@ -27,7 +27,8 @@
 (use-package bm
   :bind   (("<f5>" . bm-toggle))
   :config
-  (setq bm-face '((t (:background "steel blue" :foreground "#272822")))))
+  ;; (setq bm-face '((t (:background "steel blue" :foreground "#272822")))))
+  (setq bm-face '((t (:background "#525252" :foreground "")))))
 ;; 移動は helm-bm におきかえる
 ;;	   ("<C-f5>"  . bm-next)
 ;;	   ("<S-f5>" . bm-previous)))

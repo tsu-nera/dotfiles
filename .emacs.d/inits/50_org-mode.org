@@ -650,7 +650,6 @@
    #+begin_src java :classname packagename/classname
    #+end_src
 
-
 ** mmm-mode
    mmm-mode を利用すると, org-mode のなかに major-mode が共存できる.
    - https://github.com/purcell/mmm-mode

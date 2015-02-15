@@ -326,7 +326,7 @@
 
 #+begin_src emacs-lisp
 (use-package helm-bm
-  :bind ("C-<f5>" . helm-bm))
+  :bind ("C-x <f5>" . helm-bm))
 #+end_src
 
 ** helm-make
