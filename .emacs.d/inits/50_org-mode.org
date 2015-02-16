@@ -633,8 +633,6 @@
     参考:
     - [[http://orgmode.org/manual/Exporting-code-blocks.html][Exporting code blocks - The Org Manual]]
 
-*** 
-
 ** インタプリタ
    インタプリタをもつ言語では, :session hogehoge を記述することで,
    hogehoge バッファでセッションが開始する.
@@ -685,6 +683,16 @@
        :front "^#\\+begin_src R[ \t]*\n?"
        :back "^#\\+end_src")))
   (mmm-add-mode-ext-class 'org-mode nil 'org-R))
+#+end_src
+
+** flycheck を動かす
+   - see: [[http://www.wisdomandwonder.com/link/9573/how-to-correctly-enable-flycheck-in-babel-source-blocks][How to Correctly Enable Flycheck in Babel Source Blocks | Wisdom and Wonder]]
+   
+#+begin_src emacs-lisp
+(defadvice org-edit-src-code (around set-buffer-file-name activate compile)
+  (let ((file-name (buffer-file-name))) ;; (1)
+    ad-do-it                            ;; (2)
+    (setq buffer-file-name file-name))) ;; (3)
 #+end_src
 
 * org-narrow
