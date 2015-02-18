@@ -1,0 +1,3 @@
+(:name semantic-refactor
+       :type github
+       :pkgname "tuhdo/semantic-refactor")
