@@ -295,6 +295,7 @@
     smart-newline
     helm-make
     semantic-refactor
+    function-args
     )
  "A list of packages to install from el-get at launch.")
 

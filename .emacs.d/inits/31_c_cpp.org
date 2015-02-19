@@ -38,6 +38,9 @@
 
 #+begin_src emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+
+;; Enable case-insensitive searching
+(set-default 'semantic-case-fold t)
 #+end_src
 
 * エラーチェック
@@ -90,5 +93,29 @@
 
 * Completion 
 ** function-args
-  C++ 用の 補完. 
-  - https://github.com/abo-abo/function-args
+   C/C++ 用の 補完.  CEDET のモダンな置き換え.
+   - https://github.com/abo-abo/function-args
+
+   moo-complete で構造体やクラス変数が置換できるのがうれしい.
+
+   - M-o moo-complete semantic な補完
+   - M-i  fa-show 関数ヒントをポップアップ
+   - M-j  fa-jump-maybe ポップアップ状態でオスとジャンプ
+   - moo-propose-overide オーバーライドを suggest
+   - moo-propose-variable 変数を suggest
+
+#+begin_src emacs-lisp
+(use-package function-args
+  :config
+  (fa-config-default)
+  (define-key function-args-mode-map (kbd "M-o") nil)
+  (define-key c-mode-map (kbd "C-M-:") 'moo-complete)
+  (define-key c++-mode-map (kbd "C-M-:") 'moo-complete)
+  
+  (custom-set-faces
+   '(fa-face-hint ((t (:background "#3f3f3f" :foreground "#ffffff"))))
+   '(fa-face-hint-bold ((t (:background "#3f3f3f" :weight bold))))
+   '(fa-face-semi ((t (:background "#3f3f3f" :foreground "#ffffff" :weight bold))))
+   '(fa-face-type ((t (:inherit (quote font-lock-type-face) :background "#3f3f3f"))))
+   '(fa-face-type-bold ((t (:inherit (quote font-lock-type-face) :background "#999999" :bold t))))))
+#+end_src
