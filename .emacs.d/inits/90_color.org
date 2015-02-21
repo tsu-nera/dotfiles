@@ -9,11 +9,14 @@
 #+end_src
 
 ** 80 行目をハイライト
-   なんかうまくうごいていない.
+*** column-enforce-mode
+    - https://github.com/jordonbiondo/column-enforce-mode/
+    - [[http://rubikitch.com/tag/emacs-column-enforce-mode-%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88/][「 emacs column-enforce-mode スクリーンショット」タグの記事一覧 | るびきち「日刊 Emacs 」]]
 
 #+begin_src emacs-lisp
-;; (use-package highlight-80+)
-;; (add-hook 'text-mode-hook (lambda () (interactive) (highlight-80+-mode 1)))
+(use-package column-enforce-mode
+  :init
+  (add-hook 'prog-mode-hook 'column-enforce-mode))
 #+end_src
 
 ** Set Mark をハイライト

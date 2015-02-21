@@ -296,6 +296,7 @@
     helm-make
     semantic-refactor
     function-args
+    column-enforce-mode
     )
  "A list of packages to install from el-get at launch.")
 

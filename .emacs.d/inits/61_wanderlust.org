@@ -91,7 +91,8 @@
 
 #+begin_src emacs-lisp
 ;; サマリの横幅は制限なし ... 動かない..
-(setq wl-suumary-width nil)
+(setq wl-summary-always-sticky-folder-list t)
+(setq wl-suumary-width 150)
 (setq wl-summary-indent-length-limit nil)
 (setq wl-summary-subject-length-limit nil)
 
@@ -203,15 +204,16 @@
 #+end_src
 
 ** fetchmail
-会社では, fetchmail を利用中
+   会社では, fetchmail を利用中
+   - [[http://dis-dot-dat.blogspot.jp/2010/04/my-wanderlust-setup.html][readme: My Wanderlust setup]]
 
 #+begin_src emacs-lisp
 (when windows-p
 (defun fetchmail-fetch ()
   (interactive)
   (shell-command "fetchmail"))
+(global-set-key "\C-x\M-m" 'fetchmail-fetch)
 (define-key wl-summary-mode-map (kbd "<f9>") 'fetchmail-fetch)
-;; (define-key wl-folder-mode-map (kbd "<f9>") 'fetchmail-fetch)
 (define-key wl-draft-mode-map (kbd "<f9>") 'fetchmail-fetch))
 #+end_src
   

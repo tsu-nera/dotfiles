@@ -19,6 +19,33 @@
    programming のためのメジャーモード.
    - [[http://www.emacswiki.org/emacs/ProgMode][EmacsWiki: Prog Mode]]
   
+* 編集 (とくにプログラミング)
+** インデントで垂直方向に揃える
+   M-x align-regexp
+   - [[http://postd.cc/why-i-vertically-align-my-code-and-you-should-too/][【翻訳】私がコーディングで垂直方向にそろえるインデントをとる理由 | POSTD]]
+
+   これ便利.
+   - [[http://stackoverflow.com/questions/3633120/emacs-hotkey-to-align-equal-signs][Emacs hotkey to align equal signs - Stack Overflow]]
+
+#+begin_src emacs-lisp
+(defun align-to-equals (begin end)
+  "Align region to equal signs"
+   (interactive "r")
+   (align-regexp begin end "\\(\\s-*\\)=" 1 1 ))
+(global-set-key (kbd "C-x a =") 'align-to-equals)
+#+end_src
+
+** 80 行目をハイライト
+*** column-enforce-mode
+    - https://github.com/jordonbiondo/column-enforce-mode/
+    - [[http://rubikitch.com/tag/emacs-column-enforce-mode-%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88/][「 emacs column-enforce-mode スクリーンショット」タグの記事一覧 | るびきち「日刊 Emacs 」]]
+
+#+begin_src emacs-lisp
+(use-package column-enforce-mode
+  :init
+  (add-hook 'prog-mode-hook 'column-enforce-mode))
+#+end_src
+
 * コンパイル
 ** smart-compile
    コマンドからコンパイル実行. 独自改造したものが, elisp にある.

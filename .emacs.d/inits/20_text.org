@@ -63,7 +63,7 @@
 #+end_src
 
 ** vlfi
-   View Large File
+   View Large File. これはけっこう便利.
    - https://github.com/m00natic/vlfi
 
    #+begin_src emacs-lisp
