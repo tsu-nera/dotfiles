@@ -41,10 +41,10 @@
 
 #+begin_src emacs-lisp
 ;;; 一行が 80 字以上になった時には自動改行する
-;; (setq fill-column 80)
+(setq fill-column 80)
 ;;(setq-default auto-fill-mode t)
-;; (add-hook 'text-mode-hook 'turn-on-auto-fill)
-;; (add-hook 'org-mode-hook 'turn-on-auto-fill)
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
 #+end_src
 
 ** Popwin

@@ -73,6 +73,9 @@ define_webjump("clip","javascript:(function(){EN_CLIP_HOST='http://www.evernote.
 // http://b.hatena.ne.jp/register
 define_webjump("hatena","javascript:(function(){var%20d=(new%20Date);var%20s=document.createElement('script');s.charset='UTF-8';s.src='http://b.hatena.ne.jp/js/Hatena/Bookmark/let.js?'+d.getFullYear()+d.getMonth()+d.getDate();(document.getElementsByTagName('head')[0]||document.body).appendChild(s);})();");
 
+// twitter
+define_webjump("twitter","javascript:(function()%7Bwindow.twttr=window.twttr%7C%7C%7B%7D;var%20D=550,A=450,C=screen.height,B=screen.width,H=Math.round((B/2)-(D/2)),G=0,F=document,E;if(C%3EA)%7BG=Math.round((C/2)-(A/2))%7Dwindow.twttr.shareWin=window.open(%27http://twitter.com/share%27,%27%27,%27left=%27+H+%27,top=%27+G+%27,width=%27+D+%27,height=%27+A+%27,personalbar=0,toolbar=0,scrollbars=1,resizable=1%27);E=F.createElement(%27script%27);E.src=%27http://platform.twitter.com/bookmarklets/share.js?v=1%27;F.getElementsByTagName(%27head%27)%5B0%5D.appendChild(E)%7D());");
+
 // create link
 // define_webjump("link_markdown","javascript:(function(){prompt('Copy to Clipboard','['+document.title.replace(/([\[\]])/g,'\\$1')+']'+'('+location.href+')');})();");
 define_webjump("@","javascript:(function(){prompt('Copy to Clipboard','['+'['+location.href+']'+'['+document.title.replace(/([\[\]])/g,'\\$1')+']'+']');})();");
@@ -117,3 +120,4 @@ cwd.append("Downloads");
 theme_load_paths.unshift("~/.conkerorrc/themes/");
 theme_unload("default");
 theme_load("conkeror-theme-zenburn");
+

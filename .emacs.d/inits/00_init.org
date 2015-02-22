@@ -107,6 +107,7 @@
 * El-get
   Emacs 用パッケージマネージャー
   - https://github.com/dimitri/el-get
+  - [[http://d.hatena.ne.jp/tarao/20150221/1424518030][Cask はもう古い, これからは El-Get - いまどきの Emacs パッケージ管理 ]]
 
 * el-get 同期 Package
 #+begin_src emacs-lisp 
