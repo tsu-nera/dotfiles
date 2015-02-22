@@ -72,6 +72,28 @@ git clone git://git.savannah.gnu.org/emacs.git
 (setq vc-follow-symlinks t)
 #+end_src
 
+** other
+
+#+begin_src emacs-lisp
+;;; 右から左に読む言語に対応させないことで描画高速化
+(setq-default bidi-display-reordering nil)
+
+;;; 同じ内容を履歴に記録しないようにする
+(setq history-delete-duplicates t)
+
+;;; インデントに TAB を使わないようにする
+(setq-default indent-tabs-mode nil)
+
+;;; GC を減らして軽くする
+(setq gc-cons-threshold (* 10 gc-cons-threshold))
+
+;;; ログの記録行数を増やす
+(setq message-log-max 10000)
+
+;;; 履歴をたくさん保存する
+(setq history-length 1000)
+#+end_src
+
 * Key Bindings
 ** Global Keys
    よくわすれる, C や M の意味.
