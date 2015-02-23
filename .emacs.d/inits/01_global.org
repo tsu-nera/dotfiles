@@ -217,6 +217,7 @@ git clone git://git.savannah.gnu.org/emacs.git
 
 #+begin_src emacs-lisp
 (define-key goto-map [?b] #'browse-url-at-point)
+(define-key goto-map [?w] #'browse-url-with-eww)
 #+end_src
 
 ** bind-key

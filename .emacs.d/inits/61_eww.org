@@ -20,10 +20,9 @@
    
 #+begin_src emacs-lisp
 (use-package eww
-  :commands (eww-disable-images)
+  :commands (eww-disable-images browse-url-with-eww)
   :bind (("C-t <C-return>" . eww)
-	 ("C-x g g" . eww-search)
-	 ("C-c p" . browse-url-with-eww))
+	 ("C-x g g" . eww-search))
   :config
   (define-key eww-mode-map "r" 'eww-reload)
   (define-key eww-mode-map "c 0" 'eww-copy-page-url)

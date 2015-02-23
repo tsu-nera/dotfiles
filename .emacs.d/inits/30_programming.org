@@ -502,7 +502,6 @@
    | C-x v u | vc-revert                | 修正の破棄             | revert      |
    | C-x v d | vc-dir                   | 状態の表示             | status      |
    |         | ediff-revision           | Ediff で差分を表示     |             |
-   
 
    vc-annotate がすごくいい.
    - [[http://d.hatena.ne.jp/naoya/20080404/1207294998][Emacs の vc-annotate - naoya のはてなダイアリー]]
@@ -514,4 +513,3 @@
   (let ((name (file-relative-name file)))
     (vc-git-command buf 'async nil "blame" "--date=iso" rev "--" name)))
 #+end_src
-

@@ -51,6 +51,8 @@
   Emacs Twitter Client
   - [[http://www.emacswiki.org/emacs/TwitteringMode-ja][EmacsWiki: TwitteringMode-ja]]
 
+  M-x twit
+
 #+begin_src emacs-lisp
 (use-package twittering-mode
   :bind ("C-c C-x w" . twittering-update-status-from-pop-up-buffer)
@@ -58,7 +60,10 @@
   (setq twittering-use-master-password t)
   ;; パスワード暗号ファイル保存先変更 (デフォはホームディレクトリ)
   (setq twittering-private-info-file "~/.emacs.d/twittering-mode.gpg")
-  )
+
+  ;; はじめに開くタイムライン
+  (setq twittering-initial-timeline-spec-string
+        '("tsu_nera")))
 #+end_src
 
 *** popwin に閉じ込める
@@ -689,7 +694,7 @@ sudo pacman -S ghostscript
   :config
   (defun moz-reload ()
     (interactive)
-    (comint-send-string (inferior-moz-process) "BrowserReload();")))
+    (comint-send-string (inferior-moz-process) "BrowserReload ();")))
 #+end_src
 
 ** conkeror 連携
