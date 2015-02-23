@@ -485,3 +485,33 @@
 ;;; avoid "Symbolic link to Git-controlled source file;; follow link? (yes or no)
 (setq git-follow-symlinks t)
  #+end_src
+* svn
+** vc-mode
+   Emacs にはじめから入っている.
+   - [[http://dev.ariel-networks.com/articles/emacs/part7/][「 VC (バージョンコントロール) パッケージの基礎」 (菅原泰樹) - ありえるえりあ]]
+
+   | key     | command                  | 説明                   | svn command |
+   |---------+--------------------------+------------------------+-------------|
+   | C-x v = | vc-diff                  | 差分を表示             | diff        |
+   | C-x v l | vc-print-log             | 履歴を表示             | log         |
+   | C-x v g | vc-annotate              | 注釈を表示             | blame       |
+   | C-x v ~ | vc-revision-other-window | 過去のバージョンを表示 | cat         |
+   | C-x v + | vc-update                | 更新                   | update      |
+   | C-x v v | vc-next-action           | コミット               | commit      |
+   | C-x v i | vc-register              | ファイルの追加         | add         |
+   | C-x v u | vc-revert                | 修正の破棄             | revert      |
+   | C-x v d | vc-dir                   | 状態の表示             | status      |
+   |         | ediff-revision           | Ediff で差分を表示     |             |
+   
+
+   vc-annotate がすごくいい.
+   - [[http://d.hatena.ne.jp/naoya/20080404/1207294998][Emacs の vc-annotate - naoya のはてなダイアリー]]
+   - [[http://blog.kyanny.me/entry/2014/08/16/022311][vc-git の vc-annotate をコンパクトな見た目にする - @kyanny's blog]] 
+
+#+begin_src emacs-lisp
+(defadvice vc-git-annotate-command (around vc-git-annotate-command activate)
+  "suppress relative path of file from git blame output"
+  (let ((name (file-relative-name file)))
+    (vc-git-command buf 'async nil "blame" "--date=iso" rev "--" name)))
+#+end_src
+
