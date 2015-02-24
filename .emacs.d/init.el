@@ -56,25 +56,12 @@
                           (or load-path nil))))
 (require 'org)
 
-;; ------------------------------------------------------------------------
-;; Name     : bundle.el
-;; Function : an el-get wapper
-;; Refs     : 
-;; https://github.com/tarao/bundle-el
-;; ------------------------------------------------------------------------
-;; bundleを el-getで取得する
-(add-to-list 'el-get-sources
-	     '(:name bundle :type github :pkgname "tarao/bundle-el"))
-(el-get 'sync 'bundle)
-
 ;; -----------------------------------------------------------------------
 ;; Name     : init-loader
 ;; Install  : git clone https://github.com/emacs-jp/init-loader
 ;; Function : init.el分割管理
 ;; ------------------------------------------------------------------------
-(bundle emacs-jp/init-loader)
-;; (require 'bundle)
-;; (require 'init-loader)
+(el-get-bundle emacs-jp/init-loader)
 
 ;; バイトコンパイルする
 ;; 初めのバイトコンパイルは手動で実施する必要がある
@@ -94,7 +81,7 @@
 ;; Function : inits.org分割管理
 ;; Refs     : https://github.com/takaishi/babel-loader.el
 ;; ------------------------------------------------------------------------
-(bundle takaishi/babel-loader.el)
+(el-get-bundle takaishi/babel-loader.el)
 (require 'org-element)
 (add-to-list 'load-path (locate-user-emacs-file "el-get/repo/babel-loader.el"))
 (require 'babel-loader)

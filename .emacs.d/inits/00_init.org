@@ -314,20 +314,9 @@
 ;;    yspel
     )
   "A list of packages to install from el-get at launch for linux")
-
-;; 同期する
-;; -> use-package で遅延評価するために場所を移動.
-
-;; (el-get 'sync my/el-get-packages-all)
-;; (when windows-p
-;;   (el-get 'sync my/el-get-packages-windows))
-;; (when linux-p
-;;   (el-get 'sync my/el-get-packages-linux))
-
-;; まちがって repo 配下の elc も消しちゃったらこれを有効にしとて byte compile
-;; Whether or not to byte-compile packages at init
-;; (setq el-get-byte-compile-at-init t)
 #+end_src
+
+これからは el-get-bundle で同期する (since 2015/02/24)
 
 ** el-get 遅延実行
 
@@ -337,7 +326,6 @@
   ;; マシンごとの設定
   (when linux-p
     (setq el-get-emacs "/usr/local/bin/emacs"))
-
   ;; 通知は minibuffer のみ
   (setq el-get-notify-type 'message)
   
@@ -346,8 +334,21 @@
   (when windows-p
     (el-get 'sync my/el-get-packages-windows))
   (when linux-p
-    (el-get 'sync my/el-get-packages-linux)))
+    (el-get 'sync my/el-get-packages-linux))
 #+end_src
+
+** el-get-bundle
+
+#+begin_src emacs-lisp
+(el-get-bundle skeeto/impatient-mode :depends (simple-httpd))
+#+end_src
+
+** end  of config
+#+begin_src emacs-lisp
+)
+#+end_src
+
+** 未使用
 
 ** el-get-is-lazy
    パッケージが存在しないときは, el-get で取得する.

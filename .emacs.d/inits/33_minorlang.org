@@ -259,6 +259,15 @@
 (use-package pukiwiki-mode :commands (pukiwiki-mode pukiwiki-edit-mode))
  #+end_src
 
+
+* HTML
+** impatient-mode  
+  インタラクティブな HTML の表示.
+
+#+begin_src emacs-lisp
+(use-package impatient-mode)
+#+end_src
+
 * Othres
 ** conkeror
    
@@ -266,3 +275,5 @@
 (use-package conkeror-minor-mode :commands conkeror-minor-mode)
  #+end_src
  
+
+
