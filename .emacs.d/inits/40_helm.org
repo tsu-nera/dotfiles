@@ -342,16 +342,28 @@
   (define-key c++-mode-map (kbd "M-\"") 'helm-make-projectile))
 #+end_src
 
+** helm-open-github
+   helm i/f で github を開く.
+   - https://github.com/syohex/emacs-helm-open-github   
+
+#+begin_src emacs-lisp
+(use-package helm-open-github :commands helm-open-github)
+#+end_src
+
+** helm-github-stars
+   helm i/f で github のスターを見る.
+   - https://github.com/Sliim/helm-github-stars
+
+#+begin_src emacs-lisp
+(use-package helm-github-stars
+  :config 
+  (setq helm-github-stars-username "tsu-nera"))
+#+end_src
+
 * 未使用中...
 ** helm-github-issues
 #+begin_src emacs-lisp
-(use-package helm-github-issues :commands helm-github-issues :disabled t)
-#+end_src
-
-** helm-open-github
-   
-#+begin_src emacs-lisp
-(use-package helm-open-github :commands helm-open-github :disabled t)
+(use-package helm-github-issues :disabled t :commands helm-github-issues)
 #+end_src
 
 ** helm-etags-plus

@@ -340,7 +340,9 @@
 ** el-get-bundle
 
 #+begin_src emacs-lisp
-(el-get-bundle skeeto/impatient-mode :depends (simple-httpd))
+(el-get-bundle skeeto/impatient-mode :depends (simple-httpd htmlize))
+(el-get-bundle 10sr/term-run-el)
+(el-get-bundle Sliim/helm-github-stars)
 #+end_src
 
 ** end  of config

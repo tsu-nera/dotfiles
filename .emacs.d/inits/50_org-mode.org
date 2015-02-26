@@ -669,19 +669,19 @@
   ;;  (if (eq window-system nil)
   ;;      (set-face-background 'mmm-default-submode-face nil)
   ;; (set-face-background 'mmm-default-submode-face "#242424")
-    
+  
   (mmm-add-classes
    '((org-elisp
       :submode emacs-lisp-mode
       :front "#\\+begin_src emacs-lisp"
       :back  "#\\+end_src")))
   (mmm-add-mode-ext-class nil "\\.org\\'" 'org-elisp)
-
+  
   (mmm-add-classes
    '((org-R
       :submode R-mode
-       :front "^#\\+begin_src R[ \t]*\n?"
-       :back "^#\\+end_src")))
+      :front "^#\\+begin_src R[ \t]*\n?"
+      :back "^#\\+end_src")))
   (mmm-add-mode-ext-class 'org-mode nil 'org-R))
 #+end_src
 

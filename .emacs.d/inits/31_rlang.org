@@ -198,7 +198,7 @@ gem install redcarpet
   - [[http://johnstantongeddes.org/open%20science/2014/03/26/Rmd-polymode.html][Using ESS with .Rmd files | John Stanton-Geddes]]
   - [[http://stackoverflow.com/questions/16567348/knitr-markdown-highlighting-in-emacs][r - knitr Markdown highlighting in Emacs? - Stack Overflow]]
   - https://github.com/vspinu/polymode
-
+    
 #+begin_src emacs-lisp
 (use-package poly-markdown
   :init

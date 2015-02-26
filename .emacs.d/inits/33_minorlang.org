@@ -263,10 +263,16 @@
 * HTML
 ** impatient-mode  
   インタラクティブな HTML の表示.
+  - https://github.com/skeeto/impatient-mode
+
+  M-x httpd-start をして, 以下にアクセス
+  -  http://localhost:8080/imp/
 
 #+begin_src emacs-lisp
 (use-package impatient-mode)
 #+end_src
+
+  動かないなー. あとで再チャレンジする.
 
 * Othres
 ** conkeror

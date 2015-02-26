@@ -53,7 +53,7 @@
 
 ;; eshell の alias 設定
 ;; http://www.emacswiki.org/emacs/EshellAlias
-;; eshell上では eshell/hogeというコマンドは hogeに置き換えられる.
+;; eshell 上では eshell/hoge というコマンドは hoge に置き換えられる.
 (setq eshell-command-aliases-list
       (append
        (list
@@ -141,6 +141,13 @@
 
    - [[http://stackoverflow.com/questions/60464/changing-the-default-folder-in-emacs][customization - Changing the default folder in Emacs - Stack Overflow]]
    - [[http://blog.cosscoss.biz/?p=477][Windows の Emacs (NTEmacs) で起動時ディレクトリを HOME ディレクトリに変更できない問題解決! | こすブ]]
+
+** term-run
+   - https://github.com/10sr/term-run-el
+
+#+begin_src emacs-lisp
+(use-package term-run)
+#+end_src
 
 * ファイラ
 ** dired

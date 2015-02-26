@@ -10,6 +10,7 @@ twittering-mode.gpg
 jdee
 projectile-bookmarks.eld
 .hl-save
+hgs-cache
 
 /.local/*
 !/.local/README.org
