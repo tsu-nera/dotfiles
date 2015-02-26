@@ -202,6 +202,50 @@
    - helm-apropos C-x c a
    - find-function 関数定義のソースに飛ぶ (これ便利)
 
+** ert
+   Emacs 標準のユニットテストフレームワーク.
+   - https://www.gnu.org/software/emacs/manual/html_node/ert/
+
+   ショートカットで ert 実行 (C-c C-c)
+   - http://d.hatena.ne.jp/whitypig/20110919/1316451596
+
+#+begin_src emacs-lisp
+(defun my-run-ert-test-maybe ()
+  (interactive)
+  (when (eq major-mode 'emacs-lisp-mode)
+    (eval-buffer)
+    (save-excursion
+      (beginning-of-defun)
+      (let ((line (buffer-substring-no-properties (point)
+                                                  (save-excursion
+                                                    (end-of-line)
+                                                    (point)))))
+        (when (string-match "^(ert-deftest \\([^ \n]+\\) ()$" line)
+          (let ((w (selected-window))
+                n
+                (dir (file-name-as-directory (expand-file-name ".")))
+                (b (get-buffer "*ert*")))
+            ;; Change the current directory to this test directory
+            (when b
+              (save-excursion
+                (set-buffer b)
+                (cd dir)))
+            ;; Run the test.
+            (ert (match-string-no-properties 1 line))
+            ;; Now, we're in *ert* buffer.
+            (save-excursion
+              (when (re-search-forward "Failed: \\([^ ]+\\)" nil t)
+                (setq n (string-to-number (match-string-no-properties 1)))))
+            (when (zerop n)
+              ;; When passed, move to the original window.
+              (select-window w))))))))
+(define-key emacs-lisp-mode-map "\C-c\C-c" 'my-run-ert-test-maybe)
+#+end_src
+
+  ert-runner, overseer 利用すると, どうようなことができるっぽいが
+  どうも動かなかったので保留.
+  - [[http://thewanderingcoder.com/2015/02/emacs-lisp-adding-tests-ert-runner-and-overseer/][Emacs Lisp: Adding Tests: ert-runner and overseer]]
+   
 ** Tips
   以下を有効にするとスタック情報がみえる.
 
