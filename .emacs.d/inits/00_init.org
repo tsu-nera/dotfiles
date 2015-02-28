@@ -343,6 +343,7 @@
 (el-get-bundle skeeto/impatient-mode :depends (simple-httpd htmlize))
 (el-get-bundle 10sr/term-run-el)
 (el-get-bundle Sliim/helm-github-stars)
+(el-get-bundle emacsmirror/rainbow-mode)
 #+end_src
 
 ** end  of config

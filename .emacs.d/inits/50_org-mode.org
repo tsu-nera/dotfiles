@@ -92,18 +92,21 @@
 ;; 時間表示が 1 桁の時, 0 をつける
 (setq org-agenda-time-leading-zero t)
 
+;; 祝日を利用しない
+(setq calendar-holidays nil)
+
 ;; DONE の時刻を記録
 (setq org-log-done 'time)
+
+;; スケジュールやデッドラインアイテムは DONE になっていれば表示する
+(setq org-agenda-skip-deadline-if-done nil)
+(setq org-agenda-skip-scheduled-if-done nil)
 
 ;; セレクションメニューから状態の変更を行えるようにする
 (setq org-use-fast-todo-selection t)
 
-(setq org-clock-in-resume t)
-
-(setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
-
-;; 測定した時間が 0 の場合消去する
-(setq org-clock-out-remove-zero-time-clocks t)
+;; defaultで logbookを表示
+(setq org-agenda-include-inactive-timestamps t)
 
 ;;アジェンダの clockreport 用パラメータ
 (setq org-agenda-clockreport-parameter-plist
@@ -197,7 +200,8 @@
    - WAIT: Wait for  
    - SOME: Some Day
 
-#+begin_src emacs-lisp
+   #+begin_src emacs-lisp
+(setq org-todo-keywords '((sequence "TODO" "DONE")))
 ;; (setq org-todo-keywords (quote (
 ;;  (sequence "TODO (t)" "NEXT (n)" "DONE (d)")
 ;;  (sequence "WAIT (w)" "SOME (s)")
@@ -356,6 +360,19 @@
 (use-package clocktable-by-tag)
 #+end_src
 
+*** \emsp 対策: workaround
+    It's workaround :(
+    - [[https://www.mail-archive.com/emacs-orgmode@gnu.org/msg91791.html][Re: Alignment bug in clock tables]]
+
+#+begin_src emacs-lisp
+(eval-after-load "org-clock"
+  '(defun org-clocktable-indent-string (level)
+  (if (= level 1) ""
+    (concat "\\" (let ((str " "))
+      (dotimes (k (1- level) str)
+        (setq str (concat "_" str))))))))
+#+end_src
+
 * org-capture
   アイデアをキャプチャーする.
 
@@ -397,7 +414,6 @@
 #+begin_src emacs-lisp
 (use-package org2blog-autoloads
   :config
-  
   ;; パスワード設定
   (when linux-p
     (setq sternstunden (netrc-machine (netrc-parse "~/.netrc") "sternstunden" t))
@@ -464,7 +480,6 @@
             'shell'         => 'sh',
             'language'      => 'text',            
 #+end_src
-
 
 ** images
    画像ファイルは記事投稿時にサーバの upload フォルダに転送されるよう.
@@ -732,6 +747,8 @@
   (setq org-download-screenshot-method "scrot"))
 #+end_src
 
+* org-table
+  
 * 他のツールとの連携
 ** RSS Feed 
   RSS Feeder for Emacs

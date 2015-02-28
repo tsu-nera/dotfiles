@@ -238,18 +238,14 @@
   ;; 補完候補が 1 つのときはそれを採用.
   (setq ac-dwim t)
 
-  ;; (setq ac-auto-start nil)
-  (setq ac-auto-start 3)           ; 3 文字以上から補完スタート 
-  ;; (setq ac-auto-show-menu 0.8)     ; 0.8 秒でメニュー表示
+  (setq ac-auto-start nil)         ; 補完の自動スタートは抑止.
+  ;; (setq ac-auto-start 3)           ; 3 文字以上から補完スタート 
+  (setq ac-auto-show-menu 0.8)     ; 0.8 秒でメニュー表示
   (setq ac-use-comphist t)         ; 補完候補をソート
   (setq ac-candidate-limit nil)    ; 補完候補表示を無制限に
 
   (setq ac-use-menu-map t)
   
-  ;; 補完キーでトリガさせる.
-  ;; 手動で補完を起動する
-  (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
-
   ;; デフォルトは C-n or C-p
   ;; Ctrl ではなくて, Alt に割り当てる.
   (define-key ac-menu-map (kbd "M-n") 'ac-next)
