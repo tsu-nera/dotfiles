@@ -344,6 +344,7 @@
 (el-get-bundle 10sr/term-run-el)
 (el-get-bundle Sliim/helm-github-stars)
 (el-get-bundle emacsmirror/rainbow-mode)
+(el-get-bundle yoshida-mediba/hiwin-mode)
 #+end_src
 
 ** end  of config

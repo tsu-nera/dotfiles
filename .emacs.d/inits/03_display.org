@@ -345,3 +345,15 @@
 ;; フルスクリーン
 ;; (set-frame-parameter nil 'fullscreen 'fullboth)
 #+end_src
+** hiwin-mode
+   アクティブな window をハイライトする.
+   - https://github.com/yoshida-mediba/hiwin-mode
+
+#+begin_src emacs-lisp
+(use-package hiwin
+  :config
+  ;; hiwin-mode を有効化
+  (hiwin-activate)
+   ;; 非アクティブウィンドウの背景色を設定
+  (set-face-background 'hiwin-face "#333333"))
+#+end_src
