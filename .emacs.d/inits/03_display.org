@@ -354,6 +354,6 @@
   :config
   ;; hiwin-mode を有効化
   (hiwin-activate)
-   ;; 非アクティブウィンドウの背景色を設定
+   ;; 非アクティブウィンドウの背景色を設定 
   (set-face-background 'hiwin-face "#333333"))
 #+end_src

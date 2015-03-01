@@ -146,7 +146,11 @@
    - https://github.com/10sr/term-run-el
 
 #+begin_src emacs-lisp
-(use-package term-run)
+(use-package term-run
+  :config
+  (defun term-run-alsamixer ()
+    (interactive)
+    (term-run-shell-command "alsamixer")))
 #+end_src
 
 * ファイラ
@@ -158,6 +162,7 @@
 #+end_src
 
 *** dired から open
+
 #+begin_src emacs-lisp
 (when linux-p
 (defun dired-open-file ()
@@ -171,8 +176,7 @@
 (add-hook
    'dired-mode-hook
    (lambda ()
-     (define-key dired-mode-map [f6] 'dired-open-file)))
-)
+     (define-key dired-mode-map [f6] 'dired-open-file))))
 #+end_src
 
 *** dired から term へ
