@@ -674,24 +674,28 @@
   :config
   (setq mmm-global-mode 'maybe) ;; 自動推測
   ;; (setq mmm-global-mode 't) ;; つねに利用
-  
+
   ;; (setq mmm-submode-decoration-level 2)
   (setq mmm-submode-decoration-level 1)
-  
+
+  ;; idle中にパース.
+  (setq mmm-parse-when-idle t)
+  (setq mmm-idle-timer-delay 0.5)
+
   ;; (set-face-bold-p 'mmm-default-submode-face t) ;太字
 
   ;; 背景色
   ;;  (if (eq window-system nil)
   ;;      (set-face-background 'mmm-default-submode-face nil)
   ;; (set-face-background 'mmm-default-submode-face "#242424")
-  
+
   (mmm-add-classes
    '((org-elisp
       :submode emacs-lisp-mode
       :front "#\\+begin_src emacs-lisp"
       :back  "#\\+end_src")))
   (mmm-add-mode-ext-class nil "\\.org\\'" 'org-elisp)
-  
+
   (mmm-add-classes
    '((org-R
       :submode R-mode

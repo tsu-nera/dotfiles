@@ -16,9 +16,10 @@
   ハイライトの抑止.
  - [[http://utsuboiwa.blogspot.jp/2010/12/emacsorg-modefont-lock.html][Emacs ・ org-mode:font-lock の調整]]
 
-#+begin_src emacs-lisp
-(setq font-lock-maximum-decoration 6)
+ #+begin_src emacs-lisp
 ; 色づけは最小限に
+
+(setq font-lock-maximum-decoration 6)
 (setq font-lock-maximum-decoration '((c-mode . 1) (c++-mode . 1) (org-mode . 1)))
 
 (setq jit-lock-context-time 5.0)
