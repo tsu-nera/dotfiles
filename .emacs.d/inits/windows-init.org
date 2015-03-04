@@ -155,3 +155,9 @@ old mode 100755 new mode 100644
 ; (global-set-key (kbd "C-:") 'volume-down)
 #+end_src
 
+** speedup
+
+#+begin_src emacs-lisp
+(setq w32-get-true-file-attributes nil)
+#+end_src
+

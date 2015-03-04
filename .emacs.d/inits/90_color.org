@@ -3,6 +3,35 @@
 
 * ハイライト
   ハイライト系は, 性能に関わるので無闇に追加しないこと!!
+** font-lock-mode
+   とにかく色をつける.
+   - [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Font-Lock.html][Font Lock - GNU Emacs Manual]]
+
+   スピードに影響する.
+
+#+begin_src emacs-lisp
+(global-font-lock-mode 1)
+#+end_src
+
+  ハイライトの抑止.
+ - [[http://utsuboiwa.blogspot.jp/2010/12/emacsorg-modefont-lock.html][Emacs ・ org-mode:font-lock の調整]]
+
+#+begin_src emacs-lisp
+(setq font-lock-maximum-decoration 6)
+; 色づけは最小限に
+(setq font-lock-maximum-decoration '((c-mode . 1) (c++-mode . 1) (org-mode . 1)))
+
+(setq jit-lock-context-time 5.0)
+(setq jit-lock-defer-time 1.0)
+(setq jit-lock-stealth-time ;5.0
+20.0)
+(setq jit-lock-stealth-verbose nil)
+(setq jit-lock-stealth-nice 0.5)
+(setq jit-lock-stealth-load ;50
+300)
+(setq jit-lock-chunk-size ;100
+20)
+#+end_src
 
 ** 現在行をハイライト
 #+begin_src emacs-lisp
@@ -113,15 +142,6 @@
 #+begin_src emacs-lisp
 ;; turn on highlight matching brackets when cursor is on one
 (show-paren-mode 1)
-#+end_src
-** font-lock-mode
-   とにかく色をつける.
-   - [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Font-Lock.html][Font Lock - GNU Emacs Manual]]
-
-   スピードに影響する.
-
-#+begin_src emacs-lisp
-(global-font-lock-mode 1)
 #+end_src
 
 ** visual-line-mode
@@ -400,3 +420,4 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
       '(mode-line ((t (:background "#3E3D31" :distant-foreground "black" :foreground "#F8F8F2" :box (:line-width 1 :color "gray20" :style unspecified)))))
       '(mode-line-buffer-id ((t (:foreground "#F92672" :weight bold)))))))
 #+end_src
+

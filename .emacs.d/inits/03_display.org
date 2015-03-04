@@ -151,6 +151,12 @@
   (setq recentf-exclude '("/TAGS$" "/var/tmp/" ".recentf")))
  #+end_src
 
+*** リモートファイルは無視
+
+#+begin_src emacs-lisp
+(setq recentf-keep '(file-remote-p file-readable-p))
+#+end_src
+
 ** recentf-ext
    recentf の拡張.
    - [[http://d.hatena.ne.jp/rubikitch/20091224/recentf][人は俺を「 recentf マスター」と呼ぶ]]

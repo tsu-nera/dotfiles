@@ -513,3 +513,10 @@
   (let ((name (file-relative-name file)))
     (vc-git-command buf 'async nil "blame" "--date=iso" rev "--" name)))
 #+end_src
+
+speedup
+- [[http://stackoverflow.com/questions/8837712/emacs-creates-buffers-very-slowly][windows - Emacs creates buffers very slowly - Stack Overflow]]
+
+#+begin_src emacs-lisp
+(remove-hook 'find-file-hooks 'vc-find-file-hook)
+#+end_src
