@@ -375,6 +375,13 @@ git clone git://git.savannah.gnu.org/emacs.git
 (use-package netrc)
 #+end_src
 
+* Speed Up
+  ハイライトの抑止.
+
+#+begin_src emacs-lisp
+(setq font-lock-maximum-decoration 6)
+#+end_src
+
 * Tips
 ** Emacs と X のクリップポードを共有
    - http://tubo028.hatenablog.jp/entry/2013/09/01/142238

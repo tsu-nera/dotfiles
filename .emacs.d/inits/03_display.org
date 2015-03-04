@@ -305,7 +305,8 @@
 (use-package setup-linum
   :init
   ;; daemon 起動中に linum-mode を有効にすると落ちる.
-  (add-hook 'after-init-hook 'global-linum-mode t)
+  ;; (add-hook 'after-init-hook 'global-linum-mode t)
+  ;; (add-hook 'after-init-hook 'global-linum-mode 0)
   :config
   ;; linum を利用しないメジャーモードを列挙
   (setq linum-disabled-modes-list
@@ -321,10 +322,23 @@
 
 #+begin_src emacs-lisp
 (set-scroll-bar-mode nil)
+
 (when linux-p
   ;; 家の archlinux 環境たけ有効にしておく
-  ;; (horizontal-scroll-bar-mode -1)
-  )
+  (horizontal-scroll-bar-mode -1))
+#+end_src
+
+*** linum を toggle する
+    - [[http://qiita.com/yyamamot/items/df430d4e725ea38ffc9f][Emacs で行番号表示をトグルする - Qiita]]
+
+#+begin_src emacs-lisp
+(defun toggle-linum-lines ()
+  "toggle display line number"
+  (interactive)
+  (setq linum-format "%4d ")
+  (linum-mode
+   (if linum-mode -1 1)))
+(define-key global-map (kbd "C-x C-l") 'toggle-linum-lines)
 #+end_src
 
 *** linum を軽くするおまじない
@@ -332,6 +346,7 @@
 
 #+begin_src emacs-lisp
 (setq linum-delay t)
+
 (defadvice linum-schedule (around my-linum-schedule () activate)
   (run-with-idle-timer 0.2 nil #'linum-update-current))
 #+end_src
@@ -354,6 +369,6 @@
   :config
   ;; hiwin-mode を有効化
   (hiwin-activate)
-   ;; 非アクティブウィンドウの背景色を設定 
+   ;; 非アクティブウィンドウの背景色を設定
   (set-face-background 'hiwin-face "#333333"))
 #+end_src

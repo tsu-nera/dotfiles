@@ -2,6 +2,8 @@
   デザイン・色関係.
 
 * ハイライト
+  ハイライト系は, 性能に関わるので無闇に追加しないこと!!
+
 ** 現在行をハイライト
 #+begin_src emacs-lisp
 ;;(unless (eq window-system nil)
@@ -21,7 +23,6 @@
 
 ** Set Mark をハイライト
   - [[http://www.emacswiki.org/emacs/VisibleMark][EmacsWiki: Visible Mark]]
-
 ** bm
   行をハイライトする.
   - [[https://github.com/joodland/bm][joodland/bm]]
@@ -107,21 +108,35 @@
   (hl-highlight-mode 1))
 #+end_src
 
-** 対応する括弧を光らせる
+** show-paren-mode
+ 対応する括弧を光らせる
 #+begin_src emacs-lisp
 ;; turn on highlight matching brackets when cursor is on one
 (show-paren-mode 1)
 #+end_src
+** font-lock-mode
+   とにかく色をつける.
+   - [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Font-Lock.html][Font Lock - GNU Emacs Manual]]
 
-** Tips
-   とにかく色をつける
+   スピードに影響する.
+
 #+begin_src emacs-lisp
 (global-font-lock-mode 1)
 #+end_src
 
-Add proper word wrapping
+** visual-line-mode
+   Add proper word wrapping
+
 #+begin_src emacs-lisp
 (global-visual-line-mode t)
+#+end_src
+
+** traing-whitespace
+   行末の空白をハイライト.
+   - [[http://qiita.com/yyamamot/items/ab5b028aee8f5b81107e][Emacs でタブのおよび行末の無駄なホワイトスペースをハイライトする - Qiita]]
+
+#+begin_src emacs-lisp
+(setq-default show-trailing-whitespace t)
 #+end_src
 
 * フォント

@@ -97,6 +97,14 @@
       (origami-view-mode (if view-mode 1 -1)))))
 #+end_src
 
+** itail
+   Emacs で tail するモード. ログ解析用.
+   - https://github.com/re5et/itail
+
+#+begin_src emacs-lisp
+(use-package itail)
+#+end_src
+
 * 編集
 ** cua-mode
    矩形編集.
@@ -208,7 +216,7 @@
    manuals:
    - http://cx4a.org/software/auto-complete/index.ja.html
    - http://cx4a.org/software/auto-complete/manual.ja.html
-     
+
    #+begin_src emacs-lisp
 (use-package auto-complete
   :bind   ("M-/" . auto-complete)
@@ -234,7 +242,7 @@
   ;; (set-face-background 'ac-candidate-face "orange")
   ;; (set-face-underline 'ac-candidate-face "darkgray")
   ;; (set-face-background 'ac-selection-face "steelblue")
-  
+
   ;; 補完候補が 1 つのときはそれを採用.
   (setq ac-dwim t)
 
@@ -245,7 +253,7 @@
   (setq ac-candidate-limit nil)    ; 補完候補表示を無制限に
 
   (setq ac-use-menu-map t)
-  
+
   ;; デフォルトは C-n or C-p
   ;; Ctrl ではなくて, Alt に割り当てる.
   (define-key ac-menu-map (kbd "M-n") 'ac-next)
@@ -343,6 +351,19 @@
 ** artist-mode
    マウスで絵がかけるモード. Emacs 標準装備.
    - [[http://emacs-fu.blogspot.jp/2009/01/drawing-pictures.html][emacs-fu: drawing pictures]]
+
+** clipmon
+   自動でクリップボード貼り付け.
+   - https://github.com/bburns/clipmon
+
+   うごかないな...
+
+#+begin_src emacs-lisp
+(use-package clipmon
+  :config
+  (setq clipmon-autoinsert-sound nil)
+  (global-set-key (kbd "<M-f2>") 'clipmon-autoinsert-toggle))
+#+end_src
 
 * 移動
   まずは, 基本まとめ.

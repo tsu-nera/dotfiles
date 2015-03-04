@@ -105,7 +105,7 @@
 ;; セレクションメニューから状態の変更を行えるようにする
 (setq org-use-fast-todo-selection t)
 
-;; defaultで logbookを表示
+;; default で logbook を表示
 (setq org-agenda-include-inactive-timestamps t)
 
 ;;アジェンダの clockreport 用パラメータ
@@ -883,6 +883,13 @@ containing the properties `:guid' and `:item-full-text'."
     (browse-url "https://www.google.com/calendar/render?hl=ja")))
 #+end_src
 
+** R
+   result で org-table を出力
+   - [[http://emacs.stackexchange.com/questions/3819/org-code-block-receives-table-without-header][org mode - Org code block receives table without header - Emacs Stack Exchange]]
+
+   Interacting with R
+   - [[http://home.fnal.gov/~neilsen/notebook/orgExamples/org-examples.html#sec-19][Emacs org-mode examples and cookbook]]
+
 ** mobileOrg (未使用)
   iphone と org-mode の同期. Dropbox を利用
   つかってないから, ひとまず封印.
@@ -923,3 +930,7 @@ containing the properties `:guid' and `:item-full-text'."
 #+end_src
 
 
+
+* Bookmarks
+  cookbook. 図の書き方とか R との連携とか, 小技がある.
+  - [[http://home.fnal.gov/~neilsen/notebook/orgExamples/org-examples.html#sec-19][Emacs org-mode examples and cookbook]]
