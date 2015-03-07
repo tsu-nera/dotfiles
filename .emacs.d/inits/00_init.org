@@ -346,7 +346,7 @@
 (el-get-bundle emacsmirror/rainbow-mode)
 (el-get-bundle yoshida-mediba/hiwin-mode)
 (el-get-bundle bburns/clipmon)
-(el-get-bundle re5et/itail)
+(el-get-bundle narrow-indirect)
 #+end_src
 
 ** end  of config

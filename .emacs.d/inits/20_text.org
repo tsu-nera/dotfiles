@@ -973,7 +973,7 @@ google-ime-skk &
    - https://github.com/yuutayamada/auto-capitalize-el
    - [[http://sleepboy-zzz.blogspot.jp/2013/09/auto-capitalizeel-aspell.html][memo: 英語環境で文字を大文字にキャピタライズする拡張 auto-capitalize.el を導入した]]
 
-   You can use by M-x 
+   You can use by M-x
    - turn-on-auto-capitalize-mode
    - auto-capitalize-mode.
 
@@ -1008,7 +1008,7 @@ google-ime-skk &
 ;;                       (setq-local my/programming-mode t))))
 
 ;; (defun my/switch-auto-capitalize-mode ()
-;;   "turn on auto-capitalize-mode if it was comment line on 
+;;   "turn on auto-capitalize-mode if it was comment line on
 ;;   specific programming mode."
 ;;   (if my/programming-mode
 ;;       (if (equal font-lock-comment-face
@@ -1034,6 +1034,6 @@ google-ime-skk &
 ** 文字数カウント
    - count-words
    - count-words-region
-   
+
 ** ライバルの秀丸.
-   - [[http://www.maruo.co.jp/_library/info.asp?sno=hls0000&i=0][秀丸エディタマクロライブラリ:ダウンロード情報]] 
+   - [[http://www.maruo.co.jp/_library/info.asp?sno=hls0000&i=0][秀丸エディタマクロライブラリ:ダウンロード情報]]

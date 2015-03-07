@@ -143,9 +143,7 @@
 	;; (org-agenda-clockreport-mode t) ;; 時間表の表示はコメントアウト
         ))))
 	("n" "Next Action List" tags-todo "next")
-	)
-)
-
+	))
 #+end_src
 
 *** アジェンダ表示の対象ファイル
@@ -349,7 +347,7 @@
    タグごとに clocktable を集計.
     - http://stackoverflow.com/questions/17353591/timetable-grouped-by-tag
     - https://gist.github.com/tsu-nera/d9ffa6a51a6e7bdb957b
-      
+
 #+begin_src text
  宣言方法
   #+BEGIN: clocktable-by-tag :maxlevel 2 :tags ("p1" "p2")
@@ -678,7 +676,7 @@
   ;; (setq mmm-submode-decoration-level 2)
   (setq mmm-submode-decoration-level 1)
 
-  ;; idle中にパース.
+  ;; idle 中にパース.
   (setq mmm-parse-when-idle t)
   (setq mmm-idle-timer-delay 0.5)
 
@@ -715,9 +713,13 @@
 #+end_src
 
 * org-narrow
- - C-x n s     (org-narrow-to-subtree) Narrow buffer to current subtree. 
+ - C-x n s     (org-narrow-to-subtree) Narrow buffer to current subtre
  - C-x n b     (org-narrow-to-block) Narrow buffer to current block. 
  - C-x n w     (widen) Widen buffer to remove narrowing.
+
+** org-tree-to-indirect-buffer
+   C-c C-x b narrow
+   - [[https://bruce-connor.github.io/emacs-online-documentation/Fun%2Forg-tree-to-indirect-buffer.html]]
 
 * org-sparse-tree 
   検索語に関連するところだけを拾い読みするのに便利.
@@ -752,7 +754,6 @@
 #+end_src
 
 * org-table
-  
 * 他のツールとの連携
 ** RSS Feed 
   RSS Feeder for Emacs

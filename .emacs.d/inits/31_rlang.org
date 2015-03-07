@@ -198,19 +198,21 @@ gem install redcarpet
   - [[http://johnstantongeddes.org/open%20science/2014/03/26/Rmd-polymode.html][Using ESS with .Rmd files | John Stanton-Geddes]]
   - [[http://stackoverflow.com/questions/16567348/knitr-markdown-highlighting-in-emacs][r - knitr Markdown highlighting in Emacs? - Stack Overflow]]
   - https://github.com/vspinu/polymode
+
+  eieio-constructor が undef なので封印.
     
 #+begin_src emacs-lisp
-(use-package poly-markdown
-  :init
-  ;; MARKDOWN
-  (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode)))
-
-(use-package poly-R
-  :init
-  ;; R modes
-  (add-to-list 'auto-mode-alist '("\\.Snw" . poly-noweb+r-mode))
-  (add-to-list 'auto-mode-alist '("\\.Rnw" . poly-noweb+r-mode))
-  (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode)))
+;; (use-package poly-markdown
+;;   :init
+;;   ;; MARKDOWN
+;;   (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode)))
+;;  
+;; (use-package poly-R
+;;   :init
+;;   ;; R modes
+;;   (add-to-list 'auto-mode-alist '("\\.Snw" . poly-noweb+r-mode))
+;;   (add-to-list 'auto-mode-alist '("\\.Rnw" . poly-noweb+r-mode))
+;;   (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode)))
 #+end_src
 
 * R Markdown
@@ -255,5 +257,5 @@ gem install redcarpet
 	(switch-to-buffer rmd-buf)
 	(ess-show-buffer (buffer-name sbuffer) nil)))))
 
-(define-key polymode-mode-map "\M-ns" 'ess-rmarkdown)
+;; (define-key polymode-mode-map "\M-ns" 'ess-rmarkdown)
 #+end_src

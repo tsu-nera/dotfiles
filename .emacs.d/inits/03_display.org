@@ -112,6 +112,19 @@
   '(kill-ring search-ring regexp-search-ring)))
 #+end_src
 
+** narrow-indirect
+   関節バッファでナローイング.
+   - [[http://rubikitch.com/2015/01/07/narrow-indirect/][emacs narrow-indirect.el : ナローイングを間接バッファで行うようにカイゼンする!]]
+   - http://www.emacswiki.org/emacs/narrow-indirect.el
+
+#+begin_src emacs-lisp
+(use-package narrow-indirect
+  :init
+  (define-key ctl-x-4-map "nd" 'ni-narrow-to-defun-indirect-other-window)
+  (define-key ctl-x-4-map "nn" 'ni-narrow-to-region-indirect-other-window)
+  (define-key ctl-x-4-map "np" 'ni-narrow-to-page-indirect-other-window))
+#+end_src
+   
 * モードライン
 ** モードラインに時間を表示する
 #+begin_src emacs-lisp
