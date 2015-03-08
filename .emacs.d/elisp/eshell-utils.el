@@ -12,27 +12,12 @@
 ;;---------------------------------------------------
 ;; eshell/emacs
 ;;---------------------------------------------------
-;; find-fileで十分
-;; (defun eshell/emacs (&rest args)
-;;   "Open a file in emacs. Some habits die hard."
-;;   (interactive)
-;;   (if (null args)
-;;       ;; If I just ran "emacs", I probably expect to be launching
-;;       ;; Emacs, which is rather silly since I'm already in Emacs.
-;;       ;; So just pretend to do what I ask.
-;;       (bury-buffer)
-;;     ;; We have to expand the file names or else naming a directory in an
-;;     ;; argument causes later arguments to be looked for in that directory,
-;;     ;; not the starting directory
-;;     (mapc #'find-file (mapcar #'expand-file-name (eshell-flatten-list (reverse args))))))
-
 ;; http://stackoverflow.com/questions/7733668/command-to-clear-shell-while-using-emacs-shell
 (defun eshell/clear ()
   "Clear the current buffer, leaving one prompt at the top."
   (interactive)
   (let ((inhibit-read-only t))
     (erase-buffer)))
-    
 
 ;; written by Stefan Reichoer <reichoer@web.de>
 (defun eshell/less (&rest args)
@@ -46,19 +31,6 @@
 	  (view-file file)
 	  (goto-line line))
       (view-file (pop args)))))
-
-;; (defun eshell/rpwd2home ()
-;;   (interactive)
-;;   (let ((abs-path (eshell/pwd))
-;; 	(home-dir (getenv "HOME")))
-;;     (if (string-match home-dir abs-path)
-;; 	(replace-match "~" nil nil abs-path)
-;;       abs-path)))
-
-;; (defun eshell/rpwd ()
-;;   (interactive)
-;;   (let ((rdir (eshell/rpwd2home)))
-;;     (car (last (split-string rdir "/")))))
 
 ;;---------------------------------------------------
 ;; sudo のあとも補完可能に

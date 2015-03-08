@@ -204,6 +204,10 @@
   (setq yas-use-menu nil))
 #+end_src
 
+*** Tips
+**** 日付をテンプレートに挿入.
+     *`(format-time-string "%y%m%d%H%M%S")`* とかく.
+
 ** auto-complete
    自動補完を実現する elisp.
 

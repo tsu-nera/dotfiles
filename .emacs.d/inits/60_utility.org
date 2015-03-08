@@ -701,3 +701,15 @@ sudo pacman -S ghostscript
   - [[https://github.com/bard/mozrepl/wiki/Use-with-Conkeror][Use with Conkeror · bard/mozrepl Wiki]]
   - [[http://truongtx.me/2013/10/01/mozrepl-in-combination-with-emacs-for-developing-conkeror/#][Mozrepl in combination with Emacs for developing Conkeror]]
     
+
+* Tips
+** slimlock
+   Emacs から一時停止.
+
+#+begin_src emacs-lisp
+(defun slimlock ()
+  (interactive)
+  (shell-command "slimlock"))
+#+end_src
+
+

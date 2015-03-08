@@ -45,13 +45,17 @@
      'eshell-mode-hook
      '(lambda ()
         (set-buffer-process-coding-system 'sjis 'sjis))))
+#+end_src
 
-  ;; prompt のフォーマット
-  (setq eshell-prompt-function
-        (lambda ()
-          (concat "[tsu-nera"
-                  (eshell/pwd)
-                  (if (= (user-uid) 0) "]\n# " "]\n$ "))))
+*** format
+    prompt のフォーマット
+
+#+begin_src emacs-lisp
+(setq eshell-prompt-function
+      (lambda ()
+        (concat "[tsu-nera"
+                (eshell/pwd)
+                (if (= (user-uid) 0) "]\n# " "]\n$ "))))
 #+end_src
 
 *** eshell alias
@@ -70,7 +74,8 @@
           (list "emacs" "find-file $1")
           (list "m" "find-file $1")
           (list "mc" "find-file $1")	
-          (list "l" "eshell/less $1")		
+          (list "l" "eshell/less $1")
+          (list "d" "dired .")		          
           (list "forced_git_local_destroy" "git fetch origin;git reset --hard origin/master"))))
 #+end_src
 
@@ -79,13 +84,7 @@
 
 #+begin_src emacs-lisp
 (use-package eshell-utils
-  :bind (("C-c C-x t" . eshell/make-new-eshell)) ;; 別シェルを生成
-  :init
-  (define-key dired-mode-map (kbd "`") 'eshell/toggle-buffer)
-;;  (add-hook 'eshell-mode-hook
-;;	    #'(lambda ()
-;;		(define-key eshell-mode-map (kbd "C-l") 'eshell/clear)))
-  )
+  :bind (("C-c C-x t" . eshell/make-new-eshell))) ;; 別シェルを生成
 #+end_src
 
 *** eshell with helm
@@ -127,7 +126,6 @@
 (use-package shell-toggle
   :init
   (setq shell-toggle-launch-shell 'shell-toggle-eshell)
-  (global-set-key [M-f1] 'shell-toggle)
   :bind (("<C-M-return>" . shell-toggle-cd)) ;; バッファと eshell を toggle
   :config
   (setq shell-toggle-full-screen-window-only t))
@@ -163,7 +161,6 @@
   :config
   (when (memq window-system '(mac ns))
     (exec-path-from-shell-initialize)))
-;;   (exec-path-from-shell-initialize))
 #+end_src
 
 ** Emacs の起動フォルダを変更する.
@@ -190,6 +187,16 @@
   (defun term-run-alsamixer ()
     (interactive)
     (term-run-shell-command "alsamixer")))
+#+end_src
+
+** My Commands
+*** slimlock
+   Emacs から一時停止.
+
+#+begin_src emacs-lisp
+(defun lock ()
+  (interactive)
+  (shell-command "slimlock"))
 #+end_src
 
 * ファイラ
