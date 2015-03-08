@@ -1,37 +1,4 @@
 ;;---------------------------------------------------
-;; http://d.hatena.ne.jp/kitokitoki/20110222
-;;---------------------------------------------------
-
-;; emacs 起動時に eshell バッファも一つ用意する
-;; (add-hook 'after-init-hook
-;;           (lambda()
-;;             (eshell)
-;;             (switch-to-buffer "*scratch*")))
-
-(defun eshell/toggle-buffer ()
-  "eshell と直前のバッファを行き来する
-   C-u 付きで呼ぶと 今いるバッファと同じディレクトリに cd して開く"
-  (interactive)
-  (let ((ignore-list '("*Help*" "*Minibuf-1*" "*Messages*"
-                       "*terminal<1>*" "*terminal<2>*" "*terminal<3>*"))
-        (dir default-directory))
-    (labels
-        ((_my-toggle-term (target)
-	   (if (get-buffer "*eshell*")
-	       (switch-to-buffer "*eshell*")
-	     (eshell))
-           (if (null (member (buffer-name (second target)) ignore-list))
-               (if (equal "*eshell*" (buffer-name (window-buffer)))
-                   (switch-to-buffer (second target))
-                 (switch-to-buffer "*eshell*")
-                 (when current-prefix-arg
-                   (cd dir)
-                   (eshell-interactive-print (concat "cd " dir "\n"))
-                   (eshell-emit-prompt)))
-             (_my-toggle-term (cdr target)))))
-      (_my-toggle-term (buffer-list)))))
-
-;;---------------------------------------------------
 ;; eshell は 1 つしか生成できないので, 複数作成する.
 ;; http://stackoverflow.com/questions/2540997/create-more-than-one-eshell-instance-in-emacs
 ;;---------------------------------------------------

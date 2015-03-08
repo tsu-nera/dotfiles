@@ -207,8 +207,8 @@ export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
 #+begin_src emacs-lisp
 (use-package ajc-java-complete-config
   :init
-  (add-hook 'java-mode-hook 'ajc-java-complete-mode)
-  (add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook))
+  (add-hook 'java-mode-hook 'ajc-java-complete-mode))
+;;  (add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook))
 
 #+end_src
 * log4j

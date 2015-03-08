@@ -31,6 +31,25 @@
   (setq org-return-follows-link t))
 #+end_src
 
+** Formatting
+   M-x org-emphasize で選択できる. 
+   
+   C-c C-x C-f ([[http://orgmode.org/manual/Emphasis-and-monospace.html][Emphasis and monospace - The Org Manual]])
+   
+   - *test* Bold
+   - /test/ Itaric
+   - _test_ Underline
+   - =text= Code
+   - +text+ Delete
+   - ~test~ Small
+
+   色やフォントなどの CSS を指定する場合は, HTML を直接かく.
+   - [[http://stackoverflow.com/questions/21340380/exporting-org-mode-to-html-in-place-coloring][emacs - Exporting org-mode to HTML: In-place coloring - Stack Overflow]]
+   - [[http://orgmode.org/manual/Quoting-HTML-tags.html][Quoting HTML tags - The Org Manual]]
+
+   ここに macro がたくさん定義されている. 後で調査.
+   - https://github.com/fniessen/org-macros
+
 ** org-mode の src を目立たせる設定
    org-mode の src を目立たせる設定. 
    - [[http://orgmode.org/worg/org-contrib/babel/examples/fontify-src-code-blocks.html][Pretty fontification of source code blocks]]
@@ -174,16 +193,16 @@
     - [[http://rubikitch.com/2014/11/29/org-agenda-cache/][【もう遅くない】 Emacs org-agenda による予定表を瞬時に表示させる方法 ]]
 
 #+begin_src emacs-lisp
-(eval-after-load 'org-agenda
-  '(progn
-     (defun org-agenda-cache (&optional regenerate)
-       (interactive "P")
-       (when (or regenerate (null (get-buffer "*Org Agenda*")))
-	 (setq current-prefix-arg nil)
-	 (org-agenda nil "a"))
-       (switch-to-buffer "*Org Agenda*")
-       (delete-other-windows))
-     (define-key org-agenda-mode-map (kbd "q") 'quit-window)))
+;; (eval-after-load 'org-agenda
+;;   '(progn
+;;      (defun org-agenda-cache (&optional regenerate)
+;;        (interactive "P")
+;;        (when (or regenerate (null (get-buffer "*Org Agenda*")))
+;;          (setq current-prefix-arg nil)
+;;          (org-agenda nil "a"))
+;;        (switch-to-buffer "*Org Agenda*")
+;;        (delete-other-windows))
+;;      (define-key org-agenda-mode-map (kbd "q") 'quit-window)))
 #+end_src
 
 ** タスクの状態
@@ -939,3 +958,6 @@ containing the properties `:guid' and `:item-full-text'."
 * Bookmarks
   cookbook. 図の書き方とか R との連携とか, 小技がある.
   - [[http://home.fnal.gov/~neilsen/notebook/orgExamples/org-examples.html#sec-19][Emacs org-mode examples and cookbook]]
+
+  PDF を org-mode で閲覧.
+  - [[http://www.toryanderson.com/tech/emacs-study-pdf-conversion-and-editing][Emacs for Study: PDF Conversion and Editing | ToryAnderson.com]]

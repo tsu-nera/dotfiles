@@ -80,6 +80,7 @@
 
    以下の設定で, ブラウザを conkeror に指定.
    - http://www.emacswiki.org/emacs/Conkeror
+   - [[http://www.emacswiki.org/emacs/Conkeror][EmacsWiki: Conkeror]]
 
 #+begin_src emacs-lisp
 (when linux-p

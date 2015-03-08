@@ -43,7 +43,8 @@
 ;; Name     : org-mode
 ;; ------------------------------------------------------------------------
 ;; org-mode/lisp, org-mode/contribe/lispをロードパスに追加する
-(defconst dotfiles-dir (file-name-directory (or (buffer-file-name) load-file-name)))
+(defconst dotfiles-dir (file-name-directory
+                        (or (buffer-file-name) load-file-name)))
 (defconst config-dir "~/.emacs.d/inits/")
 (let* ((org-dir (expand-file-name
                  "lisp" (expand-file-name
