@@ -128,8 +128,29 @@
   :init
   (setq shell-toggle-launch-shell 'shell-toggle-eshell)
   (global-set-key [M-f1] 'shell-toggle)
-  :bind (("<C-M-return>" . shell-toggle-cd))) ;; バッファと eshell を toggle
+  :bind (("<C-M-return>" . shell-toggle-cd)) ;; バッファと eshell を toggle
+  :config
+  (setq shell-toggle-full-screen-window-only t))
 ;;(global-set-key [C-f1] 'shell-toggle-cd))
+#+end_src
+
+** shell-pop
+   シェルをポップアップ.
+   - [[http://d.hatena.ne.jp/kyagi/20090601/1243841415][Emacs でシェルを好きな時に呼び出す その 4 - 8tree にっき]]
+   - https://github.com/kyagi/shell-pop-el
+
+#+begin_src emacs-lisp
+(use-package shell-pop
+  :config
+  (custom-set-variables
+   '(shell-pop-default-directory "~/")
+   '(shell-pop-shell-type (quote ("eshell" "*eshell*" (lambda nil (eshell 
+     shell-pop-term-shell)))))
+   '(shell-pop-term-shell "/usr/bin/zsh")
+   '(shell-pop-universal-key "C-t")
+   '(shell-pop-window-height 30)
+   '(shell-pop-full-span t)
+   '(shell-pop-window-position "bottom")))
 #+end_src
 
 ** exec-path-from-shell
