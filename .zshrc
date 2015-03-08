@@ -569,6 +569,17 @@ alias dpc='docker_peco_containers'
 alias dpi='docker_peco_images'
 fi
 
+########
+# git
+########
+function git-ignore() {
+    curl -s https://www.gitignore.io/api/$@ ;
+}
+
+function git-ignore-list() {
+    git-ignore `git-ignore list | ruby -ne 'puts $_.split(",")' | peco`
+}
+
 ################
 # key bindings
 ################
@@ -579,5 +590,6 @@ bindkey '^xk'  peco-kill-process   # C-x k
 bindkey '^x^f' peco-find-file      # C-x C-f
 bindkey '^xo'  peco-open-app       # C-x o
 fi
+
 
 source ~/.zshenv

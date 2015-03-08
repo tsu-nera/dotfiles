@@ -2,7 +2,7 @@
 # name: srcRwithGraph
 # key: srcRwithGraph
 # --
-#+begin_src R :file `(format-time-string "%y%m%d%H%M%S")`.png :width 500 :height 500 :results graphics :session ex
-$1	      
+#+begin_src R :file `(format-time-string "%H%M%S")`.png :width 300 :height 300 :results graphics :session ex
+$1
 #+end_src
 $0
