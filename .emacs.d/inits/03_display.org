@@ -34,7 +34,6 @@
 (global-set-key (kbd "C-c y") 'toggle-truncate-lines)
 #+end_src
 
-
 ** auto-fill-mode
    デフォルト搭載. 勝手に折り返してくれる.
    - [[http://www.emacswiki.org/emacs/AutoFillMode][EmacsWiki: Auto Fill Mode]]
@@ -129,9 +128,9 @@
    ブラウザの戻るボタンのように戻る. buffer-list の次, 前を選択.
    - [[http://www.emacswiki.org/emacs/SwitchingBuffers][EmacsWiki: Switching Buffers]]
    - [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Select-Buffer.html][Select Buffer - GNU Emacs Manual]]
-   
+
 #+begin_src emacs-lisp
-(defhydra hydra-move-buffer (global-map "M")
+(defhydra hydra-move-buffer (global-map "C-x")
   "buffer"
   ("[" next-buffer "next")
   ("]" previous-buffer "previous"))

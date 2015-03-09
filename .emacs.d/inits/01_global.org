@@ -213,18 +213,48 @@ git clone git://git.savannah.gnu.org/emacs.git
 ** hydra
    おもしろい記事をかく abo-abo さんの作品.
    - https://github.com/abo-abo/hydra
+   - [[http://oremacs.com/2015/01/20/introducing-hydra/][Behold The Mighty Hydra! · (or emacs]]
 
    smartrep と機能が競合. そのうちどちらかに統一する.
    - [[http://rubikitch.com/2015/01/25/hydra/][同系統のコマンドを連続的に実行するときプレフィクスキーを省略する | るびきち]]
 
-   #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (use-package hydra
   :config
-  (defhydra hydra-zoom (global-map "<f2>")
-    "zoom"
-    ("+" text-scale-increase "in")
-    ("-" text-scale-decrease "out")))
 #+end_src
+
+  レシピは wiki にある.
+  - https://github.com/abo-abo/hydra/wiki/Hydras%20by%20Topic
+
+*** 文字の大きさを調整
+
+#+begin_src emacs-lisp
+(defhydra hydra-zoom (global-map "<f2>")
+  "zoom"
+  ("+" text-scale-increase "in")
+  ("-" text-scale-decrease "out"))
+#+end_src
+
+*** vi
+    - [[http://oremacs.com/2015/02/28/hydra-repeat/][Hydra-repeat · (or emacs]]
+
+#+begin_src emacs-lisp
+(global-set-key
+ (kbd "C-z")
+ (defhydra hydra-vi ()
+   "vi"
+   ("l" forward-char "right")
+   ("h" backward-char "left")
+   ("j" next-line "down")
+   ("k" previous-line "up")
+   ("." hydra-repeat "repeat")))
+#+end_src
+
+*** end of config
+#+begin_src emacs-lisp
+)
+#+end_src
+
 
 ** goto どっかにとんでいく処理
    M-g の 仕様 (24.4)   goto-map は M-g にバインドされている.

@@ -148,12 +148,26 @@
    マウスで選択しても, シンボルも, 色付けできる.
    色付けするたびにカラフルに色が変わる.
 
+   - [[http://handlename.hatenablog.jp/entry/2015/02/18/214717][highlight-symbol と hydra を組み合わせると捗る - handlename's blog]]
+
 #+begin_src emacs-lisp
 (use-package hl-anything
-  :bind  (("<f4>" . hl-highlight-thingatpt-local)
-	  ("ESC <f4>" . hl-unhighlight-all-local))
+  :bind (("<f4>" . hl-highlight-thingatpt-local)
+         ("ESC <f4>" . hl-unhighlight-all-local ))
   :config
-  (hl-highlight-mode 1))
+  (hl-highlight-mode 1)
+
+  (global-set-key
+   (kbd "C-x H")
+  
+   (defhydra hydra-hl-anything 
+     (:post (progn
+              (hl-unhinghlight-all-local)))
+     "hl-anything"
+     ("." hl-highlight-thingatpt-local)
+     ("n" hl-find-next-thing "next")
+     ("p" hl-find-prev-thing "prev")
+     ("c" hl-unhighlight-all-local "clear"))))
 #+end_src
 
 ** show-paren-mode

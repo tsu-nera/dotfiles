@@ -131,31 +131,25 @@
 (use-package multiple-cursors
   :bind (("C-M-c" . mc/edit-lines)
 	 ("C-M-r" . mc/mark-all-in-region)
-	 ("C-]" . mc/mark-next-like-this)
+	 ;; ("C-]" . mc/mark-next-like-this)
 	 ("C-M-]" . mc/mark-previous-like-this)
 	 ("C-c C-]" . mc/mark-all-like-this))
   :init
-  ;; smartrep によるキーバインド
-  (eval-after-load 'smartrep
-  '(progn
-     (global-unset-key "\C-t") 
-     (smartrep-define-key
-      global-map "C-t"
-      '(("C-t"      . 'mc/mark-next-like-this)
-  	("n"        . 'mc/mark-next-like-this)
-  	("p"        . 'mc/mark-previous-like-this)
-  	("m"        . 'mc/mark-more-like-this-extended)
-  	("u"        . 'mc/unmark-next-like-this)
-  	("U"        . 'mc/unmark-previous-like-this)
-  	("s"        . 'mc/skip-to-next-like-this)
-  	("S"        . 'mc/skip-to-previous-like-this)
-  	("*"        . 'mc/mark-all-like-this)
-  	("d"        . 'mc/mark-all-like-this-dwim)
-  	("i"        . 'mc/insert-numbers)
-  	("o"        . 'mc/sort-regions)
-  	("O"        . 'mc/reverse-regions)))
-    ))
-  )
+  (defhydra hydra-mc (global-map "C-]")
+    "multiple-cursor"
+    ("C-]" mc/mark-next-like-this "next")
+    ("n"   mc/mark-next-like-this "next")
+    ("p"   mc/mark-previous-like-this "previous")
+    ("m"   mc/mark-more-like-this-extended "more")
+    ("u"   mc/unmark-next-like-this "unmark-next")
+    ("U"   mc/unmark-previous-like-this "unmark-previous")
+    ("s"   mc/skip-to-next-like-this "skip-to-next")
+    ("S"   mc/skip-to-previous-like-this "skip-to-previous")
+    ("*"   mc/mark-all-like-this "all")
+    ("d"   mc/mark-all-like-this-dwim "all-like-this-dwim")
+    ("i"   mc/insert-numbers "insert-numbers")
+    ("o"   mc/sort-regions "sort-regions")
+    ("O"   mc/reverse-regions "reverse-regions")))
 #+end_src
 
 ** expand-region

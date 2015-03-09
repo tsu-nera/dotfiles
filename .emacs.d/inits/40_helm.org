@@ -27,6 +27,7 @@
 (global-set-key (kbd "M-r") 'helm-occur) ;; バッファを検索
 (global-set-key (kbd "M-x") 'helm-M-x) ;; M-X を 絞り込み
 (global-set-key (kbd "C-x C-b") 'helm-elscreen) ;; elscreen のタブを切り替え
+
 (define-key org-mode-map (kbd "C-c h") 'helm-org-in-buffer-headings)
 (define-key prog-mode-map (kbd "C-c h") 'helm-imenu)
 (define-key c++-mode-map (kbd "C-c h") 'helm-imenu)
@@ -90,9 +91,9 @@
 
 #+begin_src emacs-lisp
 (use-package helm-descbinds
-  :commands helm-descbinds
-  :config (helm-descbinds-mode 1)
-  )
+  :bind ("C-c b" . helm-descbinds)
+  :config
+  (helm-descbinds-mode))
 #+end_src
 
 ** helm-orgcard

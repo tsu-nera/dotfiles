@@ -97,6 +97,12 @@
    るびきちさんの記事を参考: 以下で自分の User-Agent を調べる.
    - http://www.cman.jp/network/support/go_access.cgi
 
+#+begin_src emacs-lisp
+;;(defvar url-user-agent "Mozilla/5.0 (Linux; U; Android 2.3.3; ja-jp; HTC_Pyramid Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.")
+;;(defun url-http-user-agent-string ()
+;;  (format "User-Agent: %s\r\n" url-user-agent))
+#+end_src
+
 ** 現在の url を eww で開く
   - [[http://tototoshi.hatenablog.com/entry/20100630/1277897703][カーソル位置の URL をブラウザで開く - tototoshi の日記]]
   - [[http://stackoverflow.com/questions/9033050/how-to-setup-emacs-to-folow-links-in-two-ways-depend-on-ctrl-key][browser - How to setup Emacs to folow links in two ways depend on CTRL key - Stack Overflow]]
