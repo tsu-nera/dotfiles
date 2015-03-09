@@ -118,11 +118,11 @@
    - http://www.emacswiki.org/emacs/narrow-indirect.el
 
 #+begin_src emacs-lisp
-(use-package narrow-indirect
-  :init
-  (define-key ctl-x-4-map "nd" 'ni-narrow-to-defun-indirect-other-window)
-  (define-key ctl-x-4-map "nn" 'ni-narrow-to-region-indirect-other-window)
-  (define-key ctl-x-4-map "np" 'ni-narrow-to-page-indirect-other-window))
+;;(use-package narrow-indirect
+;;  :init
+;;  (define-key ctl-x-4-map "nd" 'ni-narrow-to-defun-indirect-other-window)
+;;  (define-key ctl-x-4-map "nn" 'ni-narrow-to-region-indirect-other-window)
+;;  (define-key ctl-x-4-map "np" 'ni-narrow-to-page-indirect-other-window))
 #+end_src
    
 * モードライン

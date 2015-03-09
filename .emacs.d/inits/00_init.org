@@ -346,8 +346,8 @@
 (el-get-bundle emacsmirror/rainbow-mode)
 (el-get-bundle yoshida-mediba/hiwin-mode)
 (el-get-bundle bburns/clipmon)
-(el-get-bundle narrow-indirect)
 (el-get-bundle knu/shell-toggle.el)
+(el-get-bundle kyagi/shell-pop-el)
 #+end_src
 
 ** end  of config

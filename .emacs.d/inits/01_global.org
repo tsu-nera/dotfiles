@@ -13,6 +13,12 @@ git clone git://git.savannah.gnu.org/emacs.git
   - http://melpa.org
 
 * General Settings
+** 日本語設定
+
+#+begin_src emacs-lisp
+(setenv "LANG" "ja_JP.UTF-8")
+#+end_src
+
 ** customize の出力先
 #+begin_src emacs-lisp
 (setq custom-file "~/.emacs.d/inits/02_custom.el")
