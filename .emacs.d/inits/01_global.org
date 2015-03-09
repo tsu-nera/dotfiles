@@ -219,17 +219,16 @@ git clone git://git.savannah.gnu.org/emacs.git
    - [[http://rubikitch.com/2015/01/25/hydra/][同系統のコマンドを連続的に実行するときプレフィクスキーを省略する | るびきち]]
 
 #+begin_src emacs-lisp
-(use-package hydra
-  :config
+(use-package hydra)
 #+end_src
 
   レシピは wiki にある.
   - https://github.com/abo-abo/hydra/wiki/Hydras%20by%20Topic
-
+    
 *** 文字の大きさを調整
 
 #+begin_src emacs-lisp
-(defhydra hydra-zoom (global-map "<f2>")
+(defhydra hydra-zoom (global-map "C-x 9")
   "zoom"
   ("+" text-scale-increase "in")
   ("-" text-scale-decrease "out"))
@@ -248,11 +247,6 @@ git clone git://git.savannah.gnu.org/emacs.git
    ("j" next-line "down")
    ("k" previous-line "up")
    ("." hydra-repeat "repeat")))
-#+end_src
-
-*** end of config
-#+begin_src emacs-lisp
-)
 #+end_src
 
 
