@@ -105,11 +105,11 @@ git clone git://git.savannah.gnu.org/emacs.git
    よくわすれる, C や M の意味.
    - [[http://www.emacswiki.org/emacs/Emacs%e3%83%93%e3%82%ae%e3%83%8a%e3%83%bc#toc9][EmacsWiki: Emacs ビギナー]]
 
- #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (global-set-key (kbd "C-/")     'undo)
 (global-set-key (kbd "C-S-i")   'indent-region)
 (global-set-key (kbd "C-m")     'newline-and-indent)
- #+end_src
+#+end_src
 
 ** 削除系
    | C-k | kill-line     |

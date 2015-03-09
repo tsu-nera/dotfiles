@@ -358,8 +358,7 @@
 (use-package my-org-clockin-gtd
   :bind (("<f7>" . mygtd:gtd)
 	 ("<f8>" . mygtd:rest)
-	 ("C-x <f8>" . mygtd:reset-rest-timer))
-  )
+	 ("C-x <f8>" . mygtd:reset-rest-timer)))
 #+end_src
 
 *** org-clock-by-tags
