@@ -161,9 +161,3 @@ old mode 100755 new mode 100644
 (setq w32-get-true-file-attributes nil)
 #+end_src
 
-*** vc git が遅くなる??
-    - [[http://emacs.1067599.n5.nabble.com/slow-opening-of-files-in-git-directories-in-windows-td187276.html][Emacs - Dev - slow opening of files in git directories in windows]]
-
-#+begin_src emacs-lisp
-(setq vc-handled-backends nil)
-#+end_src
