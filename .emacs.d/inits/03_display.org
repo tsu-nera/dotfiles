@@ -124,6 +124,18 @@
 ;;  (define-key ctl-x-4-map "nn" 'ni-narrow-to-region-indirect-other-window)
 ;;  (define-key ctl-x-4-map "np" 'ni-narrow-to-page-indirect-other-window))
 #+end_src
+
+** historyf
+   ブラウザの戻るボタンのように戻る.
+   - https://github.com/k1LoW/emacs-historyf
+   - [[http://emacs.g.hatena.ne.jp/k1LoW/20100410/1270886156][historyf.el でブラウザの「戻る」ボタン的なバッファ移動を実現する]]
+
+#+begin_src emacs-lisp
+(use-package historyf
+  :commands (historyf-back historyf-forward)
+  :bind (("M-[" . historyf-back)
+         ("M-]" . historyf-forward)))
+#+end_src
    
 * モードライン
 ** モードラインに時間を表示する
