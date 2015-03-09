@@ -348,6 +348,7 @@
 (el-get-bundle bburns/clipmon)
 (el-get-bundle knu/shell-toggle.el)
 (el-get-bundle kyagi/shell-pop-el)
+(el-get-bundle hydra)
 #+end_src
 
 ** end  of config

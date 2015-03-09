@@ -131,8 +131,12 @@
    - [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Select-Buffer.html][Select Buffer - GNU Emacs Manual]]
    
 #+begin_src emacs-lisp
-(global-set-key (kbd "M-[") 'next-buffer)
-(global-set-key (kbd "M-]") 'previous-buffer)
+(defhydra hydra-move-buffer (global-map "M")
+  "buffer"
+  ("[" next-buffer "next")
+  ("]" previous-buffer "previous"))
+;; (global-set-key (kbd "M-[") 'next-buffer)
+;; (global-set-key (kbd "M-]") 'previous-buffer)
 #+end_src
 
 * モードライン

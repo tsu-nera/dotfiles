@@ -101,6 +101,15 @@
       link)))
 #+end_src
 
+** org-mode での移動 with hydra
+
+#+begin_src emacs-lisp
+(defhydra hydra-outline (org-mode-map "C-c")
+  "outline"
+  ("C-n" outline-next-visible-heading "next head")
+  ("C-p" outline-previous-visible-heading "previous head"))
+#+end_src
+
 * GTD
   参考:
   - http://hpcgi1.nifty.com/spen/index.cgi?OrgMode%2fOrganize_Your_Life_In_Plain_Text!#i9

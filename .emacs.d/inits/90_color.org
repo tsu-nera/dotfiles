@@ -37,19 +37,19 @@
 
  #+begin_src emacs-lisp
 ; 色づけは最小限に
-(setq font-lock-maximum-decoration 6)
-(setq font-lock-maximum-decoration '((c-mode . 1) (c++-mode . 1) (org-mode . 1)))
- 
-(setq jit-lock-context-time 5.0)
-(setq jit-lock-defer-time 1.0)
-(setq jit-lock-stealth-time ;5.0
-20.0)
-(setq jit-lock-stealth-verbose nil)
-(setq jit-lock-stealth-nice 0.5)
-(setq jit-lock-stealth-load ;50
-300)
-(setq jit-lock-chunk-size ;100
-20)
+;; (setq font-lock-maximum-decoration 6)
+;; (setq font-lock-maximum-decoration '((c-mode . 1) (c++-mode . 1) (org-mode . 1)))
+;;  
+;; (setq jit-lock-context-time 5.0)
+;; (setq jit-lock-defer-time 1.0)
+;; (setq jit-lock-stealth-time ;5.0
+;; 20.0)
+;; (setq jit-lock-stealth-verbose nil)
+;; (setq jit-lock-stealth-nice 0.5)
+;; (setq jit-lock-stealth-load ;50
+;; 300)
+;; (setq jit-lock-chunk-size ;100
+;; 20)
 #+end_src
 
 ** 現在行をハイライト

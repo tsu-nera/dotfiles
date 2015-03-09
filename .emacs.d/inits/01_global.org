@@ -210,6 +210,22 @@ git clone git://git.savannah.gnu.org/emacs.git
 (use-package smartrep)
 #+end_src
 
+** hydra
+   おもしろい記事をかく abo-abo さんの作品.
+   - https://github.com/abo-abo/hydra
+
+   smartrep と機能が競合. そのうちどちらかに統一する.
+   - [[http://rubikitch.com/2015/01/25/hydra/][同系統のコマンドを連続的に実行するときプレフィクスキーを省略する | るびきち]]
+
+   #+begin_src emacs-lisp
+(use-package hydra
+  :config
+  (defhydra hydra-zoom (global-map "<f2>")
+    "zoom"
+    ("+" text-scale-increase "in")
+    ("-" text-scale-decrease "out")))
+#+end_src
+
 ** goto どっかにとんでいく処理
    M-g の 仕様 (24.4)   goto-map は M-g にバインドされている.
    - TAB: move-to-column
