@@ -514,9 +514,17 @@
     (vc-git-command buf 'async nil "blame" "--date=iso" rev "--" name)))
 #+end_src
 
-speedup
-- [[http://stackoverflow.com/questions/8837712/emacs-creates-buffers-very-slowly][windows - Emacs creates buffers very slowly - Stack Overflow]]
+** speedup
+  - [[http://stackoverflow.com/questions/8837712/emacs-creates-buffers-very-slowly][windows - Emacs creates buffers very slowly - Stack Overflow]]
 
 #+begin_src emacs-lisp
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
 #+end_src
+
+*** vc git が遅くなる??
+  - [[http://emacs.1067599.n5.nabble.com/slow-opening-of-files-in-git-directories-in-windows-td187276.html][Emacs - Dev - slow opening of files in git directories in windows]]
+
+#+begin_src emacs-lisp
+(setq vc-handled-backends nil)
+#+end_src
+

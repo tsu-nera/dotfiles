@@ -199,19 +199,18 @@
 
 *** agenda speedup
     - [[http://orgmode.org/worg/agenda-optimization.html][Agenda speedup and optimization]]
+    - [[http://orgmode.org/manual/Speeding-up-your-agendas.html][Speeding up your agendas - The Org Manual]]
     - [[http://rubikitch.com/2014/11/29/org-agenda-cache/][【もう遅くない】 Emacs org-agenda による予定表を瞬時に表示させる方法 ]]
 
 #+begin_src emacs-lisp
-;; (eval-after-load 'org-agenda
-;;   '(progn
-;;      (defun org-agenda-cache (&optional regenerate)
-;;        (interactive "P")
-;;        (when (or regenerate (null (get-buffer "*Org Agenda*")))
-;;          (setq current-prefix-arg nil)
-;;          (org-agenda nil "a"))
-;;        (switch-to-buffer "*Org Agenda*")
-;;        (delete-other-windows))
-;;      (define-key org-agenda-mode-map (kbd "q") 'quit-window)))
+;; Inhibit the dimming of blocked tasks:
+(setq org-agenda-dim-blocked-tasks nil)
+
+;; Inhibit agenda files startup options:
+(setq org-agenda-inhibit-startup nil)
+
+;; Disable tag inheritance in agenda:
+(setq org-agenda-use-tag-inheritance nil)
 #+end_src
 
 ** タスクの状態
@@ -306,9 +305,6 @@
   - http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
 
 #+begin_src emacs-lisp
-;; emacs resume 時に時間計測再開
-(org-clock-persistence-insinuate)
-
 ;; Resume clocking task on clock-in if the clock is open
 (setq org-clock-in-resume t)
 
@@ -324,7 +320,11 @@
 ;; when exiting Emacs, load it on startup
 ;; Emacs が再起動したときにタスクの時間計測を再開する
 ;; Emacs が終了する時に測定中の計測と全ての測定履歴を保存する
-(setq org-clock-persist (quote history))
+;; http://orgmode.org/manual/Clocking-work-time.html
+(setq org-clock-persist 'history)
+
+;; emacs resume 時に時間計測再開
+(org-clock-persistence-insinuate)
 
 ;; 空き時間の解決 
 ;; 半端時間を絶えずチェックしているファイルのリストは, M-x org-resolve-clocks
