@@ -21,7 +21,8 @@
 #+begin_src emacs-lisp
 (use-package eww
   :commands (eww-disable-images browse-url-with-eww)
-  :bind (("C-x g g" . eww-search))
+  :bind (("C-x g g" . eww-search)
+         ("C-c p" . browse-url-with-eww))
   :config
   (define-key eww-mode-map "r" 'eww-reload)
   (define-key eww-mode-map "c 0" 'eww-copy-page-url)
@@ -63,8 +64,8 @@
 
 (add-hook 'eww-after-render-hook (lambda ()
 				   (unless (eq eww-hl-search-word nil)
-				   (highlight-regexp eww-hl-search-word)
-				   (setq eww-hl-search-word nil))))
+                                     (highlight-regexp eww-hl-search-word))
+                                   (setq eww-hl-search-word nil)))
 #+end_src
 
 ** 現在の url を 外部ブラウザ で開く (eww-browse-with-external-link)
