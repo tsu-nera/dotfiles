@@ -707,11 +707,10 @@ sudo pacman -S ghostscript
 #+begin_src emacs-lisp
 (use-package volume
   :config
-  (eval-after-load 'hydra
-    (defhydra hydra-volume (global-map "C-x 7")
-      "volume"
-      ("+" volume-raise "up")
-      ("-" volume-lower "down"))))
+  (defhydra hydra-volume (global-map "C-x 7")
+    "volume"
+    ("+" volume-raise "up")
+    ("-" volume-lower "down")))
 #+end_src
 
 * Tips

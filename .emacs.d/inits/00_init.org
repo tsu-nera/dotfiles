@@ -348,7 +348,9 @@
 (el-get-bundle bburns/clipmon)
 (el-get-bundle knu/shell-toggle.el)
 (el-get-bundle kyagi/shell-pop-el)
-(el-get-bundle hydra)
+(el-get-bundle abo-abo/hydra)
+(el-get-bundle abo-abo/swiper)
+(el-get-bundle dbrock/volume-el)
 #+end_src
 
 ** end  of config

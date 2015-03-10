@@ -138,6 +138,7 @@
   ;; (setq helm-use-migemo t)
   (helm-migemize-command helm-imenu)
   (helm-migemize-command helm-org-in-buffer-headings)
+  (helm-migemize-command swiper)
   (require 'my-patch-helm-migemo))
 #+end_src
 
@@ -381,12 +382,20 @@
 ;;      (call-interactively 'helm-recentf)))
    #+end_src
 
-* 未使用中...
-** helm-github-issues
+** swiper
+   Emacs isearch with an overview. 
+   Interactive `occur' using `helm
+   - [[http://oremacs.com/2015/03/10/no-swiping/][Introducing Swiper · (or emacs]]
+   - https://github.com/abo-abo/swiper
+   
+   isearch + helm. helm-swoop と似ている.
+
 #+begin_src emacs-lisp
-(use-package helm-github-issues :disabled t :commands helm-github-issues)
+(use-package swiper
+  :bind ("C-c s". swiper))
 #+end_src
 
+* 未使用中...
 ** helm-etags-plus
    - [[https://github.com/jixiuf/helm-etags-plus][jixiuf/helm-etags-plus]]
 

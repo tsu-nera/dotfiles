@@ -178,11 +178,14 @@
 ** flymake
    静的文法チェック.
 
+   -> flycheck にだんだん移行する.
+
 #+begin_src emacs-lisp
 (use-package flymake
-  :bind (("M-p"  . flymake-goto-prev-error)
-	 ("M-n"  . flymake-goto-next-error)
-	 ("C-c d" . flymake-display-err-menu-for-current-line))
+  :disabled t
+;;  :bind (("M-p"  . flymake-goto-prev-error)
+;;	 ("M-n"  . flymake-goto-next-error)
+;;	 ("C-c d" . flymake-display-err-menu-for-current-line))
   :init
   (add-hook 'find-file-hook 'flymake-find-file-hook)
 ;;  (add-hook 'c++-mode-hook '(lambda () (flymake-mode t)))

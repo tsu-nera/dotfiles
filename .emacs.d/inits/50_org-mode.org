@@ -15,7 +15,7 @@
   :mode ("\\.org$"  . org-mode)
   :bind  (("C-c a" . org-agenda)
 	  ("C-c c" . org-capture)
-	  ("C-c b" . org-iswitchb)
+;;	  ("C-c b" . org-iswitchb) -> helm-descbindsへあげる.
 	  ("C-c l" . org-store-link)
 	  ("C-c C-x C-@" . org-clock-out) ;; tmux で C-o は利用しているため
 	  ("C-c C" . cfw:open-org-calendar)
