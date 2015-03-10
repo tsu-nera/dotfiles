@@ -234,21 +234,20 @@ git clone git://git.savannah.gnu.org/emacs.git
   ("-" text-scale-decrease "out"))
 #+end_src
 
-*** vi
+*** move
     - [[http://oremacs.com/2015/02/28/hydra-repeat/][Hydra-repeat · (or emacs]]
 
 #+begin_src emacs-lisp
 (global-set-key
  (kbd "C-z")
- (defhydra hydra-vi ()
+ (defhydra hydra-move ()
    "vi"
-   ("l" forward-char "right")
-   ("h" backward-char "left")
-   ("j" next-line "down")
-   ("k" previous-line "up")
+   ("f" forward-char "right")
+   ("b" backward-char "left")
+   ("n" next-line "down")
+   ("p" previous-line "up")
    ("." hydra-repeat "repeat")))
 #+end_src
-
 
 ** goto どっかにとんでいく処理
    M-g の 仕様 (24.4)   goto-map は M-g にバインドされている.
