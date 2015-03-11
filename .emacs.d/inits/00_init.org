@@ -353,6 +353,7 @@
 (el-get-bundle dbrock/volume-el)
 (el-get-bundle avendael/emacs-geeknote)
 (el-get-bundle bbatsov/solarized-emacs)
+(el-get-bundle pymander/evernote-mode)
 #+end_src
 ** end  of config
 #+begin_src emacs-lisp

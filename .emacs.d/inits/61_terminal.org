@@ -35,6 +35,10 @@
   ;; これで正規表現がつかえるようになる??
   (setq eshell-prompt-regexp "^[^#$]*[$#] ")
 
+  ;; スクロールがカクカクなるのを抑止する.
+  ;; http://stackoverflow.com/questions/12667043/emacs-smooth-scrolling-scroll-margin-and-eshell
+  ;; (setq scroll-margin 0)
+
   ;; windows 環境だと, shift-jis にしよう
   (when windows-p
     (add-hook
@@ -340,10 +344,10 @@
 ** colors
 
    #+begin_src emacs-lisp
-(custom-set-faces
- '(elscreen-tab-control-face ((t (:background "#1c1c1c" :foreground "#9e9e9e" :underline t))))
- '(elscreen-tab-current-screen-face ((t (:background "#444444" :foreground "#9e9e9e"))))
- '(elscreen-tab-other-screen-face ((t (:background "#262626" :foreground "#9e9e9e" :underline t)))))
+;; (custom-set-faces ;; for monokai
+;;  '(elscreen-tab-control-face ((t (:background "#1c1c1c" :foreground "#9e9e9e" :underline t))))
+;;  '(elscreen-tab-current-screen-face ((t (:background "#444444" :foreground "#9e9e9e"))))
+;;  '(elscreen-tab-other-screen-face ((t (:background "#262626" :foreground "#9e9e9e" :underline t)))))
 
 ;; それっぽい色をつける?? つけてくれないよ.
 ;; (use-package elscreen-color-theme)
