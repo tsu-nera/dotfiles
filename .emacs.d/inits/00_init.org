@@ -351,8 +351,9 @@
 (el-get-bundle abo-abo/hydra)
 (el-get-bundle abo-abo/swiper)
 (el-get-bundle dbrock/volume-el)
+(el-get-bundle avendael/emacs-geeknote)
+(el-get-bundle bbatsov/solarized-emacs)
 #+end_src
-
 ** end  of config
 #+begin_src emacs-lisp
 )

@@ -37,7 +37,125 @@
   (setq edit-server-new-frame nil))
  #+end_src
 
-* パスワード管理
+** mozRepl
+   Emacs で保存時に firefox を reload する.
+   - [[https://github.com/bard/mozrepl/wiki][Home · bard/mozrepl Wiki]]
+   - https://github.com/bard/mozrepl/blob/master/chrome/content/moz.el
+   - [[http://d.hatena.ne.jp/hnw/20110506][Emacs+Firefox+MozRepl でファイルセーブと同時にリロード - hnw の日記]]
+   - [[http://qiita.com/hakomo/items/9a99115f8911b55957bb][Emacs で保存時に Firefox のタブを探してリロード - Qiita]]
+   - [[http://www.emacswiki.org/emacs/MozRepl][EmacsWiki: Moz Repl]]
+
+   Alt-T でツールバー表示.
+
+*** keybindings
+   - C-c C-s" run-mozilla
+   - C-M-x"  moz-send-defun
+   - C-c C-c" moz-send-defun-and-go
+   - C-c C-r" moz-send-region
+   - C-c C-l" moz-save-buffer-and-send
+
+ #+begin_src emacs-lisp
+(use-package moz
+  :commands (moz-reload)
+  :config
+  (defun moz-reload ()
+    (interactive)
+    (comint-send-string (inferior-moz-process) "BrowserReload ();")))
+ #+end_src
+
+*** conkeror 連携
+   - [[https://github.com/bard/mozrepl/wiki/Use-with-Conkeror][Use with Conkeror · bard/mozrepl Wiki]]
+   - [[http://truongtx.me/2013/10/01/mozrepl-in-combination-with-emacs-for-developing-conkeror/#][Mozrepl in combination with Emacs for developing Conkeror]]
+* memo:メモ・キャプチャー
+** Hown
+   Function : Evernote を越えるメモ管理ツール
+   - http://www.gfd-dennou.org/member/uwabami/cc-env/emacs/howm_config.html
+   - http://d.hatena.ne.jp/TakashiHattori/20120627/1340768058
+
+   使いこなせてないので封印.いつか, 使いこなしたい.
+
+ #+begin_src emacs-lisp
+;; *.org を開いたら howm-mode も起動する
+;;(add-hook 'org-mode-hook 'howm-mode)
+
+;; howm のメモを置くディレクトリ (任意)
+;; (setq howm-directory "~/gtd/howm") ;; メニュー表示しない
+;; (setq howm-menu-top nil)
+;; メニューの言語設定
+;; (setq howm-menu-lang 'ja)
+;; howm ファイル名を設定する. org-mode を起動するため拡張子は .org にする.
+;; (setq howm-file-name-format "%Y%m%d-%H%M%S.org")
+;; (setq howm-view-title-header "*") ;; ← howm のロードより前に書くこと
+
+;; キーバインドは C-a C-a にする
+;; (global-unset-key (kbd "C-x C-a"))
+;; (setq howm-prefix (kbd "C-x C-a"))
+
+;;(autoload 'howm "howm" " Hitori Otegaru Wiki Modoki" nil)
+;; (use-package howm)
+;; (add-hook 'howm-mode-hook 'helm-howm)
+;; (use-package helm-howm)
+ #+end_src
+
+** geeknote
+   Evernote クライアント.
+   - https://github.com/avendael/emacs-geeknote
+   - [[http://qiita.com/torub/items/e2f3a81828f153bdc0b5][Emacs (GNU Emacs on MaxOS) で Evernote を Markdown で編集する - Qiita]]
+
+*** Geeknote の設定
+   - https://github.com/VitaliyRodnenko/geeknote
+
+#+begin_src bash
+git clone git://github.com/VitaliyRodnenko/geeknote.git
+cd geeknote
+sudo python setup.py install
+#+end_src
+
+
+*** Emacs の設定
+    Emacs は server モードで立ち上げておく必要あり.
+
+   #+begin_src emacs-lisp
+   (use-package geeknote)
+   #+end_src
+
+** camcorder
+   Emacs からスクリーンショットを撮影.
+   - https://github.com/Bruce-Connor/camcorder.el
+
+   gif 動画が作成できる.
+
+   names に依存.
+   - https://github.com/Bruce-Connor/names/
+
+   他, 以下のツールが必要
+   - recordmydesktop
+   - mplayer
+   - imagemagick
+
+   autoload でエラーするので, 
+   el-get でインストールしないで, マニュアルインストール.
+
+ #+begin_src emacs-lisp
+(use-package camcorder
+  :if linux-p
+  :init
+  (define-key camcorder-mode-map (kbd "<f9>") 'camcorder-stop)
+  (define-key camcorder-mode-map (kbd "C-x <f9>") 'camcorder-pause)
+  :config
+  (require 'names)
+  (setq camcorder-output-directory "~/futurismo/blog/img")
+  (setq camcorder-recording-command
+	'("recordmydesktop" " --fps 20" " --no-sound"
+	  " --windowid " window-id " -o " temp-file
+	  " && mkdir -p " temp-dir
+	  " && cd " temp-dir
+	  " && mplayer -ao null " temp-file " -vo png:z=9"
+	  " && convert -resize 640x -colors 32 " temp-dir "* " file
+	  "; rm -r " temp-file " " temp-dir)))
+ #+end_src
+    
+* Password: パスワード管理
 ** netrc
    build-in のパスワード管理.
    パスワード自体は ~/.netrc に書き込む. 
@@ -45,8 +163,7 @@
 #+begin_src emacs-lisp
 (use-package netrc :defer t)
 #+end_src
-
-* Chat
+* Communication Tools: チャット関連
 ** twittering-mode
   Emacs Twitter Client
   - [[http://www.emacswiki.org/emacs/TwitteringMode-ja][EmacsWiki: TwitteringMode-ja]]
@@ -249,95 +366,175 @@ command uses interactive mode if passed an argument."
 )
 #+end_src
 
-* Hown
-  Function : Evernote を越えるメモ管理ツール
-  - http://www.gfd-dennou.org/member/uwabami/cc-env/emacs/howm_config.html
-  - http://d.hatena.ne.jp/TakashiHattori/20120627/1340768058
+* multimedia:音楽, マルチメディア 
+** emms
+   Emacs のためのメディアプレーヤー
+   - [[http://www.gnu.org/software/emms/][EMMS - Emacs Multimedia System]]
+   - [[http://www.emacswiki.org/emacs/EMMS][EmacsWiki: EMMS]]
 
-  使いこなせてないので封印.いつか, 使いこなしたい.
+*** 基本操作
+    - [[http://www.gnu.org/software/emms/manual/index.html#Top][The Emms Manual]]
+    まず, emms を起動する. playlist が表示される.
 
-#+begin_src emacs-lisp
-;; *.org を開いたら howm-mode も起動する
-;;(add-hook 'org-mode-hook 'howm-mode)
+   - emms-play-xxx: 音楽再生
+   - emms-add-xxx:  音楽をプレイリストに追加.
+   - emms-start: プレイリストを再生
 
-;; howm のメモを置くディレクトリ (任意)
-;; (setq howm-directory "~/gtd/howm") ;; メニュー表示しない
-;; (setq howm-menu-top nil)
-;; メニューの言語設定
-;; (setq howm-menu-lang 'ja)
-;; howm ファイル名を設定する. org-mode を起動するため拡張子は .org にする.
-;; (setq howm-file-name-format "%Y%m%d-%H%M%S.org")
-;; (setq howm-view-title-header "*") ;; ← howm のロードより前に書くこと
+   基本コマンドは以下を参照.
+   - [[http://www.gnu.org/software/emms/manual/Basic-Commands.html#Basic-Commands][Basic Commands - The Emms Ma+nual]]
 
-;; キーバインドは C-a C-a にする
-;; (global-unset-key (kbd "C-x C-a"))
-;; (setq howm-prefix (kbd "C-x C-a"))
+   Emacs で SoundCloud を聞く方法
+   - https://github.com/r0man/soundklaus.el
 
-;;(autoload 'howm "howm" " Hitori Otegaru Wiki Modoki" nil)
-;; (use-package howm)
-;; (add-hook 'howm-mode-hook 'helm-howm)
-;; (use-package helm-howm)
-#+end_src
+   参考になる config
+   - https://github.com/thierryvolpiatto/emacs-tv-config/blob/master/emms-mpd-config.el
 
-* pdf-tools
-  PDF Viewer.
-  - https://github.com/politza/pdf-tools
-  - http://www.dailymotion.com/video/x2bc1is_pdf-tools-tourdeforce_tech?forcedQuality%3Dhd720
-  - http://sheephead.homelinux.org/2014/03/17/7076/
+*** Settings
 
-  github のやつだと, コンパイルエラーするので, fork して無理やり通した.
-  -> patch とりこまれた
-
-  ArchLinux では, GhostScript を入れる.
-
-#+begin_src sh
-sudo pacman -S ghostscript
-#+end_src
-
-  うーん, minor-mode が hook で有効にならないな...
-
-#+begin_src emacs-lisp
-(use-package pdf-tools
-  :if linux-p
+ #+begin_src emacs-lisp
+(use-package emms-setup
+  :commands emms-stream-init ;; for helm-emms
   :init
-  (setq pdf-info-epdfinfo-program
-	(concat (el-get-package-directory "pdf-tools") "src/epdfinfo"))
-  (add-hook 'pdf-view-mode-hook 'pdf-tools-enable-minor-modes)
-  ;; (add-hook 'pdf-tools-enabled-hook 'pdf-tools-enable-minor-modes)
-  :mode (("\\.pdf$" . pdf-view-mode)))
-;;  :config
-	      ;; (use-package pdf-isearch)
-	      ;; (use-package pdf-annot)
-	      ;; (use-package pdf-history) 
-	      ;; (use-package pdf-info)
-	      ;; (use-package pdf-links) 
-	      ;; (use-package pdf-misc) 
-	      ;; (use-package pdf-occur) 
-	      ;; (use-package pdf-outline) 
-	      ;; (use-package pdf-sync) 
-	      ;; (use-package tablist-filter)
-	      ;; (use-package tablist))))
-#+end_src
+  (eval-after-load 'smartrep
+  '(progn
+     (smartrep-define-key
+	 global-map "C-x C-9"
+       '(("+"      . 'emms-volume-raise)
+	 ("-"      . 'emms-volume-lower)
+	 ("n"      . 'emms-next)
+	 ("p"      . 'emms-previous)))))
+  :config
+  (require 'emms-volume)
+  ;; (emms-standard)
+  (emms-all)
+  ;; (emms-default-players)
+  ;; (setq emms-player-list '(emms-player-mpg321
+  ;;                          emms-player-ogg123
+  ;;                          emms-player-mplayer))
+  (when linux-p
+    (setq emms-source-file-default-directory "~/Music/"))
+  
+  ;; RET が動かないので
+  (define-key emms-stream-mode-map (kbd "C-c C-c") 'emms-stream-play)
 
-  どうも, doc-view-mode がめちゃくちゃ遅い!linum-mode が有効なことが原因.
-  以下のページを参考に, major-mode が 
-  - doc-view-mode
-  - pdf-view-mode
-  のときは, linum-mode は disable に.
-  - [[http://stackoverflow.com/questions/16132234/how-can-i-speed-up-emacs-docview-mode][How can I speed up Emacs DocView mode? - Stack Overflow]]
+  ;; emms-streams で RET を押したときのデフォルト操作
+  (setq emms-stream-default-action "play")
+   #+end_src
 
-** WIndows 環境
-   頑張ってる. まだうごかない.
+   その他として helm-emms が C-x c #にある. 便利.
 
-   - libglib
-   - libglib-dev
-   - libpopper
-   - libpoppwer-glib8
+*** vlc
+    https をサポートに追加する.
 
-* calfw
-  Emacs 用カレンダー.
-  -> org-mode に移動.
+ #+begin_src emacs-lisp
+(when linux-p
+(use-package emms-player-vlc
+  :config
+       (setq emms-player-list '(emms-player-vlc))
+       (define-emms-simple-player vlc '(file url)
+	 (concat "\\`\\(https?\\|mms\\)://\\|"
+	      (emms-player-simple-regexp
+	       "ogg" "mp3" "wav" "mpg" "mpeg" "wmv" "wma"
+	       "mov" "avi" "divx" "ogm" "ogv" "asf" "mkv"
+	       "rm" "rmvb" "mp4" "flac" "vob" "m4a" "ape"
+	       "asx"))
+	 "vlc" "--intf=rc")))
+ #+end_src
 
+*** mplayer
+    - windows http://sourceforge.net/projects/mplayerwin/
+
+*** volume
+    - [[https://www.gnu.org/software/emms/manual/Volume.html][Volume - The Emms Manual]]
+    - [[http://anthony.lecigne.net/2014-08-16-emms-mplayer.html][Control the volume with MPlayer in EMMS]]
+
+    .asoundrc を作成して, default のカードを変更した.
+   - [[https://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Advanced Linux Sound Architecture (日本語) - ArchWiki]]
+
+   #+begin_src emacs-lisp
+(when linux-p
+  (setq emms-volume-amixer-control "Master"))
+ #+end_src
+
+*** Stream
+    ストリームを再生できる. 
+    (emms-all) をするか, (require 'emms-streams) で有効になる.
+    emms-streams で Default で登録されてる URL がでる.
+
+    WCPE, Classical Music
+    - http://www.ibiblio.org/wcpe/wcpe.pls
+
+    BBC Classic (Raido3)
+    - http://www.bbc.co.uk/radio/listen/live/r3_aaclca.pls
+
+*** End of Config
+ #+begin_src emacs-lisp
+)
+ #+end_src
+
+** jazzradio
+   ジャズだって聴ける! 
+   - https://github.com/syohex/emacs-jazzradio
+   - [[http://d.hatena.ne.jp/syohex/20150208/1423395606][ジャズだって聴ける. そう, Emacs ならね. - Life is very short]]
+
+   本当はクラシックが聴きたいけど. クラシックは emms-stream で我慢.
+   内部では mplayer を利用している.
+
+   - mplayer
+   - curl
+
+ #+begin_src emacs-lisp
+(use-package jazzradio
+  :config
+  (defun my/jazzradio-switch (my/jazzradio-channel-url my/jazzradio-playlist-base-url) ()
+	 (unless jazzradio--process
+	   (jazzradio--stop))
+	 (setq jazzradio--process nil)
+	 (setq jazzradio--channels-cache  nil)
+	 (setq jazzradio-channel-url my/jazzradio-channel-url)
+	 (setq jazzradio-playlist-base-url my/jazzradio-playlist-base-url)
+	 (jazzradio))
+  (defun jazzradio--reset ()
+    (interactive)
+    (my/jazzradio-switch 
+    "http://ephemeron:dayeiph0ne%40pp@api.audioaddict.com/v1/jazzradio/mobile/batch_update?stream_set_key="
+    "http://listen.jazzradio.com/webplayer/"))
+  (defun technoradio ()
+    (interactive)    
+    (my/jazzradio-switch
+    "http://ephemeron:dayeiph0ne%40pp@api.audioaddict.com/v1/di/mobile/batch_update?stream_set_key="
+    "http://listen.di.fm/webplayer/"))
+  (defun classicradio ()
+    (interactive)    
+    (my/jazzradio-switch
+    "http://ephemeron:dayeiph0ne%40pp@api.audioaddict.com/v1/radiotunes/mobile/batch_update?stream_set_key="
+    "http://listen.radiotunes.com/webplayer/"))
+  (defun rockradio ()
+    (interactive)    
+    (my/jazzradio-switch
+     "http://ephemeron:dayeiph0ne%40pp@api.audioaddict.com/v1/rockradio/mobile/batch_update?stream_set_key=")
+    "http://listen.rockradio.com/webplayer/"))
+ #+end_src
+
+*** Windows
+    1. curl を cygwin 経由でいれる.
+    2. mplayer を入れる
+       http://sourceforge.net/projects/mplayerwin/
+    3. mpayer にパスを通す.
+
+    mplayer2 では動かなかった.
+
+** volume
+   volume 制御だってできる, そう Emacs ならね.
+
+ #+begin_src emacs-lisp
+(use-package volume
+  :config
+  (defhydra hydra-volume (global-map "C-x 7")
+    "volume"
+    ("+" volume-raise "up")
+    ("-" volume-lower "down")))
+ #+end_src
 * Google
 ** google-translate
    Google 翻訳.
@@ -375,7 +572,7 @@ sudo pacman -S ghostscript
   (google-this-mode 1))
 #+end_src
 
-* Dictionary
+* Dictionary: 辞書
 ** search-web
     無料でオンラインの英辞郎 on the WEB をサクッと利用する.
 
@@ -402,7 +599,7 @@ sudo pacman -S ghostscript
 (use-package codic :defer t)
 #+end_src
 
-* Pomodoro
+* Pomodoro: ポモドーロ
   ポモドーロ関係のツール.
   - [[http://pomodorotechnique.com/][HOME - The Pomodoro Technique ® The Pomodoro Technique ®]]
 
@@ -464,6 +661,64 @@ sudo pacman -S ghostscript
 ;; )
 #+end_src
 
+* pdf-tools
+  PDF Viewer.
+  - https://github.com/politza/pdf-tools
+  - http://www.dailymotion.com/video/x2bc1is_pdf-tools-tourdeforce_tech?forcedQuality%3Dhd720
+  - http://sheephead.homelinux.org/2014/03/17/7076/
+
+  github のやつだと, コンパイルエラーするので, fork して無理やり通した.
+  -> patch とりこまれた
+
+  ArchLinux では, GhostScript を入れる.
+
+#+begin_src sh
+sudo pacman -S ghostscript
+#+end_src
+
+  うーん, minor-mode が hook で有効にならないな...
+
+#+begin_src emacs-lisp
+(use-package pdf-tools
+  :if linux-p
+  :init
+  (setq pdf-info-epdfinfo-program
+	(concat (el-get-package-directory "pdf-tools") "src/epdfinfo"))
+  (add-hook 'pdf-view-mode-hook 'pdf-tools-enable-minor-modes)
+  ;; (add-hook 'pdf-tools-enabled-hook 'pdf-tools-enable-minor-modes)
+  :mode (("\\.pdf$" . pdf-view-mode)))
+;;  :config
+	      ;; (use-package pdf-isearch)
+	      ;; (use-package pdf-annot)
+	      ;; (use-package pdf-history) 
+	      ;; (use-package pdf-info)
+	      ;; (use-package pdf-links) 
+	      ;; (use-package pdf-misc) 
+	      ;; (use-package pdf-occur) 
+	      ;; (use-package pdf-outline) 
+	      ;; (use-package pdf-sync) 
+	      ;; (use-package tablist-filter)
+	      ;; (use-package tablist))))
+#+end_src
+
+  どうも, doc-view-mode がめちゃくちゃ遅い!linum-mode が有効なことが原因.
+  以下のページを参考に, major-mode が 
+  - doc-view-mode
+  - pdf-view-mode
+  のときは, linum-mode は disable に.
+  - [[http://stackoverflow.com/questions/16132234/how-can-i-speed-up-emacs-docview-mode][How can I speed up Emacs DocView mode? - Stack Overflow]]
+
+** WIndows 環境
+   頑張ってる. まだうごかない.
+
+   - libglib
+   - libglib-dev
+   - libpopper
+   - libpoppwer-glib8
+* calfw
+  Emacs 用カレンダー.
+  -> org-mode に移動.
+
 * psession
   セッション保存. elscreen に対応してくれないかな. . .
   - [[https://github.com/thierryvolpiatto/psession][thierryvolpiatto/psession]]
@@ -479,240 +734,6 @@ sudo pacman -S ghostscript
   (psession-mode 1)
   )
 #+end_src
-* emms
-  Emacs のためのメディアプレーヤー
-  - [[http://www.gnu.org/software/emms/][EMMS - Emacs Multimedia System]]
-  - [[http://www.emacswiki.org/emacs/EMMS][EmacsWiki: EMMS]]
-
-** 基本操作
-   - [[http://www.gnu.org/software/emms/manual/index.html#Top][The Emms Manual]]
-   まず, emms を起動する. playlist が表示される.
-
-  - emms-play-xxx: 音楽再生
-  - emms-add-xxx:  音楽をプレイリストに追加.
-  - emms-start: プレイリストを再生
-
-  基本コマンドは以下を参照.
-  - [[http://www.gnu.org/software/emms/manual/Basic-Commands.html#Basic-Commands][Basic Commands - The Emms Ma+nual]]
-
-  Emacs で SoundCloud を聞く方法
-  - https://github.com/r0man/soundklaus.el
-
-  参考になる config
-  - https://github.com/thierryvolpiatto/emacs-tv-config/blob/master/emms-mpd-config.el
-
-** Settings
-
-#+begin_src emacs-lisp
-(use-package emms-setup
-  :commands emms-stream-init ;; for helm-emms
-  :init
-  (eval-after-load 'smartrep
-  '(progn
-     (smartrep-define-key
-	 global-map "C-x C-9"
-       '(("+"      . 'emms-volume-raise)
-	 ("-"      . 'emms-volume-lower)
-	 ("n"      . 'emms-next)
-	 ("p"      . 'emms-previous)))))
-  :config
-  (require 'emms-volume)
-  ;; (emms-standard)
-  (emms-all)
-  ;; (emms-default-players)
-  ;; (setq emms-player-list '(emms-player-mpg321
-  ;;                          emms-player-ogg123
-  ;;                          emms-player-mplayer))
-  (when linux-p
-    (setq emms-source-file-default-directory "~/Music/"))
-  
-  ;; RET が動かないので
-  (define-key emms-stream-mode-map (kbd "C-c C-c") 'emms-stream-play)
-
-  ;; emms-streams で RET を押したときのデフォルト操作
-  (setq emms-stream-default-action "play")
-  #+end_src
-
-  その他として helm-emms が C-x c #にある. 便利.
-
-** vlc
-   https をサポートに追加する.
-
-#+begin_src emacs-lisp
-(when linux-p
-(use-package emms-player-vlc
-  :config
-       (setq emms-player-list '(emms-player-vlc))
-       (define-emms-simple-player vlc '(file url)
-	 (concat "\\`\\(https?\\|mms\\)://\\|"
-	      (emms-player-simple-regexp
-	       "ogg" "mp3" "wav" "mpg" "mpeg" "wmv" "wma"
-	       "mov" "avi" "divx" "ogm" "ogv" "asf" "mkv"
-	       "rm" "rmvb" "mp4" "flac" "vob" "m4a" "ape"
-	       "asx"))
-	 "vlc" "--intf=rc")))
-#+end_src
-
-** mplayer
-   - windows http://sourceforge.net/projects/mplayerwin/
-
-** volume
-   - [[https://www.gnu.org/software/emms/manual/Volume.html][Volume - The Emms Manual]]
-   - [[http://anthony.lecigne.net/2014-08-16-emms-mplayer.html][Control the volume with MPlayer in EMMS]]
-
-   .asoundrc を作成して, default のカードを変更した.
-  - [[https://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Advanced Linux Sound Architecture (日本語) - ArchWiki]]
-
-  #+begin_src emacs-lisp
-(when linux-p
-  (setq emms-volume-amixer-control "Master"))
-#+end_src
-
-** Stream
-   ストリームを再生できる. 
-   (emms-all) をするか, (require 'emms-streams) で有効になる.
-   emms-streams で Default で登録されてる URL がでる.
-
-   WCPE, Classical Music
-   - http://www.ibiblio.org/wcpe/wcpe.pls
-
-   BBC Classic (Raido3)
-   - http://www.bbc.co.uk/radio/listen/live/r3_aaclca.pls
-
-** End of Config
-#+begin_src emacs-lisp
-)
-#+end_src
-
-* camcorder
-  Emacs からスクリーンショットを撮影.
-  - https://github.com/Bruce-Connor/camcorder.el
-
-  gif 動画が作成できる.
-
-  names に依存.
-  - https://github.com/Bruce-Connor/names/
-
-  他, 以下のツールが必要
-  - recordmydesktop
-  - mplayer
-  - imagemagick
-
-  autoload でエラーするので, 
-  el-get でインストールしないで, マニュアルインストール.
-
-#+begin_src emacs-lisp
-(use-package camcorder
-  :if linux-p
-  :init
-  (define-key camcorder-mode-map (kbd "<f9>") 'camcorder-stop)
-  (define-key camcorder-mode-map (kbd "C-x <f9>") 'camcorder-pause)
-  :config
-  (require 'names)
-  (setq camcorder-output-directory "~/futurismo/blog/img")
-  (setq camcorder-recording-command
-	'("recordmydesktop" " --fps 20" " --no-sound"
-	  " --windowid " window-id " -o " temp-file
-	  " && mkdir -p " temp-dir
-	  " && cd " temp-dir
-	  " && mplayer -ao null " temp-file " -vo png:z=9"
-	  " && convert -resize 640x -colors 32 " temp-dir "* " file
-	  "; rm -r " temp-file " " temp-dir)))
-#+end_src
-* jazzradio
-  ジャズだって聴ける! 
-  - https://github.com/syohex/emacs-jazzradio
-  - [[http://d.hatena.ne.jp/syohex/20150208/1423395606][ジャズだって聴ける. そう, Emacs ならね. - Life is very short]]
-
-  本当はクラシックが聴きたいけど. クラシックは emms-stream で我慢.
-  内部では mplayer を利用している.
-
-  - mplayer
-  - curl
-
-#+begin_src emacs-lisp
-(use-package jazzradio
-  :config
-  (defun my/jazzradio-switch (my/jazzradio-channel-url my/jazzradio-playlist-base-url) ()
-	 (unless jazzradio--process
-	   (jazzradio--stop))
-	 (setq jazzradio--process nil)
-	 (setq jazzradio--channels-cache  nil)
-	 (setq jazzradio-channel-url my/jazzradio-channel-url)
-	 (setq jazzradio-playlist-base-url my/jazzradio-playlist-base-url)
-	 (jazzradio))
-  (defun jazzradio--reset ()
-    (interactive)
-    (my/jazzradio-switch 
-    "http://ephemeron:dayeiph0ne%40pp@api.audioaddict.com/v1/jazzradio/mobile/batch_update?stream_set_key="
-    "http://listen.jazzradio.com/webplayer/"))
-  (defun technoradio ()
-    (interactive)    
-    (my/jazzradio-switch
-    "http://ephemeron:dayeiph0ne%40pp@api.audioaddict.com/v1/di/mobile/batch_update?stream_set_key="
-    "http://listen.di.fm/webplayer/"))
-  (defun classicradio ()
-    (interactive)    
-    (my/jazzradio-switch
-    "http://ephemeron:dayeiph0ne%40pp@api.audioaddict.com/v1/radiotunes/mobile/batch_update?stream_set_key="
-    "http://listen.radiotunes.com/webplayer/"))
-  (defun rockradio ()
-    (interactive)    
-    (my/jazzradio-switch
-     "http://ephemeron:dayeiph0ne%40pp@api.audioaddict.com/v1/rockradio/mobile/batch_update?stream_set_key=")
-    "http://listen.rockradio.com/webplayer/"))
-#+end_src
-
-** Windows
-   1. curl を cygwin 経由でいれる.
-   2. mplayer を入れる
-      http://sourceforge.net/projects/mplayerwin/
-   3. mpayer にパスを通す.
-
-   mplayer2 では動かなかった.
-
-* mozRepl
-  Emacs で保存時に firefox を reload する.
-  - [[https://github.com/bard/mozrepl/wiki][Home · bard/mozrepl Wiki]]
-  - https://github.com/bard/mozrepl/blob/master/chrome/content/moz.el
-  - [[http://d.hatena.ne.jp/hnw/20110506][Emacs+Firefox+MozRepl でファイルセーブと同時にリロード - hnw の日記]]
-  - [[http://qiita.com/hakomo/items/9a99115f8911b55957bb][Emacs で保存時に Firefox のタブを探してリロード - Qiita]]
-  - [[http://www.emacswiki.org/emacs/MozRepl][EmacsWiki: Moz Repl]]
-
-  Alt-T でツールバー表示.
-
-** keybindings
-  - C-c C-s" run-mozilla
-  - C-M-x"  moz-send-defun
-  - C-c C-c" moz-send-defun-and-go
-  - C-c C-r" moz-send-region
-  - C-c C-l" moz-save-buffer-and-send
-
-#+begin_src emacs-lisp
-(use-package moz
-  :commands (moz-reload)
-  :config
-  (defun moz-reload ()
-    (interactive)
-    (comint-send-string (inferior-moz-process) "BrowserReload ();")))
-#+end_src
-
-** conkeror 連携
-  - [[https://github.com/bard/mozrepl/wiki/Use-with-Conkeror][Use with Conkeror · bard/mozrepl Wiki]]
-  - [[http://truongtx.me/2013/10/01/mozrepl-in-combination-with-emacs-for-developing-conkeror/#][Mozrepl in combination with Emacs for developing Conkeror]]
-    
-* volume
-  volume 制御だってできる, そう Emacs ならね.
-
-#+begin_src emacs-lisp
-(use-package volume
-  :config
-  (defhydra hydra-volume (global-map "C-x 7")
-    "volume"
-    ("+" volume-raise "up")
-    ("-" volume-lower "down")))
-#+end_src
-
 * Tips
 ** slimlock
    Emacs から一時停止.

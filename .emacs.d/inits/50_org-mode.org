@@ -712,7 +712,8 @@
   ;; 背景色
   ;;  (if (eq window-system nil)
   ;;      (set-face-background 'mmm-default-submode-face nil)
-  ;; (set-face-background 'mmm-default-submode-face "#242424")
+  ;; (set-face-background 'mmm-default-submode-face "#242424") ;; monokai
+  (set-face-background 'mmm-default-submode-face "#073642") ;; solarized-dark
 
   (mmm-add-classes
    '((org-elisp
