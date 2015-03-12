@@ -15,7 +15,7 @@
   :mode ("\\.org$"  . org-mode)
   :bind  (("C-c a" . org-agenda)
 	  ("C-c c" . org-capture)
-;;	  ("C-c b" . org-iswitchb) -> helm-descbindsへあげる.
+;;	  ("C-c b" . org-iswitchb) -> helm-descbinds へあげる.
 	  ("C-c l" . org-store-link)
 	  ("C-c C-x C-@" . org-clock-out) ;; tmux で C-o は利用しているため
 	  ("C-c C" . cfw:open-org-calendar)
@@ -194,7 +194,10 @@
 ;; 			 "~/gtd/unplan.org"
 ;; 			 "~/gtd/schedule.org"))
 
-(setq org-agenda-files '("~/gtd/main.org"))
+(setq org-agenda-files '("~/gtd/main.org"
+                         "~/gtd/inbox.org"
+                         "~/gtd/journal/"))
+(setq org-agenda-file-regexp "\\`[^.].*\\.org'\\|[0-9]+")
 #+end_src
 
 *** agenda speedup
@@ -399,6 +402,7 @@
 #+end_src
 
 * org-capture
+  
   アイデアをキャプチャーする.
 
   capture てんぷれの書き方
@@ -782,6 +786,23 @@
 #+end_src
 
 * org-table
+* org-journal
+  org-mode で簡単日記.
+  - https://github.com/bastibe/org-journal
+
+  使い方.
+  - To create a new journal entry: C-c C-j
+  - To open today's journal without creating a new entry: C-u C-c C-j
+
+#+begin_src emacs-lisp
+(use-package org-journal
+  :config
+  (setq org-journal-date-format "%x")
+  (setq org-journal-time-format "<%Y-%m-%d %R> ")
+  (setq org-journal-file-format "%Y%m%d.org")
+  (setq org-journal-dir "~/gtd/journal/"))
+#+end_src
+
 * 他のツールとの連携
 ** RSS Feed 
   RSS Feeder for Emacs
