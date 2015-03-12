@@ -154,10 +154,10 @@
   :config
   (custom-set-variables
    '(shell-pop-default-directory "~/")
-   '(shell-pop-shell-type (quote ("eshell" "*eshell*" (lambda nil (eshell 
-     shell-pop-term-shell)))))
+   '(shell-pop-shell-type
+     (quote ("eshell" "*eshell*" (lambda nil (eshell shell-pop-term-shell)))))
    '(shell-pop-term-shell "/usr/bin/zsh")
-   '(shell-pop-universal-key "C-t")
+   '(shell-pop-universal-key "M-p p")
    '(shell-pop-window-height 30)
    '(shell-pop-full-span t)
    '(shell-pop-window-position "bottom")))
@@ -198,7 +198,7 @@
   :config
   (defun term-run-alsamixer ()
     (interactive)
-    (term-run-shell-command "alsamixer")))
+    (term-run-shell-command "alsamixer" nil)))
 #+end_src
 
 ** My Commands
@@ -264,6 +264,12 @@
 #+end_src
 
   - [[http://macemacsjp.sourceforge.jp/index.php?EmacsDired][EmacsDired - MacEmacs]]
+
+*** popwin で下から表示
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "M-p d") 'dired-jump-other-window)
+#+end_src
 
 ** joseph-single-dired
    バッファを複数作成しない.
