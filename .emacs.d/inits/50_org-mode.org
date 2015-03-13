@@ -796,6 +796,7 @@
 
 #+begin_src emacs-lisp
 (use-package org-journal
+  :bind ("C-c j" . org-journal-new-entry)
   :config
   (setq org-journal-date-format "%x")
   (setq org-journal-time-format "<%Y-%m-%d %R> ")

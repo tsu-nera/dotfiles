@@ -465,15 +465,6 @@ command uses interactive mode if passed an argument."
  #+begin_src emacs-lisp
 (use-package emms-setup
   :commands emms-stream-init ;; for helm-emms
-  :init
-  (eval-after-load 'smartrep
-  '(progn
-     (smartrep-define-key
-	 global-map "C-x C-9"
-       '(("+"      . 'emms-volume-raise)
-	 ("-"      . 'emms-volume-lower)
-	 ("n"      . 'emms-next)
-	 ("p"      . 'emms-previous)))))
   :config
   (require 'emms-volume)
   ;; (emms-standard)

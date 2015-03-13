@@ -643,11 +643,11 @@
 ;; (setq skk-henkan-show-candidates-rows 2) ; 候補表示件数を 2 列に
 
 ;; 動的候補表示
-;; org-mode で文字がずれるのが嫌だ
-;; (setq skk-dcomp-activate t)			 ; 動的補完
-;; (setq skk-dcomp-multiple-activate t) ; 動的補完の複数候補表示
-;; (setq skk-dcomp-multiple-rows 10)	 ; 動的補完の候補表示件数
+(setq skk-dcomp-activate t)	     ; 動的補完
+(setq skk-dcomp-multiple-activate t) ; 動的補完の複数候補表示
+(setq skk-dcomp-multiple-rows 10)    ; 動的補完の候補表示件数
 #+end_src
+
 
 *** 親指シフト
     われは親指シフター. 
@@ -673,6 +673,7 @@
   (setq skk-nicola-lshift-keys '([non-convert]))
   (setq skk-nicola-rshift-keys '([convert])))
 #+end_src
+
 
 *** end of skk config
 
