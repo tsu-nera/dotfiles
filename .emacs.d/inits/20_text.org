@@ -868,9 +868,12 @@ google-ime-skk &
  #+begin_src emacs-lisp
 (use-package ispell
   :init
-  ;; aspell にパスを通す.
+  ;; aspell にパスを通す
+  ((executable-find "aspell")
+   
   (when (file-executable-p "/usr/bin/aspell")
     (setq-default ispell-program-name "aspell")
+    ;; (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))
     ;; パフォーマンス向上
     (add-to-list 'ispell-extra-args "--sug-mode=ultra")
     ;; 日本語はスキップ.
@@ -930,7 +933,7 @@ google-ime-skk &
 
 #+begin_src emacs-lisp
 (use-package flyspell-lazy
-  :disabled t ;; エラーしている.
+;;  :disabled t ;; エラーしている.
   :config
   (flyspell-lazy-mode 1))
 #+end_src

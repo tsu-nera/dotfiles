@@ -354,6 +354,8 @@
 (el-get-bundle avendael/emacs-geeknote)
 (el-get-bundle bbatsov/solarized-emacs)
 (el-get-bundle pymander/evernote-mode)
+(el-get-bundle pcache/pcache)
+(el-get-bundle avendael/emacs-geeknote)
 #+end_src
 ** end  of config
 #+begin_src emacs-lisp
