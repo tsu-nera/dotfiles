@@ -26,6 +26,7 @@
 (global-set-key (kbd "M-y") 'helm-show-kill-ring) ;; 最近消したクリップボード履歴
 (global-set-key (kbd "M-r") 'helm-occur) ;; バッファを検索
 (global-set-key (kbd "M-x") 'helm-M-x) ;; M-X を 絞り込み
+(global-set-key (kbd "C-M-z") 'helm-resume)  
 (global-set-key (kbd "C-x C-b") 'helm-elscreen) ;; elscreen のタブを切り替え
 
 (define-key org-mode-map (kbd "C-c h") 'helm-org-in-buffer-headings)
@@ -395,6 +396,13 @@
   :bind ("C-c s". swiper))
 #+end_src
 
+* Action 追加
+  helm で絞り込みのあと, TAB で Action 起動.
+  - [[http://rubikitch.com/2015/02/02/helm-add-actions/][emacs helm にアクション・キーバインドを超簡単に追加する方法]]
+  - https://gist.github.com/tsu-nera/9cfd449c0dc5d232f61f
+
+  よくわからないな...あとで.
+  
 * 未使用中...
 ** helm-etags-plus
    - [[https://github.com/jixiuf/helm-etags-plus][jixiuf/helm-etags-plus]]

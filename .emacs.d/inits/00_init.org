@@ -349,7 +349,7 @@
 (el-get-bundle knu/shell-toggle.el)
 (el-get-bundle kyagi/shell-pop-el)
 (el-get-bundle abo-abo/hydra)
-(el-get-bundle abo-abo/swiper)
+(el-get-bundle abo-abo/swiper),
 (el-get-bundle dbrock/volume-el)
 (el-get-bundle avendael/emacs-geeknote)
 (el-get-bundle bbatsov/solarized-emacs)
@@ -357,6 +357,13 @@
 (el-get-bundle pcache/pcache)
 (el-get-bundle avendael/emacs-geeknote)
 #+end_src
+
+*** gist
+
+#+begin_src emacs-lisp
+(el-get-bundle gist:9cfd449c0dc5d232f61f:my-helm-add-actoins)
+#+end_src
+
 ** end  of config
 #+begin_src emacs-lisp
 )

@@ -933,9 +933,9 @@ containing the properties `:guid' and `:item-full-text'."
 	org-gcal-dir "~/org"
 	org-gcal-file-alist '(("fox10225fox@gmail.com" .  "~/gtd/schedule.org")))
 
-  (defun browse-google-calendar
+  (defun browse-google-calendar ()
       (interactive)
-    (browse-url "https://www.google.com/calendar/render?hl=ja")))
+      (browse-url "https://www.google.com/calendar/render?hl=ja")))
 #+end_src
 
 ** R

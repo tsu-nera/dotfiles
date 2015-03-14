@@ -29,8 +29,7 @@
 
 #+begin_src emacs-lisp
 (use-package ace-jump-zap
-  :bind (("M-z" . ace-jump-zap-to-char)
-	 ("M-C-z" . ace-jump-zap-to-char)))
+  :bind (("M-z" . ace-jump-zap-to-char)))
 #+end_src
 
 ** ace-isearch
