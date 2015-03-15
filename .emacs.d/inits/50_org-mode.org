@@ -804,6 +804,29 @@
   (setq org-journal-dir "~/gtd/journal/"))
 #+end_src
 
+* org-pomodor
+  - https://github.com/lolownia/org-pomodoro
+
+#+begin_src emacs-lisp
+(use-package org-pomodoro
+  :if linux-p
+  :commands (custom-org-agenda-mode-defaults)
+  :init
+  (global-set-key (kbd "C-c C-x C-i") 'org-pomodoro)
+  (global-set-key (kbd "C-c C-x C-@") 'org-pomodoro)
+  (add-hook 'org-agenda-mode-hook 'custom-org-agenda-mode-defaults 'append)
+  :config
+  (setq org-pomodoro-play-start-sound t)
+  (setq org-pomodoro-play-ticking-sounds nil)
+  (defun custom-org-agenda-mode-defaults ()
+    (org-defkey org-agenda-mode-map "q" 'bury-buffer)
+    (org-defkey org-agenda-mode-map "I" 'org-pomodoro)
+    (org-defkey org-agenda-mode-map "O" 'org-pomodoro)
+    (org-defkey org-agenda-mode-map (kbd "C-c C-x C-i") 'org-pomodoro)
+    (org-defkey org-agenda-mode-map (kbd "C-c C-x C-@") 'org-pomodoro)))
+#+end_src
+
+  
 * 他のツールとの連携
 ** RSS Feed 
   RSS Feeder for Emacs
