@@ -845,6 +845,15 @@
     (browse-url "http://openweathermap.org/city/1850147")))
 #+end_src
 
+* org-multiple-keymap
+  n/p で 日付や priority を変更.
+   - https://github.com/myuhe/org-multiple-keymap.el
+
+#+begin_src emacs-lisp
+(use-package org-multiple-keymap)
+#+end_src
+
+
 * 他のツールとの連携
 ** RSS Feed 
   RSS Feeder for Emacs
