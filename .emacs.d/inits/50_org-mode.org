@@ -828,6 +828,23 @@
     (org-defkey org-agenda-mode-map (kbd "C-c C-x C-@") 'org-pomodoro)))
 #+end_src
   
+* org-weather
+  org-agenda に天気を表示する
+  - https://github.com/kautsig/org-weather
+
+#+begin_src emacs-lisp
+(use-package org-weather
+  :idle
+  (org-weather-refresh)
+  :config
+  ;;(setq org-weather-format "Weather: %desc, %tmin-%tmax%tu, %p%pu, %h%hu, %s%su")
+  (setq org-weather-format "Weather: %desc, %tmin-%tmax%tu")
+  (setq org-weather-location "Tokyo,JP")
+  (defun org-weather-browse ()
+    (interactive)
+    (browse-url "http://openweathermap.org/city/1850147")))
+#+end_src
+
 * 他のツールとの連携
 ** RSS Feed 
   RSS Feeder for Emacs
@@ -1016,3 +1033,4 @@ containing the properties `:guid' and `:item-full-text'."
 
   PDF を org-mode で閲覧.
   - [[http://www.toryanderson.com/tech/emacs-study-pdf-conversion-and-editing][Emacs for Study: PDF Conversion and Editing | ToryAnderson.com]]
+    
