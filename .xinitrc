@@ -29,8 +29,7 @@ if [ -s ~/.Xmodmap ]; then
 fi
 
 # Boot Emacs
-/home/tsu-nera/script/sh/retry emacs --daemon &
-
+emacs --daemon &
 
 # xmonad
 exec xmonad

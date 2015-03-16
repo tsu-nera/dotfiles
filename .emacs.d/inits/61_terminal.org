@@ -198,7 +198,10 @@
   :config
   (defun term-run-alsamixer ()
     (interactive)
-    (term-run-shell-command "alsamixer" nil)))
+    (term-run-shell-command "alsamixer" nil))
+  (defun term-run-feednix ()
+    (interactive)
+    (term-run "feednix" "*feednix*")))
 #+end_src
 
 ** My Commands

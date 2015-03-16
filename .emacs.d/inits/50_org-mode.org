@@ -197,7 +197,7 @@
 (setq org-agenda-files '("~/gtd/main.org"
                          "~/gtd/inbox.org"
                          "~/gtd/journal/"))
-(setq org-agenda-file-regexp "\\`[^.].*\\.org'\\|[0-9]+")
+(setq org-agenda-file-regexp "\\`[^.].*\\.org'\\|[0-9]+.org$")
 #+end_src
 
 *** agenda speedup
@@ -669,10 +669,10 @@
 
 *** :exports
     export するときの挙動をきめる.
-    - :export code
-    - :export result
-    - :export both
-    - :export none
+    - :exports code
+    - :exports results
+    - :exports both
+    - :exports none
 
     参考:
     - [[http://orgmode.org/manual/Exporting-code-blocks.html][Exporting code blocks - The Org Manual]]
@@ -818,6 +818,8 @@
   :config
   (setq org-pomodoro-play-start-sound t)
   (setq org-pomodoro-play-ticking-sounds nil)
+  ;; aplay, mplayer では音がならない...
+  (setq org-pomodoro-audio-player "cvlc")
   (defun custom-org-agenda-mode-defaults ()
     (org-defkey org-agenda-mode-map "q" 'bury-buffer)
     (org-defkey org-agenda-mode-map "I" 'org-pomodoro)
@@ -825,7 +827,6 @@
     (org-defkey org-agenda-mode-map (kbd "C-c C-x C-i") 'org-pomodoro)
     (org-defkey org-agenda-mode-map (kbd "C-c C-x C-@") 'org-pomodoro)))
 #+end_src
-
   
 * 他のツールとの連携
 ** RSS Feed 
