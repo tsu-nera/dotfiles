@@ -298,6 +298,8 @@
     semantic-refactor
     function-args
     column-enforce-mode
+    hydra
+    swiper
     )
  "A list of packages to install from el-get at launch.")
 
@@ -338,6 +340,7 @@
 #+end_src
 
 ** el-get-bundle
+   bundle だと el-get-update の対象外になってしまうので, あまりよくない.
 
 #+begin_src emacs-lisp
 (el-get-bundle skeeto/impatient-mode :depends (simple-httpd htmlize))
@@ -348,8 +351,6 @@
 (el-get-bundle bburns/clipmon)
 (el-get-bundle knu/shell-toggle.el)
 (el-get-bundle kyagi/shell-pop-el)
-(el-get-bundle abo-abo/hydra)
-(el-get-bundle abo-abo/swiper)
 (el-get-bundle dbrock/volume-el)
 (el-get-bundle avendael/emacs-geeknote)
 (el-get-bundle bbatsov/solarized-emacs)

@@ -393,7 +393,18 @@
 
 #+begin_src emacs-lisp
 (use-package swiper
-  :bind ("C-c s". swiper))
+  :bind (("C-c s". swiper) ("C-s" . isearch-forward-or-swiper))
+  :config
+  ;; ルビ吉さんの設定
+  ;; http://rubikitch.com/2015/03/18/swiper/
+  (defun isearch-forward-or-swiper (use-swiper)
+    (interactive "P")
+    (let (current-prefix-arg)
+      (call-interactively (if use-swiper 'swiper 'isearch-forward))))
+  ;; バックエンドのivyがスペースを".*"に置換してしまうため、無効にする
+  ;; これをしないと純粋に正規表現isearchの置き換えにならない
+  (require 'ivy)
+  (fset 'ivy--regex 'identity))
 #+end_src
 
 * Action 追加
