@@ -1,0 +1,3 @@
+(:name engine-mode
+       :type github
+       :pkgname "hrs/engine-mode")

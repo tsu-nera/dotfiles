@@ -65,7 +65,39 @@
 
 *** conkeror 連携
    - [[https://github.com/bard/mozrepl/wiki/Use-with-Conkeror][Use with Conkeror · bard/mozrepl Wiki]]
-   - [[http://truongtx.me/2013/10/01/mozrepl-in-combination-with-emacs-for-developing-conkeror/#][Mozrepl in combination with Emacs for developing Conkeror]]
+   -
+     [[http://truongtx.me/2013/10/01/mozrepl-in-combination-with-emacs-for-developing-conkeror/#][Mozrepl in combination with Emacs for developing Conkeror]]
+** engine-mode
+   簡単に検索が定義できるマクロ.
+   - https://github.com/hrs/engine-mode
+
+   エンジンモードプレフぃクス C-c /
+
+#+begin_src emacs-lisp
+(use-package engine-mode
+  :init
+  (engine-mode t)
+  (defengine amazon
+  "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=%s")
+  (defengine duckduckgo
+    "https://duckduckgo.com/?q=%s"
+    "d")
+  (defengine github
+    "https://github.com/search?ref=simplesearch&q=%s")
+  (defengine google
+    "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s"
+    "g")
+  (defengine twitter
+    "https://twitter.com/search?q=%s")
+  (defengine wikipedia
+    "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s"
+    "w")
+  (defengine wolfram-alpha
+    "http://www.wolframalpha.com/input/?i=%s")
+  (defengine youtube
+    "http://www.youtube.com/results?aq=f&oq=&search_query=%s"))
+#+end_src
+
 * memo:メモ・キャプチャー
 ** Hown
    Function : Evernote を越えるメモ管理ツール
