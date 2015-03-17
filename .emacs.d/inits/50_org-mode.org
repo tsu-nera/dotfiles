@@ -674,8 +674,12 @@
     - :exports both
     - :exports none
 
+    これで, 表を表示.
+    =:results text :colnames yes :rownames yes=
+
     参考:
     - [[http://orgmode.org/manual/Exporting-code-blocks.html][Exporting code blocks - The Org Manual]]
+    - [[http://orgmode.org/worg/org-contrib/babel/header-args.html][Header arguments and result types in Org Babel]]
 
 ** インタプリタ
    インタプリタをもつ言語では, :session hogehoge を記述することで,

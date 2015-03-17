@@ -355,6 +355,10 @@
 (el-get-bundle bbatsov/solarized-emacs)
 (el-get-bundle pymander/evernote-mode)
 (el-get-bundle pcache/pcache)
+(el-get-bundle hrs/engine-mode)
+(el-get-bundle org-pomodoro)
+(el-get-bundle kautsig/org-weather)
+(el-get-bundle myuhe/org-multiple-keymap.el)
 #+end_src
 
 *** gist

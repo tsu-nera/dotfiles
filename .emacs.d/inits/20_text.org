@@ -933,7 +933,7 @@ google-ime-skk &
 
 #+begin_src emacs-lisp
 (use-package flyspell-lazy
-;;  :disabled t ;; エラーしている.
+  :disabled t ;; エラーしている.
   :config
   (flyspell-lazy-mode 1))
 #+end_src
