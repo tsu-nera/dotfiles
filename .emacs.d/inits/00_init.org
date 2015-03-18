@@ -300,6 +300,7 @@
     column-enforce-mode
     hydra
     swiper
+    smooth-scroll
     )
  "A list of packages to install from el-get at launch.")
 
