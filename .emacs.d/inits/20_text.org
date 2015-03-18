@@ -424,12 +424,18 @@
 ** カーソル移動を速くする
    - [[https://bbs.archlinux.org/viewtopic.php?id=69759][Keyboard repeat messed up after update to Xorg 1.6 / Applications
      & Desktop Environments / Arch Linux Forums]]
-
+   - [[http://shigemk2.hatenablog.com/entry/20130420/1366450632][Emacs のカーソル移動の速度を上げる軌跡 - by shigemk2]]
    以下を.xinitrc 書く
 
 #+begin_src text
     xset r rate 200 25
 #+end_src
+
+  windows は コントロールパネル > キーボードから.
+  - [[http://superuser.com/questions/388160/keyboard-repeat-rate-repeat-delay-values-in-win7][windows 7 - Keyboard - Repeat Rate/Repeat Delay values in Win7 - Super User]]
+
+  レジストリをいじると, 31 以下に設定できる.
+  - [[http://d.hatena.ne.jp/bigchu/20090224/1235477173][windows でキーボードのカーソル移動速度を上げる. ばびゅーん. - 酒は血液, 呑んだら献血]]
 
 * 検索・置換
 ** ag
