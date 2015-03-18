@@ -31,5 +31,8 @@ fi
 # Boot Emacs
 emacs --daemon &
 
+# Emacs Speedup
+xset r rate 200 25
+
 # xmonad
 exec xmonad

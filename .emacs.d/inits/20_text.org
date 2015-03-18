@@ -421,6 +421,16 @@
        ))
   )
 #+end_src
+** カーソル移動を速くする
+   - [[https://bbs.archlinux.org/viewtopic.php?id=69759][Keyboard repeat messed up after update to Xorg 1.6 / Applications
+     & Desktop Environments / Arch Linux Forums]]
+
+   以下を.xinitrc 書く
+
+#+begin_src text
+    xset r rate 200 25
+#+end_src
+
 * 検索・置換
 ** ag
    高速 grep

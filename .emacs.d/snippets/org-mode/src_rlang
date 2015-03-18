@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: src_rlang
+# key: src_rlang
+# binding: direct-keybinding
+# --
+#+BEGIN_HTML
+<a href="http://developer.r-project.org/Logo/Rlogo-3.png"><img alt="" src="http://developer.r-project.org/Logo/Rlogo-3.png" /></a>
+#+END_HTML

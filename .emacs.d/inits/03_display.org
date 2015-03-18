@@ -1,4 +1,4 @@
-* Display
+\* Display
   表示関連.
 
 * バッファ
@@ -138,6 +138,7 @@
 ** smooth-scroll
    スムーズにスクロールする.
    - [[http://qiita.com/ShingoFukuyama/items/429199542c38625c5554][Emacs のスクロールが滑らかになって気持ちいい! - Qiita]]
+   - https://github.com/k-talo/smooth-scroll.el
 
 #+begin_src emacs-lisp
 (use-package smooth-scroll
@@ -398,4 +399,13 @@
 
 ;; フルスクリーン
 ;; (set-frame-parameter nil 'fullscreen 'fullboth)
+
+(defun ome-toggle-fullscreen ()
+  "Toggle full screen"
+  (interactive)
+  (set-frame-parameter
+   nil 'fullscreen
+   (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
+
+;; (global-set-key (kbd "<f11>") 'ome-toggle-fullscreen)
 #+end_src
