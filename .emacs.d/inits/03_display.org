@@ -135,6 +135,16 @@
 ;; (global-set-key (kbd "M-]") 'previous-buffer)
 #+end_src
 
+** smooth-scroll
+   スムーズにスクロールする.
+   - [[http://qiita.com/ShingoFukuyama/items/429199542c38625c5554][Emacs のスクロールが滑らかになって気持ちいい! - Qiita]]
+
+#+begin_src emacs-lisp
+(use-package smooth-scroll
+  :init
+  (smooth-scroll-mode t))
+#+end_src
+
 * モードライン
 ** モードラインに時間を表示する
 #+begin_src emacs-lisp

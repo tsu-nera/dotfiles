@@ -16,3 +16,11 @@
    - make bootstrap をする.
 
    make clean を強力にしたもの.
+
+* Proxy
+** Windows GUI で el-get が失敗する
+   環境変数を設定して解決した.
+
+   - HTTP_PROXY/HTTPS_PROXY
+     http://<ユーザ名:パスワード>@xxx.xxx.xxx.co.jp:8080
+     
