@@ -11,15 +11,28 @@
     - [[http://d.hatena.ne.jp/a_bicky/20120415/1334490586][ESS で快適 R ライフ ~設定編~(2012 年度版) - あらびき日記]]
     - [[http://d.hatena.ne.jp/a_bicky/20120422/1335086814][ESS で快適 R ライフ ~操作編~(2012 年度版) - あらびき日記]]
 
-   yaourt でインストール. yaourt -S emacs-ess.
-   emacs 自体は独自のものを利用しているため,
-   ビルドファイルで Emacs をコメントアウトした.
+*** Install
+**** arch linux
 
-   起動は M-x R.
+     yaourt でインストール. yaourt -S emacs-ess.
+     emacs 自体は独自のものを利用しているため,
+     ビルドファイルで Emacs をコメントアウトした.
+
+**** windows
+     結構めんどくさいかも...
+     - [[http://ess.r-project.org/index.php?Section=download][ESS - Emacs Speaks Statistics]]
+     - [[http://d.hatena.ne.jp/Rion778/20100920/1284919925][Emacs + ESS で R (for Windows users) - もうカツ丼でいいよな]]
+
+     github から直接最新版を取得して, 適当な場所に配置. 
+     load-path を通す.
+     - https://github.com/emacs-ess/ESS
+
+*** config
+     起動は M-x R.
 
 #+begin_src emacs-lisp
 (use-package ess-site
-  :load-path "/usr/share/emacs/site-lisp/ess"
+  :load-path ("/usr/share/emacs/site-lisp/ess" "c:/app/ess/lisp")
   :if (locate-library "ess-site")
   :commands R-mode
   :init

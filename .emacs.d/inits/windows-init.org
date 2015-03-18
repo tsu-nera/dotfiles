@@ -104,6 +104,7 @@ Value: ((xpm "libxpm.dll" "xpm4.dll" "libXpm-nox4.dll")
   以下から windows 用のバイナリが手に入る.
   - [[http://www2.nc-toyama.ac.jp/Lab/mkawai/sotuken/guide/gzip/gzip.html][GNU File Compress/Uncompress Tool gzip for Windows]]
 
+(load-path "c:/app/ess")
 * Trouble about Windows
 ** magit
    変更していないのに変更したように見える.
