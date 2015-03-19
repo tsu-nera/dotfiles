@@ -409,3 +409,11 @@
 
 ;; (global-set-key (kbd "<f11>") 'ome-toggle-fullscreen)
 #+end_src
+
+** ポップアップを消す
+
+#+begin_src emacs-lisp
+(setq use-dialog-boxn nil)
+(defalias 'message-box 'message)
+#+end_src
+

@@ -78,6 +78,12 @@ git clone git://git.savannah.gnu.org/emacs.git
 (setq vc-follow-symlinks t)
 #+end_src
 
+** GC の回数を減らして高速化
+
+#+begin_src emacs-lisp
+(setq gc-cons-threshold (* 10 gc-cons-threshold))
+#+end_src
+
 ** other
 
 #+begin_src emacs-lisp

@@ -664,7 +664,6 @@
 (setq skk-dcomp-multiple-rows 10)    ; 動的補完の候補表示件数
 #+end_src
 
-
 *** 親指シフト
     われは親指シフター. 
     - [[http://futurismo.biz/archives/2881][Emacs DDSKK で NICOLA 親指シフト入力をする | Futurismo]]

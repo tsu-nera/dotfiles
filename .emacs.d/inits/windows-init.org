@@ -162,3 +162,7 @@ old mode 100755 new mode 100644
 (setq w32-get-true-file-attributes nil)
 #+end_src
 
+* Bookmarks
+  - [[http://gregorygrubbs.com/emacs/10-tips-emacs-windows/][10 Tips for Powerful Emacs on Windows | Gregory Grubbs]]
+
+
