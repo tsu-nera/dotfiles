@@ -241,11 +241,13 @@ git clone git://git.savannah.gnu.org/emacs.git
 (global-set-key
  (kbd "C-z")
  (defhydra hydra-move ()
-   "vi"
+   "move"
    ("f" forward-char "right")
    ("b" backward-char "left")
    ("n" next-line "down")
    ("p" previous-line "up")
+   ("SPC" scroll-up-command "down")
+   ("<backspace>" scroll-down-command "up")
    ("." hydra-repeat "repeat")))
 #+end_src
 
