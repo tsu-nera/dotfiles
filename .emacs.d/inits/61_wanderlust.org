@@ -244,6 +244,9 @@ M-x elmo-passwd-alist-save
    見たら q を押すと, また見ますか? と聞かれるので No を選択.
    - [[http://d.hatena.ne.jp/fujimisakari/20120204/1328375322][wanderlust を起動すると毎回 NEWS が起動してしまう - 安定の漢になるために]]
 
+** draft
+   編集モード. 編集を再開するには, E をおす (wl-draft-reedit).
+   
 * End of Config
 #+begin_src emacs-lisp
 )

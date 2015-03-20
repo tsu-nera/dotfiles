@@ -301,6 +301,7 @@
     hydra
     swiper
     smooth-scroll
+    hackernews
     )
  "A list of packages to install from el-get at launch.")
 

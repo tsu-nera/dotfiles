@@ -319,15 +319,16 @@
 ;; タスクが完了した時に時間測定も停止する
 (setq org-clock-out-when-done t)
 
+;; なんか、org-modeを開くときに遅いので封印する.
+;;
 ;; Save the running clock and all clock history
 ;; when exiting Emacs, load it on startup
 ;; Emacs が再起動したときにタスクの時間計測を再開する
 ;; Emacs が終了する時に測定中の計測と全ての測定履歴を保存する
 ;; http://orgmode.org/manual/Clocking-work-time.html
-(setq org-clock-persist 'history)
-
+;; (setq org-clock-persist 'history)
 ;; emacs resume 時に時間計測再開
-(org-clock-persistence-insinuate)
+;; (org-clock-persistence-insinuate)
 
 ;; 空き時間の解決 
 ;; 半端時間を絶えずチェックしているファイルのリストは, M-x org-resolve-clocks

@@ -98,6 +98,14 @@
     "http://www.youtube.com/results?aq=f&oq=&search_query=%s"))
 #+end_src
 
+** hackernews
+   Simple hacker news client
+   - https://github.com/clarete/hackernews.el
+
+#+begin_src emacs-lisp
+(use-package hackernews)
+#+end_src
+
 * memo:メモ・キャプチャー
 ** Hown
    Function : Evernote を越えるメモ管理ツール
