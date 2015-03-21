@@ -531,3 +531,7 @@
 (setq vc-handled-backends nil)
 #+end_src
 
+
+* Bookmarks
+  自分のメジャーモードをつくろう.
+  - [[http://www.wilfred.me.uk/blog/2015/03/19/adding-a-new-language-to-emacs/][Adding A New Language to Emacs | Wilfred Hughes :: Blog]]

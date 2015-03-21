@@ -279,7 +279,7 @@
   (global-set-key [f3] 'window-toggle-division)
 #+END_SRC
 
-** windown の動的リサイズ
+** indown の動的リサイズ
    - http://d.hatena.ne.jp/mooz/20100119/p1
 
 #+BEGIN_SRC emacs-lisp

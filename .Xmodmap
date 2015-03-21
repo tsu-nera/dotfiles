@@ -23,6 +23,10 @@ remove Control = Control_L
 keysym Caps_Lock = Control_L
 add Control = Control_L
 
+!remove Lock = Caps_Lock
+!keysym Caps_Lock = Control_L
+!add Lock = Control_L
+
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! Reference:
 ! http://opamp.hatenablog.jp/entry/20110704/1309792606

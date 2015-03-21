@@ -201,7 +201,7 @@ git clone git://git.savannah.gnu.org/emacs.git
   :defer t
   :idle (key-chord-mode 1)
   :config
-  (setq key-chord-two-keys-delay 0.08))
+  (setq key-chord-two-keys-delay 0.04))
 #+end_src
 
 ** smartrep

@@ -30,9 +30,12 @@
   :config
   (setq view-read-only t)
 
+  ;; ショートカット
+  (with-eval-after-load 'key-chord
+    (key-chord-define-global "jk" 'view-mode))
+
   ;; less っぼく.
   (define-key view-mode-map (kbd "p") 'View-scroll-page-backward)
-  (define-key view-mode-map (kbd "n") 'View-scroll-page-forward)
   (define-key view-mode-map (kbd "n") 'View-scroll-page-forward)
   (define-key view-mode-map (kbd "v") 'read-only-mode)
 
@@ -261,21 +264,27 @@
   (define-key ac-completing-map (kbd "M-h") 'ac-quick-help)
    #+end_src
 
-*** 辞書登録  
+*** 情報源登録  
+   ac-sources リストの最後に append で追加するだけ.
 
 #+begin_src emacs-lisp
-  (setq ac-sources '(ac-source-abbrev ac-source-words-in-buffer))
+  (setq ac-sources (append ac-sources '(ac-source-abbrev)))
+  (setq ac-sources (append ac-sources '(ac-source-words-in-buffer)))
 #+end_src
+
+   情報源の
+   - http://dev.ariel-networks.com/wp/documents/aritcles/emacs/part10  
+
 
 *** ac-helm
     helm インターフェースを利用する. これは多げさかな. .
 
 #+begin_src emacs-lisp
 (use-package ac-helm
+  :disabled t
   :bind  ("C-:" . ac-complete-with-helm)
   :config
-  (define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)
-  )
+  (define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm))
 #+end_src
 
 *** end of config
@@ -409,16 +418,19 @@
 
    - https://github.com/lewang/jump-char
 
+   つかわなくなった..
+
    #+begin_src emacs-lisp
 (use-package jump-char
+  :disabled t
   :config
   ;; (global-set-key (kbd "C-c f") 'jump-char-forward)
   ;; (global-set-key (kbd "C-c F") 'jump-char-backward)
-  (eval-after-load 'key-chord
-    '(progn
-       (key-chord-define-global "jk" 'jump-char-forward)
-       (key-chord-define-global "jh" 'jump-char-backward)
-       ))
+;;  (eval-after-load 'key-chord
+;;    '(progn
+;;       (key-chord-define-global "jk" 'jump-char-forward)
+;;       (key-chord-define-global "jh" 'jump-char-backward)
+;;       ))
   )
 #+end_src
 ** カーソル移動を速くする
@@ -607,7 +619,6 @@
 **** デメリット
 
 *** 設定
-
    設定例のかき集め.
    - [[http://mugijiru.seesaa.net/article/275755984.html][暇だったから ddskk の設定いじった: 麦汁三昧]]
 
@@ -652,6 +663,7 @@
 
 *** 動的候補
     - [[http://d.hatena.ne.jp/tomoya/20090711/1247314350][僕の ddskk の設定です. - 日々, とんは語る. ]]
+    - [[http://quruli.ivory.ne.jp/document/ddskk_14.2/skk_4.html][SKK Manual: 5. 便利な応用機能]]
 
 #+begin_src emacs-lisp
 ;; 候補表示
@@ -660,7 +672,7 @@
 
 ;; 動的候補表示
 (setq skk-dcomp-activate t)	     ; 動的補完
-(setq skk-dcomp-multiple-activate t) ; 動的補完の複数候補表示
+(setq skk-dcomp-multiple-activate t) ; 動的補完の複数候補表示 xEmacs では意味なし
 (setq skk-dcomp-multiple-rows 10)    ; 動的補完の候補表示件数
 #+end_src
 
@@ -688,7 +700,6 @@
   (setq skk-nicola-lshift-keys '([non-convert]))
   (setq skk-nicola-rshift-keys '([convert])))
 #+end_src
-
 
 *** end of skk config
 
@@ -772,34 +783,27 @@ google-ime-skk &
   (setq skk-check-okurigana-on-touroku t))
 #+end_src
 
-*** ac-skk
-    auto-complete-mode source for DDSKK a.k.a Japanese input method
-    - https://github.com/myuhe/ac-skk.el
-
+*** ac-ja
     tinysegmenter に依存
     - https://github.com/myuhe/tinysegmenter.el
     - [[http://sheephead.homelinux.org/2011/10/11/6869/][auto-complete-mode で日本語を補完する ac-ja.el を作った - sheephead]]    
 
-    *廃止*  
-    - org-mode と auto-complete の間には不具合あり 
-    - 使い方がよくわからない.
-
 #+begin_src emacs-lisp
 (use-package ac-ja
-  :disabled t
   :config
   ;;補完候補としたい辞書ファイルの場所を指定.
-  ;; (setq ac-skk-jisyo-file "~/.emacs.d/dic/SKK-JISYO.L")
+  (setq ac-skk-jisyo-file "~/.emacs.d/dic/SKK-JISYO.L")
   ;;補完候補生成に必要な中間ファイルを置く場所を指定.
   (setq ac-skk-alist-file "~/.emacs.d/ac-skk-alist.el")
-  
+
+  (setq ac-sources (append ac-sources '(ac-source-jisyo-ja)))
   (setq ac-sources (append ac-sources '(ac-source-dabbrev-ja)))
   
   ;; skk-kakutei の後に atuo-complete-mode による補完を実行する advice
   (defadvice skk-kakutei (after ad-skk-kakutei last)
     (unless (minibufferp)
-      (ac-start)))
-
+      (ac-start))
+ 
   ;; skk-kakutei の advice を活性化
   (add-hook 'skk-mode-hook 
 	    (lambda () 
@@ -809,11 +813,23 @@ google-ime-skk &
   (defadvice skk-mode-exit (before ad-skk-mode-exit last)
     (ad-deactivate 'skk-kakutei))
   )
+#+end_src
 
+*** ac-skk
+    auto-complete-mode source for DDSKK a.k.a Japanese input method
+    - https://github.com/myuhe/ac-skk.el
+
+    *廃止*  
+    - org-mode と auto-complete の間には不具合あり 
+    - 使い方がよくわからない.
+
+#+begin_src emacs-lisp
 (use-package ac-skk
   :disabled t
   :init (ac-skk-enable))
 #+end_src
+
+
 *** TODO workaround
 
 #+begin_src emacs-lisp

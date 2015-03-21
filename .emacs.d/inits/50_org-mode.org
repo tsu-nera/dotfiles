@@ -198,6 +198,13 @@
                          "~/gtd/inbox.org"
                          "~/gtd/journal/"))
 (setq org-agenda-file-regexp "\\`[^.].*\\.org'\\|[0-9]+.org$")
+
+;; ショートカットを作成
+;; もしすでにひらいているときは、切り替えめる
+(defun org-gtd-open-main ()
+  (interactive)
+  (find-file "~/gtd/main.org"))
+(bind-key "C-<f6>" 'org-gtd-open-main)
 #+end_src
 
 *** agenda speedup
@@ -369,9 +376,13 @@
 
 #+begin_src emacs-lisp
 (use-package my-org-clockin-gtd
-  :bind (("<f7>" . mygtd:gtd)
-	 ("<f8>" . mygtd:rest)
-	 ("C-x <f8>" . mygtd:reset-rest-timer)))
+  :bind (("C-<f7>" . mygtd:gtd)
+	 ("C-<f8>" . mygtd:rest)
+	 ("C-x <f8>" . mygtd:reset-rest-timer))
+  :init
+  (with-eval-after-load 'org-pomodoro
+    (add-hook 'org-pomodoro-finished-hook 'mygtd:rest)
+    (add-hook 'org-pomodoro-break-finished-hook 'mygtd:reset-rest-timer)))
 #+end_src
 
 *** org-clock-by-tags
@@ -823,6 +834,10 @@
   (setq org-pomodoro-play-start-sound t)
   (setq org-pomodoro-play-ticking-sounds nil)
   (setq org-pomodoro-audio-player "mplayer")
+
+  ;; 3分の休憩
+  (setq org-pomodoro-short-break-length 3)
+  
   (defun custom-org-agenda-mode-defaults ()
     (org-defkey org-agenda-mode-map "q" 'bury-buffer)
     (org-defkey org-agenda-mode-map "I" 'org-pomodoro)
@@ -926,7 +941,6 @@ containing the properties `:guid' and `:item-full-text'."
   (org-babel-do-load-languages
    'org-babel-load-languages
    (add-to-list 'org-babel-load-languages '(plantuml . t))))
-
 (add-hook 'org-mode-hook 'org-babel-plantuml-init))
 
 #+end_src
