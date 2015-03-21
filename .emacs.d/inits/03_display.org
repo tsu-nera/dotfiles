@@ -1,4 +1,4 @@
-\* Display
+* Display
   表示関連.
 
 * バッファ
@@ -131,8 +131,6 @@
   "buffer"
   ("[" next-buffer "next")
   ("]" previous-buffer "previous"))
-;; (global-set-key (kbd "M-[") 'next-buffer)
-;; (global-set-key (kbd "M-]") 'previous-buffer)
 #+end_src
 
 ** smooth-scroll
@@ -289,49 +287,112 @@
   (global-set-key [f3] 'window-toggle-division)
 #+END_SRC
 
-** indown の動的リサイズ
+** windown の動的リサイズ
    - http://d.hatena.ne.jp/mooz/20100119/p1
 
 #+BEGIN_SRC emacs-lisp
-  (defun window-resizer ()
-    "Control window size and position."
-    (interactive)
-    (let ((window-obj (selected-window))
-          (current-width (window-width))
-          (current-height (window-height))
-          (dx (if (= (nth 0 (window-edges)) 0) 1
-                -1))
-          (dy (if (= (nth 1 (window-edges)) 0) 1
-                -1))
-          c)
-      (catch 'end-flag
-        (while t
-          (message "size[%dx%d]"
-                   (window-width) (window-height))
-          (setq c (read-char))
-          (cond ((= c ?l)
-                 (enlarge-window-horizontally dx))
-                ((= c ?h)
-                 (shrink-window-horizontally dx))
-                ((= c ?j)
-                 (enlarge-window dy))
-                ((= c ?k)
-                 (shrink-window dy))
-                (t
-                 (message "Quit")
-                 (throw 'end-flag t)))))))
-   
-  (define-key global-map "\C-q" (make-sparse-keymap))
-   
-  (global-set-key "\C-q\C-r" 'window-resizer)
-   
-  (global-set-key "\C-ql" 'windmove-right)
-  (global-set-key "\C-qh" 'windmove-left)
-  (global-set-key "\C-qj" 'windmove-down)
-  (global-set-key "\C-qk" 'windmove-up)
+;;  (defun window-resizer ()
+;;    "Control window size and position."
+;;    (interactive)
+;;    (let ((window-obj (selected-window))
+;;          (current-width (window-width))
+;;          (current-height (window-height))
+;;          (dx (if (= (nth 0 (window-edges)) 0) 1
+;;                -1))
+;;          (dy (if (= (nth 1 (window-edges)) 0) 1
+;;                -1))
+;;          c)
+;;      (catch 'end-flag
+;;        (while t
+;;          (message "size[%dx%d]"
+;;                   (window-width) (window-height))
+;;          (setq c (read-char))
+;;          (cond ((= c ?l)
+;;                 (enlarge-window-horizontally dx))
+;;                ((= c ?h)
+;;                 (shrink-window-horizontally dx))
+;;                ((= c ?j)
+;;                 (enlarge-window dy))
+;;                ((= c ?k)
+;;                 (shrink-window dy))
+;;                (t
+;;                 (message "Quit")
+;;                 (throw 'end-flag t)))))))
+;;   
+;;  (define-key global-map "\C-q" (make-sparse-keymap))
+;;   
+;;  (global-set-key "\C-q\C-r" 'window-resizer)
+;;   
+;;  (global-set-key "\C-ql" 'windmove-right)
+;;  (global-set-key "\C-qh" 'windmove-left)
+;;  (global-set-key "\C-qj" 'windmove-down)
+;;  (global-set-key "\C-qk" 'windmove-up)
 #+END_SRC
 
-** フレーム
+ hydra-window に合流.
+
+#+begin_src emacs-lisp
+;; (use-package hydra-examples)
+;; (defhydra hydra-win-resize (global-map "C-z") ri
+;;  "win-resize"
+;;  ("l"  hydra-move-splitter-right "→")
+;;  ("h"  hydra-move-splitter-left  "←")
+;;  ("k"  hydra-move-splitter-up    "↑")
+;;  ("j" hydra-move-splitter-down  "↓")
+;;  ("="  balance-windows           "Balance"))
+#+end_srcN
+
+** window 間の移動
+
+   #+begin_src emacs-lisp
+(use-package hydra-examples)
+(global-set-key
+ (kbd "C-M-o")
+ (defhydra hydra-window ()
+   "window"
+   ("b" windmove-left)
+   ("n" windmove-down)
+   ("p" windmove-up)
+   ("f" windmove-right)
+   ("<right>"  hydra-move-splitter-right "→")
+   ("<left>"  hydra-move-splitter-left  "←")
+   ("<up>"  hydra-move-splitter-up    "↑")
+   ("<down>" hydra-move-splitter-down  "↓")
+   ("="  balance-windows           "Balance")
+   ("a" (lambda ()
+          (interactive)
+          (ace-window 1)
+          (add-hook 'ace-window-end-once-hook
+                    'hydra-window/body))
+        "ace")
+   ("v" (lambda ()
+          (interactive)
+          (split-window-right)
+          (windmove-right))
+        "vert")
+   ("x" (lambda ()
+          (interactive)
+          (split-window-below)
+          (windmove-down))
+        "horz")
+   ("s" (lambda ()
+          (interactive)
+          (ace-window 4)
+          (add-hook 'ace-window-end-once-hook
+                    'hydra-window/body))
+        "swap")
+   ("d" (lambda ()
+          (interactive)
+          (ace-window 16)
+          (add-hook 'ace-window-end-once-hook
+                    'hydra-window/body))
+        "del")
+   ("o" delete-other-windows "1" :color blue)
+   ("i" ace-maximize-window "a1" :color blue)
+   ("q" nil "cancel")))
+#+end_src
+
+* フレーム
 ** 定義
    ウィンドウシステムにおけるウィンドウを Emacs では, フレームと呼ぶ.
    1 つのフレームは, 複数のウィンドウからなる.

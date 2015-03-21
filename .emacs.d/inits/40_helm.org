@@ -179,8 +179,8 @@
 (use-package helm-swoop
   :bind (("M-o" . helm-swoop)
 	 ("M-O" . helm-swoop-back-to-last-point)
-	 ("C-x M-o" . helm-multi-swoop)
-	 ("C-M-o" . helm-multi-swoop-all))
+	 ("C-x M-o" . helm-multi-swoop))
+;;	 ("C-M-o" . helm-multi-swoop-all))
   :config
   ;; When doing isearch, hand the word over to helm-swoop
   (define-key isearch-mode-map (kbd "M-o") 'helm-swoop-from-isearch)
