@@ -146,6 +146,16 @@
   (smooth-scroll-mode t))
 #+end_src
 
+** バッファ削除
+*** clean
+
+#+begin_src emacs-lisp
+(defun kill-other-buffers ()
+  "Kill all other buffers."
+  (interactive)
+  (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
+#+end_src
+
 * モードライン
 ** モードラインに時間を表示する
 #+begin_src emacs-lisp

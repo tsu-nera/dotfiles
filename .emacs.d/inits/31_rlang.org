@@ -43,8 +43,18 @@
 			     (auto-complete-mode)
 			     (setq ess-use-auto-complete t)))
   :config
+  ;; インデントの幅
+  (setq ess-indent-level 2)
+  ;; インデントを調整
+  (setq ess-arg-function-offset-new-line (list ess-indent-level))
+  ;; # の数によってコメントのインデントの挙動が変わるのを無効にする
+  (setq ess-fancy-comments nil)
+  (setq ess-loaded-p t)  
+  
   ;; R 起動時にワーキングディレクトリを訊ねない
   (setq ess-ask-for-ess-directory nil)
+  ;; キャレットがシンボル上にある場合にもエコーエリアにヘルプを表示する
+  (setq ess-eldoc-show-on-symbol t)
 #+end_src
 
 ** ESS Auto-complete
@@ -97,7 +107,8 @@
   がでたら C-c C-s を叩く.
   - [[http://stackoverflow.com/questions/13930713/ess-rdired-i-get-this-error-no-ess-process-is-associated-with-this-buffer-now][r - ess-rdired: I get this error "no ESS process is associated with this buffer now" - Stack Overflow]]
 
-** helm-R
+ ;; キャレットがシンボル上にある場合にもエコーエリアにヘルプを表示する
+(setq ess-eldoc-show-on-symbol t)** helm-R
   helm インタフェースで 関数のヘルプをひくことができる.
   - [[http://sheephead.homelinux.org/2010/05/24/1846/][R のための anything インターフェイス, anything-R.el を作った. - sheephead]]
   - https://github.com/emacs-helm/helm-R
@@ -107,6 +118,7 @@
     :config
     (define-key ess-mode-map "\C-ch" 'helm-for-R)
     (define-key inferior-ess-mode-map "\C-ch" 'helm-for-R)
+    (setq ess-use-ido nil)
     )
 #+end_src
 
