@@ -319,7 +319,7 @@
 ;; タスクが完了した時に時間測定も停止する
 (setq org-clock-out-when-done t)
 
-;; なんか、org-modeを開くときに遅いので封印する.
+;; なんか, org-mode を開くときに遅いので封印する.
 ;;
 ;; Save the running clock and all clock history
 ;; when exiting Emacs, load it on startup
@@ -814,17 +814,15 @@
 
 #+begin_src emacs-lisp
 (use-package org-pomodoro
-  :if linux-p
   :commands (custom-org-agenda-mode-defaults)
+  :bind (("C-c C-x C-i" . org-pomodoro) ;; バインドできない (+_+)
+         ("C-c C-x C-@" . org-pomodoro))
   :init
-  (global-set-key (kbd "C-c C-x C-i") 'org-pomodoro)
-  (global-set-key (kbd "C-c C-x C-@") 'org-pomodoro)
   (add-hook 'org-agenda-mode-hook 'custom-org-agenda-mode-defaults 'append)
   :config
   (setq org-pomodoro-play-start-sound t)
   (setq org-pomodoro-play-ticking-sounds nil)
-  ;; aplay, mplayer では音がならない...
-  (setq org-pomodoro-audio-player "cvlc")
+  (setq org-pomodoro-audio-player "mplayer")
   (defun custom-org-agenda-mode-defaults ()
     (org-defkey org-agenda-mode-map "q" 'bury-buffer)
     (org-defkey org-agenda-mode-map "I" 'org-pomodoro)

@@ -40,8 +40,10 @@ export LANG=ja_JP.UTF-8
 alias lock='slimlock'
 
 # アンチエイリアス
-# export _JAVA_OPTIONS='-Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 # export JAVA_FONTS=/usr/share/fonts/TTF
+# https://archlinuxjp.kusakata.com/wiki/Java_%E3%83%A9%E3%83%B3%E3%82%BF%E3%82%A4%E3%83%A0%E7%92%B0%E5%A2%83%E3%81%AE%E3%83%95%E3%82%A9%E3%83%B3%E3%83%88
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+export _JAVA_AWT_WM_NONREPARENTING=1
 
 # Chromeでibusがつかえない
 # export GTK_IM_MODULE_FILE=/usr/lib/gtk-3.0/3.0.0/immodules.cache

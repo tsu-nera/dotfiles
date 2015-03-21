@@ -1,0 +1,5 @@
+(:name hackernews
+       :type github
+       :url "https://github.com/clarete/hackernews.el"
+       :description "Simple hacker news client"
+       :pkgname "clarete/hackernews.el")

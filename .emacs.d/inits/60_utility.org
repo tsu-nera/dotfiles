@@ -506,21 +506,15 @@ command uses interactive mode if passed an argument."
 (use-package emms-setup
   :commands emms-stream-init ;; for helm-emms
   :config
-  (require 'emms-volume)
-  ;; (emms-standard)
   (emms-all)
+  (emms-standard)
+  
   ;; (emms-default-players)
-  ;; (setq emms-player-list '(emms-player-mpg321
-  ;;                          emms-player-ogg123
-  ;;                          emms-player-mplayer))
+  
   (when linux-p
     (setq emms-source-file-default-directory "~/Music/"))
   
-  ;; RET が動かないので
-  (define-key emms-stream-mode-map (kbd "C-c C-c") 'emms-stream-play)
-
-  ;; emms-streams で RET を押したときのデフォルト操作
-  (setq emms-stream-default-action "play")
+  (require 'emms-volume)  
    #+end_src
 
    その他として helm-emms が C-x c #にある. 便利.
@@ -541,10 +535,17 @@ command uses interactive mode if passed an argument."
 	       "rm" "rmvb" "mp4" "flac" "vob" "m4a" "ape"
 	       "asx"))
 	 "vlc" "--intf=rc")))
+  (setq emms-player-list '(emms-player-vlc))
  #+end_src
 
 *** mplayer
     - windows http://sourceforge.net/projects/mplayerwin/
+
+#+begin_src emacs-lisp
+  ;; only use mplayer to use pulseaudio
+  ;; (setq emms-player-list '(emms-player-mplayer))
+  ;;                           emms-player-mplayer-playlist))
+#+end_src
 
 *** volume
     - [[https://www.gnu.org/software/emms/manual/Volume.html][Volume - The Emms Manual]]
@@ -568,6 +569,15 @@ command uses interactive mode if passed an argument."
 
     BBC Classic (Raido3)
     - http://www.bbc.co.uk/radio/listen/live/r3_aaclca.pls
+
+#+begin_src emacs-lisp
+  ;; RET が動かないので
+  (define-key emms-stream-mode-map (kbd "C-c C-c") 'emms-stream-play)
+
+  ;; emms-streams で RET を押したときのデフォルト操作
+  (setq emms-stream-default-action "play")
+#+end_src
+
 
 *** End of Config
  #+begin_src emacs-lisp
