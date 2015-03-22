@@ -220,6 +220,7 @@
 
    #+begin_src emacs-lisp
 (use-package auto-complete
+  :disabled t
   :bind   ("M-/" . auto-complete)
   :config
   (require 'auto-complete-config)
@@ -729,7 +730,7 @@ google-ime-skk &
   (setq ;; skk-server-host "0.0.0.0"
         skk-server-host "localhost" ;; windows だとこっち
 	skk-server-prog "google-ime-skk" ;; パスは通っているようだ.
-	skk-server-portnum 55100)
+	skk-server-portnum 1178)
 
   ;; 辞書サーバが使用不能になると辞書ファイルを 
   ;; Emacs のバッファに読み込んで 検索を行う.
@@ -774,9 +775,10 @@ google-ime-skk &
 
 #+begin_src emacs-lisp
 (use-package ac-ja
+  :disabled t
   :config
   ;;補完候補としたい辞書ファイルの場所を指定.
-  (setq ac-skk-jisyo-file "~/.emacs.d/dic/SKK-JISYO.L")
+  (setq ac-skk-jisyo-file "~/.emacs.d/etc/dict/SKK-JISYO.L")
   ;;補完候補生成に必要な中間ファイルを置く場所を指定.
   (setq ac-skk-alist-file "~/.emacs.d/ac-skk-alist.el")
 

@@ -1,5 +1,6 @@
 * eww
   24.4 から搭載の Web ブラウザ.
+   - https://github.com/emacs-mirror/emacs/blob/master/lisp/net/eww.el
    - http://bzr.savannah.gnu.org/lh/emacs/trunk/annotate/head:/lisp/net/eww.el
    - [[http://www.gnu.org/software/emacs/manual/html_mono/eww.html#Advanced][Emacs Web Wowser]]
 

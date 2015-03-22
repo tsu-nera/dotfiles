@@ -382,9 +382,9 @@ git clone git://git.savannah.gnu.org/emacs.git
 
  #+begin_src emacs-lisp
 (use-package server
-  :config
-  (unless (server-running-p)
-    (server-start)))
+ :config
+ (unless (server-running-p)
+   (server-start)))
  #+end_src
 
   どうも, Elscreen が scratch を初期画面で開いてしまうようだ.

@@ -7,6 +7,11 @@
 
    grep "アクセス遮断"で検索して該当ファイルを削除.
 
+** newer than byte compile
+   *.elcよりも *.elのほうが新しい.
+   
+   *.elcを削除する.
+   
 * ビルド時
 ** compile エラー
    タグを以前のものに戻す. git co xxx
@@ -16,6 +21,9 @@
    - make bootstrap をする.
 
    make clean を強力にしたもの.
+
+** helm dir で make clean
+  helm の auto-loadファイルが悪さをしている可能性.
 
 * Proxy
 ** Windows GUI で el-get が失敗する

@@ -95,7 +95,9 @@
   (defengine wolfram-alpha
     "http://www.wolframalpha.com/input/?i=%s")
   (defengine youtube
-    "http://www.youtube.com/results?aq=f&oq=&search_query=%s"))
+    "http://www.youtube.com/results?aq=f&oq=&search_query=%s")
+  (defengine futurismo
+    "http://www.google.co.jp/search?q=site:futurismo.biz %s"))
 #+end_src
 
 ** hackernews

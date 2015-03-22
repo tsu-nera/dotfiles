@@ -82,6 +82,8 @@
 ;; use-package が存在しないときはなにもしない
 ;; (unless (require 'use-package nil t)
 ;;  (defmacro use-package (&rest args)))
+;; (add-to-list 'load-path (locate-user-emacs-file "el-get/repo/el-get"))
+(add-to-list 'load-path "~/.emacs.d/el-get/repo/use-package")
 (require 'use-package)
 
 ;; for debug 0.01 秒以上 load にかかったら report を出す.
@@ -326,14 +328,14 @@
 
 #+begin_src emacs-lisp
 (use-package el-get
-  :init
+  :defer 60
+  :config
   ;; マシンごとの設定
   (when linux-p
     (setq el-get-emacs "/usr/local/bin/emacs"))
   ;; 通知は minibuffer のみ
   (setq el-get-notify-type 'message)
   
-  :idle
   (el-get 'sync my/el-get-packages-all)
   (when windows-p
     (el-get 'sync my/el-get-packages-windows))
