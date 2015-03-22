@@ -96,7 +96,7 @@
   (defengine wolfram-alpha
     "http://www.wolframalpha.com/input/?i=%s")
   (defengine youtube
-    "http://www.youtube.com/results?aq=f&oq=&search_query=%s")
+    "http://www.youtube.com/results?aq=f&oq=&search_query=%s"S)
   (defengine futurismo
     "http://www.google.co.jp/search?q=site:futurismo.biz %s")
 #+end_src
@@ -193,7 +193,7 @@ geeknote settings --editor "emacsclient"
 *** install
     ruby 1.9 が必要!!
 
-#+begin_src emacs-lisp
+#+begin_src text
 $ gem-1.9 install evernote_oauth
 $ ruby-1.9 ruby/setup.rb
 #+end_src
@@ -603,7 +603,7 @@ command uses interactive mode if passed an argument."
  #+begin_src emacs-lisp
 (use-package jazzradio
   :config
-  (defun my/jazzradio-switch (my/jazzradio-channel-url my/jazzradio-playlist-base-url) ()
+  (defun my/jazzradio-switch (my/jazzradio-channel-url  my/jazzradio-playlist-base-url) ()
 	 (unless jazzradio--process
 	   (jazzradio--stop))
 	 (setq jazzradio--process nil)
@@ -787,7 +787,7 @@ command uses interactive mode if passed an argument."
 
   ArchLinux では, GhostScript を入れる.
 
-#+begin_src sh
+#+begin_src text
 sudo pacman -S ghostscript
 #+end_src
 
@@ -846,8 +846,7 @@ sudo pacman -S ghostscript
   :disabled t
   :config
   (autoload 'psession-mode "persistent-sessions.el")
-  (psession-mode 1)
-  )
+  (psession-mode 1))
 #+end_src
 * Tips
 ** slimlock
