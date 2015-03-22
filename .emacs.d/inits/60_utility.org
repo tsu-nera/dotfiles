@@ -75,34 +75,80 @@
 
 #+begin_src emacs-lisp
 (use-package engine-mode
-  :config
-  (engine-mode t))
-
+  :preface
   (defengine amazon
-  "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=%s")
+    "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=%s")
   (defengine duckduckgo
-    "https://duckduckgo.com/?q=%s"
-    "d")
+    "https://duckduckgo.com/?q=%s")
+;;    "d")
   (defengine github
     "https://github.com/search?ref=simplesearch&q=%s")
   (defengine google
-    "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s"
-    "g")
+    "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s")
+;;    "g")
   (defengine twitter
     "https://twitter.com/search?q=%s")
   (defengine wikipedia
-    "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s"
-    "w")
+    "http://www.wikipedia.org/search-redirect.php?language=ja&go=Go&search=%s")
+;;    "w")
   (defengine wolfram-alpha
     "http://www.wolframalpha.com/input/?i=%s")
   (defengine youtube
     "http://www.youtube.com/results?aq=f&oq=&search_query=%s")
   (defengine futurismo
     "http://www.google.co.jp/search?q=site:futurismo.biz %s")
+
+  ;; define key-bindings
+  (global-unset-key (kbd "C-c /"))
+  (global-set-key
+   (kbd "C-c /")
+   (defhydra hydra-search ()
+     "search-engine"
+     ("d" engine/search-duckduckgo "duckduckgo")
+     ("g" engine/search-google "google")
+     ("f" engine/search-futurismo "futurismo")
+     ("t" engine/search-twitter "twitter")
+     ("w" engine/search-wikipedia "wikipedia")))
+  :config
+  (engine-mode t))
 #+end_src
 
-#+RESULTS:
-: engine/search-futurismo
+** google-this
+   Google 検索. これは便利だぁ.
+   - [[https://github.com/Bruce-Connor/emacs-google-this][Bruce-Connor/emacs-google-this]]
+
+   代表的な使用方法.
+   - C-c / g (RET) でその場のキーワード検索.
+   - C-c / w でその場のワードを検索
+   - C-c / l でその行を検索
+   - C-c / c Google 翻訳
+
+  search-engine に置き換え
+
+#+begin_src emacs-lisp
+(use-package google-this
+  :disabled t
+  :config
+  (google-this-mode 1))
+#+end_src
+
+** google-translate
+   Google 翻訳.
+   - [[http://qiita.com/catatsuy/items/ae9875706769d4f02317][卒論を英語で書けと言われしまったあなたにおすすめの Emacs の設定 - Qiita]]
+   - [[http://rubikitch.com/2014/12/07/google-translate/][emacs google-translate.el : Google 翻訳で言語自動判別しつつ英訳・和訳する!]]
+   
+#+begin_src emacs-lisp
+(use-package google-translate
+  :bind (("C-x t" . google-translate-enja-or-jaen)
+	 ("C-x T" . google-translate-query-translate))
+  ;; ;; 翻訳のデフォルト値を設定 (ja -> en) (無効化は C-u する)
+  ;; -> patch で自動判別
+  ;; (custom-set-variables
+  ;;  '(google-translate-default-source-language "ja")
+  ;;  '(google-translate-default-target-language "en"))
+  :config
+  (use-package my-patch-google-translate))
+#+end_src
 
 ** hackernews
    Simple hacker news client
@@ -253,8 +299,11 @@ $ sudo cp /usr/bin/ruby1.9/bin/enclient.rb /usr/bin
    autoload でエラーするので, 
    el-get でインストールしないで, マニュアルインストール.
 
+   エラーするので一旦封印.
+
  #+begin_src emacs-lisp
 (use-package camcorder
+  :disabled t
   :if linux-p
   :config
   (define-key camcorder-mode-map (kbd "<f9>") 'camcorder-stop)
@@ -652,41 +701,6 @@ command uses interactive mode if passed an argument."
     ("+" volume-raise "up")
     ("-" volume-lower "down")))
  #+end_src
-* Google
-** google-translate
-   Google 翻訳.
-   - [[http://qiita.com/catatsuy/items/ae9875706769d4f02317][卒論を英語で書けと言われしまったあなたにおすすめの Emacs の設定 - Qiita]]
-   - [[http://rubikitch.com/2014/12/07/google-translate/][emacs google-translate.el : Google 翻訳で言語自動判別しつつ英訳・和訳する!]]
-   
-#+begin_src emacs-lisp
-(use-package google-translate
-  :bind (("C-x t" . google-translate-enja-or-jaen)
-	 ("C-x T" . google-translate-query-translate))
-  ;; ;; 翻訳のデフォルト値を設定 (ja -> en) (無効化は C-u する)
-  ;; -> patch で自動判別
-  ;; (custom-set-variables
-  ;;  '(google-translate-default-source-language "ja")
-  ;;  '(google-translate-default-target-language "en"))
-  :config
-  (use-package my-patch-google-translate))
-#+end_src
-
-** google-this
-   Google 検索. これは便利だぁ.
-   - [[https://github.com/Bruce-Connor/emacs-google-this][Bruce-Connor/emacs-google-this]]
-
-   代表的な使用方法.
-   - C-c / g (RET) でその場のキーワード検索.
-   - C-c / w でその場のワードを検索
-   - C-c / l でその行を検索
-   - C-c / c Google 翻訳
-
-#+begin_src emacs-lisp
-(use-package google-this
-  :config
-  (google-this-mode 1))
-#+end_src
-
 * Dictionary: 辞書
 ** search-web
     無料でオンラインの英辞郎 on the WEB をサクッと利用する.
