@@ -26,7 +26,7 @@
 (global-set-key (kbd "M-r") 'helm-occur) ;; バッファを検索
 (global-set-key (kbd "M-x") 'helm-M-x) ;; M-X を 絞り込み
 (global-set-key (kbd "C-M-z") 'helm-resume)  
-(global-set-key (kbd "C-x b") 'helm-mini)  
+(global-set-key (kbd "C-x b") 'helm-mini)
 (global-set-key (kbd "C-x C-b") 'helm-elscreen) ;; elscreen のタブを切り替え
 
 (define-key org-mode-map (kbd "C-c h") 'helm-org-in-buffer-headings)
@@ -43,8 +43,10 @@
    - 絞りこみの文字列の先頭に/ をつければ, ディレクトリ名で絞りこみ.
 
 #+begin_src emacs-lisp
-(global-set-key (kbd "C-x b") 'helm-buffers-list)
+;; (global-set-key (kbd "C-x b") 'helm-buffers-list)
 #+end_src
+
+   helm-mini へ.
 
 ** helm-all-mark-rings
    過去の global-mark を絞り込み. これは便利!

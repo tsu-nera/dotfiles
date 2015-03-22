@@ -1,6 +1,6 @@
 * Color
   デザイン・色関係.
-
+  
 ** emacs powerline
    2 つ種類がある.
    - https://github.com/jonathanchu/emacs-powerline
@@ -8,11 +8,10 @@
 
    なぜか use-package では有効にならないな.
 
- #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (use-package powerline
-  :init
-  (powerline-default-theme)
   :config
+  (powerline-default-theme)
   ;; windows だと色が変.
    (when windows-p
      (custom-set-faces
@@ -42,14 +41,14 @@
 
    スピードに影響する.
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp 
 (global-font-lock-mode 1)
 #+end_src
 
   ハイライトの抑止.
  - [[http://utsuboiwa.blogspot.jp/2010/12/emacsorg-modefont-lock.html][Emacs ・ org-mode:font-lock の調整]]
 
- #+begin_src emacs-lisp
+ #+begin_src emacs-lisp 
 ; 色づけは最小限に
 ;; (setq font-lock-maximum-decoration 6)
 ;; (setq font-lock-maximum-decoration '((c-mode . 1) (c++-mode . 1) (org-mode . 1)))
@@ -79,11 +78,10 @@
 
 #+begin_src emacs-lisp
 (use-package column-enforce-mode
-  :init
-  (add-hook 'prog-mode-hook 'column-enforce-mode)
-  (add-hook 'java-mode-hook 'java-mode-hook--column-enforce-mode)
   :commands (java-mode-hook--column-enforce-mode)
   :config
+  (add-hook 'prog-mode-hook 'column-enforce-mode)
+  (add-hook 'java-mode-hook 'java-mode-hook--column-enforce-mode)
   (defun java-mode-hook--column-enforce-mode ()
     (set (make-local-variable 'column-enforce-column) 120)
     (column-enforce-mode 1)))
@@ -112,7 +110,7 @@
 *** fic-ext-mode   
     - http://www.emacswiki.org/emacs/fic-ext-mode.el
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp 
 (use-package fic-ext-mode
   :config
   (defun add-something-to-mode-hooks (mode-list something)
