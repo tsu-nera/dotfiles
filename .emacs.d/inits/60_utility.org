@@ -75,8 +75,9 @@
 
 #+begin_src emacs-lisp
 (use-package engine-mode
-  :init
-  (engine-mode t)
+  :config
+  (engine-mode t))
+
   (defengine amazon
   "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=%s")
   (defengine duckduckgo
@@ -97,8 +98,11 @@
   (defengine youtube
     "http://www.youtube.com/results?aq=f&oq=&search_query=%s")
   (defengine futurismo
-    "http://www.google.co.jp/search?q=site:futurismo.biz %s"))
+    "http://www.google.co.jp/search?q=site:futurismo.biz %s")
 #+end_src
+
+#+RESULTS:
+: engine/search-futurismo
 
 ** hackernews
    Simple hacker news client
@@ -252,10 +256,9 @@ $ sudo cp /usr/bin/ruby1.9/bin/enclient.rb /usr/bin
  #+begin_src emacs-lisp
 (use-package camcorder
   :if linux-p
-  :init
+  :config
   (define-key camcorder-mode-map (kbd "<f9>") 'camcorder-stop)
   (define-key camcorder-mode-map (kbd "C-x <f9>") 'camcorder-pause)
-  :config
   (require 'names)
   (setq camcorder-output-directory "~/futurismo/blog/img")
   (setq camcorder-recording-command
@@ -659,15 +662,13 @@ command uses interactive mode if passed an argument."
 (use-package google-translate
   :bind (("C-x t" . google-translate-enja-or-jaen)
 	 ("C-x T" . google-translate-query-translate))
-  :init
   ;; ;; 翻訳のデフォルト値を設定 (ja -> en) (無効化は C-u する)
   ;; -> patch で自動判別
   ;; (custom-set-variables
   ;;  '(google-translate-default-source-language "ja")
   ;;  '(google-translate-default-target-language "en"))
   :config
-  (use-package my-patch-google-translate)
-  )
+  (use-package my-patch-google-translate))
 #+end_src
 
 ** google-this

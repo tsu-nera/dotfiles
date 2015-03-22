@@ -101,9 +101,9 @@
 
 #+begin_src emacs-lisp
 (use-package savehist
-  :defer t
-  :idle (savehist-mode t)
+  :defer 20
   :config
+  (savehist-mode t)
   (setq savehist-additional-variables 
   '(kill-ring search-ring regexp-search-ring)))
 #+end_src
@@ -140,7 +140,7 @@
 
 #+begin_src emacs-lisp
 (use-package smooth-scroll
-  :init
+  :config
   (smooth-scroll-mode t))
 #+end_src
 

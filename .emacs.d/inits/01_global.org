@@ -185,9 +185,9 @@ git clone git://git.savannah.gnu.org/emacs.git
 
 #+begin_src emacs-lisp
 (use-package guide-key
-  :defer t
-  :idle (guide-key-mode 1)  ; Enable guide-key-mode
+  :disabled t
   :config
+  (guide-key-mode 1)  ; Enable guide-key-mode
   (setq guide-key/popup-window-position 'bottom)
   (setq guide-key/guide-key-sequence '("C-x r" "C-x 4")))
 #+end_src
@@ -198,9 +198,9 @@ git clone git://git.savannah.gnu.org/emacs.git
 
 #+begin_src emacs-lisp
 (use-package key-chord
-  :defer t
-  :idle (key-chord-mode 1)
+  :defer 20
   :config
+  (key-chord-mode 1)  
   (setq key-chord-two-keys-delay 0.04))
 #+end_src
 
@@ -320,15 +320,14 @@ git clone git://git.savannah.gnu.org/emacs.git
 ** el-get
 #+begin_src emacs-lisp
 (use-package el-get
-  :init
+  :defer 20
+  :config
   ;; マシンごとの設定
   (when linux-p
     (setq el-get-emacs "/usr/local/bin/emacs"))
-
   (when windows-p
     ;; 通知は minibuffer のみ
     (setq el-get-notify-type 'message))
-  :idle
   (el-get 'sync my/el-get-packages-all)
   (when windows-p
     (el-get 'sync my/el-get-packages-windows))
@@ -342,7 +341,8 @@ git clone git://git.savannah.gnu.org/emacs.git
 
    #+begin_src emacs-lisp
 (use-package byte-compile
-  :idle
+  :defer 60
+  :config
   (byte-recompile-directory "~/.emacs.d/elisp/" 0)
   (byte-recompile-directory "~/.emacs.d/mylisp/" 0))
 #+end_src

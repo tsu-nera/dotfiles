@@ -852,15 +852,16 @@
 
 #+begin_src emacs-lisp
 (use-package org-weather
-  :idle
-  (org-weather-refresh)
-  :config
+  :defer 20
+  :init
   ;;(setq org-weather-format "Weather: %desc, %tmin-%tmax%tu, %p%pu, %h%hu, %s%su")
   (setq org-weather-format "Weather: %desc, %tmin-%tmax%tu")
   (setq org-weather-location "Tokyo,JP")
   (defun org-weather-browse ()
     (interactive)
-    (browse-url "http://openweathermap.org/city/1850147")))
+    (browse-url "http://openweathermap.org/city/1850147"))
+  :config
+  (org-weather-refresh))
 #+end_src
 
 * org-multiple-keymap

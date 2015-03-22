@@ -145,10 +145,10 @@
 
 #+begin_src emacs-lisp
 (use-package rspec-mode
+  :defer 20
   :commands rspec-mode
-  :init
+  :config
   (add-hook 'ruby-mode-hook 'rspec-mode)
-  :idle
   ;; (rspec-install-snippets)
   :config
   (custom-set-variables '(rspec-use-rake-flag nil))

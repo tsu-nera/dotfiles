@@ -14,7 +14,6 @@
 ** Basic Setting 
 #+begin_src emacs-lisp
 (use-package helm-config
-;;  :idle (helm-mode 1) ;; 基本的な設定はこれで実施される.
   :config
   (helm-mode 1) ;; 基本的な設定はこれで実施される.
   (helm-autoresize-mode 1) ;; 検索結果によってリサイズ. default 40%
@@ -27,6 +26,7 @@
 (global-set-key (kbd "M-r") 'helm-occur) ;; バッファを検索
 (global-set-key (kbd "M-x") 'helm-M-x) ;; M-X を 絞り込み
 (global-set-key (kbd "C-M-z") 'helm-resume)  
+(global-set-key (kbd "C-x b") 'helm-mini)  
 (global-set-key (kbd "C-x C-b") 'helm-elscreen) ;; elscreen のタブを切り替え
 
 (define-key org-mode-map (kbd "C-c h") 'helm-org-in-buffer-headings)
@@ -135,6 +135,7 @@
 
 #+begin_src emacs-lisp
 (use-package helm-migemo
+  :defer 20
   :config
   ;; (setq helm-use-migemo t)
   (helm-migemize-command helm-imenu)
@@ -224,9 +225,9 @@
 
 #+begin_src emacs-lisp
 (use-package helm-projectile
-  :idle
-  (helm-projectile-on)
+  :defer 20
   :config
+  (helm-projectile-on)
   ;; プロジェクトに関連するファイルを helm-for-files に追加
   (defadvice helm-for-files (around update-helm-list activate)
     (let ((helm-for-files-preferred-list
@@ -401,8 +402,8 @@
     (interactive "P")
     (let (current-prefix-arg)
       (call-interactively (if use-swiper 'swiper 'isearch-forward))))
-  ;; バックエンドのivyがスペースを".*"に置換してしまうため、無効にする
-  ;; これをしないと純粋に正規表現isearchの置き換えにならない
+  ;; バックエンドの ivy がスペースを".*"に置換してしまうため, 無効にする
+  ;; これをしないと純粋に正規表現 isearch の置き換えにならない
   (require 'ivy)
   (fset 'ivy--regex 'identity))
 #+end_src

@@ -118,9 +118,9 @@
 
 #+begin_src emacs-lisp
 (use-package projectile
-  :idle
-  (projectile-global-mode)
+  :defer 20
   :config
+  (projectile-global-mode)
   ;; windows indexing 高速化のおまじない.
   (when windows-p
     (setq projectile-indexing-method 'alien))

@@ -246,10 +246,12 @@
 ** helm-eww-bookmarks
    - https://github.com/mytoh/helm-eww-bookmark/blob/master/helm-eww-bookmark.el
 
+   seq が必要. TODO
+
 #+begin_src emacs-lisp
-(use-package helm-eww-bookmark
-  :config
-  (define-key eww-mode-map "B" 'helm-eww-bookmark))
+;; (use-package helm-eww-bookmark
+;;   :config
+;;   (define-key eww-mode-map "B" 'helm-eww-bookmark))
 #+end_src
 
 ** auto-hightlight-symbol で語句をハイライト
