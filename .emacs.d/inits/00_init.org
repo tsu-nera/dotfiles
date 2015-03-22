@@ -305,6 +305,7 @@
     smooth-scroll
     hackernews
     org-multiple-keymap
+    org-bullets
     )
  "A list of packages to install from el-get at launch.")
 

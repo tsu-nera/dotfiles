@@ -96,7 +96,7 @@
   (defengine wolfram-alpha
     "http://www.wolframalpha.com/input/?i=%s")
   (defengine youtube
-    "http://www.youtube.com/results?aq=f&oq=&search_query=%s"S)
+    "http://www.youtube.com/results?aq=f&oq=&search_query=%s")
   (defengine futurismo
     "http://www.google.co.jp/search?q=site:futurismo.biz %s")
 #+end_src
@@ -858,4 +858,13 @@ sudo pacman -S ghostscript
   (shell-command "slimlock"))
 #+end_src
 
+
+** meigen
+
+#+begin_src emacs-lisp
+(setq cookie-file "~/.emacs.d/quotes.txt")
+(defhydra hydra-meigen (global-map "C-x ,")
+  "meigen"
+  ("," cookie "meigen"))
+#+end_src
 

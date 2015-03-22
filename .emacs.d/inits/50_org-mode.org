@@ -200,7 +200,7 @@
 (setq org-agenda-file-regexp "\\`[^.].*\\.org'\\|[0-9]+.org$")
 
 ;; ショートカットを作成
-;; もしすでにひらいているときは、切り替えめる
+;; もしすでにひらいているときは, 切り替えめる
 (defun org-gtd-open-main ()
   (interactive)
   (find-file "~/gtd/main.org"))
@@ -835,7 +835,7 @@
   (setq org-pomodoro-play-ticking-sounds nil)
   (setq org-pomodoro-audio-player "mplayer")
 
-  ;; 3分の休憩
+  ;; 3 分の休憩
   (setq org-pomodoro-short-break-length 3)
   
   (defun custom-org-agenda-mode-defaults ()
@@ -870,6 +870,15 @@
 
 #+begin_src emacs-lisp
 (use-package org-multiple-keymap)
+#+end_src
+
+* org-bullets
+  - https://github.com/sabof/org-bullets
+
+#+begin_src emacs-lisp
+(use-package org-bullets
+  :init
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+end_src
 
 * 他のツールとの連携
