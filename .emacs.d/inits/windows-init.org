@@ -140,27 +140,23 @@ old mode 100755 new mode 100644
        (w32-browser (dired-replace-in-string "/" "\\" (dired-get-filename))))))
 #+end_src
 
-** Emacs からボリューム変更
-   - [[http://qiita.com/natsutan/items/706a7ee72008abda8842][Windows の音量を Emacs から制御する - Qiita]]
-
-#+begin_src emacs-lisp
-(defun volume-up ()
-  (interactive)
-  (call-process "mcvc.exe" nil nil nil "m+10"))
-(defun volume-down ()
-  (interactive)
-  (call-process "mcvc.exe" nil nil nil "m-10"))
-
-;; キーバインド
-;;(global-set-key (kbd "C-;") 'volume-up)
-; (global-set-key (kbd "C-:") 'volume-down)
-#+end_src
-
 ** speedup
 
 #+begin_src emacs-lisp
 (setq w32-get-true-file-attributes nil)
 #+end_src
+
+** ビープ音を抑制
+   - [[http://yohshiy.blog.fc2.com/blog-entry-171.html][Emacs でビープ音を出さなくする設定 | プログラマーズ雑記帳]]
+
+#+begin_src emacs-lisp
+(setq visible-bell t)
+(setq ring-bell-function 'ignore)
+#+end_src
+
+** windows caps lock を ctlrl へ
+   caps2ctrl.exe をつかう.
+   - https://technet.microsoft.com/ja-jp/sysinternals/bb897578
 
 * Bookmarks
   - [[http://gregorygrubbs.com/emacs/10-tips-emacs-windows/][10 Tips for Powerful Emacs on Windows | Gregory Grubbs]]

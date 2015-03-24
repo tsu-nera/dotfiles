@@ -306,6 +306,7 @@
     hackernews
     org-multiple-keymap
     org-bullets
+    engine-mode
     )
  "A list of packages to install from el-get at launch.")
 

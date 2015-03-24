@@ -692,15 +692,28 @@ command uses interactive mode if passed an argument."
 
 ** volume
    volume 制御だってできる, そう Emacs ならね.
+   - https://github.com/dbrock/volume-el
+   mcvc というフリーソフト, 404 になっちゃた.
+   - [[http://qiita.com/natsutan/items/706a7ee72008abda8842][Windows の音量を Emacs から制御する - Qiita]]
 
- #+begin_src emacs-lisp
-(use-package volume
-  :config
-  (defhydra hydra-volume (global-map "C-x 7")
-    "volume"
-    ("+" volume-raise "up")
-    ("-" volume-lower "down")))
+#+begin_src emacs-lisp
+(when windows-p
+(defun volume-raise ()
+  (interactive)
+  (call-process "mcvc.exe" nil nil nil "m+10"))
+(defun volume-lower ()
+  (interactive)
+  (call-process "mcvc.exe" nil nil nil "m-10")))
+
+(when linux-p
+  (use-package volume))
+
+(defhydra hydra-volume (global-map "C-x 7")
+  "volume"
+  ("+" volume-raise "up")
+  ("-" volume-lower "down"))
  #+end_src
+
 * Dictionary: 辞書
 ** search-web
     無料でオンラインの英辞郎 on the WEB をサクッと利用する.
