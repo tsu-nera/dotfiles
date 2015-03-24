@@ -14,7 +14,7 @@
 #+end_src
 
 * 基本設定
-#+begin_src emacs-lisp
+  #+begin_src emacs-lisp
 ; この行がないと imap サーバに繋がらない
 (setq ssl-certificate-verification-policy 1)
 
@@ -251,3 +251,12 @@ M-x elmo-passwd-alist-save
 #+begin_src emacs-lisp
 )
 #+end_src
+
+* wanderlust 関連
+** apel
+   - https://github.com/wanderlust/apel
+
+#+begin_src emacs-lisp
+(use-package apel)
+#+end_src
+
