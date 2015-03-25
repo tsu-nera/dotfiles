@@ -873,10 +873,14 @@
 #+end_src
 
 * org-bullets
+  org-mode のの見出しアイコンの変更.
   - https://github.com/sabof/org-bullets
+
+  windows 環境だとド派手になるので封印.
 
 #+begin_src emacs-lisp
 (use-package org-bullets
+  :disabled t
   :init
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+end_src
