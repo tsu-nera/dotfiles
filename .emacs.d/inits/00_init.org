@@ -306,6 +306,8 @@
     hackernews
     org-multiple-keymap
     org-bullets
+    writeroom-mode
+    visual-fill-column
     )
  "A list of packages to install from el-get at launch.")
 
