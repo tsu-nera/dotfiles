@@ -257,6 +257,6 @@ M-x elmo-passwd-alist-save
    - https://github.com/wanderlust/apel
 
 #+begin_src emacs-lisp
-(use-package apel)
+;; (use-package apel)
 #+end_src
 

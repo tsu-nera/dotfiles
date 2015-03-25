@@ -158,6 +158,18 @@
 (use-package hackernews)
 #+end_src
 
+** el-pocket
+   pocket との連携
+   - https://github.com/pterygota/el-pocket
+
+   今は pocket に記事を追加する機能のみ. これからに期待.
+
+#+begin_src emacs-lisp
+(use-package el-pocket
+  :config
+  (el-pocket-load-auth))
+#+end_src
+
 * memo:メモ・キャプチャー
 ** Hown
    Function : Evernote を越えるメモ管理ツール
@@ -885,7 +897,6 @@ sudo pacman -S ghostscript
   (interactive)
   (shell-command "slimlock"))
 #+end_src
-
 
 ** meigen
 

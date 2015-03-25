@@ -307,6 +307,8 @@
     org-multiple-keymap
     org-bullets
     engine-mode
+    web
+    el-pocket
     )
  "A list of packages to install from el-get at launch.")
 
