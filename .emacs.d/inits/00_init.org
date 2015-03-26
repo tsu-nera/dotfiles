@@ -306,6 +306,8 @@
     hackernews
     org-multiple-keymap
     org-bullets
+    writeroom-mode
+    visual-fill-column
     engine-mode
     web
     el-pocket

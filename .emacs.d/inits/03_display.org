@@ -154,6 +154,23 @@
   (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 #+end_src
 
+** writeroom-mode
+   執筆モード
+   - https://github.com/joostkremers/writeroom-mode
+   - http://rubikitch.com/tag/package:writeroom-mode/
+
+   visual-fill-column が必要.
+   - https://github.com/joostkremers/visual-fill-column
+
+#+begin_src emacs-lisp
+(use-package visual-fill-column)
+(use-package writeroom-mode
+  :config
+  ;; 横幅を 80 桁に設定
+  (setq writeroom-width 80))
+#+end_src
+
+
 * モードライン
 ** モードラインに時間を表示する
 #+begin_src emacs-lisp
