@@ -80,13 +80,11 @@
    - https://github.com/tuhdo/semantic-refactor
 
    ついに見つけた, extract method.
-
    menu で番号を選択するとバグっているので, Enter で選択.(そのうちなおるかと)
 
 #+begin_src emacs-lisp
 (use-package srefactor
   :config
-  (semantic-mode 1)
   (define-key c-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
   (define-key c++-mode-map (kbd "M-RET") 'srefactor-refactor-at-point))
 #+end_src
@@ -103,6 +101,8 @@
    - M-j  fa-jump-maybe ポップアップ状態でオスとジャンプ
    - moo-propose-overide オーバーライドを suggest
    - moo-propose-variable 変数を suggest
+
+   しばらくつかわないうちに動かなくなっちゃった.
 
 #+begin_src emacs-lisp
 (use-package function-args

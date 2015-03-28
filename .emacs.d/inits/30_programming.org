@@ -238,12 +238,6 @@
   (define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark))
 #+end_src
 
-** semantic mode
-
-#+begin_src emacs-lisp
-(semantic-mode 1)
-#+end_src
-
 * エラーチェック
 ** flymake
    静的文法チェック.
@@ -415,6 +409,17 @@
   (define-key prog-mode-map (kbd "M-RET") 'emr-show-refactor-menu)
   (add-hook 'prog-mode-hook 'emr-initialize))
 #+end_src
+
+** semantic mode
+   意味を解釈した, セマンティックな解析をする.
+   - [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Semantic.html][Semantic - GNU Emacs Manual]]
+
+#+begin_src emacs-lisp
+(semantic-mode 1)
+#+end_src
+
+   semantic がうまく動かないときは, .emacs.d/ 配下にある 
+   semanticdb を削除して, 再構築する.
 
 * Utils
 ** ediff

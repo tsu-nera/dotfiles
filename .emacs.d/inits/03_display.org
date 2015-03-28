@@ -451,7 +451,7 @@
 #+begin_src emacs-lisp
 (set-scroll-bar-mode nil)
 
-(when linux-p
+(when emacs25.0-p
   ;; 家の archlinux 環境たけ有効にしておく
   (horizontal-scroll-bar-mode -1))
 #+end_src
