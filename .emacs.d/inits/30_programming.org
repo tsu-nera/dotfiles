@@ -3,17 +3,25 @@
 
 ** Emacs as IDE 
    優れた IDE が備えるべき機能は以下
-   - シンタックスハイライト
-     - major-jode
+   - シンタックスハイライト/ インデント
+     - major-mode
    - 検索・置換
+     たくさんあるよ.
    - タグジャンプ
+     GNU Global ggtags
    - コード補間
      - auto-complete
    - エラーチェック
-     - flymake
      - flycheck
    - リファクタリング
+     emacs-refactor
    - インタープリタ・デバッカ
+   - プロジェクト管理
+     projectile
+   - ドキュメント参照
+     eldoc
+
+  参考: [[http://www.wilfred.me.uk/blog/2015/03/19/adding-a-new-language-to-emacs/][Adding A New Language to Emacs | Wilfred Hughes :: Blog]]
 
 ** prog-mode
    programming のためのメジャーモード.
@@ -595,5 +603,4 @@
 
 
 * Bookmarks
-  自分のメジャーモードをつくろう.
-  - [[http://www.wilfred.me.uk/blog/2015/03/19/adding-a-new-language-to-emacs/][Adding A New Language to Emacs | Wilfred Hughes :: Blog]]
+

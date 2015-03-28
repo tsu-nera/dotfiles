@@ -108,6 +108,7 @@
 (use-package function-args
   :config
   (fa-config-default)
+
   (define-key function-args-mode-map (kbd "M-o") nil)
   (define-key c-mode-map (kbd "C-M-:") 'moo-complete)
   (define-key c++-mode-map (kbd "C-M-:") 'moo-complete)
