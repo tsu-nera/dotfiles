@@ -46,6 +46,19 @@
 (global-set-key (kbd "C-x a =") 'align-to-equals)
 #+end_src
 
+** aggressive-indent-mode
+   賢い indent-mode
+   - https://github.com/Malabarba/aggressive-indent-mode
+
+   *names* に依存しているので, 
+   require 'names してからインストールしないとおかしくなる.
+
+#+begin_src emacs-lisp
+(use-package aggressive-indent
+  :config
+  (global-aggressive-indent-mode))
+#+end_src
+   
 * コンパイル
 ** smart-compile
    コマンドからコンパイル実行. 独自改造したものが, elisp にある.
