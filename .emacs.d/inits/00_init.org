@@ -152,6 +152,7 @@
     search-web
     wgrep
     phi-search
+    langtool
     ;; smart-compile 独自 age 改造したものを elisp においた
     expand-region
     ;; utility

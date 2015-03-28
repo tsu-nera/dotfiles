@@ -818,12 +818,12 @@ google-ime-skk &
   (ac-skk-enable))
 #+end_src
 
-
 *** TODO workaround
 
 #+begin_src emacs-lisp
 (require 'skk-vars) ;; これをかかないと Emacs 終了時に終了できない??
 #+end_src
+
 
 ** context-sk
    プログラムファイルのコード部分で「かな」とかになってた場合に
@@ -869,6 +869,35 @@ google-ime-skk &
    #+begin_src emacs-lisp
    ;; (use-package yspel :defer t)
    #+end_src
+
+** langtool
+   Language tool 共通オープンソースの スペルチェッカー
+   - [[https://www.languagetool.org/][LanguageTool Style and Grammar Check]]
+   - https://github.com/mhayashi1120/Emacs-langtool
+   - [[http://d.hatena.ne.jp/mhayashi1120/20110205/1296872930#][LanguageTool - まにっき]]
+
+   language tool 自体は別にインストール.
+   - archlinux: sudo pacman -S languagetool
+
+   使えなかった...なにも検出できないし, そもそも java がうごかない.
+
+#+begin_src emacs-lisp
+(when linux-p
+  (use-package langtool
+  :disabled t
+  :config
+  (setq langtool-language-tool-jar "/usr/share/java/languagetool/languagetool-commandline.jar")
+
+  (setq langtool-mother-tongue "ja")
+  (setq langtool-java-bin "/usr/bin/java")
+  
+  (global-set-key "\C-x4w" 'langtool-check)
+  (global-set-key "\C-x4W" 'langtool-check-done)
+  (global-set-key "\C-x4l" 'langtool-switch-default-language)
+  (global-set-key "\C-x44" 'langtool-show-message-at-point)
+  (global-set-key "\C-x4c" 'langtool-correct-buffer)
+  ))
+#+end_src
 
 * 英語入力
 ** aspell
