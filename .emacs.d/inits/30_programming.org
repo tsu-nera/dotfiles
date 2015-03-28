@@ -121,7 +121,7 @@
    - [[http://blog.en30.net/2014/10/20/development-environment.html][最近の開発環境: mjolnir, projectile, peco - blog.en30.net]]
 
    .projectile ファイルをマニュアルで作成することで,
-   そのフォルダを Route Folder と認識出来る.
+   そのフォルダを Route Folder と認識出来る.(要 Emacs 再起動)
 
    以下で GTAGS を作成.
    - projectile-regenerate-tags
@@ -140,7 +140,7 @@
    - Run compilation command at project root: C-c p c. By default, Projectile prompts the make command. 
    - Switch between .h and .c or .cpp: C-c p a. (便利!!)
 
-#+begin_src emacs-lisp
+   #+begin_src emacs-lisp
 (use-package projectile
   :defer 20
   :config
@@ -148,12 +148,16 @@
   ;; windows indexing 高速化のおまじない.
   (when windows-p
     (setq projectile-indexing-method 'alien))
+
+  ;; 大きいプロジェクトだと劇的に改善するらしい.
+  (setq projectile-enable-caching t)
   
   ;; gtags があればそっちを
+  ;; ggtags が必要.
   (when (executable-find "gtags")
     (setq projectile-tags-file-name "GTAGS")
     (setq projectile-tags-command "gtags")))
-#+end_src
+   #+end_src
 
 * タグジャンプ
 ** GNU global: gtags
@@ -178,18 +182,52 @@
    - [[http://namamugi2011.blog.fc2.com/blog-entry-42.html][GNU GLOBAL と emacs でコードリーディング | ぷろぐらま]]
 
 #+begin_src emacs-lisp
-(use-package gtags
-  :bind
-  (("\M-t" . gtags-find-tag) ;関数の定義元へ
-   ("\M-r" . gtags-find-rtag) ;関数の参照先へ
-   ("\M-s" . gtags-find-symbol) ;変数の定義元/ 参照先へ
-   ;; ("\M-f" . gtags-find-file) ;ファイルにジャンプ
-   ("\M-," . gtags-pop-stack));前のバッ ファに戻る
-  :init  
+;; (use-package gtags)
+;; :bind
+;; (("\M-t" . gtags-find-tag) ;関数の定義元へ
+;;  ("\M-r" . gtags-find-rtag) ;関数の参照先へ
+;;  ("\M-s" . gtags-find-symbol) ;変数の定義元/ 参照先へ
+;;  ;; ("\M-f" . gtags-find-file) ;ファイルにジャンプ
+;;  ("\M-," . gtags-pop-stack));前のバッ ファに戻る
+;; )
+;; :init	
+;; (add-hook 'c-mode-common-hook
+;;           '(lambda ()
+;;              (gtags-mode 1)
+;;              (gtags-make-complete-list))))
+#+end_src
+
+** ggtags
+   GNU Global 
+
+   projectile で必要.
+   - https://github.com/leoliu/ggtags
+
+#+begin_src emacs-lisp
+(use-package ggtags
+  :init
   (add-hook 'c-mode-common-hook
-	    '(lambda ()
-	       (gtags-mode 1)
-	       (gtags-make-complete-list))))
+            (lambda ()
+              (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
+                (ggtags-mode 1))))
+  :config
+  ;; use helm
+  (setq ggtags-completing-read-function nil)
+
+  ;; use eldoc
+  (setq-local eldoc-documentation-function #'ggtags-eldoc-function)
+
+  ;; imenu
+  (setq-local imenu-create-index-function #'ggtags-build-imenu-index)
+  
+  (define-key ggtags-mode-map (kbd "C-c g s") 'ggtags-find-other-symbol)
+  (define-key ggtags-mode-map (kbd "C-c g h") 'ggtags-view-tag-history)
+  (define-key ggtags-mode-map (kbd "C-c g r") 'ggtags-find-reference)
+  (define-key ggtags-mode-map (kbd "C-c g f") 'ggtags-find-file)
+  (define-key ggtags-mode-map (kbd "C-c g c") 'ggtags-create-tags)
+  (define-key ggtags-mode-map (kbd "C-c g u") 'ggtags-update-tags)
+
+  (define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark))
 #+end_src
 
 ** semantic mode

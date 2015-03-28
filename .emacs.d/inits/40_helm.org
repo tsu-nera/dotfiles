@@ -125,26 +125,6 @@
   (setq helm-ag-thing-at-point 'symbol))
 #+end_src
 
-** helm-migemo
-   helm の日本語検索.
-   - https://github.com/emacs-helm/helm-migemo
-
-  うまく動かないので, パッチをあてる.
-  - [[http://rubikitch.com/2014/12/19/helm-migemo/][emacs helm-migemo.el : helm で正しく Migemo を動作させる!]]
-
-  migemo 対応していない場合は, helm-migemize-command で個別に追加.
-  - [[http://aki2o.hatenablog.jp/entry/2013/09/05/anything/helm%E3%81%AEmigemo%E5%AF%BE%E5%BF%9C%E3%81%97%E3%81%A6%E3%81%AA%E3%81%84%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%81%A7migemo%E3%82%8A%E3%81%9F%E3%81%84%E6%99%82%E3%81%AB%E3%81%99%E3%81%B9%E3%81%8D][helm の migemo 対応してないコマンドで migemo りたい時にすべき設定方法 - 死ぬまでの暇潰し]]
-
-#+begin_src emacs-lisp
-(use-package helm-migemo
-  :init
-  (setq helm-use-migemo t)
-  (helm-migemize-command helm-imenu)
-  (helm-migemize-command helm-org-in-buffer-headings)
-  (helm-migemize-command swiper)
-  (require 'my-patch-helm-migemo))
-#+end_src
-
 ** helm-kaomoji
    顔文字.
    
@@ -256,23 +236,27 @@
 
    うーん, 動かない. . .error helm-process-delay-source
 
+   動かないので, ggtags をつかう.
+
 #+begin_src emacs-lisp
 (use-package helm-gtags
+  :disabled t
   :init
   ;;; Enable helm-gtags-mode
+  (add-hook 'dired-mode-hook 'helm-gtags-mode)
+  (add-hook 'eshell-mode-hook 'helm-gtags-mode)
   (add-hook 'c-mode-hook 'helm-gtags-mode)
   (add-hook 'c++-mode-hook 'helm-gtags-mode)
-  (add-hook 'asm-mode-hook 'helm-gtags-mode)
   (add-hook 'java-mode-hook 'helm-gtags-mode)
+
   :config
   ;; customize
-  (setq
-   helm-gtags-ignore-case t
-   helm-gtags-auto-update t
-   helm-gtags-use-input-at-cursor t
-   helm-gtags-pulse-at-cursor t
-   ;; helm-gtags-suggested-key-mapping t
-   )
+  ;; customize
+  (custom-set-variables
+   '(helm-gtags-path-style 'relative)
+   '(helm-gtags-ignore-case t)
+   '(helm-gtags-auto-update t))
+  
   ;; key bindings
   (define-key helm-gtags-mode-map (kbd "M-t") 'helm-gtags-find-tag)
   (define-key helm-gtags-mode-map (kbd "M-e") 'helm-gtags-find-rtag)
@@ -408,6 +392,30 @@
   (require 'ivy)
   (fset 'ivy--regex 'identity))
 #+end_src
+
+** helm-migemo
+   helm の日本語検索.
+   - https://github.com/emacs-helm/helm-migemo
+
+  うまく動かないので, パッチをあてる.
+  - [[http://rubikitch.com/2014/12/19/helm-migemo/][emacs helm-migemo.el : helm で正しく Migemo を動作させる!]]
+
+  migemo 対応していない場合は, helm-migemize-command で個別に追加.
+  - [[http://aki2o.hatenablog.jp/entry/2013/09/05/anything/helm%E3%81%AEmigemo%E5%AF%BE%E5%BF%9C%E3%81%97%E3%81%A6%E3%81%AA%E3%81%84%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%81%A7migemo%E3%82%8A%E3%81%9F%E3%81%84%E6%99%82%E3%81%AB%E3%81%99%E3%81%B9%E3%81%8D][helm の migemo 対応してないコマンドで migemo りたい時にすべき設定方法 - 死ぬまでの暇潰し]]
+
+#+begin_src emacs-lisp
+(use-package helm-migemo
+  :init
+  (setq helm-use-migemo t)
+  (with-eval-after-load 'helm-imenu
+    '(helm-migemize-command helm-imenu))
+  (with-eval-after-load 'helm-org
+    '(helm-migemize-command helm-org-in-buffer-headings))
+  (with-eval-after-load 'swiper
+    '(helm-migemize-command swiper))
+  (require 'my-patch-helm-migemo))
+#+end_src
+
 
 * Action 追加
   helm で絞り込みのあと, TAB で Action 起動.

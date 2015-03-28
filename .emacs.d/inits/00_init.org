@@ -312,6 +312,8 @@
     web
     el-pocket
     electric-spacing
+    aggressive-indent-mode
+    ggtags
     )
  "A list of packages to install from el-get at launch.")
 
