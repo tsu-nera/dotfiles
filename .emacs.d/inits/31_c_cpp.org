@@ -43,7 +43,7 @@
 (set-default 'semantic-case-fold t)
 #+end_src
 
-* エラーチェック
+* Error Check
 ** flycheck
    gcc, clnag, cppcheck が default のチェッカーとして用意されている.
    - [[https://flycheck.readthedocs.org/en/latest/guide/languages.html#c-c][Supported languages - Flycheck 0.23-cvs]]
@@ -52,10 +52,20 @@
    - https://github.com/jedrz/.emacs.d/blob/master/setup-flycheck.el
    - [[http://qiita.com/akisute3@github/items/6fb94c30f92dae2a24ee][Emacs - flycheck で C/C++ のエラーチェック定義を追加する - Qiita]]
 
-   gcc だとなにも検出してくれない.なんでだろう.
-
 #+begin_src emacs-lisp
 (add-hook 'c-mode-common-hook 'flycheck-mode)
+#+end_src
+
+   - checker の変更は M-x flycheck-select-checker
+   - helm-flycheck で helm i/f から エラーを選択.
+
+*** gcc
+   gcc だとなにも検出してくれない.なんでだろう.
+   -> 結果が日本語表示だったから
+
+   - [[http://futurismo.biz/archives/2992][Flycheck で g++ の日本語表記のコンパイルエラーがパースできていなかった (C/C++) | Futurismo]]
+
+#+begin_src emacs-lisp
 (defmacro flycheck-define-clike-checker (name command modes)
   `(flycheck-define-checker ,(intern (format "%s" name))
      ,(format "A %s checker using %s" name (car command))
@@ -90,6 +100,36 @@
 #+end_src
 
 * Completion 
+** auto-complete-c-headers
+   ヘッダの情報源
+   - https://github.com/mooz/auto-complete-c-headers
+
+#+begin_src emacs-lisp
+(use-package auto-complete-c-headers 
+  :init
+  (add-hook 'c++-mode-hook '(setq ac-sources (append ac-sources '(ac-source-c-headers))))
+  (add-hook 'c-mode-hook '(setq ac-sources (append ac-sources '(ac-source-c-headers)))))
+#+end_src
+
+** clang-complete-async
+   clang を利用した 補完. 構造体とかもばっちり!
+   - https://github.com/Golevka/emacs-clang-complete-async
+
+#+begin_src emacs-lisp
+(use-package auto-complete-clang-async
+  :init
+  (defun ac-cc-mode-setup ()
+    (setq ac-clang-complete-executable "~/.emacs.d/el-get/repo/clang-complete-async/clang-complete")
+    (setq ac-sources (append ac-sources '(ac-source-clang-async)))
+    (ac-clang-launch-completion-process))
+
+  (defun my-ac-config ()
+    (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+    (add-hook 'auto-complete-mode-hook 'ac-common-setup)
+    (global-auto-complete-mode t))
+  (my-ac-config))
+#+end_src
+
 ** function-args
    C/C++ 用の 補完.  CEDET のモダンな置き換え.
    - https://github.com/abo-abo/function-args
@@ -120,3 +160,12 @@
    '(fa-face-type ((t (:inherit (quote font-lock-type-face) :background "#3f3f3f"))))
    '(fa-face-type-bold ((t (:inherit (quote font-lock-type-face) :background "#999999" :bold t))))))
 #+end_src
+
+** rtags
+   clang をつかった便利機能詰め合わせ.
+   - https://github.com/Andersbakken/rtags
+
+   設定が大変そうだな..  これは今回は挫折.
+
+   fixit って, 自動エラー修正? スゴそう.
+

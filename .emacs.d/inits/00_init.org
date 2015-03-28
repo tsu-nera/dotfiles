@@ -206,6 +206,13 @@
     rcodetools
     inf-ruby
     auto-complete-ruby
+    ;; c/c++
+    helm-make
+    semantic-refactor
+    function-args
+    clang-complete-async
+    auto-complete-c-headers
+    rtags
     ;; python
     python-mode
     ;; java
@@ -298,9 +305,6 @@
     rake
     origami
     smart-newline
-    helm-make
-    semantic-refactor
-    function-args
     column-enforce-mode
     hydra
     swiper
