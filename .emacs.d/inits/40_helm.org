@@ -137,9 +137,8 @@
 
 #+begin_src emacs-lisp
 (use-package helm-migemo
-  :defer 20
-  :config
-  ;; (setq helm-use-migemo t)
+  :init
+  (setq helm-use-migemo t)
   (helm-migemize-command helm-imenu)
   (helm-migemize-command helm-org-in-buffer-headings)
   (helm-migemize-command swiper)

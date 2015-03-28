@@ -147,7 +147,7 @@
 ** バッファ削除
 *** clean
 
-#+begin_src emacs-lisp
+    #+begin_src emacs-lisp
 (defun kill-other-buffers ()
   "Kill all other buffers."
   (interactive)

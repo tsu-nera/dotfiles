@@ -20,6 +20,17 @@
    - [[http://www.emacswiki.org/emacs/ProgMode][EmacsWiki: Prog Mode]]
   
 * 編集 (とくにプログラミング)
+** electric-spacing
+   演算子の前後にスペースを挿入. 
+   かつては smart-operator といわれた.
+   - https://github.com/xwl/electric-spacing
+
+#+begin_src emacs-lisp
+(use-package electric-spacing
+  :init
+  (add-hook 'prog-mode-hook #'electric-spacing-mode))
+#+end_src
+
 ** インデントで垂直方向に揃える
    M-x align-regexp
    - [[http://postd.cc/why-i-vertically-align-my-code-and-you-should-too/][【翻訳】私がコーディングで垂直方向にそろえるインデントをとる理由 | POSTD]]

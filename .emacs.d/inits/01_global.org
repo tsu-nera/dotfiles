@@ -106,6 +106,14 @@ git clone git://git.savannah.gnu.org/emacs.git
 (setq history-length 1000)
 #+end_src
 
+** undohist
+   ファイルの履歴を管理
+#+begin_src emacs-lisp
+(use-package undohist
+  :config
+  (undohist-initialize))
+#+end_src
+
 * Key Bindings
 ** Global Keys
    よくわすれる, C や M の意味.

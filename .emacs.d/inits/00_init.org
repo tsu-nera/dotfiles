@@ -311,6 +311,7 @@
     engine-mode
     web
     el-pocket
+    electric-spacing
     )
  "A list of packages to install from el-get at launch.")
 
