@@ -136,6 +136,12 @@
 ;; default で logbook を表示
 (setq org-agenda-include-inactive-timestamps t)
 
+;; default で 時間を表示
+(setq org-agenda-start-with-log-mode t)
+
+;;; 一ヶ月分を表示
+(setq org-agenda-span 30)
+
 ;;アジェンダの clockreport 用パラメータ
 (setq org-agenda-clockreport-parameter-plist
       '(:maxlevel 5 :block t :tstart t :tend t :emphasize t :link t :narrow 80 :indent t :formula nil :timestamp t :level 5 :tcolumns nil :formatter nil))
@@ -170,8 +176,10 @@
 	;; (org-deadline-warning-days 0)
 	;; (org-agenda-clockreport-mode t) ;; 時間表の表示はコメントアウト
         ))))
-	("n" "Next Action List" tags-todo "next")
-	))
+       ("n" "Next Action List" tags-todo "next")
+       ("a" "Agenda and all TODO's"
+        ((tags "project-CLOCK=>\"<today>\"|repeatable") (agenda "") (alltodo)))
+       ))
 #+end_src
 
 *** アジェンダ表示の対象ファイル
@@ -196,7 +204,9 @@
 
 (setq org-agenda-files '("~/gtd/main.org"
                          "~/gtd/inbox.org"
-                         "~/gtd/journal/"))
+                         "~/gtd/journal/"
+                         "~/gtd/habits.org"))
+
 (setq org-agenda-file-regexp "\\`[^.].*\\.org'\\|[0-9]+.org$")
 
 ;; ショートカットを作成
@@ -221,6 +231,37 @@
 
 ;; Disable tag inheritance in agenda:
 (setq org-agenda-use-tag-inheritance nil)
+#+end_src
+
+*** agenda default
+
+#+begin_src emacs-lisp
+(defun org-agenda-default ()
+  (interactive)
+  (org-agenda nil "a")
+  (delete-other-windows))
+(global-set-key (kbd "C-<f5>") 'org-agenda-default)
+
+(setq org-agenda-restore-windows-after-quit t)
+(setq org-agenda-sticky nil)
+#+end_src
+
+*** agenda full screen
+    agenda の full screen.
+
+  - [[http://kyleam.com/posts/org-agenda-fullscreen/][org-agenda-fullscreen]]
+
+#+begin_src emacs-lisp
+;; (defadvice org-agenda-list (around org-agenda-fullscreen activate)
+;;   "Start agenda in fullscreen.
+;;  
+;; After agenda loads, delete other windows.
+;; `org-agenda-restore-windows-after-quit' should non-nil to restore
+;; the previous window configuration. If `org-agenda-sticky' is
+;; non-nil, configurations with more than one window do not seem to
+;; be restored properly."
+;;   ad-do-it
+;;   (delete-other-windows))
 #+end_src
 
 ** タスクの状態
@@ -433,17 +474,17 @@
 	("w" "Diary" entry (file+headline "~/gtd/main.org" "Diary") "**** %T %?\n")
 	("k" "Clock-in" entry (clock) "* %T %?\n")
 	;; calfw との連携 http://sheephead.homelinux.org/2014/03/15/7035/
-	("m" "Memo" plain
-         (file (concat org-directory (format-time-string "/howm/%Y%m%d-%H%M%S.org")))
-         "* MEMO <%<%Y-%m-%d>> %?\n   %i\n  %a\n\n"
-         :prepend t
-         :unnarrowed t
-         :kill-buffer t)
+        ;; ("m" "Memo" plain
+	;;  (file (concat org-directory (format-time-string "/howm/%Y%m%d-%H%M%S.org")))
+	;;  "* MEMO <%<%Y-%m-%d>> %?\n	 %i\n  %a\n\n"
+	;;  :prepend t
+	;;  :unnarrowed t
+	;;  :kill-buffer t)
+        ("m" "Memo" entry (file+headline "~/gtd/main.org" "Memo") "** %U%?\n%i\n")
 	("e" "Email Todo" entry (file+headline "~/gtd/main.org" "Mails")
         "* TODO %^{Brief Description}\n%a\n%?Added: %U\n" :prepend t)
 	("c" "calfw2org" entry (file "~/gtd/schedule.org") "*  %?\n %(cfw:org-capture-day)")
-	       )
-     ))
+        )))
 #+end_src
 
 * org2blog
