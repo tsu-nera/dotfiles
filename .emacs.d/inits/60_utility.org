@@ -80,23 +80,22 @@
     "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=%s")
   (defengine duckduckgo
     "https://duckduckgo.com/?q=%s")
-;;    "d")
   (defengine github
     "https://github.com/search?ref=simplesearch&q=%s")
   (defengine google
     "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s")
-;;    "g")
   (defengine twitter
     "https://twitter.com/search?q=%s")
   (defengine wikipedia
     "http://www.wikipedia.org/search-redirect.php?language=ja&go=Go&search=%s")
-;;    "w")
   (defengine wolfram-alpha
     "http://www.wolframalpha.com/input/?i=%s")
   (defengine youtube
     "http://www.youtube.com/results?aq=f&oq=&search_query=%s")
   (defengine futurismo
     "http://www.google.co.jp/search?q=site:futurismo.biz %s")
+  (defengine weblio
+    "http://ejje.weblio.jp/content/%s")
 
   ;; define key-bindings
   (global-unset-key (kbd "C-c /"))
@@ -108,6 +107,7 @@
      ("g" engine/search-google "google")
      ("f" engine/search-futurismo "futurismo")
      ("t" engine/search-twitter "twitter")
+     ("ej" engine/search-weblio "weblio")
      ("w" engine/search-wikipedia "wikipedia")))
   :config
   (engine-mode t))
@@ -577,7 +577,7 @@ command uses interactive mode if passed an argument."
   (emms-all)
   (emms-standard)
   
-  ;; (emms-default-players)
+   (emms-default-players)
   
   (when linux-p
     (setq emms-source-file-default-directory "~/Music/"))
@@ -591,20 +591,20 @@ command uses interactive mode if passed an argument."
     https をサポートに追加する.
 
  #+begin_src emacs-lisp
-(when linux-p
-  (use-package emms-player-vlc
-    :config
-    (setq emms-player-list '(emms-player-vlc))
-    (define-emms-simple-player vlc '(file url)
-      (concat "\\`\\(https?\\|mms\\)://\\|"
-              (emms-player-simple-regexp
-               "ogg" "mp3" "wav" "mpg" "mpeg" "wmv" "wma"
-               "mov" "avi" "divx" "ogm" "ogv" "asf" "mkv"
-               "rm" "rmvb" "mp4" "flac" "vob" "m4a" "ape"
-               "asx"))
-      "vlc" "--intf=rc")))
-(setq emms-player-list '(emms-player-vlc))
-(setq emms-player-list '(emms-player-vlc))
+;; (when linux-p
+;;   (use-package emms-player-vlc
+;;     :config
+;;     (setq emms-player-list '(emms-player-vlc))
+;;     (define-emms-simple-player vlc '(file url)
+;;       (concat "\\`\\(https?\\|mms\\)://\\|"
+;;               (emms-player-simple-regexp
+;;                "ogg" "mp3" "wav" "mpg" "mpeg" "wmv" "wma"
+;;                "mov" "avi" "divx" "ogm" "ogv" "asf" "mkv"
+;;                "rm" "rmvb" "mp4" "flac" "vob" "m4a" "ape"
+;;                "asx"))
+;;       "vlc" "--intf=rc")))
+;; (setq emms-player-list '(emms-player-vlc))
+;; (setq emms-player-list '(emms-player-vlc))
  #+end_src
  
 *** mplayer
@@ -849,6 +849,7 @@ sudo pacman -S ghostscript
   ;; (add-hook 'pdf-tools-enabled-hook 'pdf-tools-enable-minor-modes)
   :mode (("\\.pdf$" . pdf-view-mode))
   :config
+  (setq pdf-util-convert-program "/usr/bin/convert -font Ricty-Bold")
   (setq pdf-view-use-imagemagick t)
   (setq pdf-view-use-scaling t)
   (setq pdf-view-display-size 'fit-page))
