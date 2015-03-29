@@ -320,6 +320,7 @@
     electric-spacing
     aggressive-indent-mode
     ggtags
+    ledger-mode
     )
  "A list of packages to install from el-get at launch.")
 

@@ -900,6 +900,16 @@ sudo pacman -S ghostscript
   (autoload 'psession-mode "persistent-sessions.el")
   (psession-mode 1))
 #+end_src
+* ledger-mode
+  お金管理.
+
+#+begin_src emacs-lisp
+(use-package ledger-mode
+  :load-path "~/.emacs.d/el-get/repo/ledger-mode/lisp"
+  :init
+  (add-to-list 'auto-mode-alist '("\\.dat$" . ledger-mode)))
+#+end_src
+
 * Tips
 ** slimlock
    Emacs から一時停止.

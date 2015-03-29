@@ -350,6 +350,14 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
 #+end_src
 
 ** not used
+*** cyberpunk-theme
+    emacs live 用のテーマ. Start Hacking!!
+
+#+begin_src emacs-lisp
+(add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/cyberpunk-theme")
+;; (use-package cyberpunk-theme)
+#+end_src
+
 *** Molokai
 **** 正式版
 
