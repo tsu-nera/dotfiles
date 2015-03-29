@@ -44,6 +44,8 @@
 #+end_src
 
 * Error Check
+  今は, flymake よりも flycheck のほうがモダン.
+
 ** flycheck
    gcc, clnag, cppcheck が default のチェッカーとして用意されている.
    - [[https://flycheck.readthedocs.org/en/latest/guide/languages.html#c-c][Supported languages - Flycheck 0.23-cvs]]
@@ -53,6 +55,7 @@
    - [[http://qiita.com/akisute3@github/items/6fb94c30f92dae2a24ee][Emacs - flycheck で C/C++ のエラーチェック定義を追加する - Qiita]]
 
 #+begin_src emacs-lisp
+(require 'flymake)
 (add-hook 'c-mode-common-hook 'flycheck-mode)
 #+end_src
 
@@ -101,7 +104,7 @@
 
 * Completion 
 ** auto-complete-c-headers
-   ヘッダの情報源
+   auto-complete ヘッダの情報源
    - https://github.com/mooz/auto-complete-c-headers
 
 #+begin_src emacs-lisp
@@ -131,7 +134,7 @@
 #+end_src
 
 ** function-args
-   C/C++ 用の 補完.  CEDET のモダンな置き換え.
+   C/C++ 用の 補完.  CEDET のモダンな置き換え. clang 使えないとき用.
    - https://github.com/abo-abo/function-args
 
    moo-complete で構造体やクラス変数が置換できるのがうれしい.
@@ -141,8 +144,6 @@
    - M-j  fa-jump-maybe ポップアップ状態でオスとジャンプ
    - moo-propose-overide オーバーライドを suggest
    - moo-propose-variable 変数を suggest
-
-   しばらくつかわないうちに動かなくなっちゃった.
 
 #+begin_src emacs-lisp
 (use-package function-args
@@ -169,3 +170,31 @@
 
    fixit って, 自動エラー修正? スゴそう.
 
+
+* Document
+** ggtags
+   ggtags も c 言語ように eldoc 機能を提供している.
+
+** c-eldoc
+   C 言語用 eldoc 機能.
+   - https://github.com/mooz/c-eldoc
+   - [[http://d.hatena.ne.jp/mooz/20100421/p1][c-eldoc.el で C 言語プログラミング革命 - mooz deceives you]]
+
+#+begin_src emacs-lisp
+(use-package c-eldoc
+  :init
+  (add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
+  (add-hook 'c++-mode-hook 'c-turn-on-eldoc-mode)
+  :config
+  (setq c-eldoc-buffer-regenerate-time 60))
+#+end_src
+
+
+* Debugger
+** gdb
+   M-x gdb
+   標準搭載.
+
+** realgud
+   M-x realgud:gdb
+   - https://github.com/rocky/emacs-dbgr/wiki/gdb-notes

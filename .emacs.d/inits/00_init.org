@@ -213,7 +213,6 @@
     function-args
     clang-complete-async
     auto-complete-c-headers
-    rtags
     ;; python
     python-mode
     ;; java

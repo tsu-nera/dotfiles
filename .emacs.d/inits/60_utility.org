@@ -819,7 +819,7 @@ command uses interactive mode if passed an argument."
 #+end_src
 
 * pdf-tools
-  PDF Viewer.
+  PDF Viewer. Emacs で PDF がみれるという画期的なツールだ.
   - https://github.com/politza/pdf-tools
   - http://www.dailymotion.com/video/x2bc1is_pdf-tools-tourdeforce_tech?forcedQuality%3Dhd720
   - http://sheephead.homelinux.org/2014/03/17/7076/
@@ -828,6 +828,10 @@ command uses interactive mode if passed an argument."
   -> patch とりこまれた
 
   ArchLinux では, GhostScript を入れる.
+  フォントがへんになるのは, GhostScript のせいということは突き止めたけ
+  れども, どうやって直せばいいのか不明.
+
+  読むときは doc-view-mode C-c C-c にすることにした... or2.
 
 #+begin_src text
 sudo pacman -S ghostscript
@@ -840,11 +844,15 @@ sudo pacman -S ghostscript
   :if linux-p
   :init
   (setq pdf-info-epdfinfo-program
-	(concat (el-get-package-directory "pdf-tools") "src/epdfinfo"))
+	(concat (el-get-package-directory "pdf-tools") "server/epdfinfo"))
   (add-hook 'pdf-view-mode-hook 'pdf-tools-enable-minor-modes)
   ;; (add-hook 'pdf-tools-enabled-hook 'pdf-tools-enable-minor-modes)
-  :mode (("\\.pdf$" . pdf-view-mode)))
-;;  :config
+  :mode (("\\.pdf$" . pdf-view-mode))
+  :config
+  (setq pdf-view-use-imagemagick t)
+  (setq pdf-view-use-scaling t)
+  (setq pdf-view-display-size 'fit-page))
+
 	      ;; (use-package pdf-isearch)
 	      ;; (use-package pdf-annot)
 	      ;; (use-package pdf-history) 
@@ -858,12 +866,13 @@ sudo pacman -S ghostscript
 	      ;; (use-package tablist))))
 #+end_src
 
-  どうも, doc-view-mode がめちゃくちゃ遅い!linum-mode が有効なことが原因.
-  以下のページを参考に, major-mode が 
-  - doc-view-mode
-  - pdf-view-mode
-  のときは, linum-mode は disable に.
-  - [[http://stackoverflow.com/questions/16132234/how-can-i-speed-up-emacs-docview-mode][How can I speed up Emacs DocView mode? - Stack Overflow]]
+*** linum-mode は無効に
+    どうも, doc-view-mode がめちゃくちゃ遅い!linum-mode が有効なことが原因.
+    以下のページを参考に, major-mode が 
+    - doc-view-mode
+    - pdf-view-mode
+    のときは, linum-mode は disable に.
+    - [[http://stackoverflow.com/questions/16132234/how-can-i-speed-up-emacs-docview-mode][How can I speed up Emacs DocView mode? - Stack Overflow]]
 
 ** WIndows 環境
    頑張ってる. まだうごかない.

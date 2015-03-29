@@ -159,7 +159,6 @@
 
 
 
-   
 * コンパイル
 ** smart-compile
    コマンドからコンパイル実行. 独自改造したものが, elisp にある.
@@ -345,8 +344,6 @@
 ;;	 ("C-c d" . flymake-display-err-menu-for-current-line))
   :init
   (add-hook 'find-file-hook 'flymake-find-file-hook)
-;;  (add-hook 'c++-mode-hook '(lambda () (flymake-mode t)))
-;;  (add-hook 'c-mode-hook '(lambda () (flymake-mode t)))
   (add-hook 'haskell-mode-hook (lambda () (flymake-mode t)))
 ;; (add-hook 'java-mode-hook '(lambda () (flymake-mode t)))
   (add-hook 'emacs-lisp-mode-hook
@@ -513,6 +510,18 @@
 
    semantic がうまく動かないときは, .emacs.d/ 配下にある 
    semanticdb を削除して, 再構築する.
+
+* Debugger
+** emacs-dbgr
+   - https://github.com/rocky/emacs-dbgr
+
+  動かないので, あとで.
+
+#+begin_src emacs-lisp
+(use-package realgud
+  :disabled t)
+#+end_src
+
 
 * Utils
 ** ediff
