@@ -686,7 +686,7 @@
  '((R . t)
    (java . t)
    (shell . t)
-   (ledger . t)
+   (ledger . t)      
    )
  )
 #+end_src
