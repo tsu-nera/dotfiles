@@ -591,20 +591,19 @@ command uses interactive mode if passed an argument."
     https をサポートに追加する.
 
  #+begin_src emacs-lisp
-;; (when linux-p
-;;   (use-package emms-player-vlc
-;;     :config
-;;     (setq emms-player-list '(emms-player-vlc))
-;;     (define-emms-simple-player vlc '(file url)
-;;       (concat "\\`\\(https?\\|mms\\)://\\|"
-;;               (emms-player-simple-regexp
-;;                "ogg" "mp3" "wav" "mpg" "mpeg" "wmv" "wma"
-;;                "mov" "avi" "divx" "ogm" "ogv" "asf" "mkv"
-;;                "rm" "rmvb" "mp4" "flac" "vob" "m4a" "ape"
-;;                "asx"))
-;;       "vlc" "--intf=rc")))
-;; (setq emms-player-list '(emms-player-vlc))
-;; (setq emms-player-list '(emms-player-vlc))
+(when linux-p
+  (use-package emms-player-vlc
+    :config
+    (setq emms-player-list '(emms-player-vlc))
+    (define-emms-simple-player vlc '(file url)
+      (concat "\\`\\(https?\\|mms\\)://\\|"
+              (emms-player-simple-regexp
+               "ogg" "mp3" "wav" "mpg" "mpeg" "wmv" "wma"
+               "mov" "avi" "divx" "ogm" "ogv" "asf" "mkv"
+               "rm" "rmvb" "mp4" "flac" "vob" "m4a" "ape"
+               "asx"))
+      "vlc" "--intf=rc")))
+(setq emms-player-list '(emms-player-vlc))
  #+end_src
  
 *** mplayer
@@ -646,7 +645,6 @@ command uses interactive mode if passed an argument."
   ;; emms-streams で RET を押したときのデフォルト操作
   (setq emms-stream-default-action "play")
 #+end_src
-
 
 *** End of Config
  #+begin_src emacs-lisp
@@ -903,12 +901,57 @@ sudo pacman -S ghostscript
 * ledger-mode
   お金管理.
 
+** reckon
+   CSV 形式を ledger 形式に変換するツール.
+   - https://github.com/cantino/reckon
+   - [[http://blog.andrewcantino.com/blog/2010/11/06/command-line-accounting-with-ledger-and-reckon/][How I Do Command-line Accounting: Ledger and Reckon - andrew makes things]]
+
+** Emacs Setting
+  - [[http://www.ledger-cli.org/3.0/doc/ledger-mode.html][Ledger: Command-Line Accounting]]
+ 
+  org-capture との連携
+  - [[http://sachachua.com/blog/2010/11/emacs-recording-ledger-entries-with-org-capture-templates/][Emacs: Recording ledger entries with org-capture-templates - sacha chua]]
+
 #+begin_src emacs-lisp
 (use-package ledger-mode
   :load-path "~/.emacs.d/el-get/repo/ledger-mode/lisp"
   :init
-  (add-to-list 'auto-mode-alist '("\\.dat$" . ledger-mode)))
+  (add-to-list 'auto-mode-alist '("\\.dat$" . ledger-mode))
+
+  :config
+  ;; エントリを一番したにコピー
+  (defun vk-copy-ledger-entry-to-bottom ()
+    "Copy the current transaction to the bottom of the ledger"
+    "https://gist.github.com/vkurup/231520"
+    (interactive)
+    (re-search-backward "^[12][90]")
+  (let ((beg (point)))
+    (forward-char)
+    (re-search-forward "^[12][90]")
+    (beginning-of-line)
+    (copy-region-as-kill beg (point))
+    (goto-char (point-max))
+    (yank '(non nil list))
+    (forward-word)
+    (forward-char)))
+  )
 #+end_src
+
+** flycheck-ledger
+   - https://github.com/purcell/flycheck-ledger
+
+#+begin_src emacs-lisp
+(with-eval-after-load 'flycheck
+  '(use-package flycheck-ledger))
+#+end_src
+
+** 0rg-mode
+   legder -f xx org とかくと, org-table 形式で出力.
+   - [[http://orgmode.org/worg/org-contrib/babel/languages/ob-doc-ledger.html][Using Ledger for Accounting in Org-mode with Babel]]
+   - [[http://orgmode.org/worg/org-tutorials/weaving-a-budget.html][Weaving a budget with Org & ledger]]
+
+** Bookmarks
+   - [[https://billalex.wordpress.com/2013/05/01/ledger-nix-cli-double-entry-accounting/#][Ledger – *nix cli bookkeeping | Bills Blog]]
 
 * Tips
 ** slimlock

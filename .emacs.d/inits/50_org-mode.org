@@ -685,7 +685,8 @@
  'org-babel-load-languages
  '((R . t)
    (java . t)
-   (shell . t)   
+   (shell . t)
+   (ledger . t)
    )
  )
 #+end_src

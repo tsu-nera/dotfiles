@@ -183,6 +183,8 @@
     helm-etags-plus
     helm-swoop
     helm-c-yasnippet
+    helm-emms
+    ;; org
     org-mode
     org-pandoc
     deferred

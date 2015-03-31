@@ -238,14 +238,8 @@
   ;; (setq ac-auto-show-menu 0.5)
   (setq ac-auto-show-menu t)
 
-  ;; 高さは 20 まで.
-  (setq ac-menu-height 20)
 
-  ;; 色を変更
-  ;; (set-face-background 'ac-candidate-face "lightgray")
-  ;; (set-face-background 'ac-candidate-face "orange")
-  ;; (set-face-underline 'ac-candidate-face "darkgray")
-  ;; (set-face-background 'ac-selection-face "steelblue")
+  (setq ac-menu-height 20)          ; 高さは 20 まで.
 
   ;; 補完候補が 1 つのときはそれを採用.
   (setq ac-dwim t)
@@ -255,14 +249,13 @@
   (setq ac-auto-show-menu 0.8)     ; 0.8 秒でメニュー表示
   (setq ac-use-comphist t)         ; 補完候補をソート
   (setq ac-candidate-limit nil)    ; 補完候補表示を無制限に
-
-  (setq ac-use-menu-map t)
+  (setq ac-use-menu-map t)         ; C-n / C-p で選択
 
   ;; デフォルトは C-n or C-p
   ;; Ctrl ではなくて, Alt に割り当てる.
   (define-key ac-menu-map (kbd "M-n") 'ac-next)
   (define-key ac-menu-map (kbd "M-p") 'ac-previous)
-
+  
   ;; ヘルプを表示
   (define-key ac-completing-map (kbd "M-h") 'ac-quick-help)
    #+end_src
@@ -271,8 +264,10 @@
    ac-sources リストの最後に append で追加するだけ.
 
 #+begin_src emacs-lisp
-  (setq ac-sources (append ac-sources '(ac-source-abbrev)))
-  (setq ac-sources (append ac-sources '(ac-source-words-in-buffer)))
+(setq ac-sources (append ac-sources '(ac-source-abbrev)))
+(setq ac-sources (append ac-sources '(ac-source-dictionary)))
+(setq ac-sources (append ac-sources '(ac-source-words-in-buffer)))
+(setq ac-sources (append ac-sources '(ac-source-yasnippet)))
 #+end_src
 
    情報源の作り方

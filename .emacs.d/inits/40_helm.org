@@ -416,6 +416,11 @@
   (require 'my-patch-helm-migemo))
 #+end_src
 
+** helm-emms
+
+   #+begin_src emacs-lisp
+   (use-package helm-emms)
+   #+end_src
 
 * Action 追加
   helm で絞り込みのあと, TAB で Action 起動.
