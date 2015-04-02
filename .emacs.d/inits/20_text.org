@@ -138,21 +138,23 @@
 	 ("C-M-]" . mc/mark-previous-like-this)
 	 ("C-c C-]" . mc/mark-all-like-this))
   :init
-  (defhydra hydra-mc (global-map "C-]")
-    "multiple-cursor"
-    ("C-]" mc/mark-next-like-this "next")
-    ("n"   mc/mark-next-like-this "next")
-    ("p"   mc/mark-previous-like-this "previous")
-    ("m"   mc/mark-more-like-this-extended "more")
-    ("u"   mc/unmark-next-like-this "unmark-next")
-    ("U"   mc/unmark-previous-like-this "unmark-previous")
-    ("s"   mc/skip-to-next-like-this "skip-to-next")
-    ("S"   mc/skip-to-previous-like-this "skip-to-previous")
-    ("*"   mc/mark-all-like-this "all")
-    ("d"   mc/mark-all-like-this-dwim "all-like-this-dwim")
-    ("i"   mc/insert-numbers "insert-numbers")
-    ("o"   mc/sort-regions "sort-regions")
-    ("O"   mc/reverse-regions "reverse-regions")))
+  (global-set-key
+    (kbd "C-]")  
+    (defhydra hydra-mc ()
+      "multiple-cursor"
+      ("C-]" mc/mark-next-like-this "next")
+      ("n"   mc/mark-next-like-this "next")
+      ("p"   mc/mark-previous-like-this "previous")
+      ("m"   mc/mark-more-like-this-extended "more")
+      ("u"   mc/unmark-next-like-this "unmark-next")
+      ("U"   mc/unmark-previous-like-this "unmark-previous")
+      ("s"   mc/skip-to-next-like-this "skip-to-next")
+      ("S"   mc/skip-to-previous-like-this "skip-to-previous")
+      ("*"   mc/mark-all-like-this "all")
+      ("d"   mc/mark-all-like-this-dwim "all-like-this-dwim")
+      ("i"   mc/insert-numbers "insert-numbers")
+      ("o"   mc/sort-regions "sort-regions")
+      ("O"   mc/reverse-regions "reverse-regions"))))
 #+end_src
 
 ** expand-region
@@ -290,6 +292,7 @@
     )
     #+end_src
 
+
 ** undo-tree
    C-x u にバインディング.
 
@@ -352,6 +355,17 @@
   (setq clipmon-autoinsert-sound nil)
   (global-set-key (kbd "<M-f2>") 'clipmon-autoinsert-toggle))
 #+end_src
+
+** srep
+   Emacs で auto-fill のようなもの.
+   - [[http://d.hatena.ne.jp/ken_m/20111219/1324318727][Emacs で Excel のオートフィルのようなことをする - "E" for ...]]
+
+   #+begin_src emacs-lisp
+   (use-package srep)
+   #+end_src
+
+   1,2,3... とするには、ascii 改行 (C-q C-j) を delimiter で指定.
+   - [[http://ergoemacs.org/emacs/emacs_line_ending_char.html][Emacs: Newline Representation ^M ^J ^L]]
 
 * 移動
   まずは, 基本まとめ.

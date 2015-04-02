@@ -79,12 +79,13 @@
    遅延ロードが動いていないように見えるけど気のせいかな??
 
 #+begin_src emacs-lisp
-;; (package-initialize)
+(package-initialize nil)
 
 ;; use-package が存在しないときはなにもしない
 ;; (unless (require 'use-package nil t)
 ;;  (defmacro use-package (&rest args)))
 ;; (add-to-list 'load-path (locate-user-emacs-file "el-get/repo/el-get"))
+
 (add-to-list 'load-path "~/.emacs.d/el-get/repo/use-package")
 (require 'use-package)
 
@@ -104,9 +105,6 @@
   use-package の機能ではなく, 
   el-get の機能で, el-get-is-lazy というものがあるので.
   - https://github.com/jwiegley/use-package/issues/51
-
-** idle の設定
-    (xxx-mode t) 時間がかかるので, :idle を指定するといい.
 
 * El-get
   Emacs 用パッケージマネージャー

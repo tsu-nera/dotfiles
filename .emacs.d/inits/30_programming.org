@@ -709,5 +709,44 @@
 #+end_src
 
 
+* Tips
+** code review
+   - http://www.blogbyben.com/2015/04/the-joy-of-elisp-powered-code-review.html
+
+   #+begin_src emacs-lisp
+(defun chomp (str)
+  "..."
+  (let ((s (if (symbolp str)(symbol-name str) str)))
+    (save-excursion
+      (while (and
+              (not (null (string-match "^\\( \\|\f\\|\t\\|\n\\)" s)))
+              (> (length s) (string-match "^\\( \\|\f\\|\t\\|\n\\)" s)))
+        (setq s (replace-match "" t nil s)))
+      (while (and
+              (not (null (string-match "\\( \\|\f\\|\t\\|\n\\)$" s)))
+              (> (length s) (string-match "\\( \\|\f\\|\t\\|\n\\)$" s)))
+        (setq s (replace-match "" t nil s))))
+    s))
+
+(defun code-review-region (beg end)
+  (interactive "r")
+  (let* ((text (chomp (buffer-substring-no-properties beg end)))
+         (line-number (line-number-at-pos))
+         (file (buffer-file-name))
+         (path (replace-regexp-in-string "^.*branches/" ""
+                                         (replace-regexp-in-string 
+                                          "^.*trunk/" "" file))))
+     (with-temp-buffer
+       (insert text)
+       (goto-char (point-min))
+       (while (re-search-forward "^" nil t)
+         (replace-match "| " nil nil))
+       (goto-char (point-min))
+       (insert (format "+---[%s:%s]\n" path line-number))
+       (goto-char (point-max))
+       (insert "\n+---\n")
+       (kill-region (point-min) (point-max)))))
+#+end_src
+
 * Bookmarks
 
