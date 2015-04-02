@@ -213,7 +213,7 @@
     helm-make
     semantic-refactor
     function-args
-    clang-complete-async
+    ;; clang-complete-async
     auto-complete-c-headers
     ;; python
     python-mode
@@ -323,6 +323,8 @@
     aggressive-indent-mode
     ggtags
     ledger-mode
+    emacs-readability
+    interleave
     )
  "A list of packages to install from el-get at launch.")
 

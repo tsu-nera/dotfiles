@@ -7,6 +7,11 @@ load_paths.unshift("chrome://conkeror-contrib/content/");
 homepage = "http://www.google.co.jp";
 
 //////////////////////////////////////////
+// Key Bindings
+//////////////////////////////////////////
+define_key (minibuffer_keymap, "C-m", "exit-minibuffer");
+
+//////////////////////////////////////////
 // Big Hint Number
 //////////////////////////////////////////
 register_user_stylesheet(
@@ -76,6 +81,9 @@ define_webjump("hatena","javascript:(function(){var%20d=(new%20Date);var%20s=doc
 // twitter
 define_webjump("twitter","javascript:(function()%7Bwindow.twttr=window.twttr%7C%7C%7B%7D;var%20D=550,A=450,C=screen.height,B=screen.width,H=Math.round((B/2)-(D/2)),G=0,F=document,E;if(C%3EA)%7BG=Math.round((C/2)-(A/2))%7Dwindow.twttr.shareWin=window.open(%27http://twitter.com/share%27,%27%27,%27left=%27+H+%27,top=%27+G+%27,width=%27+D+%27,height=%27+A+%27,personalbar=0,toolbar=0,scrollbars=1,resizable=1%27);E=F.createElement(%27script%27);E.src=%27http://platform.twitter.com/bookmarklets/share.js?v=1%27;F.getElementsByTagName(%27head%27)%5B0%5D.appendChild(E)%7D());");
 
+// readability
+define_webjump("readability","javascript:(%0A%28function%28%29%7Bwindow.baseUrl%3D%27//www.readability.com%27%3Bwindow.readabilityToken%3D%27DsMgYF6muHA9dzMgEGyLPuMVRYGxf5DFBRVtx9kf%27%3Bvar%20s%3Ddocument.createElement%28%27script%27%29%3Bs.setAttribute%28%27type%27%2C%27text/javascript%27%29%3Bs.setAttribute%28%27charset%27%2C%27UTF-8%27%29%3Bs.setAttribute%28%27src%27%2CbaseUrl%2B%27/bookmarklet/save.js%27%29%3Bdocument.documentElement.appendChild%28s%29%3B%7D%29%28%29);");
+
 // create link
 // define_webjump("link_markdown","javascript:(function(){prompt('Copy to Clipboard','['+document.title.replace(/([\[\]])/g,'\\$1')+']'+'('+location.href+')');})();");
 define_webjump("@","javascript:(function(){prompt('Copy to Clipboard','['+'['+location.href+']'+'['+document.title.replace(/([\[\]])/g,'\\$1')+']'+']');})();");
@@ -113,6 +121,13 @@ require("session.js");
 editor_shell_command = "emacsclient -c"
 
 cwd.append("Downloads");
+
+interactive("reload-config", "reload conkerorrc",
+            function(I) {
+                load_rc();
+                I.window.minibuffer.message("config reloaded");
+            });
+define_key(default_global_keymap, "C-c r", "reload-config");
 
 //////////////////////////////////////////
 // colors

@@ -178,7 +178,8 @@
         ))))
        ("n" "Next Action List" tags-todo "next")
        ("a" "Agenda and all TODO's"
-        ((tags "project-CLOCK=>\"<today>\"|repeatable") (agenda "") (alltodo)))
+        ;;((tags "project-CLOCK=>\"<today>\"|repeatable") (agenda "") (alltodo)))
+        ((tags "project-CLOCK=>\"<today>\"|repeatable") (agenda "")))
        ))
 #+end_src
 
@@ -925,6 +926,14 @@
   :disabled t
   :init
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+#+end_src
+
+* interleave
+  org-mode + PDF memo
+  - https://github.com/rudolfochrist/interleave
+
+#+begin_src emacs-lisp
+(use-package interleave)
 #+end_src
 
 * 他のツールとの連携
