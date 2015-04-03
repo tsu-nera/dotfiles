@@ -253,7 +253,7 @@ git clone git://git.savannah.gnu.org/emacs.git
 
 #+begin_src emacs-lisp
 (global-set-key
- (kbd "C-x 1")
+ (kbd "C-x q")
  (defhydra hydra-move ()
    "move"
    ("f" forward-char "right")

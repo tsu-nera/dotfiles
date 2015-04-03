@@ -186,6 +186,7 @@
     org-mode
     org-pandoc
     deferred
+    org-textile
     ;; color
     color-theme
     molokai-theme
@@ -308,6 +309,7 @@
     column-enforce-mode
     hydra
     swiper
+    swiper-helm
     smooth-scroll
     hackernews
     org-multiple-keymap

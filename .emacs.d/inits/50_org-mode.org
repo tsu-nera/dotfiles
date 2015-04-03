@@ -646,6 +646,13 @@
 (use-package ox-md :defer t)
 #+end_src
 
+** org-textile
+   - https://github.com/yashi/org-textile
+
+#+begin_src emacs-lisp
+(use-package org-textile)
+#+end_src
+
 ** 未使用中
 *** ox-rst
    org-mode から reStructredText への変換

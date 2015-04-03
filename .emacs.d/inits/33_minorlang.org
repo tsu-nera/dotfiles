@@ -245,7 +245,6 @@
   :mode ("\\.textile$" . textile-mode))
  #+end_src
 
-
 ** pukiwiki-mode
    pukiwiki-mode は minor-mode のみ使用する. 
    firefox や chrome の Edit 機能から, Emacs を起動する.

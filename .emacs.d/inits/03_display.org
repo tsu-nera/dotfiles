@@ -359,7 +359,7 @@
 ;;  ("j" hydra-move-splitter-down  "↓")
 ;;  ("="  balance-windows           "Balance"))
 #+end_srcN
-
+x1
 ** window 間の移動
 
    #+begin_src emacs-lisp

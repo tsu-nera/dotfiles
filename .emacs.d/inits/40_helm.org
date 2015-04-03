@@ -159,9 +159,22 @@
 
 #+begin_src emacs-lisp
 (use-package helm-swoop
+  :preface
+  ;;; [2015-03-23 Mon]C-u C-s / C-u C-u C-s
+  ;;; http://rubikitch.com/2015/03/23/helm-swoop-update/
+  (defun isearch-forward-or-helm-swoop (use-helm-swoop)
+    (interactive "p")
+    (let (current-prefix-arg
+          (helm-swoop-pre-input-function 'ignore))
+      (call-interactively
+       (case use-helm-swoop
+         (1 'isearch-forward)
+         (4 'helm-swoop)
+         (16 'helm-swoop-nomigemo)))))
   :bind (("M-o" . helm-swoop)
 	 ("M-O" . helm-swoop-back-to-last-point)
-	 ("C-x M-o" . helm-multi-swoop))
+	 ("C-x M-o" . helm-multi-swoop)
+         ("C-s" . isearch-forward-or-helm-swoop))
 ;;	 ("C-M-o" . helm-multi-swoop-all))
   :config
   ;; When doing isearch, hand the word over to helm-swoop
@@ -369,7 +382,7 @@
 ;;      (call-interactively 'helm-recentf)))
    #+end_src
 
-** swiper
+** swiper-helm
    Emacs isearch with an overview. 
    Interactive `occur' using `helm
    - [[http://oremacs.com/2015/03/10/no-swiping/][Introducing Swiper · (or emacs]]
@@ -377,20 +390,11 @@
    
    isearch + helm. helm-swoop と似ている.
 
+   -> helm-swoop でいいや.
+
 #+begin_src emacs-lisp
-(use-package swiper
-  :bind (("C-c s". swiper) ("C-s" . isearch-forward-or-swiper))
-  :config
-  ;; ルビ吉さんの設定
-  ;; http://rubikitch.com/2015/03/18/swiper/
-  (defun isearch-forward-or-swiper (use-swiper)
-    (interactive "P")
-    (let (current-prefix-arg)
-      (call-interactively (if use-swiper 'swiper 'isearch-forward))))
-  ;; バックエンドの ivy がスペースを".*"に置換してしまうため, 無効にする
-  ;; これをしないと純粋に正規表現 isearch の置き換えにならない
-  (require 'ivy)
-  (fset 'ivy--regex 'identity))
+;;(use-package swiper-helm)
+;;  :bind (("C-s". swiper-helm)))
 #+end_src
 
 ** helm-migemo
