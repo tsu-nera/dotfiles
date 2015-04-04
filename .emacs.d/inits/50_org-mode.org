@@ -185,30 +185,12 @@
 
 *** アジェンダ表示の対象ファイル
 #+begin_src emacs-lisp
-;; 
-;; (if nt-p
-;; (setq org-agenda-files '("C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\inbox.org"
-;; 			 "C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\main.org"
-;; 			 "C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\unplan.org"
-;; 			 "C:\\Users\\TSUNEMICHI\\Dropbox\\gtd\\schedule.org"))
-;; (setq org-agenda-files '("~/gtd/inbox.org"
-;; 			 "~/gtd/main.org"
-;; 			 "~/gtd/unplan.org"
-;; 			 "~/gtd/schedule.org"))
-;; )
-
-;; スピードアップのために, agenda を減らしてみる.
-;; (setq org-agenda-files '("~/gtd/inbox.org"
-;; 			 "~/gtd/main.org"
-;; 			 "~/gtd/unplan.org"
-;; 			 "~/gtd/schedule.org"))
-
 (setq org-agenda-files '("~/gtd/main.org"
                          "~/gtd/inbox.org"
                          "~/gtd/journal/journal.org"
                          "~/gtd/habits.org"))
 
-(setq org-agenda-file-regexp "\\`[^.].*\\.org'\\|[0-9]+.org$")
+;; (setq org-agenda-file-regexp "\\`[^.].*\\.org'\\|[0-9]+.org$")
 
 ;; ショートカットを作成
 ;; もしすでにひらいているときは, 切り替えめる
@@ -456,7 +438,6 @@
 #+end_src
 
 * org-capture
-  
   アイデアをキャプチャーする.
 
   capture てんぷれの書き方
@@ -467,7 +448,7 @@
 #+begin_src emacs-lisp
 (use-package org-capture
   :config
-(setq org-capture-templates
+  (setq org-capture-templates
       '(
 	("i" "Inbox" entry (file+datetree "~/gtd/inbox.org") "** TODO %?\n")
 	("u" "Unplan" entry (file+datetree "~/gtd/unplan.org") "** TODO %? :unplan:\n")
@@ -867,7 +848,7 @@
   (setq org-journal-date-format "%x")
   (setq org-journal-time-format "<%Y-%m-%d %R> ")
   ;; (setq org-journal-file-format "%Y%m%d.org")
-  (setq org-journal-file-format "journal.org"
+  (setq org-journal-file-format "journal.org")
   (setq org-journal-dir "~/gtd/journal/"))
 #+end_src
 
@@ -1098,7 +1079,7 @@ containing the properties `:guid' and `:item-full-text'."
 ;; Set to the name of the file where new notes will be stored
 (setq org-mobile-inbox-for-pull "~/gtd/inbox.org")
 ;; Set to <your Dropbox root directory>/MobileOrg.
-(setq org-mobile-directory "~/Dropbox/ アプリ/MobileOrg")
+(setq org-mobile-directory "~/Dropbox/アプリ/MobileOrg")
 
 ;; ;; 起動と終了時に同期
 ;; ;; org-mobile-directry が存在しないとハングするためなしにした
@@ -1119,7 +1100,7 @@ containing the properties `:guid' and `:item-full-text'."
       (interactive)
 	(setq org-mobile-sync-timer
 	      (run-with-idle-timer org-mobile-sync-idle-secs t
-				   'org-mobile-sync)));
+				   'org-mobile-sync)))
 (defun org-mobile-sync-disable ()
     "disable mobile org idle sync"
       (interactive)
