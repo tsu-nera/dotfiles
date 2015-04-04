@@ -650,7 +650,7 @@
    - https://github.com/yashi/org-textile
 
 #+begin_src emacs-lisp
-(use-package org-textile)
+(use-package ox-textile :defer t)
 #+end_src
 
 ** 未使用中
@@ -1083,46 +1083,42 @@ containing the properties `:guid' and `:item-full-text'."
    Interacting with R
    - [[http://home.fnal.gov/~neilsen/notebook/orgExamples/org-examples.html#sec-19][Emacs org-mode examples and cookbook]]
 
-** mobileOrg (未使用)
-  iphone と org-mode の同期. Dropbox を利用
-  つかってないから, ひとまず封印.
+** mobileOrg
+   iPhone と org-mode の同期. Dropbox を利用
+   - [[http://mobileorg.ncogni.to/][MobileOrg : What is MobileOrg?]]
+   - https://github.com/MobileOrg/mobileorg
+   - http://orgmode.org/manual/MobileOrg.html
+
+   org-modbile は org-mode プロジェクトに含まれている.
 
 #+begin_src emacs-lisp
 ;; Set to the location of your Org files on your local system
-;; (setq org-directory "~/gtd")
-;; ;; Set to the name of the file where new notes will be stored
-;; (setq org-mobile-inbox-for-pull "~/gtd/flagged.org")
-;; ;; Set to <your Dropbox root directory>/MobileOrg.
-;; (setq org-mobile-directory "~/dropbox/ アプリ/MobileOrg")
+(setq org-directory "~/gtd")
+;; Set to the name of the file where new notes will be stored
+(setq org-mobile-inbox-for-pull "~/gtd/inbox.org")
+;; Set to <your Dropbox root directory>/MobileOrg.
+(setq org-mobile-directory "~/Dropbox/ アプリ/MobileOrg")
 
-;; ;; 起動と終了時に同期
-;; ;; org-mobile-directry が存在しないとハングするためなしにした
-;; ;; そのうちなんか考える
-;; ;; (add-hook 'after-init-hook 'org-mobile-pull)
-;; ;; (add-hook 'kill-emacs-hook 'org-mobile-push)
-
-;; ;; moble sync
-;; ;; http://stackoverflow.com/questions/8432108/how-to-automatically-do-org-mobile-push-org-mobile-pull-in-emacs
-;; (defvar org-mobile-sync-timer nil)
-;; (defvar org-mobile-sync-idle-secs (* 60 10))
-;; (defun org-mobile-sync ()
-;;     (interactive)
-;;       (org-mobile-pull)
-;;         (org-mobile-push))
-;; (defun org-mobile-sync-enable ()
-;;     "enable mobile org idle sync"
-;;       (interactive)
-;;         (setq org-mobile-sync-timer
-;; 	      (run-with-idle-timer org-mobile-sync-idle-secs t
-;; 				   'org-mobile-sync)));
-;; (defun org-mobile-sync-disable ()
-;;     "disable mobile org idle sync"
-;;       (interactive)
-;;         (cancel-timer org-mobile-sync-timer))
-;; (org-mobile-sync-enable)
+;; moble sync
+;; http://stackoverflow.com/questions/8432108/how-to-automatically-do-org-mobile-push-org-mobile-pull-in-emacs
+(defvar org-mobile-sync-timer nil)
+(defvar org-mobile-sync-idle-secs (* 60 10))
+(defun org-mobile-sync ()
+    (interactive)
+      (org-mobile-pull)
+	(org-mobile-push))
+(defun org-mobile-sync-enable ()
+    "enable mobile org idle sync"
+      (interactive)
+	(setq org-mobile-sync-timer
+	      (run-with-idle-timer org-mobile-sync-idle-secs t
+				   'org-mobile-sync)))
+(defun org-mobile-sync-disable ()
+    "disable mobile org idle sync"
+      (interactive)
+	(cancel-timer org-mobile-sync-timer))
+(org-mobile-sync-enable)
 #+end_src
-
-
 
 * Bookmarks
   cookbook. 図の書き方とか R との連携とか, 小技がある.

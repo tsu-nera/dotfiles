@@ -837,10 +837,6 @@ command uses interactive mode if passed an argument."
   -> patch とりこまれた
 
   ArchLinux では, GhostScript を入れる.
-  フォントがへんになるのは, GhostScript のせいということは突き止めたけ
-  れども, どうやって直せばいいのか不明.
-
-  読むときは doc-view-mode C-c C-c にすることにした... or2.
 
 #+begin_src text
 sudo pacman -S ghostscript
@@ -883,6 +879,12 @@ sudo pacman -S ghostscript
     - pdf-view-mode
     のときは, linum-mode は disable に.
     - [[http://stackoverflow.com/questions/16132234/how-can-i-speed-up-emacs-docview-mode][How can I speed up Emacs DocView mode? - Stack Overflow]]
+
+
+*** font がへん
+    フォントがへんになるのは, poppler のせい.
+
+    読むときは doc-view-mode C-c C-c にすることにした... or2.
 
 ** WIndows 環境
    頑張ってる. まだうごかない.

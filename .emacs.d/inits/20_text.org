@@ -298,7 +298,6 @@
 
 #+begin_src emacs-lisp
 (use-package undo-tree
-  :defer t
   :config
   (global-undo-tree-mode))
 #+end_src
