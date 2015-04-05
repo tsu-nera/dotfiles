@@ -12,25 +12,14 @@
 (use-package powerline
   :config
   (powerline-default-theme)
+
   ;; windows だと色が変.
    (when windows-p
      (custom-set-faces
       '(mode-line ((t (:background "#3E3D31" :distant-foreground "black" :foreground "#F8F8F2" :box (:line-width 1 :color "gray20" :style unspecified)))))
       '(mode-line-buffer-id ((t (:foreground "#F92672" :weight bold))))))
-
-   ;; solarized-dark のための設定
-   ;; https://github.com/jonathanchu/emacs-powerline/issues/11
-   (eval-after-load 'solarized
-     '(progn 
-        (setq powerline-color1 "#073642")
-        (setq powerline-color2 "#002b36")
-        
-        (set-face-attribute 'mode-line nil
-                            :foreground "#fdf6e3"
-                            :background "#2aa198"
-                            :box nil)
-        (set-face-attribute 'mode-line-inactive nil
-                            :box nil))))
+   
+)
 #+end_src
 
 * ハイライト
@@ -332,7 +321,7 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
 (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/solarized-emacs")
 (use-package solarized
   :disabled t
-  :init
+  :config
   ;; more customize
   ;; http://pages.sachachua.com/.emacs.d/Sacha.html
     (custom-set-faces
@@ -347,6 +336,21 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
     
     (set-face-background 'mmm-default-submode-face "#073642") ;; solarized-dark
     (set-face-background 'hiwin-face "#073642") ;; solarized-dark
+
+   ;; solarized-dark のための設定
+   ;; https://github.com/jonathanchu/emacs-powerline/issues/11
+   (eval-after-load 'solarized
+     '(progn 
+        (setq powerline-color1 "#073642")
+        (setq powerline-color2 "#002b36")
+        
+        (set-face-attribute 'mode-line nil
+                            :foreground "#fdf6e3"
+                            :background "#2aa198"
+                            :box nil)
+        (set-face-attribute 'mode-line-inactive nil
+                            :box nil)))
+
     (load-theme 'solarized-dark t))
 #+end_src
 
@@ -355,8 +359,12 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
 
 #+begin_src emacs-lisp
 (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/cyberpunk-theme")
-(use-package cyberpunk-theme)
+(use-package cyberpunk-theme
+  :config
+  (load-theme 'cyberpunk t))
 #+end_src
+
+  - [[https://groups.google.com/forum/#!topic/overtone/T_dU1VfgHE0][Transparent background in emacs live - Google グループ]]
 
 ** not used
 
