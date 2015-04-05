@@ -761,11 +761,9 @@
   ;; (set-face-bold-p 'mmm-default-submode-face t) ;太字
 
   ;; 背景色
-  ;;  (if (eq window-system nil)
-  ;;      (set-face-background 'mmm-default-submode-face nil)
-  ;; (set-face-background 'mmm-default-submode-face "#242424") ;; monokai
-  (set-face-background 'mmm-default-submode-face "#073642") ;; solarized-dark
-
+  (if (eq window-system nil)
+  (set-face-background 'mmm-default-submode-face nil))
+  
   (mmm-add-classes
    '((org-elisp
       :submode emacs-lisp-mode
@@ -1079,7 +1077,7 @@ containing the properties `:guid' and `:item-full-text'."
 ;; Set to the name of the file where new notes will be stored
 (setq org-mobile-inbox-for-pull "~/gtd/inbox.org")
 ;; Set to <your Dropbox root directory>/MobileOrg.
-(setq org-mobile-directory "~/Dropbox/アプリ/MobileOrg")
+(setq org-mobile-directory "~/Dropbox/ アプリ/MobileOrg")
 
 ;; ;; 起動と終了時に同期
 ;; ;; org-mobile-directry が存在しないとハングするためなしにした

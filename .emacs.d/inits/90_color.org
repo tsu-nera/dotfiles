@@ -218,10 +218,7 @@
 (use-package hiwin
   :config
   ;; hiwin-mode を有効化
-  (hiwin-activate)
-  ;; 非アクティブウィンドウの背景色を設定
-  (set-face-background 'hiwin-face "#073642")) ;; solarized-dark
-  ;; (set-face-background 'hiwin-face "#333333")) ;; molokai
+  (hiwin-activate))
 #+end_src
 
 * フォント
@@ -334,6 +331,7 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
 #+begin_src emacs-lisp
 (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/solarized-emacs")
 (use-package solarized
+  :disabled t
   :init
   ;; more customize
   ;; http://pages.sachachua.com/.emacs.d/Sacha.html
@@ -346,17 +344,21 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
      '(org-clock-overlay ((t (:background "SkyBlue4" :foreground "black"))))
      '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:foreground "LightSalmon" :strike-through t))))
      '(outline-1 ((t (:inherit font-lock-function-name-face :foreground "cornflower blue")))))
+    
+    (set-face-background 'mmm-default-submode-face "#073642") ;; solarized-dark
+    (set-face-background 'hiwin-face "#073642") ;; solarized-dark
     (load-theme 'solarized-dark t))
 #+end_src
 
-** not used
-*** cyberpunk-theme
+** cyberpunk-theme
     emacs live 用のテーマ. Start Hacking!!
 
 #+begin_src emacs-lisp
 (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/cyberpunk-theme")
-;; (use-package cyberpunk-theme)
+(use-package cyberpunk-theme)
 #+end_src
+
+** not used
 
 *** Molokai
 **** 正式版
@@ -366,6 +368,8 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
 (use-package monokai-theme
   :disabled t
   :init
+  (set-face-background 'mmm-default-submode-face "#242424") ;; monokai
+  (set-face-background 'hiwin-face "#333333") ;; molokai
   (load-theme 'monokai t))
  #+end_src
 
