@@ -518,10 +518,8 @@
   動かないので, あとで.
 
 #+begin_src emacs-lisp
-(use-package realgud
-  :disabled t)
+(use-package realgud)
 #+end_src
-
 
 * Utils
 ** ediff
@@ -716,7 +714,7 @@
    #+begin_src emacs-lisp
 (defun chomp (str)
   "..."
-  (let ((s (if (symbolp str)(symbol-name str) str)))
+  (let ((s (if (symbolp str) (symbol-name str) str)))
     (save-excursion
       (while (and
               (not (null (string-match "^\\( \\|\f\\|\t\\|\n\\)" s)))

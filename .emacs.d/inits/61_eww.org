@@ -34,7 +34,7 @@
 ** default の検索エンジンを Google に変更
 
 #+begin_src emacs-lisp
-;; (setq eww-search-prefix "http://www.google.co.jp/search?q=")
+(setq eww-search-prefix "http://www.google.co.jp/search?q=")
 #+end_src
 
 *** dokudokgo
@@ -53,7 +53,7 @@
     duckducogo のほうがやや軽いかな...
 
 #+begin_src emacs-lisp
-(setq eww-search-prefix "https://duckduckgo.com/html/?kl=jp-jp&k1=-1&kc=1&kf=-1&q=")
+;; (setq eww-search-prefix "https://duckduckgo.com/html/?kl=jp-jp&k1=-1&kc=1&kf=-1&q=")
 #+end_src
 
 ** クイック検索

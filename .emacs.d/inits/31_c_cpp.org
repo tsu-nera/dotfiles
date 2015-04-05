@@ -110,8 +110,10 @@
 #+begin_src emacs-lisp
 (use-package auto-complete-c-headers 
   :init
-  (add-hook 'c++-mode-hook '(setq ac-sources (append ac-sources '(ac-source-c-headers))))
-  (add-hook 'c-mode-hook '(setq ac-sources (append ac-sources '(ac-source-c-headers)))))
+  (add-hook 'c++-mode-hook (lambda () 
+            '(setq ac-sources (append ac-sources '(ac-source-c-headers)))))
+  (add-hook 'c-mode-hook (lambda () 
+            '(setq ac-sources (append ac-sources '(ac-source-c-headers))))))
 #+end_src
 
 ** clang-complete-async
@@ -189,11 +191,18 @@
   (setq c-eldoc-buffer-regenerate-time 60))
 #+end_src
 
-
 * Debugger
 ** gdb
    M-x gdb
    標準搭載.
+
+*** setmentation fault の場所を特定する.
+
+#+begin_src bash
+(gdb) run
+(gdb) where
+(gdb) bt
+#+end_src
 
 ** realgud
    M-x realgud:gdb

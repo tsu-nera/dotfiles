@@ -102,6 +102,12 @@ URxvt*color14:      #4eb4fa
 URxvt*color7:       #5f5f5f
 URxvt*color15:      #d0d0d0
 
-!emacs 
-emacs*foreground: gold
-emacs*background: black
+!-------------------------------------------------------------------------------
+! Emacs settings
+!-------------------------------------------------------------------------------
+! 透明にできない...
+Emacs*foreground: white
+Emacs*background: black
+
+!emacs.transparent: false
+!emacs*shading: 10
