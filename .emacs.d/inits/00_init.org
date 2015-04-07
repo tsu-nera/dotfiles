@@ -312,6 +312,7 @@
     swiper-helm
     smooth-scroll
     hackernews
+    reddit-mode
     org-multiple-keymap
     org-bullets
     writeroom-mode

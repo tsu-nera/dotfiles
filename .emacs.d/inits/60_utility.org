@@ -155,7 +155,19 @@
    - https://github.com/clarete/hackernews.el
 
 #+begin_src emacs-lisp
-(use-package hackernews)
+(use-package hackernews
+  :config
+  (setq hackernews-top-story-limit 40))
+#+end_src
+
+** reddit
+   reddit 閲覧モード.
+   - https://github.com/death/reddit-mode
+
+#+begin_src emacs-lisp
+(use-package reddit
+  :config
+  (setq reddit-user "tsu-nera"))
 #+end_src
 
 ** el-pocket

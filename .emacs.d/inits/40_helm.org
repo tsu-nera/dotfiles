@@ -197,8 +197,7 @@
   (setq helm-swoop-speed-or-color nil)
 
   (define-key helm-swoop-map (kbd "C-s") 'swoop-action-goto-line-next)
-  (define-key helm-swoop-map (kbd "C-r") 'swoop-action-goto-line-prev)
-)
+  (define-key helm-swoop-map (kbd "C-r") 'swoop-action-goto-line-prev))
 #+end_src
 
 ** (helm-) imenu-anywhere

@@ -514,8 +514,7 @@
 * Debugger
 ** emacs-dbgr
    - https://github.com/rocky/emacs-dbgr
-
-  動かないので, あとで.
+   - https://github.com/rocky/emacs-dbgr/wiki/how-to-use
 
 #+begin_src emacs-lisp
 (use-package realgud)
