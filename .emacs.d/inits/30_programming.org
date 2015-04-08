@@ -259,6 +259,19 @@
     (setq projectile-tags-command "gtags")))
    #+end_src
 
+** ibuffer-projectile
+   - https://github.com/purcell/ibuffer-projectile
+
+#+begin_src emacs-lisp
+(use-package ibuffer-projectile
+  :config
+  (add-hook 'ibuffer-hook
+            (lambda ()
+              (ibuffer-projectile-set-filter-groups)
+              (unless (eq ibuffer-sorting-mode 'alphabetic)
+                (ibuffer-do-sort-by-alphabetic)))))
+#+end_src
+
 * タグジャンプ
 ** GNU global: gtags
    ソースタギングシステム.
