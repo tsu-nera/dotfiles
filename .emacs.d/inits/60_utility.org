@@ -157,7 +157,7 @@
 #+begin_src emacs-lisp
 (use-package hackernews
   :config
-  (setq hackernews-top-story-limit 40))
+  (setq hackernews-top-story-limit 25))
 #+end_src
 
 ** reddit
