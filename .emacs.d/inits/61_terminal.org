@@ -51,23 +51,37 @@
     prompt のフォーマット
 
 #+begin_src emacs-lisp
-(setq eshell-prompt-function
-      (lambda ()
-        (concat "[tsu-nera:"
-                (eshell/pwd)
-                (if (= (user-uid) 0) "]\n# " "]\n$ "))))
+;; (setq eshell-prompt-function
+;;       (lambda ()
+;;         (concat "[tsu-nera:"
+;;                 (eshell/pwd)
+;;                 ;;                (if (= (user-uid) 0) "]\n# " "]\n$ "))))
+;;                 (if (= (user-uid) 0) "]\n# " "]\n$ "))))
 #+end_src
 
 *** color
     - [[http://www.emacswiki.org/emacs/EshellColor][EmacsWiki: Eshell Color]]
 
 #+begin_src emacs-lisp
-(eval-after-load "ansi-color"
-  '(progn
-     (defun eshell-handle-ansi-color ()
-       (ansi-color-apply-on-region eshell-last-output-start
-                                   eshell-last-output-end))
-     (add-to-list 'eshell-output-filter-functions 'eshell-handle-ansi-color)))
+;; (eval-after-load "ansi-color"
+;;   '(progn
+;;      (defun eshell-handle-ansi-color ()
+;;        (ansi-color-apply-on-region eshell-last-output-start
+;;                                    eshell-last-output-end))
+;;      (add-to-list 'eshell-output-filter-functions 'eshell-handle-ansi-color)))
+#+end_src
+
+**** eshell-prompt-extras
+     eshell のポップアップ色付け.
+     - https://github.com/hiddenlotus/eshell-prompt-extras
+
+#+begin_src emacs-lisp
+(use-package eshell-prompt-extras
+  :config
+  (setq eshell-highlight-prompt nil
+        ;;        eshell-prompt-function 'epe-theme-lambda))
+        ;;        eshell-prompt-function 'epe-theme-dakrone))
+        eshell-prompt-function 'epe-theme-geoffgarside))
 #+end_src
 
 *** eshell alias
@@ -133,6 +147,7 @@
 )
 #+end_src
 
+   
 ** shell-toggle
    現在ページでシェルを起動する.
    - https://github.com/knu/shell-toggle.el

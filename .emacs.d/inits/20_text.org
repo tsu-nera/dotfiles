@@ -363,7 +363,7 @@
    (use-package srep)
    #+end_src
 
-   1,2,3... とするには、ascii 改行 (C-q C-j) を delimiter で指定.
+   1,2,3... とするには, ascii 改行 (C-q C-j) を delimiter で指定.
    - [[http://ergoemacs.org/emacs/emacs_line_ending_char.html][Emacs: Newline Representation ^M ^J ^L]]
 
 * 移動
@@ -581,11 +581,35 @@
        (define-key isearch-mode-map (kbd "<tab>") 'isearch-dabbrev-expand))))
 #+end_src
 
+** imenus
+   imenu の強化.
+   - https://github.com/alezost/imenus.el
+
+   なんか, 思うように動かない.
+
+#+begin_src emacs-lisp
+(use-package imenus
+  :init
+  (define-key prog-mode-map (kbd "C-c h") 'imenus-mode-buffers)
+  (define-key imenus-minibuffer-map (kbd "C-c h") 'imenus-exit-to-helm-multi-swoop)
+  :commands (imenus imenus-mode-buffers)
+  :preface
+  (defun imenus-helm-multi-swoop (buffers input)
+    (helm-multi-swoop (replace-regexp-in-string "^.*|" "" input)
+                      (mapcar 'buffer-name buffers)))
+  (defun imenus-exit-to-helm-multi-swoop ()
+    "Exit from imenu prompt; start `helm-multi-swoop' with the current input."
+    (interactive)
+    (setq imenus-exit-status 'helm-multi-swoop))
+  :config
+  (push '(helm-multi-swoop . imenus-helm-multi-swoop) imenus-actions))
+#+end_src
+
 * 日本語入力
 ** ddskk
    Emacs 用の IME.
    - https://github.com/skk-dev/ddskk
-
+     
 *** SKK とは
    そもそも SKK とはなにかについてまとめる
    
@@ -623,7 +647,7 @@
 
   #+begin_src emacs-lisp
 (use-package skk-autoloads
-;;  :if linux-p
+  :disabled t
   :bind (("C-x C-j" . skk-mode) ("C-x j" . skk-mode))
   :init
   (global-unset-key "\C-xj")
@@ -733,6 +757,7 @@ google-ime-skk &
      
 #+begin_src emacs-lisp
 (use-package skk-server
+  :disabled t
   :config
   (require 'skk-vars)
   ;; 辞書サーバを利用する場合の設定
@@ -828,9 +853,41 @@ google-ime-skk &
 *** TODO workaround
 
 #+begin_src emacs-lisp
-(require 'skk-vars) ;; これをかかないと Emacs 終了時に終了できない??
+;; (require 'skk-vars) ;; これをかかないと Emacs 終了時に終了できない??
 #+end_src
 
+** ibus-mode
+   ibus を使う.
+   - [[http://www11.atwiki.jp/s-irie/pages/21.html#][irie @ ウィキ - ibus.el]]
+
+   ibus 1.5 では動作しない. だれか直してくれないかな.
+
+#+begin_src emacs-lisp
+(use-package ibus
+  :disabled t
+  :init
+  (add-hook 'after-init-hook 'ibus-mode-on)
+  (global-set-key [zenkaku-hankaku] 'ibus-toggle)
+  :config
+  (setq ibus-agent-file-name "~/.emacs.d/el-get/repo/ibus/ibus-el-agent")
+  (setq ibus-python-shell-command-name "python2")
+  
+  ;; バッファ共用
+  (setq ibus-mode-local nil)
+  
+  ;; C-SPC は Set Mark に使う
+  (ibus-define-common-key ?\C-\s nil)
+  ;; C-/ は Undo に使う
+  (ibus-define-common-key ?\C-/ nil)
+  ;; IBus の状態によってカーソル色を変化させる
+  (setq ibus-cursor-color '("red" "blue" "green"))
+  ;; C-j で半角英数モードをトグルする
+  (ibus-define-common-key ?\C-j t)
+
+  ;; for oyayubi
+  (setq ibus-use-kana-onbiki-key t)
+  (setq ibus-simultaneous-pressing-time 0.1))
+#+end_src
 
 ** context-sk
    プログラムファイルのコード部分で「かな」とかになってた場合に

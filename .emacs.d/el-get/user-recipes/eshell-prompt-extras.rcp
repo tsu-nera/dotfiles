@@ -1,0 +1,3 @@
+(:name eshell-prompt-extras
+       :type github
+       :pkgname "hiddenlotus/eshell-prompt-extras")

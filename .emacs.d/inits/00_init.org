@@ -327,6 +327,8 @@
     emacs-readability
     interleave
     ibuffer-projectile
+    imenus
+    eshell-prompt-extras
     )
  "A list of packages to install from el-get at launch.")
 

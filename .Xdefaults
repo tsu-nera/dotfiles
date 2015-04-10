@@ -111,3 +111,5 @@ Emacs*background: black
 
 !emacs.transparent: false
 !emacs*shading: 10
+
+Emacs*useXIM: true

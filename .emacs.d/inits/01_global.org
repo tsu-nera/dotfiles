@@ -212,18 +212,6 @@ git clone git://git.savannah.gnu.org/emacs.git
   (setq key-chord-two-keys-delay 0.04))
 #+end_src
 
-** smartrep
-   連続操作を素敵にするキーバインド設定を可能にする.
-   - https://github.com/myuhe/smartrep.el
-   - [[http://sheephead.homelinux.org/2011/12/19/6930/][連続操作を素敵にする smartrep.el 作った - sheephead]]
-   - [[http://d.hatena.ne.jp/rubikitch/20140613/smartrep][Emacs - smartrep.el で repeat を活性化せよ -]]   
-
-   -> hydra に置き換えしたのでお役ごめん.
-
-#+begin_src emacs-lisp
-;; (use-package smartrep)
-#+end_src
-
 ** hydra
    おもしろい記事をかく abo-abo さんの作品.
    - https://github.com/abo-abo/hydra
