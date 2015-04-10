@@ -1,3 +1,10 @@
 (:name semantic-refactor
+       :description "A refactoring tool based on Semantic parser framework."
        :type github
-       :pkgname "tuhdo/semantic-refactor")
+       :pkgname "tuhdo/semantic-refactor"
+       :minimum-emacs-version "24.4"
+       :prepare (progn
+                  (autoload 'srefactor-clojure-one-line "srefactor-clojure" nil t)
+                  (autoload 'srefactor-clojure-multi-line "srefactor-clojure" nil t)
+                  (autoload 'srefactor-elisp-one-line "srefactor-elisp" nil t)
+                  (autoload 'srefactor-elisp-multi-line "srefactor-elisp" nil t)))

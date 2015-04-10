@@ -110,7 +110,7 @@
   Emacs 用パッケージマネージャー
   - https://github.com/dimitri/el-get
   - [[http://d.hatena.ne.jp/tarao/20150221/1424518030][Cask はもう古い, これからは El-Get - いまどきの Emacs パッケージ管理 ]]
-
+    
 * el-get 同期 Package
 #+begin_src emacs-lisp 
 (defvar my/el-get-packages-all
@@ -321,7 +321,7 @@
     web
     el-pocket
     electric-spacing
-    aggressive-indent-mode
+    ;; aggressive-indent-mode
     ggtags
     ledger-mode
     emacs-readability
@@ -329,6 +329,7 @@
     ibuffer-projectile
     imenus
     eshell-prompt-extras
+    zlc
     )
  "A list of packages to install from el-get at launch.")
 
@@ -362,11 +363,11 @@
   ;; 通知は minibuffer のみ
   (setq el-get-notify-type 'message)
   
-  (el-get 'sync my/el-get-packages-all)
-  (when windows-p
-    (el-get 'sync my/el-get-packages-windows))
-  (when linux-p
-    (el-get 'sync my/el-get-packages-linux))
+;;  (el-get 'sync my/el-get-packages-all)
+;;  (when windows-p
+;;    (el-get 'sync my/el-get-packages-windows))
+;;  (when linux-p
+;;    (el-get 'sync my/el-get-packages-linux))
 #+end_src
 
 ** el-get-bundle
@@ -402,7 +403,7 @@
 #+end_src
 
 ** 未使用
-
+   
 ** el-get-is-lazy
    パッケージが存在しないときは, el-get で取得する.
 

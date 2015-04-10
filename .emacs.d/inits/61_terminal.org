@@ -102,7 +102,12 @@
           (list "mc" "find-file $1")	
           (list "l" "eshell/less $1")
           (list "d" "dired .")		          
-          (list "forced_git_local_destroy" "git fetch origin;git reset --hard origin/master"))))
+          (list "forced_git_local_destroy" "git fetch origin;git reset --hard origin/master")
+          (list "ff" "find-file $1")
+          (list "FF" "find-file-other-window $1")
+          (list "v" "view-file $1")
+          (list "V" "view-file-other-window $1")
+          )))
 #+end_src
 
 *** eshell-utils
@@ -110,7 +115,7 @@
 
 #+begin_src emacs-lisp
 (use-package eshell-utils
-  :bind (("C-c C-x t" . eshell/make-new-eshell))) ;; 別シェルを生成
+  :bind (("C-u C-c t" . eshell/make-new-eshell))) ;; 別シェルを生成
 #+end_src
 
 *** eshell with helm
@@ -128,11 +133,11 @@
 (use-package helm-eshell
   :init
   (add-hook 'eshell-mode-hook
-           #'(lambda ()
-               (define-key eshell-mode-map [remap pcomplete] 'helm-esh-pcomplete)))  
-;;  (add-hook 'eshell-mode-hook
-;;            #'(lambda ()
-;;                (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)))
+	  #'(lambda ()
+	      (define-key eshell-mode-map [remap pcomplete] 'helm-esh-pcomplete)))  
+;; (add-hook 'eshell-mode-hook
+;;           #'(lambda ()
+;;               (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)))
   (add-hook 'eshell-mode-hook
 	    #'(lambda ()
                 (define-key eshell-mode-map (kbd "M-p") 'helm-eshell-history))))
@@ -223,6 +228,26 @@
 #+end_src
 
 ** My Commands
+** zlc
+   zsh ライクに *Completion* をする
+   - https://github.com/mooz/emacs-zlc
+
+#+begin_src emacs-lisp
+(use-package zlc
+  :config
+  (zlc-mode t)
+
+  (let ((map minibuffer-local-map))
+  ;;; like menu select
+  (define-key map (kbd "<down>")  'zlc-select-next-vertical)
+  (define-key map (kbd "<up>")    'zlc-select-previous-vertical)
+  (define-key map (kbd "<right>") 'zlc-select-next)
+  (define-key map (kbd "<left>")  'zlc-select-previous)
+
+  ;;; reset selection
+  (define-key map (kbd "C-c") 'zlc-reset)))
+#+end_src
+
 *** slimlock
    Emacs から一時停止.
 
