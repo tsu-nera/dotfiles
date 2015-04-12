@@ -687,9 +687,9 @@ command uses interactive mode if passed an argument."
 
  #+begin_src emacs-lisp
 (use-package jazzradio
-  :config
+  :preface
   (defun my/jazzradio-switch (my/jazzradio-channel-url  my/jazzradio-playlist-base-url) ()
-	 (unless jazzradio--process
+	 (if jazzradio--process
 	   (jazzradio--stop))
 	 (setq jazzradio--process nil)
 	 (setq jazzradio--channels-cache  nil)
@@ -699,24 +699,24 @@ command uses interactive mode if passed an argument."
   (defun jazzradio--reset ()
     (interactive)
     (my/jazzradio-switch 
-    "http://ephemeron:dayeiph0ne%40pp@api.audioaddict.com/v1/jazzradio/mobile/batch_update?stream_set_key="
-    "http://listen.jazzradio.com/webplayer/"))
+     "http://ephemeron:dayeiph0ne%40pp@api.audioaddict.com/v1/jazzradio/mobile/batch_update?stream_set_key="
+     "http://listen.jazzradio.com/webplayer/"))
   (defun technoradio ()
     (interactive)    
     (my/jazzradio-switch
-    "http://ephemeron:dayeiph0ne%40pp@api.audioaddict.com/v1/di/mobile/batch_update?stream_set_key="
-    "http://listen.di.fm/webplayer/"))
+     "http://ephemeron:dayeiph0ne%40pp@api.audioaddict.com/v1/di/mobile/batch_update?stream_set_key="
+     "http://listen.di.fm/webplayer/"))
   (defun classicradio ()
     (interactive)    
     (my/jazzradio-switch
-    "http://ephemeron:dayeiph0ne%40pp@api.audioaddict.com/v1/radiotunes/mobile/batch_update?stream_set_key="
-    "http://listen.radiotunes.com/webplayer/"))
+     "http://ephemeron:dayeiph0ne%40pp@api.audioaddict.com/v1/radiotunes/mobile/batch_update?stream_set_key="
+     "http://listen.radiotunes.com/webplayer/"))
   (defun rockradio ()
     (interactive)    
     (my/jazzradio-switch
      "http://ephemeron:dayeiph0ne%40pp@api.audioaddict.com/v1/rockradio/mobile/batch_update?stream_set_key=")
     "http://listen.rockradio.com/webplayer/"))
- #+end_src
+#+end_src
 
 *** Windows
     1. curl を cygwin 経由でいれる.
