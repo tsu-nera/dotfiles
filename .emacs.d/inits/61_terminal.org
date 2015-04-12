@@ -115,7 +115,7 @@
 
 #+begin_src emacs-lisp
 (use-package eshell-utils
-  :bind (("C-u C-c t" . eshell/make-new-eshell))) ;; 別シェルを生成
+  :bind* (("C-u C-c t" . eshell/make-new-eshell))) ;; 別シェルを生成
 #+end_src
 
 *** eshell with helm

@@ -205,6 +205,7 @@
 
 #+begin_src emacs-lisp
 (use-package hiwin
+  :disabled t
   :config
   ;; hiwin-mode を有効化
   (hiwin-activate))

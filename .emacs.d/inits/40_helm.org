@@ -30,10 +30,8 @@
 (global-set-key (kbd "C-x C-b") 'helm-elscreen) ;; elscreen のタブを切り替え
 
 (define-key org-mode-map (kbd "C-c h") 'helm-org-in-buffer-headings)
-;; (define-key prog-mode-map (kbd "C-c h") 'helm-imenu)
-;; (define-key c++-mode-map (kbd "C-c h") 'helm-imenu)
-(define-key prog-mode-map (kbd "C-c h") 'imenus-mode-buffers)
-(define-key c++-mode-map (kbd "C-c h") 'imenus-mode-buffers)
+(define-key prog-mode-map (kbd "C-c h") 'helm-imenu)
+(define-key c++-mode-map (kbd "C-c h") 'helm-imenu)
 #+end_src
 
 ** helm-semantic-or-imenu
@@ -173,11 +171,11 @@
          (1 'isearch-forward)
          (4 'helm-swoop)
          (16 'helm-swoop-nomigemo)))))
-  :bind (("M-o" . helm-swoop)
-	 ("M-O" . helm-swoop-back-to-last-point)
-	 ("C-x M-o" . helm-multi-swoop)
-         ("C-s" . isearch-forward-or-helm-swoop))
-;;	 ("C-M-o" . helm-multi-swoop-all))
+  :bind* ("M-o" . helm-swoop)
+  :bind (("M-O" . helm-swoop-back-to-last-point)
+        ("C-x M-o" . helm-multi-swoop)
+        ("C-s" . isearch-forward-or-helm-swoop))
+  ;;	 ("C-M-o" . helm-multi-swoop-all))
   :config
   ;; When doing isearch, hand the word over to helm-swoop
   (define-key isearch-mode-map (kbd "M-o") 'helm-swoop-from-isearch)
@@ -199,7 +197,7 @@
   (setq helm-swoop-speed-or-color nil)
 
   (define-key helm-swoop-map (kbd "C-s") 'swoop-action-goto-line-next)
-  (define-key helm-swoop-map (kbd "C-r") 'swoop-action-goto-line-prev))
+  (define-key helm-swoop-map (kbd "C-r") 'swoop-action-goto-line-prnnev))
 #+end_src
 
 ** (helm-) imenu-anywhere
@@ -426,6 +424,22 @@
    #+begin_src emacs-lisp
    (use-package helm-emms)
    #+end_src
+
+** helm-cscope
+   xcscope の helm i/f.
+
+   #+begin_src emacs-lisp
+(use-package helm-cscope
+  :init
+  (add-hook 'c-mode-hook 'helm-cscope-mode)
+  (add-hook 'c++-mode-hook 'helm-cscope-mode)
+  :config
+  (define-key helm-cscope-mode-map (kbd "M-t") 'helm-cscope-find-symbol)
+  (define-key helm-cscope-mode-map (kbd "M-r") 'helm-cscope-find-global-definition)
+  (define-key helm-cscope-mode-map (kbd "M-g M-c") 'helm-cscope-find-called-function)
+  (define-key helm-cscope-mode-map (kbd "M-g M-p") 'helm-cscope-find-calling-this-funtcion)
+  (define-key helm-cscope-mode-map (kbd "M-s") 'helm-cscope-select))
+#+end_src
 
 * Action 追加
   helm で絞り込みのあと, TAB で Action 起動.

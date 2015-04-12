@@ -581,30 +581,6 @@
        (define-key isearch-mode-map (kbd "<tab>") 'isearch-dabbrev-expand))))
 #+end_src
 
-** imenus
-   imenu の強化.
-   - https://github.com/alezost/imenus.el
-
-   なんか, 思うように動かない.
-
-#+begin_src emacs-lisp
-(use-package imenus
-  :init
-  (define-key prog-mode-map (kbd "C-c h") 'imenus-mode-buffers)
-  (define-key imenus-minibuffer-map (kbd "C-c h") 'imenus-exit-to-helm-multi-swoop)
-  :commands (imenus imenus-mode-buffers)
-  :preface
-  (defun imenus-helm-multi-swoop (buffers input)
-    (helm-multi-swoop (replace-regexp-in-string "^.*|" "" input)
-                      (mapcar 'buffer-name buffers)))
-  (defun imenus-exit-to-helm-multi-swoop ()
-    "Exit from imenu prompt; start `helm-multi-swoop' with the current input."
-    (interactive)
-    (setq imenus-exit-status 'helm-multi-swoop))
-  :config
-  (push '(helm-multi-swoop . imenus-helm-multi-swoop) imenus-actions))
-#+end_src
-
 * 日本語入力
 ** ddskk
    Emacs 用の IME.

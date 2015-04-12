@@ -673,6 +673,7 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((R . t)
+   (C . t)
    (java . t)
    (shell . t)
    (ledger . t)      

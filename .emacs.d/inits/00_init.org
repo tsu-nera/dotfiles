@@ -330,6 +330,8 @@
     imenus
     eshell-prompt-extras
     zlc
+    org-projectile
+    helm-cscope
     )
  "A list of packages to install from el-get at launch.")
 
