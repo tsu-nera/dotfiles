@@ -150,7 +150,7 @@
     search-web
     wgrep
     phi-search
-    langtool
+    ;; langtool
     ;; smart-compile 独自 age 改造したものを elisp においた
     expand-region
     ;; utility
@@ -332,6 +332,7 @@
     zlc
     org-projectile
     helm-cscope
+    helm-hatena-bookmark
     )
  "A list of packages to install from el-get at launch.")
 
@@ -357,6 +358,7 @@
 #+begin_src emacs-lisp
 (use-package el-get
   :defer 60
+
   :config
   ;; マシンごとの設定
   (when linux-p
