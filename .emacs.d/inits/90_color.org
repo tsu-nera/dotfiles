@@ -1,6 +1,7 @@
 * Color
   デザイン・色関係.
-  
+
+* Mode Line  
 ** emacs powerline
    2 つ種類がある.
    - https://github.com/jonathanchu/emacs-powerline
@@ -17,9 +18,17 @@
    (when windows-p
      (custom-set-faces
       '(mode-line ((t (:background "#3E3D31" :distant-foreground "black" :foreground "#F8F8F2" :box (:line-width 1 :color "gray20" :style unspecified)))))
-      '(mode-line-buffer-id ((t (:foreground "#F92672" :weight bold))))))
-   
-)
+      '(mode-line-buffer-id ((t (:foreground "#F92672" :weight bold)))))))
+#+end_src
+
+** nyan-mode
+   にゃんにゃん.
+   - https://github.com/TeMPOraL/nyan-mode
+
+#+begin_src emacs-lisp
+(use-package nyan-mode
+  :config
+  (nyan-mode t))
 #+end_src
 
 * ハイライト

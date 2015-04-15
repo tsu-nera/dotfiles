@@ -335,6 +335,8 @@
     org-projectile
     helm-cscope
     helm-hatena-bookmark
+    nyan-mode
+    ace-jump-helm-line
     )
  "A list of packages to install from el-get at launch.")
 

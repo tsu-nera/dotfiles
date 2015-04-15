@@ -9,13 +9,13 @@
 ;;  :bind (("C-x ," . ace-jump-mode)
 ;;         ("C-x ;" . ace-jump-word-mode)
 ;;         ("C-x C-;" . ace-jump-line-mode))
-  :bind (("C-;" . ace-jump-mode) ("C-x ," . ace-jump-mode))
+  :bind* (("C-;" . ace-jump-mode))
   :config
   (setq ace-jump-mode-gray-background nil)
-  (setq ace-jump-word-mode-use-query-char nil)
-  (custom-set-faces
-   '(ace-jump-face-foreground
-     ((t (:foreground "red" :box nil :weight ultra-bold :height 1.3))))))
+  (setq ace-jump-word-mode-use-query-char nil))
+;;  (custom-set-faces
+;;   '(ace-jump-face-foreground
+;;     ((t (:foreground "red" :box nil :weight ultra-bold :height 1.3))))))
 ;; 文字が小さいので :height を設定
 ;; ((t (:foreground "red" :box nil :weight ultra-bold :height 2.0))))))
 #+end_src
@@ -102,4 +102,30 @@
   :config
   (setq aw-background nil))
 ;;  (ace-link-setup-default))
+#+end_src-
+** ace-jump-helm-line
+   helm 絞り込みを ace で. 
+   - http://rubikitch.com/2015/04/16/ace-jump-helm-line/
+
+#+begin_src emacs-lisp
+(with-eval-after-load 'helm
+(use-package ace-jump-helm-line
+  :preface
+    (defun ajhl--insert-last-char ()
+    (insert (substring (this-command-keys) -1)))
+  (defun ace-jump-helm-line--with-error-fallback ()
+    "ヒント文字以外の文字が押されたらその文字を挿入するように修正"
+    (interactive)
+    (condition-case nil
+        (ace-jump-helm-line)
+      (error (ajhl--insert-last-char))))
+
+  :config
+  (define-key helm-map (kbd "`") 'ace-jump-helm-line--with-error-fallback)
+  (define-key helm-map (kbd "@") 'ace-jump-helm-line)
+
+  ;; anything-shortcut-keys-alist と同じように設定
+  ;;(setq avi-keys (append "asdfghjklzxcvbnmqwertyuiop" nil))
+  )
+)
 #+end_src

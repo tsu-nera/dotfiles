@@ -1,0 +1,3 @@
+(:name ace-jump-helm-line
+       :type github
+       :pkgname "cute-jumper/ace-jump-helm-line")
