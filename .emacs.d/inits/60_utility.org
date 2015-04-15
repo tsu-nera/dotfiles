@@ -355,6 +355,21 @@ $ sudo cp /usr/bin/ruby1.9/bin/enclient.rb /usr/bin
 	  "; rm -r " temp-file " " temp-dir)))
  #+end_src
     
+** wakatime
+   タイムトラッキング
+   - https://wakatime.com/dashboard
+
+#+begin_src emacs-lisp
+(use-package wakatime-mode
+  :if linux-p
+  :preface
+  (defun browse-wakatime ()
+    (interactive)
+    (browse-url "https://wakatime.com/dashboard"))
+  :config
+  (global-wakatime-mode))
+#+end_src
+
 * Password: パスワード管理
 ** netrc
    build-in のパスワード管理.

@@ -61,7 +61,7 @@
 
 ;; load-path に追加するフォルダ
 ;; 2 つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
-(add-to-load-path "elisp" "inits" "el-get" "elpa" "local" "mylisp")
+(add-to-load-path "elisp" "inits" "el-get" "local" "mylisp" "elpa")
 #+end_src
 
 * use-package
@@ -81,10 +81,12 @@
 #+begin_src emacs-lisp
 (package-initialize nil)
 
+(el-get-bundle use-package)
+
 ;; use-package が存在しないときはなにもしない
-;; (unless (require 'use-package nil t)
-;;  (defmacro use-package (&rest args)))
-;; (add-to-list 'load-path (locate-user-emacs-file "el-get/repo/el-get"))
+(unless (require 'use-package nil t)
+  (defmacro use-package (&rest args)))
+ (add-to-list 'load-path (locate-user-emacs-file "el-get/repo/el-get"))
 
 (add-to-list 'load-path "~/.emacs.d/el-get/repo/use-package")
 (require 'use-package)
@@ -92,7 +94,7 @@
 ;; for debug 0.01 秒以上 load にかかったら report を出す.
 ;; (setq use-package-verbose t)
 #+end_src
-
+   
 ** パッケージが存在しないとき
   もしパッケージが存在しないときは, 以下のようなメッセージが吐かれる.
 

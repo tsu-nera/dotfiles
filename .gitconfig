@@ -13,3 +13,5 @@
         br = branch
         co = checkout
         st = status
+[github]
+	user = tsu-nera
