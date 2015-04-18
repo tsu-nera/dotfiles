@@ -506,7 +506,7 @@
     
 #+begin_src emacs-lisp
 (use-package flycheck
-  ;; :init
+  :init
   ;; (add-hook 'after-init-hook #'global-flycheck-mode)
   :config
   (setq flycheck-highlighting-mode 'lines))

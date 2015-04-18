@@ -3,32 +3,39 @@
   - [[http://futurismo.biz/archives/2449][Emacs で Scala 開発環境を構築 (Ensime) | Futurismo]]
 
 ** scala-mode2
+   - https://github.com/hvesalai/scala-mode2
+   - [[http://www.troikatech.com/blog/2014/11/26/ensime-and-emacs-as-a-scala-ide][ENSIME and Emacs as a Scala IDE - Troika Tech]]
 
 #+begin_src emacs-lisp 
 ;; Scala Mode 2
 (use-package scala-mode2
-  :commands scala-mode2
-  :mode (("\\.scala$" . scala-mode) ("\\.sbt$" . scala-mode))
-)
+  :commands scala-mode
+  :mode (("\\.scala$" . scala-mode) ("\\.sbt$" . scala-mode)))
 #+end_src
 
 ** ensime
    ENhanced Scala Interaction Mode for Emacs.
-   
+
    This step causes the ensime-mode to be started whenever
    scala-mode is started for a buffer. You may have to customize this step
    if you're not using the standard scala mode.
+   - http://www.emacswiki.org/emacs/ScalaMode
 
 #+begin_src emacs-lisp
 (use-package ensime
   :commands ensime-scala-mode
   :init
-  (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
-)
+  (with-eval-after-load 'scala-mode
+    (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+    (define-key scala-mode-map (kbd "<f10>") 'ensime-inf-switch)  
+    (define-key scala-mode-map (kbd "RET") 'newline-and-indent)))
 #+end_src
 
 ** sbt mode
-    - https://github.com/hvesalai/sbt-mode
+   - https://github.com/hvesalai/sbt-mode
+
+   ensime に依存しない方法
+   - [[https://coderwall.com/p/z6riog/my-emacs-scala-development-environment][coderwall.com : establishing geek cred since 1305712800]]
 
 #+begin_src emacs-lisp 
 (use-package sbt-mode

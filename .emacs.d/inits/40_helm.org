@@ -28,6 +28,7 @@
 (global-set-key (kbd "C-M-z") 'helm-resume)  
 (global-set-key (kbd "C-x b") 'helm-mini)
 (global-set-key (kbd "C-x C-b") 'helm-elscreen) ;; elscreen のタブを切り替え
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
 
 (define-key org-mode-map (kbd "C-c h") 'helm-org-in-buffer-headings)
 (define-key prog-mode-map (kbd "C-c h") 'helm-imenu)

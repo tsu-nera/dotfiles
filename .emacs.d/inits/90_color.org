@@ -330,7 +330,6 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
 #+begin_src emacs-lisp
 (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/solarized-emacs")
 (use-package solarized
-  :disabled t
   :config
   ;; more customize
   ;; http://pages.sachachua.com/.emacs.d/Sacha.html
@@ -345,7 +344,7 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
      '(outline-1 ((t (:inherit font-lock-function-name-face :foreground "cornflower blue")))))
     
     (set-face-background 'mmm-default-submode-face "#073642") ;; solarized-dark
-    (set-face-background 'hiwin-face "#073642") ;; solarized-dark
+    ;; (set-face-background 'hiwin-face "#073642") ;; solarized-dark
 
    ;; solarized-dark のための設定
    ;; https://github.com/jonathanchu/emacs-powerline/issues/11
@@ -364,19 +363,21 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
     (load-theme 'solarized-dark t))
 #+end_src
 
-** cyberpunk-theme
-    emacs live 用のテーマ. Start Hacking!!
+** not used
 
-#+begin_src emacs-lisp
+*** cyberpunk-theme
+     emacs live 用のテーマ. Start Hacking!!
+
+ #+begin_src emacs-lisp
 (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/cyberpunk-theme")
 (use-package cyberpunk-theme
+  :disabled t
   :config
   (load-theme 'cyberpunk t))
-#+end_src
+ #+end_src
 
-  - [[https://groups.google.com/forum/#!topic/overtone/T_dU1VfgHE0][Transparent background in emacs live - Google グループ]]
+   - [[https://groups.google.com/forum/#!topic/overtone/T_dU1VfgHE0][Transparent background in emacs live - Google グループ]]
 
-** not used
 
 *** Molokai
 **** 正式版
