@@ -365,9 +365,9 @@ $ sudo cp /usr/bin/ruby1.9/bin/enclient.rb /usr/bin
   :preface
   (defun browse-wakatime ()
     (interactive)
-    (browse-url "https://wakatime.com/dashboard")))
+    (browse-url "https://wakatime.com/dashboard"))
   ;;:config
-  ;; (global-wakatime-mode))
+  (global-wakatime-mode))
 #+end_src
 
 * Password: パスワード管理

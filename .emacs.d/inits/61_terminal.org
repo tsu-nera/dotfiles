@@ -77,10 +77,9 @@
 
 #+begin_src emacs-lisp
 (use-package eshell-prompt-extras
-  :preface
-  ;; gitは無効. なぜか遅くなるので.
-  (defun epe-git-p () nil)
   :config
+  ;; gitは無効. なぜか遅くなるので.  
+  (defun epe-git-p () nil)
   (setq eshell-highlight-prompt nil
         ;; eshell-prompt-function 'epe-theme-lambda))
            eshell-prompt-function 'epe-theme-dakrone))

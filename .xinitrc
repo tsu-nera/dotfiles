@@ -34,5 +34,12 @@ emacs --daemon &
 # Emacs Speedup
 xset r rate 200 25
 
+#export GTK_IM_MODULE=fcitx
+#export QT_IM_MODULE=fcitx
+#XCexport GTK_IM_MODULE=xim
+#export QT_IM_MODULE=xim
+#export XMODIFIERS="@im=fcitx"
+#fcitx -d
+
 # xmonad
 exec xmonad

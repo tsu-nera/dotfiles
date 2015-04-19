@@ -491,7 +491,6 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
 
 #+begin_src emacs-lisp
 (use-package minimap
-  :disabled t
   :config
   (setq minimap-window-location 'right)
   (setq minimap-minimum-width 15)
