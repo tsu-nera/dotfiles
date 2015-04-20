@@ -1,0 +1,12 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: github-card
+# key: gitcard
+# binding: direct-keybinding
+# --
+#+BEGIN_HTML
+<div data-theme="default" data-height="155" data-width="500" data-github="$1" class="github-card"></div>
+<script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+#+END_HTML
+
+  - $2
+$0

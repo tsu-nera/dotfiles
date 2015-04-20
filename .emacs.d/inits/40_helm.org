@@ -442,6 +442,16 @@
   (define-key helm-cscope-mode-map (kbd "M-s") 'helm-cscope-select))
 #+end_src
 
+** helm-hatena-bookmark
+   - https://github.com/masutaka/emacs-helm-hatena-bookmark
+
+#+begin_src emacs-lisp
+(use-package  helm-hatena-bookmark
+  :config
+  (setq helm-hatena-bookmark:username "tsu-nera")
+  (helm-hatena-bookmark:initialize))
+#+end_src
+
 * Action 追加
   helm で絞り込みのあと, TAB で Action 起動.
   - [[http://rubikitch.com/2015/02/02/helm-add-actions/][emacs helm にアクション・キーバインドを超簡単に追加する方法]]
