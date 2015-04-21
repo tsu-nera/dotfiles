@@ -6,10 +6,10 @@
 #+begin_src emacs-lisp
 ;; Setting rbenv path
 ;; emacs から rbenv でいれた Ruby を利用する.
-(setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:"
-		       (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
-(setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims")
-		(cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
+;;(setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:"
+;;		       (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
+;;(setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims")
+;;		(cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
 #+end_src
 
 * 入力支援

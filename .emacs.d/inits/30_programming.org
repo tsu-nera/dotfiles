@@ -89,7 +89,7 @@
    require 'names してからインストールしないとおかしくなる.
 
 #+begin_src emacs-lisp
-(use-package aggressive-indent)
+(use-package aggressive-indent :if linux-p)
 
 ;; c++ だとけっこうバラバラになる lisp はどうか?
 ;;  :config
@@ -557,7 +557,7 @@
    - https://github.com/rocky/emacs-dbgr/wiki/how-to-use
 
 #+begin_src emacs-lisp
-(use-package realgud)
+(use-package realgud :if linux-p)
 #+end_src
 
 * Utils

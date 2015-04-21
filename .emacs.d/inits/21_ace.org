@@ -109,7 +109,8 @@
 
 #+begin_src emacs-lisp
 (with-eval-after-load 'helm
-(use-package ace-jump-helm-line
+  (use-package ace-jump-helm-line
+    :disabled t
   :preface
     (defun ajhl--insert-last-char ()
     (insert (substring (this-command-keys) -1)))

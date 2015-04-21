@@ -122,6 +122,7 @@
 
 #+begin_src emacs-lisp
 (use-package auto-complete-clang-async
+  :if linux-p
   :init
   (defun ac-cc-mode-setup ()
     (setq ac-clang-complete-executable "~/.emacs.d/el-get/repo/clang-complete-async/clang-complete")

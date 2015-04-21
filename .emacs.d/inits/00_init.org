@@ -335,8 +335,11 @@
     org-projectile
     helm-cscope
     helm-hatena-bookmark
+    c-eldoc
     nyan-mode
     ace-jump-helm-line
+    srep
+    undohist
     )
  "A list of packages to install from el-get at launch.")
 
