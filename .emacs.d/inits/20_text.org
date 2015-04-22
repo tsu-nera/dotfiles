@@ -581,6 +581,15 @@
        (define-key isearch-mode-map (kbd "<tab>") 'isearch-dabbrev-expand))))
 #+end_src
 
+** swiper
+   最近便利になってきた. isearch と置き換えてみようか.
+
+#+begin_src emacs-lisp
+(use-package swiper
+  :bind* (("C-s" . swiper)
+          ("C-u C-s" . isearch-forward)))
+#+end_src
+
 * 日本語入力
 ** ddskk
    Emacs 用の IME.
