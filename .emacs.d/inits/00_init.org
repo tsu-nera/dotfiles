@@ -340,6 +340,7 @@
     ace-jump-helm-line
     srep
     undohist
+    svg-mode-line-themes
     )
  "A list of packages to install from el-get at launch.")
 
