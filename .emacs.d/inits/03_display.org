@@ -173,6 +173,14 @@
   (setq writeroom-width 80))
 #+end_src
 
+** centered-cursor-mode
+   常に画面を中央に固定.
+   - https://github.com/emacsmirror/centered-cursor-mode/blob/master/centered-cursor-mode.el
+   - http://rubikitch.com/tag/m-x-scroll-lock-mode/
+
+#+begin_src emacs-lisp
+(use-package centered-cursor-mode)
+#+end_src
 
 * モードライン
 ** モードラインに時間を表示する

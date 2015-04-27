@@ -402,11 +402,11 @@
 (use-package my-org-clockin-gtd
   :bind (("C-<f7>" . mygtd:gtd)
 	 ("C-<f8>" . mygtd:rest)
-	 ("C-x <f8>" . mygtd:reset-rest-timer))
-  :init
-  (with-eval-after-load 'org-pomodoro
-    (add-hook 'org-pomodoro-finished-hook 'mygtd:rest)
-    (add-hook 'org-pomodoro-break-finished-hook 'mygtd:reset-rest-timer)))
+	 ("C-x <f8>" . mygtd:reset-rest-timer)))
+;;  :init
+;;  (with-eval-after-load 'org-pomodoro
+;;    (add-hook 'org-pomodoro-finished-hook 'mygtd:rest)
+;;    (add-hook 'org-pomodoro-break-finished-hook 'mygtd:reset-rest-timer)))
 #+end_src
 
 *** org-clock-by-tags
@@ -816,6 +816,7 @@
 * org-screenshot
   スクリーンショットを撮影して, org-mode に挿入する 
   - https://github.com/dfeich/org-screenshot
+
 * org-download
    ドラッグ & ドロップで画像をコピーできる.
    - https://github.com/abo-abo/org-download
@@ -851,7 +852,7 @@
   (setq org-journal-dir "~/gtd/journal/"))
 #+end_src
 
-* org-pomodor
+* org-pomodoro
   - https://github.com/lolownia/org-pomodoro
 
 #+begin_src emacs-lisp
@@ -876,14 +877,15 @@
     (org-defkey org-agenda-mode-map (kbd "C-c C-x C-i") 'org-pomodoro)
     (org-defkey org-agenda-mode-map (kbd "C-c C-x C-@") 'org-pomodoro)))
 #+end_src
-  
-* org-weather
-  org-agenda に天気を表示する
-  - https://github.com/kautsig/org-weather
 
-#+begin_src emacs-lisp
+* 未使用中  
+** org-weather
+   org-agenda に天気を表示する
+   - https://github.com/kautsig/org-weather
+
+ #+begin_src emacs-lisp
 (use-package org-weather
-  :defer 20
+  :disabled t
   :init
   ;;(setq org-weather-format "Weather: %desc, %tmin-%tmax%tu, %p%pu, %h%hu, %s%su")
   (setq org-weather-format "Weather: %desc, %tmin-%tmax%tu")
@@ -893,36 +895,36 @@
     (browse-url "http://openweathermap.org/city/1850147"))
   :config
   (org-weather-refresh))
-#+end_src
+ #+end_src
 
-* org-multiple-keymap
-  n/p で 日付や priority を変更.
-   - https://github.com/myuhe/org-multiple-keymap.el
+** org-multiple-keymap
+   n/p で 日付や priority を変更.
+    - https://github.com/myuhe/org-multiple-keymap.el
 
-#+begin_src emacs-lisp
-(use-package org-multiple-keymap)
-#+end_src
+ #+begin_src emacs-lisp
+(use-package org-multiple-keymap :disabled t)
+ #+end_src
 
-* org-bullets
-  org-mode のの見出しアイコンの変更.
-  - https://github.com/sabof/org-bullets
+** org-bullets
+   org-mode のの見出しアイコンの変更.
+   - https://github.com/sabof/org-bullets
 
-  windows 環境だとド派手になるので封印.
+   windows 環境だとド派手になるので封印.
 
-#+begin_src emacs-lisp
+ #+begin_src emacs-lisp
 (use-package org-bullets
   :disabled t
   :init
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
-#+end_src
+ #+end_src
 
-* interleave
-  org-mode + PDF memo
-  - https://github.com/rudolfochrist/interleave
+** interleave
+   org-mode + PDF memo
+   - https://github.com/rudolfochrist/interleave
 
-#+begin_src emacs-lisp
-(use-package interleave)
-#+end_src
+ #+begin_src emacs-lisp
+(use-package interleave :disabled t)
+ #+end_src
 
 * 他のツールとの連携
 ** RSS Feed 

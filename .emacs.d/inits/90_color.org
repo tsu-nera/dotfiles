@@ -11,7 +11,6 @@
 
 #+begin_src emacs-lisp
 (use-package powerline
-  :disabled t
   :config
   (powerline-default-theme)
 
@@ -26,8 +25,11 @@
    おしゃれなモードライン
    - https://github.com/sabof/svg-mode-line-themes
 
+   おもしろい elisp だけど, カスタマイズが必要.
+
 #+begin_src emacs-lisp
 (use-package svg-mode-line-themes
+  :disabled t
   :config
   (smt/enable)
   (smt/set-theme 'black-crystal)

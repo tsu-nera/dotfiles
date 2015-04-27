@@ -413,3 +413,25 @@ $ sudo emacs /usr/local/share/info/dir
 ** Bookmarks
   - [[http://qiita.com/da1/items/02f7d2f157c7145d58f2][Scheme - SICP を読むためにやっておくと便利かもしれないこと - Qiita]]  
 
+* Clojure
+  モダン Lisp.
+  
+** clojure-mode
+   Clojure のためのメジャーモード.
+   - https://github.com/clojure-emacs/clojure-mode
+
+#+begin_src emacs-lisp
+(use-package clojure-mode)
+#+end_src
+
+** cider
+   Clojure のためのインタラクティブな開発環境.
+   - https://github.com/clojure-emacs/cider
+
+#+begin_src emacs-lisp
+(use-package cider
+  :init
+  (add-hook 'clojure-mode-hook 'cider-mode)
+  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode))
+#+end_src
+
