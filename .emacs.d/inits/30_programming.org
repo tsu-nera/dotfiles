@@ -60,10 +60,12 @@
    かつては smart-operator といわれた.
    - https://github.com/xwl/electric-spacing
 
+  必要に応じて追加していく.
+
 #+begin_src emacs-lisp
 (use-package electric-spacing
   :init
-  (add-hook 'prog-mode-hook #'electric-spacing-mode))
+  (add-hook 'c-mode-common-hook #'electric-spacing-mode))
 #+end_src
 
 ** インデントで垂直方向に揃える

@@ -2,6 +2,16 @@
   デザイン・色関係.
 
 * Mode Line  
+** smart-mode-line
+   - https://github.com/Malabarba/smart-mode-line/
+
+#+begin_src emacs-lisp
+(use-package smart-mode-line
+  :config
+  (setq sml/no-confirm-load-theme t)
+  (sml/setup))
+#+end_src
+     
 ** emacs powerline
    2 つ種類がある.
    - https://github.com/jonathanchu/emacs-powerline
@@ -11,6 +21,7 @@
 
 #+begin_src emacs-lisp
 (use-package powerline
+  :disabled t
   :config
   (powerline-default-theme)
 

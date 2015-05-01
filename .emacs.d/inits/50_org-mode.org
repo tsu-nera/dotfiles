@@ -578,6 +578,15 @@
    縦横比を計算してくれるつーる.
    - [[http://www.web-jozu.com/javascript/size.html][写真の縦横比を固定して拡大縮小値を計算するツール:JavaScript サンプル |WEB 上手]]
 
+
+** 自動サムネイル挿入
+   最大サイズの画像の中から自動でアイキャッチ画像を設定してくれる.
+   - [[http://sachachua.com/blog/2014/10/publishing-wordpress-thumbnail-images-using-emacs-org2blog/#][Publishing Wordpress thumbnail images using Emacs and Org2Blog ]]
+
+#+begin_src emacs-lisp
+(setq org2blog/wp-image-thumbnails t)
+#+end_src
+
 ** org-export html で表が崩れる
    left 属性が設定されてしまうことが原因.
 
@@ -788,6 +797,37 @@
   (let ((file-name (buffer-file-name))) ;; (1)
     ad-do-it                            ;; (2)
     (setq buffer-file-name file-name))) ;; (3)
+#+end_src
+
+** org-babel-tangle をコマンドラインから実行
+   see...
+   - http://orgmode.org/manual/Batch-execution.html
+
+   org-ext は外した.
+   
+#+begin_src bash
+#!/bin/sh
+# -*- mode: shell-script -*-
+#
+# tangle files with org-mode
+#
+DIR=`pwd`
+FILES=""
+
+# wrap each argument in the code required to call tangle on it
+for i in $@; do
+    FILES="$FILES \"$i\""
+done
+
+emacs -Q --batch \
+    --eval "(progn
+     (add-to-list 'load-path (expand-file-name \"~/src/org/lisp/\"))
+     (add-to-list 'load-path (expand-file-name \"~/src/org/contrib/lisp/\" t))
+     (require 'org) (require 'ob) (require 'ob-tangle)
+     (mapc (lambda (file)
+            (find-file (expand-file-name file \"$DIR\"))
+            (org-babel-tangle)
+            (kill-buffer)) '($FILES)))" 2>&1 |grep tangled
 #+end_src
 
 * org-narrow
