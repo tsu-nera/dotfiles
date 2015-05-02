@@ -25,7 +25,7 @@
   :config
   (setq web-mode-markup-indent-offset 2) ;; html indent
   (setq web-mode-css-indent-offset 2)    ;; css indent
-  (setq web-mode-code-indent-offset 2)   ;; script indent(js,php,etc..)
+  (setq web-mode-code-indent-offset 2)   ;; script indent (js,php,etc..)
   (setq web-mode-php-offset    2)
   
   (custom-set-faces
@@ -42,17 +42,43 @@
    '(web-mode-server-comment-face
      ((t (:foreground "#D9333F"))))                          ; コメント
    '(web-mode-css-rule-face
-     ((t (:foreground "#A0D8EF"))))                          ; cssのタグ
+     ((t (:foreground "#A0D8EF"))))                          ; css のタグ
    '(web-mode-css-pseudo-class-face
      ((t (:foreground "#FF7F00"))))                          ; css 疑似クラス
    '(web-mode-css-at-rule-face
-     ((t (:foreground "#FF7F00"))))                          ; cssのタグ
+     ((t (:foreground "#FF7F00"))))                          ; css のタグ
    )
 
   (setq web-mode-enable-current-element-highlight t)
   (setq web-mode-enable-current-column-highlight t) 
   )
 #+end_src
+
+* HTML
+** emmet-mode
+   ショートカットで各種タグを挿入 (動的略語展開) する有名ツール.
+   - https://github.com/smihica/emmet-mode
+
+   展開のパターンを覚えるのが大変そうな予感...
+
+#+begin_src emacs-lisp
+(use-package emmet-mode
+  :init
+  (add-hook 'web-mode-hook  'emmet-mode))
+#+end_src
+   
+** impatient-mode  
+  インタラクティブな HTML の表示.
+  - https://github.com/skeeto/impatient-mode
+
+  M-x httpd-start をして, 以下にアクセス
+  -  http://localhost:8080/imp/
+
+#+begin_src emacs-lisp
+(use-package impatient-mode :disabled t)
+#+end_src
+
+  動かないなー. あとで再チャレンジする.
 
 * PHP
   - [[http://engineering.crocos.jp/post/101386268815/emacs24-4-emacs-php][いま使っている Emacs の PHP 開発環境 :: Crocos Engineering Blog]]
@@ -85,19 +111,4 @@
 ;;     :back "\\?>")))
 ;; (add-to-list 'auto-mode-alist '("\\.php?\\'" . xml-mode))
 #+end_src
-
-* HTML
-** impatient-mode  
-  インタラクティブな HTML の表示.
-  - https://github.com/skeeto/impatient-mode
-
-  M-x httpd-start をして, 以下にアクセス
-  -  http://localhost:8080/imp/
-
-#+begin_src emacs-lisp
-(use-package impatient-mode :disabled t)
-#+end_src
-
-  動かないなー. あとで再チャレンジする.
-
 
