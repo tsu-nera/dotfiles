@@ -490,23 +490,26 @@
 
   ;; ブログ設定
   (setq org2blog/wp-blog-alist
-      '(("Futurismo"
-	 :url "http://futurismo.biz/xmlrpc.php"
+        '(
+        ("Futurismo"
+         :url "http://futurismo.biz/xmlrpc.php"
 	 :username "admin"
 	 ;; :username (netrc-get futurismo "login")
 	 ;; :password (netrc-get futurismo "password")
 	 )
 	("SternStunden"
 	 :url "http://hmi-me.ciao.jp/sternstunden/xmlrpc.php"
-	 :username (netrc-get sternstunden "login")
-	 :password (netrc-get sternstunden "password")
+	 :username "admin"         
+	 ;; :username (netrc-get sternstunden "login")
+	 ;; :password (netrc-get sternstunden "password")
 	)
 	("EverClassic"
 	 :url "http://everclassic.biz/xmlrpc.php"
 	 :username "admin"	 
 	 ;; :username (netrc-get everclassic "login")
 	 ;; :password (netrc-get everclassic "password")
-	))))
+         )
+        )))
 #+end_src
 
 ** WordPress で シンタックスハイライト
@@ -583,8 +586,10 @@
    最大サイズの画像の中から自動でアイキャッチ画像を設定してくれる.
    - [[http://sachachua.com/blog/2014/10/publishing-wordpress-thumbnail-images-using-emacs-org2blog/#][Publishing Wordpress thumbnail images using Emacs and Org2Blog ]]
 
+   どうもサイズが 300 にリサイズされてしまう.
+
 #+begin_src emacs-lisp
-(setq org2blog/wp-image-thumbnails t)
+;; (setq org2blog/wp-image-thumbnails t)
 #+end_src
 
 ** org-export html で表が崩れる
@@ -918,6 +923,16 @@ emacs -Q --batch \
     (org-defkey org-agenda-mode-map (kbd "C-c C-x C-@") 'org-pomodoro)))
 #+end_src
 
+* org-drill
+  org-mode + 暗記.
+
+  - [[http://d.hatena.ne.jp/lurdan/20131220/1387493894][冬休みを前に, 最強のフラッシュカードを手にしよう - *scratch*]]
+  - [[http://orgmode.org/worg/org-contrib/org-drill.html][org-drill.el – flashcards and spaced repetition for org-mode]]
+
+#+begin_src emacs-lisp
+(use-package org-drill)
+#+end_src
+  
 * 未使用中  
 ** org-weather
    org-agenda に天気を表示する
