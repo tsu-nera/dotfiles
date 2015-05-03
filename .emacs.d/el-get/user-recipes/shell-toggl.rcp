@@ -1,0 +1,3 @@
+(:name shell-toggle
+       :type github
+       :pkgname "knu/shell-toggle.el")

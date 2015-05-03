@@ -76,20 +76,14 @@
    参考になりすぎる init.el
    - https://github.com/kawabata/dotfiles/blob/master/.emacs.d/init.el
 
-   遅延ロードが動いていないように見えるけど気のせいかな??
-
 #+begin_src emacs-lisp
 (package-initialize nil)
-
 (el-get-bundle use-package)
 
 ;; use-package が存在しないときはなにもしない
+(add-to-list 'load-path "~/.emacs.d/el-get/repo/use-package")
 (unless (require 'use-package nil t)
   (defmacro use-package (&rest args)))
- (add-to-list 'load-path (locate-user-emacs-file "el-get/repo/el-get"))
-
-(add-to-list 'load-path "~/.emacs.d/el-get/repo/use-package")
-(require 'use-package)
 
 ;; for debug 0.01 秒以上 load にかかったら report を出す.
 ;; (setq use-package-verbose t)
@@ -343,6 +337,16 @@
     svg-mode-line-themes
     web-mode
     smart-mode-line
+    impatient-mode
+    shell-toggle
+    shell-pop
+    volume
+    clipmon
+    rainbow-mode
+    term-run
+    solarized-emacs
+    pcache
+    org-pomodoro
     )
  "A list of packages to install from el-get at launch.")
 
@@ -363,57 +367,22 @@
 
 これからは el-get-bundle で同期する (since 2015/02/24)
 
-** el-get 遅延実行
+** el-get config
 
 #+begin_src emacs-lisp
-(use-package el-get
-  :defer 60
+;; マシンごとの設定
+(when linux-p
+  ;;    (setq el-get-emacs "/usr/local/bin/emacs"))
+  (setq el-get-emacs "/usr/local/bin/emacs"))
 
-  :config
-  ;; マシンごとの設定
-  (when linux-p
-    ;;    (setq el-get-emacs "/usr/local/bin/emacs"))
-    (setq el-get-emacs "/usr/local/bin/emacs"))
-  ;; 通知は minibuffer のみ
-  (setq el-get-notify-type 'message)
+;; 通知は minibuffer のみ
+(setq el-get-notify-type 'message)
   
 ;;  (el-get 'sync my/el-get-packages-all)
 ;;  (when windows-p
 ;;    (el-get 'sync my/el-get-packages-windows))
 ;;  (when linux-p
 ;;    (el-get 'sync my/el-get-packages-linux))
-#+end_src
-
-** el-get-bundle
-   bundle だと el-get-update の対象外になってしまうので, あまりよくない.
-
-#+begin_src emacs-lisp
-(el-get-bundle skeeto/impatient-mode :depends (simple-httpd htmlize))
-(el-get-bundle 10sr/term-run-el)
-(el-get-bundle Sliim/helm-github-stars)
-(el-get-bundle emacsmirror/rainbow-mode)
-(el-get-bundle yoshida-mediba/hiwin-mode)
-(el-get-bundle bburns/clipmon)
-(el-get-bundle knu/shell-toggle.el)
-(el-get-bundle kyagi/shell-pop-el)
-(el-get-bundle dbrock/volume-el)
-(el-get-bundle avendael/emacs-geeknote)
-(el-get-bundle bbatsov/solarized-emacs)
-(el-get-bundle pymander/evernote-mode)
-(el-get-bundle pcache/pcache)
-(el-get-bundle org-pomodoro)
-(el-get-bundle kautsig/org-weather)
-#+end_src
-
-*** gist
-
-#+begin_src emacs-lisp
-(el-get-bundle gist:9cfd449c0dc5d232f61f:my-helm-add-actoins)
-#+end_src
-
-** end  of config
-#+begin_src emacs-lisp
-)
 #+end_src
 
 ** 未使用

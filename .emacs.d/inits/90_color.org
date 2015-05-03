@@ -243,17 +243,6 @@
 ;; (setq-default show-trailing-whitespace t)
 #+end_src
 
-** hiwin-mode
-   アクティブな window をハイライトする.
-   - https://github.com/yoshida-mediba/hiwin-mode
-
-#+begin_src emacs-lisp
-(use-package hiwin
-  :disabled t
-  :config
-  ;; hiwin-mode を有効化
-  (hiwin-activate))
-#+end_src
 
 * フォント
 ** お試し
