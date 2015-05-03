@@ -201,19 +201,6 @@
   (define-key helm-swoop-map (kbd "C-r") 'swoop-action-goto-line-prnnev))
 #+end_src
 
-** (helm-) imenu-anywhere
-   imenu の置き換え.
-   - https://github.com/vspinu/imenu-anywhere
-   - [[http://rubikitch.com/2014/12/17/imenu-anywhere/][簡易関数定義ジャンプ imenu を ido/helm 化した上で他のファイルまで拡張する!]]
-
-   うまく動かないので, disabled
-
-#+begin_src emacs-lisp
-(use-package imenu-anywhere
-  :disabled t
-  :bind ("C-x c i" . helm-imenu-anywhere))
-#+end_src
-
 ** helm-projectile
    - [[https://github.com/bbatsov/projectile/blob/master/helm-projectile.el][projectile/helm-projectile.el at master · bbatsov/projectile]]
 
@@ -352,16 +339,6 @@
 (use-package helm-open-github)
 #+end_src
 
-** helm-github-stars
-   helm i/f で github のスターを見る.
-   - https://github.com/Sliim/helm-github-stars
-
-#+begin_src emacs-lisp
-(use-package helm-github-stars
-  :config 
-  (setq helm-github-stars-username "tsu-nera"))
-#+end_src
-
 ** my/helm-recentf
    C-u C-x C-r で, ディレクトリのみを対象にする.
    - [[http://d.hatena.ne.jp/syohex/20120911/1347378503#][helm を使って最近開いたディレクトリを開く - Life is very short]]
@@ -381,21 +358,6 @@
 ;;      (helm-other-buffer helm-c-recentf-directory-source "*helm recentf*")
 ;;      (call-interactively 'helm-recentf)))
    #+end_src
-
-** swiper-helm
-   Emacs isearch with an overview. 
-   Interactive `occur' using `helm
-   - [[http://oremacs.com/2015/03/10/no-swiping/][Introducing Swiper · (or emacs]]
-   - https://github.com/abo-abo/swiper
-   
-   isearch + helm. helm-swoop と似ている.
-
-   -> helm-swoop でいいや.
-
-#+begin_src emacs-lisp
-;;(use-package swiper-helm)
-;;  :bind (("C-s". swiper-helm)))
-#+end_src
 
 ** helm-migemo
    helm の日本語検索.
@@ -471,3 +433,30 @@
 (use-package helm-etags+ :disabled t)
 (use-package ctags-update :disabled t)
 #+end_src
+** helm-github-stars
+   helm i/f で github のスターを見る.
+   - https://github.com/Sliim/helm-github-stars
+
+#+begin_src emacs-lisp
+(use-package helm-github-stars
+  :disabled t
+  :config 
+  (setq helm-github-stars-username "tsu-nera"))
+#+end_src
+
+
+** swiper-helm
+   Emacs isearch with an overview. 
+   Interactive `occur' using `helm
+   - [[http://oremacs.com/2015/03/10/no-swiping/][Introducing Swiper · (or emacs]]
+   - https://github.com/abo-abo/swiper
+   
+   isearch + helm. helm-swoop と似ている.
+
+   -> helm-swoop でいいや.
+
+#+begin_src emacs-lisp
+;;(use-package swiper-helm)
+;;  :bind (("C-s". swiper-helm)))
+#+end_src
+

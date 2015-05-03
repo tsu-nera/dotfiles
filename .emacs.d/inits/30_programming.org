@@ -559,7 +559,9 @@
    - https://github.com/rocky/emacs-dbgr/wiki/how-to-use
 
 #+begin_src emacs-lisp
-(use-package realgud :if linux-p)
+(use-package realgud
+  :if linux-p
+  :defer t)
 #+end_src
 
 * Utils
@@ -597,6 +599,7 @@
 
 #+begin_src emacs-lisp
 (use-package origami
+  :disabled t
   :init
   (add-hook 'view-mode-hook 'view-mode-hook--origami)
   ;; お試しで, C 言語で有効にしてみよう

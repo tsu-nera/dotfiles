@@ -3,4 +3,4 @@
 #key: usep
 # binding: direct-keybinding
 # --
-(use-package $0 )
+(use-package $0)

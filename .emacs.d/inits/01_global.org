@@ -336,13 +336,17 @@ git clone git://git.savannah.gnu.org/emacs.git
    - [[http://www.bookshelf.jp/soft/meadow_18.html][Meadow/Emacs memo: バイトコンパイル]]
    - [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Compilation-Functions.html#Compilation-Functions][Compilation Functions - GNU Emacs Lisp Reference Manual]]
 
-   #+begin_src emacs-lisp
-(use-package byte-compile
-  :defer 60
-  :config
-  (byte-recompile-directory "~/.emacs.d/elisp/" 0)
-  (byte-recompile-directory "~/.emacs.d/mylisp/" 0))
+   すでにロードしている場合は, 遅延が効かない.. 封印
+
+#+begin_src emacs-lisp
+;; (use-package byte-compile
+;;   :config
+;;   (add-hook 'after-init-hook
+;;             '(lambda () 
+;;                (byte-recompile-directory "~/.emacs.d/elisp/" 0)
+;;                (byte-recompile-directory "~/.emacs.d/mylisp/" 0))))
 #+end_src
+
 ** 時間計測
    これは普段は封印している. 時間を知りたくなったときに利用する.
 
