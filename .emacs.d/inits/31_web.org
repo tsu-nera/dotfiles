@@ -59,7 +59,7 @@
    ショートカットで各種タグを挿入 (動的略語展開) する有名ツール.
    - https://github.com/smihica/emmet-mode
 
-   展開のパターンを覚えるのが大変そうな予感...
+     展開のパターンを覚えるのが大変そうな予感...
 
 #+begin_src emacs-lisp
 (use-package emmet-mode

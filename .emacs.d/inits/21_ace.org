@@ -110,23 +110,21 @@
 #+begin_src emacs-lisp
 (with-eval-after-load 'helm
   (use-package ace-jump-helm-line
-    :disabled t
-  :preface
+    :preface
     (defun ajhl--insert-last-char ()
-    (insert (substring (this-command-keys) -1)))
-  (defun ace-jump-helm-line--with-error-fallback ()
-    "ヒント文字以外の文字が押されたらその文字を挿入するように修正"
-    (interactive)
-    (condition-case nil
-        (ace-jump-helm-line)
-      (error (ajhl--insert-last-char))))
+      (insert (substring (this-command-keys) -1)))
+    (defun ace-jump-helm-line--with-error-fallback ()
+      "ヒント文字以外の文字が押されたらその文字を挿入するように修正"
+      (interactive)
+      (condition-case nil
+          (ace-jump-helm-line)
+        (error (ajhl--insert-last-char))))
 
-  :config
-  (define-key helm-map (kbd "`") 'ace-jump-helm-line--with-error-fallback)
-  (define-key helm-map (kbd "@") 'ace-jump-helm-line)
-
-  ;; anything-shortcut-keys-alist と同じように設定
-  ;;(setq avi-keys (append "asdfghjklzxcvbnmqwertyuiop" nil))
+    :config
+    (define-key helm-map (kbd "'") 'ace-jump-helm-line)
+    
+    ;; anything-shortcut-keys-alist と同じように設定
+    ;;(setq avi-keys (append "asdfghjklzxcvbnmqwertyuiop" nil))
+    )
   )
-)
 #+end_src
