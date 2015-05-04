@@ -723,7 +723,7 @@ command uses interactive mode if passed an argument."
     (my/jazzradio-switch
      "http://ephemeron:dayeiph0ne%40pp@api.audioaddict.com/v1/di/mobile/batch_update?stream_set_key="
      "http://listen.di.fm/webplayer/"))
-  (defun classicradio ()
+  (defun radiotune ()
     (interactive)    
     (my/jazzradio-switch
      "http://ephemeron:dayeiph0ne%40pp@api.audioaddict.com/v1/radiotunes/mobile/batch_update?stream_set_key="

@@ -128,9 +128,16 @@
 
 ** helm-kaomoji
    顔文字.
+
+   2ch 文字キラいなので, 変えた.
    
 #+begin_src emacs-lisp
-(use-package helm-kaomoji :commands helm-kaomoji)
+(use-package helm-kaomoji
+  :commands helm-kaomoji
+  :config
+;;  (setq helm-kaomoji--url "http://kaosute.net/jisyo/pdf2.cgi?file=kaomoji_ver2&method=download")
+  (setq helm-kaomoji--url "http://kaosute.net/jisyo/pdf2.cgi?file=hosoku_ver2&method=download")
+  )  
 #+end_src
 
 ** helm-flyspell-collect
