@@ -209,27 +209,29 @@
 
    使いこなせてないので封印.いつか, 使いこなしたい.
 
- #+begin_src emacs-lisp
-;; *.org を開いたら howm-mode も起動する
-;;(add-hook 'org-mode-hook 'howm-mode)
+#+begin_src emacs-lisp
+(use-package helm-howm)
+(use-package howm
+  :init
+  (add-hook 'howm-mode-hook 'helm-howm)
+  :config
+  
+  ;; *.org を開いたら howm-mode も起動する
+  ;; (add-hook 'org-mode-hook 'howm-mode)
 
-;; howm のメモを置くディレクトリ (任意)
-;; (setq howm-directory "~/gtd/howm") ;; メニュー表示しない
-;; (setq howm-menu-top nil)
-;; メニューの言語設定
-;; (setq howm-menu-lang 'ja)
-;; howm ファイル名を設定する. org-mode を起動するため拡張子は .org にする.
-;; (setq howm-file-name-format "%Y%m%d-%H%M%S.org")
-;; (setq howm-view-title-header "*") ;; ← howm のロードより前に書くこと
+  ;; howm のメモを置くディレクトリ (任意)
+  (setq howm-directory "~/gtd/howm") ;; メニュー表示しない
+  
+ (setq howm-menu-top nil)
+ ;; メニューの言語設定
+ (setq howm-menu-lang 'ja)
+ ;; howm ファイル名を設定する. org-mode を起動するため拡張子は .org にする.
+ (setq howm-file-name-format "%Y-%m-%d-%H%M%S.org")
+ (setq howm-view-title-header "*") ;; ← howm のロードより前に書くこと
 
-;; キーバインドは C-a C-a にする
-;; (global-unset-key (kbd "C-x C-a"))
-;; (setq howm-prefix (kbd "C-x C-a"))
-
-;;(autoload 'howm "howm" " Hitori Otegaru Wiki Modoki" nil)
-;; (use-package howm)
-;; (add-hook 'howm-mode-hook 'helm-howm)
-;; (use-package helm-howm)
+ ;; キーバインドは C-a C-a にする
+ (global-unset-key (kbd "C-x C-a"))
+ (setq howm-prefix (kbd "C-x C-a")))
  #+end_src
 
 ** geeknote
@@ -865,24 +867,25 @@ command uses interactive mode if passed an argument."
 ;; )
 #+end_src
 
-* pdf-tools
-  PDF Viewer. Emacs で PDF がみれるという画期的なツールだ.
-  - https://github.com/politza/pdf-tools
-  - http://www.dailymotion.com/video/x2bc1is_pdf-tools-tourdeforce_tech?forcedQuality%3Dhd720
-  - http://sheephead.homelinux.org/2014/03/17/7076/
+* その他
+** pdf-tools
+   PDF Viewer. Emacs で PDF がみれるという画期的なツールだ.
+   - https://github.com/politza/pdf-tools
+   - http://www.dailymotion.com/video/x2bc1is_pdf-tools-tourdeforce_tech?forcedQuality%3Dhd720
+   - http://sheephead.homelinux.org/2014/03/17/7076/
 
-  github のやつだと, コンパイルエラーするので, fork して無理やり通した.
-  -> patch とりこまれた
+   github のやつだと, コンパイルエラーするので, fork して無理やり通した.
+   -> patch とりこまれた
 
-  ArchLinux では, GhostScript を入れる.
+   ArchLinux では, GhostScript を入れる.
 
-#+begin_src text
+ #+begin_src text
 sudo pacman -S ghostscript
-#+end_src
+ #+end_src
 
-  うーん, minor-mode が hook で有効にならないな...
+   うーん, minor-mode が hook で有効にならないな...
 
-#+begin_src emacs-lisp
+ #+begin_src emacs-lisp
 (use-package pdf-tools
   :if linux-p
   :init
@@ -908,7 +911,7 @@ sudo pacman -S ghostscript
 	      ;; (use-package pdf-sync) 
 	      ;; (use-package tablist-filter)
 	      ;; (use-package tablist))))
-#+end_src
+ #+end_src
 
 *** linum-mode は無効に
     どうも, doc-view-mode がめちゃくちゃ遅い!linum-mode が有効なことが原因.
@@ -924,46 +927,46 @@ sudo pacman -S ghostscript
 
     読むときは doc-view-mode C-c C-c にすることにした... or2.
 
-** WIndows 環境
-   頑張ってる. まだうごかない.
+*** WIndows 環境
+    頑張ってる. まだうごかない.
 
-   - libglib
-   - libglib-dev
-   - libpopper
-   - libpoppwer-glib8
-* calfw
-  Emacs 用カレンダー.
-  -> org-mode に移動.
+    - libglib
+    - libglib-dev
+    - libpopper
+    - libpoppwer-glib8
+** calfw
+   Emacs 用カレンダー.
+   -> org-mode に移動.
 
-* psession
-  セッション保存. elscreen に対応してくれないかな. . .
-  - [[https://github.com/thierryvolpiatto/psession][thierryvolpiatto/psession]]
-  - [[http://rubikitch.com/2014/08/21/psession/][Emacs のデータ・バッファ・ウィンドウ構成を永続化し, 再起動時に復元する方法 るびきち× Emacs]]
+** psession
+   セッション保存. elscreen に対応してくれないかな. . .
+   - [[https://github.com/thierryvolpiatto/psession][thierryvolpiatto/psession]]
+   - [[http://rubikitch.com/2014/08/21/psession/][Emacs のデータ・バッファ・ウィンドウ構成を永続化し, 再起動時に復元する方法 るびきち× Emacs]]
 
-  -> elscreen-persist に以降したので一旦封印.
+   -> elscreen-persist に以降したので一旦封印.
 
-#+begin_src emacs-lisp
+ #+begin_src emacs-lisp
 (use-package psession
   :disabled t
   :config
   (autoload 'psession-mode "persistent-sessions.el")
   (psession-mode 1))
-#+end_src
-* ledger-mode
-  お金管理.
+ #+end_src
+** ledger-mode
+   お金管理.
 
-** reckon
-   CSV 形式を ledger 形式に変換するツール.
-   - https://github.com/cantino/reckon
-   - [[http://blog.andrewcantino.com/blog/2010/11/06/command-line-accounting-with-ledger-and-reckon/][How I Do Command-line Accounting: Ledger and Reckon - andrew makes things]]
+*** reckon
+    CSV 形式を ledger 形式に変換するツール.
+    - https://github.com/cantino/reckon
+    - [[http://blog.andrewcantino.com/blog/2010/11/06/command-line-accounting-with-ledger-and-reckon/][How I Do Command-line Accounting: Ledger and Reckon - andrew makes things]]
 
-** Emacs Setting
-  - [[http://www.ledger-cli.org/3.0/doc/ledger-mode.html][Ledger: Command-Line Accounting]]
+*** Emacs Setting
+   - [[http://www.ledger-cli.org/3.0/doc/ledger-mode.html][Ledger: Command-Line Accounting]]
  
-  org-capture との連携
-  - [[http://sachachua.com/blog/2010/11/emacs-recording-ledger-entries-with-org-capture-templates/][Emacs: Recording ledger entries with org-capture-templates - sacha chua]]
+   org-capture との連携
+   - [[http://sachachua.com/blog/2010/11/emacs-recording-ledger-entries-with-org-capture-templates/][Emacs: Recording ledger entries with org-capture-templates - sacha chua]]
 
-#+begin_src emacs-lisp
+ #+begin_src emacs-lisp
 (use-package ledger-mode
   :load-path "~/.emacs.d/el-get/repo/ledger-mode/lisp"
   :init
@@ -986,23 +989,33 @@ sudo pacman -S ghostscript
     (forward-word)
     (forward-char)))
   )
-#+end_src
+ #+end_src
 
-** flycheck-ledger
-   - https://github.com/purcell/flycheck-ledger
+*** flycheck-ledger
+    - https://github.com/purcell/flycheck-ledger
 
-#+begin_src emacs-lisp
+ #+begin_src emacs-lisp
 (with-eval-after-load 'flycheck
   '(use-package flycheck-ledger))
+ #+end_src
+
+*** 0rg-mode
+    legder -f xx org とかくと, org-table 形式で出力.
+    - [[http://orgmode.org/worg/org-contrib/babel/languages/ob-doc-ledger.html][Using Ledger for Accounting in Org-mode with Babel]]
+    - [[http://orgmode.org/worg/org-tutorials/weaving-a-budget.html][Weaving a budget with Org & ledger]]
+
+*** Bookmarks
+    - [[https://billalex.wordpress.com/2013/05/01/ledger-nix-cli-double-entry-accounting/#][Ledger – *nix cli bookkeeping | Bills Blog]]
+
+** gntp
+   Growl for linux/windows
+   - [[http://sheephead.homelinux.org/2015/01/06/7197/][Growl に gntp 経由で通知させる gntp.el の紹介 - sheephead]]
+
+   gol で Growl サーバ起動.
+
+#+begin_src emacs-lisp
+(use-package gntp)
 #+end_src
-
-** 0rg-mode
-   legder -f xx org とかくと, org-table 形式で出力.
-   - [[http://orgmode.org/worg/org-contrib/babel/languages/ob-doc-ledger.html][Using Ledger for Accounting in Org-mode with Babel]]
-   - [[http://orgmode.org/worg/org-tutorials/weaving-a-budget.html][Weaving a budget with Org & ledger]]
-
-** Bookmarks
-   - [[https://billalex.wordpress.com/2013/05/01/ledger-nix-cli-double-entry-accounting/#][Ledger – *nix cli bookkeeping | Bills Blog]]
 
 * Tips
 ** slimlock

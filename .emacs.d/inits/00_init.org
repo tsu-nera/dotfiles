@@ -348,6 +348,8 @@
     pcache
     org-pomodoro
     sx
+    git-link
+    gntp
     )
  "A list of packages to install from el-get at launch.")
 

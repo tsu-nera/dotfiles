@@ -1,5 +1,5 @@
 * org-mode
-  最強のタスク管理ツール.
+  強のタスク管理ツール.
 
   Manual
   - http://orgmode.org/org.html
@@ -110,12 +110,36 @@
   ("C-p" outline-previous-visible-heading "previous head"))
 #+end_src
 
+#+RESULTS:
+: hydra-outline/body
+
+** priority 変更
+   タスクシュート用に修正.
+
+   shift-up / shift-down
+
+   - A: 04:00 - 07:00
+   - B: 07:00 - 10:00
+   - C: 10:00 - 13:00
+   - D: 13:00 - 16:00
+   - E: 16:00 - 19:00
+   - F: 19:00 - 22:00
+   - G: 22:00 - 25:00
+
+#+begin_src emacs-lisp
+(setq org-highest-priority ?A)
+(setq org-lowest-priority ?G)
+(setq org-default-priority ?G)
+#+end_src
+
 * GTD
   参考:
   - http://hpcgi1.nifty.com/spen/index.cgi?OrgMode%2fOrganize_Your_Life_In_Plain_Text!#i9
   - [[http://hpcgi1.nifty.com/spen/index.cgi?OrgMode%2FOrg-mode%A4%C7GTD%BC%C2%C1%A9%A1%CA%CB%DD%CC%F5%A1%CB#i16][OrgMode/Org-mode で GTD 実践 (翻訳) - How I use Emacs and Org-mode to implement GTD の翻訳]]
 
 ** org-agenda
+   - [[http://orgmode.org/manual/Agenda-commands.html][Agenda commands - The Org Manual]]
+
 #+begin_src emacs-lisp
 ;; 時間表示が 1 桁の時, 0 をつける
 (setq org-agenda-time-leading-zero t)
@@ -271,6 +295,10 @@
                      ;; (org-deadline-warning-days 0)
                      ;; (org-agenda-clockreport-mode t) ;; 時間表の表示はコメントアウト
                      ))))
+       ("w" "Completed and/or deferred tasks from previous week"
+        ((agenda "" ((org-agenda-span 8)
+                     (org-agenda-start-day "-7d")
+                     (org-agenda-entry-types '(:timestamp :sexp))))))
        ("n" "Next Action List"
         tags-todo "next"
         ((org-agenda-prefix-format " %6e ")))
@@ -292,6 +320,56 @@
 ;         (org-agenda-span 'day)))
        ))
 #+end_src
+
+*** org-agenda で過去ログにアクセス
+    - [[http://stackoverflow.com/questions/17683821/custom-function-for-next-previous-month-in-agenda-view-and-the-calendar][emacs - Custom function for next / previous month in agenda view and the calendar - Stack Overflow]]
+
+#+begin_src emacs-lisp
+(defvar lawlist-month)
+(defvar lawlist-year nil)
+ 
+(defun lawlist-org-agenda-view-mode-dispatch ()
+  "Select the month in agenda view."
+  (interactive)
+  (message "View: [1-9] [o]CT [n]OV [d]EC, j(next), k(prev).")
+  (let* ((a (read-char-exclusive))
+         (year (or lawlist-year
+                   (setq lawlist-year
+                         (nth 5 (decode-time (current-time))))))
+         (month (case a
+                  (?j (cond
+                       ((null lawlist-month) 1)
+                       ((= 12 lawlist-month)
+                        (setq year (incf lawlist-year))
+                        1)
+                       (t (1+ lawlist-month))))
+                  (?k (cond
+                       ((null lawlist-month) 1)
+                       ((= 1 lawlist-month)
+                        (setq year (decf lawlist-year))
+                        12)
+                       (t (1- lawlist-month))))
+                  (?h
+                   (setq year (incf lawlist-year))
+                   (or lawlist-month 1))
+                  (?l
+                   (setq year (decf lawlist-year))
+                   (or lawlist-month 1))
+                  (?o 10)
+                  (?n 11)
+                  (?d 12)
+                  (t (and (> a ?0) (<= a ?9) (- a ?0))))))
+    (if (not (setq lawlist-month month))
+        (progn (setq lawlist-year)
+               (message "Aborted"))
+      (org-agenda nil "a")
+      (org-agenda-month-view
+       (read (format "%d%02d" year month)))
+      (calendar)
+      (calendar-other-month month year)
+      (lawlist-org-agenda-view-mode-dispatch))))
+#+end_src
+
 
 ** タスクの状態
    うまく動作しないので, 利用しないことにする.
@@ -396,24 +474,10 @@
 ;; タスクが完了した時に時間測定も停止する
 (setq org-clock-out-when-done t)
 
-;; なんか, org-mode を開くときに遅いので封印する.
-;;
-;; Save the running clock and all clock history
-;; when exiting Emacs, load it on startup
-;; Emacs が再起動したときにタスクの時間計測を再開する
-;; Emacs が終了する時に測定中の計測と全ての測定履歴を保存する
-;; http://orgmode.org/manual/Clocking-work-time.html
-;; (setq org-clock-persist 'history)
-;; emacs resume 時に時間計測再開
-;; (org-clock-persistence-insinuate)
-
 ;; 空き時間の解決 
 ;; 半端時間を絶えずチェックしているファイルのリストは, M-x org-resolve-clocks
 ;; http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
 (setq org-clock-idle-time 20)
-
-;: 時間測定の履歴数
-(setq org-clock-history-length 36)
 
 ;; Do not prompt to resume an active clock
 (setq org-clock-persist-query-resume nil)
@@ -515,6 +579,53 @@
   (interactive)
   (print (org-clock-get-clock-string)))
 (global-set-key (kbd "C-x <f9>") 'org-clock-show)
+#+end_src
+
+*** ファイルに時間を書き出す
+    xmobar に表示できる... が xmobar の表示方法がわからん..
+    - http://lists.gnu.org/archive/html/emacs-orgmode/2010-04/msg00457.html
+
+#+begin_src emacs-lisp
+(display-time)
+(defun esf/org-clocking-info-to-file ()
+  (with-temp-file "~/tmp/clocking"
+    ;; (message (org-clock-get-clock-string))
+    (if (org-clock-is-active)
+        (insert (format "org: %d (%d/%d) min"
+
+                        (- (org-clock-get-clocked-time) org-clock-total-time)
+                        org-clock-total-time
+                        (org-clock-get-clocked-time))
+                        
+                )
+      ) ;;(org-clock-get-clock-string)
+    )
+  )
+(add-hook 'display-time-hook 'esf/org-clocking-info-to-file)
+#+end_src
+
+*** clock 履歴 を保存する
+
+    #+begin_src emacs-lisp
+;; なんか, org-mode を開くときに遅いので封印する.
+;;
+;; Save the running clock and all clock history
+;; when exiting Emacs, load it on startup
+;; Emacs が再起動したときにタスクの時間計測を再開する
+;; Emacs が終了する時に測定中の計測と全ての測定履歴を保存する
+;; http://orgmode.org/manual/Clocking-work-time.html
+;; (setq org-clock-persist 'history)
+
+;; emacs resume 時に時間計測再開
+;; (org-clock-persistence-insinuate)
+
+;; Org clock-in
+(org-clock-persistence-insinuate)
+(setq org-clock-persist t)
+;;; * Orgmode Modules
+(add-to-list 'org-modules 'habits)
+;; Number of clock tasks to remember in history.
+(setq org-clock-history-length 35)  ; 1 to 9 + A to Z
 #+end_src
 
 * org-capture
@@ -980,8 +1091,12 @@ emacs -Q --batch \
 * org-pomodoro
   - https://github.com/lolownia/org-pomodoro
 
+    とてもおもしろい elisp なのだけれども、
+    25 分でタイマがストップしたまま、さきに進むのをよく忘れるので、封印.
+
 #+begin_src emacs-lisp
 (use-package org-pomodoro
+  :disabled t
   :commands (custom-org-agenda-mode-defaults)
   :bind (("C-c C-x C-i" . org-pomodoro) ;; バインドできない (+_+)
          ("C-c C-x C-@" . org-pomodoro))

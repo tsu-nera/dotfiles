@@ -595,7 +595,7 @@
 ** origami
    A folding minor mode for Emacs 
    - https://github.com/gregsexton/origami.el
-   - [[http://rubikitch.com/2015/01/03/origami/][elisp,Clojure,C 系言語で org-mode 風の折畳みをする| るびきち「日刊 Emacs 」]]
+   - [[http://rubikitch.com/2015/01/03/origami/][elisp,Clojure,C 系言語で org-mode 風の折畳みをする| るびきち「日刊 Emacs」]]
 
 #+begin_src emacs-lisp
 (use-package origami
@@ -707,10 +707,21 @@
 ;;; avoid "Symbolic link to Git-controlled source file;; follow link? (yes or no)
 (setq git-follow-symlinks t)
  #+end_src
+
+** git-link
+   現在の git-link を取得.
+   - https://github.com/sshaw/git-link
+   - http://rubikitch.com/2015/03/28/git-link/
+   
+#+begin_src emacs-lisp
+(use-package git-link
+  :commands (git-link git-link-commit))
+#+end_src
+
 * svn
 ** vc-mode
    Emacs にはじめから入っている.
-   - [[http://dev.ariel-networks.com/articles/emacs/part7/][「 VC (バージョンコントロール) パッケージの基礎」 (菅原泰樹) - ありえるえりあ]]
+   - [[http://dev.ariel-networks.com/articles/emacs/part7/][「VC (バージョンコントロール) パッケージの基礎」 (菅原泰樹) - ありえるえりあ]]
 
    | key     | command                  | 説明                   | svn command |
    |---------+--------------------------+------------------------+-------------|
