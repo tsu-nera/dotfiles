@@ -347,6 +347,7 @@
     solarized-emacs
     pcache
     org-pomodoro
+    sx
     )
  "A list of packages to install from el-get at launch.")
 

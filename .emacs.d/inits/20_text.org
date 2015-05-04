@@ -76,7 +76,7 @@
 ** origami
    A folding minor mode for Emacs 
    - https://github.com/gregsexton/origami.el
-   - [[http://rubikitch.com/2015/01/03/origami/][elisp,Clojure,C 系言語で org-mode 風の折畳みをする| るびきち「日刊 Emacs 」]]
+   - [[http://rubikitch.com/2015/01/03/origami/][elisp,Clojure,C 系言語で org-mode 風の折畳みをする| るびきち「日刊 Emacs」]]
 
 #+begin_src emacs-lisp
 (use-package origami
@@ -903,12 +903,36 @@ google-ime-skk &
 (use-package text-adjust
   :init
   (add-hook 'before-save-hook 'text-adjust-space-before-save-if-needed)
-   (defun text-adjust-space-before-save-if-needed ()
-     (when (memq major-mode
-		 '(org-mode text-mode wl-draft-mode))
-       (text-adjust-buffer)))
-   ;;           (text-adjust-space-buffer)))
-   (defalias 'spacer 'text-adjust-space-buffer))
+  
+  (defun text-adjust-space-before-save-if-needed ()
+    (when (memq major-mode
+                ;;  '(org-mode text-mode wl-draft-mode))
+                '(text-mode wl-draft-mode))
+      (text-adjust-buffer)))
+  ;;  (text-adjust-space-buffer)))
+  
+  (defalias 'spacer 'text-adjust-space-buffer))
+#+end_src
+
+** text-adjust
+   next text-adjust.
+   - https://github.com/coldnew/pangu-spacing
+   - [[http://rubikitch.com/tag/package:pangu-spacing/][「package:pangu-spacing」タグの記事一覧 | るびきち「日刊 Emacs」]]
+
+#+begin_src emacs-lisp
+(use-package pangu-spacing
+  :config
+  (setq pangu-spacing-chinese-before-english-regexp
+        (rx (group-n 1 (category japanese))
+            (group-n 2 (in "a-zA-Z0-9"))))
+  (setq pangu-spacing-chinese-after-english-regexp
+        (rx (group-n 1 (in "a-zA-Z0-9"))
+            (group-n 2 (category japanese))))
+  ;; 見た目ではなくて実際にスペースを入れる
+  (setq pangu-spacing-real-insert-separtor t)
+
+  ;; text-mode やその派生モード(org-mode 等)のみに使いたいならこれ
+  (add-hook 'text-mode-hook 'pangu-spacing-mode))
 #+end_src
 
 ** yspel

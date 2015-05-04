@@ -145,31 +145,6 @@
 ;;アジェンダの clockreport 用パラメータ
 (setq org-agenda-clockreport-parameter-plist
       '(:maxlevel 5 :block t :tstart t :tend t :emphasize t :link t :narrow 80 :indent t :formula nil :timestamp t :level 5 :tcolumns nil :formatter nil))
-
-;; カスタムコマンド
-;; http://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
-(setq org-agenda-custom-commands 
-      '(
-      ;; http://hpcgi1.nifty.com/spen/index.cgi?OrgMode%2FOrg-mode%A4%C7GTD%BC%C2%C1%A9%A1%CA%CB%DD%CC%F5%A1%CB#i16
-       ("D" "Daily Action Summary"
-        ((agenda "" 
-	((org-agenda-ndays 1)
-	(org-agenda-entry-types '(:timestamp :sexp))
-	))
-	(tags-todo "next"))
-	)
-       ("d" "Daily Action List Detail"
-        ((agenda "" ((org-agenda-ndays 1)
-        (org-agenda-sorting-strategy
-        (quote ((agenda time-up priority-down tag-up) )))
-	;; (org-deadline-warning-days 0)
-	;; (org-agenda-clockreport-mode t) ;; 時間表の表示はコメントアウト
-        ))))
-       ("n" "Next Action List" tags-todo "next" ((org-agenda-prefix-format " %6e ")))
-       ("a" "Agenda and all TODO's"
-        ;;((tags "project-CLOCK=>\"<today>\"|repeatable") (agenda "") (alltodo)))
-        ((tags "project-CLOCK=>\"<today>\"|repeatable") (agenda "")))
-       ))
 #+end_src
 
 *** アジェンダ表示の対象ファイル
@@ -236,9 +211,22 @@
 ;;   (delete-other-windows))
 #+end_src
 
-*** column
+*** column & properties
     C-c C-c するとでる.
     - http://orgmode.org/worg/org-tutorials/org-column-view-tutorial.html
+      
+    Special Properites (org-mode の特別なプロパティ)
+    - http://orgmode.org/manual/Special-properties.html#Special-properties
+      CLOCKSUM_T ... clocksum today 
+
+    Column の書式
+    - [[http://orgmode.org/manual/Column-attributes.html#Column-attributes][Column attributes - The Org Manual]]
+
+    独自プロパティ操作のためには, API が用意されている.
+    - [[http://orgmode.org/manual/Using-the-property-API.html#Using-the-property-API][Using the property API - The Org Manual]]
+
+    column の org-table への書き出し
+    http://orgmode.org/manual/Capturing-column-view.html
 
 #+begin_src emacs-lisp
 ; global Effort estimate values
@@ -246,11 +234,63 @@
       "Effort_ALL" . "00:05 00:10 00:15 00:30 01:00 01:30 02:00 02:30 03:00"))))
 
 ;; カラムビューで表示する項目
-; Set default column view headings: Task Effort Clock_Summary
-(setq org-columns-default-format "%50ITEM(Task) %17Effort(Effort){:} %10CLOCKSUM")
+;; Set default column view headings: Task Effort Clock_Summary
+;; 保存時にスペースを入れられてしまう...
+;; カスタムファイルに設定を書くことにする
+;; (setq org-columns-default-format "%50ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM_T(Clock)")
 
 ;; 見つもり合計
 (setq org-agenda-columns-add-appointments-to-effort-sum t)
+#+end_src
+
+*** カスタムビュー 
+    定義方法
+    - [[http://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html][Custom Agenda Commands]]
+    - [[http://orgmode.org/manual/Custom-agenda-views.html#Custom-agenda-views][Custom agenda views - The Org Manual]]
+    - [[http://orgmode.org/manual/Special-agenda-views.html][Special agenda views - The Org Manual]]
+    - [[http://orgmode.jp/doc-ja/org-ja.html#index-custom-agenda-views-1295][Org Mode マニュアル]]
+
+    このアジェンダの書き方いいなぁ
+    - [[http://stackoverflow.com/questions/22394394/orgmode-a-report-of-tasks-that-are-done-within-the-week][emacs - Orgmode: A report of tasks that are done within the week - Stack Overflow]]
+
+#+begin_src emacs-lisp
+(setq org-agenda-custom-commands 
+      '(
+      ;; http://hpcgi1.nifty.com/spen/index.cgi?OrgMode%2FOrg-mode%A4%C7GTD%BC%C2%C1%A9%A1%CA%CB%DD%CC%F5%A1%CB#i16
+       ("D" "Daily Action Summary"
+        ((agenda "" 
+                 ((org-agenda-ndays 1)
+         (org-agenda-entry-types '(:timestamp :sexp))
+	))
+	(tags-todo "next"))
+	)
+       ("d" "Daily Action List Detail"
+        ((agenda "" ((org-agenda-ndays 1)
+                     (org-agenda-sorting-strategy
+                      (quote ((agenda time-up priority-down tag-up))))
+                     ;; (org-deadline-warning-days 0)
+                     ;; (org-agenda-clockreport-mode t) ;; 時間表の表示はコメントアウト
+                     ))))
+       ("n" "Next Action List"
+        tags-todo "next"
+        ((org-agenda-prefix-format " %6e ")))
+       ("a" "Agenda and all TODO's"
+        ((tags "project-CLOCK=>\"<today>\"|repeatable") (agenda "")))
+       ("c" ""
+        tags-todo "SCHEDULED=\"<+0d>\"" 
+        ((org-agenda-overriding-header "TaskChute TODO")
+         (org-agenda-overriding-columns-format "%50ITEM(Task) %10Effort(Effort){:}")
+         (org-agenda-view-columns-initially t)))
+;       ("R" . "Review" )
+;       ("Rd" "Day in review"
+;        agenda ""
+;        ;; agenda settings
+;        ((org-agenda-overriding-header "TaskChute DONE")
+;        (org-agenda-start-with-log-mode nil)
+;        (org-agenda-start-with-clockreport-mode t)         
+;         (org-agenda-view-columns-initially t)
+;         (org-agenda-span 'day)))
+       ))
 #+end_src
 
 ** タスクの状態
@@ -391,12 +431,29 @@
 
 *** 必ず時間見積り
     一時無効
-#+begin_src emacs-lisp
+    #+begin_src emacs-lisp
 ;; (defadvice org-clock-in (before is-set-effort-before-clock-in)
 ;;   (let ((effort (org-entry-get (point) "Effort")))
 ;;     (unless effort
 ;;       (error "[Error: Is not set a effort!]"))))
 ;; (ad-activate-regexp "is-set-effort-before-clock-in")
+#+end_src
+
+別の実装
+
+#+begin_src emacs-lisp
+(add-hook 'org-clock-in-prepare-hook
+          'my/org-mode-ask-effort)
+
+(defun my/org-mode-ask-effort ()
+  "Ask for an effort estimate when clocking in."
+  (unless (org-entry-get (point) "Effort")
+    (let ((effort
+           (completing-read
+            "Effort: "
+            (org-entry-get-multivalued-property (point) "Effort"))))
+      (unless (equal effort "")
+        (org-set-property "Effort" effort)))))
 #+end_src
 
 *** my/org-clockin-gtd
@@ -441,6 +498,23 @@
     (concat "\\" (let ((str " "))
       (dotimes (k (1- level) str)
         (setq str (concat "_" str))))))))
+#+end_src
+
+*** モードラインにも表示
+    モードラインに時間を表示するためには、以下の設定をテーマに書く.
+
+#+begin_src text
+(:eval org-mode-line-string)
+#+end_src
+
+*** 手動で確認
+    モードラインに表示できないので.
+
+#+begin_src emacs-lisp
+(defun org-clock-show()
+  (interactive)
+  (print (org-clock-get-clock-string)))
+(global-set-key (kbd "C-x <f9>") 'org-clock-show)
 #+end_src
 
 * org-capture
@@ -852,7 +926,7 @@ emacs -Q --batch \
 
 * org-sparse-tree 
   検索語に関連するところだけを拾い読みするのに便利.
-   - [[http://rubikitch.com/2014/10/10/org-sparse-tree-indirect-buffer/][Emacs org-mode の検索機能を 16 倍パワーアップする方法 | るびきち「日刊 Emacs 」]]
+   - [[http://rubikitch.com/2014/10/10/org-sparse-tree-indirect-buffer/][Emacs org-mode の検索機能を 16 倍パワーアップする方法 | るびきち「日刊 Emacs」]]
 
 #+begin_src emacs-lisp
 (defun org-sparse-tree-indirect-buffer (arg)
@@ -1068,8 +1142,8 @@ containing the properties `:guid' and `:item-full-text'."
 
 *** html2org
    Rubikichi さんの記事:
-   - [[http://rubikitch.com/2014/10/07/pandoc-2/][Emacs ユーザならば Web ページを Pandoc で org-mode に変換して読もう るびきち「日刊 Emacs 」]]
-   - [[http://rubikitch.com/2014/09/22/pandoc/][万能ドキュメント変換器 Pandoc いいね! | るびきち「日刊 Emacs 」]]
+   - [[http://rubikitch.com/2014/10/07/pandoc-2/][Emacs ユーザならば Web ページを Pandoc で org-mode に変換して読もう るびきち「日刊 Emacs」]]
+   - [[http://rubikitch.com/2014/09/22/pandoc/][万能ドキュメント変換器 Pandoc いいね! | るびきち「日刊 Emacs」]]
 
 ** calfw-org
    Emacs 用カレンダー.
