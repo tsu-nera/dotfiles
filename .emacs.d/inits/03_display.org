@@ -229,7 +229,7 @@
 
 ** recentf-ext
    recentf の拡張.
-   - [[http://d.hatena.ne.jp/rubikitch/20091224/recentf][人は俺を「 recentf マスター」と呼ぶ]]
+   - [[http://d.hatena.ne.jp/rubikitch/20091224/recentf][人は俺を「recentf マスター」と呼ぶ]]
    - [[http://qiita.com/catatsuy/items/f9fad90fa1352a4d3161][Emacs を快適に使うファイル周りの設定紹介 - Qiita]]
    - [[http://qiita.com/icb54615/items/ed8ff0ac0443e0a9c7da][Emacs - 最近使ったファイル一覧を表示 - Qiita]]
    
@@ -246,7 +246,8 @@
   :init
   (define-key goto-map [?j] 'open-junk-file)
   :config
-  (setq open-junk-file-format "~/tmp/%Y-%m-%d-%H%M%S.")
+  ;;  (setq open-junk-file-format "~/tmp/%Y-%m-%d-%H%M%S.")
+  (setq open-junk-file-format "~/gtd/howm/%Y-%m-%d-%H%M%S.org")
   (setq open-junk-file-find-file-function 'find-file))
 #+end_src
 
