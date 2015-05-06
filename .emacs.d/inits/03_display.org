@@ -247,7 +247,7 @@
   (define-key goto-map [?j] 'open-junk-file)
   :config
   ;;  (setq open-junk-file-format "~/tmp/%Y-%m-%d-%H%M%S.")
-  (setq open-junk-file-format "~/gtd/howm/%Y-%m-%d-%H%M%S.org")
+  (setq open-junk-file-format "~/Dropbox/howm/%Y-%m-%d-%H%M%S.org")
   (setq open-junk-file-find-file-function 'find-file))
 #+end_src
 

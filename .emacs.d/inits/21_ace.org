@@ -45,7 +45,7 @@
 
    - https://github.com/tam17aki/ace-isearch
    - [[http://ongaeshi.hatenablog.com/entry/ace-isearch][Emacs のテキスト検索の使い勝手をあげる ace-isearch と helm-swoop が便利 - ブログのおんがえし]]
-   - [[http://rubikitch.com/tag/ace-isearch/][「 ace-isearch 」タグの記事一覧 | るびきち「日刊 Emacs 」]]
+   - [[http://rubikitch.com/tag/ace-isearch/][「ace-isearch」タグの記事一覧 | るびきち「日刊 Emacs」]]
    - [[http://qiita.com/ballforest/items/7c3f2e64b59d8157bc8c][Emacs - ace-isearch : isearch と ace-jump-mode の連携 - Qiita]]
 
    無効にする.
@@ -121,7 +121,7 @@
         (error (ajhl--insert-last-char))))
 
     :config
-    (define-key helm-map (kbd "'") 'ace-jump-helm-line)
+    (define-key helm-map (kbd "!") 'ace-jump-helm-line)
     
     ;; anything-shortcut-keys-alist と同じように設定
     ;;(setq avi-keys (append "asdfghjklzxcvbnmqwertyuiop" nil))

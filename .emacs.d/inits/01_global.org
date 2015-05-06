@@ -171,7 +171,7 @@ git clone git://git.savannah.gnu.org/emacs.git
 #+end_src
 
     現在位置の word を削除
-    - [[http://dev.ariel-networks.com/wp/documents/aritcles/emacs/part16][「 Emacs のトラノマキ」連載第 16 回「元 Vimmer が考える Emacs の再設計」 (深町英太郎) ]]
+    - [[http://dev.ariel-networks.com/wp/documents/aritcles/emacs/part16][「Emacs のトラノマキ」連載第 16 回「元 Vimmer が考える Emacs の再設計」 (深町英太郎) ]]
 
 *** kill-word-at-point
 #+begin_src emacs-lisp
@@ -392,6 +392,8 @@ git clone git://git.savannah.gnu.org/emacs.git
 
 ** Original Message
 #+begin_src emacs-lisp
+(defvar my-startup-display-message "\nHello Emacs!!\nHappy Hacking (^o^)/\n")
+
 (defun my-startup-display-mode ()
   "Sets a fixed width (monospace) font in current buffer"
   (setq buffer-face-mode-face '(:height 1000))
@@ -402,14 +404,9 @@ git clone git://git.savannah.gnu.org/emacs.git
   (interactive)
   (let ((temp-buffer-show-function 'switch-to-buffer))
     (with-output-to-temp-buffer "*MyStartUpMessage*"  
-;;      (princ "\n\nHello Emacs (^-^)/\nLet the Hacking Begin!\n")))
-(princ "\n\nHello Emacs!!\nHappy Hacking (^-^)/\n")))
-  (my-startup-display-mode)
-  )
+      (princ my-startup-display-message)))
+  (my-startup-display-mode))
 
-;; (defun kill-scratch ()
-;;   (kill-buffer "*scratch*"))
-;; (add-hook 'after-init-hook 'kill-scratch t)
 (add-hook 'after-init-hook 'my-startup-display)
 #+end_src
 

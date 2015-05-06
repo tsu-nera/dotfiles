@@ -213,12 +213,13 @@
 #+begin_src emacs-lisp
 (setq howm-view-title-header "*") ;; ← howm のロードより前に書くこと
 (use-package howm
+  :bind* ("C-c , ," . howm-menu)  
   :config
   ;; *.org を開いたら howm-mode も起動する
   (add-hook 'org-mode-hook 'howm-mode)
  
-  ;; howm のメモを置くディレクトリ (任意)
-  (setq howm-directory "~/gtd/howm")
+  ;; howm のメモを置くディレクトリ
+  (setq howm-directory "~/Dropbox/howm")
 
   ;; メニュー表示しない ... なぜか固まる
   ;; (setq howm-menu-top nil)
@@ -227,6 +228,15 @@
   (setq howm-menu-lang 'ja)
   ;; howm ファイル名を設定する. org-mode を起動するため拡張子は .org にする.
   (setq howm-file-name-format "%Y-%m-%d-%H%M%S.org")
+
+  ;; grep のかわりに ack を使う. howm-test130321 でテスト.
+  ;;  (setq howm-view-use-grep t)
+  ;;  (setq howm-view-grep-command "ack")
+  ;;  (setq howm-view-grep-option "-Hnr")
+  ;;  (setq howm-view-grep-extended-option "")
+  ;;  (setq howm-view-grep-fixed-option "--literal")
+  ;;  (setq howm-view-grep-expr-option "--match")
+  ;;  (setq howm-view-grep-file-stdin-option nil)
  
   ;; キーバインドは C-a C-a にする
   (global-unset-key (kbd "C-x C-a"))

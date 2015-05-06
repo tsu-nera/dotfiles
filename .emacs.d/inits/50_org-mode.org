@@ -1096,16 +1096,31 @@ emacs -Q --batch \
 
 #+begin_src emacs-lisp
 (use-package org-pomodoro
-  :disabled t
   :commands (custom-org-agenda-mode-defaults)
-  :bind (("C-c C-x C-i" . org-pomodoro) ;; バインドできない (+_+)
-         ("C-c C-x C-@" . org-pomodoro))
+  :bind* (("C-c C-x C-i" . org-pomodoro) ;; バインドできない (+_+)
+         ("C-c C-x C-o" . org-pomodoro))
   :init
   (add-hook 'org-agenda-mode-hook 'custom-org-agenda-mode-defaults 'append)
   :config
   (setq org-pomodoro-play-start-sound t)
   (setq org-pomodoro-play-ticking-sounds nil)
   (setq org-pomodoro-audio-player "mplayer")
+
+  (add-hook 'org-pomodoro-started-hook
+            (lambda ()
+              (gntp-notify 'alert "Clock in"
+                           "Happy Hacking!"
+                           "localhost")))
+  (add-hook 'org-pomodoro-killed-hook
+            (lambda ()
+              (gntp-notify 'alert "Clock Interupped"
+                           "Oh....!"
+                           "localhost")))
+  (add-hook 'org-pomodoro-finished-hook
+            (lambda ()
+              (gntp-notify 'alert "Clock out"
+                           "Good Job!"
+                           "localhost")))
 
   ;; 3 分の休憩
   (setq org-pomodoro-short-break-length 3)
@@ -1115,7 +1130,7 @@ emacs -Q --batch \
     (org-defkey org-agenda-mode-map "I" 'org-pomodoro)
     (org-defkey org-agenda-mode-map "O" 'org-pomodoro)
     (org-defkey org-agenda-mode-map (kbd "C-c C-x C-i") 'org-pomodoro)
-    (org-defkey org-agenda-mode-map (kbd "C-c C-x C-@") 'org-pomodoro)))
+    (org-defkey org-agenda-mode-map (kbd "C-c C-x C-o") 'org-pomodoro)))
 #+end_src
 
 * org-drill
@@ -1128,6 +1143,12 @@ emacs -Q --batch \
 (use-package org-drill)
 #+end_src
   
+* org-password-manager
+  minimal password manager for Emacs Org mode.
+  - https://github.com/leafac/org-password-manager
+
+
+    
 * 未使用中  
 ** org-weather
    org-agenda に天気を表示する

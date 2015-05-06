@@ -350,6 +350,7 @@
     sx
     git-link
     gntp
+    org-password-manageer
     )
  "A list of packages to install from el-get at launch.")
 
