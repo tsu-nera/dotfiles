@@ -1109,7 +1109,7 @@ emacs -Q --batch \
   (add-hook 'org-pomodoro-started-hook
             (lambda ()
               (gntp-notify 'alert "Clock in"
-                           "Happy Hacking!"
+                           "Happy Hacking! (^o^)/"
                            "localhost")))
   (add-hook 'org-pomodoro-killed-hook
             (lambda ()
