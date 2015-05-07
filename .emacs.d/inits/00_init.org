@@ -354,6 +354,7 @@
     browse-at-remote
     org-cliplink
     symon
+    real-auto-save
     )
  "A list of packages to install from el-get at launch.")
 

@@ -7,7 +7,6 @@
 
 #+begin_src emacs-lisp
 (use-package smart-mode-line
-  :disabled t
   :config
   (setq sml/no-confirm-load-theme t)
   (sml/setup))
@@ -41,6 +40,7 @@
 
 #+begin_src emacs-lisp
 (use-package svg-mode-line-themes
+  :disabled t
   :config
   (smt/enable)
   (require 'ocodo-svg-mode-line))
