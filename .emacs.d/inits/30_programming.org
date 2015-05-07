@@ -761,6 +761,13 @@
 (setq vc-handled-backends nil)
 #+end_src
 
+** browse-at-remote
+   - https://github.com/rmuslimov/browse-at-remote
+
+#+begin_src emacs-lisp
+(use-package browse-at-remote
+  :bind "C-c g g")
+#+end_src
 
 * Tips
 ** code review
