@@ -1148,7 +1148,14 @@ emacs -Q --batch \
   - https://github.com/leafac/org-password-manager
 
 
-    
+* org-cliplink    
+  url から org-link 挿入.
+  - [[https://github.com/rexim/org-cliplink][rexim/org-cliplink · GitHub]]
+
+#+begin_src emacs-lisp
+(use-package org-cliplink :bind "C-x p i")
+#+end_src
+
 * 未使用中  
 ** org-weather
    org-agenda に天気を表示する

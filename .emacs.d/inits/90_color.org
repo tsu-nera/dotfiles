@@ -68,6 +68,17 @@
   (nyan-mode t))
 #+end_src
 
+** symon
+   システムモニタ
+   - [[https://github.com/zk-phi/symon][zk-phi/symon · GitHub]]   
+
+#+begin_src emacs-lisp
+(use-package symon
+  :config
+  (symon-mode))
+#+end_src
+     
+
 * ハイライト
   ハイライト系は, 性能に関わるので無闇に追加しないこと!!
 ** font-lock-mode
@@ -109,7 +120,7 @@
 ** 80 行目をハイライト
 *** column-enforce-mode
     - https://github.com/jordonbiondo/column-enforce-mode/
-    - [[http://rubikitch.com/tag/emacs-column-enforce-mode-%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88/][「 emacs column-enforce-mode スクリーンショット」タグの記事一覧 | るびきち「日刊 Emacs 」]]
+    - [[http://rubikitch.com/tag/emacs-column-enforce-mode-%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88/][「emacs column-enforce-mode スクリーンショット」タグの記事一覧 | るびきち「日刊 Emacs」]]
 
 #+begin_src emacs-lisp
 (use-package column-enforce-mode
@@ -351,7 +362,7 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
    - https://github.com/sellout/emacs-color-theme-solarized 
    
    ルビ吉さんの記事.
-   - [[http://rubikitch.com/tag/emacs-solarized-theme-%E4%BD%BF%E3%81%84%E6%96%B9/][「 emacs solarized-theme 使い方」タグの記事一覧 | るびきち「日刊 Emacs 」]]
+   - [[http://rubikitch.com/tag/emacs-solarized-theme-%E4%BD%BF%E3%81%84%E6%96%B9/][「emacs solarized-theme 使い方」タグの記事一覧 | るびきち「日刊 Emacs」]]
 
 #+begin_src emacs-lisp
 (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/solarized-emacs")

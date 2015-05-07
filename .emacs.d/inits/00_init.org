@@ -352,6 +352,8 @@
     gntp
     org-password-manageer
     browse-at-remote
+    org-cliplink
+    symon
     )
  "A list of packages to install from el-get at launch.")
 
