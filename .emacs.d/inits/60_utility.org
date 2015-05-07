@@ -1026,6 +1026,18 @@ sudo pacman -S ghostscript
 (use-package gntp)
 #+end_src
 
+** fcitx
+
+#+begin_src emacs-lisp
+(use-package fcitx
+  :if linux-p
+  :config
+  (fcitx-aggressive-setup)
+  (fcitx-prefix-keys-setup)
+  (fcitx-prefix-keys-turn-on))
+
+#+end_src
+
 * Tips
 ** slimlock
    Emacs から一時停止.
