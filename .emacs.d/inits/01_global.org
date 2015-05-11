@@ -119,10 +119,10 @@ git clone git://git.savannah.gnu.org/emacs.git
    - [[https://github.com/ChillarAnand/real-auto-save][ChillarAnand/real-auto-save · GitHub]]
 
 #+begin_src emacs-lisp
-(use-package real-auto-save
-  :init
-  (add-hook 'prog-mode-hook 'real-auto-save-mode)
-  (add-hook 'org-mode-hook 'real-auto-save-mode))
+;; (use-package real-auto-save)
+;;  :init
+;;  (add-hook 'prog-mode-hook 'real-auto-save-mode)
+;;  (add-hook 'org-mode-hook 'real-auto-save-mode))
 #+end_src
    
 * Key Bindings

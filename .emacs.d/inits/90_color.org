@@ -42,9 +42,7 @@
 (use-package svg-mode-line-themes
   :disabled t
   :config
-  (smt/enable)
-  (require 'ocodo-svg-mode-line))
-  
+  (smt/enable))
   
 ;;  (smt/set-theme 'black-crystal)
 ;;  (set-face-attribute 'mode-line nil :box nil)
@@ -57,6 +55,14 @@
 ;;                :font-size "14pt"))
 ;;    (setf (getf row-archetype :baseline) 15)))
 #+end_src
+
+** ocodo-svg-modelines
+   - https://github.com/ocodo/ocodo-svg-modelines
+
+#+begin_src emacs-lisp
+(use-package ocodo-svg-modelines)
+#+end_src
+
 
 ** nyan-mode
    にゃんにゃん.

@@ -1,5 +1,6 @@
 * helm
-  絞りこみインターフェイス.
+  絞りこみインターフェ
+イス.
   - https://github.com/emacs-helm
 
   ダウンロードしたら, make でコンパイルする.
@@ -338,34 +339,6 @@
   (define-key c++-mode-map (kbd "M-\"") 'helm-make-projectile))
 #+end_src
 
-** helm-open-github
-   helm i/f で github を開く.
-   - https://github.com/syohex/emacs-helm-open-github   
-
-#+begin_src emacs-lisp
-(use-package helm-open-github)
-#+end_src
-
-** my/helm-recentf
-   C-u C-x C-r で, ディレクトリのみを対象にする.
-   - [[http://d.hatena.ne.jp/syohex/20120911/1347378503#][helm を使って最近開いたディレクトリを開く - Life is very short]]
-
-   #+begin_src emacs-lisp
-;;(defvar helm-c-recentf-directory-source
-;;  '((name . "Recentf Directry")
-;;    (candidates . (lambda ()
-;;                    (loop for file in recentf-list
-;;                          when (file-directory-p file)
-;;                          collect file)))
-;;    (type . file)))
-;; 
-;;(defun my/helm-recentf (arg)
-;;  (interactive "P")
-;;  (if current-prefix-arg
-;;      (helm-other-buffer helm-c-recentf-directory-source "*helm recentf*")
-;;      (call-interactively 'helm-recentf)))
-   #+end_src
-
 ** helm-migemo
    helm の日本語検索.
    - https://github.com/emacs-helm/helm-migemo
@@ -391,14 +364,14 @@
 
 ** helm-emms
 
-   #+begin_src emacs-lisp
-   (use-package helm-emms)
-   #+end_src
+#+begin_src emacs-lisp
+(use-package helm-emms)
+#+end_src
 
 ** helm-cscope
    xcscope の helm i/f.
 
-   #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (use-package helm-cscope
   :init
   (add-hook 'c-mode-hook 'helm-cscope-mode)
@@ -451,7 +424,6 @@
   (setq helm-github-stars-username "tsu-nera"))
 #+end_src
 
-
 ** swiper-helm
    Emacs isearch with an overview. 
    Interactive `occur' using `helm
@@ -465,5 +437,34 @@
 #+begin_src emacs-lisp
 ;;(use-package swiper-helm)
 ;;  :bind (("C-s". swiper-helm)))
+#+end_src
+
+** my/helm-recentf
+   C-u C-x C-r で, ディレクトリのみを対象にする.
+   - [[http://d.hatena.ne.jp/syohex/20120911/1347378503#][helm を使って最近開いたディレクトリを開く - Life is very short]]
+
+   #+begin_src emacs-lisp
+;;(defvar helm-c-recentf-directory-source
+;;  '((name . "Recentf Directry")
+;;    (candidates . (lambda ()
+;;                    (loop for file in recentf-list
+;;                          when (file-directory-p file)
+;;                          collect file)))
+;;    (type . file)))
+;; 
+;;(defun my/helm-recentf (arg)
+;;  (interactive "P")
+;;  (if current-prefix-arg
+;;      (helm-other-buffer helm-c-recentf-directory-source "*helm recentf*")
+;;      (call-interactively 'helm-recentf)))
+   #+end_src
+
+
+** helm-open-github
+   helm i/f で github を開く.
+   - https://github.com/syohex/emacs-helm-open-github   
+
+#+begin_src emacs-lisp
+(use-package helm-open-github :disabled t)
 #+end_src
 

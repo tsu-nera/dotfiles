@@ -68,6 +68,7 @@
 
 #+begin_src emacs-lisp
 (use-package ace-window
+  :disabled t
   :bind (("C-x o" . ace-window)
 	 ("C-x C-o" . ace-maximize-window))
   :config
@@ -102,7 +103,8 @@
   :config
   (setq aw-background nil))
 ;;  (ace-link-setup-default))
-#+end_src-
+#+end_src
+
 ** ace-jump-helm-line
    helm 絞り込みを ace で. 
    - http://rubikitch.com/2015/04/16/ace-jump-helm-line/

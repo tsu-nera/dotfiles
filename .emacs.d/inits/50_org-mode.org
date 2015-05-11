@@ -102,7 +102,7 @@
 #+end_src
 
 ** org-mode での移動 with hydra
-
+   
 #+begin_src emacs-lisp
 (defhydra hydra-outline (org-mode-map "C-c")
   "outline"
@@ -1096,9 +1096,10 @@ emacs -Q --batch \
 
 #+begin_src emacs-lisp
 (use-package org-pomodoro
+  :disabled t
   :commands (custom-org-agenda-mode-defaults)
-  :bind* (("C-c C-x C-i" . org-pomodoro) ;; バインドできない (+_+)
-         ("C-c C-x C-o" . org-pomodoro))
+  :bind* (("C-c C-x C-i" . org-pomodoro)) ;; バインドできない (+_+)
+;;         ("C-c C-x C-o" . org-pomodoro))
   :init
   (add-hook 'org-agenda-mode-hook 'custom-org-agenda-mode-defaults 'append)
   :config
@@ -1121,6 +1122,11 @@ emacs -Q --batch \
               (gntp-notify 'alert "Clock out"
                            "Good Job!"
                            "localhost")))
+  (add-hook 'org-pomodoro-break-finished-hook
+            (lambda ()
+              (gntp-notify 'alert "Break End"
+                           "Let's start next hack!"
+                           "localhost")))
 
   ;; 3 分の休憩
   (setq org-pomodoro-short-break-length 3)
@@ -1128,9 +1134,10 @@ emacs -Q --batch \
   (defun custom-org-agenda-mode-defaults ()
     (org-defkey org-agenda-mode-map "q" 'bury-buffer)
     (org-defkey org-agenda-mode-map "I" 'org-pomodoro)
-    (org-defkey org-agenda-mode-map "O" 'org-pomodoro)
+;;    (org-defkey org-agenda-mode-map "O" 'org-pomodoro)
     (org-defkey org-agenda-mode-map (kbd "C-c C-x C-i") 'org-pomodoro)
-    (org-defkey org-agenda-mode-map (kbd "C-c C-x C-o") 'org-pomodoro)))
+;;    (org-defkey org-agenda-mode-map (kbd "C-c C-x C-o") 'org-pomodoro)
+    ))
 #+end_src
 
 * org-drill
@@ -1147,13 +1154,22 @@ emacs -Q --batch \
   minimal password manager for Emacs Org mode.
   - https://github.com/leafac/org-password-manager
 
-
 * org-cliplink    
   url から org-link 挿入.
   - [[https://github.com/rexim/org-cliplink][rexim/org-cliplink · GitHub]]
 
 #+begin_src emacs-lisp
 (use-package org-cliplink :bind "C-x p i")
+#+end_src
+
+* org-ac
+  auto-complete source for org-mode
+  - [[https://github.com/aki2o/org-ac][aki2o/org-ac · GitHub]]
+
+#+begin_src emacs-lisp
+(use-package org-ac
+  :config
+  (org-ac/config-default))
 #+end_src
 
 * 未使用中  

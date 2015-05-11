@@ -825,18 +825,19 @@ command uses interactive mode if passed an argument."
   - https://github.com/baudtack/pomodoro.el
 
 ** tomatinho
-ちょっとかわったポモドーロツール.
+  ちょっとかわったポモドーロツール.
+  - https://github.com/konr/tomatinho
 
-- https://github.com/konr/tomatinho
-
-使わないので一旦封印.
+  使わないので一旦封印.
 
 #+begin_src emacs-lisp
-;; (use-package tomatinho)
-;; (global-set-key (kbd "<f12>") 'tomatinho)
-;; (define-key tomatinho-map (kbd "N") 'tomatinho-interactive-new-pomodoro)
-;; (define-key tomatinho-map (kbd "P") 'tomatinho-interactive-deliberate-pause)
-;; (define-key tomatinho-map (kbd "T") 'tomatinho-interactive-toggle-display)
+(use-package tomatinho
+  :disabled t
+  :bind "C-x <f6>"
+  :config
+  (define-key tomatinho-map (kbd "N") 'tomatinho-interactive-new-pomodoro)
+  (define-key tomatinho-map (kbd "P") 'tomatinho-interactive-deliberate-pause)
+  (define-key tomatinho-map (kbd "T") 'tomatinho-interactive-toggle-display))
 #+end_src
 
 ** pomodoro.el
@@ -929,7 +930,7 @@ sudo pacman -S ghostscript
     - pdf-view-mode
     のときは, linum-mode は disable に.
     - [[http://stackoverflow.com/questions/16132234/how-can-i-speed-up-emacs-docview-mode][How can I speed up Emacs DocView mode? - Stack Overflow]]
-
+to
 
 *** font がへん
     フォントがへんになるのは, poppler のせい.
@@ -1027,9 +1028,11 @@ sudo pacman -S ghostscript
 #+end_src
 
 ** fcitx
+   fcitx がうまくうごかない.
 
 #+begin_src emacs-lisp
 (use-package fcitx
+  :disabled t
   :if linux-p
   :config
   (fcitx-aggressive-setup)
