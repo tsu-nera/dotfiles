@@ -357,6 +357,9 @@
     real-auto-save
     org-ac
     ocodo-svg-modelines
+    helm-dash
+    omni-tags
+    git-timemachine
     )
  "A list of packages to install from el-get at launch.")
 

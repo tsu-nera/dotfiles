@@ -394,6 +394,16 @@
   (helm-hatena-bookmark:initialize))
 #+end_src
 
+** helm-dash
+   API Reference. 
+   - https://github.com/areina/helm-dash
+
+   helm-dash-install-docset で辞書をインストール.
+
+#+begin_src emacs-lisp
+(use-package helm-dash)
+#+end_src
+
 * Action 追加
   helm で絞り込みのあと, TAB で Action 起動.
   - [[http://rubikitch.com/2015/02/02/helm-add-actions/][emacs helm にアクション・キーバインドを超簡単に追加する方法]]

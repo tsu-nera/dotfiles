@@ -71,7 +71,7 @@
   (push "*Shell Command Output*" popwin:special-display-config) ;; M-!
   (push '(compilation-mode :noselect t) popwin:special-display-config) ;; M-x compile
   
-  (push '("^\*Org .+\*$" :regexp t) popwin:special-display-config)
+;;  (push '("^\*Org .+\*$" :regexp t) popwin:special-display-config)
   (push '("*Agenda Commands*" :regexp t) popwin:special-display-config)
   ;; (push '("^\*Org Agenda*" :regexp t) popwin:special-display-config)
 

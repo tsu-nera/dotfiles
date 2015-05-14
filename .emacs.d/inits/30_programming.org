@@ -718,6 +718,13 @@
   :commands (git-link git-link-commit))
 #+end_src
 
+** git-timemachine
+   - https://github.com/pidu/git-timemachine
+
+#+begin_src emacs-lisp
+(use-package git-timemachine)
+#+end_src
+
 * svn
 ** vc-mode
    Emacs にはじめから入っている.

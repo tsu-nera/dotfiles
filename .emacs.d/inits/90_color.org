@@ -159,6 +159,7 @@
 ** TO-DO をハイライト
    - [[http://stackoverflow.com/questions/8551320/highlighting-todos-in-all-programming-modes][emacs - Highlighting TODOs in all programming modes - Stack Overflow]]
 
+
 *** fic-ext-mode   
     - http://www.emacswiki.org/emacs/fic-ext-mode.el
 
@@ -262,6 +263,23 @@
 ;; (setq-default show-trailing-whitespace t)
 #+end_src
 
+** omni-tags 
+   - https://github.com/AdrieanKhisbe/omni-tags.el
+
+   使い方わかんなーい
+
+#+begin_src emacs-lisp
+(use-package omni-tags
+  :disabled t
+  :init (progn
+          (add-hook 'org-mode-hook 'omni-tags-mode)
+          (add-hook 'prog-mode-hook 'omni-tags-mode))
+  :bind* (("M-t". omni-tags-next-tags)
+          ("C-t" . omni-tags-previous-tags)
+          ("C-M-t" . omni-tags-next-tags))
+  :config
+  (setq omni-tags-primary-tag "@"))
+#+end_src
 
 * フォント
 ** お試し

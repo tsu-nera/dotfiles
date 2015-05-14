@@ -1,0 +1,3 @@
+(:name omni-tags
+       :type github
+       :pkgname "AdrieanKhisbe/omni-tags.el")
