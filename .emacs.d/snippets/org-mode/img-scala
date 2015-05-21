@@ -1,0 +1,10 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: img-scala
+# key: img-scala
+# binding: direct-keybinding
+# --
+#+BEGIN_HTML
+<img alt="Scala" src="http://futurismo.biz/wp-content/uploads/wpid-scala.gif"/>
+#+END_HTML
+
+

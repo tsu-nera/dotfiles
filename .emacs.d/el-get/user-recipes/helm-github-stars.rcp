@@ -1,0 +1,3 @@
+(:name Sliim/helm-github-stars
+       :type github
+       :pkgname "Sliim/helm-github-stars")

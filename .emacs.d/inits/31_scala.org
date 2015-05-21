@@ -23,7 +23,7 @@
 
 #+begin_src emacs-lisp
 (use-package ensime
-  :commands ensime-scala-mode
+  :commands (ensime-scala-mode ensime)
   :init
   (with-eval-after-load 'scala-mode
     (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)

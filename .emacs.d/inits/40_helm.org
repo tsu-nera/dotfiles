@@ -429,7 +429,6 @@
 
 #+begin_src emacs-lisp
 (use-package helm-github-stars
-  :disabled t
   :config 
   (setq helm-github-stars-username "tsu-nera"))
 #+end_src

@@ -752,7 +752,7 @@ command uses interactive mode if passed an argument."
     (interactive)    
     (my/jazzradio-switch
      "http://ephemeron:dayeiph0ne%40pp@api.audioaddict.com/v1/rockradio/mobile/batch_update?stream_set_key=")
-    "http://listen.rockradio.com/webplayer/"))
+    "http://listen.rockradio.com/webplayer/")
 #+end_src
 
 *** Windows
