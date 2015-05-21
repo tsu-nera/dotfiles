@@ -54,6 +54,25 @@
   (push '(helm-multi-swoop . imenus-helm-multi-swoop) imenus-actions))
 #+end_src
 
+** imenu-anywhare
+  imenu の強化.
+  - https://github.com/vspinu/imenu-anywhere
+
+  複数バッファで imenu
+
+#+begin_src emacs-lisp
+(use-package imenu-anywhere
+  :bind* ("C-c h" . helm-imenu-anywhere)
+  :config
+  (require 'imenu) 
+  (setq ido-enable-flex-matching t)       ;あいまいマッチ
+  (defun jcs-use-package ()
+    (add-to-list 'imenu-generic-expression
+                 '("Used Packages"
+                   "\\(^\\s-*(use-package +\\)\\(\\_<.+\\_>\\)" 2)))
+  (add-hook 'emacs-lisp-mode-hook #'jcs-use-package))
+#+end_src
+
 * 編集 (とくにプログラミング)
 ** electric-spacing
    演算子の前後にスペースを挿入. 

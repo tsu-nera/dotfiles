@@ -164,7 +164,7 @@
     psession
     elscreen-persist
     revive
-    imenu-anywhere
+    ;; imenu-anywhere
     ;; helm
     helm
     helm-descbinds
