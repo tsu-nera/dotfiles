@@ -22,8 +22,7 @@
 	   ("Capfile$" . ruby-mode)
 	   ("Gemfile$" . ruby-mode)
 	   ("[Rr]akefile$" . ruby-mode))
-  :interpreter "ruby"
-  )
+  :interpreter "ruby")
 #+end_src
 
 ** enhanced-ruby-mode
@@ -49,16 +48,13 @@
 ** robe-mode
    かしこい補完.
 
-   #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (use-package robe-mode
-  :defer t
   :init
   (add-hook 'ruby-mode-hook 'robe-mode)
   (add-hook 'robe-mode-hook 'ac-robe-setup)
   :config
-  (custom-set-variables
-   '(robe-highlight-capf-candidates nil))
-  )
+  (setq robe-highlight-capf-candidates nil))
 #+end_src
 
 ** ruby-electric.el
@@ -153,6 +149,21 @@
   :config
   (custom-set-variables '(rspec-use-rake-flag nil))
   (custom-set-faces))
+#+end_src
+
+** minitest 
+  A minitest mode for emacs 
+   - https://github.com/arthurnn/minitest-emacs
+
+  rake とか bundle とか、本格的にプロジェクト管理していないと
+  利用できない. quickrun のほうが良さげ.
+
+#+begin_src emacs-lisp
+(use-package minitest
+  :init
+  (add-hook 'ruby-mode-hook 'minitest-mode))
+;;  :config
+;;  (minitest-install-snippets))
 #+end_src
 
 * 静的解析

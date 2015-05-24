@@ -63,7 +63,6 @@
 (use-package ocodo-svg-modelines)
 #+end_src
 
-
 ** nyan-mode
    にゃんにゃん.
    - https://github.com/TeMPOraL/nyan-mode
@@ -80,11 +79,11 @@
 
 #+begin_src emacs-lisp
 (use-package symon
+  :disabled t
   :config
   (symon-mode))
 #+end_src
      
-
 * ハイライト
   ハイライト系は, 性能に関わるので無闇に追加しないこと!!
 ** font-lock-mode

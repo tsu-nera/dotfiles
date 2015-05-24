@@ -201,6 +201,13 @@
 (use-package sx-tab)
 #+end_src
 
+** define-word
+   英英辞典
+
+#+begin_src emacs-lisp
+(use-package define-word)
+#+end_src
+
 * memo:メモ・キャプチャー
 ** Hown
    Function : Evernote を越えるメモ管理ツール
@@ -400,7 +407,7 @@ $ sudo cp /usr/bin/ruby1.9/bin/enclient.rb /usr/bin
 (use-package netrc :defer t)
 #+end_src
 
-* Communication Tools: チャット関連
+)* Communication Tools: チャット関連
 ** twittering-mode
   Emacs Twitter Client
   - [[http://www.emacswiki.org/emacs/TwitteringMode-ja][EmacsWiki: TwitteringMode-ja]]

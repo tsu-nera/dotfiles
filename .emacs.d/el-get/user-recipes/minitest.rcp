@@ -1,0 +1,3 @@
+(:name minitest-emacs
+       :type github
+       :pkgname "arthurnn/minitest-emacs")

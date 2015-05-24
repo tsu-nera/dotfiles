@@ -1,0 +1,3 @@
+(:name define-word
+       :type github
+       :pkgname "abo-abo/define-word")

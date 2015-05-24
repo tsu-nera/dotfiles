@@ -772,7 +772,6 @@
    縦横比を計算してくれるつーる.
    - [[http://www.web-jozu.com/javascript/size.html][写真の縦横比を固定して拡大縮小値を計算するツール:JavaScript サンプル |WEB 上手]]
 
-
 ** 自動サムネイル挿入
    最大サイズの画像の中から自動でアイキャッチ画像を設定してくれる.
    - [[http://sachachua.com/blog/2014/10/publishing-wordpress-thumbnail-images-using-emacs-org2blog/#][Publishing Wordpress thumbnail images using Emacs and Org2Blog ]]
@@ -797,6 +796,9 @@
 (setq org-html-table-data-tags (quote ("<td>" . "</td>")))
 (setq org-html-table-header-tags (quote ("<th scope=\"%s\">" . "</th>")))
 #+end_src
+
+** ログインできない
+   
 
 * org-export
   org-mode から別形式へ. つまり, なんでも org-mode でよいということ.
