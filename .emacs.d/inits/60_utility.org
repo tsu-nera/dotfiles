@@ -911,6 +911,21 @@ command uses interactive mode if passed an argument."
 ;; )
  #+end_src
 
+* Desktop 関係
+ デスクトップ通知はデフォルトで機能がある(24 より)
+ - [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Desktop-Notifications.html][GNU Emacs Lisp Reference Manual: Desktop Notifications]]
+
+** gntp
+   Growl for linux/windows
+   - [[http://sheephead.homelinux.org/2015/01/06/7197/][Growl に gntp 経由で通知させる gntp.el の紹介 - sheephead]]
+
+   gol で Growl サーバ起動.
+
+#+begin_src emacs-lisp
+(use-package gntp)
+#+end_src
+
+
 * その他
 ** pdf-tools
    PDF Viewer. Emacs で PDF がみれるという画期的なツールだ.
@@ -1050,16 +1065,6 @@ to
 
 *** Bookmarks
     - [[https://billalex.wordpress.com/2013/05/01/ledger-nix-cli-double-entry-accounting/#][Ledger – *nix cli bookkeeping | Bills Blog]]
-
-** gntp
-   Growl for linux/windows
-   - [[http://sheephead.homelinux.org/2015/01/06/7197/][Growl に gntp 経由で通知させる gntp.el の紹介 - sheephead]]
-
-   gol で Growl サーバ起動.
-
-#+begin_src emacs-lisp
-(use-package gntp)
-#+end_src
 
 ** fcitx
    fcitx がうまくうごかない.

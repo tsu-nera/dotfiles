@@ -260,8 +260,8 @@
 ;; カラムビューで表示する項目
 ;; Set default column view headings: Task Effort Clock_Summary
 ;; 保存時にスペースを入れられてしまう...
-;; カスタムファイルに設定を書くことにする
-;; (setq org-columns-default-format "%50ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM_T(Clock)")
+;; カスタムファイルに設定を書くことにする --> カスタムファイルがクリアされた!!
+(setq org-columns-default-format "%50ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Clock)")
 
 ;; 見つもり合計
 (setq org-agenda-columns-add-appointments-to-effort-sum t)
@@ -1117,6 +1117,7 @@ emacs -Q --batch \
   (setq org-pomodoro-play-ticking-sounds nil)
   (setq org-pomodoro-audio-player "mplayer")
 
+
   (add-hook 'org-pomodoro-started-hook
             (lambda ()
               (gntp-notify 'alert "Clock in"
@@ -1132,6 +1133,12 @@ emacs -Q --batch \
               (gntp-notify 'alert "Clock out"
                            "Good Job!"
                            "localhost")))
+  (if linux-p
+      (add-hook 'org-pomodoro-started-hook
+                (lambda ()
+                  (notifications-notify :title "Clock out"
+                                        :body "Let's Check next task"
+                                        :timeout 0))))
   (add-hook 'org-pomodoro-break-finished-hook
             (lambda ()
               (gntp-notify 'alert "Break End"
