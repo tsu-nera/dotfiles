@@ -109,6 +109,79 @@
 #+end_src
 
 * 編集
+** 削除系
+   | C-k | kill-line     |
+   | M-d | kill-word     |
+   | M-k | kill-sentence |
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-h")     'backward-delete-char)
+#+end_src
+
+ もともとは, C-h はミニバッファでヘルプを見るための割り当て.
+ - [[http://openlab.dino.co.jp/2007/09/25/23251372.html][Ctrl+h で Emacs のヘルプが見たくない人のための設定 - ディノオープンラボラトリ]]
+
+#+begin_src emacs-lisp
+;; (load "term/bobcat")
+;; (when (fboundp 'terminal-init-bobcat)
+;;   (terminal-init-bobcat))
+#+end_src
+
+** カーソル位置の単語を
+    - [[http://www.emacswiki.org/emacs/CopyWithoutSelection#toc4][EmacsWiki: Copy Without Selection]]
+
+*** copy-word-at-point
+
+#+begin_src emacs-lisp
+(defun get-point (symbol &optional arg)
+  "get the point"
+  (funcall symbol arg)
+  (point))
+
+(defun copy-thing (begin-of-thing end-of-thing &optional arg)
+  "copy thing between beg & end into kill ring"
+  (save-excursion
+    (let ((beg (get-point begin-of-thing 1))
+	  (end (get-point end-of-thing arg)))
+      (copy-region-as-kill beg end))))
+
+(defun copy-word-at-point (&optional arg)
+  "Copy words at point into kill-ring"
+  (interactive "P")
+  (copy-thing 'backward-word 'forward-word arg))
+
+;; (global-set-key (kbd "C-M-w") 'copy-word-at-point)
+;; 読み取りモードのときに
+#+end_src
+
+    現在位置の word を削除
+    - [[http://dev.ariel-networks.com/wp/documents/aritcles/emacs/part16][「Emacs のトラノマキ」連載第 16 回「元 Vimmer が考える Emacs の再設計」 (深町英太郎) ]]
+
+*** kill-word-at-point
+#+begin_src emacs-lisp
+(defun kill-word-at-point ()
+  (interactive)
+  (let ((char (char-to-string (char-after (point)))))
+    (cond
+     ((string= " " char) (delete-horizontal-space))
+     ((string-match "[\t\n -@\[-`{-~]" char) (kill-word 1))
+     (t (forward-char) (backward-word) (kill-word 1)))))
+
+(global-set-key "\M-d" 'kill-word-at-point)
+#+end_src
+
+** omni-kill
+  使い方がわからん.... 便利そう.
+  - https://github.com/AdrieanKhisbe/omni-kill.el
+
+#+begin_src emacs-lisp
+(use-package omni-kill
+    :bind (("M-s c". omni-copy)
+           ("M-s d". omni-delete)
+           ("M-s k". omni-kill)
+           ("M-s s". omni-select)))
+#+end_src
+
 ** cua-mode
    矩形編集.
 

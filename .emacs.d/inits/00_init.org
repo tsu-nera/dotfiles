@@ -110,7 +110,8 @@
 * el-get 同期 Package
 #+begin_src emacs-lisp 
 (defvar my/el-get-packages-all
- '(
+  '(
+    omni-kill
     use-package
     ;; window
     popwin
@@ -363,6 +364,7 @@
     minitest
     avy
     define-word
+    helm-chronos
     )
  "A list of packages to install from el-get at launch.")
 

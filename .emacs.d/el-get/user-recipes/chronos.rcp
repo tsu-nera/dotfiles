@@ -1,0 +1,3 @@
+(:name chronos
+       :type github
+       :pkgname "dxknight/chronos")

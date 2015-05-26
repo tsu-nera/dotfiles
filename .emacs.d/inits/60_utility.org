@@ -822,23 +822,49 @@ command uses interactive mode if passed an argument."
 (use-package codic :defer t)
 #+end_src
 
-* Pomodoro: ポモドーロ
-  ポモドーロ関係のツール.
-  - [[http://pomodorotechnique.com/][HOME - The Pomodoro Technique ® The Pomodoro Technique ®]]
+* 時間
+** chronos/ helm-chronos
+   - https://github.com/dxknight/chronos
+   - https://github.com/dxknight/helm-chronos
 
-** 一覧
-  - https://github.com/konr/tomatinho
-  - http://ivan.kanis.fr/pomodoro.el
-  - https://github.com/lolownia/org-pomodoro
-  - https://github.com/baudtack/pomodoro.el
-
-** tomatinho
-  ちょっとかわったポモドーロツール.
-  - https://github.com/konr/tomatinho
-
-  使わないので一旦封印.
-
+  通知のために gntp-send を入れた.
+  - https://github.com/mattn/gntp-send
+   
 #+begin_src emacs-lisp
+(use-package helm-chronos
+  :disabled t
+  :init (setq helm-chronos-standard-timers
+              '("    25/Pomodoro"
+                "    3/Pomodoro_Break"))
+  :bind (("C-c C-x t" . helm-chronos-add-timer))
+  :config
+  (setq chronos-shell-notify-program "gntp-send"
+        chronos-shell-notify-parameters '("clock-out"
+                                          "Good Job (^o^)/"))
+  
+  (setq chronos-expiry-functions '(chronos-shell-notify
+                                   ;; chronos-desktop-notifications-notify                                   
+                                   chronos-message-notify
+                                   chronos-buffer-notify)))
+#+end_src
+
+** Pomodoro: ポモドーロ
+   ポモドーロ関係のツール.
+   - [[http://pomodorotechnique.com/][HOME - The Pomodoro Technique ® The Pomodoro Technique ®]]
+
+*** 一覧
+   - https://github.com/konr/tomatinho
+   - http://ivan.kanis.fr/pomodoro.el
+   - https://github.com/lolownia/org-pomodoro
+   - https://github.com/baudtack/pomodoro.el
+
+*** tomatinho
+   ちょっとかわったポモドーロツール.
+   - https://github.com/konr/tomatinho
+
+   使わないので一旦封印.
+
+ #+begin_src emacs-lisp
 (use-package tomatinho
   :disabled t
   :bind "C-x <f6>"
@@ -846,18 +872,18 @@ command uses interactive mode if passed an argument."
   (define-key tomatinho-map (kbd "N") 'tomatinho-interactive-new-pomodoro)
   (define-key tomatinho-map (kbd "P") 'tomatinho-interactive-deliberate-pause)
   (define-key tomatinho-map (kbd "T") 'tomatinho-interactive-toggle-display))
-#+end_src
+ #+end_src
 
-** pomodoro.el
-   なんか, pomodoro.el が 同じ名前で 3 つもある気がする.
-   とりあえず, el-get のレシピがあったものを利用.
+*** pomodoro.el
+    なんか, pomodoro.el が 同じ名前で 3 つもある気がする.
+    とりあえず, el-get のレシピがあったものを利用.
 
-   - [[https://github.com/syohex/emacs-utils][syohex/emacs-utils]]
-   - [[http://d.hatena.ne.jp/syohex/20121215/1355579575][Emacs でポモドーロテクニック - Life is very short]]
+    - [[https://github.com/syohex/emacs-utils][syohex/emacs-utils]]
+    - [[http://d.hatena.ne.jp/syohex/20121215/1355579575][Emacs でポモドーロテクニック - Life is very short]]
 
-   使わないので一旦封印.
+    使わないので一旦封印.
 
-#+begin_src emacs-lisp
+ #+begin_src emacs-lisp
 ;; (use-package pomodoro)
 
 ;; (when linux-p
@@ -883,7 +909,7 @@ command uses interactive mode if passed an argument."
 ;; 	    (shell-command "mplayer /usr/share/sounds/freedesktop/stereo/service-login.oga >/dev/null 2>&1")
 ;; 	    ))
 ;; )
-#+end_src
+ #+end_src
 
 * その他
 ** pdf-tools

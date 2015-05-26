@@ -688,6 +688,12 @@
 	 ;; :username (netrc-get futurismo "login")
 	 ;; :password (netrc-get futurismo "password")
 	 )
+        ("Futurismo Dev"
+         :url "http://hmi-me.ciao.jp/futurismo_dev/xmlrpc.php"
+	 :username "admin"
+	 ;; :username (netrc-get futurismo "login")
+	 ;; :password (netrc-get futurismo "password")
+	 )
 	("SternStunden"
 	 :url "http://hmi-me.ciao.jp/sternstunden/xmlrpc.php"
 	 :username "admin"         
@@ -798,7 +804,10 @@
 #+end_src
 
 ** ログインできない
-   
+   Invalid end tag methodResponse..
+
+   おそらく、ブログ側に問題あり。
+   最近改造した場合は、以前の状態に戻してみる.
 
 * org-export
   org-mode から別形式へ. つまり, なんでも org-mode でよいということ.
@@ -1098,10 +1107,9 @@ emacs -Q --batch \
 
 #+begin_src emacs-lisp
 (use-package org-pomodoro
-  :disabled t
   :commands (custom-org-agenda-mode-defaults)
   :bind* (("C-c C-x C-i" . org-pomodoro)) ;; バインドできない (+_+)
-;;         ("C-c C-x C-o" . org-pomodoro))
+  ;;      ("C-c C-x C-o" . org-pomodoro))
   :init
   (add-hook 'org-agenda-mode-hook 'custom-org-agenda-mode-defaults 'append)
   :config
