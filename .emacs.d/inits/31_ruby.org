@@ -49,7 +49,7 @@
    かしこい補完.
 
 #+begin_src emacs-lisp
-(use-package robe-mode
+(use-package robe
   :init
   (add-hook 'ruby-mode-hook 'robe-mode)
   (add-hook 'robe-mode-hook 'ac-robe-setup)

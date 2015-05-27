@@ -1,3 +1,4 @@
+
 * ターミナル
   主にターミナル操作に関する機能.
   - ファイラ
@@ -236,6 +237,7 @@
 
 #+begin_src emacs-lisp
 (use-package zlc
+  :disabled t
   :config
   (zlc-mode t)
 

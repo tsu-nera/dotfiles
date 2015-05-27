@@ -1,6 +1,6 @@
 * helm
-  絞りこみインターフェ
-イス.
+  絞りこみインターフェイス.
+
   - https://github.com/emacs-helm
 
   ダウンロードしたら, make でコンパイルする.
@@ -11,12 +11,11 @@
 * 組み込み helm
   helm project にもとから入っているもの.
   - https://github.com/emacs-helm/helm
-
+    
 ** Basic Setting 
 #+begin_src emacs-lisp
 (use-package helm-config
   :config
-  (helm-mode 1) ;; 基本的な設定はこれで実施される.
   (helm-autoresize-mode 1) ;; 検索結果によってリサイズ. default 40%
   (setq helm-autoresize-max-height 50)
 #+end_src
@@ -84,6 +83,8 @@
 
 #+begin_src emacs-lisp
 )
+(require 'helm-config)
+(helm-mode 1) ;; 基本的な設定はこれで実施される.
 #+end_src
     
 * 拡張 helm

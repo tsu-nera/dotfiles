@@ -111,6 +111,7 @@
 #+begin_src emacs-lisp 
 (defvar my/el-get-packages-all
   '(
+    define-word
     omni-kill
     use-package
     ;; window
@@ -341,7 +342,7 @@
     impatient-mode
     shell-toggle
     shell-pop
-    volume
+    volume-el
     clipmon
     rainbow-mode
     term-run
@@ -351,7 +352,7 @@
     sx
     git-link
     gntp
-    org-password-manageer
+    org-password-manager
     browse-at-remote
     org-cliplink
     symon
