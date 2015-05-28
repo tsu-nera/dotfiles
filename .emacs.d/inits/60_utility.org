@@ -1080,6 +1080,20 @@ to
 
 #+end_src
 
+** emoji-cheat-sheet-plus
+   - https://github.com/syl20bnr/emacs-emoji-cheat-sheet-plus
+
+#+begin_src emacs-lisp
+(use-package emoji-cheat-sheet-plus
+    :defer t
+    :init
+    (progn
+      ;; enabled emoji in buffer
+      (add-hook 'org-mode-hook 'emoji-cheat-sheet-plus-display-mode)
+      ;; insert emoji with helm
+      (global-set-key (kbd "C-c C-e") 'emoji-cheat-sheet-plus-insert)))
+#+end_src
+
 * Tips
 ** slimlock
    Emacs から一時停止.

@@ -1108,8 +1108,8 @@ emacs -Q --batch \
 #+begin_src emacs-lisp
 (use-package org-pomodoro
   :commands (custom-org-agenda-mode-defaults)
-  :bind* (("C-c C-x C-i" . org-pomodoro)) ;; バインドできない (+_+)
-  ;;      ("C-c C-x C-o" . org-pomodoro))
+  :bind (("C-c C-x C-i" . org-pomodoro)
+         ("C-c C-x C-o" . org-pomodoro))
   :init
   (add-hook 'org-agenda-mode-hook 'custom-org-agenda-mode-defaults 'append)
   :config
@@ -1133,28 +1133,28 @@ emacs -Q --batch \
               (gntp-notify 'alert "Clock out"
                            "Good Job!"
                            "localhost")))
-  (if linux-p
-      (add-hook 'org-pomodoro-started-hook
-                (lambda ()
-                  (notifications-notify :title "Clock out"
-                                        :body "Let's Check next task"
-                                        :timeout 0))))
   (add-hook 'org-pomodoro-break-finished-hook
             (lambda ()
               (gntp-notify 'alert "Break End"
                            "Let's start next hack!"
                            "localhost")))
-
+ (if linux-p
+     (add-hook 'org-pomodoro-finished-hook
+               (lambda ()
+                 (notifications-notify :title "Clock out"
+                                       :body "Let's Check next task"
+                                       :timeout 0))))
+ 
   ;; 3 分の休憩
   (setq org-pomodoro-short-break-length 3)
   
   (defun custom-org-agenda-mode-defaults ()
     (org-defkey org-agenda-mode-map "q" 'bury-buffer)
     (org-defkey org-agenda-mode-map "I" 'org-pomodoro)
-;;    (org-defkey org-agenda-mode-map "O" 'org-pomodoro)
+    (org-defkey org-agenda-mode-map "O" 'org-pomodoro)
     (org-defkey org-agenda-mode-map (kbd "C-c C-x C-i") 'org-pomodoro)
-;;    (org-defkey org-agenda-mode-map (kbd "C-c C-x C-o") 'org-pomodoro)
-    ))
+    (org-defkey org-agenda-mode-map (kbd "C-c C-x C-o") 'org-pomodoro)))
+    
 #+end_src
 
 * org-drill
