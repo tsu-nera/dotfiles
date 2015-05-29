@@ -80,7 +80,6 @@
   - [[http://www.emacswiki.org/emacs/AssemblyProgramming][EmacsWiki: Assembly Programming]]
 
   asm-mode が標準添付.
-  
 
 * DSL
 ** yaml-mode
@@ -103,7 +102,6 @@
   ;; (add-hook 'rst-mode-hook '(lambda () (setq indent-tabs-mode nil)))
 )
  #+end_src
-
 
 ** Plant UML Mode
    Major mode for editing PlantUML.
@@ -179,3 +177,8 @@
  
 
 
+** mql
+
+#+begin_src emacs-lisp
+(use-package mql-mode)
+#+end_src

@@ -24,15 +24,36 @@ register_user_stylesheet(
             "}"));
 
 // give me new tabs; open buffers (tabs) in the background
+//require("tab-bar.js");
 require("new-tabs.js");
 require("clicks-in-new-buffer.js");
 clicks_in_new_buffer_target = OPEN_NEW_BUFFER_BACKGROUND;
 clicks_in_new_buffer_button = 1; //  midclick links in new buffers with
 
+// buffer number ‚ğw’è‚µ‚ÄØ‚è‘Ö‚¦‚é
+function define_switch_buffer_key (key, buf_num) {
+    define_key(default_global_keymap, key,
+               function (I) {
+                   switch_to_buffer(I.window,
+                                    I.window.buffers.get_buffer(buf_num));
+               });
+}
+for (let i = 0; i < 10; ++i) {
+    define_switch_buffer_key(String((i+1)%10), i);
+}
+
 // auto completion in the minibuffer
 minibuffer_auto_complete_default = true;
 url_completion_use_history = true; // should work since bf05c87405
 url_completion_use_bookmarks = true;
+
+//////////////////////////////////////////
+// favicon
+//////////////////////////////////////////
+// http://conkeror.org/Favicons
+require("favicon");
+add_hook("mode_line_hook", mode_line_adder(buffer_icon_widget), true);
+read_buffer_show_icons = true;
 
 //////////////////////////////////////////
 // shortcut
