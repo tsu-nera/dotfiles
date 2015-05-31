@@ -172,6 +172,7 @@
 #+end_src
 
 *** アジェンダ表示の対象ファイル
+
 #+begin_src emacs-lisp
 (setq org-agenda-files '("~/gtd/main.org"
                          "~/gtd/inbox.org"

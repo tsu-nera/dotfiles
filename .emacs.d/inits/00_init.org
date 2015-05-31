@@ -111,6 +111,7 @@
 #+begin_src emacs-lisp 
 (defvar my/el-get-packages-all
   '(
+    org-journal
     define-word
     omni-kill
     use-package
