@@ -416,6 +416,7 @@
 
 *** Java
     Java は flycheck 対応していない...
+
 #+begin_src emacs-lisp
 (defun my-java-flymake-init ()
   (list "javac" (list (flymake-init-create-temp-buffer-copy
@@ -446,21 +447,31 @@
 ;; (push '("\\.cpp$" flymake-cc-init) flymake-allowed-file-name-masks)
 #+end_src
 
-*** Haskell
 *** Python
+     flymake でエラーチェックを実施. 
+   エラーチェックのエンジンに pyflakes を利用する.
+
+   #+begin_src bash
+   $ sudo pip install pyflakes
+   #+end_src
+
+   Emacswiki を参考に設定.
+   - [[http://www.emacswiki.org/PythonProgrammingInEmacs][EmacsWiki: Python Programming In Emacs]]
+
+   -> flycheck に移行.
 
 #+begin_src emacs-lisp
-(defun flymake-pyflakes-init ()
-  (when (not (subsetp (list (current-buffer)) (tramp-list-remote-buffers)))
-    (let* ((temp-file (flymake-init-create-temp-buffer-copy
-		       'flymake-create-temp-inplace))
-	   (local-file (file-relative-name
-			temp-file
-			(file-name-directory buffer-file-name))))
-      (list "pyflakes" (list local-file)))))
-
-(add-to-list 'flymake-allowed-file-name-masks
-	     '("\\.py$" flymake-pyflakes-init))
+;; (defun flymake-pyflakes-init ()
+;;   (when (not (subsetp (list (current-buffer)) (tramp-list-remote-buffers)))
+;;     (let* ((temp-file (flymake-init-create-temp-buffer-copy
+;;         	       'flymake-create-temp-inplace))
+;;            (local-file (file-relative-name
+;;         		temp-file
+;;         		(file-name-directory buffer-file-name))))
+;;       (list "pyflakes" (list local-file)))))
+;;  
+;; (add-to-list 'flymake-allowed-file-name-masks
+;;              '("\\.py$" flymake-pyflakes-init))
 #+end_src
 
 *** Emacs lisp
@@ -578,9 +589,7 @@
    - https://github.com/rocky/emacs-dbgr/wiki/how-to-use
 
 #+begin_src emacs-lisp
-(use-package realgud
-  :if linux-p
-  :defer t)
+(use-package realgud :disabled t)
 #+end_src
 
 * Utils

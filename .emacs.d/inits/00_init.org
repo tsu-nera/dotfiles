@@ -111,6 +111,8 @@
 #+begin_src emacs-lisp 
 (defvar my/el-get-packages-all
   '(
+    helm-pydoc
+    jedi
     org-journal
     define-word
     omni-kill

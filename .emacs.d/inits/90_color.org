@@ -8,6 +8,7 @@
 #+begin_src emacs-lisp
 (use-package smart-mode-line
   :config
+  (setq sml/mode-width 40)
   (setq sml/no-confirm-load-theme t)
   (sml/setup))
 #+end_src
@@ -527,12 +528,14 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
    - [[http://d.hatena.ne.jp/murase_syuka/20140815/1408061850][rainbow-delimiters.el の括弧色付けをデフォルトより強調する方法 - 会者定離で以降]]
    - [[http://yoo2080.wordpress.com/2013/12/21/small-rainbow-delimiters-tutorial/][Small rainbow-delimiters tutorial | Yoo Box]]
 
-   #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (use-package rainbow-delimiters
   :init
   (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'scheme-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
+;;  (add-hook 'emacs-startup-hook 'rainbow-delimiters-using-stronger-colors)
+;;  (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-using-stronger-colors)  
   :config
   ;; these setting should be placed after load-theme
   ;; using stronger colors
@@ -553,7 +556,7 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
 		      :foreground 'unspecified
 		      :inherit 'error
 		      :strike-through t))
-  #+end_src
+#+end_src
 
 * minimap
   Sublime Text のようなミニマップ. ちょっと重い.

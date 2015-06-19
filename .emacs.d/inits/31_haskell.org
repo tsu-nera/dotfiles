@@ -14,7 +14,7 @@
 
 #+begin_src emacs-lisp
 (use-package haskell-mode
-  :commands haskell-mode
+  :commands (haskell-mode run-haskell)
   :mode (("\\.hs$" . haskell-mode)
          ("\\.lhs$" . literate-haskell-mode))
   :interpreter (("runghc" . haskell-mode)
@@ -25,6 +25,7 @@
   ;; (add-hook 'haskell-mode-hook 'font-lock-mode) すでに有効??
   (add-hook 'haskell-mode-hook 'imenu-add-menubar-index)
   (add-hook 'haskell-mode-hook 'inf-haskell-mode) ;; C-c, C-l で起動.
+  (add-hook 'haskell-mode-hook 'flycheck-mode)
   :config
 #+end_src
 
@@ -95,14 +96,27 @@
   新手のモード
   - https://github.com/knupfer/haskell-emacs  
 
-
 * エラーチェック
-** flymake
-   構文チェック.
+** flycheck
+
+   #+begin_src emacs-lisp
+   
+   #+end_src
 
 ** hlint
    コードチェック. cabal install hlint でインストールする.
    C-c C-c でカーソル部のチェック.
+
+*** The IO action ‘ main ’ is not defined in module ‘ Main ’
+    dummy module をおく.
+
+#+begin_src haskell
+module Chapter1 where
+
+hoge
+#+end_src
+
+   - [[http://stackoverflow.com/questions/30518927/how-to-avoid-main-is-not-defined-in-module-main-when-using-syntastic][haskell - How to avoid "‘ main ’ is not defined in module ‘ Main ’" when using sy...]]
 
 * 自動補完
   こんなの見つけた. ac-haskell-process.

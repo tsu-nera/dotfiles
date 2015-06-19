@@ -1,7 +1,7 @@
 * Python
   Python 環境.
 
-* 入力支援
+* シンタックスハイライト
   python.el は公式, python-mode.el は Python コミュニティによって作成されたもの.
 
 ** python
@@ -17,17 +17,7 @@
    - [[http://ikautimituaki.hatenablog.com/entry/20111120/1321806070][python-mode の便利なショートカットまとめ - まったりいんふぉまてぃくすめもらんだむ]]
 
 #+begin_src emacs-lisp
-;; (setq auto-mode-alist
-;;       (cons '("\\.py$" . python-mode) auto-mode-alist))
-;; (setq interpreter-mode-alist (cons '("python" . python-mode)
-;;                                    interpreter-mode-alist))
-;; (autoload 'python-mode "python-mode" "Python editing mode." t)
-#+end_src
-
-** インデント設定
-   4 で設定.
-
-   #+begin_src emacs-lisp
+(setq py-install-directory "~/.emacs.d/el-get/repo/python-mode")
 (use-package python-mode
   :mode "\\.py$"
   :interpreter "python"
@@ -39,39 +29,69 @@
 	       (setq python-indent 4)
 	       (setq tab-width 4)
 	       (setq imenu-create-index-function 'python-imenu-create-index)
-	       ))
-  )
+	       )))
 #+end_src
 
-* コードリーディング
-** imenu
-   - [[http://qiita.com/lambdasakura@github/items/ceb9bc6fb008c959ec4b][Emacs の Python 開発環境構築メモ - Qiita]]
+* 補完   
+** jedi
+   Python のオムニ補完 (かしこい補完) をしてくれる.
+   - [[http://qiita.com/yuu116atlab/items/2a62cb880ac863dcc8ef][emacs-jedi の install - Qiita]]
+   - https://github.com/tkf/emacs-jedi
+
+   virtualenv が必要.
+
+#+begin_src bash
+pip install virtualenv
+#+end_src
+
+  初回利用時には、M-x jedi:install-server
+
+#+begin_src emacs-lisp
+;;(add-hook 'python-mode-hook 'jedi:setup)
+(add-hook 'python-mode-hook 'jedi:ac-setup) ;; auto-complete のソースに追加
+(setq jedi:complete-on-dot t)
+#+end_src
+
+ jump もできる.
+ - C-c . jedi:goto-definition
+ - C-c , jedi:goto-definition-pop-marker
 
 * リファクタリング
-  主に名前変更の Elisp を導入.
-
   参考リンク:
   - [[http://stackoverflow.com/questions/28796/what-refactoring-tools-do-you-use-for-python][What refactoring tools do you use for Python? - Stack Overflow]]
   
-** TODO Ropemacs
+** Ropemacs
    Python 用のリファクタリングツール.
    - [[http://rope.sourceforge.net/ropemacs.html][ropemacs, rope in emacs]]
-   
-* コーディング支援
-** TODO jedi
-   Python のオムニ補完 (かしこい補完) をしてくれる.
-   - [[http://qiita.com/yuu116atlab/items/2a62cb880ac863dcc8ef][emacs-jedi の install - Qiita]]
-    
-** TODO Pydoc
-   
-** ac-python
-   auto-complete の python 強化版.
+   - https://github.com/python-rope/ropemacs
+
+  うごかないよーん. python3 で動くのかな??
+
+  - https://github.com/abingham/traad
 
 #+begin_src emacs-lisp
-;; (when linux-p
-;; (use-package ac-python)
-;; (add-to-list 'ac-modes 'python-2-mode)
-;; )
+;; (autoload 'pymacs-apply "pymacs")
+;; (autoload 'pymacs-call "pymacs")
+;; (autoload 'pymacs-eval "pymacs" nil t)
+;; (autoload 'pymacs-exec "pymacs" nil t)
+;; (autoload 'pymacs-load "pymacs" nil t)
+
+;; (require 'pymacs)
+;; (pymacs-load "ropemacs" "rope-")
+;; (setq ropemacs-enable-autoimport t)
+#+end_src
+
+** traad
+  - https://github.com/abingham/traad
+
+* コーディング支援
+** helm-pydoc
+   pydoc の helm i/f.
+   
+#+begin_src emacs-lisp
+(use-package helm-pydoc
+   :init
+   (define-key python-mode-map (kbd "C-c C-d") 'helm-pydoc))
 #+end_src
 
 ** quickrun
@@ -81,29 +101,36 @@
    システムの version が 3 で, Emacs からは 2 を利用したいときは,
    以下のようにすれば実行コマンドをオーバライドできる.
    
-   #+begin_src emacs-lisp
+#+begin_src text
 (eval-after-load 'quickrun
   '(progn
      (quickrun-add-command "python" '((:command . "python2"))
 			   :override t)))
 #+end_src
-
+o
 ** TODO iPython
    インタラクティブなデバッグ環境.
 
 * 静的解析
-** flymake
-   flymake でエラーチェックを実施. 
-   エラーチェックのエンジンに pyflakes を利用する.
+** flycheck
+   以下が利用できる（らしい) .
+   - [[http://qiita.com/tnoda_/items/1edcdf83c8824f13c5be][Emacs - Flycheck を Python で使うためにしたことメモ - Qiita]]
+     - flake8
+     - pylint
 
-   #+begin_src bash
-   $ sudo pip install pyflakes
-   #+end_src
+#+begin_src emacs-lisp
+(defun my/turn-on-flycheck-mode ()
+  (flycheck-mode 1))
+(add-hook 'python-mode-hook 'my/turn-on-flycheck-mode)
+#+end_src
 
-   Emacswiki を参考に設定.
-   - [[http://www.emacswiki.org/PythonProgrammingInEmacs][EmacsWiki: Python Programming In Emacs]]
+ flake8 をつかってみようか. #noqa をつけると、エラー対象外.
+ 
+#+begin_src emacs-lisp
+pip install flake8
+#+end_src
 
-   -> programming.org に移動.
+  - [[http://qiita.com/kitsuyui/items/5ab4608003a29ff7689f][Python の Lint (文法チェッカ) まとめ - flake8 + hacking を使う - - Qiita]]
 
 * Links
   - [[http://www.emacswiki.org/PythonProgrammingInEmacs][EmacsWiki: Python Programming In Emacs]]

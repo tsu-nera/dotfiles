@@ -1172,21 +1172,11 @@ emacs -Q --batch \
   - https://github.com/leafac/org-password-manager
 
 * org-cliplink    
-  url から org-link 挿入.
+  url から org-link 挿入. これは便利！
   - [[https://github.com/rexim/org-cliplink][rexim/org-cliplink · GitHub]]
 
 #+begin_src emacs-lisp
 (use-package org-cliplink :bind "C-x p i")
-#+end_src
-
-* org-ac
-  auto-complete source for org-mode
-  - [[https://github.com/aki2o/org-ac][aki2o/org-ac · GitHub]]
-
-#+begin_src emacs-lisp
-(use-package org-ac
-  :config
-  (org-ac/config-default))
 #+end_src
 
 * 未使用中  
@@ -1235,6 +1225,19 @@ emacs -Q --batch \
 
  #+begin_src emacs-lisp
 (use-package interleave :disabled t)
+ #+end_src
+
+** org-ac
+   auto-complete source for org-mode
+   - [[https://github.com/aki2o/org-ac][aki2o/org-ac · GitHub]]
+
+   邪魔なので無効！
+
+ #+begin_src emacs-lisp
+(use-package org-ac
+  :disabled t
+  :config
+  (org-ac/config-default))
  #+end_src
 
 * 他のツールとの連携

@@ -592,5 +592,12 @@ bindkey '^x^f' peco-find-file      # C-x C-f
 bindkey '^xo'  peco-open-app       # C-x o
 fi
 
+#######################################################
+# highlight
+# https://github.com/zsh-users/zsh-syntax-highlighting
+#######################################################
+if [ -d ${HOME}/.zsh/zsh-syntax-highlighting  ] ; then
+    source ${HOME}/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 source ~/.zshenv

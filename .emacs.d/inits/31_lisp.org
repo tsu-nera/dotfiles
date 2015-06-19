@@ -320,6 +320,25 @@ $ sudo emacs /usr/local/share/info/dir
  * SICP : (sicp.info). Structure and Interpretation of Computer Programs.
 #+end_src
 
+** geiser
+   モダン Scheme 処理系. 処理系と連携した REPL の機能を重視.
+   - https://github.com/jaor/geiser
+   - [[http://d.hatena.ne.jp/k6ky/20121207/1354894185][scheMe repL in emacs with geiser - そんなことないよ]]
+   - [[http://uents.hatenablog.com/entry/sicp/010-prog-env.md][SICP 読書ノート#10 - Racket/Emacs によるプログラミング環境構築 - @uents blog]]
+
+   racket インストール.
+
+#+begin_src bash
+$ yaourt -S racket
+#+end_src
+
+#+begin_src emacs-lisp
+(use-package geiser
+  :config
+  (setq geiser-racket-binary "/usr/bin/racket")
+  (setq geiser-active-implementations '(racket)))
+#+end_src
+
 ** 未使用
 *** gosh-mode
     scheme-mode の拡張.

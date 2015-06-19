@@ -209,3 +209,4 @@
    M-x realgud:gdb
    - https://github.com/rocky/emacs-dbgr/wiki/gdb-notes
 
+   どうも info.el とかぶる関数があるので、封印.
