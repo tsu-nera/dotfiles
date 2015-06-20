@@ -366,6 +366,15 @@
 (use-package dired-filetype-face)
 #+end_src
 
+** dired-k
+   highlight dired
+
+#+begin_src emacs-lisp
+(use-package dired-k
+  :init
+  (add-hook 'dired-initial-position-hook 'dired-k))
+#+end_src
+
 * elscreen
   screen の Emacs バージョン. マルチプレクサ.
   - https://github.com/emacs-jp/elscreen
