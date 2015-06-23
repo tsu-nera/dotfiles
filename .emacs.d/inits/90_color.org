@@ -168,7 +168,6 @@
 ** TO-DO をハイライト
    - [[http://stackoverflow.com/questions/8551320/highlighting-todos-in-all-programming-modes][emacs - Highlighting TODOs in all programming modes - Stack Overflow]]
 
-
 *** fic-ext-mode   
     - http://www.emacswiki.org/emacs/fic-ext-mode.el
 
@@ -290,6 +289,22 @@
   (setq omni-tags-primary-tag "@"))
 #+end_src
 
+** visible-mark
+   mark をハイライト.
+   - https://gitlab.com/iankelling/visible-mark/blob/master/visible-mark.el
+
+#+begin_src emacs-lisp
+(use-package visible-mark
+  :config
+  (global-visible-mark-mode 1)
+
+  (defface visible-mark-active ;; put this before (require 'visible-mark)
+    '((((type tty) (class mono)))
+      (t (:background "magenta"))) "")
+  (setq visible-mark-max 2)
+  (setq visible-mark-faces `(visible-mark-face1 my-visible-mark-face2)))
+#+end_src
+
 * フォント
 ** お試し
   フォントを試したいときは, 以下の S 式でいろいろ評価してみる.
@@ -389,52 +404,17 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
 (use-package emacs-color-themes :disabled t)
 #+end_src
 
-** solarized
-   2 種類の種類がある.
-   - https://github.com/bbatsov/solarized-emacs (コッチつかう)
-   - https://github.com/sellout/emacs-color-theme-solarized 
-   
-   ルビ吉さんの記事.
-   - [[http://rubikitch.com/tag/emacs-solarized-theme-%E4%BD%BF%E3%81%84%E6%96%B9/][「emacs solarized-theme 使い方」タグの記事一覧 | るびきち「日刊 Emacs」]]
+** ubuntu-theme
+   - https://github.com/rocher/ubuntu-theme
 
 #+begin_src emacs-lisp
-(add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/solarized-emacs")
-(use-package solarized
-  :config
-  ;; more customize
-  ;; http://pages.sachachua.com/.emacs.d/Sacha.html
-    (custom-set-faces
-     '(erc-input-face ((t (:foreground "antique white"))))
-     '(helm-selection ((t (:background "ForestGreen" :foreground "black"))))
-     '(org-agenda-clocking ((t (:inherit secondary-selection :foreground "black"))) t)
-     '(org-agenda-done ((t (:foreground "dim gray" :strike-through nil))))
-     '(org-done ((t (:foreground "PaleGreen" :weight normal :strike-through t))))
-     '(org-clock-overlay ((t (:background "SkyBlue4" :foreground "black"))))
-     '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:foreground "LightSalmon" :strike-through t))))
-     '(outline-1 ((t (:inherit font-lock-function-name-face :foreground "cornflower blue")))))
-    
-    (set-face-background 'mmm-default-submode-face "#073642") ;; solarized-dark
-    ;; (set-face-background 'hiwin-face "#073642") ;; solarized-dark
-
-   ;; solarized-dark のための設定
-   ;; https://github.com/jonathanchu/emacs-powerline/issues/11
-   (eval-after-load 'solarized
-     '(progn 
-        (setq powerline-color1 "#073642")
-        (setq powerline-color2 "#002b36")
-        
-        (set-face-attribute 'mode-line nil
-                            :foreground "#fdf6e3"
-                            :background "#2aa198"
-                            :box nil)
-        (set-face-attribute 'mode-line-inactive nil
-                            :box nil)))
-
-    (load-theme 'solarized-dark t))
+(add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/ubuntu-theme/")
+(use-package ubuntu
+  :init
+  (load-theme 'ubuntu t))
 #+end_src
 
 ** not used
-
 *** cyberpunk-theme
      emacs live 用のテーマ. Start Hacking!!
 
@@ -447,7 +427,6 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
  #+end_src
 
    - [[https://groups.google.com/forum/#!topic/overtone/T_dU1VfgHE0][Transparent background in emacs live - Google グループ]]
-
 
 *** Molokai
 **** 正式版
@@ -505,6 +484,52 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/color-theme-molokai")
 ;; (load-theme 'molokai t)
  #+end_src
+
+*** solarized
+     2 種類の種類がある.
+     - https://github.com/bbatsov/solarized-emacs (コッチつかう)
+     - https://github.com/sellout/emacs-color-theme-solarized 
+   
+     ルビ吉さんの記事.
+     - [[http://rubikitch.com/tag/emacs-solarized-theme-%E4%BD%BF%E3%81%84%E6%96%B9/][「emacs solarized-theme 使い方」タグの記事一覧 | るびきち「日刊 Emacs」]]
+
+  #+begin_src emacs-lisp
+(add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/solarized-emacs")
+(use-package solarized
+  :disabled t
+  :config
+  ;; more customize
+  ;; http://pages.sachachua.com/.emacs.d/Sacha.html
+    (custom-set-faces
+     '(erc-input-face ((t (:foreground "antique white"))))
+     '(helm-selection ((t (:background "ForestGreen" :foreground "black"))))
+     '(org-agenda-clocking ((t (:inherit secondary-selection :foreground "black"))) t)
+     '(org-agenda-done ((t (:foreground "dim gray" :strike-through nil))))
+     '(org-done ((t (:foreground "PaleGreen" :weight normal :strike-through t))))
+     '(org-clock-overlay ((t (:background "SkyBlue4" :foreground "black"))))
+     '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:foreground "LightSalmon" :strike-through t))))
+     '(outline-1 ((t (:inherit font-lock-function-name-face :foreground "cornflower blue")))))
+    
+    (set-face-background 'mmm-default-submode-face "#073642") ;; solarized-dark
+    ;; (set-face-background 'hiwin-face "#073642") ;; solarized-dark
+
+   ;; solarized-dark のための設定
+   ;; https://github.com/jonathanchu/emacs-powerline/issues/11
+   (eval-after-load 'solarized
+     '(progn 
+        (setq powerline-color1 "#073642")
+        (setq powerline-color2 "#002b36")
+        
+        (set-face-attribute 'mode-line nil
+                            :foreground "#fdf6e3"
+                            :background "#2aa198"
+                            :box nil)
+        (set-face-attribute 'mode-line-inactive nil
+                            :box nil)))
+
+    (load-theme 'solarized-dark t))
+  #+end_src
+
 
 * rainbow-mode
   数字表記に色つけしてくれる 
