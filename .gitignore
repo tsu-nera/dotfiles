@@ -25,21 +25,11 @@ tmp
 /.skk-jisyo
 /.skk-record
 
+/.emacs.d/.helm-chronos-recent-timers
+/.emacs.d/.python-environments/
 /.emacs.d/inits/02_custom.el
-/.emacs.d/inits/02_custom.el
-/.emacs.d/inits/02_custom.el
-/.emacs.d/inits/02_custom.el
-/.emacs.d/inits/02_custom.el
-/.emacs.d/inits/02_custom.el
-/.emacs.d/inits/02_custom.el
+/.emacs.d/smex-items
 /.emacs.d/undohist/
+/.emacs.d/ensime/classpath_2.10.4_0.9.10-SNAPSHOT
+/.emacs.d/ensime/classpath_2.11.5_0.9.10-SNAPSHOT
 /.emacs.d/ensime/
-/.emacs.d/inits/02_custom.el
-/.emacs.d/inits/02_custom.el
-/.emacs.d/readability-token
-/.emacs.d/inits/02_custom.el
-/.emacs.d/inits/02_custom.el
-/.emacs.d/inits/02_custom.el
-/.emacs.d/inits/02_custom.el
-/.emacs.d/inits/02_custom.el
-/.emacs.d/inits/02_custom.el

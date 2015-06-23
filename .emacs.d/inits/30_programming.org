@@ -541,6 +541,8 @@
   :init
   ;; (add-hook 'after-init-hook #'global-flycheck-mode)
   :config
+  (defun my/turn-on-flycheck-mode ()
+    (flycheck-mode 1))
   (setq flycheck-highlighting-mode 'lines))
 #+end_src
 

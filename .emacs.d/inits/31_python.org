@@ -119,8 +119,6 @@ o
      - pylint
 
 #+begin_src emacs-lisp
-(defun my/turn-on-flycheck-mode ()
-  (flycheck-mode 1))
 (add-hook 'python-mode-hook 'my/turn-on-flycheck-mode)
 #+end_src
 

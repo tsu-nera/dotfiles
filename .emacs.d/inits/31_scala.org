@@ -75,3 +75,28 @@
 ;;      (lambda ()
 ;;        (scala-electric-mode)))
 #+end_src
+
+** flycheck
+   サポートしているのかな？一応書いとく.
+
+#+begin_src emacs-lisp
+(add-hook 'scala-mode-hook 'my/turn-on-flycheck-mode)
+#+end_src
+
+** sbtout
+   sbt と flycheck を合体!
+   - https://github.com/Mortimerp9/sbtout
+
+   screen コマンドが必要. arch linux に screen がインストールできない!
+
+#+begin_src emacs-lisp
+(use-package sbtout
+  :disabled t
+  :config
+  (flycheck-define-checker sbt
+    "Checker for compilation with SBT"
+    :command ("~/.emacs.d/el-get/repo/sbtout/sbtout.sh")
+    :error-patterns
+    ((error line-start "[error] " (file-name) ":" line ": " (message) line-end))
+    :modes scala-mode))
+#+end_src

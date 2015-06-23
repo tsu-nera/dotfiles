@@ -111,6 +111,8 @@
 #+begin_src emacs-lisp 
 (defvar my/el-get-packages-all
   '(
+    helm-ls-git
+    sbtout
     dired-k
     helm-pydoc
     jedi
