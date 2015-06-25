@@ -31,9 +31,6 @@
   (setq view-read-only t)
 
   ;; ショートカット
-  (with-eval-after-load 'key-chord
-    (key-chord-define-global "jk" 'view-mode))
-
   ;; less っぼく.
   (define-key view-mode-map (kbd "p") 'View-scroll-page-backward)
   (define-key view-mode-map (kbd "n") 'View-scroll-page-forward)

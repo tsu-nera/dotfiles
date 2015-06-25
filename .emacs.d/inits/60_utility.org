@@ -1053,12 +1053,12 @@ to
 *** flycheck-ledger
     - https://github.com/purcell/flycheck-ledger
 
- #+begin_src emacs-lisp
-(with-eval-after-load 'flycheck
-  '(use-package flycheck-ledger))
- #+end_src
+#+begin_src emacs-lisp
+;; (with-eval-after-load 'flycheck
+;;   '(use-package flycheck-ledger))
+#+end_src
 
-*** 0rg-mode
+*** org-mode
     legder -f xx org とかくと, org-table 形式で出力.
     - [[http://orgmode.org/worg/org-contrib/babel/languages/ob-doc-ledger.html][Using Ledger for Accounting in Org-mode with Babel]]
     - [[http://orgmode.org/worg/org-tutorials/weaving-a-budget.html][Weaving a budget with Org & ledger]]

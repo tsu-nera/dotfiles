@@ -61,7 +61,7 @@
 
 ;; load-path に追加するフォルダ
 ;; 2 つ以上フォルダを指定する場合の引数 => (add-to-load-path "elisp" "xxx" "xxx")
-(add-to-load-path "elisp" "inits" "el-get" "local" "mylisp" "elpa")
+(add-to-load-path "elisp" "inits" "el-get" "local" "mylisp")
 #+end_src
 
 * use-package
@@ -212,7 +212,6 @@
     ruby-refactor
     rcodetools
     inf-ruby
-    auto-complete-ruby
     ;; c/c++
     helm-make
     semantic-refactor
