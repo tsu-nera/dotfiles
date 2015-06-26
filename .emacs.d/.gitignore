@@ -17,7 +17,6 @@ hgs-cache
 !init.el
 el-get/el-get
 el-get/recipes
-el-get/repo
 el-get/*.el
 el-get/*.elc
 image-dired/
