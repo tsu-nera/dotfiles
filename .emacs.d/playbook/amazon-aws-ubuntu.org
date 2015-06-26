@@ -29,20 +29,13 @@ echo '54.65.121.127' > hosts
 ansible all -m ping -i hosts
 #+end_src
 
-#+RESULTS:
-54.64.58.11 | success >> {
-    "changed": false, 
-    "ping": "pong"
-}
-
-
 #+begin_src bash :results raw :export both 
 ansible all -i hosts -a 'uname -r'
 #+end_src
 
 #+RESULTS:
-54.64.58.11 | success | rc=0 >>
-3.13.0-36-generic
+52.68.172.183 | success | rc=0 >>
+3.13.0-48-generic
 
 ** ansible setting
 
@@ -97,6 +90,7 @@ ansible all -i hosts -a 'uname -r'
 #+end_src
 
 ** get emacs
+   今は、ビルドしないで、リポジトリから取得することにする.
 
 #+begin_src yaml :tangle yes
     - name: apt-get install emacs
@@ -107,6 +101,7 @@ ansible all -i hosts -a 'uname -r'
 ** install dotfiles
 #+begin_src yaml :tangle yes
     - name: clone dotfiles
+      sudo: no
       git: repo=https://github.com/tsu-nera/dotfiles.git dest={{home_dir}}/{{dotfiles_dir}}
     - name: make lnlinks
       command: ./make_lnlink chdir={{home_dir}}/{{dotfiles_dir}}
@@ -129,7 +124,6 @@ ansible all -i hosts -a 'uname -r'
     - name: install additinal tools for ag
       apt: pkg=silversearcher-ag
 #+end_src
-
 
 * boot emacs
 #+begin_src yaml :tangle yes

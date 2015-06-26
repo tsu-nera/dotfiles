@@ -21,7 +21,6 @@
       git: repo=https://github.com/tsu-nera/dotfiles.git dest={{home_dir}}/{{dotfiles_dir}}
     - name: make lnlinks
       command: ./make_lnlink chdir={{home_dir}}/{{dotfiles_dir}}
-      sudo: yes
       sudo_user: ubuntu
 
     - name: install additinal tools for pdf-tools

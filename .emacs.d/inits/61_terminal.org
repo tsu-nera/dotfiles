@@ -14,7 +14,7 @@
  #+begin_src emacs-lisp
 (use-package eshell
   :init
-  (global-set-key (kbd "C-c t") 'eshell)
+;;  (global-set-key (kbd "C-c t") 'eshell)
   :config
   
   ;; 確認なしでヒストリ保存
@@ -120,7 +120,6 @@
 (use-package eshell-utils
   :bind* (("C-u C-c t" . eshell/make-new-eshell))) ;; 別シェルを生成
 #+end_src
-
 *** eshell with helm
     - https://github.com/emacs-helm/helm/blob/master/helm-eshell.el
     - https://github.com/emacs-helm/helm/wiki#helmeshellcompletion
@@ -138,7 +137,7 @@
   (add-hook 'eshell-mode-hook
 	  #'(lambda ()
 	      (define-key eshell-mode-map [remap pcomplete] 'helm-esh-pcomplete)))  
-;; (add-hook 'eshell-mode-hook
+;;  (add-hook 'eshell-mode-hook
 ;;           #'(lambda ()
 ;;               (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)))
   (add-hook 'eshell-mode-hook
@@ -147,6 +146,25 @@
 
 ;; なぜか helm がじゃまをするな.
 ;; (add-to-list 'helm-completing-read-handlers-alist '(make-eshell . nil))
+#+end_src
+
+*** multi-eshell
+    - https://github.com/emacsmirror/multi-eshell/blob/master/multi-eshell.el
+    
+#+begin_src emacs-lisp
+(use-package multi-eshell
+  :init
+  (global-set-key (kbd "C-c t t") 'multi-eshell)
+  (global-set-key (kbd "C-c t b") 'multi-eshell-switch)
+  :config
+  (setq multi-eshell-shell-function '(eshell))
+  (setq multi-eshell-name "*eshell*"))
+#+end_src
+
+*** eshell-autojump
+    
+#+begin_src emacs-lisp
+(use-package eshell-autojump)
 #+end_src
 
 *** end of config

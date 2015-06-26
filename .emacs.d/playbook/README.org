@@ -1,0 +1,10 @@
+* 手順
+
+1. AWS を借りる.
+2. グローバル ip を hosts に書く.
+3. playbook を実行.
+#+begin_src bash
+ansible-playbook amazon-aws-ubuntu.yaml -i hosts 
+#+end_src
+
+* orgfile を tangle する

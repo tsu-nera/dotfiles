@@ -16,8 +16,8 @@
 #+begin_src emacs-lisp
 (use-package helm-config
   :config
-  (helm-autoresize-mode 1) ;; 検索結果によってリサイズ. default 40%
-  (setq helm-autoresize-max-height 50)
+;;  (helm-autoresize-mode 1) ;; 検索結果によってリサイズ. default 40%
+;;  (setq helm-autoresize-max-height 50)
 #+end_src
 
 #+begin_src emacs-lisp
@@ -32,7 +32,6 @@
 
 (define-key org-mode-map (kbd "C-c h") 'helm-org-in-buffer-headings)
 (define-key prog-mode-map (kbd "C-c h") 'helm-imenu)
-(define-key c++-mode-map (kbd "C-c h") 'helm-imenu)
 #+end_src
 
 ** helm-semantic-or-imenu
@@ -409,9 +408,13 @@
 (use-package helm-dash)
 #+end_src
 
+
 ** helm-ls-git
+   どうも、これを利用すると、eieio-defclass-autoload error がでる. 
+
 #+begin_src emacs-lisp
 (use-package helm-ls-git
+  :disabled t
   :bind ("C-x C-d" . helm-browse-project))
 #+end_src
 

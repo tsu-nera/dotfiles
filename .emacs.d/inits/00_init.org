@@ -111,8 +111,11 @@
 #+begin_src emacs-lisp 
 (defvar my/el-get-packages-all
   '(
+    helm
+    eshell-autojump
+    multi-eshell
     ubuntu-theme
-    helm-ls-git
+    ;; helm-ls-git
     sbtout
     dired-k
     helm-pydoc
@@ -175,7 +178,6 @@
     revive
     ;; imenu-anywhere
     ;; helm
-    helm
     helm-descbinds
     helm-orgcard
     helm-gtags

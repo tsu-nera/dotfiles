@@ -1,0 +1,3 @@
+(:name multi-eshell
+       :type github
+       :pkgname "emacsmirror/multi-eshell")
