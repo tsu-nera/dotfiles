@@ -372,42 +372,26 @@
     avy
     define-word
     helm-chronos
-    )
- "A list of packages to install from el-get at launch.")
-
-(defvar my/el-get-packages-windows
-  '(vbasense
+    vbasense
     visual-basic-mode
-    )
-  "A list of packages to install from el-get at launch for windows")
-
-(defvar my/el-get-packages-linux
-  '(
     pdf-tools
     flyspell
-;;    yspel
     )
-  "A list of packages to install from el-get at launch for linux")
+  "A list of packages to install from el-get at launch.")
 #+end_src
-
-これからは el-get-bundle で同期する (since 2015/02/24)
 
 ** el-get config
 
 #+begin_src emacs-lisp
 ;; マシンごとの設定
-(when linux-p
-  ;;    (setq el-get-emacs "/usr/local/bin/emacs"))
-  (setq el-get-emacs "/usr/local/bin/emacs"))
+(when emacs25.0-p
+    (setq el-get-emacs "/usr/local/bin/emacs"))
 
 ;; 通知は minibuffer のみ
 (setq el-get-notify-type 'message)
-  
-;;  (el-get 'sync my/el-get-packages-all)
-;;  (when windows-p
-;;    (el-get 'sync my/el-get-packages-windows))
-;;  (when linux-p
-;;    (el-get 'sync my/el-get-packages-linux))
+
+;; 同期
+(el-get 'sync my/el-get-packages-all)
 #+end_src
 
 ** 未使用
