@@ -536,10 +536,10 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
 
 #+begin_src emacs-lisp
 (use-package rainbow-mode
-  :init
-  (add-hook 'css-mode-hook 'rainbow-mode)
-  (add-hook 'html-mode-hook 'rainbow-mode)
-  (add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
+;;  :init
+;;  (add-hook 'css-mode-hook 'rainbow-mode)
+;;  (add-hook 'html-mode-hook 'rainbow-mode)
+;;  (add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
   )
 #+end_src
 
@@ -556,9 +556,9 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
 #+begin_src emacs-lisp
 (use-package rainbow-delimiters
   :init
-  (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
-  (add-hook 'scheme-mode-hook 'rainbow-delimiters-mode)
-  (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
+;;  (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
+;;  (add-hook 'scheme-mode-hook 'rainbow-delimiters-mode)
+;;  (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
 ;;  (add-hook 'emacs-startup-hook 'rainbow-delimiters-using-stronger-colors)
 ;;  (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-using-stronger-colors)  
   :config

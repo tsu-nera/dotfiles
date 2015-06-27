@@ -1,9 +1,8 @@
 * 初期設定
-  はじめにやっておきたい設定をここにかく.
-  - use-package
-  - el-get
+  はじめにやっておきたいことをここに書く.
 
-* 環境による場合分け
+* マクロ
+** 環境による場合分け
   環境による場合分けのマクロを定義.
   - http://d.hatena.ne.jp/tomoya/20090811/1250006208
 
@@ -41,7 +40,7 @@
       windows-p (or cygwin-p nt-p meadow-p))
 #+end_src
 
-* フォルダを再帰的にロードパスに追加
+** フォルダを再帰的にロードパスに追加
    Special Thanks
    - http://e-arrows.sakura.ne.jp/2010/03/macros-in-emacs-el.html
 
@@ -102,23 +101,36 @@
   el-get の機能で, el-get-is-lazy というものがあるので.
   - https://github.com/jwiegley/use-package/issues/51
 
-* El-get
+* el-get
   Emacs 用パッケージマネージャー
   - https://github.com/dimitri/el-get
   - [[http://d.hatena.ne.jp/tarao/20150221/1424518030][Cask はもう古い, これからは El-Get - いまどきの Emacs パッケージ管理 ]]
     
-* el-get 同期 Package
+** el-get 同期 Package
+*** now
 #+begin_src emacs-lisp 
 (defvar my/el-get-packages-all
   '(
+    ;; text
+    hydra
+    swiper
+    ;; 40_helm
     helm
+    ;; 50_org-mode
+    org-mode
+    )
+  "A list of packages to install from el-get at launch.")
+#+end_src
+
+*** old
+#+begin_src emacs-lisp 
+(defvar my/el-get-packages-all-old
+  '(
     eshell-autojump
     multi-eshell
     ubuntu-theme
-    ;; helm-ls-git
     sbtout
     dired-k
-    helm-pydoc
     jedi
     org-journal
     define-word
@@ -139,6 +151,7 @@
     ace-window
     recentf-ext
     ;; text
+    swiper
     yasnippet
     auto-complete
     anzu
@@ -178,6 +191,9 @@
     revive
     ;; imenu-anywhere
     ;; helm
+    helm
+    helm-pydoc
+    ;; helm-ls-git
     helm-descbinds
     helm-orgcard
     helm-gtags
@@ -314,7 +330,6 @@
     smart-newline
     column-enforce-mode
     hydra
-    swiper
     swiper-helm
     smooth-scroll
     hackernews
@@ -329,10 +344,6 @@
     electric-spacing
     ;; aggressive-indent-mode
     ggtags
-    ledger-mode
-    emacs-readability
-    interleave
-    ibuffer-projectile
     imenus
     eshell-prompt-extras
     zlc
@@ -363,17 +374,12 @@
     org-password-manager
     browse-at-remote
     org-cliplink
-    symon
     real-auto-save
-    org-ac
-    ocodo-svg-modelines
     helm-dash
     omni-tags
     git-timemachine
     minitest
     avy
-    define-word
-    helm-chronos
     vbasense
     visual-basic-mode
     pdf-tools
@@ -387,18 +393,17 @@
 #+begin_src emacs-lisp
 ;; マシンごとの設定
 (when emacs25.0-p
-    (setq el-get-emacs "/usr/local/bin/emacs"))
+  (if linux-p
+    (setq el-get-emacs "/usr/local/bin/emacs")))
 
 ;; 通知は minibuffer のみ
 (setq el-get-notify-type 'message)
 
 ;; 同期
-;; (el-get 'sync my/el-get-packages-all)
+(el-get 'sync my/el-get-packages-all)
 #+end_src
 
-** 未使用
-   
-** el-get-is-lazy
+*** el-get-is-lazy
    パッケージが存在しないときは, el-get で取得する.
 
    追加しわすれに気づけないので, コメントアウト.
@@ -407,7 +412,7 @@
 ;; (setq el-get-is-lazy t)
 #+end_src
 
-** Windows
+*** Windows
    - [[https://github.com/dimitri/el-get/wiki/Installation-on-Windows][Installation on Windows · dimitri/el-get Wiki]]
    - [[http://stackoverflow.com/questions/17219643/cant-install-emacs-el-get-package-emacs-cant-connect-to-the-internet][windows - can't install emacs el-get package, emacs can't connect to the internet - Stack Overflow]]
    - [[https://github.com/Bruce-Connor/paradox/issues/5][fails without GnuTLS · Issue #5 · Bruce-Connor/paradox]]
@@ -424,17 +429,3 @@ Opening TLS connection with `gnutls-cli --insecure -p 443 api.github.com --proto
 Opening TLS connection with `openssl s_client -connect api.github.com:443 -no_ssl2 -ign_eof'...failed
 Opening TLS connection to `api.github.com'...failed
  #+end_src
-
-** el-get-elpa
-   MELPA との連携. M-x el-get-elpa-build-local-recipes する.
-   - http://stackoverflow.com/questions/23165158/how-do-i-install-melpa-packages-via-el-get
-
- #+begin_src emacs-lisp 
-;; (require 'el-get-elpa)
-;; (unless (file-directory-p el-get-recipe-path-elpa)
-;;   (el-get-elpa-build-local-recipes))
- #+end_src
-
-** el-get-cli
-   Command line interface for el-get
-   - https://github.com/tarao/el-get-cli

@@ -569,9 +569,10 @@
 
 #+begin_src emacs-lisp
 (use-package emr
-  :init
-  (define-key prog-mode-map (kbd "M-RET") 'emr-show-refactor-menu)
-  (add-hook 'prog-mode-hook 'emr-initialize))
+  :config
+  (add-hook 'prog-mode-hook 'emr-initialize)
+  (define-key prog-mode-map (kbd "M-RET") 'emr-show-refactor-menu))
+
 #+end_src
 
 ** semantic mode

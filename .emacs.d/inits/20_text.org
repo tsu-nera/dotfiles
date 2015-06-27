@@ -70,33 +70,6 @@
    (use-package vlf-setup)
    #+end_src
 
-** origami
-   A folding minor mode for Emacs 
-   - https://github.com/gregsexton/origami.el
-   - [[http://rubikitch.com/2015/01/03/origami/][elisp,Clojure,C 系言語で org-mode 風の折畳みをする| るびきち「日刊 Emacs」]]
-
-#+begin_src emacs-lisp
-(use-package origami
-  :init
-  (add-hook 'view-mode-hook 'view-mode-hook--origami)
-  :commands view-mode-hook--origami
-  :config
-  (define-minor-mode origami-view-mode
-    "TAB に origami の折畳みを割り当てる"
-    nil "折紙"
-    '(("\C-i" . origami-cycle))
-    (or origami-mode (origami-mode 1)))
-  
-  (defun origami-cycle (recursive)
-    "origami の機能を org 風にまとめる"
-    (interactive "P")
-    (call-interactively
-     (if recursive 'origami-toggle-all-nodes 'origami-toggle-node)))
-  (defun view-mode-hook--origami ()
-    (when (memq major-mode (mapcar 'car origami-parser-alist))
-      (origami-view-mode (if view-mode 1 -1)))))
-#+end_src
-
 ** itail
    Emacs で tail するモード. ログ解析用.
    - https://github.com/re5et/itail
@@ -207,7 +180,7 @@
 	 ;; ("C-]" . mc/mark-next-like-this)
 	 ("C-M-]" . mc/mark-previous-like-this)
 	 ("C-c C-]" . mc/mark-all-like-this))
-  :init
+  :config
   (global-set-key
     (kbd "C-]")  
     (defhydra hydra-mc ()

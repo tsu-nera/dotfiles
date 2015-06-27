@@ -241,10 +241,12 @@ git clone git://git.savannah.gnu.org/emacs.git
 *** 文字の大きさを調整
 
 #+begin_src emacs-lisp
-(defhydra hydra-zoom (global-map "C-x 9")
+(global-set-key
+ (kbd "C-x 9")
+ (defhydra hydra-zoom()
   "zoom"
   ("+" text-scale-increase "in")
-  ("-" text-scale-decrease "out"))
+  ("-" text-scale-decrease "out")))
 #+end_src
 
 *** move
@@ -324,25 +326,6 @@ git clone git://git.savannah.gnu.org/emacs.git
                                   ))
 #+end_src
 
-** el-get
-
-#+begin_src emacs-lisp
-;;(use-package el-get
-;;  :defer 20
-;;  :config
-;;  ;; マシンごとの設定
-;;  (when linux-p
-;;    (setq el-get-emacs "/usr/local/bin/emacs"))
-;;  (when windows-p
-;;    ;; 通知は minibuffer のみ
-;;    (setq el-get-notify-type 'message))
-;;  (el-get 'sync my/el-get-packages-all)
-;;  (when windows-p
-;;    (el-get 'sync my/el-get-packages-windows))
-;;  (when linux-p
-;;    (el-get 'sync my/el-get-packages-linux)))
-#+end_src
-
 ** inits, el-get 管理外の elisp のバイトコンパイル.
    - [[http://www.bookshelf.jp/soft/meadow_18.html][Meadow/Emacs memo: バイトコンパイル]]
    - [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Compilation-Functions.html#Compilation-Functions][Compilation Functions - GNU Emacs Lisp Reference Manual]]
@@ -420,6 +403,7 @@ git clone git://git.savannah.gnu.org/emacs.git
 
 (add-hook 'after-init-hook 'my-startup-display)
 #+end_src
+
 
 * TearDown
   終了時の設定.
