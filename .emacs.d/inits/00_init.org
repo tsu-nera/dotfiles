@@ -393,7 +393,7 @@
 (setq el-get-notify-type 'message)
 
 ;; 同期
-(el-get 'sync my/el-get-packages-all)
+;; (el-get 'sync my/el-get-packages-all)
 #+end_src
 
 ** 未使用

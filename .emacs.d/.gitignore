@@ -50,3 +50,4 @@ inits/tsu-nera*
 emms/cache
 twittering-mode.gpg.bak
 quotes.txt
+el-get/repo/*
