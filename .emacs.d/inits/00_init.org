@@ -107,52 +107,28 @@
   - [[http://d.hatena.ne.jp/tarao/20150221/1424518030][Cask はもう古い, これからは El-Get - いまどきの Emacs パッケージ管理 ]]
     
 ** el-get 同期 Package
-*** now
 #+begin_src emacs-lisp 
 (defvar my/el-get-packages-all
   '(
-    ;; text
-    hydra
-    swiper
-    ;; 40_helm
-    helm
-    ;; 50_org-mode
-    org-mode
-    )
-  "A list of packages to install from el-get at launch.")
-#+end_src
-
-*** old
-#+begin_src emacs-lisp 
-(defvar my/el-get-packages-all-old
-  '(
-    eshell-autojump
-    multi-eshell
-    ubuntu-theme
-    sbtout
-    dired-k
-    jedi
-    org-journal
-    define-word
-    omni-kill
-    use-package
-    ;; window
+    ;; 03_display
     popwin
     switch-window
-    ace-jump-mode
-    ace-jump-buffer
-    ace-isearch
     isearch-dabbrev
     open-junk-file
     iy-go-to-char
     key-chord
     jump-char
-    ace-jump-zap
-    ace-window
     recentf-ext
-    ;; text
+    stripe-buffer
+
+    ;; 20_text
+    hydra
     swiper
     yasnippet
+    dired-k
+    migemo
+    undo-tree
+    define-word
     auto-complete
     anzu
     auto-highlight-symbol
@@ -163,37 +139,86 @@
     pcre2el
     ht
     iedit
-    fic-ext-mode
     codic
-    google-this
-    google-translate
-    sdic
     search-web
     wgrep
-    phi-search
-    ;; langtool
-    ;; smart-compile 独自 age 改造したものを elisp においた
     expand-region
-    ;; utility
-    ;; howm
-    ;; direx
-    stripe-buffer
-    tempbuf
-    exec-path-from-shell
-    ;; bitlbee
-    migemo
+    ag
+    auto-capitalize
+
+    ;; 21_ace
+    ace-jump-mode
+    ace-jump-buffer
+    ace-isearch
+    ace-link
+    ace-jump-zap
+    ace-window
+    ace-jump-helm-line
+
+    ;; programming
     magit
-    ;; minimap
-    e2wm
-    e2wm-direx
-    psession
-    elscreen-persist
-    revive
-    ;; imenu-anywhere
-    ;; helm
+    flycheck
+    flycheck-color-mode-line
+    quickrun
+    projectile
+    gtags
+    gist
+    cool-mode
+
+    ;; lisp
+    smartrep
+    smartparens
+    lispxmp
+
+    ;; minor-lang
+    yaml-mode
+    markdown-mode
+    plantuml-mode
+    conkeror-minor-mode
+
+    ;; ruby
+    ruby-block
+    robe-mode
+    ruby-electric
+    rspec-mode
+    ruby-refactor
+    rcodetools
+    inf-ruby
+
+    ;; c/c++
+    semantic-refactor
+    function-args
+    ;; clang-complete-async
+    auto-complete-c-headers
+
+    ;; python
+    python-mode
+    jedi
+ 
+   ;; java
+    eclim
+    auto-java-complete
+    log4j-mode
+    ;; jtags-mode
+    ant
+
+    ;; haskell
+    haskell-mode 
+    ghc-mod
+
+    ;; scala
+    sbtout
+    scala-mode2
+    ensime
+    sbt-mode
+
+    ;; web
+    php-mode
+
+    ;; 40_helm.org
     helm
     helm-pydoc
-    ;; helm-ls-git
+    helm-ls-git
     helm-descbinds
     helm-orgcard
     helm-gtags
@@ -205,137 +230,114 @@
     helm-swoop
     helm-c-yasnippet
     helm-emms
-    ;; org
-    org-mode
-    org-pandoc
-    deferred
-    org-textile
-    ;; color
-    color-theme
-    molokai-theme
-    rainbow-delimiters
-    ;; programming
-    flymake
-    flycheck
-    flycheck-color-mode-line
-    quickrun
-    php-mode
-    ;; tdd
-    projectile
-    ;; ruby
-    ruby-block
-    robe-mode
-    ruby-electric
-    rspec-mode
-    ruby-refactor
-    rcodetools
-    inf-ruby
-    ;; c/c++
     helm-make
-    semantic-refactor
-    function-args
-    ;; clang-complete-async
-    auto-complete-c-headers
-    ;; python
-    python-mode
-    ;; java
-    auto-java-complete
-    log4j-mode
-    ;; jtags-mode
-    ant
-    ;; haskell-mode ??
-    ;; ac-haskell-process
-    ;; anything-rdefs
-    rainbow-mode
-    yaml-mode
-    markdown-mode
-    plantuml-mode
-    conkeror-minor-mode
-    elscreen
-    elscreen-wl
-    ;; tomatinho
-    wanderlust
-    twittering-mode
-    erc-hl-nicks
-    erc-nick-notify
-    ;; for linux
-    migemo
-    magit
-    undo-tree
-    ;; pomodoro
-    joseph-single-dired
-    ;; others
-    ;; key-guide
-    ag
-    gtags
-    guide-key
-    mmm-mode
-    auto-capitalize
-    calfw
     helm-github-issues
     helm-open-github
     helm-ag
-    org2blog
+    helm-flyspell
+    helm-eww-bookmark
+    helm-flycheck
+    helm-bm
+    helm-cscope
+    helm-hatena-bookmark
+    helm-dash
+
+    ;; 50_org-mode.org
+    org-mode
+    org-journal
+    org-pandoc
+    org-textile
     org-gcal
+    org-download
+    org-multiple-keymap
+    org-bullets
+    org-projectile
+    org-pomodoro
+    org-password-manager
+    org-cliplink
+    org2blog
     ox-rst
     ox-wk
-    gist
-    cool-mode
-    esup
-    initchart
-    scala-mode2
-    ensime
-    sbt-mode
-    eclim
-    smartrep
-    ac-helm
-    elscreen-interchange
     clocktable-by-tag
     cde
+
+    ;; 60_utility
+    ;; howm
+    ;; direx
+    tempbuf
+    migemo
+    magit
+
+    ;; minimap
+    e2wm
+    e2wm-direx
+    psession
+    elscreen-persist
+    revive
+    imenu-anywhere
+    twittering-mode
+    erc-hl-nicks
+    erc-nick-notify
+
+    ;; 61_terminal
+    elscreen
+    elscreen-wl
+    exec-path-from-shell
+    shell-toggle
+    shell-pop
+
+    eshell-autojump
+    multi-eshell
+
+    ;; 61_wanderlust
+    wanderlust
+
+    ;; 90_colro
+    rainbow-mode
+    color-theme
+    ubuntu-theme
+    molokai-theme
+    rainbow-delimiters
+
+    ;; 未整理
+    calfw
+
     eww-lnum
-    ghc-mod
-    hl-anything
-    ace-link
+
     ddskk
     ac-skk
     ac-ja
+
+    hl-anything
     eldoc-extension
-    smartparens
+
     ess-R-data-view
     ess-R-object-popup
     ctable
-    helm-R
-    ;; ansible
-    lispxmp
+
     vlfi
     emacs-refactor
     keisen-ext
-    flyspell-lazy
-    helm-flyspell
+
     monokai-emacs
+
     powerline
     viewer
     eww-hatebu
-    org-download
-    helm-eww-bookmark
+
     git-gutter
     csv-mode
     r-autoyas
-    helm-flycheck
-    helm-bm
     dired-filetype-face
     jazzradio
     rake
     origami
     smart-newline
     column-enforce-mode
-    hydra
-    swiper-helm
     smooth-scroll
     hackernews
     reddit-mode
-    org-multiple-keymap
-    org-bullets
+
     writeroom-mode
     visual-fill-column
     engine-mode
@@ -347,35 +349,25 @@
     imenus
     eshell-prompt-extras
     zlc
-    org-projectile
-    helm-cscope
-    helm-hatena-bookmark
     c-eldoc
     nyan-mode
-    ace-jump-helm-line
     srep
     undohist
     svg-mode-line-themes
     web-mode
     smart-mode-line
     impatient-mode
-    shell-toggle
-    shell-pop
     volume-el
     clipmon
     rainbow-mode
     term-run
     solarized-emacs
     pcache
-    org-pomodoro
     sx
     git-link
     gntp
-    org-password-manager
     browse-at-remote
-    org-cliplink
     real-auto-save
-    helm-dash
     omni-tags
     git-timemachine
     minitest
