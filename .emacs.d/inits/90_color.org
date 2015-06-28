@@ -583,22 +583,6 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
 		      :strike-through t))
 #+end_src
 
-* minimap
-  Sublime Text のようなミニマップ. ちょっと重い.
-
-#+begin_src emacs-lisp
-(use-package minimap
-  :config
-  (setq minimap-window-location 'right)
-  (setq minimap-minimum-width 15)
-  (global-set-key (kbd "C-c n") 'minimap-mode))
-
-  ;; (when (display-graphic-p)
-  ;;   (use-package minimap)
-  ;;   ;; enable minimap
-  ;;   (global-set-key (kbd "C-c n") 'minimap-toggle)))
-#+end_src
-
 * pomodoro
   ここでやらないと, なぜかモードラインで表示されない.
   

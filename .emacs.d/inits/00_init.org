@@ -164,6 +164,7 @@
     gtags
     gist
     cool-mode
+    yafolding
 
     ;; lisp
     smartrep
@@ -268,7 +269,7 @@
     migemo
     magit
 
-    ;; minimap
+    minimap
     e2wm
     e2wm-direx
     psession
@@ -392,7 +393,11 @@
 (setq el-get-notify-type 'message)
 
 ;; 同期
-(el-get 'sync my/el-get-packages-all)
+;; (el-get 'sync my/el-get-packages-all)
+
+(defun my-el-get-sync ()
+   (interactive)
+   (el-get 'sync my/el-get-packages-all))
 #+end_src
 
 *** el-get-is-lazy
