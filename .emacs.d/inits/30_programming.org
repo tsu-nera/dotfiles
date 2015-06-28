@@ -62,6 +62,7 @@
 
 #+begin_src emacs-lisp
 (use-package imenu-anywhere
+  :disabled t ;; 動かなくなっちゃった...
   :bind* ("C-c h" . helm-imenu-anywhere)
   :config
   (require 'imenu) 

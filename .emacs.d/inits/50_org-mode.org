@@ -1108,6 +1108,7 @@ emacs -Q --batch \
 
 #+begin_src emacs-lisp
 (use-package org-pomodoro
+  :disabled t
   :commands (custom-org-agenda-mode-defaults)
   :bind* (("C-c C-x C-i" . org-pomodoro)
           ("C-c C-x C-o" . org-pomodoro))
