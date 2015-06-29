@@ -33,3 +33,5 @@ tmp
 /.emacs.d/ensime/classpath_2.10.4_0.9.10-SNAPSHOT
 /.emacs.d/ensime/classpath_2.11.5_0.9.10-SNAPSHOT
 /.emacs.d/ensime/
+/.emacs.d/inits/02_custom.el
+/.emacs.d/inits/02_custom.el

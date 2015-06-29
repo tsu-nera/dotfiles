@@ -445,7 +445,7 @@ x1
 (use-package setup-linum
   :init
   ;; daemon 起動中に linum-mode を有効にすると落ちる.
-  ;; (add-hook 'after-init-hook 'global-linum-mode t)
+  (add-hook 'after-init-hook 'global-linum-mode t)
   ;; (add-hook 'after-init-hook 'global-linum-mode 0)
   :config
   ;; linum を利用しないメジャーモードを列挙

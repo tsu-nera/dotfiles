@@ -979,7 +979,6 @@ sudo pacman -S ghostscript
     - pdf-view-mode
     のときは, linum-mode は disable に.
     - [[http://stackoverflow.com/questions/16132234/how-can-i-speed-up-emacs-docview-mode][How can I speed up Emacs DocView mode? - Stack Overflow]]
-to
 
 *** font がへん
     フォントがへんになるのは, poppler のせい.

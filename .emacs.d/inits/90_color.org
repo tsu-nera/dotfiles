@@ -404,17 +404,49 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
 (use-package emacs-color-themes :disabled t)
 #+end_src
 
-** ubuntu-theme
-   - https://github.com/rocher/ubuntu-theme
+** Molokai
+*** 正式版
+
+#+begin_src emacs-lisp
+(add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/monokai-emacs")
+(use-package monokai-theme
+  :init
+  (set-face-background 'mmm-default-submode-face "#242424") ;; monokai
+  (set-face-background 'hiwin-face "#333333") ;; molokai
+  (load-theme 'monokai t))
+#+end_src
+
+*** fork version
+   Install  : https://raw2.github.com/hbin/molokai-theme/master/molokai-theme-kit.el
+
+#+begin_src emacs-lisp
+(add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/molokai-theme")
+(use-package molokai-theme-kit
+  :disabled t
+  :config
+  (setq molokai-theme-kit t)
+  ;; window-system が判定できない.
+  (load-theme 'molokai t))
+#+end_src
+
+   自分のテーマにも, 以下のような設定で org-mode 対応できるらしい??
+   - [[http://orgmode.org/worg/org-contrib/babel/examples/fontify-src-code-blocks.html][Pretty fontification of source code blocks]]
+   -> mmm-mode で代用する.
+
+
+** not used
+*** ubuntu-theme
+    - https://github.com/rocher/ubuntu-theme
 
 #+begin_src emacs-lisp
 (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/ubuntu-theme/")
 (use-package ubuntu
+  :disabled t
   :init
   (load-theme 'ubuntu t))
 #+end_src
 
-** not used
+
 *** cyberpunk-theme
      emacs live 用のテーマ. Start Hacking!!
 
@@ -427,37 +459,6 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
  #+end_src
 
    - [[https://groups.google.com/forum/#!topic/overtone/T_dU1VfgHE0][Transparent background in emacs live - Google グループ]]
-
-*** Molokai
-**** 正式版
-
- #+begin_src emacs-lisp
-(add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/monokai-emacs")
-(use-package monokai-theme
-  :disabled t
-  :init
-  (set-face-background 'mmm-default-submode-face "#242424") ;; monokai
-  (set-face-background 'hiwin-face "#333333") ;; molokai
-  (load-theme 'monokai t))
- #+end_src
-
-**** fork version
-    Install  : https://raw2.github.com/hbin/molokai-theme/master/molokai-theme-kit.el
-
- #+begin_src emacs-lisp
-(add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/molokai-theme")
-(use-package molokai-theme-kit
-  :disabled t
-  :config
-  (setq molokai-theme-kit t)
-  ;; window-system が判定できない.
-  (load-theme 'molokai t))
- #+end_src
-
-    自分のテーマにも, 以下のような設定で org-mode 対応できるらしい??
-    - [[http://orgmode.org/worg/org-contrib/babel/examples/fontify-src-code-blocks.html][Pretty fontification of source code blocks]]
-    -> mmm-mode で代用する.
-
 *** tangotango
     org-mode に対応してるダークテーマ.
     - https://github.com/juba/color-theme-tangotango
