@@ -134,12 +134,12 @@
     #+begin_src emacs-lisp
 (use-package helm-eshell
   :init
-  (add-hook 'eshell-mode-hook
-	  #'(lambda ()
-	      (define-key eshell-mode-map [remap pcomplete] 'helm-esh-pcomplete)))  
-;;  (add-hook 'eshell-mode-hook
-;;           #'(lambda ()
-;;               (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)))
+  ;; (add-hook 'eshell-mode-hook
+  ;;         #'(lambda ()
+  ;;             (define-key eshell-mode-map [remap pcomplete] 'helm-esh-pcomplete)))  
+ (add-hook 'eshell-mode-hook
+          #'(lambda ()
+              (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)))
   (add-hook 'eshell-mode-hook
 	    #'(lambda ()
                 (define-key eshell-mode-map (kbd "M-p") 'helm-eshell-history))))
@@ -173,7 +173,6 @@
 )
 #+end_src
 
-   
 ** shell-toggle
    現在ページでシェルを起動する.
    - https://github.com/knu/shell-toggle.el

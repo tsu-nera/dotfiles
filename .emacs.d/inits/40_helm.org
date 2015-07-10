@@ -82,7 +82,6 @@
 
 #+begin_src emacs-lisp
 )
-(require 'helm-config)
 (helm-mode 1) ;; 基本的な設定はこれで実施される.
 #+end_src
     
@@ -351,8 +350,11 @@
 
   windows だと、うまくうごいてくれないな。。
 
+  helm-esh-pcompileがうまく動かないので封印
+
 #+begin_src emacs-lisp
 (use-package helm-migemo
+  :disabled t
   :if linux-p
   :config
   (setq helm-use-migemo t)
