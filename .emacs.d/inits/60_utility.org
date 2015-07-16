@@ -437,6 +437,17 @@ $ sudo cp /usr/bin/ruby1.9/bin/enclient.rb /usr/bin
    このアイデアは good idea.
    - [[http://d.hatena.ne.jp/lurdan/20130225/1361806605][twittering-mode を popwin に閉じこめる - *scratch*]]
 
+*** 自前関数でミニバッファからツイート
+
+#+begin_src emacs-lisp
+(defun twit-from-minibuffer (x)
+  "Tweet message from minibuffer"
+  (interactive "sEnter twitter message: ")
+  (let ((tweet-message (concat "twitter " x)))
+    (shell-command tweet-message)))
+(global-set-key (kbd "C-c C-x t") 'twit-from-minibuffer)
+#+end_src
+
 ** bitlbee
   yaourt bitlbee でいれた.
   - [[https://wiki.archlinux.org/index.php/bitlbee][Bitlbee - ArchWiki]]

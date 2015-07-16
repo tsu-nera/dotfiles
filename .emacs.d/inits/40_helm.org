@@ -410,7 +410,6 @@
 (use-package helm-dash)
 #+end_src
 
-
 ** helm-ls-git
    どうも、これを利用すると、eieio-defclass-autoload error がでる. 
 
@@ -443,6 +442,19 @@
   ;;(setq avi-keys (append "asdfghjklzxcvbnmqwertyuiop" nil)))
 #+end_src
 
+** helm-etags-plus
+   - [[https://github.com/jixiuf/helm-etags-plus][jixiuf/helm-etags-plus]]
+   C 言語では, これがまともに動く. gtags は動かない etags で TAGS を生成する.
+   pythonも、gtagsがつかえない!!
+
+   - helm-etags-select C-x c e
+
+#+begin_src emacs-lisp
+(use-package helm-etags+
+  :bind (("C-x c e" . helm-etags+-select)
+         ("C-x c ," . helm-etags+-history-go-back)))
+(use-package ctags-update)
+#+end_src
 * Action 追加
   helm で絞り込みのあと, TAB で Action 起動.
   - [[http://rubikitch.com/2015/02/02/helm-add-actions/][emacs helm にアクション・キーバインドを超簡単に追加する方法]]
@@ -451,17 +463,6 @@
   よくわからないな...あとで.
   
 * 未使用中...
-** helm-etags-plus
-   - [[https://github.com/jixiuf/helm-etags-plus][jixiuf/helm-etags-plus]]
-
-   C 言語では, これがまともに動く. gtags は動かない etags で TAGS を生成する.
-
-   - helm-etags-select C-x c e
-
-#+begin_src emacs-lisp
-(use-package helm-etags+ :disabled t)
-(use-package ctags-update :disabled t)
-#+end_src
 ** helm-github-stars
    helm i/f で github のスターを見る.
    - https://github.com/Sliim/helm-github-stars

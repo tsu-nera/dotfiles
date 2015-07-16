@@ -111,6 +111,7 @@ o
 ** TODO iPython
    インタラクティブなデバッグ環境.
 
+
 * 静的解析
 ** flycheck
    以下が利用できる（らしい) .
@@ -129,6 +130,18 @@ pip install flake8
 #+end_src
 
   - [[http://qiita.com/kitsuyui/items/5ab4608003a29ff7689f][Python の Lint (文法チェッカ) まとめ - flake8 + hacking を使う - - Qiita]]
+
+* タグジャンプ
+** Pygments
+  Pygmentsというのをつかうらしい. 
+  - http://pygments.org/
+  - https://github.com/yoshizow/global-pygments-plugin
+
+  おっと、3.xは現在未サポート. 2015/07
+
+** etags
+  これが使えた！
+  - http://stackoverflow.com/questions/3501040/how-can-i-use-meta-dot-m-in-python-with-emacs#
 
 * Links
   - [[http://www.emacswiki.org/PythonProgrammingInEmacs][EmacsWiki: Python Programming In Emacs]]
