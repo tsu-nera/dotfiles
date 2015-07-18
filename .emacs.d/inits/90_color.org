@@ -7,6 +7,7 @@
 
 #+begin_src emacs-lisp
 (use-package smart-mode-line
+  :disabled t
   :config
   (setq sml/mode-width 40)
   (setq sml/no-confirm-load-theme t)
@@ -22,7 +23,6 @@
 
 #+begin_src emacs-lisp
 (use-package powerline
-  :disabled t
   :config
   (powerline-default-theme)
 
