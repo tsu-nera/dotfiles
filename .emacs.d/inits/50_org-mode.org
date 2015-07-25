@@ -894,6 +894,7 @@
    (java . t)
    (shell . t)
    (ledger . t)      
+   (python . t)
    )
  )
 #+end_src

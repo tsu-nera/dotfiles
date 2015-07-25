@@ -455,14 +455,6 @@
          ("C-x c ," . helm-etags+-history-go-back)))
 (use-package ctags-update)
 #+end_src
-* Action 追加
-  helm で絞り込みのあと, TAB で Action 起動.
-  - [[http://rubikitch.com/2015/02/02/helm-add-actions/][emacs helm にアクション・キーバインドを超簡単に追加する方法]]
-  - https://gist.github.com/tsu-nera/9cfd449c0dc5d232f61f
-
-  よくわからないな...あとで.
-  
-* 未使用中...
 ** helm-github-stars
    helm i/f で github のスターを見る.
    - https://github.com/Sliim/helm-github-stars
@@ -472,6 +464,15 @@
   :config 
   (setq helm-github-stars-username "tsu-nera"))
 #+end_src
+
+* Action 追加
+  helm で絞り込みのあと, TAB で Action 起動.
+  - [[http://rubikitch.com/2015/02/02/helm-add-actions/][emacs helm にアクション・キーバインドを超簡単に追加する方法]]
+  - https://gist.github.com/tsu-nera/9cfd449c0dc5d232f61f
+
+  よくわからないな...あとで.
+  
+* 未使用中...
 
 ** swiper-helm
    Emacs isearch with an overview. 

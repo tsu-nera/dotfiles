@@ -167,6 +167,13 @@
 (use-package eshell-autojump)
 #+end_src
 
+*** eshell-z
+    https://github.com/travisjeffery/eshell-z.el
+
+#+begin_src emacs-lisp
+(use-package eshell-z)
+#+end_src
+
 *** end of config
 
 #+begin_src emacs-lisp

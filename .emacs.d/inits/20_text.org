@@ -173,14 +173,14 @@
    RET が multiple-cursor-mode に割り当てられているため,
    改行するためには, C-m をする必要がある.
 
-   #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (use-package multiple-cursors
   :bind (("C-M-c" . mc/edit-lines)
 	 ("C-M-r" . mc/mark-all-in-region)
 	 ;; ("C-]" . mc/mark-next-like-this)
 	 ("C-M-]" . mc/mark-previous-like-this)
 	 ("C-c C-]" . mc/mark-all-like-this))
-  :config
+  :init
   (global-set-key
     (kbd "C-]")  
     (defhydra hydra-mc ()

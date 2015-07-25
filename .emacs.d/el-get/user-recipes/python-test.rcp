@@ -1,0 +1,3 @@
+(:name python-test
+       :type github
+       :pkgname "emacs-pe/python-test.el")
