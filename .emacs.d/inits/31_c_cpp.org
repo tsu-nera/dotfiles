@@ -87,6 +87,12 @@
 (add-to-list 'flycheck-checkers 'c++-g++-ja)
 #+end_src
 
+*** clang
+    カスタムインクルードパスは自分で指定しないといけないようだ.
+    - http://stackoverflow.com/questions/24097839/how-to-add-include-path-to-flycheck-c-c-clang
+
+    flycheck-clang-include-path
+
 * Refactoring
 ** semantic-refactoring
    Semantic Refactor is a refactoring tool for C/C++.

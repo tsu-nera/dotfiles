@@ -388,6 +388,15 @@
   (set-frame-parameter nil 'alpha (cons alpha-num '(90))))
 #+end_src
 
+** xterm-color
+   ansi-colorよりも高速だとかいうので入れとく.
+
+   いろがうまく反映されないよ.
+
+#+begin_src emacs-lisp
+(use-package xterm-color)
+#+end_src
+
 * Emacs Color Theme
   A collection of custom themes for Emacs.
   - https://github.com/owainlewis/emacs-color-themes

@@ -289,6 +289,7 @@
 
     eshell-autojump
     multi-eshell
+    eshell-z
 
     ;; 61_wanderlust
     wanderlust
@@ -299,6 +300,7 @@
     ubuntu-theme
     molokai-theme
     rainbow-delimiters
+    xterm-color
 
     ;; 未整理
     calfw

@@ -1,0 +1,3 @@
+(:name xterm-color
+       :type github
+       :pkgname "atomontage/xterm-color")

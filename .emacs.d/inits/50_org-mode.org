@@ -234,6 +234,15 @@
 ;; be restored properly."
 ;;   ad-do-it
 ;;   (delete-other-windows))
+
+(defadvice org-agenda (around org-agenda-fullscreen activate)
+  (window-configuration-to-register :org-agenda-fullscreen)
+  ad-do-it
+  (delete-other-windows))
+
+(defadvice org-agenda-quit (around org-agenda-quit-fullscreen activate)
+  ad-do-it
+  (jump-to-register :org-agenda-fullscreen))
 #+end_src
 
 *** column & properties
