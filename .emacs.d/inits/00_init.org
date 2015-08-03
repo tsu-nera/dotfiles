@@ -170,6 +170,8 @@
     smartrep
     smartparens
     lispxmp
+    clojure-mode
+    cider
 
     ;; minor-lang
     yaml-mode

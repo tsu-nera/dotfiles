@@ -155,11 +155,21 @@
 (use-package multi-eshell
   :init
   (global-set-key (kbd "C-c t t") 'multi-eshell)
-  (global-set-key (kbd "C-c t b") 'multi-eshell-switch)
   :config
   (setq multi-eshell-shell-function '(eshell))
   (setq multi-eshell-name "*eshell*"))
 #+end_src
+
+**** elscreenで開く
+
+#+begin_src emacs-lisp
+(defun elscreen-esh ()
+  (interactive)
+  (elscreen-create)
+  (multi-eshell 1))
+(global-set-key (kbd "C-c t b") 'elscreen-esh)
+#+end_src
+
 
 *** eshell-autojump
     

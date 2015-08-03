@@ -19,7 +19,7 @@
 *** default
   smartparens-config では以下が設定される.
   - https://github.com/Fuco1/smartparens/blob/master/smartparens-config.el
-
+    
 *** example
   覚えておきたいのは,
   - かっこで囲む xx sp-pair M-(
@@ -454,3 +454,40 @@ $ yaourt -S racket
   (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode))
 #+end_src
 
+
+* Common Lisp
+** SLIME: The Superior Lisp Interaction Mode for Emacs
+   - https://common-lisp.net/project/slime/
+   - https://github.com/slime/slime
+
+#+begin_src emacs-lisp
+(use-package slime
+  :bind*  ()
+  :config
+  (setq inferior-lisp-program "clisp")
+  (slime-setup '(slime-repl slime-fancy slime-banner)))
+#+end_src
+
+#+begin_src emacs-lisp
+(bind-keys* :map slime-mode-map
+           ("C-M-a" . sp-beginning-of-sexp)
+           ("C-M-e" . sp-end-of-sexp))
+#+end_src
+
+*** helm-slime
+    なんだろう、とりあえず入れた.
+
+#+begin_src emacs-lisp
+(use-package helm-slime)
+#+end_src
+
+*** ac-slime
+
+#+begin_src emacs-lisp
+(use-package ac-slime
+  :init
+  (add-hook 'slime-mode-hook 'set-up-slime-ac)
+  (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
+  (eval-after-load "auto-complete"
+   '(add-to-list 'ac-modes 'slime-repl-mode)))
+#+end_src
