@@ -409,6 +409,14 @@
   (add-hook 'dired-initial-position-hook 'dired-k))
 #+end_src
 
+** neotree
+
+#+begin_src emacs-lisp
+(use-package neotree
+  :config
+  (global-set-key [f8] 'neotree-toggle))
+#+end_src
+   
 * elscreen
   screen の Emacs バージョン. マルチプレクサ.
   - https://github.com/emacs-jp/elscreen

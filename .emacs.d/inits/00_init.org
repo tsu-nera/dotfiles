@@ -293,6 +293,8 @@
     multi-eshell
     eshell-z
 
+    neotree
+
     ;; 61_wanderlust
     wanderlust
 

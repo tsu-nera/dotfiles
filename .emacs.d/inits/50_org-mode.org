@@ -1101,13 +1101,22 @@ emacs -Q --batch \
 
 #+begin_src emacs-lisp
 (use-package org-journal
-  :bind ("C-c j" . org-journal-new-entry)
+  :bind (("C-c j" . org-journal-new-entry)
+         ("C-c C-j" . org-journal-from-minibuffer))
   :config
   (setq org-journal-date-format "%x")
   (setq org-journal-time-format "<%Y-%m-%d %R> ")
   ;; (setq org-journal-file-format "%Y%m%d.org")
   (setq org-journal-file-format "journal.org")
-  (setq org-journal-dir "~/gtd/journal/"))
+  (setq org-journal-dir "~/gtd/journal/")
+  
+  (defun org-journal-from-minibuffer (x)
+    "write from minibuffer"
+    (interactive "sEnter message: ")
+    (let ((tweet-message
+           (concat "** " (format-time-string org-journal-time-format) x "\n")))
+      (write-region tweet-message nil
+                    (concat org-journal-dir org-journal-file-format) 'append))))
 #+end_src
 
 * org-pomodoro
