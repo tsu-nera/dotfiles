@@ -708,6 +708,16 @@
      (define-key global-map (kbd "C-j") 'smart-newline))
    #+end_src
 
+** cloc
+   ステップカウンタ
+   - https://github.com/cosmicexplorer/cloc-emacs
+
+   clocというプログラムを呼び出す.
+
+#+begin_src emacs-lisp
+(use-package cloc)
+#+end_src
+
 * git
 ** magit
    Emacs の Git Client.

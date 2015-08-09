@@ -10,9 +10,11 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
 		    -- , Run Swap [] 10
                     , Run Battery ["Bat0"] 600
+                    , Run Com "xmobar-clock-monitor.sh" [] "orgClock" 10
+                    , Run Com "sh" ["-c", "cat ~/tmp/clocking"] "orgShow" 10
     		    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
 		    ]	
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%cpu% | %memory% | %battery% }{ <fc=#ee9a00>%date%</fc>"
+       , template = "%cpu% | %memory% | %battery% }{ <fc=#ee9a00>%date%</fc> %orgClock%clock</fc> %orgShow%"
        }

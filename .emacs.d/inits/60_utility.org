@@ -209,7 +209,7 @@
 #+end_src
 
 * memo:メモ・キャプチャー
-** Hown
+** Howm
    Function : Evernote を越えるメモ管理ツール
    - http://www.gfd-dennou.org/member/uwabami/cc-env/emacs/howm_config.html
    - http://d.hatena.ne.jp/TakashiHattori/20120627/1340768058
@@ -660,6 +660,11 @@ command uses interactive mode if passed an argument."
   (emms-standard)
   
    (emms-default-players)
+
+   ;; RET が動かないので
+   (define-key emms-stream-mode-map (kbd "C-c C-c") 'emms-stream-play)
+   ;; emms-streams で RET を押したときのデフォルト操作
+   (setq emms-stream-default-action "play")
   
   (when linux-p
     (setq emms-source-file-default-directory "~/Music/"))
@@ -673,28 +678,35 @@ command uses interactive mode if passed an argument."
     https をサポートに追加する.
 
  #+begin_src emacs-lisp
-(when linux-p
-  (use-package emms-player-vlc
-    :config
-    (setq emms-player-list '(emms-player-vlc))
-    (define-emms-simple-player vlc '(file url)
-      (concat "\\`\\(https?\\|mms\\)://\\|"
-              (emms-player-simple-regexp
-               "ogg" "mp3" "wav" "mpg" "mpeg" "wmv" "wma"
-               "mov" "avi" "divx" "ogm" "ogv" "asf" "mkv"
-               "rm" "rmvb" "mp4" "flac" "vob" "m4a" "ape"
-               "asx"))
-      "vlc" "--intf=rc")))
-(setq emms-player-list '(emms-player-vlc))
+;; (when linux-p
+;;   (use-package emms-player-vlc
+;;     :config
+;;     (setq emms-player-list '(emms-player-vlc))
+;;     (define-emms-simple-player vlc '(file url)
+;;       (concat "\\`\\(https?\\|mms\\)://\\|"
+;;               (emms-player-simple-regexp
+;;                "ogg" "mp3" "wav" "mpg" "mpeg" "wmv" "wma"
+;;                "mov" "avi" "divx" "ogm" "ogv" "asf" "mkv"
+;;                "rm" "rmvb" "mp4" "flac" "vob" "m4a" "ape"
+;;                "asx"))
+;;       "vlc" "--intf=rc")))
+;; (setq emms-player-list '(emms-player-vlc))
  #+end_src
  
 *** mplayer
     - windows http://sourceforge.net/projects/mplayerwin/
+    - http://stackoverflow.com/questions/9147823/emms-error-dont-know-how-to-play-track
 
 #+begin_src emacs-lisp
-  ;; only use mplayer to use pulseaudio
-  ;; (setq emms-player-list '(emms-player-mplayer))
-  ;;                           emms-player-mplayer-playlist))
+(require 'emms-setup)
+(require 'emms-player-mplayer)
+(emms-standard)
+(emms-default-players)
+(define-emms-simple-player mplayer '(file url)
+      (regexp-opt '(".ogg" ".mp3" ".wav" ".mpg" ".mpeg" ".wmv" ".wma"
+                    ".mov" ".avi" ".divx" ".ogm" ".asf" ".mkv" "http://" "mms://"
+                    ".rm" ".rmvb" ".mp4" ".flac" ".vob" ".m4a" ".flv" ".ogv" ".pls"))
+      "mplayer" "-slave" "-quiet" "-really-quiet" "-fullscreen")
 #+end_src
 
 *** volume
@@ -720,19 +732,23 @@ command uses interactive mode if passed an argument."
     BBC Classic (Raido3)
     - http://www.bbc.co.uk/radio/listen/live/r3_aaclca.pls
 
-#+begin_src emacs-lisp
-  ;; RET が動かないので
-  (define-key emms-stream-mode-map (kbd "C-c C-c") 'emms-stream-play)
-
-  ;; emms-streams で RET を押したときのデフォルト操作
-  (setq emms-stream-default-action "play")
-#+end_src
-
 *** End of Config
  #+begin_src emacs-lisp
 )
  #+end_src
 
+** mms-player-mpv-jp-radios
+   https://github.com/momomo5717/emms-player-mpv-jp-radios
+
+#+begin_src emacs-lisp
+(use-package emms-player-mpv-jp-radios
+  :config
+  (let ((default-directory "~/.emacs.d/el-get/repo/emms-player-mpv-jp-radios"))
+  (add-to-list 'load-path default-directory)
+  (normal-top-level-add-subdirs-to-load-path))
+  (emms-player-mpv-jp-radios-add "radiko" "radiru"))
+#+end_src
+   
 ** jazzradio
    ジャズだって聴ける! 
    - https://github.com/syohex/emacs-jazzradio

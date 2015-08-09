@@ -1,0 +1,4 @@
+(:name emms-player-mpv-jp-radios
+       :type github
+       :depends (emms-player-simple-mpv)
+       :pkgname "momomo5717/emms-player-mpv-jp-radios")

@@ -1,0 +1,3 @@
+(:name emms-player-simple-mpv
+       :type github
+       :pkgname "momomo5717/emms-player-simple-mpv")

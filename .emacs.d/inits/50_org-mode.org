@@ -380,7 +380,6 @@
       (lawlist-org-agenda-view-mode-dispatch))))
 #+end_src
 
-
 ** タスクの状態
    うまく動作しないので, 利用しないことにする.
 
@@ -468,7 +467,7 @@
     (org-map-entries 'org-archive-subtree "/DONE" 'file))
 #+end_src
 
-** org-clock
+* org-clock
   org-clock. org-mode での時間管理.
   - http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
 
@@ -503,7 +502,7 @@
 ;;(setq org-clock-sound t)
 #+end_src
 
-*** 必ず時間見積り
+** 必ず時間見積り
     一時無効
     #+begin_src emacs-lisp
 ;; (defadvice org-clock-in (before is-set-effort-before-clock-in)
@@ -530,7 +529,7 @@
         (org-set-property "Effort" effort)))))
 #+end_src
 
-*** my/org-clockin-gtd
+** my/org-clockin-gtd
  指定したタスクを clockin するためのショートカット はじめてつくった自作 defun!!
  - http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
  - https://github.com/danieroux/emacs/blob/master/external/bh-org-mode.el
@@ -546,7 +545,7 @@
 ;;    (add-hook 'org-pomodoro-break-finished-hook 'mygtd:reset-rest-timer)))
 #+end_src
 
-*** org-clock-by-tags
+** org-clock-by-tags
    タグごとに clocktable を集計.
     - http://stackoverflow.com/questions/17353591/timetable-grouped-by-tag
     - https://gist.github.com/tsu-nera/d9ffa6a51a6e7bdb957b
@@ -561,7 +560,7 @@
 (use-package clocktable-by-tag)
 #+end_src
 
-*** \emsp 対策: workaround
+** \emsp 対策: workaround
     It's workaround :(
     - [[https://www.mail-archive.com/emacs-orgmode@gnu.org/msg91791.html][Re: Alignment bug in clock tables]]
 
@@ -574,24 +573,24 @@
         (setq str (concat "_" str))))))))
 #+end_src
 
-*** モードラインにも表示
+** モードラインにも表示
     モードラインに時間を表示するためには、以下の設定をテーマに書く.
 
 #+begin_src text
 (:eval org-mode-line-string)
 #+end_src
 
-*** 手動で確認
+** 手動で確認
     モードラインに表示できないので.
 
 #+begin_src emacs-lisp
 (defun org-clock-show()
   (interactive)
-  (print (org-clock-get-clock-string)))
+  (princ (org-clock-get-clock-string)))
 (global-set-key (kbd "C-x <f9>") 'org-clock-show)
 #+end_src
 
-*** ファイルに時間を書き出す
+** ファイルに時間を書き出す
     xmobar に表示できる... が xmobar の表示方法がわからん..
     - http://lists.gnu.org/archive/html/emacs-orgmode/2010-04/msg00457.html
 
@@ -614,7 +613,7 @@
 (add-hook 'display-time-hook 'esf/org-clocking-info-to-file)
 #+end_src
 
-*** clock 履歴 を保存する
+** clock 履歴 を保存する
 
     #+begin_src emacs-lisp
 ;; なんか, org-mode を開くときに遅いので封印する.
@@ -637,6 +636,38 @@
 ;; Number of clock tasks to remember in history.
 (setq org-clock-history-length 35)  ; 1 to 9 + A to Z
 #+end_src
+
+** clock-inで表示を出す
+
+#+begin_src emacs-lisp
+(add-hook 'org-clock-in-hook
+          (lambda ()
+            (gntp-notify 'alert "Clock In"
+                         "Happy Hacking! (^o^)/"
+                         "localhost")))
+
+(add-hook 'org-clock-out-hook
+          (lambda ()
+            (gntp-notify 'alert "Clock Out"
+                         "Good Job!"
+                         "localhost")))
+#+end_src
+
+** clock-inしてないとアラート表示
+
+#+begin_src emacs-lisp
+(defun org-clocking-alart ()
+  (unless (org-clocking-p)
+    (gntp-notify 'alert "What are you doing!!"
+                 "You should start clocking ('･_･`)"
+                 "localhost")))
+(run-at-time t 5 'org-clocking-alart)
+#+end_src
+
+** xmobarにclock状態を表示
+   このハックいいね.
+   - https://github.com/binarin/rc/blob/master/xmobar-clock-monitor.sh
+   - https://github.com/binarin/rc/blob/master/.xmobarrc
 
 * org-capture
   アイデアをキャプチャーする.

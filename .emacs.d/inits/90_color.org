@@ -122,14 +122,13 @@
 
 #+begin_src emacs-lisp
 ;;(unless (eq window-system nil)
-(global-hl-line-mode 1)
-
-(defun global-hl-line-timer-function ()
-  (global-hl-line-unhighlight-all)
-  (let ((global-hl-line-mode t))
-    (global-hl-line-highlight)))
-(setq global-hl-line-timer
-      (run-with-idle-timer 0.1 t 'global-hl-line-timer-function))
+;; (global-hl-line-mode 1)
+;; (defun global-hl-line-timer-function ()
+;;   (global-hl-line-unhighlight-all)
+;;   (let ((global-hl-line-mode t))
+;;     (global-hl-line-highlight)))
+;; (setq global-hl-line-timer
+;;       (run-with-idle-timer 0.1 t 'global-hl-line-timer-function))
 #+end_src
 
 ** 80 行目をハイライト

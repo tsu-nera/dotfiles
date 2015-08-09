@@ -282,6 +282,8 @@
     erc-hl-nicks
     erc-nick-notify
 
+    emms-player-mpv-jp-radios
+
     ;; 61_terminal
     elscreen
     elscreen-wl
