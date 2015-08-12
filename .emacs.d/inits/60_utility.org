@@ -706,7 +706,7 @@ command uses interactive mode if passed an argument."
       (regexp-opt '(".ogg" ".mp3" ".wav" ".mpg" ".mpeg" ".wmv" ".wma"
                     ".mov" ".avi" ".divx" ".ogm" ".asf" ".mkv" "http://" "mms://"
                     ".rm" ".rmvb" ".mp4" ".flac" ".vob" ".m4a" ".flv" ".ogv" ".pls"))
-      "mplayer" "-slave" "-quiet" "-really-quiet" "-fullscreen")
+      "mplayer" "-slave" "-quiet" "-really-quiet" "-fullscreen")p
 #+end_src
 
 *** volume
@@ -824,6 +824,16 @@ command uses interactive mode if passed an argument."
   ("+" volume-raise "up")
   ("-" volume-lower "down"))
  #+end_src
+
+** mpsyt
+   mps-youtube
+
+#+begin_src emacs-lisp
+(defun mpsyt ()
+  (interactive)
+  (toggle-frame-fullscreen)
+  (ansi-term "mpsyt" "mpsyt"))
+#+end_src
 
 * Dictionary: 辞書
 ** search-web

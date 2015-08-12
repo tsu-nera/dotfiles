@@ -305,6 +305,11 @@
                      ;; (org-deadline-warning-days 0)
                      ;; (org-agenda-clockreport-mode t) ;; 時間表の表示はコメントアウト
                      ))))
+       ("y" "Yesterday Action List"
+        ((agenda "" ((org-agenda-span 1)
+                     (org-agenda-start-day "-1d")
+                     (org-agenda-entry-types '(:timestamp :sexp))))))
+
        ("w" "Completed and/or deferred tasks from previous week"
         ((agenda "" ((org-agenda-span 8)
                      (org-agenda-start-day "-7d")
@@ -496,6 +501,9 @@
 
 ;; Include current clocking task in clock reports
 (setq org-clock-report-include-clocking-task t)
+
+;; logbookにまとめる
+(setq org-log-into-drawer t)
 
 ; 時間になったら音をならす
 ;;(setq org-clock-sound "/usr/share/sounds/LinuxMint/stereo/desktop-login.ogg")
