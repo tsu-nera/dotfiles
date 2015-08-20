@@ -365,6 +365,14 @@
 ** 全角半角で 文字が崩れる
   - [[http://stickydiary.blog88.fc2.com/blog-entry-107.html][Emacs で等幅フォントの半角文字・全角文字の横幅比 1:2 を必ず達成するフォント設定 - Sticky Diary]]
 
+** ミニバッファの文字を大きく
+
+#+begin_src emacs-lisp
+(add-hook 'minibuffer-setup-hook 'my-minibuffer-setup)
+(defun my-minibuffer-setup ()
+  (setq-local face-remapping-alist '((default :height 2.0))))
+#+end_src
+
 * General
 
 ** Comment

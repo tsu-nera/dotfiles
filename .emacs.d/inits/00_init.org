@@ -172,6 +172,7 @@
     lispxmp
     clojure-mode
     cider
+    4clojure
 
     ;; minor-lang
     yaml-mode

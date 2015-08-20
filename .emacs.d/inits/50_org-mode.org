@@ -702,7 +702,7 @@
 	;;  :prepend t
 	;;  :unnarrowed t
 	;;  :kill-buffer t)
-        ("m" "Memo" entry (file+headline "~/gtd/main.org" "Memo") "** %U%?\n%i\n")
+        ;; ("m" "Memo" entry (file+headline "~/gtd/main.org" "Memo") "** %U%?\n%i\n")
 	("e" "Email Todo" entry (file+headline "~/gtd/main.org" "Mails")
         "* TODO %^{Brief Description}\n%a\n%?Added: %U\n" :prepend t)
 	("c" "calfw2org" entry (file "~/gtd/schedule.org") "*  %?\n %(cfw:org-capture-day)")
@@ -1140,20 +1140,20 @@ emacs -Q --batch \
 
 #+begin_src emacs-lisp
 (use-package org-journal
-  :bind (("C-c j" . org-journal-new-entry)
-         ("C-c C-j" . org-journal-from-minibuffer))
+  :bind (("C-c C-j" . org-journal-new-entry)
+         ("C-c j" . org-journal-from-minibuffer))
   :config
   (setq org-journal-date-format "%x")
   (setq org-journal-time-format "<%Y-%m-%d %R> ")
   ;; (setq org-journal-file-format "%Y%m%d.org")
   (setq org-journal-file-format "journal.org")
   (setq org-journal-dir "~/gtd/journal/")
-  
+
   (defun org-journal-from-minibuffer (x)
     "write from minibuffer"
     (interactive "sEnter message: ")
     (let ((tweet-message
-           (concat "** " (format-time-string org-journal-time-format) x "\n")))
+           (concat "%\n** " (format-time-string org-journal-time-format) x "\n")))
       (write-region tweet-message nil
                     (concat org-journal-dir org-journal-file-format) 'append))))
 #+end_src

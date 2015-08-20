@@ -35,3 +35,6 @@ tmp
 /.emacs.d/ensime/
 /.emacs.d/inits/02_custom.el
 /.emacs.d/inits/02_custom.el
+*.gpg
+/.emacs.d/readability-token
+/.emacs.d/request/curl-cookie-jar

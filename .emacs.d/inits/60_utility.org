@@ -706,7 +706,7 @@ command uses interactive mode if passed an argument."
       (regexp-opt '(".ogg" ".mp3" ".wav" ".mpg" ".mpeg" ".wmv" ".wma"
                     ".mov" ".avi" ".divx" ".ogm" ".asf" ".mkv" "http://" "mms://"
                     ".rm" ".rmvb" ".mp4" ".flac" ".vob" ".m4a" ".flv" ".ogv" ".pls"))
-      "mplayer" "-slave" "-quiet" "-really-quiet" "-fullscreen")p
+      "mplayer" "-slave" "-quiet" "-really-quiet" "-fullscreen")
 #+end_src
 
 *** volume
@@ -965,7 +965,6 @@ command uses interactive mode if passed an argument."
 (use-package gntp)
 #+end_src
 
-
 * その他
 ** pdf-tools
    PDF Viewer. Emacs で PDF がみれるという画期的なツールだ.
@@ -1146,8 +1145,16 @@ sudo pacman -S ghostscript
 ** meigen
 
 #+begin_src emacs-lisp
-(setq cookie-file "~/.emacs.d/quotes.txt")
+(defun set-my-meigen ()
+  (interactive) (setq cookie-file   "~/.emacs.d/meigen/meigen.txt"))
+(defun set-rubi-meigen ()
+  (interactive) (setq cookie-file "~/.emacs.d/meigen/quotes.txt"))
+
+(setq cookie-file "~/.emacs.d/meigen/meigen.txt")
 (defhydra hydra-meigen (global-map "C-x ,")
   "meigen"
-  ("," cookie "meigen"))
+  ("," cookie "meigen")
+  ("r" set-rubi-meigen "rubi-meigen")
+  ("f" (find-file cookie-file) "open meigen")
+  ("m" set-my-meigen "my-meigen"))
 #+end_src

@@ -454,6 +454,13 @@ $ yaourt -S racket
   (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode))
 #+end_src
 
+** 4clojure
+   clojureの問題集.
+   - https://github.com/losingkeys/4clojure.el
+
+#+begin_src emacs-lisp
+(use-package 4clojure)
+#+end_src
 
 * Common Lisp
 ** SLIME: The Superior Lisp Interaction Mode for Emacs
