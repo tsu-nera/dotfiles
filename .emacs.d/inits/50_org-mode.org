@@ -177,6 +177,7 @@
 (setq org-agenda-files '("~/gtd/main.org"
                          "~/gtd/inbox.org"
                          "~/gtd/journal/journal.org"
+                         "~/gtd/journal/twitter.org"                         
                          "~/gtd/habits.org"))
 
 ;; (setq org-agenda-file-regexp "\\`[^.].*\\.org'\\|[0-9]+.org$")
@@ -1140,8 +1141,8 @@ emacs -Q --batch \
 
 #+begin_src emacs-lisp
 (use-package org-journal
-  :bind (("C-c C-j" . org-journal-new-entry)
-         ("C-c j" . org-journal-from-minibuffer))
+  :bind (("C-c j" . org-journal-new-entry)
+         ("C-c C-x j" . org-journal-from-minibuffer))
   :config
   (setq org-journal-date-format "%x")
   (setq org-journal-time-format "<%Y-%m-%d %R> ")
@@ -1153,7 +1154,7 @@ emacs -Q --batch \
     "write from minibuffer"
     (interactive "sEnter message: ")
     (let ((tweet-message
-           (concat "%\n** " (format-time-string org-journal-time-format) x "\n")))
+           (concat "** " (format-time-string org-journal-time-format) x "\n")))
       (write-region tweet-message nil
                     (concat org-journal-dir org-journal-file-format) 'append))))
 #+end_src

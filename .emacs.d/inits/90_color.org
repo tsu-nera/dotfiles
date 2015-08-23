@@ -368,9 +368,9 @@
 ** ミニバッファの文字を大きく
 
 #+begin_src emacs-lisp
-(add-hook 'minibuffer-setup-hook 'my-minibuffer-setup)
-(defun my-minibuffer-setup ()
-  (setq-local face-remapping-alist '((default :height 2.0))))
+;; (add-hook 'minibuffer-setup-hook 'my-minibuffer-setup)
+;; (defun my-minibuffer-setup ()
+;;  (setq-local face-remapping-alist '((default :height 2.0))))
 #+end_src
 
 * General

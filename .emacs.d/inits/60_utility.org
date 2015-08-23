@@ -208,6 +208,15 @@
 (use-package define-word)
 #+end_src
 
+** bitly
+   短縮URLサービス
+   
+   トークン取得が必要。面倒になった。
+
+#+begin_src emacs-lisp
+;; (use-package bitly)
+#+end_src
+
 * memo:メモ・キャプチャー
 ** Howm
    Function : Evernote を越えるメモ管理ツール
@@ -444,8 +453,15 @@ $ sudo cp /usr/bin/ruby1.9/bin/enclient.rb /usr/bin
   "Tweet message from minibuffer"
   (interactive "sEnter twitter message: ")
   (let ((tweet-message (concat "twitter " x)))
-    (shell-command tweet-message)))
+    (shell-command tweet-message)
+    (shell-command "org-twit")))
+
+(defun org-fetch-twit ()
+  (interactive)
+  (shell-command "org-twit"))
+
 (global-set-key (kbd "C-c C-x t") 'twit-from-minibuffer)
+(global-set-key (kbd "C-c C-x r") 'org-fetch-twit)
 #+end_src
 
 ** bitlbee
