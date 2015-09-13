@@ -172,6 +172,7 @@
     lispxmp
     clojure-mode
     cider
+    ac-cider
     4clojure
 
     ;; minor-lang

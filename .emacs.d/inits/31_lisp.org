@@ -462,6 +462,22 @@ $ yaourt -S racket
 (use-package 4clojure)
 #+end_src
 
+** ac-cider
+   https://github.com/clojure-emacs/ac-cider
+   
+#+begin_src emacs-lisp
+(use-package ac-cider
+  :init
+  (add-hook 'cider-mode-hook 'ac-flyspell-workaround)
+  (add-hook 'cider-mode-hook 'ac-cider-setup)
+  (add-hook 'cider-repl-mode-hook 'ac-cider-setup)
+  :config
+  (eval-after-load "auto-complete"
+    '(progn
+       (add-to-list 'ac-modes 'cider-mode)
+       (add-to-list 'ac-modes 'cider-repl-mode))))
+#+end_src
+
 * Common Lisp
 ** SLIME: The Superior Lisp Interaction Mode for Emacs
    - https://common-lisp.net/project/slime/

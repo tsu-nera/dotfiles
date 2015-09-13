@@ -542,7 +542,7 @@
  指定したタスクを clockin するためのショートカット はじめてつくった自作 defun!!
  - http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
  - https://github.com/danieroux/emacs/blob/master/external/bh-org-mode.el
-
+ - https://github.com/tsu-nera/dotfiles/blob/master/.emacs.d/mylisp/my-org-clockin-gtd.el
 #+begin_src emacs-lisp
 (use-package my-org-clockin-gtd
   :bind (("C-<f7>" . mygtd:gtd)

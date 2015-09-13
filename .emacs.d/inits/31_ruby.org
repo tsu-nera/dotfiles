@@ -179,3 +179,14 @@
 ;;(add-hook 'ruby-mode 'rubocop-mode)
 #+end_src
 
+* Rails
+** projectile-rails
+   Ruby on rails用. 
+   - https://github.com/asok/projectile-rails
+
+#+begin_src emacs-lisp
+(use-package projectile-rails
+  :init
+  (add-hook 'projectile-mode-hook 'projectile-rails-on))
+#+end_src
+

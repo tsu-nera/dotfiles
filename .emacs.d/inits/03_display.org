@@ -144,6 +144,7 @@
 
 #+begin_src emacs-lisp
 (use-package smooth-scroll
+  :disabled t
   :config
   (smooth-scroll-mode t))
 #+end_src

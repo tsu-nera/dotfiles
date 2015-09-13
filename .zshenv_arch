@@ -23,7 +23,9 @@ export PATH=$HOME/.cabal/bin:$PATH
 # Java
 export JUNIT_HOME=/usr/share/java
 export CLASSPATH=$JUNIT_HOME/junit.jar:$CLASSPATH
-export PATH=/usr/share/eclipse:$PATH
+export PATH=~/opt/eclipse:$PATH
+export PATH=~/opt/activator:$PATH
+export SWT_GTK3=0 # これがないとeclipseが起動しない
 
 # Python
 export PYTHONPATH=$PYTHONPATH:~/.emacs.d/el-get/repo/rope
