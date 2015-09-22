@@ -76,7 +76,11 @@ interactive("feedly", "Open Feedly", "follow",
 interactive("tomatoes", "Open Tomatoes", "follow",
     $browser_object = "http://tomato.es/");
 interactive("github", "Open Github", "follow",
-    $browser_object = "https://github.com/tsu-nera");
+            $browser_object = "https://github.com/tsu-nera");
+interactive("youtube-dl", "download youtube video",
+            function (I) {
+                shell_command_blind("youtube-dl " + I.buffer.display_uri_string);
+            });
 
 // open url with new buffer
 define_key(content_buffer_normal_keymap, "d", "follow-new-buffer");
