@@ -77,12 +77,11 @@
 
 #+begin_src emacs-lisp
 (use-package ruby-block
-  :defer t
+  :commands ruby-block-mode
   :init
   (add-hook 'ruby-mode-hook '(lambda () (ruby-block-mode t)))
   :config
-  (setq ruby-block-highlight-toggle t)
-)
+  (setq ruby-block-highlight-toggle t))
 #+end_src
 
 ** ruby-refactor

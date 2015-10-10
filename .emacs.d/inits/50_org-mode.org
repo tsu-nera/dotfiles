@@ -670,7 +670,7 @@
     (gntp-notify 'alert "What are you doing!!"
                  "You should start clocking ('･_･`)"
                  "localhost")))
-(run-at-time t 5 'org-clocking-alart)
+;; (run-at-time t 5 'org-clocking-alart)
 #+end_src
 
 ** xmobarにclock状態を表示
