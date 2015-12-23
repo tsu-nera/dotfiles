@@ -1,6 +1,13 @@
 * Text
   テキスト編集. Emacs の底力を発揮する!
 
+** 折り返し
+   自動折り返しを無効にする. 自分で折り返す
+   
+#+begin_src emacs-lisp
+(auto-fill-mode -1)
+#+end_src
+
 * 閲覧
 ** Read Only Mode
    - M-x toggle-read-only (C-x C-q) で現在開いているテキストを

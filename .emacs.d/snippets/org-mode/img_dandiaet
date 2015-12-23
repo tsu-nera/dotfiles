@@ -1,0 +1,10 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: img_dandiaet
+# key: img_dandiaet
+# binding: direct-keybinding
+# --
+#+BEGIN_HTML
+<img src="$1" width=500>
+</img>
+#+END_HTML
+$0

@@ -10,7 +10,7 @@ export OZEMACS=/usr/local/bin/emacs
 export OZHOME=/opt/mozart2
 
 # Cool
-# export PATH=/usr/class/cs143/cool/bin:$PATH
+export PATH=/usr/class/cs143/cool/bin:$PATH
 
 # Haskell
 export PATH=$HOME/.cabal/bin:$PATH

@@ -136,6 +136,7 @@
    Google 翻訳.
    - [[http://qiita.com/catatsuy/items/ae9875706769d4f02317][卒論を英語で書けと言われしまったあなたにおすすめの Emacs の設定 - Qiita]]
    - [[http://rubikitch.com/2014/12/07/google-translate/][emacs google-translate.el : Google 翻訳で言語自動判別しつつ英訳・和訳する!]]
+   - https://github.com/atykhonov/google-translate
    
 #+begin_src emacs-lisp
 (use-package google-translate
@@ -1148,6 +1149,44 @@ sudo pacman -S ghostscript
     ;; insert emoji with helm
     (global-set-key (kbd "C-c C-e") 'emoji-cheat-sheet-plus-insert)))
 #+end_src
+
+** aoj-submit
+   AOJの提出用 Elisp
+   - https://github.com/ottati/aoj-submit-el
+   - http://ottati.hatenablog.com/entry/2015/06/16/071410#
+
+#+begin_src emacs-lisp
+(use-package aoj-submit
+  :config
+  (setq aoj-id (netrc-get (netrc-machine (netrc-parse "~/.netrc") "aoj" t) "login"))
+  (setq aoj-password (netrc-get (netrc-machine (netrc-parse "~/.netrc") "aoj" t) "password")))
+#+end_src
+
+** slack
+   チャットツール
+   - https://github.com/raamdev/slack-el
+
+#+begin_src emacs-lisp
+(use-package slack)
+#+end_src
+
+** cfparser
+   Codeforcesのツール
+   - https://github.com/gnull/cfparser
+
+#+begin_src emacs-lisp
+(use-package cf-mode
+  :config
+  (setq cf-default-language cf-pl-python-2)
+  (setq cf-test-command
+        (concat
+         "for i in `ls *.in | sed 's/.in//'`; do "
+         "echo test $i; "
+         "python2 sol.py < $i.in | diff - $i.out; "
+         "done;"))
+  )
+#+end_src
+
 
 * Tips
 ** slimlock

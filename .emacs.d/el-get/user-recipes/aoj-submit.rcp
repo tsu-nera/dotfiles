@@ -1,0 +1,3 @@
+(:name aoj-submit
+       :type github
+       :pkgname "ottati/aoj-submit-el")

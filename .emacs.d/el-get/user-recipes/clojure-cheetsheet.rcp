@@ -1,0 +1,3 @@
+(:name clojure-cheetsheet
+       :type github
+       :pkgname "clojure-emacs/clojure-cheatsheet")

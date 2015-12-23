@@ -120,7 +120,7 @@ define_webjump("g", "http://www.google.co.jp/search?q=%s", $alternative = "http:
 // external
 //////////////////////////////////////////
 session_pref("xpinstall.whitelist.required", false);
-external_content_handlers.set("application/pdf", "evince");
+external_content_handlers.set("application/pdf", "firefox");
 
 ///////////////////////////////////////////////////////////////
 //  Mode-line

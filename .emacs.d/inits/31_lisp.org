@@ -434,6 +434,8 @@ $ yaourt -S racket
 
 * Clojure
   モダン Lisp.
+  - [[http://www.slideshare.net/karadweb/ide-clojureemacs][(IDEユーザのための) ClojureのEmacs開発環境について]]
+  - [[http://qiita.com/xorphitus/items/a1f433fa6ba2489ff9cf][EmacsでモダンClojure開発環境構築 - Qiita]]
   
 ** clojure-mode
    Clojure のためのメジャーモード.
@@ -451,6 +453,7 @@ $ yaourt -S racket
 (use-package cider
   :init
   (add-hook 'clojure-mode-hook 'cider-mode)
+  ;; eldocを有効にする
   (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode))
 #+end_src
 
@@ -476,6 +479,17 @@ $ yaourt -S racket
     '(progn
        (add-to-list 'ac-modes 'cider-mode)
        (add-to-list 'ac-modes 'cider-repl-mode))))
+#+end_src
+
+** clojure-cheatsheet
+   CheatSheet を参照できる.
+   - https://github.com/clojure-emacs/clojure-cheatsheet
+
+#+begin_src emacs-lisp
+(use-package clojure-cheatsheet
+  :config
+  (define-key clojure-mode-map (kbd "C-c C-h") #'clojure-cheatsheet)
+  )
 #+end_src
 
 * Common Lisp

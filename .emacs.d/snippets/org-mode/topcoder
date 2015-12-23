@@ -1,0 +1,14 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: topcoder
+# key: topcoder
+# binding: direct-keybinding
+# --
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: アルゴリズム
+#+TAGS: TopCoder
+#+DESCRIPTION:
+#+TITLE:
+
+* 問題
+* 方針
+* 解答

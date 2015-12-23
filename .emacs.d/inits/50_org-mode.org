@@ -756,6 +756,12 @@
 	 ;; :username (netrc-get everclassic "login")
 	 ;; :password (netrc-get everclassic "password")
          )
+	("Dandieat"
+	 :url "http://dandieat.biz/xmlrpc.php"
+	 :username "admin"	 
+	 ;; :username (netrc-get everclassic "login")
+	 ;; :password (netrc-get everclassic "password")
+         )
         )))
 #+end_src
 

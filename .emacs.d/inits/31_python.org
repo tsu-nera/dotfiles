@@ -46,10 +46,12 @@ pip install virtualenv
 
   初回利用時には、M-x jedi:install-server
 
+  他の環境で動かないので、封印
+
 #+begin_src emacs-lisp
 ;;(add-hook 'python-mode-hook 'jedi:setup)
-(add-hook 'python-mode-hook 'jedi:ac-setup) ;; auto-complete のソースに追加
-(setq jedi:complete-on-dot t)
+;; (add-hook 'python-mode-hook 'jedi:ac-setup) ;; auto-complete のソースに追加
+;; (setq jedi:complete-on-dot t)
 #+end_src
 
  jump もできる.
@@ -101,13 +103,13 @@ pip install virtualenv
    システムの version が 3 で, Emacs からは 2 を利用したいときは,
    以下のようにすれば実行コマンドをオーバライドできる.
    
-#+begin_src text
+#+begin_src emacs-lisp
 (eval-after-load 'quickrun
   '(progn
      (quickrun-add-command "python" '((:command . "python2"))
 			   :override t)))
 #+end_src
-o
+
 ** TODO iPython
    インタラクティブなデバッグ環境.
 
@@ -130,6 +132,39 @@ pip install flake8
 #+end_src
 
   - [[http://qiita.com/kitsuyui/items/5ab4608003a29ff7689f][Python の Lint (文法チェッカ) まとめ - flake8 + hacking を使う - - Qiita]]
+
+flake8-python2を利用するようにする.
+
+#+begin_src emacs-lisp
+(flycheck-define-checker python2-flake8
+  "A Python syntax and style checker using Flake8.
+
+Requires Flake8 2.0 or newer. See URL
+`https://pypi.python.org/pypi/flake8'."
+  :command ("flake8-python2"
+            "--format=default"
+            (config-file "--config" flycheck-flake8rc)
+            (option "--max-complexity" flycheck-flake8-maximum-complexity nil
+                    flycheck-option-int)
+            (option "--max-line-length" flycheck-flake8-maximum-line-length nil
+                    flycheck-option-int)
+            source)
+  :error-filter (lambda (errors)
+                  (let ((errors (flycheck-sanitize-errors errors)))
+                    (mapc #'flycheck-flake8-fix-error-level errors)
+                    errors))
+  :error-patterns
+  ((warning line-start
+            (file-name) ":" line ":" (optional column ":") " "
+            (id (one-or-more (any alpha)) (one-or-more digit)) " "
+            (message (one-or-more not-newline))
+            line-end))
+  :modes python-mode)
+
+(add-hook 'python-mode-hook 
+          (lambda () (flycheck-select-checker 'python2-flake8)))
+#+end_src
+
 
 * タグジャンプ
 ** Pygments

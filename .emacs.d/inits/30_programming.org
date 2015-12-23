@@ -155,11 +155,18 @@
 
   必要に応じて追加していく.
 
+  -> electric-operatorに変更.
+
 #+begin_src emacs-lisp
 (use-package electric-spacing
   :init
-  (add-hook 'c-mode-common-hook #'electric-spacing-mode))
+  (add-hook 'c-mode-common-hook #'electric-spacing-mode)
+  (add-hook 'python-mode-hook #'electric-spacing-mode))
 #+end_src
+
+** electric-operator
+   - http://rubikitch.com/2015/07/19/electric-operator/
+   インストールしたらエラーしたので、ひとまずいれるのを止めた.
 
 ** インデントで垂直方向に揃える
    M-x align-regexp
@@ -311,7 +318,16 @@
   :bind ("C-c r" . quickrun)
   :config
   (push '("*quickrun*") popwin:special-display-config)
-  (setq quickrun-timeout-seconds 20))
+  (setq quickrun-timeout-seconds 20)
+
+  ;; C++ は defaultで C++11に対応させる
+  (quickrun-add-command "c++/c1z"
+                      '((:command . "g++")
+                        (:exec    . ("%c -std=c++1z %o -o %e %s"
+                                     "%e %a"))
+                        (:remove  . ("%e")))
+                      :default "c++")
+)
 #+end_src
 
 ** rake
@@ -763,7 +779,11 @@
   - https://github.com/defunkt/gist.el
 
 #+begin_src emacs-lisp
-(use-package gist)
+(use-package gist
+  :config
+  (defun browse-gist ()
+      (interactive)
+      (browse-url "https://gist.github.com/tsu-nera")))
 #+end_src
 
   helm-gist というのもあるけど, 使い方わからない.
