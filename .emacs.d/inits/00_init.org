@@ -192,7 +192,7 @@
 
     ;; c/c++
     semantic-refactor
-    function-args
+    ;; function-args
     ;; clang-complete-async
     auto-complete-c-headers
 

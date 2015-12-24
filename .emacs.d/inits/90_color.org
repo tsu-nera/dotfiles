@@ -61,7 +61,7 @@
    - https://github.com/ocodo/ocodo-svg-modelines
 
 #+begin_src emacs-lisp
-(use-package ocodo-svg-modelines)
+;; (use-package ocodo-svg-modelines)
 #+end_src
 
 ** nyan-mode
@@ -172,13 +172,13 @@
 
 #+begin_src emacs-lisp 
 (use-package fic-ext-mode
+  :disabled t
   :config
   (defun add-something-to-mode-hooks (mode-list something)
     "helper function to add a callback to multiple hooks"
     (dolist (mode mode-list)
       (add-hook (intern (concat (symbol-name mode) "-mode-hook")) something)))
-  
-  (add-something-to-mode-hooks '(c++ emacs-lisp ruby text scala) 'fic-ext-mode))
+    (add-something-to-mode-hooks '(c++ emacs-lisp ruby text scala) 'fic-ext-mode))
 #+end_src
 
 ** auto-highlight-symbol

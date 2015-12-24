@@ -91,7 +91,7 @@
 
 ;;;;;;;;;;;;;;;;;;
 ;; pair management
-(sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil))
+(sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
 
 ;;; lisp modes
 (sp-with-modes sp--lisp-modes
@@ -103,6 +103,7 @@
 
 *** end of config
     #+begin_src emacs-lisp
+)
     #+end_src
 
 ** paredit

@@ -127,7 +127,7 @@ pip install virtualenv
 
  flake8 をつかってみようか. #noqa をつけると、エラー対象外.
  
-#+begin_src emacs-lisp
+#+begin_src text
 pip install flake8
 #+end_src
 
