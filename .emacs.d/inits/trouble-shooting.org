@@ -32,3 +32,5 @@
    - HTTP_PROXY/HTTPS_PROXY
      http://<ユーザ名:パスワード>@xxx.xxx.xxx.co.jp:8080
      
+* その他
+  flycheck の最新版にすると、message 0 のエラーがでる

@@ -191,7 +191,7 @@
    require 'names してからインストールしないとおかしくなる.
 
 #+begin_src emacs-lisp
-(use-package aggressive-indent :if linux-p)
+(use-package aggressive-indent-mode :if linux-p)
 
 ;; c++ だとけっこうバラバラになる lisp はどうか?
 ;;  :config

@@ -1,0 +1,3 @@
+(:name clang-complete-async
+       :type github
+       :pkgname "Golevka/emacs-clang-complete-async")

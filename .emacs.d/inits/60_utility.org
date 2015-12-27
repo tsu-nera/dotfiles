@@ -191,7 +191,7 @@
    動かない..
 
 #+begin_src emacs-lisp
-(use-package readability)
+;;(use-package readability)
 #+end_src
 
 ** sx
@@ -210,7 +210,7 @@
 #+end_src
 
 ** bitly
-   短縮URLサービス
+   短縮 URL サービス
    
    トークン取得が必要。面倒になった。
 
@@ -282,6 +282,7 @@ geeknote settings --editor "emacsclient"
 
 #+begin_src emacs-lisp
 (use-package geeknote
+  :disabled t
   :init
   ;; (global-set-key (kbd "C-c g c") 'geeknote-create)
   ;; (global-set-key (kbd "C-c g e") 'geeknote-edit)
@@ -1151,7 +1152,7 @@ sudo pacman -S ghostscript
 #+end_src
 
 ** aoj-submit
-   AOJの提出用 Elisp
+   AOJ の提出用 Elisp
    - https://github.com/ottati/aoj-submit-el
    - http://ottati.hatenablog.com/entry/2015/06/16/071410#
 
@@ -1162,16 +1163,8 @@ sudo pacman -S ghostscript
   (setq aoj-password (netrc-get (netrc-machine (netrc-parse "~/.netrc") "aoj" t) "password")))
 #+end_src
 
-** slack
-   チャットツール
-   - https://github.com/raamdev/slack-el
-
-#+begin_src emacs-lisp
-(use-package slack)
-#+end_src
-
 ** cfparser
-   Codeforcesのツール
+   Codeforces のツール
    - https://github.com/gnull/cfparser
 
 #+begin_src emacs-lisp
