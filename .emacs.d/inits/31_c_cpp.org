@@ -129,7 +129,7 @@
    - https://github.com/Golevka/emacs-clang-complete-async
 
 #+begin_src emacs-lisp
-(use-package clang-complete-async
+(use-package auto-complete-clang-async
   :if linux-p
   :init
   (defun ac-cc-mode-setup ()

@@ -125,7 +125,6 @@
    カーソル位置の関数の仮引数をエコーエリアに表示してくれる.
    標準添付されている.
 
-
    eldoc-extention だと,関数のドキュメントまで出してくれる.
    - [[http://d.hatena.ne.jp/rubikitch/20090207/1233936430][Emacs 23 の eldoc.el と eldoc-extensions.el がいい感じ - rubikichi]]
 
@@ -435,15 +434,21 @@ $ yaourt -S racket
 
 * Clojure
   モダン Lisp.
-  - [[http://www.slideshare.net/karadweb/ide-clojureemacs][(IDEユーザのための) ClojureのEmacs開発環境について]]
-  - [[http://qiita.com/xorphitus/items/a1f433fa6ba2489ff9cf][EmacsでモダンClojure開発環境構築 - Qiita]]
+  - [[http://www.slideshare.net/karadweb/ide-clojureemacs][(IDE ユーザのための) Clojure の Emacs 開発環境について]]
+  - [[http://qiita.com/xorphitus/items/a1f433fa6ba2489ff9cf][Emacs でモダン Clojure 開発環境構築 - Qiita]]
   
 ** clojure-mode
-   Clojure のためのメジャーモード.
+
    - https://github.com/clojure-emacs/clojure-mode
 
 #+begin_src emacs-lisp
-(use-package clojure-mode)
+(use-package clojure-mode
+  :disabled t
+  :mode (("\\.clj\\'" . clojure-mode)
+         ("\\.cljs\\'" . clojure-mode)
+         ("\\.cljc\\'" . clojure-mode)
+         ("\\.cljx\\'" . clojure-mode)
+         ("\\.edn\\'" . clojure-mode)))
 #+end_src
 
 ** cider
@@ -454,23 +459,16 @@ $ yaourt -S racket
 (use-package cider
   :init
   (add-hook 'clojure-mode-hook 'cider-mode)
-  ;; eldocを有効にする
+  ;; eldoc を有効にする
   (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode))
 #+end_src
 
-** 4clojure
-   clojureの問題集.
-   - https://github.com/losingkeys/4clojure.el
-
-#+begin_src emacs-lisp
-(use-package 4clojure)
-#+end_src
-
-** ac-cider
+* ac-cider
    https://github.com/clojure-emacs/ac-cider
    
 #+begin_src emacs-lisp
 (use-package ac-cider
+  :disabled t
   :init
   (add-hook 'cider-mode-hook 'ac-flyspell-workaround)
   (add-hook 'cider-mode-hook 'ac-cider-setup)
@@ -482,6 +480,28 @@ $ yaourt -S racket
        (add-to-list 'ac-modes 'cider-repl-mode))))
 #+end_src
 
+** inf-clojure
+   - https://github.com/clojure-emacs/inf-clojure
+
+   あやぴーさんの助言にしたがって、cider から乗り換えてみた.
+   - http://ayato.hateblo.jp/entry/20150429/1430276400
+
+#+begin_src emacs-lisp
+(use-package inf-clojure
+  :init
+  (add-hook 'clojure-mode-hook #'inf-clojure-minor-mode)
+  :config
+  (setq inf-clojure-prompt-read-only nil))
+#+end_src
+
+** 4clojure
+   clojure の問題集.
+   - https://github.com/losingkeys/4clojure.el
+
+#+begin_src emacs-lisp
+(use-package 4clojure)
+#+end_src
+
 ** clojure-cheatsheet
    CheatSheet を参照できる.
    - https://github.com/clojure-emacs/clojure-cheatsheet
@@ -491,6 +511,44 @@ $ yaourt -S racket
   :config
   (define-key clojure-mode-map (kbd "C-c C-h") #'clojure-cheatsheet)
   )
+#+end_src
+
+** clj-refactor
+   - https://github.com/clojure-emacs/clj-refactor.el
+
+   できる機能か多すぎ！覚えらんない.!!
+   - https://github.com/clojure-emacs/clj-refactor.el/wiki
+
+#+begin_src emacs-lisp
+(use-package clj-refactor
+  :commands (my-clojure-mode-hook)
+  :init
+  (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
+  :config
+  (defun my-clojure-mode-hook ()
+    (clj-refactor-mode 1)
+    (yas-minor-mode 1) ; for adding require/use/import statements
+    ;; This choice of keybinding leaves cider-macroexpand-1 unbound
+    (cljr-add-keybindings-with-prefix "C-c C-m")))
+#+end_src
+
+** clojure-snippets
+   Yasnipeet for Clojure
+   - https://github.com/mpenet/clojure-snippets
+
+#+begin_src emacs-lisp
+(use-package clojure-snippets
+  :config
+  (setq clojure-snippets-dir "~/.emacs.d/el-get/repo/clojure-snippets/"))
+#+end_src
+
+** squiggly-clojure
+   flycheck for clojure つかいかたわかんなかった. あとで調査.
+
+#+begin_src emacs-lisp
+(use-package squiggly-clojure
+  :config
+  (eval-after-load 'flycheck '(flycheck-clojure-setup)))
 #+end_src
 
 * Common Lisp
