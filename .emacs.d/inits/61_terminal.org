@@ -439,7 +439,7 @@
 ;;  '(elscreen-tab-other-screen-face ((t (:background "#262626" :foreground "#9e9e9e" :underline t)))))
 
 ;; それっぽい色をつける?? つけてくれないよ.
-;; (use-package elscreen-color-theme)
+;;; (use-package elscreen-color-theme)
 #+end_src
 
 ** screen の順番を手軽に変更
@@ -464,11 +464,11 @@
    revive というパッケージに依存している??
 
 #+begin_src emacs-lisp
-(use-package elscreen-persist
-  :config
+;;(use-package elscreen-persist
+;;  :config
   ;; どうもこれを有効にすると Emacs が立ち上がらなくなるな...
   ;; (elscreen-persist-mode 1)
-  )
+;;  )
 #+end_src
 
 *** 以下で操作
