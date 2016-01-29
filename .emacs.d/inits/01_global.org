@@ -125,6 +125,21 @@ git clone git://git.savannah.gnu.org/emacs.git
 ;;  (add-hook 'org-mode-hook 'real-auto-save-mode))
 #+end_src
    
+** time-now
+   今何時かを教えてくれる.
+
+#+begin_src emacs-lisp
+(defun my:time-now ()
+  (interactive)
+  (let ((temp-buffer-show-function 'switch-to-buffer))
+    (with-output-to-temp-buffer
+        "*time-now*"
+      (princ (format-time-string "%H:%M")))
+    (setq buffer-face-mode-face '(:height 3000))
+    (buffer-face-mode)))
+(global-set-key (kbd "C-<f9>") 'my:time-now)
+#+end_src
+
 * Key Bindings
 ** Global Keys
    よくわすれる, C や M の意味.
@@ -403,7 +418,6 @@ git clone git://git.savannah.gnu.org/emacs.git
 
 (add-hook 'after-init-hook 'my-startup-display)
 #+end_src
-
 
 * TearDown
   終了時の設定.

@@ -77,12 +77,11 @@
 
 #+begin_src emacs-lisp
 (use-package ruby-block
-  :defer t
+  :commands ruby-block-mode
   :init
   (add-hook 'ruby-mode-hook '(lambda () (ruby-block-mode t)))
   :config
-  (setq ruby-block-highlight-toggle t)
-)
+  (setq ruby-block-highlight-toggle t))
 #+end_src
 
 ** ruby-refactor
@@ -177,5 +176,18 @@
 #+begin_src emacs-lisp
 ;;(use-package rubocop)
 ;;(add-hook 'ruby-mode 'rubocop-mode)
+#+end_src
+
+* Rails
+** projectile-rails
+   Ruby on rails用. 
+   - https://github.com/asok/projectile-rails
+
+#+begin_src emacs-lisp
+(use-package projectile-rails
+  :disabled t
+  :commands (projectile-rails-on)
+  :init
+  (add-hook 'projectile-mode-hook 'projectile-rails-on))
 #+end_src
 

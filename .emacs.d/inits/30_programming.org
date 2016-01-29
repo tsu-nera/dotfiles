@@ -155,11 +155,18 @@
 
   必要に応じて追加していく.
 
+  -> electric-operator に変更.
+
 #+begin_src emacs-lisp
 (use-package electric-spacing
   :init
-  (add-hook 'c-mode-common-hook #'electric-spacing-mode))
+  (add-hook 'c-mode-common-hook #'electric-spacing-mode)
+  (add-hook 'python-mode-hook #'electric-spacing-mode))
 #+end_src
+
+** electric-operator
+   - http://rubikitch.com/2015/07/19/electric-operator/
+   インストールしたらエラーしたので、ひとまずいれるのを止めた.
 
 ** インデントで垂直方向に揃える
    M-x align-regexp
@@ -184,7 +191,7 @@
    require 'names してからインストールしないとおかしくなる.
 
 #+begin_src emacs-lisp
-(use-package aggressive-indent :if linux-p)
+(use-package aggressive-indent-mode :if linux-p)
 
 ;; c++ だとけっこうバラバラになる lisp はどうか?
 ;;  :config
@@ -311,7 +318,16 @@
   :bind ("C-c r" . quickrun)
   :config
   (push '("*quickrun*") popwin:special-display-config)
-  (setq quickrun-timeout-seconds 20))
+  (setq quickrun-timeout-seconds 20)
+
+  ;; C++ は default で C++11 に対応させる
+  (quickrun-add-command "c++/c1z"
+                      '((:command . "g++")
+                        (:exec    . ("%c -std=c++1z %o -o %e %s"
+                                     "%e %a"))
+                        (:remove  . ("%e")))
+                      :default "c++")
+)
 #+end_src
 
 ** rake
@@ -445,6 +461,8 @@
             (lambda ()
               (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
                 (ggtags-mode 1))))
+  (add-hook 'clojure-mode-hook (lambda () (ggtags-mode 1)))
+  
   :config
   ;; use helm
   (setq ggtags-completing-read-function nil)
@@ -461,7 +479,8 @@
   (define-key ggtags-mode-map (kbd "C-c g f") 'ggtags-find-file)
   (define-key ggtags-mode-map (kbd "C-c g c") 'ggtags-create-tags)
   (define-key ggtags-mode-map (kbd "C-c g u") 'ggtags-update-tags)
-
+  (define-key ggtags-mode-map (kbd "C-c g m") 'ggtags-find-tag-dwim)
+  
   (define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark))
 #+end_src
 
@@ -708,6 +727,16 @@
      (define-key global-map (kbd "C-j") 'smart-newline))
    #+end_src
 
+** cloc
+   ステップカウンタ
+   - https://github.com/cosmicexplorer/cloc-emacs
+
+   cloc というプログラムを呼び出す.
+
+#+begin_src emacs-lisp
+(use-package cloc)
+#+end_src
+
 * git
 ** magit
    Emacs の Git Client.
@@ -753,7 +782,11 @@
   - https://github.com/defunkt/gist.el
 
 #+begin_src emacs-lisp
-(use-package gist)
+(use-package gist
+  :config
+  (defun browse-gist ()
+      (interactive)
+      (browse-url "https://gist.github.com/tsu-nera")))
 #+end_src
 
   helm-gist というのもあるけど, 使い方わからない.

@@ -1,0 +1,9 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: srcpython
+# key:  srcpython
+# binding: direct-keybinding
+# --
+#+begin_src python
+$1
+#+end_src
+$0

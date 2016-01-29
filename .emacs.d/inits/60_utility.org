@@ -136,6 +136,7 @@
    Google 翻訳.
    - [[http://qiita.com/catatsuy/items/ae9875706769d4f02317][卒論を英語で書けと言われしまったあなたにおすすめの Emacs の設定 - Qiita]]
    - [[http://rubikitch.com/2014/12/07/google-translate/][emacs google-translate.el : Google 翻訳で言語自動判別しつつ英訳・和訳する!]]
+   - https://github.com/atykhonov/google-translate
    
 #+begin_src emacs-lisp
 (use-package google-translate
@@ -190,7 +191,7 @@
    動かない..
 
 #+begin_src emacs-lisp
-(use-package readability)
+;;(use-package readability)
 #+end_src
 
 ** sx
@@ -208,8 +209,17 @@
 (use-package define-word)
 #+end_src
 
+** bitly
+   短縮 URL サービス
+   
+   トークン取得が必要。面倒になった。
+
+#+begin_src emacs-lisp
+;; (use-package bitly)
+#+end_src
+
 * memo:メモ・キャプチャー
-** Hown
+** Howm
    Function : Evernote を越えるメモ管理ツール
    - http://www.gfd-dennou.org/member/uwabami/cc-env/emacs/howm_config.html
    - http://d.hatena.ne.jp/TakashiHattori/20120627/1340768058
@@ -272,6 +282,7 @@ geeknote settings --editor "emacsclient"
 
 #+begin_src emacs-lisp
 (use-package geeknote
+  :disabled t
   :init
   ;; (global-set-key (kbd "C-c g c") 'geeknote-create)
   ;; (global-set-key (kbd "C-c g e") 'geeknote-edit)
@@ -420,13 +431,14 @@ $ sudo cp /usr/bin/ruby1.9/bin/enclient.rb /usr/bin
   :bind ("C-c C-x w" . twittering-update-status-from-pop-up-buffer)
   :config
   (setq twittering-use-master-password t)
+  (setq twittering-allow-insecure-server-cert t)
   ;; パスワード暗号ファイル保存先変更 (デフォはホームディレクトリ)
   (setq twittering-private-info-file "~/.emacs.d/twittering-mode.gpg")
   ;; はじめに開くタイムライン
   (setq twittering-initial-timeline-spec-string
         '("tsu_nera"
           ":search/futurismo.biz/"
-          "hmi_me"
+          ;; "hmi_me"
           "melpa_emacs"))
   (defun browse-twitter ()
       (interactive)
@@ -444,8 +456,15 @@ $ sudo cp /usr/bin/ruby1.9/bin/enclient.rb /usr/bin
   "Tweet message from minibuffer"
   (interactive "sEnter twitter message: ")
   (let ((tweet-message (concat "twitter " x)))
-    (shell-command tweet-message)))
+    (shell-command tweet-message)
+    (shell-command "org-twit")))
+
+(defun org-fetch-twit ()
+  (interactive)
+  (shell-command "org-twit"))
+
 (global-set-key (kbd "C-c C-x t") 'twit-from-minibuffer)
+(global-set-key (kbd "C-c C-x r") 'org-fetch-twit)
 #+end_src
 
 ** bitlbee
@@ -660,6 +679,11 @@ command uses interactive mode if passed an argument."
   (emms-standard)
   
    (emms-default-players)
+
+   ;; RET が動かないので
+   (define-key emms-stream-mode-map (kbd "C-c C-c") 'emms-stream-play)
+   ;; emms-streams で RET を押したときのデフォルト操作
+   (setq emms-stream-default-action "play")
   
   (when linux-p
     (setq emms-source-file-default-directory "~/Music/"))
@@ -673,28 +697,35 @@ command uses interactive mode if passed an argument."
     https をサポートに追加する.
 
  #+begin_src emacs-lisp
-(when linux-p
-  (use-package emms-player-vlc
-    :config
-    (setq emms-player-list '(emms-player-vlc))
-    (define-emms-simple-player vlc '(file url)
-      (concat "\\`\\(https?\\|mms\\)://\\|"
-              (emms-player-simple-regexp
-               "ogg" "mp3" "wav" "mpg" "mpeg" "wmv" "wma"
-               "mov" "avi" "divx" "ogm" "ogv" "asf" "mkv"
-               "rm" "rmvb" "mp4" "flac" "vob" "m4a" "ape"
-               "asx"))
-      "vlc" "--intf=rc")))
-(setq emms-player-list '(emms-player-vlc))
+;; (when linux-p
+;;   (use-package emms-player-vlc
+;;     :config
+;;     (setq emms-player-list '(emms-player-vlc))
+;;     (define-emms-simple-player vlc '(file url)
+;;       (concat "\\`\\(https?\\|mms\\)://\\|"
+;;               (emms-player-simple-regexp
+;;                "ogg" "mp3" "wav" "mpg" "mpeg" "wmv" "wma"
+;;                "mov" "avi" "divx" "ogm" "ogv" "asf" "mkv"
+;;                "rm" "rmvb" "mp4" "flac" "vob" "m4a" "ape"
+;;                "asx"))
+;;       "vlc" "--intf=rc")))
+;; (setq emms-player-list '(emms-player-vlc))
  #+end_src
  
 *** mplayer
     - windows http://sourceforge.net/projects/mplayerwin/
+    - http://stackoverflow.com/questions/9147823/emms-error-dont-know-how-to-play-track
 
 #+begin_src emacs-lisp
-  ;; only use mplayer to use pulseaudio
-  ;; (setq emms-player-list '(emms-player-mplayer))
-  ;;                           emms-player-mplayer-playlist))
+(require 'emms-setup)
+(require 'emms-player-mplayer)
+(emms-standard)
+(emms-default-players)
+(define-emms-simple-player mplayer '(file url)
+      (regexp-opt '(".ogg" ".mp3" ".wav" ".mpg" ".mpeg" ".wmv" ".wma"
+                    ".mov" ".avi" ".divx" ".ogm" ".asf" ".mkv" "http://" "mms://"
+                    ".rm" ".rmvb" ".mp4" ".flac" ".vob" ".m4a" ".flv" ".ogv" ".pls"))
+      "mplayer" "-slave" "-quiet" "-really-quiet" "-fullscreen")
 #+end_src
 
 *** volume
@@ -720,19 +751,23 @@ command uses interactive mode if passed an argument."
     BBC Classic (Raido3)
     - http://www.bbc.co.uk/radio/listen/live/r3_aaclca.pls
 
-#+begin_src emacs-lisp
-  ;; RET が動かないので
-  (define-key emms-stream-mode-map (kbd "C-c C-c") 'emms-stream-play)
-
-  ;; emms-streams で RET を押したときのデフォルト操作
-  (setq emms-stream-default-action "play")
-#+end_src
-
 *** End of Config
  #+begin_src emacs-lisp
 )
  #+end_src
 
+** mms-player-mpv-jp-radios
+   https://github.com/momomo5717/emms-player-mpv-jp-radios
+
+#+begin_src emacs-lisp
+(use-package emms-player-mpv-jp-radios
+  :config
+  (let ((default-directory "~/.emacs.d/el-get/repo/emms-player-mpv-jp-radios"))
+  (add-to-list 'load-path default-directory)
+  (normal-top-level-add-subdirs-to-load-path))
+  (emms-player-mpv-jp-radios-add "radiko" "radiru"))
+#+end_src
+   
 ** jazzradio
    ジャズだって聴ける! 
    - https://github.com/syohex/emacs-jazzradio
@@ -808,6 +843,16 @@ command uses interactive mode if passed an argument."
   ("+" volume-raise "up")
   ("-" volume-lower "down"))
  #+end_src
+
+** mpsyt
+   mps-youtube
+
+#+begin_src emacs-lisp
+(defun mpsyt ()
+  (interactive)
+  (toggle-frame-fullscreen)
+  (ansi-term "mpsyt" "mpsyt"))
+#+end_src
 
 * Dictionary: 辞書
 ** search-web
@@ -938,7 +983,6 @@ command uses interactive mode if passed an argument."
 #+begin_src emacs-lisp
 (use-package gntp)
 #+end_src
-
 
 * その他
 ** pdf-tools
@@ -1107,6 +1151,36 @@ sudo pacman -S ghostscript
     (global-set-key (kbd "C-c C-e") 'emoji-cheat-sheet-plus-insert)))
 #+end_src
 
+** aoj-submit
+   AOJ の提出用 Elisp
+   - https://github.com/ottati/aoj-submit-el
+   - http://ottati.hatenablog.com/entry/2015/06/16/071410#
+
+#+begin_src emacs-lisp
+(use-package aoj-submit
+  :config
+  (setq aoj-id (netrc-get (netrc-machine (netrc-parse "~/.netrc") "aoj" t) "login"))
+  (setq aoj-password (netrc-get (netrc-machine (netrc-parse "~/.netrc") "aoj" t) "password")))
+#+end_src
+
+** cfparser
+   Codeforces のツール
+   - https://github.com/gnull/cfparser
+
+#+begin_src emacs-lisp
+(use-package cf-mode
+  :config
+  (setq cf-default-language cf-pl-python-2)
+  (setq cf-test-command
+        (concat
+         "for i in `ls *.in | sed 's/.in//'`; do "
+         "echo test $i; "
+         "python2 sol.py < $i.in | diff - $i.out; "
+         "done;"))
+  )
+#+end_src
+
+
 * Tips
 ** slimlock
    Emacs から一時停止.
@@ -1120,8 +1194,16 @@ sudo pacman -S ghostscript
 ** meigen
 
 #+begin_src emacs-lisp
-(setq cookie-file "~/.emacs.d/quotes.txt")
+(defun set-my-meigen ()
+  (interactive) (setq cookie-file   "~/.emacs.d/meigen/meigen.txt"))
+(defun set-rubi-meigen ()
+  (interactive) (setq cookie-file "~/.emacs.d/meigen/quotes.txt"))
+
+(setq cookie-file "~/.emacs.d/meigen/meigen.txt")
 (defhydra hydra-meigen (global-map "C-x ,")
   "meigen"
-  ("," cookie "meigen"))
+  ("," cookie "meigen")
+  ("r" set-rubi-meigen "rubi-meigen")
+  ("f" (find-file cookie-file) "open meigen")
+  ("m" set-my-meigen "my-meigen"))
 #+end_src

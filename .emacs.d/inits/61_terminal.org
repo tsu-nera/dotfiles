@@ -40,6 +40,14 @@
   ;; http://stackoverflow.com/questions/12667043/emacs-smooth-scrolling-scroll-margin-and-eshell
   ;; (setq scroll-margin 0)
 
+  ;; zshの環境変数を取り込む
+  ;; http://d.hatena.ne.jp/zonu_exe/20120509/1336583187
+  (let ((zshpath (shell-command-to-string "/usr/bin/zsh -c 'printenv PATH'")))
+    (let ((pathlst (split-string zshpath ":")))
+      (setq exec-path pathlst))
+    (setq eshell-path-env zshpath)
+    (setenv "PATH" zshpath))
+
   ;; windows 環境だと, shift-jis にしよう
   (when windows-p
     (add-hook
@@ -155,10 +163,19 @@
 (use-package multi-eshell
   :init
   (global-set-key (kbd "C-c t t") 'multi-eshell)
-  (global-set-key (kbd "C-c t b") 'multi-eshell-switch)
   :config
   (setq multi-eshell-shell-function '(eshell))
   (setq multi-eshell-name "*eshell*"))
+#+end_src
+
+**** elscreenで開く
+
+#+begin_src emacs-lisp
+(defun elscreen-esh ()
+  (interactive)
+  (elscreen-create)
+  (multi-eshell 1))
+(global-set-key (kbd "C-c t b") 'elscreen-esh)
 #+end_src
 
 *** eshell-autojump
@@ -399,6 +416,14 @@
   (add-hook 'dired-initial-position-hook 'dired-k))
 #+end_src
 
+** neotree
+
+#+begin_src emacs-lisp
+(use-package neotree
+  :config
+  (global-set-key [f8] 'neotree-toggle))
+#+end_src
+   
 * elscreen
   screen の Emacs バージョン. マルチプレクサ.
   - https://github.com/emacs-jp/elscreen

@@ -61,7 +61,7 @@
    - https://github.com/ocodo/ocodo-svg-modelines
 
 #+begin_src emacs-lisp
-(use-package ocodo-svg-modelines)
+;; (use-package ocodo-svg-modelines)
 #+end_src
 
 ** nyan-mode
@@ -122,14 +122,13 @@
 
 #+begin_src emacs-lisp
 ;;(unless (eq window-system nil)
-(global-hl-line-mode 1)
-
-(defun global-hl-line-timer-function ()
-  (global-hl-line-unhighlight-all)
-  (let ((global-hl-line-mode t))
-    (global-hl-line-highlight)))
-(setq global-hl-line-timer
-      (run-with-idle-timer 0.1 t 'global-hl-line-timer-function))
+;; (global-hl-line-mode 1)
+;; (defun global-hl-line-timer-function ()
+;;   (global-hl-line-unhighlight-all)
+;;   (let ((global-hl-line-mode t))
+;;     (global-hl-line-highlight)))
+;; (setq global-hl-line-timer
+;;       (run-with-idle-timer 0.1 t 'global-hl-line-timer-function))
 #+end_src
 
 ** 80 行目をハイライト
@@ -173,13 +172,13 @@
 
 #+begin_src emacs-lisp 
 (use-package fic-ext-mode
+  :disabled t
   :config
   (defun add-something-to-mode-hooks (mode-list something)
     "helper function to add a callback to multiple hooks"
     (dolist (mode mode-list)
       (add-hook (intern (concat (symbol-name mode) "-mode-hook")) something)))
-  
-  (add-something-to-mode-hooks '(c++ emacs-lisp ruby text scala) 'fic-ext-mode))
+    (add-something-to-mode-hooks '(c++ emacs-lisp ruby text scala) 'fic-ext-mode))
 #+end_src
 
 ** auto-highlight-symbol
@@ -365,6 +364,14 @@
 
 ** 全角半角で 文字が崩れる
   - [[http://stickydiary.blog88.fc2.com/blog-entry-107.html][Emacs で等幅フォントの半角文字・全角文字の横幅比 1:2 を必ず達成するフォント設定 - Sticky Diary]]
+
+** ミニバッファの文字を大きく
+
+#+begin_src emacs-lisp
+;; (add-hook 'minibuffer-setup-hook 'my-minibuffer-setup)
+;; (defun my-minibuffer-setup ()
+;;  (setq-local face-remapping-alist '((default :height 2.0))))
+#+end_src
 
 * General
 
@@ -568,6 +575,7 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
 ;;  (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
 ;;  (add-hook 'emacs-startup-hook 'rainbow-delimiters-using-stronger-colors)
 ;;  (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-using-stronger-colors)  
+    (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
   :config
   ;; these setting should be placed after load-theme
   ;; using stronger colors

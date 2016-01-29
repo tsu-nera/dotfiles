@@ -40,10 +40,13 @@
 
 #+begin_src emacs-lisp
 ;;; 一行が 80 字以上になった時には自動改行する
-(setq fill-column 80)
+;; (setq fill-column 80)
 ;;(setq-default auto-fill-mode t)
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
-(add-hook 'org-mode-hook 'turn-on-auto-fill)
+;; (add-hook 'text-mode-hook 'turn-on-auto-fill)
+;; (add-hook 'org-mode-hook 'turn-on-auto-fill)
+
+;; 無効にする
+(remove-hook 'text-mode-hook 'turn-on-auto-fill)
 #+end_src
 
 ** Popwin
@@ -144,6 +147,7 @@
 
 #+begin_src emacs-lisp
 (use-package smooth-scroll
+  :disabled t
   :config
   (smooth-scroll-mode t))
 #+end_src
@@ -370,8 +374,7 @@
 ;;  ("k"  hydra-move-splitter-up    "↑")
 ;;  ("j" hydra-move-splitter-down  "↓")
 ;;  ("="  balance-windows           "Balance"))
-#+end_srcN
-x1
+#+end_src
 ** window 間の移動
 
    #+begin_src emacs-lisp

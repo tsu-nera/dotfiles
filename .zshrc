@@ -601,3 +601,21 @@ if [ -d ${HOME}/.zsh/zsh-syntax-highlighting  ] ; then
 fi
 
 source ~/.zshenv
+
+
+#######################################################
+# multi-display
+#######################################################
+# set dual monitors
+dual () {
+    xrandr --output eDP1 --primary --left-of HDMI1 --output HDMI1 --mode 1280x720
+}
+
+dual2 () {
+    xrandr --output eDP1 --primary --left-of HDMI1 --output HDMI1 --auto
+}
+
+# set single monitor
+single () {
+    xrandr --output HDMI1 --off
+}

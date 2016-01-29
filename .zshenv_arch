@@ -10,7 +10,7 @@ export OZEMACS=/usr/local/bin/emacs
 export OZHOME=/opt/mozart2
 
 # Cool
-# export PATH=/usr/class/cs143/cool/bin:$PATH
+export PATH=/usr/class/cs143/cool/bin:$PATH
 
 # Haskell
 export PATH=$HOME/.cabal/bin:$PATH
@@ -23,7 +23,9 @@ export PATH=$HOME/.cabal/bin:$PATH
 # Java
 export JUNIT_HOME=/usr/share/java
 export CLASSPATH=$JUNIT_HOME/junit.jar:$CLASSPATH
-export PATH=/usr/share/eclipse:$PATH
+export PATH=~/opt/eclipse:$PATH
+export PATH=~/opt/activator:$PATH
+export SWT_GTK3=0 # これがないとeclipseが起動しない
 
 # Python
 export PYTHONPATH=$PYTHONPATH:~/.emacs.d/el-get/repo/rope
@@ -55,3 +57,5 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 export GTK_IM_MODULE_FILE=/etc/gtk-2.0/gtk.immodules
 
 export LC_CTYPE=ja_JP.UTF-8
+
+export PATH=~/repo2/OnlineJudgeHelper:$PATH

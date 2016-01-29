@@ -1,0 +1,9 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: font-32px
+# key: font32
+# binding: direct-keybinding
+# --
+#+BEGIN_HTML
+<p style="font-size:32px">$1</p>
+#+END_HTML
+$0

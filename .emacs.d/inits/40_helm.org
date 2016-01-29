@@ -268,6 +268,7 @@
   (define-key helm-gtags-mode-map (kbd "M-t") 'helm-gtags-find-tag)
   (define-key helm-gtags-mode-map (kbd "M-e") 'helm-gtags-find-rtag)
   (define-key helm-gtags-mode-map (kbd "M-s") 'helm-gtags-find-symbol)
+;;  (define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwin)
   (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack))
 #+end_src
 
@@ -350,7 +351,7 @@
 
   windows だと、うまくうごいてくれないな。。
 
-  helm-esh-pcompileがうまく動かないので封印
+  helm-esh-pcompile がうまく動かないので封印
 
 #+begin_src emacs-lisp
 (use-package helm-migemo
@@ -445,7 +446,7 @@
 ** helm-etags-plus
    - [[https://github.com/jixiuf/helm-etags-plus][jixiuf/helm-etags-plus]]
    C 言語では, これがまともに動く. gtags は動かない etags で TAGS を生成する.
-   pythonも、gtagsがつかえない!!
+   python も、gtags がつかえない!!
 
    - helm-etags-select C-x c e
 

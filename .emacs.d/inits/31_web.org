@@ -58,11 +58,13 @@
 ** emmet-mode
    ショートカットで各種タグを挿入 (動的略語展開) する有名ツール.
    - https://github.com/smihica/emmet-mode
-
-     展開のパターンを覚えるのが大変そうな予感...
+   
+   展開のパターンを覚えるのが大変そうな予感...
+   一旦無効にしておく. web-modeの色が正しく反映されないので.
 
 #+begin_src emacs-lisp
 (use-package emmet-mode
+  :disabled t
   :init
   (add-hook 'web-mode-hook  'emmet-mode))
 #+end_src

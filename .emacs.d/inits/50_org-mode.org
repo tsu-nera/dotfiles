@@ -177,6 +177,7 @@
 (setq org-agenda-files '("~/gtd/main.org"
                          "~/gtd/inbox.org"
                          "~/gtd/journal/journal.org"
+                         "~/gtd/journal/twitter.org"                         
                          "~/gtd/habits.org"))
 
 ;; (setq org-agenda-file-regexp "\\`[^.].*\\.org'\\|[0-9]+.org$")
@@ -305,6 +306,11 @@
                      ;; (org-deadline-warning-days 0)
                      ;; (org-agenda-clockreport-mode t) ;; 時間表の表示はコメントアウト
                      ))))
+       ("y" "Yesterday Action List"
+        ((agenda "" ((org-agenda-span 1)
+                     (org-agenda-start-day "-1d")
+                     (org-agenda-entry-types '(:timestamp :sexp))))))
+
        ("w" "Completed and/or deferred tasks from previous week"
         ((agenda "" ((org-agenda-span 8)
                      (org-agenda-start-day "-7d")
@@ -379,7 +385,6 @@
       (calendar-other-month month year)
       (lawlist-org-agenda-view-mode-dispatch))))
 #+end_src
-
 
 ** タスクの状態
    うまく動作しないので, 利用しないことにする.
@@ -468,7 +473,7 @@
     (org-map-entries 'org-archive-subtree "/DONE" 'file))
 #+end_src
 
-** org-clock
+* org-clock
   org-clock. org-mode での時間管理.
   - http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
 
@@ -498,12 +503,15 @@
 ;; Include current clocking task in clock reports
 (setq org-clock-report-include-clocking-task t)
 
+;; logbookにまとめる
+(setq org-log-into-drawer t)
+
 ; 時間になったら音をならす
 ;;(setq org-clock-sound "/usr/share/sounds/LinuxMint/stereo/desktop-login.ogg")
 ;;(setq org-clock-sound t)
 #+end_src
 
-*** 必ず時間見積り
+** 必ず時間見積り
     一時無効
     #+begin_src emacs-lisp
 ;; (defadvice org-clock-in (before is-set-effort-before-clock-in)
@@ -530,11 +538,11 @@
         (org-set-property "Effort" effort)))))
 #+end_src
 
-*** my/org-clockin-gtd
+** my/org-clockin-gtd
  指定したタスクを clockin するためのショートカット はじめてつくった自作 defun!!
  - http://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time
  - https://github.com/danieroux/emacs/blob/master/external/bh-org-mode.el
-
+ - https://github.com/tsu-nera/dotfiles/blob/master/.emacs.d/mylisp/my-org-clockin-gtd.el
 #+begin_src emacs-lisp
 (use-package my-org-clockin-gtd
   :bind (("C-<f7>" . mygtd:gtd)
@@ -546,7 +554,7 @@
 ;;    (add-hook 'org-pomodoro-break-finished-hook 'mygtd:reset-rest-timer)))
 #+end_src
 
-*** org-clock-by-tags
+** org-clock-by-tags
    タグごとに clocktable を集計.
     - http://stackoverflow.com/questions/17353591/timetable-grouped-by-tag
     - https://gist.github.com/tsu-nera/d9ffa6a51a6e7bdb957b
@@ -561,7 +569,7 @@
 (use-package clocktable-by-tag)
 #+end_src
 
-*** \emsp 対策: workaround
+** \emsp 対策: workaround
     It's workaround :(
     - [[https://www.mail-archive.com/emacs-orgmode@gnu.org/msg91791.html][Re: Alignment bug in clock tables]]
 
@@ -574,24 +582,24 @@
         (setq str (concat "_" str))))))))
 #+end_src
 
-*** モードラインにも表示
+** モードラインにも表示
     モードラインに時間を表示するためには、以下の設定をテーマに書く.
 
 #+begin_src text
 (:eval org-mode-line-string)
 #+end_src
 
-*** 手動で確認
+** 手動で確認
     モードラインに表示できないので.
 
 #+begin_src emacs-lisp
 (defun org-clock-show()
   (interactive)
-  (print (org-clock-get-clock-string)))
+  (princ (org-clock-get-clock-string)))
 (global-set-key (kbd "C-x <f9>") 'org-clock-show)
 #+end_src
 
-*** ファイルに時間を書き出す
+** ファイルに時間を書き出す
     xmobar に表示できる... が xmobar の表示方法がわからん..
     - http://lists.gnu.org/archive/html/emacs-orgmode/2010-04/msg00457.html
 
@@ -614,7 +622,7 @@
 (add-hook 'display-time-hook 'esf/org-clocking-info-to-file)
 #+end_src
 
-*** clock 履歴 を保存する
+** clock 履歴 を保存する
 
     #+begin_src emacs-lisp
 ;; なんか, org-mode を開くときに遅いので封印する.
@@ -637,6 +645,38 @@
 ;; Number of clock tasks to remember in history.
 (setq org-clock-history-length 35)  ; 1 to 9 + A to Z
 #+end_src
+
+** clock-inで表示を出す
+
+#+begin_src emacs-lisp
+(add-hook 'org-clock-in-hook
+          (lambda ()
+            (gntp-notify 'alert "Clock In"
+                         "Happy Hacking! (^o^)/"
+                         "localhost")))
+
+(add-hook 'org-clock-out-hook
+          (lambda ()
+            (gntp-notify 'alert "Clock Out"
+                         "Good Job!"
+                         "localhost")))
+#+end_src
+
+** clock-inしてないとアラート表示
+
+#+begin_src emacs-lisp
+(defun org-clocking-alart ()
+  (unless (org-clocking-p)
+    (gntp-notify 'alert "What are you doing!!"
+                 "You should start clocking ('･_･`)"
+                 "localhost")))
+;; (run-at-time t 5 'org-clocking-alart)
+#+end_src
+
+** xmobarにclock状態を表示
+   このハックいいね.
+   - https://github.com/binarin/rc/blob/master/xmobar-clock-monitor.sh
+   - https://github.com/binarin/rc/blob/master/.xmobarrc
 
 * org-capture
   アイデアをキャプチャーする.
@@ -663,7 +703,7 @@
 	;;  :prepend t
 	;;  :unnarrowed t
 	;;  :kill-buffer t)
-        ("m" "Memo" entry (file+headline "~/gtd/main.org" "Memo") "** %U%?\n%i\n")
+        ;; ("m" "Memo" entry (file+headline "~/gtd/main.org" "Memo") "** %U%?\n%i\n")
 	("e" "Email Todo" entry (file+headline "~/gtd/main.org" "Mails")
         "* TODO %^{Brief Description}\n%a\n%?Added: %U\n" :prepend t)
 	("c" "calfw2org" entry (file "~/gtd/schedule.org") "*  %?\n %(cfw:org-capture-day)")
@@ -712,6 +752,12 @@
 	)
 	("EverClassic"
 	 :url "http://everclassic.biz/xmlrpc.php"
+	 :username "admin"	 
+	 ;; :username (netrc-get everclassic "login")
+	 ;; :password (netrc-get everclassic "password")
+         )
+	("Dandieat"
+	 :url "http://dandieat.biz/xmlrpc.php"
 	 :username "admin"	 
 	 ;; :username (netrc-get everclassic "login")
 	 ;; :password (netrc-get everclassic "password")
@@ -1101,13 +1147,22 @@ emacs -Q --batch \
 
 #+begin_src emacs-lisp
 (use-package org-journal
-  :bind ("C-c j" . org-journal-new-entry)
+  :bind (("C-c j" . org-journal-new-entry)
+         ("C-c C-x j" . org-journal-from-minibuffer))
   :config
   (setq org-journal-date-format "%x")
   (setq org-journal-time-format "<%Y-%m-%d %R> ")
   ;; (setq org-journal-file-format "%Y%m%d.org")
   (setq org-journal-file-format "journal.org")
-  (setq org-journal-dir "~/gtd/journal/"))
+  (setq org-journal-dir "~/gtd/journal/")
+
+  (defun org-journal-from-minibuffer (x)
+    "write from minibuffer"
+    (interactive "sEnter message: ")
+    (let ((tweet-message
+           (concat "** " (format-time-string org-journal-time-format) x "\n")))
+      (write-region tweet-message nil
+                    (concat org-journal-dir org-journal-file-format) 'append))))
 #+end_src
 
 * org-pomodoro

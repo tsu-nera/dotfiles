@@ -170,6 +170,11 @@
     smartrep
     smartparens
     lispxmp
+    clojure-mode
+    cider
+    ac-cider
+    4clojure
+    clojure-cheatsheet
 
     ;; minor-lang
     yaml-mode
@@ -188,8 +193,8 @@
 
     ;; c/c++
     semantic-refactor
-    function-args
-    ;; clang-complete-async
+    ;; function-args
+    clang-complete-async
     auto-complete-c-headers
 
     ;; python
@@ -280,6 +285,8 @@
     erc-hl-nicks
     erc-nick-notify
 
+    emms-player-mpv-jp-radios
+
     ;; 61_terminal
     elscreen
     elscreen-wl
@@ -290,6 +297,8 @@
     eshell-autojump
     multi-eshell
     eshell-z
+
+    neotree
 
     ;; 61_wanderlust
     wanderlust
@@ -379,6 +388,22 @@
     visual-basic-mode
     pdf-tools
     flyspell
+    centered-cursor-mode
+    pangu-spacing
+    aggressive-indent-mode
+    ibuffer-projectile
+    cloc
+    geiser
+    clojure-cheatsheet
+    helm-slime
+    ac-slime
+    moz-markdown-viewer
+    helm-github-stars
+    mmm-mode
+    aoj-submit
+    cfparser
+    joseph-single-dired
+    visible-mark
     )
   "A list of packages to install from el-get at launch.")
 #+end_src
