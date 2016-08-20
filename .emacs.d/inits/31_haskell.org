@@ -39,8 +39,10 @@
 ** Ghci との連携
    M-x run-haskell で ghci が起動.
 
+   エラーする。封印
+
 #+begin_src emacs-lisp
-(setq haskell-program-name "/usr/bin/ghci")
+;; (setq haskell-program-name "/usr/bin/ghci")
 #+end_src
 
   ghci の起動とファイルの読み込みを一緒に行う設定.

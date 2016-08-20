@@ -260,10 +260,12 @@
 
 *** 情報源登録  
    ac-sources リストの最後に append で追加するだけ.
+   - 
 
 #+begin_src emacs-lisp
   (setq ac-sources (append ac-sources '(ac-source-abbrev)))
   (setq ac-sources (append ac-sources '(ac-source-words-in-buffer)))
+  (setq ac-sources (append ac-sources '(ac-source-words-in-same-mode-buffers))
 #+end_src
 
    情報源の作り方

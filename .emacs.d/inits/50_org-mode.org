@@ -1,5 +1,5 @@
 * org-mode
-  強のタスク管理ツール.
+  最強のタスク管理ツール.
 
   Manual
   - http://orgmode.org/org.html
@@ -1486,7 +1486,9 @@ containing the properties `:guid' and `:item-full-text'."
     "disable mobile org idle sync"
       (interactive)
 	(cancel-timer org-mobile-sync-timer))
-(org-mobile-sync-enable)
+
+;; 使ってないので封印
+;; (org-mobile-sync-enable)
 #+end_src
 
 * Bookmarks

@@ -320,18 +320,19 @@
   - http://d.hatena.ne.jp/kitokitoki/20110502/p2
   - https://github.com/yascentur/Ricty
 
- Ricty Diminished ならば, 生成する必要なし.
+  Ricty Diminished ならば, 生成する必要なし.
   - https://github.com/yascentur/RictyDiminished
 
-   no window モードは X の設定にしたがっているので, 
-   .Xdefaults の設定を調整する必要あり.
+  no window モードは X の設定にしたがっているので, 
+  .Xdefaults の設定を調整する必要あり.
 
 #+begin_src emacs-lisp
-(when linux-p
-  ;;  (add-to-list 'default-frame-alist '(font . "Ricty-13")))
-  (add-to-list 'default-frame-alist '(font . "Ricty Bold 13")))
-(when windows-p
-  (add-to-list 'default-frame-alist '(font . "Ricty Diminished-13.5")))
+;; (when linux-p
+;;  ;;  (add-to-list 'default-frame-alist '(font . "Ricty-13")))
+;;  (add-to-list 'default-frame-alist '(font . "Ricty Bold 13")))
+;;(when windows-p
+;;  (add-to-list 'default-frame-alist '(font . "Ricty Diminished-13.5")))
+;; (add-to-list 'default-frame-alist '(font . "Ricty Diminished-13.5"))
 #+end_src
 
 ** Noto 
@@ -428,7 +429,7 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
 (use-package monokai-theme
   :init
   (set-face-background 'mmm-default-submode-face "#242424") ;; monokai
-  (set-face-background 'hiwin-face "#333333") ;; molokai
+  ;; (set-face-background 'hiwin-face "#333333") ;; molokai
   (load-theme 'monokai t))
 #+end_src
 

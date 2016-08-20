@@ -1,5 +1,5 @@
 #+TITLE: Scala
-  Better Java.
+Better Java.
   - [[http://futurismo.biz/archives/2449][Emacs で Scala 開発環境を構築 (Ensime) | Futurismo]]
 
 ** scala-mode2
@@ -26,9 +26,26 @@
   :commands (ensime-scala-mode ensime)
   :init
   (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
-  (define-key scala-mode-map (kbd "<f10>") 'ensime-inf-switch)  
-  (define-key scala-mode-map (kbd "RET") 'newline-and-indent))
-#+end_src
+  :config
+  ;; 補完に auto-complete を使う
+  (setq ensime-completion-style 'auto-complete)
+
+  (define-key scala-mode-map (kbd ".") 'scala/completing-dot)
+  (define-key scala-mode-map (kbd "RET") 'newline-and-indent)
+
+  ;; エラー箇所にカーソルを合わせるとミニバッファにエラー内容を表示するようにする。
+  (defun scala/enable-eldoc ()
+    "Show error message at point by Eldoc."
+    (setq-local eldoc-documentation-function
+                #'(lambda ()
+                    (when (ensime-connected-p)
+                      (let ((err (ensime-print-errors-at-point)))
+                        (and err (not (string= err "")) err)))))
+    (eldoc-mode +1))
+  (add-hook 'ensime-mode-hook #'scala/enable-eldoc)
+  )
+  ;; (define-key scala-mode-map (kbd "<f10>") 'ensime-inf-switch)
+  #+end_src
 
 ** sbt mode
    - https://github.com/hvesalai/sbt-mode

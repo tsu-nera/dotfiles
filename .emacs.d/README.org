@@ -23,6 +23,7 @@ M-x el-get-emacswiki-build-local-recipes
   - gcc
   - autoconf
   - automake
+  - texinfo
 
 ** バージョン管理
   - bzr
@@ -34,6 +35,9 @@ M-x el-get-emacswiki-build-local-recipes
   - gettext
   - libsasl2
   - ca-certificates
+  - mplayer
+  - llvm(for clang-complete-async)
+  - lib-clangdev(for clang-complete-async)
 
 ** cmigemo
    - Ubuntsu  sudo apt-get install cmigemo

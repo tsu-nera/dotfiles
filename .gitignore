@@ -38,3 +38,5 @@ tmp
 *.gpg
 /.emacs.d/readability-token
 /.emacs.d/request/curl-cookie-jar
+/.emacs.d/places
+/.emacs.d/recentf

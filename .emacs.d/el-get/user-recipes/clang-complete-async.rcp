@@ -1,3 +1,5 @@
 (:name clang-complete-async
        :type github
-       :pkgname "Golevka/emacs-clang-complete-async")
+       :pkgname "Golevka/emacs-clang-complete-async"
+       :build `(("make"))
+       )

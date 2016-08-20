@@ -106,12 +106,12 @@
   - ace-link-eww in eww-mode 
 
 #+begin_src emacs-lisp
-(use-package ace-link
-  :init
-  (eval-after-load 'eww '(define-key eww-mode-map "f" 'ace-link-eww))
-  (eval-after-load 'org '(define-key org-mode-map (kbd "C-c M-o") 'ace-link-org))
-  :config
-  (setq aw-background nil))
+;;(use-package ace-link
+;;  :init
+;;  (eval-after-load 'eww '(define-key eww-mode-map "f" 'ace-link-eww))
+;;  (eval-after-load 'org '(define-key org-mode-map (kbd "C-c M-o") 'ace-link-org))
+;;  :config
+;;  (setq aw-background nil))
 ;;  (ace-link-setup-default))
 #+end_src
 

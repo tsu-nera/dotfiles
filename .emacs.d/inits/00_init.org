@@ -150,7 +150,7 @@
     ace-jump-mode
     ace-jump-buffer
     ace-isearch
-    ace-link
+    ;; ace-link
     ace-jump-zap
     ace-window
     ace-jump-helm-line
@@ -214,12 +214,14 @@
 
     ;; scala
     sbtout
+    ;; scala-mode
     scala-mode2
     ensime
     sbt-mode
 
     ;; web
     php-mode
+    ac-php
 
     ;; 40_helm.org
     helm
@@ -259,7 +261,7 @@
     org-bullets
     org-projectile
     org-pomodoro
-    org-password-manager
+    ;; org-password-manager
     org-cliplink
     org2blog
     ox-rst
@@ -273,6 +275,8 @@
     tempbuf
     migemo
     magit
+    emms
+    ledger-mode
 
     minimap
     e2wm
@@ -302,7 +306,6 @@
 
     ;; 61_wanderlust
     wanderlust
-
     ;; 90_colro
     rainbow-mode
     color-theme
@@ -386,7 +389,7 @@
     avy
     vbasense
     visual-basic-mode
-    pdf-tools
+    ;; pdf-tools
     flyspell
     centered-cursor-mode
     pangu-spacing
@@ -395,8 +398,8 @@
     cloc
     geiser
     clojure-cheatsheet
-    helm-slime
-    ac-slime
+;;    helm-slime
+;;    ac-slime
     moz-markdown-viewer
     helm-github-stars
     mmm-mode
@@ -404,6 +407,7 @@
     cfparser
     joseph-single-dired
     visible-mark
+    f
     )
   "A list of packages to install from el-get at launch.")
 #+end_src
@@ -420,7 +424,7 @@
 (setq el-get-notify-type 'message)
 
 ;; 同期
-;; (el-get 'sync my/el-get-packages-all)
+(el-get 'sync my/el-get-packages-all)
 
 (defun my-el-get-sync ()
    (interactive)

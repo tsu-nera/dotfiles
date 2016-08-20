@@ -13,7 +13,8 @@
 
 #+begin_src emacs-lisp
 (when linux-p
-  (setq browse-url-generic-program (executable-find "conkeror"))
+  ;; (setq browse-url-generic-program (executable-find "conkeror"))
+  (setq browse-url-generic-program (executable-find "firefox"))
   (setq browse-url-browser-function 'browse-url-generic))
 
 ;; generic default browser
@@ -230,6 +231,7 @@
 #+begin_src emacs-lisp
 (setq howm-view-title-header "*") ;; ← howm のロードより前に書くこと
 (use-package howm
+  :disabled t
   :bind* ("C-c , ," . howm-menu)  
   :config
   ;; *.org を開いたら howm-mode も起動する
@@ -671,8 +673,11 @@ command uses interactive mode if passed an argument."
 
 *** Settings
 
+   調子が悪いので封印。
+
  #+begin_src emacs-lisp
 (use-package emms-setup
+  :disabled t
   :commands emms-stream-init ;; for helm-emms
   :config
   (emms-all)
@@ -1004,6 +1009,7 @@ sudo pacman -S ghostscript
 
  #+begin_src emacs-lisp
 (use-package pdf-tools
+  :disabled t
   :if linux-p
   :init
   (setq pdf-info-epdfinfo-program
@@ -1084,6 +1090,7 @@ sudo pacman -S ghostscript
 
  #+begin_src emacs-lisp
 (use-package ledger-mode
+  :disabled t
   :load-path "~/.emacs.d/el-get/repo/ledger-mode/lisp"
   :init
   (add-to-list 'auto-mode-alist '("\\.dat$" . ledger-mode))
