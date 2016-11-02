@@ -403,6 +403,7 @@ git clone git://git.savannah.gnu.org/emacs.git
 #+begin_src emacs-lisp
 (defvar my-startup-display-message "\nHello Emacs!!\nHappy Hacking (^o^)/\n")
 
+;; 動かなくなっちゃった。いつか調査。
 (defun my-startup-display-mode ()
   "Sets a fixed width (monospace) font in current buffer"
   (setq buffer-face-mode-face '(:height 1000))
@@ -413,8 +414,8 @@ git clone git://git.savannah.gnu.org/emacs.git
   (interactive)
   (let ((temp-buffer-show-function 'switch-to-buffer))
     (with-output-to-temp-buffer "*MyStartUpMessage*"  
-      (princ my-startup-display-message)))
-  (my-startup-display-mode))
+      (princ my-startup-display-message))))
+;;  (my-startup-display-mode))
 
 (add-hook 'after-init-hook 'my-startup-display)
 #+end_src

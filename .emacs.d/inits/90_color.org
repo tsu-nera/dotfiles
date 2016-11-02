@@ -321,14 +321,22 @@
   - https://github.com/yascentur/Ricty
 
   Ricty Diminished ならば, 生成する必要なし.
-  - https://github.com/yascentur/RictyDiminished
+  - https://github.com/edihbrandon/RictyDiminished
+
+  Ubuntu16.04だと以下でいけた
+
+#+begin_src sh
+sudo apt-get install fonts-ricty-diminished
+#+end_src
 
   no window モードは X の設定にしたがっているので, 
   .Xdefaults の設定を調整する必要あり.
 
 #+begin_src emacs-lisp
-;; (when linux-p
-;;  ;;  (add-to-list 'default-frame-alist '(font . "Ricty-13")))
+(when linux-p
+  (add-to-list 'default-frame-alist '(font . "Ricty Diminished-13.5")))
+
+;;  (add-to-list 'default-frame-alist '(font . "Ricty-13")))
 ;;  (add-to-list 'default-frame-alist '(font . "Ricty Bold 13")))
 ;;(when windows-p
 ;;  (add-to-list 'default-frame-alist '(font . "Ricty Diminished-13.5")))
@@ -356,6 +364,12 @@
     * 0 元に戻す
 
   from: [[http://qiita.com/tnoda_/items/ee7804a34e75f4c35d70][Emacs で文字の大きさを一時的に変更する C-x C-0 - Qiita]]
+
+** Defaultサイズ変更
+
+#+begin_src emacs-lisp
+(set-face-font 'default "-*-fixed-medium-r-*-*-20-*")
+#+end_src
 
 ** 行間を開けてやや見やすくする
 
