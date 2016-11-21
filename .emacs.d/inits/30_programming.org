@@ -157,7 +157,7 @@
 
   -> electric-operator に変更.
 
-#+begin_src emacs-lisp
+  #+begin_src emacs-lisp
 (use-package electric-spacing
   :init
   (add-hook 'c-mode-common-hook #'electric-spacing-mode)
@@ -186,16 +186,15 @@
 ** aggressive-indent-mode
    賢い indent-mode
    - https://github.com/Malabarba/aggressive-indent-mode
+   - 
 
    *names* に依存しているので, 
    require 'names してからインストールしないとおかしくなる.
 
 #+begin_src emacs-lisp
-(use-package aggressive-indent-mode :if linux-p)
-
-;; c++ だとけっこうバラバラになる lisp はどうか?
-;;  :config
 ;;  (global-aggressive-indent-mode))
+(add-hook 'emacs-lisp-mode 'aggressive-indent-mode)
+(add-hook 'lisp-mode 'aggressive-indent-mode)
 #+end_src
 
 * 補完
@@ -265,7 +264,7 @@
 #+begin_src emacs-lisp
   (setq ac-sources (append ac-sources '(ac-source-abbrev)))
   (setq ac-sources (append ac-sources '(ac-source-words-in-buffer)))
-  (setq ac-sources (append ac-sources '(ac-source-words-in-same-mode-buffers))
+  (setq ac-sources (append ac-sources '(ac-source-words-in-same-mode-buffers)))
 #+end_src
 
    情報源の作り方
@@ -287,8 +286,6 @@
     #+begin_src emacs-lisp
     )
     #+end_src
-
-
 
 * コンパイル
 ** smart-compile

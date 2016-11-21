@@ -1448,7 +1448,6 @@ containing the properties `:guid' and `:item-full-text'."
 
 ** mobileOrg
    iPhone と org-mode の同期. Dropbox を利用
-   - [[http://mobileorg.ncogni.to/][MobileOrg : What is MobileOrg?]]
    - https://github.com/MobileOrg/mobileorg
    - http://orgmode.org/manual/MobileOrg.html
 
@@ -1460,7 +1459,7 @@ containing the properties `:guid' and `:item-full-text'."
 ;; Set to the name of the file where new notes will be stored
 (setq org-mobile-inbox-for-pull "~/gtd/inbox.org")
 ;; Set to <your Dropbox root directory>/MobileOrg.
-(setq org-mobile-directory "~/Dropbox/ アプリ/MobileOrg")
+(setq org-mobile-directory "~/Dropbox/アプリ/MobileOrg")
 
 ;; ;; 起動と終了時に同期
 ;; ;; org-mobile-directry が存在しないとハングするためなしにした
@@ -1487,8 +1486,7 @@ containing the properties `:guid' and `:item-full-text'."
       (interactive)
 	(cancel-timer org-mobile-sync-timer))
 
-;; 使ってないので封印
-;; (org-mobile-sync-enable)
+(org-mobile-sync-enable)
 #+end_src
 
 * Bookmarks

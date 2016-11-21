@@ -89,16 +89,15 @@
 ;; (define-key sp-keymap (kbd "H-s j") 'sp-join-sexp)
 ;; (define-key sp-keymap (kbd "H-s s") 'sp-split-sexp)
 
-;;;;;;;;;;;;;;;;;;
 ;; pair management
-(sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
+;; (sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
 
-;;; lisp modes
-(sp-with-modes sp--lisp-modes
-(sp-local-pair "(" nil :bind "M-("))
+;; lisp modes
+;; (sp-with-modes sp-lisp-modes
+;;  (sp-local-pair "(" nil :bind "M-("))
 
-(sp-pair "(" ")" :wrap "M-(")
-(sp-pair "(" ")" :wrap "M-(")
+;; (sp-pair "(" ")" :wrap "M-(")
+;; (sp-pair "(" ")" :wrap "M-(")
     #+end_src
 
 *** end of config
@@ -206,41 +205,8 @@
    Emacs 標準のユニットテストフレームワーク.
    - https://www.gnu.org/software/emacs/manual/html_node/ert/
 
-   ショートカットで ert 実行 (C-c C-c)
+   ショートカットで ert 実行 (C-c C-c)できる Tips
    - http://d.hatena.ne.jp/whitypig/20110919/1316451596
-
-#+begin_src emacs-lisp
-(defun my-run-ert-test-maybe ()
-  (interactive)
-  (when (eq major-mode 'emacs-lisp-mode)
-    (eval-buffer)
-    (save-excursion
-      (beginning-of-defun)
-      (let ((line (buffer-substring-no-properties (point)
-                                                  (save-excursion
-                                                    (end-of-line)
-                                                    (point)))))
-        (when (string-match "^(ert-deftest \\([^ \n]+\\) ()$" line)
-          (let ((w (selected-window))
-                n
-                (dir (file-name-as-directory (expand-file-name ".")))
-                (b (get-buffer "*ert*")))
-            ;; Change the current directory to this test directory
-            (when b
-              (save-excursion
-                (set-buffer b)
-                (cd dir)))
-            ;; Run the test.
-            (ert (match-string-no-properties 1 line))
-            ;; Now, we're in *ert* buffer.
-            (save-excursion
-              (when (re-search-forward "Failed: \\([^ ]+\\)" nil t)
-                (setq n (string-to-number (match-string-no-properties 1)))))
-            (when (zerop n)
-              ;; When passed, move to the original window.
-              (select-window w))))))))
-(define-key emacs-lisp-mode-map "\C-c\C-c" 'my-run-ert-test-maybe)
-#+end_src
 
   ert-runner, overseer 利用すると, どうようなことができるっぽいが
   どうも動かなかったので保留.
@@ -455,30 +421,32 @@ $ yaourt -S racket
    Clojure のためのインタラクティブな開発環境.
    - https://github.com/clojure-emacs/cider
 
+   if-let がないよと怒られて読み込めなくなった 16/11/21 inf-clojure で代用
+
 #+begin_src emacs-lisp
-(use-package cider
-  :init
-  (add-hook 'clojure-mode-hook 'cider-mode)
-  ;; eldoc を有効にする
-  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode))
+;; (use-package cider
+;;  :init
+;;  (add-hook 'clojure-mode-hook 'cider-mode)
+;;  ;; eldoc を有効にする
+;;  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode))
 #+end_src
 
-* ac-cider
-   https://github.com/clojure-emacs/ac-cider
+** ac-cider
+    https://github.com/clojure-emacs/ac-cider
    
-#+begin_src emacs-lisp
-(use-package ac-cider
-  :disabled t
-  :init
-  (add-hook 'cider-mode-hook 'ac-flyspell-workaround)
-  (add-hook 'cider-mode-hook 'ac-cider-setup)
-  (add-hook 'cider-repl-mode-hook 'ac-cider-setup)
-  :config
-  (eval-after-load "auto-complete"
-    '(progn
-       (add-to-list 'ac-modes 'cider-mode)
-       (add-to-list 'ac-modes 'cider-repl-mode))))
-#+end_src
+ #+begin_src emacs-lisp
+;; (use-package ac-cider
+;;   :disabled t
+;;  :init
+;;  (add-hook 'cider-mode-hook 'ac-flyspell-workaround)
+;;  (add-hook 'cider-mode-hook 'ac-cider-setup)
+;;  (add-hook 'cider-repl-mode-hook 'ac-cider-setup)
+;;  :config
+;;  (eval-after-load "auto-complete"
+;;    '(progn
+;;       (add-to-list 'ac-modes 'cider-mode)
+;;       (add-to-list 'ac-modes 'cider-repl-mode))))
+ #+end_src
 
 ** inf-clojure
    - https://github.com/clojure-emacs/inf-clojure
@@ -520,16 +488,16 @@ $ yaourt -S racket
    - https://github.com/clojure-emacs/clj-refactor.el/wiki
 
 #+begin_src emacs-lisp
-(use-package clj-refactor
-  :commands (my-clojure-mode-hook)
-  :init
-  (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
-  :config
-  (defun my-clojure-mode-hook ()
-    (clj-refactor-mode 1)
-    (yas-minor-mode 1) ; for adding require/use/import statements
-    ;; This choice of keybinding leaves cider-macroexpand-1 unbound
-    (cljr-add-keybindings-with-prefix "C-c C-m")))
+;; (use-package clj-refactor
+;;   :commands (my-clojure-mode-hook)
+;;   :init
+;;   (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
+;;   :config
+;;   (defun my-clojure-mode-hook ()
+;;     (clj-refactor-mode 1)
+;;     (yas-minor-mode 1) ; for adding require/use/import statements
+;;     ;; This choice of keybinding leaves cider-macroexpand-1 unbound
+;;     (cljr-add-keybindings-with-prefix "C-c C-m")))
 #+end_src
 
 ** clojure-snippets
@@ -546,9 +514,9 @@ $ yaourt -S racket
    flycheck for clojure つかいかたわかんなかった. あとで調査.
 
 #+begin_src emacs-lisp
-(use-package squiggly-clojure
-  :config
-  (eval-after-load 'flycheck '(flycheck-clojure-setup)))
+;; (use-package squiggly-clojure
+;;   :config
+;;   (eval-after-load 'flycheck '(flycheck-clojure-setup)))
 #+end_src
 
 * Common Lisp
@@ -568,13 +536,6 @@ $ yaourt -S racket
 (bind-keys* :map slime-mode-map
            ("C-M-a" . sp-beginning-of-sexp)
            ("C-M-e" . sp-end-of-sexp))
-#+end_src
-
-*** helm-slime
-    なんだろう、とりあえず入れた.
-
-#+begin_src emacs-lisp
-(use-package helm-slime)
 #+end_src
 
 *** ac-slime

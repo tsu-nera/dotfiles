@@ -165,17 +165,24 @@
     gist
     cool-mode
     yafolding
+    aggressive-indent-mode
+    marshal
 
     ;; lisp
     smartrep
     smartparens
     lispxmp
+
     clojure-mode
     cider
     ac-cider
     4clojure
     clojure-cheatsheet
-
+    inf-clojure
+    ;; clj-refactor  なんかインストール時にエラーする
+    clojure-snippets
+    squiggly-clojure
+    
     ;; minor-lang
     yaml-mode
     markdown-mode
@@ -359,7 +366,6 @@
     web
     el-pocket
     electric-spacing
-    ;; aggressive-indent-mode
     ggtags
     imenus
     eshell-prompt-extras
@@ -393,12 +399,10 @@
     flyspell
     centered-cursor-mode
     pangu-spacing
-    aggressive-indent-mode
     ibuffer-projectile
     cloc
     geiser
-    clojure-cheatsheet
-;;    helm-slime
+    ;; helm-slime エラーするので封印
 ;;    ac-slime
     moz-markdown-viewer
     helm-github-stars

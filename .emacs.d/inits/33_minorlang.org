@@ -133,7 +133,6 @@
   :commands ansible)
  #+end_src
 
-
 * wiki
 ** textile-mode
    Redmine wiki の記述用.
@@ -157,15 +156,15 @@
    - [[http://rmecab.jp/wiki/index.php?Wiki_pukiwiki-mode%A4%F2%C6%B3%C6%FE][Wiki_pukiwiki-mode を導入 - R と Linux と...]]
 
 #+begin_src emacs-lisp
-(use-package pukiwiki-mode)
+;; (use-package pukiwiki-mode)
 #+end_src
 
 * hdl
   Hardware Descripton Language.
 
 #+begin_src emacs-lisp
-(use-package vhdl-mode
-  :mode "\\.hdl$")
+;;(use-package vhdl-mode
+;;   :mode "\\.hdl$")
 #+end_src
 
 * Othres
@@ -175,8 +174,6 @@
 (use-package conkeror-minor-mode :commands conkeror-minor-mode)
  #+end_src
  
-
-
 ** mql
 
 #+begin_src emacs-lisp
