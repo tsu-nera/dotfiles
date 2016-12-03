@@ -120,15 +120,18 @@
 ** 現在行をハイライト
   - [[http://rubikitch.com/2015/05/14/global-hl-line-mode-timer/][【高速化】 Emacs のカーソル移動が重い？現在行ハイライト hl-line-mode に原因があるかも… | るびきち「日刊 Emacs」]]
 
-#+begin_src emacs-lisp
-;;(unless (eq window-system nil)
-;; (global-hl-line-mode 1)
-;; (defun global-hl-line-timer-function ()
-;;   (global-hl-line-unhighlight-all)
-;;   (let ((global-hl-line-mode t))
-;;     (global-hl-line-highlight)))
-;; (setq global-hl-line-timer
-;;       (run-with-idle-timer 0.1 t 'global-hl-line-timer-function))
+  #+begin_src emacs-lisp
+(require 'hl-line)
+;;; hl-line を無効にするメジャーモードを指定する
+(defvar global-hl-line-timer-exclude-modes '(todotxt-mode))
+(defun global-hl-line-timer-function ()
+  (unless (memq major-mode global-hl-line-timer-exclude-modes)
+    (global-hl-line-unhighlight-all)
+    (let ((global-hl-line-mode t))
+      (global-hl-line-highlight))))
+(setq global-hl-line-timer
+      (run-with-idle-timer 0.03 t 'global-hl-line-timer-function))
+;; (cancel-timer global-hl-line-timer)
 #+end_src
 
 ** 80 行目をハイライト
@@ -323,7 +326,7 @@
   Ricty Diminished ならば, 生成する必要なし.
   - https://github.com/edihbrandon/RictyDiminished
 
-  Ubuntu16.04だと以下でいけた
+  Ubuntu16.04 だと以下でいけた
 
 #+begin_src sh
 sudo apt-get install fonts-ricty-diminished
@@ -365,10 +368,10 @@ sudo apt-get install fonts-ricty-diminished
 
   from: [[http://qiita.com/tnoda_/items/ee7804a34e75f4c35d70][Emacs で文字の大きさを一時的に変更する C-x C-0 - Qiita]]
 
-** Defaultサイズ変更
+** Default サイズ変更
 
 #+begin_src emacs-lisp
-(set-face-font 'default "-*-fixed-medium-r-*-*-20-*")
+;; (set-face-font 'default "-*-fixed-medium-r-*-*-20-*")
 #+end_src
 
 ** 行間を開けてやや見やすくする
@@ -411,7 +414,7 @@ sudo apt-get install fonts-ricty-diminished
 #+end_src
 
 ** xterm-color
-   ansi-colorよりも高速だとかいうので入れとく.
+   ansi-color よりも高速だとかいうので入れとく.
 
    いろがうまく反映されないよ.
 
