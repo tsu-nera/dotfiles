@@ -158,13 +158,22 @@
 #+begin_src emacs-lisp
 ;; (use-package pukiwiki-mode)
 #+end_src
-
 * hdl
   Hardware Descripton Language.
 
 #+begin_src emacs-lisp
 ;;(use-package vhdl-mode
 ;;   :mode "\\.hdl$")
+#+end_src
+
+* SML
+  - http://www.smlnj.org/doc/Emacs/sml-mode.html
+  - http://www.iro.umontreal.ca/~monnier/elisp/
+
+#+begin_src emacs-lisp :tangle yes
+(autoload 'sml-mode "sml-mode" "Major mode for editing SML." t)
+(autoload 'run-sml "sml-proc" "Run an inferior SML process." t)
+(add-to-list 'auto-mode-alist '("\\.\\(sml\\|sig\\)\\'" . sml-mode))
 #+end_src
 
 * Othres
