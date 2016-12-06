@@ -107,6 +107,12 @@ Value: ((xpm "libxpm.dll" "xpm4.dll" "libXpm-nox4.dll")
 (load-path "c:/app/ess")
 * Trouble about Windows
 ** magit
+
+#+begin_src emacs-lisp :tangle yes
+(add-to-list 'exec-path "c:/Program Files/Git/bin/")
+(setq magit-git-executable "C:/Program Files/Git/bin/git.exe")
+#+end_src
+
    変更していないのに変更したように見える.
 
 #+begin_src text
@@ -160,5 +166,3 @@ old mode 100755 new mode 100644
 
 * Bookmarks
   - [[http://gregorygrubbs.com/emacs/10-tips-emacs-windows/][10 Tips for Powerful Emacs on Windows | Gregory Grubbs]]
-
-

@@ -412,6 +412,18 @@
     joseph-single-dired
     visible-mark
     f
+    marshal
+    pangu-spacing
+    cloc
+    geiser
+    inf-clojure
+    4clojure
+    clojure-cheatsheet
+    clojure-snippets
+    ac-slime
+    emms-player-mpv-jp-radios
+    aoj-submit
+    neotree
     )
   "A list of packages to install from el-get at launch.")
 #+end_src
@@ -428,7 +440,7 @@
 (setq el-get-notify-type 'message)
 
 ;; 同期
-(el-get 'sync my/el-get-packages-all)
+;; (el-get 'sync my/el-get-packages-all)
 
 (defun my-el-get-sync ()
    (interactive)

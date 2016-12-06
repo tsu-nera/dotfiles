@@ -1,4 +1,3 @@
-
 * ターミナル
   主にターミナル操作に関する機能.
   - ファイラ
@@ -40,7 +39,7 @@
   ;; http://stackoverflow.com/questions/12667043/emacs-smooth-scrolling-scroll-margin-and-eshell
   ;; (setq scroll-margin 0)
 
-  ;; zshの環境変数を取り込む
+  ;; zsh の環境変数を取り込む
   ;; http://d.hatena.ne.jp/zonu_exe/20120509/1336583187
   (let ((zshpath (shell-command-to-string "/usr/bin/zsh -c 'printenv PATH'")))
     (let ((pathlst (split-string zshpath ":")))
@@ -168,7 +167,7 @@
   (setq multi-eshell-name "*eshell*"))
 #+end_src
 
-**** elscreenで開く
+**** elscreen で開く
 
 #+begin_src emacs-lisp
 (defun elscreen-esh ()

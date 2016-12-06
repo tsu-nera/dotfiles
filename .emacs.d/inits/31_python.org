@@ -17,7 +17,10 @@
    - [[http://ikautimituaki.hatenablog.com/entry/20111120/1321806070][python-mode の便利なショートカットまとめ - まったりいんふぉまてぃくすめもらんだむ]]
 
 #+begin_src emacs-lisp
-(setq py-install-directory "~/.emacs.d/el-get/repo/python-mode")
+(if linux-p
+    (setq py-install-directory "~/.emacs.d/el-get/repo/python-mode"))
+(if windows-p
+    (setq py-install-directory "C:\cygwin64\home\tsu-nera\dotfiles\.emacs.d\el-get\repo\python-mode"))
 (use-package python-mode
   :mode "\\.py$"
   :interpreter "python"
