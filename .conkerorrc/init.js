@@ -1,10 +1,16 @@
 // Tips are here http://conkeror.org/Tips
-
-//allow for 'contrib' stuff
-load_paths.unshift("chrome://conkeror-contrib/content/");
-
-// teach me something whenever I start my browser
 homepage = "http://www.google.co.jp";
+
+///////////////////////////////////////////////////////////////
+//  ÉÇÅ[ÉhÉâÉCÉì
+//  http://conkeror.org/ModeLine?highlight=%28mode-line%29
+///////////////////////////////////////////////////////////////
+// funky icons in the modeline
+require("mode-line.js");
+
+load_paths.unshift("chrome://conkeror-contrib/content/");
+require("mode-line-buttons.js");
+mode_line_add_buttons(standard_mode_line_buttons, true);
 
 //////////////////////////////////////////
 // Key Bindings
@@ -86,7 +92,7 @@ interactive("youtube-dl", "download youtube video",
 define_key(content_buffer_normal_keymap, "d", "follow-new-buffer");
 define_key(content_buffer_normal_keymap, "f1", "open-google");
 define_key(content_buffer_normal_keymap, "f2", "open-gmail");
-define_key(content_buffer_normal_keymap, "f3", "open-calendar");
+define_key(content_buffer_normal_keymap, "f3d", "open-calendar");
 define_key(content_buffer_normal_keymap, "f4", "youtube");
 define_key(content_buffer_normal_keymap, "f5", "feedly");
 define_key(content_buffer_normal_keymap, "f6", "futurismo");
@@ -119,19 +125,12 @@ define_webjump("g", "http://www.google.co.jp/search?q=%s", $alternative = "http:
 //////////////////////////////////////////
 // external
 //////////////////////////////////////////
-session_pref("xpinstall.whitelist.required", false);
-external_content_handlers.set("application/pdf", "firefox");
+// automatically handle some mime types internally.
+content_handlers.set("application/pdf", content_handler_save);
 
-///////////////////////////////////////////////////////////////
-//  Mode-line
-//  http://conkeror.org/ModeLine?highlight=%28mode-line%29
-///////////////////////////////////////////////////////////////
-// funky icons in the modeline
-require("mode-line.js");
-
-load_paths.unshift("chrome://conkeror-contrib/content/");
-require("mode-line-buttons.js");
-mode_line_add_buttons(standard_mode_line_buttons, true);
+// external programs for handling various mime types.
+external_content_handlers.set("application/pdf", "xpdf");
+external_content_handlers.set("video/*", "xterm -e vlc");
 
 ///////////////////////////////////////////////////////////////
 //  Others
@@ -145,7 +144,13 @@ require("session.js");
 // Use emacsclient as external editor
 editor_shell_command = "emacsclient -c"
 
+// default directory for downloads and shell commands.
+cwd = get_home_directory();
 cwd.append("Downloads");
+
+// load download buffers in the background in the current
+// window, instead of in new windows.
+download_buffer_automatic_open_target = OPEN_NEW_BUFFER_BACKGROUND;
 
 interactive("reload-config", "reload conkerorrc",
             function(I) {
@@ -155,9 +160,8 @@ interactive("reload-config", "reload conkerorrc",
 define_key(default_global_keymap, "C-c r", "reload-config");
 
 //////////////////////////////////////////
-// colors
+// colors DÇ≈çïîwåiÇ… toggle
 //////////////////////////////////////////
 theme_load_paths.unshift("~/.conkerorrc/themes/");
 theme_unload("default");
 theme_load("conkeror-theme-zenburn");
-

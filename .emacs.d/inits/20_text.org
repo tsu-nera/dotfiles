@@ -682,7 +682,6 @@
 
   #+begin_src emacs-lisp
 (use-package skk-autoloads
-  :disabled t
   :bind (("C-x C-j" . skk-mode) ("C-x j" . skk-mode))
   :init
   (global-unset-key "\C-xj")

@@ -535,7 +535,6 @@ Warning: Eager macro-expansion skipped due to cycle:
 (use-package cde)
 #+end_src
 
-
 * e2wm
   Emacs 用の window manager.
 
