@@ -246,7 +246,7 @@
 	 ("C-x i n" . yas-new-snippet))
   :defer 20
   :config
-  (yas-global-mode 1)  
+  (yas-global-mode 1)
   (setq yas-snippet-dirs
       '("~/.emacs.d/snippets" ;; my snipets dir
         "~/.emacs.d/el-get/repo/yasnippet/snippets")) ;; original repo dir
@@ -534,7 +534,8 @@
 
   (when windows-p
     (setq migemo-command "c:/app/cmigemo-default-win64/cmigemo.exe")
-    (setq migemo-dictionary "c:/app/cmigemo-default-win64/dict/utf-8/migemo-dict")))
+    (setq migemo-dictionary "c:/app/cmigemo-default-win64/dict/utf-8/migemo-dict")
+    ))
 #+end_src
 
 ** anzu

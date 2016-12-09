@@ -211,7 +211,7 @@
    - http://cx4a.org/software/auto-complete/index.ja.html
    - http://cx4a.org/software/auto-complete/manual.ja.html
 
-   #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (use-package auto-complete
   :bind   ("M-/" . auto-complete)
   :config
@@ -919,4 +919,3 @@
 #+end_src
 
 * Bookmarks
-

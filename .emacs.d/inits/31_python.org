@@ -20,7 +20,8 @@
 (if linux-p
     (setq py-install-directory "~/.emacs.d/el-get/repo/python-mode"))
 (if windows-p
-    (setq py-install-directory "C:\cygwin64\home\tsu-nera\dotfiles\.emacs.d\el-get\repo\python-mode"))
+    (setq py-install-directory "c:/cygwin64/home/tsu-nera/dotfiles/.emacs.d/el-get/repo/python-mode")
+    (setq python-shell-interpreter "c:/Python34/python.exe"))
 (use-package python-mode
   :mode "\\.py$"
   :interpreter "python"
@@ -95,8 +96,9 @@ pip install virtualenv
    
 #+begin_src emacs-lisp
 (use-package helm-pydoc
-   :init
-   (define-key python-mode-map (kbd "C-c C-d") 'helm-pydoc))
+  :if linux-p
+  :init
+  (define-key python-mode-map (kbd "C-c C-d") 'helm-pydoc))
 #+end_src
 
 ** quickrun
@@ -115,7 +117,6 @@ pip install virtualenv
 
 ** TODO iPython
    インタラクティブなデバッグ環境.
-
 
 * 静的解析
 ** flycheck

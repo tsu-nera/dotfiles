@@ -60,7 +60,7 @@
    - https://github.com/smihica/emmet-mode
    
    展開のパターンを覚えるのが大変そうな予感...
-   一旦無効にしておく. web-modeの色が正しく反映されないので.
+   一旦無効にしておく. web-mode の色が正しく反映されないので.
 
 #+begin_src emacs-lisp
 (use-package emmet-mode
@@ -93,25 +93,6 @@
   :commands php-mode
   :mode "\\.php$"
 )
-#+end_src
-
-** mmm-mode
-    php-mode と html-mode の同居.
-    - [[http://bluestar.s32.xrea.com/text/php-mode.php][閑古鳥 -> 呟き -> emacs で PHP-mode と mmm-mode を使う]]
-
-    Molokai テーマと相性が悪いので一旦消す.
-
-#+begin_src emacs-lisp
-; mmm-mode in php
-;; (use-package mmm-mode)
-;; (setq mmm-global-mode 'maybe)
-;; (mmm-add-mode-ext-class nil "\\.php?\\'" 'html-php)
-;; (mmm-add-classes
-;;  '((html-php
-;;     :submode php-mode
-;;     :front "<\\?\\(php\\)?"
-;;     :back "\\?>")))
-;; (add-to-list 'auto-mode-alist '("\\.php?\\'" . xml-mode))
 #+end_src
 
 ** ac-php
