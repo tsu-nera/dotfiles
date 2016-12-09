@@ -503,7 +503,7 @@
 ;; Include current clocking task in clock reports
 (setq org-clock-report-include-clocking-task t)
 
-;; logbookにまとめる
+;; logbook にまとめる
 (setq org-log-into-drawer t)
 
 ; 時間になったら音をならす
@@ -646,7 +646,7 @@
 (setq org-clock-history-length 35)  ; 1 to 9 + A to Z
 #+end_src
 
-** clock-inで表示を出す
+** clock-in で表示を出す
 
 #+begin_src emacs-lisp
 (add-hook 'org-clock-in-hook
@@ -662,7 +662,7 @@
                          "localhost")))
 #+end_src
 
-** clock-inしてないとアラート表示
+** clock-in してないとアラート表示
 
 #+begin_src emacs-lisp
 (defun org-clocking-alart ()
@@ -673,7 +673,7 @@
 ;; (run-at-time t 5 'org-clocking-alart)
 #+end_src
 
-** xmobarにclock状態を表示
+** xmobar に clock 状態を表示
    このハックいいね.
    - https://github.com/binarin/rc/blob/master/xmobar-clock-monitor.sh
    - https://github.com/binarin/rc/blob/master/.xmobarrc
@@ -771,9 +771,11 @@
    - [[http://blog.tmsrv.net/?p=82][tmaeda1981jp の blog » Blog Archive » org2blog を使用して Emacs から WordPress に投稿する]]
    - [[http://blog.binchen.org/posts/how-to-use-org2blog-effectively-as-a-programmer.html][How to use org2blog effectively as a programmer | Chen's blog]]
 
-#+begin_src emacs-lisp
+   #+begin_src emacs-lisp
 (setq org2blog/wp-use-sourcecode-shortcode t)
-(setq org2blog/wp-sourcecode-default-params nil) ;; removed light="true"
+(setq org2blog/wp-sourcecode-default-params "light=false")
+;;(setq org2blog/wp-use-sourcecode-shortcode t)
+;;(setq org2blog/wp-sourcecode-default-params nil) ;; removed light="true"
 
 ;; target language needs to be in here
 (setq org2blog/wp-sourcecode-langs
@@ -798,6 +800,7 @@
 	    'elisp'         => 'clojure',
 	    'emacs-lisp'    => 'clojure',
             'shell'         => 'sh',
+            'sh'            => 'bash'
             'language'      => 'text',            
 #+end_src
 
