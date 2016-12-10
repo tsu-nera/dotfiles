@@ -439,9 +439,9 @@ $ sudo cp /usr/bin/ruby1.9/bin/enclient.rb /usr/bin
   ;; はじめに開くタイムライン
   (setq twittering-initial-timeline-spec-string
         '("tsu_nera"
-          ":search/futurismo.biz/"
+          ":search/futurismo.biz/"))
           ;; "hmi_me"
-          "melpa_emacs"))
+          ;;"melpa_emacs"))
   (defun browse-twitter ()
       (interactive)
       (browse-url "https://twitter.com/hmi_me")))

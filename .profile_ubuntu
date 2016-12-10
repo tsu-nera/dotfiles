@@ -45,3 +45,6 @@ xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 0
 
 # wall paper
 feh --bg-scale ~/Dropbox/Photos/ubuntu.jpg &
+
+# クリップポードマネージャー
+copyq &

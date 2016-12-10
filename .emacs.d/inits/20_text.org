@@ -496,17 +496,40 @@
 * 検索・置換
 ** ag
    高速 grep
+   -> ripgrep にのりかえ
 
-   #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (use-package ag
-  :defer t
+  :disabled t
   :config
   (custom-set-variables
    '(ag-highlight-search t)  ; 検索結果の中の検索語をハイライトする
    '(ag-reuse-window 'nil)   ; 現在のウィンドウを検索結果表示に使う
    '(ag-reuse-buffers 'nil)) ; 現在のバッファを検索結果表示に使う
   )
-   #+end_src
+#+end_src
+
+** ripgrep
+   ag をこえる光速版 grep
+   - https://github.com/BurntSushi/ripgrep
+
+     helm-ag のインタフェースを借りる
+
+#+begin_src emacs-lisp
+(use-package ag
+  :if linix-p
+  :config
+  (setq helm-ag-base-command "~/opt/ripgrep/rg --vimgrep --no-heading")
+  (setq helm-ag-insert-at-point 'symbol)
+  (custom-set-variables
+   '(ag-highlight-search t)  ; 検索結果の中の検索語をハイライトする
+   '(ag-reuse-window 'nil)   ; 現在のウィンドウを検索結果表示に使う
+   '(ag-reuse-buffers 'nil)) ; 現在のバッファを検索結果表示に使う
+  )
+
+#+end_src
+
+
 
 ** migemo
    日本語をロ-マ字検索.

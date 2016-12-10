@@ -296,6 +296,7 @@
     twittering-mode
     erc-hl-nicks
     erc-nick-notify
+    fcitx
 
     emms-player-mpv-jp-radios
 
