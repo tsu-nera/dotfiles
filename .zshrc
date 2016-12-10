@@ -231,6 +231,7 @@ fi
 if [ -d ${HOME}/script  ] ; then
   export PATH="${HOME}/script/sh:${PATH}"
   export PATH="${HOME}/script/ruby:${PATH}"
+  export PATH="${HOME}/script/scala:${PATH}"  
 fi
 
 # z ディレクトリ移動を簡単に
@@ -360,9 +361,8 @@ if [ "$EMACS" ];then
 else
     alias m='emacsclient -nw'
     alias kill_emacs="emacsclient -e \"(kill-emacs)\""
-    alias boot_emacs="emacs --daemon"
-    alias boot_my_world="emacs --daemon"
-    alias reboot_emacs="emacsclient -e \"(kill-emacs)\";emacs --daemon"
+    alias boot_emacs="LC_CTYPE=ja_JP.UTF-8 emacs --daemon"
+    alias reboot_emacs="kill_emacs;boot_emacs"
 
     export EDITOR="emacsclient -nw"
     export VISUAL="emacsclient -nw"

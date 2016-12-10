@@ -1135,13 +1135,12 @@ sudo pacman -S ghostscript
 
 #+begin_src emacs-lisp
 (use-package fcitx
-  :disabled t
   :if linux-p
   :config
-  (fcitx-aggressive-setup)
+  (fcitx-default-setup)  
+  ;;  (fcitx-aggressive-setup)
   (fcitx-prefix-keys-setup)
   (fcitx-prefix-keys-turn-on))
-
 #+end_src
 
 ** emoji-cheat-sheet-plus

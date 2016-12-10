@@ -49,6 +49,8 @@
 (remove-hook 'text-mode-hook 'turn-on-auto-fill)
 #+end_src
 
+入力テスト。入力に問題なし
+
 ** Popwin
    バッファのポップアップ表示. Popup Manager for Emacs.
    - [[https://github.com/m2ym/popwin-el][m2ym/popwin-el]]

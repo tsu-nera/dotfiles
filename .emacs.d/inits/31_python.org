@@ -21,18 +21,31 @@
     (setq py-install-directory "~/.emacs.d/el-get/repo/python-mode"))
 (if windows-p
     (setq py-install-directory "C:\cygwin64\home\tsu-nera\dotfiles\.emacs.d\el-get\repo\python-mode"))
-(use-package python-mode
-  :mode "\\.py$"
-  :interpreter "python"
-  :init
-  (add-hook 'python-mode-hook
-	    '(lambda ()
-	       (setq indent-tabs-mode nil)
-	       (setq indent-level 4)
-	       (setq python-indent 4)
-	       (setq tab-width 4)
-	       (setq imenu-create-index-function 'python-imenu-create-index)
-	       )))
+(add-to-list 'load-path py-install-directory)
+(require 'python-mode)
+(add-hook 'python-mode-hook
+          '(lambda ()
+             (setq indent-tabs-mode nil)
+             (setq indent-level 4)
+             (setq python-indent 4)
+             (setq tab-width 4)
+             (setq imenu-create-index-function 'python-imenu-create-index)
+             ))
+
+;; use-package が動かない。
+;; (use-package python-mode)
+;; (use-package python-mode
+;;   :mode "\\.py$"
+;;   :interpreter "python"
+;;   :init
+;;   (add-hook 'python-mode-hook
+;;             '(lambda ()
+;;                (setq indent-tabs-mode nil)
+;;                (setq indent-level 4)
+;;                (setq python-indent 4)
+;;                (setq tab-width 4)
+;;                (setq imenu-create-index-function 'python-imenu-create-index)
+;;                )))
 #+end_src
 
 * 補完   

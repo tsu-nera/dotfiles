@@ -21,21 +21,6 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-if [ -d "$HOME/script" ] ; then
-    PATH="$HOME/script/sh:$PATH"
-    PATH="$HOME/script/ruby:$PATH"
-fi
-
-# Touch Padデフォルト無効
-xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 0 &
-
-# 背景の設定
-feh --bg-scale ~/Pictures/wallpaper/moonlight.png &
-
-# tmux
-tmux-session restore
-tmux a
-
 # trayer タスクトレイ
 trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --width 10 --transparent true --tint 0x000000 --height 14 &
 
@@ -43,8 +28,20 @@ trayer --edge top --align right --SetDockType true --SetPartialStrut false --exp
 nm-applet &
 
 # サウンド
-cinnamon-sound-applet &
+volumeicon &
 
-# skk server
-google-ime-skk &
+# バッテリ
+cbatticon &
 
+# Dropbox
+~/.dropbox-dist/dropboxd &~/.dropbox-dist/dropboxd &
+
+# TouchPad Default Off
+xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 0
+
+# emacs
+# https://wiki.archlinuxjp.org/index.php/Fcitx#Emacs 文字コードしていしないと変換してくれない。
+# LC_CTYPE=ja_JP.UTF-8 emacs --daemon &
+
+# wall paper
+feh --bg-scale ~/Dropbox/Photos/ubuntu.jpg &

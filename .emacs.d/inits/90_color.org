@@ -194,6 +194,8 @@
 
    起動時に 有効にならないな...
 
+   動作すると
+
 #+begin_src emacs-lisp
 (use-package auto-highlight-symbol
   :init
@@ -338,10 +340,10 @@ sudo apt-get install fonts-ricty-diminished
 
 #+begin_src emacs-lisp
 (when linux-p
-  (add-to-list 'default-frame-alist '(font . "Ricty Diminished-13.5")))
+;;  (add-to-list 'default-frame-alist '(font . "Ricty Diminished-13.5")))
+;; (add-to-list 'default-frame-alist '(font . "Ricty-13")))
+  (add-to-list 'default-frame-alist '(font . "Ricty Bold 13")))
 
-;;  (add-to-list 'default-frame-alist '(font . "Ricty-13")))
-;;  (add-to-list 'default-frame-alist '(font . "Ricty Bold 13")))
 ;;(when windows-p
 ;;  (add-to-list 'default-frame-alist '(font . "Ricty Diminished-13.5")))
 ;; (add-to-list 'default-frame-alist '(font . "Ricty Diminished-13.5"))
