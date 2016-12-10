@@ -17,6 +17,7 @@ git clone git://git.savannah.gnu.org/emacs.git
 
 #+begin_src emacs-lisp
 (setenv "LANG" "ja_JP.UTF-8")
+(prefer-coding-system 'utf-8-unix)
 #+end_src
 
 ** customize の出力先

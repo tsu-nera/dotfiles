@@ -275,6 +275,7 @@
     ox-wk
     clocktable-by-tag
     cde
+    org-preview-mode
 
     ;; 60_utility
     ;; howm

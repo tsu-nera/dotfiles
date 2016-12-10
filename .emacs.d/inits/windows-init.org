@@ -25,6 +25,12 @@
    おそらくこれがもっとも最新の開発版.
    - [[http://sourceforge.net/projects/emacsbinw64/][emacs-w64 | SourceForge.net]]
 
+*** 結論
+    IME パッチがあたった NTEmacs をつかうのが良い。
+    そうしないと、Google 日本語入力がインライン表示できない。
+　　 - [[http://gabekore.org/windows-emacs-beginner][Windows ユーザーで Emacs を導入したい初心者ユーザーのための情報まとめ | Gabekore Garage]]
+    - [[https://github.com/chuntaro/NTEmacs64][chuntaro/NTEmacs64: Windows 版 Emacs (通称 NTEmacs) の 64bit 版]]
+
 * ツールの取得
   - C:/app にツールはおくことにする.
   - Program file にはなるべくおかない
