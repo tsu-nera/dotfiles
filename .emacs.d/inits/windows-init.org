@@ -93,14 +93,6 @@ Value: ((xpm "libxpm.dll" "xpm4.dll" "libXpm-nox4.dll")
 (setq doc-view-ghostscript-program "c:/Program Files/gs/gs9.14/bin/gswin64c.exe")
 #+end_src
 
-* ag
-  高速 grep.
-  - [[http://blog.kowalczyk.info/software/the-silver-searcher-for-windows.html][The Silver Searcher windows port]]
-
-#+begin_src emacs-lisp
-(setq helm-ag-base-command "c:/app/ag4mingw/ag.exe --nogroup")
-#+end_src
-
 * cmigemo
 
 * auto-compression-mode: gzip
