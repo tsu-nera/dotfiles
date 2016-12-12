@@ -231,7 +231,6 @@
 #+begin_src emacs-lisp
 (setq howm-view-title-header "*") ;; ← howm のロードより前に書くこと
 (use-package howm
-  :disabled t
   :bind* ("C-c , ," . howm-menu)  
   :config
   ;; *.org を開いたら howm-mode も起動する
@@ -1198,18 +1197,19 @@ sudo pacman -S ghostscript
 #+end_src
 
 ** meigen
-
 #+begin_src emacs-lisp
 (defun set-my-meigen ()
   (interactive) (setq cookie-file   "~/.emacs.d/meigen/meigen.txt"))
-(defun set-rubi-meigen ()
-  (interactive) (setq cookie-file "~/.emacs.d/meigen/quotes.txt"))
+;;(defun set-rubi-meigen ()
+;;  (interactive) (setq cookie-file "~/.emacs.d/meigen/quotes.txt"))
+(defun set-my-policy ()
+  (interactive) (setq cookie-file "~/.emacs.d/meigen/policy.txt"))
 
-(setq cookie-file "~/.emacs.d/meigen/meigen.txt")
+(setq cookie-file "~/.emacs.d/meigen/policy.txt")
 (defhydra hydra-meigen (global-map "C-x ,")
   "meigen"
   ("," cookie "meigen")
-  ("r" set-rubi-meigen "rubi-meigen")
-  ("f" (find-file cookie-file) "open meigen")
-  ("m" set-my-meigen "my-meigen"))
+;;  ("r" set-rubi-meigen "rubi-meigen")
+  ("m" set-my-meigen "my-meigen")
+  ("p" set-my-policy "my-policy"))
 #+end_src

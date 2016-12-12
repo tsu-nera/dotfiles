@@ -517,7 +517,7 @@
 
 #+begin_src emacs-lisp
 (use-package ag
-  :if linix-p
+  :if linux-p
   :config
   (setq helm-ag-base-command "~/opt/ripgrep/rg --vimgrep --no-heading")
   (setq helm-ag-insert-at-point 'symbol)
@@ -526,10 +526,7 @@
    '(ag-reuse-window 'nil)   ; 現在のウィンドウを検索結果表示に使う
    '(ag-reuse-buffers 'nil)) ; 現在のバッファを検索結果表示に使う
   )
-
 #+end_src
-
-
 
 ** migemo
    日本語をロ-マ字検索.

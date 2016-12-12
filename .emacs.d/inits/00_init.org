@@ -296,9 +296,9 @@
     twittering-mode
     erc-hl-nicks
     erc-nick-notify
-    fcitx
 
     emms-player-mpv-jp-radios
+    google-translate
 
     ;; 61_terminal
     elscreen
