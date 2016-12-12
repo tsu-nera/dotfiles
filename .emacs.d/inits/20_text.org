@@ -507,6 +507,12 @@
    '(ag-reuse-window 'nil)   ; 現在のウィンドウを検索結果表示に使う
    '(ag-reuse-buffers 'nil)) ; 現在のバッファを検索結果表示に使う
   )
+
+#+begin_src emacs-lisp
+(if windows-p
+  (setq helm-ag-base-command "c:/app/ag4mingw/ag.exe --nogroup"))
+#+end_src
+
 #+end_src
 
 ** ripgrep
@@ -517,9 +523,11 @@
 
 #+begin_src emacs-lisp
 (use-package ag
-  :if linux-p
   :config
-  (setq helm-ag-base-command "~/opt/ripgrep/rg --vimgrep --no-heading")
+  (if linux-p
+      (setq helm-ag-base-command "~/opt/ripgrep/rg --vimgrep --no-heading"))
+  (if windows-p
+      (setq helm-ag-base-command "C:/app/ripgrep/rg --vimgrep --no-heading"))
   (setq helm-ag-insert-at-point 'symbol)
   (custom-set-variables
    '(ag-highlight-search t)  ; 検索結果の中の検索語をハイライトする
