@@ -507,12 +507,11 @@
    '(ag-reuse-window 'nil)   ; 現在のウィンドウを検索結果表示に使う
    '(ag-reuse-buffers 'nil)) ; 現在のバッファを検索結果表示に使う
   )
+#+end_src
 
 #+begin_src emacs-lisp
 (if windows-p
-  (setq helm-ag-base-command "c:/app/ag4mingw/ag.exe --nogroup"))
-#+end_src
-
+    (setq helm-ag-base-command "c:/app/ag4mingw/ag.exe --nogroup"))
 #+end_src
 
 ** ripgrep
