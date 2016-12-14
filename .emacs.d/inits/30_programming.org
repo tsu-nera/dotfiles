@@ -223,6 +223,8 @@
   ;; 追加メジャーモード
   ;; -> org-mode と auto-complete の共用はバクあり.
   (add-to-list 'ac-modes 'org-mode)
+  ;; SML mode
+  (add-to-list 'ac-modes 'sml-mode)
 
   ;; メニュー表示を遅延
   ;; (setq ac-auto-show-menu 0.5)

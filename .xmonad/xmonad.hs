@@ -45,9 +45,9 @@ main = do
           -- windowsキーでショートカット
           `additionalKeys`
           [
-          ((modm, xK_e), runOrRaise "emacs" (className =? "Emacs"))
+            ((modm, xK_l), spawn "gnome-screensaver-command -l")
           , ((modm, xK_t), runOrRaise "urxvt" (className =? "URxvt"))
-          , ((modm, xK_g), runOrRaise "chrome" (className =? "Google-chrome"))
+          , ((modm, xK_k), runOrRaise "conkeror" (className =? "conkeror"))
 	  , ((modm, xK_f), sendMessage (Toggle FULL))
           , ((modm, xK_q), spawn "xinput --set-prop \"SynPS/2 Synaptics TouchPad\" \"Device Enabled\" 0")
           , ((modm, xK_w), spawn "xinput --set-prop \"SynPS/2 Synaptics TouchPad\" \"Device Enabled\" 1")

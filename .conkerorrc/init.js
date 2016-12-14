@@ -1,3 +1,4 @@
+
 // Tips are here http://conkeror.org/Tips
 homepage = "http://www.google.co.jp";
 
@@ -12,6 +13,66 @@ load_paths.unshift("chrome://conkeror-contrib/content/");
 require("mode-line-buttons.js");
 mode_line_add_buttons(standard_mode_line_buttons, true);
 
+/////////////////////////////////////////////////////////
+// History 
+// http://conkeror.org/History?highlight=%28history%29
+////////////////////////////////////////////////////////
+// http://conkeror.org/Tips#Browse_buffer_session_history
+interactive("browse-buffer-history",
+    "Browse the session history for the current buffer",
+    function browse_buffer_history (I) {
+        var b = check_buffer(I.buffer, content_buffer);
+        var history = b.web_navigation.sessionHistory;
+
+        if (history.count > 1) {
+            var entries = [];
+
+            for(var i = 0 ; i < history.count ; i += 1) {
+                entries[i] = history.getEntryAtIndex(i, false).URI.spec;
+            }
+
+            var url = yield I.minibuffer.read(
+                $prompt = "Go back or forward to:",
+                $completer = new all_word_completer($completions = entries),
+                $default_completion = history.index > 0 ? entries[history.index - 1] : entries[history.index + 1],
+                $auto_complete = "url",
+                $auto_complete_initial = true,
+                $auto_complete_delay = 0,
+                $require_match = true);
+
+            b.web_navigation.gotoIndex(entries.indexOf(url));
+        } else {
+            I.window.minibuffer.message("No history");
+        }
+    });
+
+define_webjump("buffer-history", "browse_buffer_history");
+
+url_completion_use_history = true; // should work since bf05c87405
+
+// history webjump
+define_browser_object_class(
+    "history-url", null, 
+    function (I, prompt) {
+        check_buffer (I.buffer, content_buffer);
+        var result = yield I.buffer.window.minibuffer.read_url(
+            $prompt = prompt,  $use_webjumps = false, $use_history = true, $use_bookmarks = false);
+        yield co_return (result);
+    });
+
+interactive("find-url-from-history",
+            "Find a page from history in the current buffer",
+            "find-url",
+            $browser_object = browser_object_history_url);
+
+interactive("find-url-from-history-new-buffer",
+            "Find a page from history in the current buffer",
+            "find-url-new-buffer",
+            $browser_object = browser_object_history_url);
+
+define_key(content_buffer_normal_keymap, "h", "find-url-from-history-new-buffer");
+define_key(content_buffer_normal_keymap, "H", "find-url-from-history");
+
 //////////////////////////////////////////
 // Key Bindings
 //////////////////////////////////////////
@@ -19,7 +80,7 @@ define_key (minibuffer_keymap, "C-m", "exit-minibuffer");
 
 //////////////////////////////////////////
 // Big Hint Number
-//////////////////////////////////////////
+/////////////////////////////////////////
 register_user_stylesheet(
     "data:text/css," +
         escape(
@@ -50,7 +111,6 @@ for (let i = 0; i < 10; ++i) {
 
 // auto completion in the minibuffer
 minibuffer_auto_complete_default = true;
-url_completion_use_history = true; // should work since bf05c87405
 url_completion_use_bookmarks = true;
 
 //////////////////////////////////////////
@@ -72,7 +132,6 @@ interactive("open-calendar", "Go to calendar.google.com", "follow",
     $browser_object = "http://calendar.google.com/");
 interactive("futurismo", "Open Futurismo", "follow",
     $browser_object = "http://futurismo.biz");
-
 interactive("futurismo_wiki", "Open Futurismo", "follow",
     $browser_object = "http://futurismo.biz/dokuwiki");
 interactive("youtube", "Open Youtube", "follow",
@@ -83,6 +142,8 @@ interactive("tomatoes", "Open Tomatoes", "follow",
     $browser_object = "http://tomato.es/");
 interactive("github", "Open Github", "follow",
             $browser_object = "https://github.com/tsu-nera");
+interactive("studyplus", "Open Studyplus", "follow",
+            $browser_object = "https://studyplus.jp/home");
 interactive("youtube-dl", "download youtube video",
             function (I) {
                 shell_command_blind("youtube-dl " + I.buffer.display_uri_string);
@@ -92,12 +153,12 @@ interactive("youtube-dl", "download youtube video",
 define_key(content_buffer_normal_keymap, "d", "follow-new-buffer");
 define_key(content_buffer_normal_keymap, "f1", "open-google");
 define_key(content_buffer_normal_keymap, "f2", "open-gmail");
-define_key(content_buffer_normal_keymap, "f3d", "open-calendar");
+define_key(content_buffer_normal_keymap, "f3", "open-calendar");
 define_key(content_buffer_normal_keymap, "f4", "youtube");
-define_key(content_buffer_normal_keymap, "f5", "feedly");
-define_key(content_buffer_normal_keymap, "f6", "futurismo");
-define_key(content_buffer_normal_keymap, "f7", "futurismo_wiki");
-define_key(content_buffer_normal_keymap, "f8", "github");
+define_key(content_buffer_normal_keymap, "f5", "futurismo");
+define_key(content_buffer_normal_keymap, "f6", "futurismo_wiki");
+define_key(content_buffer_normal_keymap, "f7", "github");
+define_key(content_buffer_normal_keymap, "f8", "studyplus");
 
 //////////////////////////////////////////
 // webjump
@@ -126,10 +187,10 @@ define_webjump("g", "http://www.google.co.jp/search?q=%s", $alternative = "http:
 // external
 //////////////////////////////////////////
 // automatically handle some mime types internally.
-content_handlers.set("application/pdf", content_handler_save);
+content_handlers.set("application/pdf", content_handler_open);
 
 // external programs for handling various mime types.
-external_content_handlers.set("application/pdf", "xpdf");
+external_content_handlers.set("application/pdf", "FoxitReader");
 external_content_handlers.set("video/*", "xterm -e vlc");
 
 ///////////////////////////////////////////////////////////////
@@ -159,9 +220,9 @@ interactive("reload-config", "reload conkerorrc",
             });
 define_key(default_global_keymap, "C-c r", "reload-config");
 
-//////////////////////////////////////////
+////////////////////////////////////////////
 // colors D‚Å•”wŒi‚É toggle
-//////////////////////////////////////////
+////////////////////////////////////////////
 theme_load_paths.unshift("~/.conkerorrc/themes/");
 theme_unload("default");
 theme_load("conkeror-theme-zenburn");
