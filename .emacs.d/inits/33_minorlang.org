@@ -176,6 +176,16 @@
 (add-to-list 'auto-mode-alist '("\\.\\(sml\\|sig\\)\\'" . sml-mode))
 #+end_src
 
+** flycheck-sml
+   - https://github.com/creichert/flycheck-sml
+
+     - use-package が動かない。
+     - mlton のインストールが必要らしい
+     
+#+begin_src emacs-lisp
+(require 'flycheck-sml)
+#+end_src
+
 * Othres
 ** conkeror
    

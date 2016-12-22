@@ -173,6 +173,7 @@
     smartparens
     lispxmp
 
+    ;; clojure
     clojure-mode
     cider
     ac-cider
@@ -182,12 +183,16 @@
     ;; clj-refactor  なんかインストール時にエラーする
     clojure-snippets
     squiggly-clojure
+
+    racket-mode
     
     ;; minor-lang
     yaml-mode
     markdown-mode
     plantuml-mode
     conkeror-minor-mode
+    sml-mode
+    flycheck-sml
 
     ;; ruby
     ruby-block

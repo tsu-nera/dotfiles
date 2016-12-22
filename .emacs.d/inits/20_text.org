@@ -274,7 +274,6 @@
 
    #+begin_src emacs-lisp
 (use-package auto-complete
-  :disabled t
   :bind   ("M-/" . auto-complete)
   :config
   (require 'auto-complete-config)
@@ -285,12 +284,12 @@
   ;; 追加メジャーモード
   ;; -> org-mode と auto-complete の共用はバクあり.
   (add-to-list 'ac-modes 'org-mode)
+  (add-to-list 'ac-modes 'sml-mode)
+  (add-to-list 'ac-modes 'racket-mode)
 
   ;; メニュー表示を遅延
   ;; (setq ac-auto-show-menu 0.5)
   (setq ac-auto-show-menu t)
-
-
   (setq ac-menu-height 20)          ; 高さは 20 まで.
 
   ;; 補完候補が 1 つのときはそれを採用.
@@ -567,7 +566,6 @@
 
 ** anzu
    インタラクティブ検索, 置換
-
    - [[https://github.com/syohex/emacs-anzu][syohex/emacs-anzu]]
    - http://qiita.com/syohex/items/56cf3b7f7d9943f7a7ba
 
@@ -661,6 +659,7 @@
 
 ** swiper
    最近便利になってきた. isearch と置き換えてみようか.
+   - https://github.com/abo-abo/swiper
 
 #+begin_src emacs-lisp
 (use-package swiper

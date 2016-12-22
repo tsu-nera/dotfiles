@@ -9,3 +9,6 @@ alias  lock='gnome-screensaver-command -l'
 
 # foxitreader
 export PATH=$HOME/opt/foxitsoftware/foxitreader:$PATH
+
+# cask
+export PATH="/home/tsu-nera/.cask/bin:$PATH"
