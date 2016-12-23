@@ -90,7 +90,7 @@ Value: ((xpm "libxpm.dll" "xpm4.dll" "libXpm-nox4.dll")
   - That should be it.
 
 #+begin_src emacs-lisp
-(setq doc-view-ghostscript-program "c:/Program Files/gs/gs9.14/bin/gswin64c.exe")
+(setq doc-view-ghostscript-program "C:/Program Files/gs/gs9.14/bin/gswin64c.exe")
 #+end_src
 
 * cmigemo
@@ -103,11 +103,19 @@ Value: ((xpm "libxpm.dll" "xpm4.dll" "libXpm-nox4.dll")
   - [[http://www2.nc-toyama.ac.jp/Lab/mkawai/sotuken/guide/gzip/gzip.html][GNU File Compress/Uncompress Tool gzip for Windows]]
 
 (load-path "c:/app/ess")
+* aspell/ispell
+  - [[https://www.emacswiki.org/emacs/AspellWindows][Aspell Windows]]
+
+#+begin_src emacs-lisp
+ (add-to-list 'exec-path "C:/Program Files (x86)/Aspell/bin/")
+ 
+#+end_src
+
 * Trouble about Windows
 ** magit
 
 #+begin_src emacs-lisp :tangle yes
-(add-to-list 'exec-path "c:/Program Files/Git/bin/")
+(add-to-list 'exec-path "C:/Program Files/Git/bin/")
 (setq magit-git-executable "C:/Program Files/Git/bin/git.exe")
 #+end_src
 

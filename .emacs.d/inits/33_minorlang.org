@@ -59,10 +59,10 @@
 
   ;; (custom-set-variables
   ;; '(vbasense-tli-files "C:/Program Files/Microsoft Office/OFFICE11/EXCEL.EXE"))
-  ;; "c:/Program Files/Common Files/Microsoft Shared/VBA/VBA6/VBE6.DLL"
-  ;; "c:/Program Files/Common Files/Microsoft Shared/VBA/VBA6/VBE6EXT.OLB"
-  ;; "c:/Program Files/Common Files/Microsoft Shared/OFFICE11/MSO.DLL"
-  ;; "c:/WINDOWS/system32/stdole2.tlb")
+  ;; "C:/Program Files/Common Files/Microsoft Shared/VBA/VBA6/VBE6.DLL"
+  ;; "C:/Program Files/Common Files/Microsoft Shared/VBA/VBA6/VBE6EXT.OLB"
+  ;; "C:/Program Files/Common Files/Microsoft Shared/OFFICE11/MSO.DLL"
+  ;; "C:/WINDOWS/system32/stdole2.tlb")
   ;; 	   )
   )
 #+end_src

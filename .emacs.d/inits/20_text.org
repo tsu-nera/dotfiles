@@ -1096,8 +1096,6 @@ google-ime-skk &
 
    #+begin_src emacs-lisp
 (use-package flyspell
-  :disabled t
-  :if linux-p
   :bind (("C-c <f8>" . flyspell-mode)
 	 ("C-c <f9>" . ispell-word)
 	 ("C-c <f10>" . flyspell-buffer))
@@ -1121,6 +1119,9 @@ google-ime-skk &
   ;;     java-mode-hook    
   ;;     emacs-lisp-mode-hook))
   :config
+  (setq-default ispell-program-name "aspell")
+  (eval-after-load "ispell"
+    '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
   ;; C-; は iedit にわたすので, 無効にしておく.
   ;; (setq flyspell-auto-correct-binding nil)
   ;; どうも flyspell と ac-complete は相性が悪い?

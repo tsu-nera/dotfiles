@@ -397,7 +397,7 @@
 #+begin_src emacs-lisp
 (use-package  helm-hatena-bookmark
   :config
-  (setq helm-hatena-bookmark:username "tsu-nera")
+  (setq helm-hatena-bookmark-username "tsu-nera")
   (helm-hatena-bookmark:initialize))
 #+end_src
 

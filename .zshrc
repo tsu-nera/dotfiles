@@ -619,3 +619,9 @@ dual2 () {
 single () {
     xrandr --output HDMI1 --off
 }
+
+## http://syohex.hatenablog.com/entry/20111117/1321503477
+## create emacs env file
+perl -wle \
+    'do { print qq/(setenv "$_" "$ENV{$_}")/ if exists $ENV{$_} } for @ARGV' \
+    PATH > ~/.emacs.d/shellenv.el
