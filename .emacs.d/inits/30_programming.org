@@ -6,11 +6,11 @@
    - シンタックスハイライト/ インデント
      - major-mode
    - 検索・置換
-     たくさんあるよ.
+     iedit, multiple-cursors, helm-ag, helm-swoop
    - タグジャンプ
      GNU Global ggtags
    - コード補間
-     - auto-complete
+     - auto-complete, yasnippet
    - エラーチェック
      - flycheck
    - リファクタリング
@@ -26,7 +26,6 @@
 ** prog-mode
    programming のためのメジャーモード.
    - [[http://www.emacswiki.org/emacs/ProgMode][EmacsWiki: Prog Mode]]
-  
 
 * 閲覧
 ** imenus
@@ -186,15 +185,15 @@
 ** aggressive-indent-mode
    賢い indent-mode
    - https://github.com/Malabarba/aggressive-indent-mode
-   - 
 
    *names* に依存しているので, 
    require 'names してからインストールしないとおかしくなる.
 
 #+begin_src emacs-lisp
 ;;  (global-aggressive-indent-mode))
-(add-hook 'emacs-lisp-mode 'aggressive-indent-mode)
-(add-hook 'lisp-mode 'aggressive-indent-mode)
+(add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
+(add-hook 'lisp-mode-hook #'aggressive-indent-mode)
+(add-hook 'racket-mode-hook #'aggressive-indent-mode)
 #+end_src
 
 * 補完
@@ -223,6 +222,8 @@
   ;; 追加メジャーモード
   ;; -> org-mode と auto-complete の共用はバクあり.
   (add-to-list 'ac-modes 'org-mode)
+  (add-to-list 'ac-modes 'sml-mode)
+  (add-to-list 'ac-modes 'racket-mode)   
 
   ;; メニュー表示を遅延
   ;; (setq ac-auto-show-menu 0.5)
@@ -288,22 +289,6 @@
     #+end_src
 
 * コンパイル
-** smart-compile
-   コマンドからコンパイル実行. 独自改造したものが, elisp にある.
-   - http://www.emacswiki.org/emacs/download/smart-compile.el
-
-   quickrun に乗り換えてみるため,いったんコメントアウト.
-
-#+begin_src emacs-lisp
-;; (use-package smart-compile)
-;; (setq compilation-window-height 15)
-
-;; (define-key ruby-mode-map (kbd "C-c r") 'smart-compile)
-;; (define-key java-mode-map (kbd "C-c r") 'smart-compile)
-;; (define-key python-mode-map (kbd "C-c r") 'smart-compile)
-;; (define-key 'c-mode-map (kbd "C-c r") 'smart-compile)
-#+end_src
-
 ** quickrun
   コンパイルを実行. smart-compile よりいい??
   - https://github.com/syohex/emacs-quickrun
@@ -631,7 +616,10 @@
 #+begin_src emacs-lisp
 (use-package flycheck
   :init
-  ;; (add-hook 'after-init-hook #'global-flycheck-mode)
+  ;; 除外
+  ;; http://emacs.stackexchange.com/questions/21042/disable-minor-mode-in-major-mode
+  (setq flycheck-global-modes '(not org-mode))
+  (add-hook 'after-init-hook #'global-flycheck-mode)
   :config
   (defun my/turn-on-flycheck-mode ()
     (flycheck-mode 1))

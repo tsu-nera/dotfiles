@@ -191,6 +191,7 @@
    - https://github.com/emacsmirror/auto-highlight-symbol   
 
    なんかもうメンテナンスされていないようにみえる.
+   -> でもこれがいい！！
    -[[http://qiita.com/aKenjiKato/items/f465993ac8e62db69592][ カーソルが乗っているシンボルをすべてハイライトする - Qiita]]
 
    起動時に 有効にならないな...
@@ -201,6 +202,7 @@
 (use-package auto-highlight-symbol
   :init
   (add-hook 'eww-mode-hook 'auto-highlight-symbol-mode)
+  (add-hook 'sml-mode-hook 'auto-highlight-symbol-mode)
   :config
   (global-auto-highlight-symbol-mode t))
 #+end_src
@@ -210,6 +212,7 @@
    - http://shibayu36.hatenablog.com/entry/2013/12/30/190354
 
    -> hl-anything に置き換えるのでお役ご免...
+   -> 色が薄いのでみにくいのでお役ごめん auto-highlight-symbol のほうがいい
 
 #+begin_src emacs-lisp
 (use-package highlight-symbol
@@ -597,7 +600,8 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
 ;;  (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
 ;;  (add-hook 'emacs-startup-hook 'rainbow-delimiters-using-stronger-colors)
 ;;  (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-using-stronger-colors)  
-    (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'racket-mode-hook 'rainbow-delimiters-mode)
   :config
   ;; these setting should be placed after load-theme
   ;; using stronger colors
@@ -642,4 +646,5 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
  ;; (load-theme 'dark-erc t t)
  ;; (enable-theme 'dark-erc))
  #+end_src
+
 

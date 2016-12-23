@@ -1,0 +1,3 @@
+(:name flycheck-sml
+       :type github
+       :pkgname "creichert/flycheck-sml")
