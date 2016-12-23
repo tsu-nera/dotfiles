@@ -48,6 +48,7 @@ main = do
             ((modm, xK_l), spawn "gnome-screensaver-command -l")
           , ((modm, xK_t), runOrRaise "urxvt" (className =? "URxvt"))
           , ((modm, xK_k), runOrRaise "conkeror" (className =? "conkeror"))
+          , ((modm, xK_m), runOrRaise "mikutter" (className =? "mikutter"))          
 	  , ((modm, xK_f), sendMessage (Toggle FULL))
           , ((modm, xK_q), spawn "xinput --set-prop \"SynPS/2 Synaptics TouchPad\" \"Device Enabled\" 0")
           , ((modm, xK_w), spawn "xinput --set-prop \"SynPS/2 Synaptics TouchPad\" \"Device Enabled\" 1")

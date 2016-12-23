@@ -34,7 +34,7 @@ volumeicon &
 cbatticon &
 
 # Dropbox
-~/.dropbox-dist/dropboxd &~/.dropbox-dist/dropboxd &
+~/.dropbox-dist/dropboxd &
 
 # TouchPad Default Off
 xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 0
@@ -44,7 +44,10 @@ xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 0
 # LC_CTYPE=ja_JP.UTF-8 emacs --daemon &
 
 # wall paper
-feh --bg-scale ~/Dropbox/Photos/ubuntu.jpg &
+feh --bg-scale ~/Dropbox/Photos/wallpaper/ubuntu.jpg &
 
 # クリップポードマネージャー
 copyq &
+
+# ブルーライトカット
+redshift-gtk &

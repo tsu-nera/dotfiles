@@ -144,6 +144,8 @@ interactive("github", "Open Github", "follow",
             $browser_object = "https://github.com/tsu-nera");
 interactive("studyplus", "Open Studyplus", "follow",
             $browser_object = "https://studyplus.jp/home");
+interactive("twitter", "Open Twitter", "follow",
+            $browser_object = "https://twitter.com/?lang=ja");
 interactive("youtube-dl", "download youtube video",
             function (I) {
                 shell_command_blind("youtube-dl " + I.buffer.display_uri_string);
@@ -153,7 +155,7 @@ interactive("youtube-dl", "download youtube video",
 define_key(content_buffer_normal_keymap, "d", "follow-new-buffer");
 define_key(content_buffer_normal_keymap, "f1", "open-google");
 define_key(content_buffer_normal_keymap, "f2", "open-gmail");
-define_key(content_buffer_normal_keymap, "f3", "open-calendar");
+define_key(content_buffer_normal_keymap, "f3", "twitter");
 define_key(content_buffer_normal_keymap, "f4", "youtube");
 define_key(content_buffer_normal_keymap, "f5", "futurismo");
 define_key(content_buffer_normal_keymap, "f6", "futurismo_wiki");

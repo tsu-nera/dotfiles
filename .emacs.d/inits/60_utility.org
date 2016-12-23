@@ -435,10 +435,12 @@ $ sudo cp /usr/bin/ruby1.9/bin/enclient.rb /usr/bin
   (setq twittering-allow-insecure-server-cert t)
   ;; パスワード暗号ファイル保存先変更 (デフォはホームディレクトリ)
   (setq twittering-private-info-file "~/.emacs.d/twittering-mode.gpg")
+
+  ;; アイコン表示
+  (setq twittering-icon-mode t)   
   ;; はじめに開くタイムライン
   (setq twittering-initial-timeline-spec-string
         '("tsu_nera"
-          "tsu_nera_s"
           ":search/futurismo.biz/"
           ":search/hmi-me.ciao.jp/"))
           ;; "hmi_me"
@@ -459,7 +461,7 @@ $ sudo cp /usr/bin/ruby1.9/bin/enclient.rb /usr/bin
   "Tweet message from minibuffer"
   (interactive "sEnter twitter message: ")
   ;; tsu_nera_study
-  (let ((tweet-message (concat "twitter2 " x)))
+  (let ((tweet-message (concat "twitter " x)))
     (shell-command tweet-message)))
 ;;    (shell-command "org-twit")))
 

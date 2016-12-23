@@ -360,12 +360,12 @@
   :config
   (setq helm-use-migemo t)
   (when emacs25.0-p
-  (with-eval-after-load 'helm-imenu
-    '(helm-migemize-command helm-imenu))
-  (with-eval-after-load 'helm-org
-    '(helm-migemize-command helm-org-in-buffer-headings))
+    (with-eval-after-load 'helm-imenu
+      '(helm-migemize-command helm-imenu))
+    (with-eval-after-load 'helm-org
+      '(helm-migemize-command helm-org-in-buffer-headings))
   (with-eval-after-load 'swiper
-    '(helm-migemize-command swiper)))
+      '(helmm-igemize-command swiper)))
   (require 'my-patch-helm-migemo))
 #+end_src
 
@@ -474,7 +474,6 @@
   よくわからないな...あとで.
   
 * 未使用中...
-
 ** swiper-helm
    Emacs isearch with an overview. 
    Interactive `occur' using `helm
