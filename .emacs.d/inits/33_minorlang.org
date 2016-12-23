@@ -205,4 +205,3 @@
 #+begin_src emacs-lisp
 (use-package fish-mode)
 #+end_src
-

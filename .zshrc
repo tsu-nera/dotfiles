@@ -6,11 +6,11 @@
 # ヒストリ関連
 ###############
 # 履歴ファイルの保存先
-export HISTFILE=${HOME}/.zsh-history
-# メモリに保存される履歴の件数
-export HISTSIZE=1000
-# 履歴ファイルに保存される履歴の件数
-export SAVEHIST=100000
+# export HISTFILE=${HOME}/.zsh-history
+# # メモリに保存される履歴の件数
+# export HISTSIZE=1000
+# # 履歴ファイルに保存される履歴の件数
+# export SAVEHIST=100000
 
 ## コマンドラインの先頭がスペースで始まる場合ヒストリに追加しない
 setopt hist_ignore_space
