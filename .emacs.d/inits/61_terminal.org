@@ -532,7 +532,27 @@ Warning: Eager macro-expansion skipped due to cycle:
   - [[http://d.hatena.ne.jp/syohex/20111026/1319606395][cde を改良 - Life is very short]]
 
 #+begin_src emacs-lisp
-(use-package cde)
+;; .emacs 等設定ファイルに追加
+;; Improve at 2013 年 9 月 14 日
+(defun elscreen-get-current-directory (buf)
+  (with-current-buffer buf
+    (aif (buffer-file-name)
+        (file-name-directory it)
+      default-directory)))
+
+(defun non-elscreen-current-directory ()
+  (let* ((bufsinfo (cadr (cadr (current-frame-configuration))))
+         (bufname-list (assoc-default 'buffer-list bufsinfo)))
+    (loop for buf in bufname-list
+          for file = (or (buffer-file-name buf)
+                         (with-current-buffer buf
+                           (when (eq major-mode 'dired-mode)
+                             dired-directory)))
+          when (buffer-file-name buf)
+          return (file-name-directory it))))
+
+(non-elscreen-current-directory)
+;;(use-package cde)
 #+end_src
 
 * e2wm
