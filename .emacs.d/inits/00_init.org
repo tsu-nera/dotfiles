@@ -167,6 +167,7 @@
     yafolding
     aggressive-indent-mode
     marshal
+    indent-guide
 
     ;; lisp
     smartrep

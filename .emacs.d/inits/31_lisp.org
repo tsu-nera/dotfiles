@@ -216,8 +216,11 @@ $ sudo emacs /usr/local/share/info/dir
 $ yaourt -S racket
 #+end_src
 
+  -> Racket では racket-mode を使うので、Scheme を使うときまで封印。
+
 #+begin_src emacs-lisp
 (use-package geiser
+  :disabled t
   :config
   (setq geiser-racket-binary "/usr/bin/racket")
   (setq geiser-active-implementations '(racket)))
@@ -472,6 +475,7 @@ $ yaourt -S racket
 
 #+begin_src emacs-lisp
 (use-package racket-mode
+  :mode (("\\.rkt\\'" . racket-mode))
   :config
   ;; tab で補間
   (setq tab-always-indent 'complete))

@@ -228,3 +228,12 @@ define_key(default_global_keymap, "C-c r", "reload-config");
 theme_load_paths.unshift("~/.conkerorrc/themes/");
 theme_unload("default");
 theme_load("conkeror-theme-zenburn");
+
+////////////////////////////////////////////
+/// Password Manager
+/// http://conkeror.org/PasswordManagement
+///////////////////////////////////////////
+session_pref("signon.rememberSignons", true);
+session_pref("signon.expireMasterPassword", false);
+session_pref("signon.SignonFileName", "signons.txt");
+Cc["@mozilla.org/login-manager;1"].getService(Ci.nsILoginManager);

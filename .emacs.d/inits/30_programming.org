@@ -145,6 +145,19 @@
   ;;   (global-set-key (kbd "C-c n") 'minimap-toggle)))
  #+end_src
 
+** indent-guide
+   縦線をインデントで表示する。
+   - https://github.com/zk-phi/indent-guide
+
+#+begin_src emacs-lisp
+(use-package indent-guide
+  :config
+  (setq indent-guide-delay 0.1)
+  (setq indent-guide-recursive t)
+  ;; (set-face-foreground 'indent-guide-face "cyan")
+  (add-hook 'prog-mode-hook 'indent-guide-mode))
+#+end_src
+
 
 * 編集 (とくにプログラミング)
 ** electric-spacing

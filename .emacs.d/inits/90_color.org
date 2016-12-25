@@ -263,6 +263,9 @@
 #+begin_src emacs-lisp
 ;; turn on highlight matching brackets when cursor is on one
 (show-paren-mode 1)
+
+;; 括弧で囲まれた全体を色付けする。
+;; (setq show-paren-style 'expression)
 #+end_src
 
 ** visual-line-mode

@@ -66,4 +66,5 @@ end
 
 ## Chdir to the ``default-directory'' of currently opened in Emacs buffer.
 function cde
+        
 end
