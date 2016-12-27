@@ -1248,6 +1248,13 @@ emacs -Q --batch \
 (use-package org-cliplink :bind "C-x p i")
 #+end_src
 
+* org-preview-mode
+  eww で org-mode をプレビューする。
+
+#+begin_src emacs-lisp
+(use-package org-preview-html)
+#+end_src
+
 * 未使用中  
 ** org-weather
    org-agenda に天気を表示する

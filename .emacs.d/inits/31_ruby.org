@@ -2,16 +2,6 @@
   みんな大好き Ruby だお.
   - [[http://futurismo.biz/archives/2213][Emacs で Ruby の開発環境をさらにめちゃガチャパワーアップしたまとめ | Futurismo]]
 
-** パスの設定
-#+begin_src emacs-lisp
-;; Setting rbenv path
-;; emacs から rbenv でいれた Ruby を利用する.
-;;(setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:"
-;;		       (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
-;;(setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims")
-;;		(cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
-#+end_src
-
 * 入力支援
 ** ruby-mode
 
@@ -28,6 +18,8 @@
 ** enhanced-ruby-mode
    Better Ruby Mode.
    - https://github.com/zenspider/enhanced-ruby-mode
+
+   参考:[[http://qiita.com/vzvu3k6k/items/acec84d829a3dbe1427a][enhanced-ruby-mode の概説 - Qiita]]
 
 #+begin_src emacs-lisp
 ; must be added after any path containing old ruby-mode
@@ -46,13 +38,26 @@
 #+end_src
 
 ** robe-mode
-   かしこい補完.
+** robe
+   Ruby 用の補完をする. 補完は auto-complete という有名な elisp がある.
+   もっと賢いのがオムニ補完と呼ばれるもの. これは文法を解析して補完してくれる. 
+   - [[http://codeout.hatenablog.com/entry/2014/02/04/210237][auto-complete + rsense の代わりに auto-complete + robe をつかう - LGTM]]
+
+   el-get 経由で robe-mode を入れる.
+   - https://github.com/dgutov/robe
+
+   また, pry というものも必要みたい. 詳しくは github の README 参照で.
+
+#+begin_src bash
+gem install pry pry-doc 
+#+end_src
+
+   設定を追記.
 
 #+begin_src emacs-lisp
 (use-package robe
   :init
   (add-hook 'ruby-mode-hook 'robe-mode)
-  (add-hook 'robe-mode-hook 'ac-robe-setup)
   :config
   (setq robe-highlight-capf-candidates nil))
 #+end_src
@@ -96,10 +101,53 @@
 )
 #+end_src
 
+** helm-rdefs
+   rdefs はソースコードの class や module, def といった宣言のラインを引っ張り出してくれるツール.
+
+#+begin_src bash
+gem install rdefs
+#+end_src
+
+ helm I/F を経由して, Emacs から利用することができる.
+ - https://github.com/saidie/emacs-helm-rdefs
+
+ .emacs の設定は以下.
+
+#+begin_src emacs-lisp
+(require 'helm)
+(require 'helm-rdefs)
+(add-hook 'ruby-mode-hook
+          (lambda ()
+            (define-key ruby-mode-map (kbd "C-c @") 'helm-rdefs)))
+#+end_src
+
+* 補完
+** yasnippet-ruby
+   Emacs のスニペット挿入機能といえば, yasnippet だが, その Ruby 用テンプレート群をいれる.
+
+   ここからダウンロードして, yasnippet のスニペット一覧に突っ込む!
+   - https://github.com/bmaland/yasnippet-ruby-mode
+
+ いちおう, yasnippets の設定も載せておく. ここでは, ~/.emacs.d/snippets にいれた.
+
+#+begin_src emacs-lisp
+(require 'yasnippet)
+(yas/load-directory "~/.emacs.d/snippets")
+(yas-global-mode 1)
+
+;; 既存スニペットを挿入する
+(define-key yas-minor-mode-map (kbd "C-x i i") 'yas-insert-snippet)
+;; 新規スニペットを作成するバッファを用意する
+(define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
+;; 既存スニペットを閲覧・編集する
+(define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file)
+#+end_src
+
 * デバッグ
 ** ruby-debug
    標準ライブラリのデバッカ. ステップ実行できる.
    elisp は ruby のソースに梱包されている.
+   - [[http://futurismo.biz/archives/2358][Emacs で rubydb を利用してステップ実行する | Futurismo]]
   
 #+begin_src emacs-lisp
 (use-package rubydb :commands rubydb)
@@ -114,17 +162,6 @@
   :init
   (add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
   )
-#+end_src
-
-** pry
-   高機能 irb
-   - git@github.com:jacott/emacs-pry.git
-     
-#+begin_src emacs-lisp
-;; (use-package pry)
-;; optional suggestions
-;;(global-set-key [S-f9] 'pry-intercept)
-;;(global-set-key [f9] 'pry-intercept-rerun)
 #+end_src
 
 ** autotest
@@ -151,7 +188,7 @@
 #+end_src
 
 ** minitest 
-  A minitest mode for emacs 
+   A minitest mode for emacs 
    - https://github.com/arthurnn/minitest-emacs
 
   rake とか bundle とか、本格的にプロジェクト管理していないと
@@ -165,22 +202,35 @@
 ;;  (minitest-install-snippets))
 #+end_src
 
+** pry
+   inf-ruby よりも高機能らしい REPL.
+   - https://github.com/jacott/emacs-pry
+
+#+begin_src emacs-lisp
+(require 'pry)
+;; optional suggestions
+(global-set-key [S-f9] 'pry-intercept)
+(global-set-key [f9] 'pry-intercept-rerun)
+#+end_src
+
 * 静的解析
 ** flycheck
    -> programming に移動.
 
 ** robocop 
    checkstyle のようなスタイルの解析
+
    gem install rubocop
    
 #+begin_src emacs-lisp
-;;(use-package rubocop)
-;;(add-hook 'ruby-mode 'rubocop-mode)
+(use-package rubocop
+  :init
+  (add-hook 'ruby-mode-hook 'rubocop-mode))
 #+end_src
 
 * Rails
 ** projectile-rails
-   Ruby on rails用. 
+   Ruby on rails 用. 
    - https://github.com/asok/projectile-rails
 
 #+begin_src emacs-lisp

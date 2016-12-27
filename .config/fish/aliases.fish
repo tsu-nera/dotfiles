@@ -66,5 +66,9 @@ end
 
 ## Chdir to the ``default-directory'' of currently opened in Emacs buffer.
 function cde
-        
+        # set EMACS_CWD ("emacsclient -e \"
+        # (if (featurep 'elscreen)
+        #         (elscreen-current-directory)
+        #         (non-elscreen-current-directory))\"")
+    cd $EMACS_CWD
 end

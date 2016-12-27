@@ -264,8 +264,9 @@
 ;; turn on highlight matching brackets when cursor is on one
 (show-paren-mode 1)
 
-;; 括弧で囲まれた全体を色付けする。
+;; 括弧で囲まれた全体を色付けする。 -> 有効にするとへんな色になる。
 ;; (setq show-paren-style 'expression)
+;; (set-face-background 'show-paren-match-face "#525252")
 #+end_src
 
 ** visual-line-mode
@@ -641,13 +642,11 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
   - https://github.com/emacs-jp/replace-colorthemes/blob/master/blue-erc-theme.el
   - https://github.com/emacs-jp/replace-colorthemes/blob/master/dark-erc-theme.el
 
-  #+begin_src emacs-lisp
+ #+begin_src emacs-lisp
 (when windows-p 
  (add-to-list 'custom-theme-load-path "~/.emacs.d/elisp")
  (load-theme 'blue-erc t t)
  (enable-theme 'blue-erc))
  ;; (load-theme 'dark-erc t t)
  ;; (enable-theme 'dark-erc))
- #+end_src
-
-
+#+end_src

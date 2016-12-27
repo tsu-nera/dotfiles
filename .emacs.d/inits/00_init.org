@@ -203,6 +203,7 @@
     ruby-refactor
     rcodetools
     inf-ruby
+    rubocop
 
     ;; c/c++
     semantic-refactor
