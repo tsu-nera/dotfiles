@@ -158,7 +158,6 @@
   (add-hook 'prog-mode-hook 'indent-guide-mode))
 #+end_src
 
-
 * 編集 (とくにプログラミング)
 ** electric-spacing
    演算子の前後にスペースを挿入. 
@@ -203,10 +202,13 @@
    require 'names してからインストールしないとおかしくなる.
 
 #+begin_src emacs-lisp
-;;  (global-aggressive-indent-mode))
-(add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
-(add-hook 'lisp-mode-hook #'aggressive-indent-mode)
-(add-hook 'racket-mode-hook #'aggressive-indent-mode)
+(require 'names)
+(use-package aggressive-indent
+  :init
+  ;;  (global-aggressive-indent-mode))
+  (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
+  (add-hook 'lisp-mode-hook #'aggressive-indent-mode)
+  (add-hook 'racket-mode-hook #'aggressive-indent-mode))
 #+end_src
 
 * 補完

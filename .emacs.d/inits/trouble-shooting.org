@@ -8,9 +8,9 @@
    grep "アクセス遮断"で検索して該当ファイルを削除.
 
 ** newer than byte compile
-   *.elcよりも *.elのほうが新しい.
+   *.elc よりも *.el のほうが新しい.
    
-   *.elcを削除する.
+   *.elc を削除する.
    
 * ビルド時
 ** compile エラー
@@ -23,7 +23,7 @@
    make clean を強力にしたもの.
 
 ** helm dir で make clean
-  helm の auto-loadファイルが悪さをしている可能性.
+  helm の auto-load ファイルが悪さをしている可能性.
 
 * Proxy
 ** Windows GUI で el-get が失敗する
@@ -32,5 +32,8 @@
    - HTTP_PROXY/HTTPS_PROXY
      http://<ユーザ名:パスワード>@xxx.xxx.xxx.co.jp:8080
      
-* その他
-  flycheck の最新版にすると、message 0 のエラーがでる
+* emacs daemon 起動後、止まる
+  - aggressive-indent-mode
+  - magit
+
+   あたりが怪しい。

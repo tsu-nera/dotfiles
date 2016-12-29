@@ -4,9 +4,9 @@ alias forced_git_local_destroy 'git fetch origin;git reset --hard origin/master'
 alias xmap 'xmodmap ~/.Xmodmap'
 
 # Emacs関連
-alias m 'emacsclient -nw'
+alias boot_emacs "/usr/bin/emacs24-lucid  --daemon"
 alias kill_emacs "emacsclient -e \"(kill-emacs)\""
-alias boot_emacs "emacs --daemon"
+alias m 'emacsclient -nw'
 
 function reboot_emacs
 	 kill_emacs;boot_emacs
@@ -23,12 +23,16 @@ alias fault 'sudo shutdown -P now'
 #     ~/powerline-shell.py $status --shell bare ^/dev/null
 # end
 
-
 #######################################
 ## peco
 ######################################
 function peco
   command peco --layout=bottom-up $argv
+end
+
+function peco_recentf
+        z -l | peco | awk '{ print $2 }' | read recentf
+        cd $recentf
 end
 
 function fish_user_key_bindings
@@ -37,9 +41,10 @@ function fish_user_key_bindings
         # コマンド履歴を見る
         bind \cr peco_select_history
         # プロセスをキルする
-        bind \cx\ck peco_kill        
+        bind \cx\ck peco_kill
+        # 最近見たディレクトリに移動
+        bind \cx\cr peco_recentd
 end
-
 #######################################################
 # multi-display
 #######################################################
@@ -54,7 +59,7 @@ end
 
 # set single monitor
 function single
-    xrandr --output HDMI1 --off
+        xrandr --output HDMI1 --off
 end
 
 ############
@@ -66,9 +71,9 @@ end
 
 ## Chdir to the ``default-directory'' of currently opened in Emacs buffer.
 function cde
-        # set EMACS_CWD ("emacsclient -e \"
-        # (if (featurep 'elscreen)
-        #         (elscreen-current-directory)
-        #         (non-elscreen-current-directory))\"")
-    cd $EMACS_CWD
+        emacsclient -e "(return-current-working-directory-to-shell)" | sed 's/^"\(.*\)"$/\1/' | read EMACS_CWD
+        echo "chdir to $EMACS_CWD"
+        cd "$EMACS_CWD"        
 end
+
+set fish_plugins emacs

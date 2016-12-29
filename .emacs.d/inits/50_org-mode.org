@@ -865,8 +865,14 @@
 ** ログインできない
    Invalid end tag methodResponse..
 
-   おそらく、ブログ側に問題あり。
+   おそらく 、ブログ側に問題あり。
    最近改造した場合は、以前の状態に戻してみる.
+
+** bold とかがきかない
+
+#+begin_src emacs-lisp
+(setq org-fontify-emphasized-text t)
+#+end_src
 
 * org-export
   org-mode から別形式へ. つまり, なんでも org-mode でよいということ.

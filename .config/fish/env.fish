@@ -18,12 +18,9 @@ if test -x "`which ruby`"
 end
 
 # for go
-if test -x go
-        set -x GOPATH $HOME/go
-        set fish_user_paths $GOROOT/bin $fish_user_paths 
-        set fish_user_paths $GOPATH/bin $fish_user_paths 
-end
+set -x GOPATH $HOME/go
+set fish_user_paths $GOROOT/bin $fish_user_paths 
+set fish_user_paths $GOPATH/bin $fish_user_paths 
 
 # my bin
 set fish_user_paths $HOME/bin $fish_user_paths
-

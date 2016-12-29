@@ -322,11 +322,13 @@
 
     ;; 61_wanderlust
     wanderlust
+    
     ;; 90_colro
     rainbow-mode
     color-theme
     ubuntu-theme
     molokai-theme
+    cyberpunk-theme
     rainbow-delimiters
     xterm-color
 

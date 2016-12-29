@@ -389,7 +389,7 @@ emacsclient -e "(dired \"${1:a}\")"
 function cde () {
     EMACS_CWD=`emacsclient -e "
       (if (featurep 'elscreen)
-          (elscreen-current-directory)
+          (elscreen-get-current-directory)
         (non-elscreen-current-directory))" | sed 's/^"\(.*\)"$/\1/'`
 
     echo "chdir to $EMACS_CWD"
