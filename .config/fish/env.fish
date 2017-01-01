@@ -17,6 +17,9 @@ if test -x "`which ruby`"
         set fish_user_paths $HOME/.gem/ruby/2.1.0/bin $fish_user_paths
 end
 
+# rbenv
+set fish_user_paths $HOME/.rbenv/bin $fish_user_paths
+
 # for go
 set -x GOPATH $HOME/go
 set fish_user_paths $GOROOT/bin $fish_user_paths 

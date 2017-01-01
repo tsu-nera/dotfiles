@@ -118,11 +118,15 @@
    - helm-occur とつかいわけが悩ましい. 大きななファイルは ag がいいかな.
      - helm-ag-this-file
 
+ripgrep をつかってみる。
+-  [[http://emacs.rubikitch.com/helm-ag/][helm-ag.el : ripgrep/projectile にも対応！最初は粗く検索、あとはどんどん絞り込め！]]
+
 #+begin_src emacs-lisp
 (use-package helm-ag
   :bind (("C-x g r" . helm-ag) ("C-x g f" . helm-ag-this-file))
   :config
-  (setq helm-ag-base-command "ag --nocolor --nogroup --ignore-case")
+  ;; (setq helm-ag-base-command "ag --nocolor --nogroup --ignore-case")
+  (setq helm-ag-base-command "rg --vimgrep --no-heading -uu")
   (setq helm-ag-thing-at-point 'symbol))
 #+end_src
 
@@ -448,13 +452,19 @@
    C 言語では, これがまともに動く. gtags は動かない etags で TAGS を生成する.
    python も、gtags がつかえない!!
 
+   - [[http://emacs.rubikitch.com/ctags-update/][ctags-update.el : 【多言語対応関数定義ジャンプツール】 Exuberant ctags を賢く自動更新させる]]
+
    - helm-etags-select C-x c e
 
 #+begin_src emacs-lisp
 (use-package helm-etags+
   :bind (("C-x c e" . helm-etags+-select)
          ("C-x c ," . helm-etags+-history-go-back)))
-(use-package ctags-update)
+
+(use-package ctags-update
+  :config
+  ;; 使う言語で有効にしよう
+  (add-hook 'ruby-mode-hook  'turn-on-ctags-auto-update-mode))
 #+end_src
 ** helm-github-stars
    helm i/f で github のスターを見る.

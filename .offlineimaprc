@@ -1,0 +1,21 @@
+[general]
+accounts = Gmail
+
+[Account Gmail]
+localrepository = Local
+remoterepository = Remote
+
+[Repository Local]
+type = Maildir
+localfolders = ~/Maildir
+
+[Repository Remote]
+type = Gmail
+folderfilter = lambda foldername: foldername in ["INBOX", "Notes", "[Gmail]/Drafts"]
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+maxconnections = 1
+realdelete = no
+
+# auto sync 
+# autorefresh = 1
+# postsynchook = ~/script/sh/offlineimap-postsync.sh

@@ -455,7 +455,7 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
 (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/monokai-emacs")
 (use-package monokai-theme
   :init
-  (set-face-background 'mmm-default-submode-face "#242424") ;; monokai
+  ;; (set-face-background 'mmm-default-submode-face "#242424") ;; monokai
   ;; (set-face-background 'hiwin-face "#333333") ;; molokai
   (load-theme 'monokai t))
 #+end_src
@@ -502,7 +502,7 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
   (load-theme 'ubuntu t))
 #+end_src
 
-*** tangotango
+*** rtangotango
     org-mode に対応してるダークテーマ.
     - https://github.com/juba/color-theme-tangotango
 

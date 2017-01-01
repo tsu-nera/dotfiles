@@ -473,7 +473,7 @@
 
 #+begin_src emacs-lisp
 (use-package elscreen-interchange
-  :bind (("M-<tab>" . elscreen-swap-next))
+  ;; :bind (("M-<tab>" . elscreen-swap-next))
   ;; (("C-M-<right>" . elscreen-swap-next)
   ;; ("C-M-<left>" . elscreen-swap-previous))
   )

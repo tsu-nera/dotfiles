@@ -197,10 +197,11 @@
 
 ** sx
    Stack Exchange Client
+   -> 25.1 でエラーした。封印。
 
 #+begin_src emacs-lisp
-(use-package sx)
-(use-package sx-tab)
+;; (use-package sx)
+;; (use-package sx-tab)
 #+end_src
 
 ** define-word
@@ -1141,8 +1142,8 @@ sudo pacman -S ghostscript
 (use-package fcitx
   :if linux-p
   :config
-  (fcitx-default-setup)  
-  ;;  (fcitx-aggressive-setup)
+  ;; (fcitx-default-setup)
+  (fcitx-aggressive-setup)
   (fcitx-prefix-keys-setup)
   (fcitx-prefix-keys-turn-on))
 #+end_src
@@ -1189,7 +1190,6 @@ sudo pacman -S ghostscript
          "done;"))
   )
 #+end_src
-
 
 * Tips
 ** slimlock

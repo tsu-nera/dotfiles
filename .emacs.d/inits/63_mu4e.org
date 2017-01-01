@@ -1,0 +1,90 @@
+* mu4e
+  maildir indexer/sercher + emacs mail cliient
+  - https://github.com/djcb/mu
+
+** インストール
+事前の依存ライブラリのインストール
+
+#+begin_src bash
+# must
+$ sudo apt-get install libgmime-2.6-dev libxapian-dev gnutls-bin
+
+# optional
+$ sudo apt-get install guile-2.0-dev html2text xdg-utils
+#+end_src
+
+github から最新版をインストール。
+- https://github.com/djcb/mu/releases
+
+#+begin_src bash
+./configure && make
+sudo make install
+#+end_src
+
+** Gmail との同期
+   ２つのツールがある。
+   - offlineimap https://github.com/OfflineIMAP/offlineimap
+   - mbsync http://isync.sourceforge.net/mbsync.html
+
+   mbsync のほうがいい？？
+   - [[http://pragmaticemacs.com/emacs/migrating-from-offlineimap-to-mbsync-for-mu4e/][Migrating from offlineimap to mbsync for mu4e | Pragmatic Emacs]]
+
+* mu4e 設定   
+  Emacs 24.x では、smtpmail.el 内の time-stamp-yyyy-mm-dd がないので、
+  メールが送れない？？
+
+#+begin_src emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/el-get/repo/mu4e/mu4e")
+(use-package mu4e
+  :config
+  ;; default
+  (setq mu4e-maildir "~/Maildir")
+  (setq mu4e-drafts-folder "/[Gmail].Drafts")
+  (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
+  (setq mu4e-trash-folder  "/[Gmail].Trash")
+
+  ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+  (setq mu4e-sent-messages-behavior 'delete)
+
+  ;; setup some handy shortcuts
+  ;; you can quickly switch to your Inbox -- press ``ji''
+  ;; then, when you want archive some messages, move them to
+  ;; the 'All Mail' folder by pressing ``ma''
+  (setq mu4e-maildir-shortcuts
+        '( ("/INBOX"               . ?i)
+           ("/[Gmail].Sent Mail"   . ?s)
+           ("/[Gmail].Trash"       . ?t)
+           ("/[Gmail].All Mail"    . ?a)))
+
+  ;; allow for updating mail using 'U' in the main view:
+  (setq mu4e-get-mail-command "offlineimap")
+
+  ;; something about ourselves
+  (setq
+   usemr-ail-address "fox10225fox@gmail.com"
+   user-full-name  "Tsunemichi Harada")
+   ;;message-signature
+   ;; (concat
+   ;; "任文山 (Ren Wenshan)\n"
+   ;;"Email: renws1990@gmail.com\n"
+   ;;"Blog: wenshanren.org\n"
+   ;;"Douban: www.douban.com/people/renws"
+  ;;"\n"))
+
+  ;; sending mail -- replace USERNAME with your gmail username
+  (require 'smtpmail)
+  (setq message-send-mail-function 'smtpmail-send-it
+        smtpmail-stream-type 'starttls
+        smtpmail-default-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-service 587)
+
+  ;; don't keep message buffers around
+  (setq message-kill-buffer-on-exit t)
+  )
+#+end_src
+
+* 参考
+  - [[http://wenshanren.org/?p=111#Message-complete][mu4e: an E-mail Client for Emacs | 肉山博客 (Wenshan's Blog)]]
+  - [[http://qiita.com/kaz-yos/items/164f03c7bba401646783][mu4e でメール - Qiita]]
+

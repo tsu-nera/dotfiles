@@ -337,55 +337,6 @@
        ))
 #+end_src
 
-*** org-agenda で過去ログにアクセス
-    - [[http://stackoverflow.com/questions/17683821/custom-function-for-next-previous-month-in-agenda-view-and-the-calendar][emacs - Custom function for next / previous month in agenda view and the calendar - Stack Overflow]]
-
-#+begin_src emacs-lisp
-(defvar lawlist-month)
-(defvar lawlist-year nil)
- 
-(defun lawlist-org-agenda-view-mode-dispatch ()
-  "Select the month in agenda view."
-  (interactive)
-  (message "View: [1-9] [o]CT [n]OV [d]EC, j(next), k(prev).")
-  (let* ((a (read-char-exclusive))
-         (year (or lawlist-year
-                   (setq lawlist-year
-                         (nth 5 (decode-time (current-time))))))
-         (month (case a
-                  (?j (cond
-                       ((null lawlist-month) 1)
-                       ((= 12 lawlist-month)
-                        (setq year (incf lawlist-year))
-                        1)
-                       (t (1+ lawlist-month))))
-                  (?k (cond
-                       ((null lawlist-month) 1)
-                       ((= 1 lawlist-month)
-                        (setq year (decf lawlist-year))
-                        12)
-                       (t (1- lawlist-month))))
-                  (?h
-                   (setq year (incf lawlist-year))
-                   (or lawlist-month 1))
-                  (?l
-                   (setq year (decf lawlist-year))
-                   (or lawlist-month 1))
-                  (?o 10)
-                  (?n 11)
-                  (?d 12)
-                  (t (and (> a ?0) (<= a ?9) (- a ?0))))))
-    (if (not (setq lawlist-month month))
-        (progn (setq lawlist-year)
-               (message "Aborted"))
-      (org-agenda nil "a")
-      (org-agenda-month-view
-       (read (format "%d%02d" year month)))
-      (calendar)
-      (calendar-other-month month year)
-      (lawlist-org-agenda-view-mode-dispatch))))
-#+end_src
-
 ** タスクの状態
    うまく動作しないので, 利用しないことにする.
 

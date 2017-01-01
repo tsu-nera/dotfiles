@@ -1,0 +1,45 @@
+* Notmuch 
+  notmuch とは、タグベースの高速検索メールシステムだ。
+  - [[https://notmuchmail.org/][notmuch]]
+  - [[https://wiki.archlinuxjp.org/index.php/Notmuch][Notmuch - ArchWiki]]
+
+** インストール
+コンパイルのための依存ライブラリ
+
+#+begin_src bash
+sudo apt-get install libxapian-dev libgmime-2.6-dev libtalloc-dev zlib1g-dev python-sphinx
+#+end_src
+
+notmuch のインストール。
+
+#+begin_src bash
+git clone git://notmuchmail.org/git/notmuch
+./configure
+make 
+make install
+#+end_src
+
+** 設定
+
+送信ができないので、mu4e に変更する。
+
+#+begin_src emacs-lisp
+(use-package notmuch
+  :disabled t
+  :config
+  ;; (setq send-mail-function 'smtpmail-send-it)
+  ;; (setq smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil)))
+  ;; (setq smtpmail-auth-credentials '(("smtp.gmail.com" 587 nil nil)))
+  ;; (setq smtpmail-default-smtp-server "smtp.gmail.com")
+  ;; (setq smtpmail-smtp-server "smtp.gmail.com")
+  ;; (setq smtpmail-smtp-service 587)
+  
+  (require 'smtpmail)
+  (setq user-mail-address "fox10225fox@gmail.com"
+        user-full-name "Tsunemichi Harada")
+  
+  (defun notmuch-add-delete-tag ()
+    (interactive)
+    (notmuch-show-tag "+deleted"))
+  (define-key notmuch-show-mode-map "d" 'notmuch-add-delete-tag))
+#+end_src
