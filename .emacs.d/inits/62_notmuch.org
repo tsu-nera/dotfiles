@@ -4,7 +4,7 @@
   - [[https://wiki.archlinuxjp.org/index.php/Notmuch][Notmuch - ArchWiki]]
 
 ** インストール
-コンパイルのための依存ライブラリ
+   コンパイルのための依存ライブラリ
 
 #+begin_src bash
 sudo apt-get install libxapian-dev libgmime-2.6-dev libtalloc-dev zlib1g-dev python-sphinx
@@ -20,26 +20,105 @@ make install
 #+end_src
 
 ** 設定
-
-送信ができないので、mu4e に変更する。
-
 #+begin_src emacs-lisp
 (use-package notmuch
-  :disabled t
   :config
-  ;; (setq send-mail-function 'smtpmail-send-it)
-  ;; (setq smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil)))
-  ;; (setq smtpmail-auth-credentials '(("smtp.gmail.com" 587 nil nil)))
-  ;; (setq smtpmail-default-smtp-server "smtp.gmail.com")
-  ;; (setq smtpmail-smtp-server "smtp.gmail.com")
-  ;; (setq smtpmail-smtp-service 587)
   
-  (require 'smtpmail)
-  (setq user-mail-address "fox10225fox@gmail.com"
-        user-full-name "Tsunemichi Harada")
+  ;;  SMTP configuration
+  ;; use msmtp
+  (setq message-send-mail-function 'message-send-mail-with-sendmail)
+  (setq sendmail-program "msmtp")
+  ;; tell msmtp to choose the SMTP server according to the from field in the outgoing email
+  (setq message-sendmail-extra-arguments '("--read-envelope-from"))
+  (setq message-sendmail-f-is-evil 't)
+
   
-  (defun notmuch-add-delete-tag ()
-    (interactive)
-    (notmuch-show-tag "+deleted"))
-  (define-key notmuch-show-mode-map "d" 'notmuch-add-delete-tag))
+  (setq 
+
+  (setq notmuch-search-oldest-first nil 
+        notmuch-show-indent-messages-width 4
+        mail-interactive t 
+        message-kill-buffer-on-exit t ;; don't keep message buffers around
+        notmuch-always-prompt-for-sender t ;; tells notmuch to ask me for the sender address when composing or forwarding a message
+        )
+  
+
+  (define-key notmuch-show-mode-map "\C-c\C-o" 'browse-url-at-point)
+   
+  (define-key notmuch-search-mode-map "g"
+    'notmuch-poll-and-refresh-this-buffer)
+  (define-key notmuch-hello-mode-map "g"
+    'notmuch-poll-and-refresh-this-buffer)
+   
+  (define-key notmuch-search-mode-map "d"
+    (lambda ()
+      "toggle deleted tag for thread"
+      (interactive)
+      (if (member "deleted" (notmuch-search-get-tags))
+          (notmuch-search-tag '("-deleted"))
+        (notmuch-search-tag '("+deleted" "-inbox" "-unread")))))
+   
+  (define-key notmuch-search-mode-map "!"
+    (lambda ()
+      "toggle unread tag for thread"
+      (interactive)
+      (if (member "unread" (notmuch-search-get-tags))
+          (notmuch-search-tag '("-unread"))
+        (notmuch-search-tag '("+unread")))))
+   
+   
+  (define-key notmuch-show-mode-map "d"
+    (lambda ()
+      "toggle deleted tag for message"
+      (interactive)
+      (if (member "deleted" (notmuch-show-get-tags))
+          (notmuch-show-tag '("-deleted"))
+        (notmuch-show-tag '("+deleted" "-inbox" "-unread")))))
+
+  (define-key notmuch-search-mode-map "a"
+    (lambda ()
+      "toggle archive"
+      (interactive)
+      (if (member "archive" (notmuch-search-get-tags))
+          (notmuch-search-tag '("-archive"))
+          (notmuch-search-tag '("+archive" "-inbox" "-unread")))))
+  
+  (define-key notmuch-show-mode-map "a"
+    (lambda ()
+      "toggle archive"
+      (interactive)
+      (if (member "archive" (notmuch-show-get-tags))
+          (notmuch-show-tag '("-archive"))
+          (notmuch-show-tag '("+archive" "-inbox" "-unread")))))
+  
+  (define-key notmuch-hello-mode-map "i"
+    (lambda ()
+      (interactive)
+      (notmuch-hello-search "tag:inbox")))
+   
+  (define-key notmuch-hello-mode-map "u"
+    (lambda ()
+      (interactive)
+      (notmuch-hello-search "tag:unread")))
+   
+  (define-key notmuch-hello-mode-map "a"
+    (lambda ()
+      (interactive)
+      (notmuch-hello-search "tag:archive")))
+  )
+#+end_src
+
+*** helm-notmuch
+    - https://github.com/xuchunyang/helm-notmuch
+
+#+begin_src emacs-lisp
+(use-package helm-notmuch
+  :config
+  (define-key notmuch-hello-mode-map "S" 'helm-notmuch))
+#+end_src
+
+*** org-notmuch
+
+#+begin_src emacs-lisp
+(use-package org-notmuch)
 #+end_src

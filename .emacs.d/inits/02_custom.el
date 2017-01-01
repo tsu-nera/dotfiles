@@ -6,6 +6,16 @@
  '(ag-highlight-search t)
  '(ag-reuse-buffers (quote nil))
  '(ag-reuse-window (quote nil))
+ '(notmuch-saved-searches
+   (quote
+    ((:name "inbox" :query "tag:inbox" :key "i")
+     (:name "unread" :query "tag:unread" :key "u")
+     (:name "flagged" :query "tag:flagged" :key "f")
+     (:name "sent" :query "tag:sent" :key "t")
+     (:name "drafts" :query "tag:draft" :key "d")
+     (:name "all mail" :query "*" :key "a")
+     (:name "futurismo" :query "futurismo")
+     (:name "tsu-nera" :query "tsu-nera"))))
  '(rspec-use-rake-when-possible nil)
  '(send-mail-function (quote smtpmail-send-it))
  '(shell-pop-default-directory "~/")

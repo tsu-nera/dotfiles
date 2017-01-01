@@ -12,7 +12,7 @@
 #
 
 [database]
-path=/home/tsu-nera/mail
+path=/home/tsu-nera/Maildir
 
 # User configuration
 #
@@ -64,7 +64,7 @@ ignore=
 #
 
 [search]
-exclude_tags=deleted
+exclude_tags=deleted;spam;
 
 # Maildir compatibility configuration
 #

@@ -21,7 +21,7 @@ github から最新版をインストール。
 sudo make install
 #+end_src
 
-** Gmail との同期
+** Gmail の受信
    ２つのツールがある。
    - offlineimap https://github.com/OfflineIMAP/offlineimap
    - mbsync http://isync.sourceforge.net/mbsync.html
@@ -29,9 +29,14 @@ sudo make install
    mbsync のほうがいい？？
    - [[http://pragmaticemacs.com/emacs/migrating-from-offlineimap-to-mbsync-for-mu4e/][Migrating from offlineimap to mbsync for mu4e | Pragmatic Emacs]]
 
+** Gmail の送信
+   msmtp を使う。
+
+   Emacs 24.x では、smtpmail.el 内の time-stamp-yyyy-mm-dd がないので、
+   メールが送れない？？
+   -> そもそも smtpmail では送れなかった。msmtp を利用する。
+
 * mu4e 設定   
-  Emacs 24.x では、smtpmail.el 内の time-stamp-yyyy-mm-dd がないので、
-  メールが送れない？？
 
 #+begin_src emacs-lisp
 (add-to-list 'load-path "~/.emacs.d/el-get/repo/mu4e/mu4e")
@@ -56,13 +61,14 @@ sudo make install
            ("/[Gmail].Trash"       . ?t)
            ("/[Gmail].All Mail"    . ?a)))
 
-  ;; allow for updating mail using 'U' in the main view:
-  (setq mu4e-get-mail-command "offlineimap")
+  ;; U で 更新するときに使うプログラム
+  (setq mu4e-get-mail-command "offlineimap"
+        ;; バックグラウンドでポーリング
+        mu4e-update-interval 300)
 
   ;; something about ourselves
-  (setq
-   usemr-ail-address "fox10225fox@gmail.com"
-   user-full-name  "Tsunemichi Harada")
+  (setq user-ail-address "fox10225fox@gmail.com"
+        user-full-name  "Tsunemichi Harada")
    ;;message-signature
    ;; (concat
    ;; "任文山 (Ren Wenshan)\n"
@@ -70,21 +76,44 @@ sudo make install
    ;;"Blog: wenshanren.org\n"
    ;;"Douban: www.douban.com/people/renws"
   ;;"\n"))
-
-  ;; sending mail -- replace USERNAME with your gmail username
-  (require 'smtpmail)
-  (setq message-send-mail-function 'smtpmail-send-it
-        smtpmail-stream-type 'starttls
-        smtpmail-default-smtp-server "smtp.gmail.com"
-        smtpmail-smtp-server "smtp.gmail.com"
-        smtpmail-smtp-service 587)
+  
+  ;; use msmtp
+  (setq message-send-mail-function 'message-send-mail-with-sendmail)
+  (setq sendmail-program "msmtp")
+  ;; tell msmtp to choose the SMTP server according to the from field in the outgoing email
+  (setq message-sendmail-extra-arguments '("--read-envelope-from"))
+  (setq message-sendmail-f-is-evil 't)
 
   ;; don't keep message buffers around
-  (setq message-kill-buffer-on-exit t)
-  )
+  (setq message-kill-buffer-on-exit t))
+#+end_src
+
+** mu4e-alert
+
+#+begin_src emacs-lisp
+(use-package mu4e-alert
+  :config
+  (when linux-p
+    ;; デスクトップ通知
+    (mu4e-alert-set-default-style 'libnotify))
+  (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
+  ;; モードライン通知
+  (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display))
+#+end_src
+
+** helm-mu
+   helm I/F で検索できる。
+   - https://github.com/emacs-helm/helm-mu
+
+#+begin_src emacs-lisp
+(use-package helm-mu
+  :config
+  (setq helm-mu-default-search-string "(maildir:/INBOX OR maildir:/Sent)")
+  (define-key mu4e-main-mode-map "s" 'helm-mu)
+  (define-key mu4e-headers-mode-map "s" 'helm-mu)
+  (define-key mu4e-view-mode-map "s" 'helm-mu))
 #+end_src
 
 * 参考
   - [[http://wenshanren.org/?p=111#Message-complete][mu4e: an E-mail Client for Emacs | 肉山博客 (Wenshan's Blog)]]
   - [[http://qiita.com/kaz-yos/items/164f03c7bba401646783][mu4e でメール - Qiita]]
-

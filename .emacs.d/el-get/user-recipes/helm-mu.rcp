@@ -1,0 +1,3 @@
+(:name helm-mu
+       :type github
+       :pkgname "emacs-helm/helm-mu")

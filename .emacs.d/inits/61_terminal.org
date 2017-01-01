@@ -416,9 +416,15 @@
 #+end_src
 
 ** neotree
+   ツリーが右側から出てくるプラグイン。
+   - https://github.com/jaypei/emacs-neotree
+   
+   helm がバグるので封印。
+   - https://github.com/jaypei/emacs-neotree/issues/158
 
 #+begin_src emacs-lisp
 (use-package neotree
+  :disabled t
   :config
   (global-set-key [f8] 'neotree-toggle))
 #+end_src

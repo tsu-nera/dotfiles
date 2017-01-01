@@ -51,3 +51,6 @@ copyq &
 
 # ブルーライトカット
 redshift-gtk &
+
+# メール同期
+offlineimap &

@@ -322,7 +322,14 @@
 
     ;; 61_wanderlust
     wanderlust
-    
+    ;; 62 notmuch
+    notmuch
+    helm-notmuch
+    ;; 63 mu4e
+    mu4e
+    mu4e-alert
+    helm-mu
+        
     ;; 90_colro
     rainbow-mode
     color-theme
@@ -484,3 +491,4 @@ Opening TLS connection with `gnutls-cli --insecure -p 443 api.github.com --proto
 Opening TLS connection with `openssl s_client -connect api.github.com:443 -no_ssl2 -ign_eof'...failed
 Opening TLS connection to `api.github.com'...failed
  #+end_src
+ 
