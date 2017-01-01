@@ -13,7 +13,7 @@ localfolders = ~/Maildir
 
 [Repository Remote]
 type = Gmail
-folderfilter = lambda foldername: foldername in ["INBOX", "[Gmail]/Drafts"]
+# folderfilter = lambda foldername: foldername in ["INBOX", "[Gmail]/Drafts"]
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 maxconnections = 1
 realdelete = no

@@ -32,32 +32,38 @@ make install
   (setq message-sendmail-extra-arguments '("--read-envelope-from"))
   (setq message-sendmail-f-is-evil 't)
 
-  
-  (setq 
-
-  (setq notmuch-search-oldest-first nil 
+  (setq notmuch-search-oldest-first nil
         notmuch-show-indent-messages-width 4
         mail-interactive t 
         message-kill-buffer-on-exit t ;; don't keep message buffers around
         notmuch-always-prompt-for-sender t ;; tells notmuch to ask me for the sender address when composing or forwarding a message
         )
   
-
   (define-key notmuch-show-mode-map "\C-c\C-o" 'browse-url-at-point)
    
   (define-key notmuch-search-mode-map "g"
     'notmuch-poll-and-refresh-this-buffer)
   (define-key notmuch-hello-mode-map "g"
     'notmuch-poll-and-refresh-this-buffer)
-   
-  (define-key notmuch-search-mode-map "d"
+
+  ;; unread
+  (define-key notmuch-search-mode-map "i"
     (lambda ()
-      "toggle deleted tag for thread"
+      "toggle unread tag for thread"
       (interactive)
-      (if (member "deleted" (notmuch-search-get-tags))
-          (notmuch-search-tag '("-deleted"))
-        (notmuch-search-tag '("+deleted" "-inbox" "-unread")))))
-   
+      (if (member "inbox" (notmuch-search-get-tags))
+          (notmuch-search-tag '("-inbox"))
+        (notmuch-search-tag '("+inbox" "-archive")))))
+
+  (define-key notmuch-show-mode-map "i"
+    (lambda ()
+      "toggle unread tag for thread"
+      (interactive)
+      (if (member "inbox" (notmuch-search-get-tags))
+          (notmuch-search-tag '("-inbox"))
+        (notmuch-search-tag '("+inbox" "-archive")))))
+
+  ;; unread
   (define-key notmuch-search-mode-map "!"
     (lambda ()
       "toggle unread tag for thread"
@@ -65,7 +71,23 @@ make install
       (if (member "unread" (notmuch-search-get-tags))
           (notmuch-search-tag '("-unread"))
         (notmuch-search-tag '("+unread")))))
-   
+
+  (define-key notmuch-show-mode-map "!"
+    (lambda ()
+      "toggle unread tag for thread"
+      (interactive)
+      (if (member "unread" (notmuch-search-get-tags))
+          (notmuch-search-tag '("-unread"))
+        (notmuch-search-tag '("+unread")))))  
+
+  ;; Delete
+  (define-key notmuch-search-mode-map "d"
+    (lambda ()
+      "toggle deleted tag for thread"
+      (interactive)
+      (if (member "deleted" (notmuch-search-get-tags))
+          (notmuch-search-tag '("-deleted"))
+        (notmuch-search-tag '("+deleted" "-inbox" "-unread")))))
    
   (define-key notmuch-show-mode-map "d"
     (lambda ()
@@ -75,6 +97,7 @@ make install
           (notmuch-show-tag '("-deleted"))
         (notmuch-show-tag '("+deleted" "-inbox" "-unread")))))
 
+  ;; Archive 
   (define-key notmuch-search-mode-map "a"
     (lambda ()
       "toggle archive"
@@ -90,7 +113,8 @@ make install
       (if (member "archive" (notmuch-show-get-tags))
           (notmuch-show-tag '("-archive"))
           (notmuch-show-tag '("+archive" "-inbox" "-unread")))))
-  
+
+  ;; ショートカット
   (define-key notmuch-hello-mode-map "i"
     (lambda ()
       (interactive)
@@ -114,7 +138,9 @@ make install
 #+begin_src emacs-lisp
 (use-package helm-notmuch
   :config
-  (define-key notmuch-hello-mode-map "S" 'helm-notmuch))
+  (define-key notmuch-hello-mode-map "S" 'helm-notmuch)
+  (define-key notmuch-show-mode-map "S" 'helm-notmuch)
+  (define-key notmuch-search-mode-map "S" 'helm-notmuch))
 #+end_src
 
 *** org-notmuch

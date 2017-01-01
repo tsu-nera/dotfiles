@@ -51,7 +51,7 @@ primary_email=fox10225fox@gmail.com
 
 [new]
 tags=unread;inbox;
-ignore=
+ignore=[Gmail].Trash;[Gmail].Spam;
 
 # Search configuration
 #
