@@ -449,16 +449,11 @@
 ** el-get config
 
 #+begin_src emacs-lisp
-;; マシンごとの設定
-(when emacs25.0-p
-  (if linux-p
-    (setq el-get-emacs "/usr/local/bin/emacs")))
-
 ;; 通知は minibuffer のみ
 (setq el-get-notify-type 'message)
 
 ;; 同期
-;; (el-get 'sync my/el-get-packages-all)
+(el-get 'sync my/el-get-packages-all)
 
 (defun my-el-get-sync ()
    (interactive)

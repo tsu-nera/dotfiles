@@ -5,9 +5,7 @@
 . ~/.config/fish/aliases.fish
 
 # 環境変数読み込み
-if status --is-login
-    . ~/.config/fish/env.fish
-end
+. ~/.config/fish/env.fish
 
 # rbenv
 rbenv init - | source

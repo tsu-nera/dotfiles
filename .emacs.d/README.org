@@ -33,11 +33,11 @@ M-x el-get-emacswiki-build-local-recipes
 
 ** その他
   - gettext
-  - libsasl2
+  - libsasl2-2
   - ca-certificates
   - mplayer
   - llvm(for clang-complete-async)
-  - lib-clangdev(for clang-complete-async)
+  - libclang-dev(for clang-complete-async)
 
 ** cmigemo
    - Ubuntsu  sudo apt-get install cmigemo

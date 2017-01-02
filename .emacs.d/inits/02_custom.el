@@ -17,6 +17,7 @@
      (:name "つねやす" :query "tu-nera.221.h@t.vodafone.ne.jp")
      (:name "つねゆき" :query "tsu-nera.626.h@t.vodafone.ne.jp")
      (:name "やす子" :query "ys1259taako@softbank.ne.jp"))))
+ '(package-selected-packages (quote (queue)))
  '(rspec-use-rake-when-possible nil)
  '(send-mail-function (quote smtpmail-send-it))
  '(shell-pop-default-directory "~/")
@@ -35,6 +36,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ac-emacs-eclim-candidate-face ((t (:inherit ac-candidate-face))))
+ '(ac-emacs-eclim-selection-face ((t (:inherit ac-selection-face))))
  '(eww-hatebu-bookmarks ((t (:foreground "#A6E22E"))))
  '(font-lock-comment-delimiter-face ((t (:inherit font-lock-comment-face :foreground "gray80"))))
  '(font-lock-comment-face ((t (:foreground "gray80"))))
