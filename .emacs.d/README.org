@@ -40,7 +40,7 @@ M-x el-get-emacswiki-build-local-recipes
   - libclang-dev(for clang-complete-async)
 
 ** cmigemo
-   - Ubuntsu  sudo apt-get install cmigemo
+   - Ubuntsu  sudo apt-get install cmigemo ruby
    - Windows  http://www.kaoriya.net/software/cmigemo/
    
 ** w3m

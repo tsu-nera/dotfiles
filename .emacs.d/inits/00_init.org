@@ -114,7 +114,7 @@
     popwin
     switch-window
     isearch-dabbrev
-    open-junk-file
+    ;; open-junk-file
     iy-go-to-char
     key-chord
     jump-char
@@ -204,6 +204,7 @@
     rcodetools
     inf-ruby
     rubocop
+    pry
 
     ;; c/c++
     semantic-refactor
@@ -263,6 +264,7 @@
     helm-cscope
     helm-hatena-bookmark
     helm-dash
+    helm-rdefs
 
     ;; 50_org-mode.org
     org-mode
@@ -318,17 +320,17 @@
     multi-eshell
     eshell-z
 
-    neotree
+    ;; neotree
 
     ;; 61_wanderlust
-    wanderlust
+    ;; wanderlust
     ;; 62 notmuch
     notmuch
     helm-notmuch
     ;; 63 mu4e
-    mu4e
-    mu4e-alert
-    helm-mu
+    ;; mu4e
+    ;; mu4e-alert
+    ;; helm-mu
         
     ;; 90_colro
     rainbow-mode
@@ -430,7 +432,6 @@
     joseph-single-dired
     visible-mark
     f
-    marshal
     pangu-spacing
     cloc
     geiser
@@ -441,7 +442,6 @@
     ac-slime
     emms-player-mpv-jp-radios
     aoj-submit
-    neotree
     )
   "A list of packages to install from el-get at launch.")
 #+end_src
@@ -450,7 +450,7 @@
 
 #+begin_src emacs-lisp
 ;; 通知は minibuffer のみ
-(setq el-get-notify-type 'message)
+(setq el-get-notify-tFFype 'message)
 
 ;; 同期
 (el-get 'sync my/el-get-packages-all)
