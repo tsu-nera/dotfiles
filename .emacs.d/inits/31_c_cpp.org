@@ -161,7 +161,7 @@
 
 #+begin_src emacs-lisp
 (use-package function-args
-  :disabeld t
+  :disabled t
   :config
   (fa-config-default)
 
@@ -184,7 +184,6 @@
    設定が大変そうだな..  これは今回は挫折.
 
    fixit って, 自動エラー修正? スゴそう.
-
 
 * Document
 ** ggtags
