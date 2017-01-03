@@ -265,6 +265,7 @@
     helm-hatena-bookmark
     helm-dash
     helm-rdefs
+    helm-github-stars
 
     ;; 50_org-mode.org
     org-mode
@@ -425,23 +426,12 @@
     ;; helm-slime エラーするので封印
 ;;    ac-slime
     moz-markdown-viewer
-    helm-github-stars
     mmm-mode
     aoj-submit
     cfparser
     joseph-single-dired
     visible-mark
     f
-    pangu-spacing
-    cloc
-    geiser
-    inf-clojure
-    4clojure
-    clojure-cheatsheet
-    clojure-snippets
-    ac-slime
-    emms-player-mpv-jp-radios
-    aoj-submit
     )
   "A list of packages to install from el-get at launch.")
 #+end_src
@@ -450,10 +440,10 @@
 
 #+begin_src emacs-lisp
 ;; 通知は minibuffer のみ
-(setq el-get-notify-tFFype 'message)
+(setq el-get-notify-type 'message)
 
 ;; 同期
-(el-get 'sync my/el-get-packages-all)
+;; (el-get 'sync my/el-get-packages-all)
 
 (defun my-el-get-sync ()
    (interactive)

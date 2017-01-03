@@ -52,7 +52,5 @@ twittering-mode.gpg.bak
 quotes.txt
 el-get/repo/*
 .hatenabookmark
-<<<<<<< HEAD
-=======
 recentf
->>>>>>> 823e3ffe11389b9ef1d28757fb10ef55c50369bc
+.cask

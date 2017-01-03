@@ -157,8 +157,11 @@
    - moo-propose-overide オーバーライドを suggest
    - moo-propose-variable 変数を suggest
 
+   有効にすると、helm がきかなくなるので一旦封印。調査中。
+
 #+begin_src emacs-lisp
 (use-package function-args
+  :disabeld t
   :config
   (fa-config-default)
 

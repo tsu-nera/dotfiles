@@ -12,11 +12,6 @@ end
 set -x EDITOR emacs
 set -x VISUAL "emacsclient -nw"
 
-# for ruby
-if test -x "`which ruby`"
-        set fish_user_paths $HOME/.gem/ruby/2.1.0/bin $fish_user_paths
-end
-
 # rbenv
 set fish_user_paths $HOME/.rbenv/bin $fish_user_paths
 
@@ -27,3 +22,6 @@ set fish_user_paths $GOPATH/bin $fish_user_paths
 
 # my bin
 set fish_user_paths $HOME/bin $fish_user_paths
+
+# cask
+set fish_user_paths $HOME/.cask/bin $fish_user_paths

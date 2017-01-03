@@ -4,7 +4,7 @@ alias forced_git_local_destroy 'git fetch origin;git reset --hard origin/master'
 alias xmap 'xmodmap ~/.Xmodmap'
 
 # Emacs関連
-alias boot_emacs "/usr/local/bin/emacs-25.1  --daemon"
+alias boot_emacs "emacs --daemon"
 alias kill_emacs "emacsclient -e \"(kill-emacs)\""
 alias m 'emacsclient -nw'
 
@@ -75,5 +75,3 @@ function cde
         echo "chdir to $EMACS_CWD"
         cd "$EMACS_CWD"        
 end
-
-set fish_plugins emacs
