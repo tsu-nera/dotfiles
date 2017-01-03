@@ -198,7 +198,7 @@
     ;; ruby
     ruby-block
     robe-mode
-    ruby-electric
+    ;; ruby-electric end が２つ挿入される？？？
     rspec-mode
     ruby-refactor
     rcodetools

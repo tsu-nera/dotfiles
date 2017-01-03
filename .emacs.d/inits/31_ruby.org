@@ -64,17 +64,20 @@ gem install pry pry-doc
 
 ** ruby-electric.el
   electric editing commands for ruby files
+  - https://github.com/qoobaa/ruby-electric
 
   かっこや do end などの対応関係を自動で補正してくれる
 
+  end が２つ挿入されるので、停止
+
 #+begin_src emacs-lisp
-(use-package  ruby-electric
-  :defer t
-  :init
-  (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
-  :config
-  (setq ruby-electric-expand-delimiters-list nil)
-)
+;;(use-package  ruby-electric
+;;  :disabled t
+;;  :init
+;;  (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
+;;  :config
+;;  (setq ruby-electric-expand-delimiters-list nil)
+;;)
 #+end_src
 
 ** ruby-block
@@ -95,10 +98,8 @@ gem install pry pry-doc
 
 #+begin_src emacs-lisp
 (use-package ruby-refactor
-  :defer t
-  :init
-  (add-hook 'ruby-mode-hook '(lambda () (ruby-refactor-mode-launch)))
-)
+  :config
+  (add-hook 'ruby-mode-hook '(lambda () (ruby-refactor-mode-launch))))
 #+end_src
 
 ** helm-rdefs
