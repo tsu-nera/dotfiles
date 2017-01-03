@@ -1,0 +1,157 @@
+* Haskell
+  純粋関数型言語.
+  - [[https://www.haskell.org/haskellwiki/Emacs][Emacs - HaskellWiki]]
+
+** links
+  - [[http://tim.dysinger.net/posts/2014-02-18-haskell-with-emacs.html][Haskell Development on Emacs]]
+
+* haskell-mode
+  Haskell のマイナーモード.
+  - https://github.com/haskell/haskell-mode
+
+  モードの設定.以下のリンクが詳しい.
+  - [[http://haskell.github.io/haskell-mode/manual/latest/][Haskell Mode 13.07]]
+
+#+begin_src emacs-lisp
+(use-package haskell-mode
+  :commands (haskell-mode run-haskell)
+  :mode (("\\.hs$" . haskell-mode)
+         ("\\.lhs$" . literate-haskell-mode))
+  :interpreter (("runghc" . haskell-mode)
+		("runhaskell" . haskell-mode))
+  :init
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+  ;; (add-hook 'haskell-mode-hook 'font-lock-mode) すでに有効??
+  (add-hook 'haskell-mode-hook 'imenu-add-menubar-index)
+  (add-hook 'haskell-mode-hook 'inf-haskell-mode) ;; C-c, C-l で起動.
+  (add-hook 'haskell-mode-hook 'flycheck-mode)
+  :config
+#+end_src
+
+** Haskell Script の編集モード
+   Haskell でかかれたスクリプトを haskell-mode で編集する.
+
+#+begin_src haskell
+#!/usr/bin/env runhaskell
+#+end_src
+
+** Ghci との連携
+   M-x run-haskell で ghci が起動.
+
+   エラーする。封印
+
+#+begin_src emacs-lisp
+;; (setq haskell-program-name "/usr/bin/ghci")
+#+end_src
+
+  ghci の起動とファイルの読み込みを一緒に行う設定.
+
+#+begin_src emacs-lisp
+(defadvice inferior-haskell-load-file (after change-focus-after-load)
+  "Change focus to GHCi window after C-c C-l command"
+  (other-window 1))
+(ad-activate 'inferior-haskell-load-file)
+#+end_src
+
+ - [[http://d.hatena.ne.jp/pogin/20140121/1390299797][inferior-haskell-mode で設定すると便利なこと - プログラムとかのの blog]]
+
+** End of Haskell-mode
+#+begin_src emacs-lisp
+)
+#+end_src
+
+* haskell-cabal-mode
+#+begin_src emacs-lisp
+(use-package haskell-cabal
+  :commands haskell-cabal
+  :mode ("\\.cabal$" . haskell-cabal-mode))
+#+end_src
+
+* gcd-mod
+  Haskell 開発を助ける機能がそろったツール.
+  - [[http://www.mew.org/%7Ekazu/proj/ghc-mod/en/][Happy Haskell Programming]]
+  - [[https://github.com/kazu-yamamoto/ghc-mod][kazu-yamamoto/ghc-mod]]
+
+** Install
+  - [[http://www.mew.org/~kazu/proj/ghc-mod/en/install.html][Installing "ghc-mod"]]
+
+#+begin_src bash
+% cabal update
+% cabal install ghc-mod
+#+end_src
+
+** Settings
+   - [[http://www.mew.org/~kazu/proj/ghc-mod/en/preparation.html][Preparing Emacs front-end]]
+
+   #+begin_src emacs-lisp
+(use-package ghc
+  :commands (ghc-init ghc-debug ghc)
+  :init
+  (add-hook 'haskell-mode-hook (lambda () (ghc-init))))
+#+end_src
+
+  Emacs での使い方は以下のページに書いてある.
+  - [[http://www.mew.org/~kazu/proj/ghc-mod/en/emacs.html][Usage of Emacs front-end]]
+
+* TODO emacs-haskell
+  新手のモード
+  - https://github.com/knupfer/haskell-emacs  
+
+* エラーチェック
+** flycheck
+
+   #+begin_src emacs-lisp
+   
+   #+end_src
+
+** hlint
+   コードチェック. cabal install hlint でインストールする.
+   C-c C-c でカーソル部のチェック.
+
+*** The IO action ‘ main ’ is not defined in module ‘ Main ’
+    dummy module をおく.
+
+#+begin_src haskell
+module Chapter1 where
+
+hoge
+#+end_src
+
+   - [[http://stackoverflow.com/questions/30518927/how-to-avoid-main-is-not-defined-in-module-main-when-using-syntastic][haskell - How to avoid "‘ main ’ is not defined in module ‘ Main ’" when using sy...]]
+
+* 自動補完
+  こんなの見つけた. ac-haskell-process.
+  - https://github.com/purcell/ac-haskell-process
+
+  ちょくちょくエラーでてるから一旦封印しておく.
+
+#+begin_src emacs-lisp
+(use-package ac-haskell-process
+  :disabled t
+  :init
+  (add-hook 'interactive-haskell-mode-hook 'ac-haskell-process-setup)
+  (add-hook 'haskell-interactive-mode-hook 'ac-haskell-process-setup)
+  :config
+  (eval-after-load "auto-complete"
+    '(add-to-list 'ac-modes 'haskell-interactive-mode))
+  )
+#+end_src
+
+* ドキュメント参照
+  show help with CTRL-c CTRL-h.
+
+* structured-haskell-mode
+  paredit みたいな. 未導入.
+  - https://github.com/chrisdone/structured-haskell-mode
+
+* Links
+** Japanese
+  - [[http://www.haskell.org/haskellwiki/Emacs][Emacs - HaskellWiki]]
+  - [[http://www.haskell.org/haskellwiki/Emacs/Inferior_Haskell_processes][Emacs/Inferior Haskell processes - HaskellWiki]]
+  - [[http://www.slideshare.net/KazufumiOhkawa/haskelleremacs][静岡の Haskeller は Emacs を使う]]
+  - [[http://blog.karky7.com/2012/12/gentooemacshaskell.html][karky7 のブログ: Gentoo で emacs+haskell 環境を作る]]
+  - [[http://d.hatena.ne.jp/kitokitoki/20111217/p1][Haskell 用の emacs カスタマイズ例 - わからん]]
+
+** English
+  - [[http://tim.dysinger.net/posts/2014-02-18-haskell-with-emacs.html][Haskell Development on Emacs]]

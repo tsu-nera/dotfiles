@@ -266,6 +266,7 @@
     helm-dash
     helm-rdefs
     helm-github-stars
+    helm-ghq
 
     ;; 50_org-mode.org
     org-mode
