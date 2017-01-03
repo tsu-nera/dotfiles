@@ -450,7 +450,7 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
 #+end_src
 
 ** Used
-*** Molokai
+*** Monokai
 #+begin_src emacs-lisp
 (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/monokai-emacs")
 (use-package monokai-theme
@@ -461,8 +461,9 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
 #+end_src
 
 ** not used
-*** Molokai fork version
-   Install  : https://raw2.github.com/hbin/molokai-theme/master/molokai-theme-kit.el
+*** Molokai
+    Yet Another molokai theme for Emacs 24
+    - https://github.com/hbin/molokai-theme
 
 #+begin_src emacs-lisp
 (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/repo/molokai-theme")
@@ -477,6 +478,7 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
    自分のテーマにも, 以下のような設定で org-mode 対応できるらしい??
    - [[http://orgmode.org/worg/org-contrib/babel/examples/fontify-src-code-blocks.html][Pretty fontification of source code blocks]]
    -> mmm-mode で代用する.
+
 
 *** cyberpunk-theme
     emacs live 用のテーマ. Start Hacking!!
