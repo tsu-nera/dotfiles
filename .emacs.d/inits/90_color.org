@@ -574,6 +574,14 @@ $ git clone https://github.com/owainlewis/emacs-color-themes.git && cd emacs-col
     (load-theme 'solarized-dark t))
   #+end_src
 
+* helm-themes
+  helm-I/F でテーマを気軽に変更できる
+  - https://github.com/syohex/emacs-helm-themes
+
+#+begin_src emacs-lisp
+(require 'helm-themes)
+#+end_src
+
 * rainbow-mode
   数字表記に色つけしてくれる 
 

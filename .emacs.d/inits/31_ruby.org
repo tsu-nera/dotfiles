@@ -37,7 +37,6 @@
 ;;(remove-hook 'enh-ruby-mode-hook 'erm-define-faces)
 #+end_src
 
-** robe-mode
 ** robe
    Ruby 用の補完をする. 補完は auto-complete という有名な elisp がある.
    もっと賢いのがオムニ補完と呼ばれるもの. これは文法を解析して補完してくれる. 
@@ -67,8 +66,7 @@ gem install pry pry-doc
   - https://github.com/qoobaa/ruby-electric
 
   かっこや do end などの対応関係を自動で補正してくれる
-
-  end が２つ挿入されるので、停止
+  -> smartparen-mode に置き換えるので廃止。
 
 #+begin_src emacs-lisp
 ;;(use-package  ruby-electric

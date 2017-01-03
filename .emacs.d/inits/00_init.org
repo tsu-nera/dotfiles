@@ -267,6 +267,7 @@
     helm-rdefs
     helm-github-stars
     helm-ghq
+    helm-themes
 
     ;; 50_org-mode.org
     org-mode
