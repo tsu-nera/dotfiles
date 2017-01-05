@@ -30,6 +30,21 @@
   :bind* (("C-;" . avy-goto-char)))
 #+end_src
 
+*** avy-migemo
+    - https://github.com/momomo5717/avy-migemo
+
+#+begin_src emacs-lisp
+(use-package avy-migemo
+  :config
+  ;; `avy-migemo-mode' overrides avy's predefined functions using `advice-add'.
+  (avy-migemo-mode 1)
+  (global-set-key (kbd "M-g m m") 'avy-migemo-mode)
+
+  ;; swiper 対応
+  (require 'avy-migemo-e.g.swiper)
+  )
+#+end_src
+
 ** ace-jump-buffer
    #+begin_src emacs-lisp
 (use-package ace-jump-buffer

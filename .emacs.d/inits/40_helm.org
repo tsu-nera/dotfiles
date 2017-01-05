@@ -16,6 +16,7 @@
 #+begin_src emacs-lisp
 (use-package helm-config
   :config
+  (helm-mode 1) ;; 基本的な設定はこれで実施される.
 ;;  (helm-autoresize-mode 1) ;; 検索結果によってリサイズ. default 40%
 ;;  (setq helm-autoresize-max-height 50)
 #+end_src
@@ -77,12 +78,19 @@
    - helm-google-suggest
    - helm-yahoo-suggest
    - helm-wikipedia-suggest
+** helm-migemo
+   default 対応
+   - https://github.com/emacs-helm/helm/wiki/Migemo
+
+   うごかない・・・
+#+begin_src emacs-lisp
+(helm-migemo-mode t)
+#+end_src
 
 ** End of Helm Config
 
 #+begin_src emacs-lisp
 )
-(helm-mode 1) ;; 基本的な設定はこれで実施される.
 #+end_src
     
 * 拡張 helm
@@ -217,7 +225,6 @@ ripgrep をつかってみる。
 
 #+begin_src emacs-lisp
 (use-package helm-projectile
-  :defer 20
   :config
   (helm-projectile-on)
   ;; プロジェクトに関連するファイルを helm-for-files に追加
@@ -341,36 +348,6 @@ ripgrep をつかってみる。
     '(define-key makefile-mode-map (kbd "M-\"") 'helm-make-projectile))
   (define-key c-mode-map (kbd "M-\"") 'helm-make-projectile)
   (define-key c++-mode-map (kbd "M-\"") 'helm-make-projectile))
-#+end_src
-
-** helm-migemo
-   helm の日本語検索.
-   - https://github.com/emacs-helm/helm-migemo
-
-  うまく動かないので, パッチをあてる.
-  - [[http://rubikitch.com/2014/12/19/helm-migemo/][emacs helm-migemo.el : helm で正しく Migemo を動作させる!]]
-
-  migemo 対応していない場合は, helm-migemize-command で個別に追加.
-  - [[http://aki2o.hatenablog.jp/entry/2013/09/05/anything/helm%E3%81%AEmigemo%E5%AF%BE%E5%BF%9C%E3%81%97%E3%81%A6%E3%81%AA%E3%81%84%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%81%A7migemo%E3%82%8A%E3%81%9F%E3%81%84%E6%99%82%E3%81%AB%E3%81%99%E3%81%B9%E3%81%8D][helm の migemo 対応してないコマンドで migemo りたい時にすべき設定方法 - 死ぬまでの暇潰し]]
-
-  windows だと、うまくうごいてくれないな。。
-
-  helm-esh-pcompile がうまく動かないので封印
-
-#+begin_src emacs-lisp
-(use-package helm-migemo
-  :disabled t
-  :if linux-p
-  :config
-  (setq helm-use-migemo t)
-  (when emacs25.0-p
-    (with-eval-after-load 'helm-imenu
-      '(helm-migemize-command helm-imenu))
-    (with-eval-after-load 'helm-org
-      '(helm-migemize-command helm-org-in-buffer-headings))
-  (with-eval-after-load 'swiper
-      '(helmm-igemize-command swiper)))
-  (require 'my-patch-helm-migemo))
 #+end_src
 
 ** helm-emms
@@ -504,27 +481,6 @@ ripgrep をつかってみる。
 ;;(use-package swiper-helm)
 ;;  :bind (("C-s". swiper-helm)))
 #+end_src
-
-** my/helm-recentf
-   C-u C-x C-r で, ディレクトリのみを対象にする.
-   - [[http://d.hatena.ne.jp/syohex/20120911/1347378503#][helm を使って最近開いたディレクトリを開く - Life is very short]]
-
-   #+begin_src emacs-lisp
-;;(defvar helm-c-recentf-directory-source
-;;  '((name . "Recentf Directry")
-;;    (candidates . (lambda ()
-;;                    (loop for file in recentf-list
-;;                          when (file-directory-p file)
-;;                          collect file)))
-;;    (type . file)))
-;; 
-;;(defun my/helm-recentf (arg)
-;;  (interactive "P")
-;;  (if current-prefix-arg
-;;      (helm-other-buffer helm-c-recentf-directory-source "*helm recentf*")
-;;      (call-interactively 'helm-recentf)))
-   #+end_src
-
 
 ** helm-open-github
    helm i/f で github を開く.
