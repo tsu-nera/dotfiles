@@ -197,6 +197,8 @@
     conkeror-minor-mode
     sml-mode
     flycheck-sml
+    vbasense
+    visual-basic-mode
 
     ;; ruby
     ruby-block
@@ -316,6 +318,8 @@
     emms-player-mpv-jp-radios
     google-translate
 
+    calfw
+
     ;; 61_terminal
     elscreen
     elscreen-wl
@@ -349,8 +353,6 @@
     xterm-color
 
     ;; 未整理
-    calfw
-
     eww-lnum
 
     ddskk
@@ -419,8 +421,6 @@
     omni-tags
     git-timemachine
     minitest
-    vbasense
-    visual-basic-mode
     ;; pdf-tools
     flyspell
     centered-cursor-mode
