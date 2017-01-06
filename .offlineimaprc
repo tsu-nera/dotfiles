@@ -15,6 +15,5 @@ localfolders = ~/Maildir
 type = Gmail
 ssl = yes
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
-cert_fingerprint=88af2ca8d7776d9ae3c05b2b2880ae8cd6745986
 maxconnections = 1
 realdelete = no

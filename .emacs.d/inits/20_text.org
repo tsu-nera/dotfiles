@@ -663,8 +663,11 @@
    最近便利になってきた. isearch と置き換えてみようか.
    - https://github.com/abo-abo/swiper
 
+   起動 がおそいので封印することにした。
+
 #+begin_src emacs-lisp
 (use-package swiper
+  :disabled t
   :bind* (("C-s" . swiper)
           ("C-u C-s" . isearch-forward)))
 #+end_src

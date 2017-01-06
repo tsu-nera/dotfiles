@@ -1,3 +1,4 @@
+
 * Programming
   いろいろなプログラミング言語に関わる設定.
 
@@ -153,7 +154,7 @@
 (use-package indent-guide
   :config
   (setq indent-guide-delay 0.1)
-  (setq indent-guide-recursive t)
+  (setq indent-guide-recursive nil)
   ;; (set-face-foreground 'indent-guide-face "cyan")
   (add-hook 'prog-mode-hook 'indent-guide-mode))
 #+end_src
