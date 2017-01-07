@@ -696,9 +696,11 @@
    emacs よう diff ツール
    - http://www.emacswiki.org/emacs/EdiffMode
 
+   vdiff に乗り換えてみる
+
    #+begin_src emacs-lisp
 (use-package ediff
-  :defer t
+  :disabled t
   :config
   ;; コントロール用のバッファを同一フレーム内に表示
   (setq ediff-window-setup-function 'ediff-setup-windows-plain)
@@ -709,6 +711,16 @@
 					'split-window-horizontally
 				      'split-window-vertically))
   )
+#+end_src
+
+** vdiff 
+   diff tool like vimdiff
+   - https://github.com/justbur/emacs-vdiff
+
+#+begin_src emacs-lisp
+(use-package vdiff
+  :config
+  (define-key vdiff-mode-map (kbd "C-c") vdiff-mode-prefix-map))
 #+end_src
 
 ** tdd

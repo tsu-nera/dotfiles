@@ -171,6 +171,7 @@
     aggressive-indent-mode
     marshal
     indent-guide
+    vdiff
 
     ;; lisp
     smartrep

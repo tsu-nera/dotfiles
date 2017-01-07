@@ -1,0 +1,3 @@
+(:name vdiff
+       :type github
+       :pkgname "justbur/emacs-vdiff")
