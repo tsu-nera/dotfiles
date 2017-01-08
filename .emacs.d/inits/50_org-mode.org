@@ -689,6 +689,10 @@
 	 ;; :username (netrc-get futurismo "login")
 	 ;; :password (netrc-get futurismo "password")
 	 )
+	("English Hacks"
+         :url "http://hmi-me.ciao.jp/toeic/xmlrpc.php"         
+	 :username "tsu-nera"	 
+         )
         ("Futurismo Dev"
          :url "http://hmi-me.ciao.jp/futurismo_dev/xmlrpc.php"
 	 :username "admin"
@@ -1604,7 +1608,8 @@ containing the properties `:guid' and `:item-full-text'."
       (interactive)
 	(cancel-timer org-mobile-sync-timer))
 
-(org-mobile-sync-enable)
+;; 無効にしておくか
+;; (org-mobile-sync-enable)
 #+end_src
 
 * Bookmarks

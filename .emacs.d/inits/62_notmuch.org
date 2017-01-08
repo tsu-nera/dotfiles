@@ -10,6 +10,8 @@
 sudo apt-get install libxapian-dev libgmime-2.6-dev libtalloc-dev zlib1g-dev python-sphinx
 #+end_src
 
+msmtp のインストール。
+
 notmuch のインストール。
 
 #+begin_src bash
@@ -23,7 +25,6 @@ make install
 #+begin_src emacs-lisp
 (use-package notmuch
   :config
-  
   ;;  SMTP configuration
   ;; use msmtp
   (setq message-send-mail-function 'message-send-mail-with-sendmail)

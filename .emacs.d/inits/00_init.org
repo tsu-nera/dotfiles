@@ -204,7 +204,9 @@
     ;; ruby
     ruby-block
     robe-mode
-    ;; ruby-electric end が２つ挿入される？？？
+    ;; ruby-electric 
+    ;; ruby-end
+    ;; smartparens が有効だと、end が２つ挿入される？？？
     rspec-mode
     ruby-refactor
     rcodetools

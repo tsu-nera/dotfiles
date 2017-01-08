@@ -3,10 +3,11 @@
 # key: gitcard
 # binding: direct-keybinding
 # --
-#+BEGIN_HTML
-<div data-theme="default" data-height="155" data-width="500" data-github="$1" class="github-card"></div>
+#+BEGIN_EXPORT HTML
+#+BEGIN_EXPORT HTML
+<div class="github-card" data-github="$1" data-width="400" data-height="177" data-theme="default"></div>
 <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
-#+END_HTML
+#+END_EXPORT
 
   - $2
 $0

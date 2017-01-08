@@ -147,19 +147,6 @@
 (global-set-key "\M-d" 'kill-word-at-point)
 #+end_src
 
-** omni-kill
-  - https://github.com/AdrieanKhisbe/omni-kill.el
-
-    動かないよ。170105
-
-#+begin_src emacs-lisp
-(use-package omni-kill
-    :bind (("M-s c". omni-copy)
-           ("M-s d". omni-delete)
-           ("M-s k". omni-kill)
-           ("M-s s". omni-select)))
-#+end_src
-
 ** cua-mode
    矩形編集.
 
