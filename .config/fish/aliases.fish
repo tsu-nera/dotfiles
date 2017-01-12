@@ -28,7 +28,7 @@ function peco
 end
 
 function ghq-remove
-        ghq list --full-path | peco | xargs rm -r -i
+        ghq list --full-path | peco | xargs rm -r
 end
 
 function fish_user_key_bindings

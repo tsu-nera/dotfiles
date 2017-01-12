@@ -1,7 +1,1 @@
-function peco_todoist_close
-  todoist list | peco | cut -d ' ' -f 1 | tr '\n' ' ' | sed -e 's/[ \t]*$//' | read ret 
-  if [ $ret ]
-    todoist close $ret
-    commandline -f repaint
-  end
-end
+/home/tsu-nera/.config/fisherman/peco_todoist/functions/peco_todoist_close.fish
