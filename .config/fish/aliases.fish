@@ -45,7 +45,7 @@ function fish_user_key_bindings
 
         # fzf
         bind \cx\cf '__fzf_find_file'
-        # bind \ct '__fzf_reverse_isearch'
+        bind \ctr '__fzf_reverse_isearch'
         bind \ex '__fzf_find_and_execute'
         bind \ed '__fzf_cd'
         bind \eD '__fzf_cd_with_hidden'
