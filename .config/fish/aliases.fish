@@ -1,26 +1,24 @@
-alias o 'xdg-open'
-alias c 'cygstart'
-alias forced_git_local_destroy 'git fetch origin;git reset --hard origin/master'
-alias xmap 'xmodmap ~/.Xmodmap'
+balias o 'xdg-open'
+balias c 'cygstart'
+balias forced_git_local_destroy 'git fetch origin;git reset --hard origin/master'
+balias xmap 'xmodmap ~/.Xmodmap'
 
 # Emacs関連
-alias boot_emacs "emacs --daemon"
-alias kill_emacs "emacsclient -e \"(kill-emacs)\""
-alias m 'emacsclient -nw'
+balias boot_emacs "emacs --daemon"
+balias kill_emacs "emacsclient -e \"(kill-emacs)\""
+balias m 'emacsclient -nw'
 
 function reboot_emacs
 	 kill_emacs;boot_emacs
 end
 
 # 画面ロック
-alias lock 'gnome-screensaver-command -l'
+balias lock 'gnome-screensaver-command -l'
 
 # シャットダウン
-alias fault 'sudo shutdown -P now'
+balias fault 'sudo shutdown -P now'
 
-function tdi
-        todoist-cli item new $argv 192059838 #inbox id
-end
+balias td 'todoist --color'
 
 #######################################
 ## peco
@@ -39,18 +37,25 @@ function fish_user_key_bindings
         # gh-open
         bind \cx\cl peco_open_gh_repository
         # コマンド履歴を見る
-       bind \cr peco_select_history
+        bind \cr peco_select_history
         # プロセスをキルする
         bind \cx\ck peco_kill
         # 最近見たディレクトリに移動
         bind \cx\cr peco_recentd
 
         # fzf
-        bind \cf '__fzf_find_file'
-        bind \ct '__fzf_reverse_isearch'
+        bind \cx\cf '__fzf_find_file'
+        # bind \ct '__fzf_reverse_isearch'
         bind \ex '__fzf_find_and_execute'
         bind \ed '__fzf_cd'
         bind \eD '__fzf_cd_with_hidden'
+
+        # todoist
+        bind \ctt peco_todoist_item
+        bind \ctp peco_todoist_project
+        bind \ctl peco_todoist_labels
+        bind \ctc peco_todoist_close
+        bind \ctd peco_todoist_delete
 end
 #######################################################
 # multi-display
