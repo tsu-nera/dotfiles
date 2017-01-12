@@ -284,14 +284,13 @@ geeknote settings --editor "emacsclient"
 
 #+begin_src emacs-lisp
 (use-package geeknote
-  :disabled t
   :init
-  ;; (global-set-key (kbd "C-c g c") 'geeknote-create)
-  ;; (global-set-key (kbd "C-c g e") 'geeknote-edit)
-  ;; (global-set-key (kbd "C-c g f") 'geeknote-find)
-  ;; (global-set-key (kbd "C-c g s") 'geeknote-show)
-  ;; (global-set-key (kbd "C-c g r") 'geeknote-remove)
-  ;; (global-set-key (kbd "C-c g m") 'geeknote-move)
+  (global-set-key (kbd "C-c g c") 'geeknote-create)
+  (global-set-key (kbd "C-c g e") 'geeknote-edit)
+  (global-set-key (kbd "C-c g f") 'geeknote-find)
+  (global-set-key (kbd "C-c g s") 'geeknote-show)
+  (global-set-key (kbd "C-c g r") 'geeknote-remove)
+  (global-set-key (kbd "C-c g m") 'geeknote-move)
   )
 #+end_src
 
@@ -1002,7 +1001,7 @@ command uses interactive mode if passed an argument."
    - http://sheephead.homelinux.org/2014/03/17/7076/
 
    github のやつだと, コンパイルエラーするので, fork して無理やり通した.
-   -> patch とりこまれた
+   -> patch とりこまれ
 
    ArchLinux では, GhostScript を入れる.
 
@@ -1012,34 +1011,32 @@ sudo pacman -S ghostscript
 
    うーん, minor-mode が hook で有効にならないな...
 
- #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (use-package pdf-tools
-  :disabled t
   :if linux-p
+  :mode (("\\.pdf$" . pdf-view-mode))
   :init
   (setq pdf-info-epdfinfo-program
-	(concat (el-get-package-directory "pdf-tools") "server/epdfinfo"))
+        (concat (el-get-package-directory "pdf-tools") "server/epdfinfo"))
   (add-hook 'pdf-view-mode-hook 'pdf-tools-enable-minor-modes)
-  ;; (add-hook 'pdf-tools-enabled-hook 'pdf-tools-enable-minor-modes)
-  :mode (("\\.pdf$" . pdf-view-mode))
+  (add-hook 'pdf-tools-enabled-hook 'pdf-tools-enable-minor-modes)
   :config
   (setq pdf-util-convert-program "/usr/bin/convert -font Ricty-Bold")
   (setq pdf-view-use-imagemagick t)
   (setq pdf-view-use-scaling t)
   (setq pdf-view-display-size 'fit-page))
-
-	      ;; (use-package pdf-isearch)
-	      ;; (use-package pdf-annot)
-	      ;; (use-package pdf-history) 
-	      ;; (use-package pdf-info)
-	      ;; (use-package pdf-links) 
-	      ;; (use-package pdf-misc) 
-	      ;; (use-package pdf-occur) 
-	      ;; (use-package pdf-outline) 
-	      ;; (use-package pdf-sync) 
-	      ;; (use-package tablist-filter)
-	      ;; (use-package tablist))))
- #+end_src
+(use-package pdf-isearch)
+(use-package pdf-annot)
+(use-package pdf-history) 
+(use-package pdf-info)
+(use-package pdf-links) 
+(use-package pdf-misc) 
+(use-package pdf-occur) 
+(use-package pdf-outline) 
+(use-package pdf-sync) 
+(use-package tablist-filter)
+(use-package tablist)
+#+end_src
 
 *** linum-mode は無効に
     どうも, doc-view-mode がめちゃくちゃ遅い!linum-mode が有効なことが原因.
@@ -1061,10 +1058,6 @@ sudo pacman -S ghostscript
     - libglib-dev
     - libpopper
     - libpoppwer-glib8
-** calfw
-   Emacs 用カレンダー.
-   -> org-mode に移動.
-
 ** psession
    セッション保存. elscreen に対応してくれないかな. . .
    - [[https://github.com/thierryvolpiatto/psession][thierryvolpiatto/psession]]

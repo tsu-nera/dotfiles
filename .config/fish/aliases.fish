@@ -18,10 +18,9 @@ alias lock 'gnome-screensaver-command -l'
 # シャットダウン
 alias fault 'sudo shutdown -P now'
 
-# Power Line
-# function fish_prompt
-#     ~/powerline-shell.py $status --shell bare ^/dev/null
-# end
+function tdi
+        todoist-cli item new $argv 192059838 #inbox id
+end
 
 #######################################
 ## peco
@@ -30,16 +29,17 @@ function peco
   command peco --layout=bottom-up $argv
 end
 
-function peco_recentf
-        z -l | peco | awk '{ print $2 }' | read recentf
-        cd $recentf
+function ghq-remove
+        ghq list --full-path | peco | xargs rm -r -i
 end
 
 function fish_user_key_bindings
         # ghqを選択
         bind \cl peco_select_ghq_repository
+        # gh-open
+        bind \cx\cl peco_open_gh_repository
         # コマンド履歴を見る
-        bind \cr peco_select_history
+       bind \cr peco_select_history
         # プロセスをキルする
         bind \cx\ck peco_kill
         # 最近見たディレクトリに移動

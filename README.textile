@@ -1,0 +1,44 @@
+h1. Fish nuggets
+
+The fish nuggets project contains various completions and functions for the amazing "Fish shell":http://www.fish-shell.org.
+
+h2. Git features
+
+* Provides completion for git commands (eg. git ch<tab> completes for you)
+* Provides completion of branch names for git branch
+
+h2. Rake features
+
+Completion of rake tasks with task description. The first time you type rake <tab> we will create a file containing the rake tasks in /tmp giving you tab completion of rake tasks. This supports several Rakefile locations, so you can use it for different projects.
+
+h2. Capistrano features
+
+Like Rake, lets you use tab completion for Capistrano tasks.
+
+h2. Rubygems features
+
+* edit_gem with tab completion for gem name lets you view the source for installed gems
+* gem_doc with tab completion for gem name lets you view Rdoc for installed gems
+
+h2.  Installation
+<pre><code>  cd ~/.config/fish
+  git init 
+  git add .
+  git remote add github git://github.com/zmalltalker/fish-nuggets.git
+  git pull github master
+</code></pre>
+
+
+Go into ~/.config/fish and add this repository, then pull. This will add the scripts in this projects for you to use.
+
+h2. Customization
+
+Since this repository is intended to replace your ~/.config/fish directory, you should keep your local customizations local - since they are probably of little use to other users.
+
+The package provides some files you may customize:
+
+* ~/.config/fish/(username).fish: Here you can place custom settings for your current user. This file will be loaded when you start fish
+* ~/.config/fish/(machine name).fish: If you use the same repository on several machines, you may place custom settings for each machine in this file. For instance, if you have two machines: foo and bar, foo.fish will be loaded on foo and bar.fish on bar. 
+* ~/.config/fish/(platform).fish: This file is version controlled and keeps platform specific functions. Feel free to contribute functions for your favorite OS here
+
+If you contribute custom functions that you wish to share, please verify that these are not loaded on platforms that don't support them. 

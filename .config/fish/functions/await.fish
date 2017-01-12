@@ -1,0 +1,1 @@
+/home/tsu-nera/.config/fisherman/await/functions/await.fish

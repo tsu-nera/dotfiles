@@ -334,6 +334,9 @@
     multi-eshell
     eshell-z
 
+    pdf-tools
+    emacs-geeknote
+
     ;; neotree
 
     ;; 61_wanderlust
@@ -424,7 +427,7 @@
     omni-tags
     git-timemachine
     minitest
-    ;; pdf-tools
+    ;; 
     flyspell
     centered-cursor-mode
     pangu-spacing

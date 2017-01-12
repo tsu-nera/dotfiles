@@ -26,3 +26,6 @@ set fish_user_paths $HOME/.cask/bin $fish_user_paths
 
 # notmuch
 set -x XAPIAN_CJK_NGRAM 1
+
+# anaconda
+set fish_user_paths $HOME/anaconda3/bin $fish_user_paths

@@ -46,3 +46,8 @@ M-x el-get-emacswiki-build-local-recipes
 ** w3m
    - Windows (Cygwin) w3m
     バイナリ落とす: [[http://hp.vector.co.jp/authors/VA052357/w3m_w32.html][OOTA's page]]
+** pdf-tools
+
+   $ sudo aptitude install libpng-dev libz-dev 
+   $ sudo aptitude install libpoppler-glib-dev 
+   $ sudo aptitude install libpoppler-private-dev 

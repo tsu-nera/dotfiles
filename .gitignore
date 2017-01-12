@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # All Ignore
 *~
 *\#$
@@ -41,3 +42,7 @@ tmp
 /.emacs.d/places
 /.emacs.d/recentf.hatenabookmark
 .hatenabookmark
+=======
+fish_history
+fishd.*
+>>>>>>> 84822afd9549bcba4a5f4ee5c82001670196b322
