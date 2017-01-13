@@ -1,16 +1,6 @@
-balias o 'xdg-open'
-balias c 'cygstart'
+balias o open
 balias forced_git_local_destroy 'git fetch origin;git reset --hard origin/master'
 balias xmap 'xmodmap ~/.Xmodmap'
-
-# Emacs関連
-balias boot_emacs "emacs --daemon"
-balias kill_emacs "emacsclient -e \"(kill-emacs)\""
-balias m 'emacsclient -nw'
-
-function reboot_emacs
-	 kill_emacs;boot_emacs
-end
 
 # 画面ロック
 balias lock 'gnome-screensaver-command -l'
@@ -20,9 +10,16 @@ balias fault 'sudo shutdown -P now'
 
 balias td 'todoist --color'
 
-#######################################
+alias .. 'cd ..'
+alias ... 'cd ../..'
+alias .... 'cd ../../..'
+alias ..... 'cd ../../../..'
+
+######################################
 ## peco
 ######################################
+set -x FILTER peco
+
 function peco
   command peco --layout=bottom-up $argv
 end
@@ -57,9 +54,9 @@ function fish_user_key_bindings
         bind \ctc peco_todoist_close
         bind \ctd peco_todoist_delete
 end
-#######################################################
+##################
 # multi-display
-#######################################################
+##################
 # set dual monitors
 function dual
         xrandr --output eDP1 --primary --left-of HDMI1 --output HDMI1 --mode 1280x720
@@ -74,9 +71,17 @@ function single
         xrandr --output HDMI1 --off
 end
 
-############
+###########
 ## Emacs
 ###########
+balias boot_emacs "emacs --daemon"
+balias kill_emacs "emacsclient -e \"(kill-emacs)\""
+balias m 'emacsclient -nw'
+
+function reboot_emacs
+	 kill_emacs;boot_emacs
+end
+
 function dired 
         emacsclient -e "(dired \"$PWD\")"
 end

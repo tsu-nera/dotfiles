@@ -1,7 +1,7 @@
-export LANG=ja_JP.UTF-8
-export LD_LIBRARY_PATH=/usr/local/lib
-export LIBRARY_PATH=/usr/local/lib
-export CPATH=/usr/local/include
+set -x LANG ja_JP.UTF-8
+set -x LD_LIBRARY_PATH /usr/local/lib
+set -x LIBRARY_PATH /usr/local/lib
+set -x CPATH /usr/local/include
 
 set fish_user_paths ~/script/sh $fish_user_paths
 set fish_user_paths ~/script/ruby $fish_user_paths

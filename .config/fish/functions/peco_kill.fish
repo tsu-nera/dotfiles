@@ -1,0 +1,1 @@
+/home/tsu-nera/.config/fisherman/peco/functions/peco_kill.fish

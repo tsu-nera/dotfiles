@@ -1,0 +1,1 @@
+/home/tsu-nera/.config/fisherman/balias/functions/balias.fish

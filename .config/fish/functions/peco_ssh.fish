@@ -1,0 +1,1 @@
+/home/tsu-nera/.config/fisherman/peco_ssh/peco_ssh.fish

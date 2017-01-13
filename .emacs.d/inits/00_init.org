@@ -322,6 +322,7 @@
     google-translate
 
     calfw
+    howm
 
     ;; 61_terminal
     elscreen

@@ -1,0 +1,1 @@
+/home/tsu-nera/.config/fisherman/bd/functions/bd.fish

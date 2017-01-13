@@ -1,0 +1,1 @@
+/home/tsu-nera/.config/fisherman/default/fish_right_prompt.fish
