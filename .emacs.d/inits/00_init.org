@@ -200,6 +200,7 @@
     flycheck-sml
     vbasense
     visual-basic-mode
+    ac-octave
 
     ;; ruby
     ruby-block
@@ -337,6 +338,7 @@
 
     pdf-tools
     emacs-geeknote
+    evernote-mode
 
     ;; neotree
 
@@ -451,6 +453,9 @@
 ** el-get config
 
 #+begin_src emacs-lisp
+;; なぜか byte-compile で失敗するようになった。解決するまで byte-compile 禁止
+;; (setq el-get-byte-compile nil)
+
 ;; 通知は minibuffer のみ
 (setq el-get-notify-type 'message)
 

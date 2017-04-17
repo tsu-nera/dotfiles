@@ -239,7 +239,8 @@
   ;; -> org-mode と auto-complete の共用はバクあり.
   (add-to-list 'ac-modes 'org-mode)
   (add-to-list 'ac-modes 'sml-mode)
-  (add-to-list 'ac-modes 'racket-mode)   
+  (add-to-list 'ac-modes 'racket-mode)
+  (add-to-list 'ac-modes 'octave-mode)
 
   ;; メニュー表示を遅延
   ;; (setq ac-auto-show-menu 0.5)

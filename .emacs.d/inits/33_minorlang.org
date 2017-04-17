@@ -183,7 +183,26 @@
      - mlton のインストールが必要らしい
      
 #+begin_src emacs-lisp
-(require 'flycheck-sml)
+(use-package lycheck-sml)
+#+end_src
+* Octave
+
+#+begin_src emacs-lisp
+(use-package octave-mode
+  :mode (("\\.m$" . octave-mode)))
+#+end_src
+
+** ac-octave
+   - https://github.com/coldnew/ac-octave
+
+     うごかないよ。。。
+
+#+begin_src emacs-lisp
+(require 'ac-octave)
+(defun ac-octave-mode-setup ()
+  (setq ac-sources '(ac-source-octave)))
+ (add-hook 'octave-mode-hook
+           '(lambda () (ac-octave-mode-setup)))
 #+end_src
 
 * Othres

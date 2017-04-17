@@ -20,7 +20,8 @@
 (if linux-p
     (setq py-install-directory "~/.emacs.d/el-get/repo/python-mode"))
 (if windows-p
-    (setq py-install-directory "C:\cygwin64\home\tsu-nera\dotfiles\.emacs.d\el-get\repo\python-mode")
+    (setq py-install-directory "C:\cygwin64\home\tsu-nera\dotfiles\.emacs.d\el-get\repo\python-mode"))
+(if windows-p
     (setq python-shell-interpreter "c:/Python34/python.exe"))
 (add-to-list 'load-path py-install-directory)
 (require 'python-mode)
@@ -107,10 +108,10 @@ pip install virtualenv
    以下のようにすれば実行コマンドをオーバライドできる.
    
 #+begin_src emacs-lisp
-(eval-after-load 'quickrun
-  '(progn
-     (quickrun-add-command "python" '((:command . "python2"))
-			   :override t)))
+;; (eval-after-load 'quickrun
+;;  '(progn
+;;     (quickrun-add-command "python" '((:command . "python2"))
+;;			   :override t)))
 #+end_src
 
 ** TODO iPython
@@ -180,6 +181,19 @@ flake8-python2 を利用するようにする.
 ** etags
   これが使えた！
   - http://stackoverflow.com/questions/3501040/how-can-i-use-meta-dot-m-in-python-with-emacs#
+
+* ipython-notebook
+  Emacs から jupyter notebook が利用できる。
+  - http://millejoh.github.io/emacs-ipython-notebook/
+
+  ものすごくロードに時間がかかる。。。
+
+#+begin_src emacs-lisp
+;; (require 'ein)
+;; (require 'ein-loaddefs)
+;; (require 'ein-notebook) 
+;; (require 'ein-subpackages)
+#+end_src
 
 * Links
   - [[http://www.emacswiki.org/PythonProgrammingInEmacs][EmacsWiki: Python Programming In Emacs]]

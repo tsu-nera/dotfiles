@@ -29,3 +29,6 @@ set -x XAPIAN_CJK_NGRAM 1
 
 # anaconda
 set fish_user_paths $HOME/anaconda3/bin $fish_user_paths
+
+# tensorflow
+set -x TF_CPP_MIN_LOG_LEVEL 2

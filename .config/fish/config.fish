@@ -7,6 +7,9 @@
 # 環境変数読み込み
 . ~/.config/fish/env.fish
 
+# conda
+. ~/.config/fish/conda.fish
+
 # rbenv
 rbenv init - | source
 

@@ -343,16 +343,16 @@ $ sudo cp /usr/bin/ruby1.9/bin/enclient.rb /usr/bin
 #+begin_src emacs-lisp
 (use-package evernote-mode
   :disabled t
-  :init
-  (setq evernote-ruby-command "ruby-1.9")
+  :config
+  (setq evernote-username "tsu-nera")
+  ;; (setq evernote-developer-token "")
   (global-set-key "\C-cec" 'evernote-create-note)
   (global-set-key "\C-ceo" 'evernote-open-note)
   (global-set-key "\C-ces" 'evernote-search-notes)
   (global-set-key "\C-ceS" 'evernote-do-saved-search)
   (global-set-key "\C-cew" 'evernote-write-note)
   (global-set-key "\C-cep" 'evernote-post-region)
-  (global-set-key "\C-ceb" 'evernote-browser)
-  )
+  (global-set-key "\C-ceb" 'evernote-browser))
 #+end_src
 
 ** camcorder
