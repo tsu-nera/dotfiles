@@ -1,0 +1,23 @@
+<settings encoding="utf-8">
+  <preference name="autoDownload" value="ask" />
+  <preference name="braillePath" />
+  <preference name="debug" value="0" />
+  <preference name="directoryScratch" />
+  <preference name="graphicsPath" />
+  <preference name="ipythonShowFormat" value="ipython.musicxml.png" />
+  <preference name="lilypondBackend" value="ps" />
+  <preference name="lilypondFormat" value="pdf" />
+  <preference name="lilypondPath" value="/home/tsu-nera/repo/deepclassic/lilypond" />
+  <preference name="lilypondVersion" />
+  <localCorporaSettings />
+  <localCorpusSettings />
+  <preference name="manualCoreCorpusPath" />
+  <preference name="midiPath" value="/usr/bin/timidity"/>
+  <preference name="musescoreDirectPNGPath" />
+  <preference name="musicxmlPath" value="/usr/bin/musescore" />
+  <preference name="pdfPath" />
+  <preference name="showFormat" value="musicxml" />
+  <preference name="vectorPath" />
+  <preference name="warnings" value="1" />
+  <preference name="writeFormat" value="musicxml" />
+</settings>

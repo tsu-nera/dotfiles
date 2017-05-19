@@ -1,0 +1,1 @@
+/home/tsu-nera/.config/fisherman/bass/functions/bass.fish

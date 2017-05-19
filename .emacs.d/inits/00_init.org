@@ -224,6 +224,8 @@
     ;; python
     python-mode
     jedi
+    pythonic
+    conda
  
    ;; java
     eclim
@@ -454,7 +456,7 @@
 
 #+begin_src emacs-lisp
 ;; なぜか byte-compile で失敗するようになった。解決するまで byte-compile 禁止
-;; (setq el-get-byte-compile nil)
+(setq el-get-byte-compile nil)
 
 ;; 通知は minibuffer のみ
 (setq el-get-notify-type 'message)

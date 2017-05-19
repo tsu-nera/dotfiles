@@ -1,6 +1,28 @@
 * Python
   Python 環境.
 
+** elpy
+   総合環境
+   - [[https://github.com/jorgenschaefer/elpy][jorgenschaefer/elpy: Emacs Python Development Environment]]
+   
+#+begin_src emacs-lisp
+;;; Elpy を有効化
+;; (require 'elpy)
+;; (elpy-enable)
+;;; 使用する Anaconda の仮想環境を設定
+;; (defvar venv-default "~/anaconda3/envs/py36")
+;;; virtualenv を使っているなら次のようなパス
+;; (defvar venv-default "~/.virtualenvs/hoge")
+;;; デフォルト環境を有効化
+;; (pyvenv-activate venv-default)
+;;; REPL 環境に IPython を使う
+;; (elpy-use-ipython)
+;;; 自動補完のバックエンドとして Rope か Jedi を選択
+;; (setq elpy-rpc-backend "jedi")
+#+end_src
+
+** anaconda-mode
+
 * シンタックスハイライト
   python.el は公式, python-mode.el は Python コミュニティによって作成されたもの.
 
@@ -41,20 +63,14 @@
    - [[http://qiita.com/yuu116atlab/items/2a62cb880ac863dcc8ef][emacs-jedi の install - Qiita]]
    - https://github.com/tkf/emacs-jedi
 
-   virtualenv が必要.
-
-#+begin_src bash
-pip install virtualenv
-#+end_src
-
   初回利用時には、M-x jedi:install-server
 
   他の環境で動かないので、封印
 
 #+begin_src emacs-lisp
-;;(add-hook 'python-mode-hook 'jedi:setup)
-;; (add-hook 'python-mode-hook 'jedi:ac-setup) ;; auto-complete のソースに追加
-;; (setq jedi:complete-on-dot t)
+(add-hook 'python-mode-hook 'jedi:setup)
+(add-hook 'python-mode-hook 'jedi:ac-setup) ;; auto-complete のソースに追加
+(setq jedi:complete-on-dot t)
 #+end_src
 
  jump もできる.
@@ -195,6 +211,21 @@ flake8-python2 を利用するようにする.
 ;; (require 'ein-subpackages)
 #+end_src
 
+* virtual environment
+** conda
+   - [[https://github.com/necaris/conda.el][necaris/conda.el: Emacs helper library (and minor mode) to work with conda environments]]
+
+   #+begin_src emacs-lisp
+(use-package conda
+  :config
+  ;; if you want interactive shell support, include:
+  (conda-env-initialize-interactive-shells)
+  ;; if you want eshell support, include:
+  (conda-env-initialize-eshell)
+  ;; if you want auto-activation (see below for details), include:
+  (conda-env-autoactivate-mode t)
+  )
+#+end_src
 * Links
   - [[http://www.emacswiki.org/PythonProgrammingInEmacs][EmacsWiki: Python Programming In Emacs]]
   - [[http://www.jesshamrick.com/2012/09/18/emacs-as-a-python-ide/][Emacs as a Python IDE - Jessica Hamrick]]
