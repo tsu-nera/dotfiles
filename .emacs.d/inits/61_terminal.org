@@ -41,11 +41,11 @@
 
   ;; zsh の環境変数を取り込む
   ;; http://d.hatena.ne.jp/zonu_exe/20120509/1336583187
-  (let ((zshpath (shell-command-to-string "/usr/bin/zsh -c 'printenv PATH'")))
-    (let ((pathlst (split-string zshpath ":")))
-      (setq exec-path pathlst))
-    (setq eshell-path-env zshpath)
-    (setenv "PATH" zshpath))
+;;  (let ((zshpath (shell-command-to-string "/usr/bin/zsh -c 'printenv PATH'")))
+;;    (let ((pathlst (split-string zshpath ":")))
+;;      (setq exec-path pathlst))
+;;    (setq eshell-path-env zshpath)
+;;    (setenv "PATH" zshpath))
 
   ;; windows 環境だと, shift-jis にしよう
   (when windows-p
@@ -235,10 +235,10 @@
    - http://sakito.jp/emacs/emacsshell.html#emacs
 
 #+begin_src emacs-lisp
-(use-package exec-path-from-shell
-  :config
-  (when (memq window-system '(mac ns))
-    (exec-path-from-shell-initialize)))
+;;(use-package exec-path-from-shell
+;;  :config
+;;  (when (memq window-system '(mac ns x))
+;;    (exec-path-from-shell-initialize)))
 #+end_src
 
 ** Emacs の起動フォルダを変更する.
@@ -512,8 +512,8 @@
    w をおすと別タブで開くので, ちょい便利.
    
  #+begin_src emacs-lisp
-(when windows-p
-  (use-package elscreen-wl))
+;;(when windows-p
+;;  (use-package elscreen-wl))
 #+end_src
 
  どこかで無限ループになっているな... 1 秒くらいここでかかっている.

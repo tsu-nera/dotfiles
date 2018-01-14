@@ -12,12 +12,12 @@
   <localCorporaSettings />
   <localCorpusSettings />
   <preference name="manualCoreCorpusPath" />
-  <preference name="midiPath" value="/usr/bin/timidity"/>
-  <preference name="musescoreDirectPNGPath" />
+  <preference name="midiPath" value="/usr/bin/timidity" />
+  <preference name="musescoreDirectPNGPath" value="/usr/bin/musescore" />
   <preference name="musicxmlPath" value="/usr/bin/musescore" />
   <preference name="pdfPath" />
-  <preference name="showFormat" value="musicxml" />
+  <preference name="showFormat" value="lilypond" />
   <preference name="vectorPath" />
   <preference name="warnings" value="1" />
-  <preference name="writeFormat" value="musicxml" />
+  <preference name="writeFormat" value="lilypond" />
 </settings>

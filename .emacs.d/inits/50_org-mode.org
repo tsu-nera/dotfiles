@@ -1023,6 +1023,25 @@
 (use-package ox-textile :defer t)
 #+end_src
 
+** MathJax の設定
+  Default の設定だと参照する MathJax の version が古いらしく、以下の設定で最新が使える。
+  - [[http://www.i3s.unice.fr/~malapert/org/tips/emacs_orgmode.html][Yet Another Org-Mode Configuration]]
+
+#+begin_src emacs-lisp
+(setq org2blog-use-wp-latex nil)
+(setq org2blog-use-sourcecode-shortcode nil)
+
+(setf org-html-mathjax-options
+      '((path "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
+        (scale "100") 
+        (align "center") 
+        (indent "2em")
+        (mathml nil))
+      )
+(setf org-html-mathjax-template
+      "<script type=\"text/javascript\" src=\"%PATH\"></script>")
+#+end_src
+
 ** 未使用中
 *** ox-rst
    org-mode から reStructredText への変換

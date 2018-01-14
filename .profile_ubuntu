@@ -53,4 +53,7 @@ copyq &
 redshift-gtk &
 
 # メール同期
-offlineimap &
+# offlineimap &
+
+oyainput &
+xmodmap .Xmodmap

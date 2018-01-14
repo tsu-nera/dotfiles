@@ -94,8 +94,8 @@ git clone git://git.savannah.gnu.org/emacs.git
 ;;; 同じ内容を履歴に記録しないようにする
 (setq history-delete-duplicates t)
 
-;;; インデントに TAB を使わないようにする
-(setq-default indent-tabs-mode nil)
+;;; インデントに TAB を使うようにする
+(setq-default indent-tabs-mode t)
 
 ;;; GC を減らして軽くする
 (setq gc-cons-threshold (* 10 gc-cons-threshold))

@@ -5,7 +5,8 @@ set -x CPATH /usr/local/include
 
 set fish_user_paths ~/script/sh $fish_user_paths
 set fish_user_paths ~/script/ruby $fish_user_paths
-set fish_user_paths ~/script/scala $fish_user_paths        
+set fish_user_paths ~/script/scala $fish_user_paths
+set fish_user_paths ~/script/python $fish_user_paths
 
 set -x EDITOR emacs
 set -x VISUAL "emacsclient -nw"
@@ -32,3 +33,4 @@ set fish_user_paths $HOME/anaconda3/bin $fish_user_paths
 
 # tensorflow
 set -x TF_CPP_MIN_LOG_LEVEL 2
+
