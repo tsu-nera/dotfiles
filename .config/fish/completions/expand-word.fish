@@ -1,0 +1,1 @@
+/home/tsu-nera/.config/fisherman/expand/completions/expand-word.fish

@@ -1,0 +1,1 @@
+/home/tsu-nera/.config/fisherman/get/completions/get.fish

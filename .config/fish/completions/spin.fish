@@ -1,0 +1,1 @@
+/home/tsu-nera/.config/fisherman/spin/completions/spin.fish

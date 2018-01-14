@@ -8,10 +8,7 @@
 . ~/.config/fish/env.fish
 
 # conda
-. ~/.config/fish/conda.fish
-
-# rbenv
-rbenv init - | source
+source (conda info --root)/etc/fish/conf.d/conda.fish
 
 # Ensure fisherman and plugins are installed
 if not test -f $HOME/.config/fish/functions/fisher.fish

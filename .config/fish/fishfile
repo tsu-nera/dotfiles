@@ -18,7 +18,6 @@ oh-my-fish/plugin-peco
 tsu-nera/fish-peco_open_gh_repository
 tsu-nera/fish-peco_recentd
 yoshiori/fish-peco_select_ghq_repository
-# https://gist.github.com/patorash/377268ef75f012318279
 ka2n/fish-peco_todoist
 fisherman/spin
 fisherman/z
