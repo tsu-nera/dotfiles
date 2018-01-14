@@ -224,6 +224,14 @@ flake8-python2 を利用するようにする.
   (conda-env-initialize-eshell)
   ;; if you want auto-activation (see below for details), include:
   (conda-env-autoactivate-mode t)
+  (custom-set-variables
+   '(conda-anaconda-home "/home/tsu-nera/anaconda3"))
+
+  (defun conda-remove-path()
+    (interactive)
+    (delq "/home/tsu-nera/anaconda3/bin" (getenv "PATH"))
+    )
+  (setq exec-path (delete "/home/tsu-nera/anaconda3/bin" exec-path))
   )
 #+end_src
 * Links

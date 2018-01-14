@@ -15,6 +15,13 @@ alias ... 'cd ../..'
 alias .... 'cd ../../..'
 alias ..... 'cd ../../../..'
 
+alias scrotclip 'scrot -s ~/foo.png; and xclip ~/foo.png; and rm ~/foo.png'
+
+function conda-activate
+    # anaconda
+    set fish_user_paths $HOME/anaconda3/bin $fish_user_paths
+end
+
 ######################################
 ## peco
 ######################################
@@ -59,16 +66,20 @@ end
 ##################
 # set dual monitors
 function dual
+        xrandr --output DVI-I-1-1 --auto --right-of eDP1
+end
+
+function dual2
         xrandr --output eDP1 --primary --left-of HDMI1 --output HDMI1 --mode 1280x720
 end
-        
-function dual2
+
+function dual3
         xrandr --output eDP1 --primary --left-of HDMI1 --output HDMI1 --auto
 end
 
 # set single monitor
 function single
-        xrandr --output HDMI1 --off
+        xrandr --output DVI-I-1-1 --off
 end
 
 ###########
@@ -82,13 +93,12 @@ function reboot_emacs
 	 kill_emacs;boot_emacs
 end
 
-function dired 
+function dired
         emacsclient -e "(dired \"$PWD\")"
 end
-
 ## Chdir to the ``default-directory'' of currently opened in Emacs buffer.
 function cde
         emacsclient -e "(return-current-working-directory-to-shell)" | sed 's/^"\(.*\)"$/\1/' | read EMACS_CWD
         echo "chdir to $EMACS_CWD"
-        cd "$EMACS_CWD"        
+        cd "$EMACS_CWD"
 end

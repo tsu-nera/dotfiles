@@ -27,7 +27,11 @@ function fish_user_key_bindings
         bind \ex '__fzf_find_and_execute'
         bind \eo '__fzf_cd'
         bind \eO '__fzf_cd_with_hidden'
+<<<<<<< HEAD
         if bind -M insert > /dev/null ^ /dev/null
+=======
+        if bind -M insert >/dev/null ^/dev/null
+>>>>>>> f537b7b82a1c62734d06680f98927bd1b879052a
             bind -M insert \cf '__fzf_find_file'
             bind -M insert \cr '__fzf_reverse_isearch'
             bind -M insert \ex '__fzf_find_and_execute'

@@ -8,7 +8,7 @@
 ! exec xmodmap $HOME/.Xmodmap
 !
 ! Keyのコードは xevで調べる。
-! $ xev
+! xev
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 ! Hiragana_Katakana (208) to Alt
