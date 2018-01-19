@@ -102,3 +102,6 @@ function cde
         echo "chdir to $EMACS_CWD"
         cd "$EMACS_CWD"
 end
+
+alias home 'ssh -p 10022 tsu-nera@fox10225fox.ddns.net'
+
