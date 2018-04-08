@@ -18,6 +18,8 @@ set fish_user_paths $HOME/bin $fish_user_paths
 set fish_user_paths $HOME/anaconda3/bin $fish_user_paths
 
 # cuda
-set fish_user_paths /usr/local/cuda-9.1/bin $fish_user_paths
+if test -d /usr/local/cuda-9.1
+  set fish_user_paths /usr/local/cuda-9.1/bin $fish_user_paths
+end
 set -x LD_LIBRARY_PATH /usr/local/cuda-9.1/lib64 $LD_LIBRARY_PATH
 set -x CUDA_HOME /usr/local/cuda

@@ -1,14 +1,8 @@
-balias o open
-balias forced_git_local_destroy 'git fetch origin;git reset --hard origin/master'
-balias xmap 'xmodmap ~/.Xmodmap'
-
-# 画面ロック
-balias lock 'gnome-screensaver-command -l'
+alias forced_git_local_destroy 'git fetch origin;git reset --hard origin/master'
+alias xmap 'xmodmap ~/.Xmodmap'
 
 # シャットダウン
-balias fault 'sudo shutdown -P now'
-
-balias td 'todoist --color'
+alias fault 'sudo shutdown -P now'
 
 alias .. 'cd ..'
 alias ... 'cd ../..'
@@ -37,7 +31,7 @@ end
 
 function fish_user_key_bindings
         # ghqを選択
-        bind \cl peco_select_ghq_repository
+        # bind \cl peco_select_ghq_repository
         # gh-open
         bind \cx\cl peco_open_gh_repository
         # コマンド履歴を見る
@@ -90,9 +84,9 @@ end
 ###########
 ## Emacs
 ###########
-balias boot_emacs "emacs --daemon"
-balias kill_emacs "emacsclient -e \"(kill-emacs)\""
-balias m 'emacsclient -nw'
+alias boot_emacs "emacs --daemon"
+alias kill_emacs "emacsclient -e \"(kill-emacs)\""
+alias m 'emacsclient -nw'
 
 function reboot_emacs
 	 kill_emacs;boot_emacs
@@ -110,3 +104,5 @@ end
 
 alias home 'ssh -p 10022 tsu-nera@fox10225fox.ddns.net'
 
+alias touch_disable 'xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 0'
+alias touch_enable 'xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 1'
