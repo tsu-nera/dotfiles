@@ -8,8 +8,6 @@ balias lock 'gnome-screensaver-command -l'
 # シャットダウン
 balias fault 'sudo shutdown -P now'
 
-balias td 'todoist --color'
-
 alias .. 'cd ..'
 alias ... 'cd ../..'
 alias .... 'cd ../../..'
@@ -21,6 +19,10 @@ function conda-activate
     # anaconda
     set fish_user_paths $HOME/anaconda3/bin $fish_user_paths
 end
+
+alias diary 'emacs -nw /home/tsu-nera/Dropbox/diary/2018.txt'
+
+alias labi 'lab issue'
 
 ######################################
 ## peco
@@ -37,7 +39,7 @@ end
 
 function fish_user_key_bindings
         # ghqを選択
-        bind \cl peco_select_ghq_repository
+        # bind \cl peco_select_ghq_repository
         # gh-open
         bind \cx\cl peco_open_gh_repository
         # コマンド履歴を見る
@@ -53,14 +55,8 @@ function fish_user_key_bindings
         bind \ex '__fzf_find_and_execute'
         bind \ed '__fzf_cd'
         bind \eD '__fzf_cd_with_hidden'
-
-        # todoist
-        bind \ctt peco_todoist_item
-        bind \ctp peco_todoist_project
-        bind \ctl peco_todoist_labels
-        bind \ctc peco_todoist_close
-        bind \ctd peco_todoist_delete
 end
+
 ##################
 # multi-display
 ##################
@@ -109,4 +105,3 @@ function cde
 end
 
 alias home 'ssh -p 10022 tsu-nera@fox10225fox.ddns.net'
-

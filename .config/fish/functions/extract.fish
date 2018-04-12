@@ -1,1 +1,0 @@
-/home/tsu-nera/.config/fisherman/extract/functions/extract.fish
