@@ -25,4 +25,3 @@ set -x CUDA_HOME /usr/local/cuda
 # go
 set -x GOPATH $HOME/go
 set -U fish_user_paths $GOPATH/bin $fish_user_paths
-

@@ -1,12 +1,8 @@
-balias o open
-balias forced_git_local_destroy 'git fetch origin;git reset --hard origin/master'
-balias xmap 'xmodmap ~/.Xmodmap'
-
-# 画面ロック
-balias lock 'gnome-screensaver-command -l'
+alias forced_git_local_destroy 'git fetch origin;git reset --hard origin/master'
+alias xmap 'xmodmap ~/.Xmodmap'
 
 # シャットダウン
-balias fault 'sudo shutdown -P now'
+alias fault 'sudo shutdown -P now'
 
 alias .. 'cd ..'
 alias ... 'cd ../..'
@@ -86,9 +82,9 @@ end
 ###########
 ## Emacs
 ###########
-balias boot_emacs "emacs --daemon"
-balias kill_emacs "emacsclient -e \"(kill-emacs)\""
-balias m 'emacsclient -nw'
+alias boot_emacs "emacs --daemon"
+alias kill_emacs "emacsclient -e \"(kill-emacs)\""
+alias m 'emacsclient -nw'
 
 function reboot_emacs
 	 kill_emacs;boot_emacs
@@ -105,3 +101,6 @@ function cde
 end
 
 alias home 'ssh -p 10022 tsu-nera@fox10225fox.ddns.net'
+
+alias touch_disable 'xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 0'
+alias touch_enable 'xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 1'
