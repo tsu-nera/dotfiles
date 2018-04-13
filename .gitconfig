@@ -8,13 +8,8 @@
 [core]
 	quotepath = false
 [alias]
-	ci = commit -a
-        di = diff
+	ci = commit
+        df = diff
         br = branch
         co = checkout
         st = status
-[github]
-	user = tsu-nera
-[user]
-	email = fox10225fox@gmail.com
-	name = Tsunemichi Harada
