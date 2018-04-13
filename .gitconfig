@@ -27,3 +27,5 @@
 	d3 = diff HEAD~3
 	f = "!git ls-files | grep -i"
 	precommit = diff --cached --diff-algorithm=minimal -w
+[push]
+	default = simple
