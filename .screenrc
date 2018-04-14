@@ -39,11 +39,13 @@ bind -c RESIZE k eval 'resize -1' 'command -c RESIZE'
 
 # logging
 log on
-deflog on
-logfile "/Users/hogehoge/log/screen-%Y%m%d-%n.log"
+eflog on
+deflog flush secs # ログファイルバッファをファイルシステムにフラッシュするまでの待ち時間
+deflog on  # ログ取得のon/off
+logfile "/Users/tsu-nea/hdd/.screen.log/screen-%Y%m%d-%n.log"
 
 # copy/scrollback mode (C-t esc)で戻れるhistory bufferを増やす。
-defscrollback 3000
+defscrollback 10000
 
 # ビジュアルベルをoffにする。
 vbell off

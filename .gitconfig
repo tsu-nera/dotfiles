@@ -1,20 +1,31 @@
 [include]
 	path = ~/dotfiles/.gitconfig.local
-	
+
 [color]
 	ui = auto
 [gui]
 	encoding = utf-8
 [core]
 	quotepath = false
+	editor = emacs
 [alias]
-	ci = commit -a
-        di = diff
+	ci = commit
         br = branch
         co = checkout
         st = status
-[github]
-	user = tsu-nera
-[user]
-	email = fox10225fox@gmail.com
-	name = Tsunemichi Harada
+	ss = status -s
+	sh = show
+	alias = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\\t => \\2/' | sort
+	ta = log --graph --branches --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(green)- %an, %cr%Creset'
+	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+	graph = log --graph -10 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset• %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
+	drag = pull --rebase
+	refresh= !git fetch origin && git remote prune origin
+	d  = diff
+	d1 = diff HEAD~
+	d2 = diff HEAD~2
+	d3 = diff HEAD~3
+	f = "!git ls-files | grep -i"
+	precommit = diff --cached --diff-algorithm=minimal -w
+[push]
+	default = simple

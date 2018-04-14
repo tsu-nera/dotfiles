@@ -16,6 +16,10 @@ function conda-activate
     set fish_user_paths $HOME/anaconda3/bin $fish_user_paths
 end
 
+alias diary 'emacs -nw /home/tsu-nera/Dropbox/diary/2018.txt'
+
+alias labi 'lab issue'
+
 ######################################
 ## peco
 ######################################
@@ -47,14 +51,8 @@ function fish_user_key_bindings
         bind \ex '__fzf_find_and_execute'
         bind \ed '__fzf_cd'
         bind \eD '__fzf_cd_with_hidden'
-
-        # todoist
-        bind \ctt peco_todoist_item
-        bind \ctp peco_todoist_project
-        bind \ctl peco_todoist_labels
-        bind \ctc peco_todoist_close
-        bind \ctd peco_todoist_delete
 end
+
 ##################
 # multi-display
 ##################
