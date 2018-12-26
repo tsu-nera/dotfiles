@@ -1,0 +1,1 @@
+/home/tsu-nera/.config/fisherman/grc/functions/gcc.fish

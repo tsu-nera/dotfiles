@@ -1,0 +1,1 @@
+/home/tsu-nera/.fzf/shell/key-bindings.fish

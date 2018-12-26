@@ -1,0 +1,1 @@
+/home/tsu-nera/.config/fisherman/rbenv/conf.d/rbenv.fish

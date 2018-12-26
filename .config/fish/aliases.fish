@@ -19,6 +19,7 @@ end
 alias diary 'emacs -nw /home/tsu-nera/Dropbox/diary/2018.txt'
 
 alias labi 'lab issue'
+alias g 'git'
 
 ######################################
 ## peco

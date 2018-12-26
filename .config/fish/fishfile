@@ -11,6 +11,7 @@ fisherman/get
 fisherman/getopts
 fisherman/git_util
 fisherman/gitignore
+fisherman/grc
 fisherman/last_job_id
 fisherman/menu
 oh-my-fish/plugin-peco
@@ -18,5 +19,6 @@ tsu-nera/fish-peco_open_gh_repository
 tsu-nera/fish-peco_recentd
 yoshiori/fish-peco_select_ghq_repository
 ka2n/fish-peco_todoist
+fisherman/rbenv
 fisherman/spin
 fisherman/z

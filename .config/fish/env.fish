@@ -17,10 +17,13 @@ set -U fish_user_paths $HOME/bin $fish_user_paths
 # anaconda
 set -U fish_user_paths $HOME/anaconda3/bin $fish_user_paths
 
+# rbenv
+set -U fish_user_paths $HOME/.rbenv/bin $fish_user_paths
+
 # cuda
-set -U fish_user_paths /usr/local/cuda/bin $fish_user_paths
-set -x LD_LIBRARY_PATH /usr/local/cuda/lib64 $LD_LIBRARY_PATH
-set -x CUDA_HOME /usr/local/cuda
+# set -U fish_user_paths /usr/local/cuda/bin $fish_user_paths
+# set -x LD_LIBRARY_PATH /usr/local/cuda/lib64 $LD_LIBRARY_PATH
+# set -x CUDA_HOME /usr/local/cuda
 
 # go
 set -x GOPATH $HOME/go
