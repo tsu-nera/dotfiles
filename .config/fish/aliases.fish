@@ -16,9 +16,8 @@ function conda-activate
     set fish_user_paths $HOME/anaconda3/bin $fish_user_paths
 end
 
-alias diary 'emacs -nw /home/tsu-nera/Dropbox/diary/2018.txt'
-
 alias labi 'lab issue'
+alias git 'hub'
 alias g 'git'
 
 ######################################

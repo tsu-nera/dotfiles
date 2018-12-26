@@ -5,6 +5,7 @@ edc/bass
 0rax/fish-bd
 oh-my-fish/theme-default
 oh-my-fish/plugin-expand
+oh-my-fish/plugin-extract
 fisherman/fishkit
 fisherman/fzf
 fisherman/get
@@ -14,6 +15,7 @@ fisherman/gitignore
 fisherman/grc
 fisherman/last_job_id
 fisherman/menu
+oh-my-fish/plugin-pbcopy
 oh-my-fish/plugin-peco
 tsu-nera/fish-peco_open_gh_repository
 tsu-nera/fish-peco_recentd
