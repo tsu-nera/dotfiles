@@ -12,9 +12,12 @@
 [alias]
         a = add .
 	c = commit -v
+	ci = commit -v	
         b = branch
         o = checkout
+	co = checkout
         s = status
+        st = status	
 	ss = status -s
 	sh = show
 	p = pull
