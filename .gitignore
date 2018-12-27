@@ -47,3 +47,5 @@ fishd.*
 .config/fish/functions/__fzf_complete.fish
 .config/fish/functions/__fzf_get_dir.fish
 .config/fish/functions/__fzf_parse_commandline.fish
+
+yarn
