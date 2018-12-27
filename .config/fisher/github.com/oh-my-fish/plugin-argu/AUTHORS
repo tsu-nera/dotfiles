@@ -1,0 +1,5 @@
+# This file lists all individuals having contributed content to the repository.
+# The contents below are generated as follows:
+#   git log --format='%aN <%aE>' | env LC_ALL=C.UTF-8 sort -uf
+
+Stephen Coakley <me@stephencoakley.com>

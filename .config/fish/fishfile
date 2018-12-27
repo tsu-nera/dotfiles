@@ -7,7 +7,6 @@ oh-my-fish/theme-default
 oh-my-fish/plugin-expand
 oh-my-fish/plugin-extract
 fisherman/fishkit
-fisherman/fzf
 fisherman/get
 fisherman/getopts
 fisherman/git_util
@@ -23,4 +22,3 @@ yoshiori/fish-peco_select_ghq_repository
 ka2n/fish-peco_todoist
 fisherman/rbenv
 fisherman/spin
-fisherman/z
