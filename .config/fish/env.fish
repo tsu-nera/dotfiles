@@ -18,7 +18,7 @@ set -U fish_user_paths $HOME/bin $fish_user_paths
 set -U fish_user_paths $HOME/anaconda3/bin $fish_user_paths
 
 # rbenv
-# set -U fish_user_paths $HOME/.rbenv/bin $fish_user_paths
+set -U fish_user_paths $HOME/.rbenv/bin $fish_user_paths
 
 # cuda
 # set -U fish_user_paths /usr/local/cuda/bin $fish_user_paths
