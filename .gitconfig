@@ -36,4 +36,4 @@
 	precommit = diff --cached --diff-algorithm=minimal -w
 	oneline = log --oneline
 [push]
-	default = simple
+	default = current
