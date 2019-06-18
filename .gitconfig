@@ -37,4 +37,3 @@
 	oneline = log --oneline
 	ec = !git commit --allow-empty -m \"Make PR\"
         mkpr = !"f() { git checkout -b $1; git ec; git push -u origin $1; hub pull-request -l WIP -a tsu-nera -m $1; }; f"
-	
