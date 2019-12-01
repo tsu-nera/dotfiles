@@ -17,7 +17,6 @@ function conda-activate
 end
 
 alias labi 'lab issue'
-alias git 'hub'
 alias g 'git'
 
 ######################################
