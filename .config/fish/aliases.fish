@@ -1,4 +1,6 @@
 alias forced_git_local_destroy 'git fetch origin;git reset --hard origin/master'
+alias forced_git_rm_local_branches 'git for-each-ref --format "%(refname:short)" refs/heads | grep -v master | xargs git branch -D'
+
 alias xmap 'xmodmap ~/.Xmodmap'
 
 # シャットダウン
@@ -103,3 +105,5 @@ alias home 'ssh -p 10022 tsu-nera@fox10225fox.ddns.net'
 
 alias touch_disable 'xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 0'
 alias touch_enable 'xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 1'
+
+alias ls 'ls --color=auto'
