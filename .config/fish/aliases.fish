@@ -59,26 +59,26 @@ end
 ##################
 # set dual monitors
 function dual
-        xrandr --output DVI-I-1-1 --auto --right-of eDP1
+        xrandr --output HDMI1 --primary --left-of eDP1
 end
 
-function dual2
-	xrandr --setprovideroutputsource 1 0 
-        xrandr --output DVI-I-1-1 --auto --right-of HDMI-0 --mode 1440x900
-end
+# function dual2
+# 	xrandr --setprovideroutputsource 1 0 
+#         xrandr --output DVI-I-1-1 --auto --right-of HDMI-0 --mode 1440x900
+# end
 
-function dual4
-        xrandr --output eDP1 --primary --left-of HDMI1 --output HDMI1 --mode 1280x720
-end
+# function dual4
+#         xrandr --output eDP1 --primary --left-of HDMI1 --output HDMI1 --mode 1280x720
+# end
 
-function dual3
-        xrandr --output eDP1 --primary --left-of HDMI1 --output HDMI1 --auto
-end
+# function dual3
+#         xrandr --output eDP1 --primary --left-of HDMI1 --output HDMI1 --auto
+# end
 
 # set single monitor
-function single
-        xrandr --output DVI-I-1-1 --off
-end
+# function single
+#         xrandr --output eDP1 --off
+# end
 
 ###########
 ## Emacs
