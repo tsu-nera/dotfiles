@@ -4,6 +4,11 @@
 # alias & function 読み込み
 . ~/.config/fish/aliases.fish
 
+set ALIASES_PRIVATE_FILE ~/.config/fish/aliases_private.fish
+if test -f $ALIASES_PRIVATE_FILE
+    . $ALIASES_PRIVATE_FILE
+end
+
 # 環境変数読み込み
 . ~/.config/fish/env.fish
 
