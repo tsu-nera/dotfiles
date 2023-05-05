@@ -1,1 +1,0 @@
-/home/tsu-nera/.config/fisherman/fzf/functions/__fzfescape.fish

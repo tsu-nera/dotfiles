@@ -1,4 +1,5 @@
 set -x LANG ja_JP.UTF-8
+# set -x LC_CTYPE ja_JP.UTF-8
 set -x LD_LIBRARY_PATH /usr/local/lib
 set -x LIBRARY_PATH /usr/local/lib
 set -x CPATH /usr/local/include
@@ -19,6 +20,9 @@ set -U fish_user_paths $HOME/anaconda3/bin $fish_user_paths
 
 # rbenv
 set -U fish_user_paths $HOME/.rbenv/bin $fish_user_paths
+
+# go
+set -U fish_user_paths $HOME/go/bin $fish_user_paths
 
 # cuda
 # set -U fish_user_paths /usr/local/cuda/bin $fish_user_paths

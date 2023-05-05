@@ -23,8 +23,7 @@ module.exports = {
         cursorColor: 'rgba(248,28,229,0.8)',
         // terminal text color under BLOCK cursor
         cursorAccentColor: '#000',
-        // `'BEAM'` for |, `'UNDERLINE'` for _, `'BLOCK'` for █
-        cursorShape: 'BLOCK',
+        // `'BEAM'` for |, `'UNDERLINE'` for _, `'BLOCK'` for ▁E        cursorShape: 'BLOCK',
         // set to `true` (without backticks and without quotes) for blinking cursor
         cursorBlink: false,
         // color of the text

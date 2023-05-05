@@ -1,1 +1,0 @@
-/home/tsu-nera/.config/fisherman/fishkit/completions/fishkit.fish

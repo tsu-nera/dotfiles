@@ -1,13 +1,10 @@
-[include]
-	path = ~/dotfiles/.gitconfig.local
-
 [color]
 	ui = auto
 [gui]
 	encoding = utf-8
 [core]
 	quotepath = false
-	editor = emacs
+	editor = emacsclient --no-wait --create-frame
 	autoCRLF = false
 [alias]
         a = add .
@@ -36,4 +33,18 @@
 	precommit = diff --cached --diff-algorithm=minimal -w
 	oneline = log --oneline
 	ec = !git commit --allow-empty -m \"Make PR\"
-        mkpr = !"f() { git checkout -b $1; git ec; git push -u origin $1; hub pull-request -l WIP -a tsu-nera -m $1; }; f"
+    mkpr = !"f() { git checkout -b $1; git ec; git push -u origin $1; gh pr create -l WIP -a tsu-nera -t $1; }; f"
+[user]
+	email = fox10225fox@gmail.com
+	name = tsu-nera
+[init]
+	defaultBranch = main
+[url "https://"]
+	insteadOf = git://
+[github]
+	user = tsu-nera
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
