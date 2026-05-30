@@ -1,3 +1,0 @@
-(:name gntp
-       :type github
-       :pkgname "tekai/gntp.el")

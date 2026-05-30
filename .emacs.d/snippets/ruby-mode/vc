@@ -1,5 +1,0 @@
-#name : validates_confirmation_of : ... 
-#group: ActiveRecord
-# key: vc
-# --
-validates_confirmation_of :${attr}

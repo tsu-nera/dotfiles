@@ -1,4 +1,0 @@
-#name: response.should render_template("$template")
-# key: shrt
-# --
-response.should render_template("${0:template}")

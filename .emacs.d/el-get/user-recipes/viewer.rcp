@@ -1,3 +1,0 @@
-(:name viewer
-       :type github
-       :pkgname "emacsmirror/viewer")

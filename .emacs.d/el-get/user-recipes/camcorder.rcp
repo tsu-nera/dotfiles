@@ -1,4 +1,0 @@
-(:name camcorder
-       :type github
-       :depends names
-       :pkgname "Bruce-Connor/camcorder.el")

@@ -1,4 +1,0 @@
-#name : /usr/bin/env ruby
-# key: !env
-# --
-#!/usr/bin/env ruby

@@ -1,3 +1,0 @@
-(:name moz-markdown-viewer
-       :type github
-       :pkgname "syohex/emacs-moz-markdown-viewer")

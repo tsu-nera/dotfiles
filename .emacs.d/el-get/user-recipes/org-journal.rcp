@@ -1,3 +1,0 @@
-(:name org-journal
-       :type github
-       :pkgname "bastibe/org-journal")

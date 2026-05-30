@@ -1,3 +1,0 @@
-(:name pyvenv
-       :type github
-       :pkgname "jorgenschaefer/pyvenv")

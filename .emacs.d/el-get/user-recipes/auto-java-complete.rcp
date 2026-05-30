@@ -1,3 +1,0 @@
-(:name auto-java-complete
-       :type github
-       :pkgname "emacs-java/auto-java-complete")

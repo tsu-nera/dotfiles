@@ -1,3 +1,0 @@
-(:name cloc
-       :type github
-       :pkgname "cosmicexplorer/cloc-emacs")

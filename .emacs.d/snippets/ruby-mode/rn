@@ -1,5 +1,0 @@
-#name : render :nothing =>  ... 
-#group: Rails render
-# key: rn
-# --
-render :nothing => ${true}

@@ -1,4 +1,0 @@
-(:name lispxmp
-       :description "Automagic emacs lisp code annotation"
-       :type github
-       :pkgname "emacsmirror/lispxmp")

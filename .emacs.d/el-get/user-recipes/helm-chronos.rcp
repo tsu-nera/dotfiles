@@ -1,4 +1,0 @@
-(:name helm-chronos
-       :type github
-       :depends (helm chronos)
-       :pkgname "dxknight/helm-chronos")

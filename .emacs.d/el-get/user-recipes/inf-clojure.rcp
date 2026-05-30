@@ -1,3 +1,0 @@
-(:name inf-clojure
-       :type github
-       :pkgname "clojure-emacs/inf-clojure")

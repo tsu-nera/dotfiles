@@ -1,3 +1,0 @@
-(:name column-enforce-mode
-       :type github
-       :pkgname "jordonbiondo/column-enforce-mode")

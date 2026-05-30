@@ -1,5 +1,0 @@
-#name : loop { .. }
-#group : Loops
-# key: loo
-# --
-loop { $0 }

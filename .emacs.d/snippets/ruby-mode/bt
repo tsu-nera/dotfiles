@@ -1,5 +1,0 @@
-#name : belongs_to : ... 
-#group: ActiveRecord
-# key: bt
-# --
-belongs_to :${class}

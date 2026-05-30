@@ -1,3 +1,0 @@
-(:name flycheck-ledger
-       :type github
-       :pkgname "purcell/flycheck-ledger")

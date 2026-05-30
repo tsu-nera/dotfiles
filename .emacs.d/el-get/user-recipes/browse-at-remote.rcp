@@ -1,3 +1,0 @@
-(:name browse-at-remote
-       :type github
-       :pkgname "rmuslimov/browse-at-remote")

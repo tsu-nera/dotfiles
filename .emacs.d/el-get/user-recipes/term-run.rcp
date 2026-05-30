@@ -1,3 +1,0 @@
-(:name term-run
-       :type github
-       :pkgname "10sr/term-run-el")

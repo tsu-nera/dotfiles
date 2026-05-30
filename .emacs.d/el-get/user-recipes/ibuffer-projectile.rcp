@@ -1,3 +1,0 @@
-(:name ibuffer-projectile
-       :type github
-       :pkgname "purcell/ibuffer-projectile")

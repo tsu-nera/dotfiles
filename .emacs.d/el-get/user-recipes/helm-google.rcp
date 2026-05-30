@@ -1,4 +1,0 @@
-(:name helm-google
-       :type github
-       :depends google
-       :pkgname "steckerhalter/helm-google")

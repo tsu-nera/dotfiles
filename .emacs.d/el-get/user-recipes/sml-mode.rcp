@@ -1,3 +1,0 @@
-(:name sml-mode
-       :type github
-       :pkgname "emacsmirror/sml-mode")

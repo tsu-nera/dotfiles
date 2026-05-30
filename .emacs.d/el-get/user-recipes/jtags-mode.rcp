@@ -1,3 +1,0 @@
-(:name jtags-mode
-       :type git
-       :url "git://jtags.git.sourceforge.net/gitroot/jtags/jtags")

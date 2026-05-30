@@ -1,5 +1,0 @@
-#name : select { |e| .. }
-#group : Enumerables
-# key: sel
-# --
-select { |${e}| $0 }

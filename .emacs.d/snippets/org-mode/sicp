@@ -1,7 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: sicp
-# key: sicp
-# --
-#+begin_src emacs-lisp
-;; -*- lexical-binding: t -*-
-#+end_src

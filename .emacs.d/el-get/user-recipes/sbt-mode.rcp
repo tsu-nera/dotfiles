@@ -1,3 +1,0 @@
-(:name sbt-mode
-       :type github
-       :pkgname "hvesalai/sbt-mode")

@@ -1,5 +1,0 @@
-#name : render :action => " ... "
-#group: Rails render
-# key: ra
-# --
-render :action => "${action}"

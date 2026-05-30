@@ -1,3 +1,0 @@
-(:name realtime-preview
-       :type github
-       :pkgname "niku/realtime-preview.el")

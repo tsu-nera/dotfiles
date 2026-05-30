@@ -1,3 +1,0 @@
-(:name org-textile
-       :type github
-       :pkgname "yashi/org-textile")

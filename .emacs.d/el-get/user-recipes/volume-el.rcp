@@ -1,3 +1,0 @@
-(:name volume-el
-       :type github
-       :pkgname "dbrock/volume-el")

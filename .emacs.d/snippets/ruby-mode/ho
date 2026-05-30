@@ -1,5 +1,0 @@
-#name : has_one : ... 
-#group: ActiveRecord
-# key: ho
-# --
-has_one :${class}

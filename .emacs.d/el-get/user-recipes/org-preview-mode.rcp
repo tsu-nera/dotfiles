@@ -1,3 +1,0 @@
-(:name org-preview-mode
-       :type github
-       :pkgname "lujun9972/org-preview-html")

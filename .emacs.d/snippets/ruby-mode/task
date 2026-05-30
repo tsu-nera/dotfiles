@@ -1,6 +1,0 @@
-#name : task :name ... end
-# key: task
-# --
-task :${2:name} do
-  $0
-end

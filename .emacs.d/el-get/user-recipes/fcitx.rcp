@@ -1,3 +1,0 @@
-(:name fcitx
-       :type github
-       :pkgname "cute-jumper/fcitx.el")

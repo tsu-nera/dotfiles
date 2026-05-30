@@ -1,8 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: srcR
-# key: srcR
-# --
-#+begin_src R :session ex :exports both :results code
-$1
-#+end_src
-$0

@@ -1,8 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: declare
-# key: declare
-# --
-declare
-fun $1
-end
-$0

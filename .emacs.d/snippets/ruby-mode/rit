@@ -1,5 +1,0 @@
-#name : render :inline => " ... ", :type => : ... )
-#group: Rails render
-# key: rit
-# --
-render :inline => "${<%= 'hello' %>}", :type => :${rxml})

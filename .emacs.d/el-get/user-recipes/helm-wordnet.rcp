@@ -1,3 +1,0 @@
-(:name helm-wordnet
-       :type github
-       :pkgname "raghavgautam/helm-wordnet")

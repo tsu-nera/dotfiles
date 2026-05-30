@@ -1,3 +1,0 @@
-(:name slack
-       :type github
-       :pkgname "raamdev/slack-el")

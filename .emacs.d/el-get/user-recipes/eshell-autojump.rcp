@@ -1,3 +1,0 @@
-(:name eshell-autojump
-       :type github
-       :pkgname "coldnew/eshell-autojump")

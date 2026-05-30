@@ -1,3 +1,0 @@
-(:name pyenv-mode
-       :type github
-       :pkgname "proofit404/pyenv-mode")

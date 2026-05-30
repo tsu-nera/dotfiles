@@ -1,3 +1,0 @@
-(:name shell-pop
-       :type github
-       :pkgname "kyagi/shell-pop-el")

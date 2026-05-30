@@ -1,4 +1,0 @@
-#name : attr_accesor :...
-# key: aa
-# --
-attr_accessor :$0

@@ -1,3 +1,0 @@
-(:name ubuntu-theme
-       :type github
-       :pkgname "rocher/ubuntu-theme")

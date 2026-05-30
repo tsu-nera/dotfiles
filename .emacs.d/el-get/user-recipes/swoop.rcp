@@ -1,4 +1,0 @@
-(:name swoop
-       :description "Peculiar buffer navigation for Emacs"
-       :type "github"
-       :pkgname "ShingoFukuyama/emacs-swoop")

@@ -1,3 +1,0 @@
-(:name wakatime-mode
-       :type github
-       :pkgname "wakatime/wakatime-mode")

@@ -1,3 +1,0 @@
-(:name rainbow-mode
-       :type github
-       :pkgname "emacsmirror/rainbow-mode")

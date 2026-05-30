@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: blockquate
-# key: blockquate
-# --
-#+begin_quote
-$0
-#+end_quote

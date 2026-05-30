@@ -1,3 +1,0 @@
-(:name conda
-       :type github
-       :pkgname "necaris/conda.el")

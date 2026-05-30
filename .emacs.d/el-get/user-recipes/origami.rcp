@@ -1,3 +1,0 @@
-(:name origami
-       :type github
-       :pkgname "gregsexton/origami.el")

@@ -1,3 +1,0 @@
-(:name ac-haskell-process
-       :type github
-       :pkgname "purcell/ac-haskell-process")

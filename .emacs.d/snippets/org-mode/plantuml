@@ -1,7 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: plantuml
-# key: plantuml
-# --
-#+BEGIN_SRC plantuml :file sample.png :cmdline -charset UTF-8
-  Alice -> Bob: Authentication Request
-#+END_SRC

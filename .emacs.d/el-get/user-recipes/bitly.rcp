@@ -1,3 +1,0 @@
-(:name bitly
-       :type github
-       :pkgname "jorgenschaefer/bitly-el")

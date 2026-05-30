@@ -1,5 +1,0 @@
-#name : validates_inclusion_of : ...
-#group: ActiveRecord
-# key: vi
-# --
-validates_inclusion_of :${attr}

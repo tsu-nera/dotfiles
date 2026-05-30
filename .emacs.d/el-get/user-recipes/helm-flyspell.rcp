@@ -1,3 +1,0 @@
-(:name helm-flyspell
-       :type github
-       :pkgname "pronobis/helm-flyspell")

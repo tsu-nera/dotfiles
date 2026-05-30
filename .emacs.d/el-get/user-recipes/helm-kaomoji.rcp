@@ -1,3 +1,0 @@
-(:name helm-kaomoji
-       :type github
-       :pkgname "tsu-nera/emacs-helm-kaomoji")

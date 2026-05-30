@@ -1,5 +1,0 @@
-#name : render :partial => " ... ", :collection =>  ... 
-#group: Rails render
-# key: rpc
-# --
-render :partial => "${item}", :collection => ${items}

@@ -1,5 +1,0 @@
-#name : logger.info " ... "
-#group: general
-# key: logi
-# --
-logger.info "${Text here...}"

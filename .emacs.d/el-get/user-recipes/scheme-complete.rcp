@@ -1,3 +1,0 @@
-(:name scheme-complete
-       :type github
-       :pkgname "emacsmirror/scheme-complete")

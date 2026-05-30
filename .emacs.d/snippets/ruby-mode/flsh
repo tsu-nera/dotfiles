@@ -1,5 +1,0 @@
-#name : flash[: ... ] = " ... "
-#group: Rails
-# key: flsh
-# --
-flash[:${notice}] = "${Text here...}"

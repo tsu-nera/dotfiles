@@ -1,7 +1,0 @@
-#-*- require-final-newline: nil -*-
-#contributor: gary <ge.iams@gmail.com>
-#it ... end
-# --
-it 'should ${1:description}' do
-  $0
-end

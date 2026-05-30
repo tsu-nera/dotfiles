@@ -1,3 +1,0 @@
-(:name org-cliplink
-       :type github
-       :pkgname "rexim/org-cliplink")

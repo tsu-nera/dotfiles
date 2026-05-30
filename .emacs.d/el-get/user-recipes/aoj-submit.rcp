@@ -1,3 +1,0 @@
-(:name aoj-submit
-       :type github
-       :pkgname "tsu-nera/aoj-submit-el")

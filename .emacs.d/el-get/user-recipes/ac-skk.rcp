@@ -1,4 +1,0 @@
-(:name ac-skk
-       :type github
-       :depends (tinysegmenter)
-       :pkgname "myuhe/ac-skk.el")

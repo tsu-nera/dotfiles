@@ -1,3 +1,0 @@
-(:name search-web
-       :type github
-       :pkgname "tomoya/search-web.el")

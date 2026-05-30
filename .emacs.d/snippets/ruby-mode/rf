@@ -1,5 +1,0 @@
-#name : render :file => " ... "
-#group: Rails render
-# key: rf
-# --
-render :file => "${filepath}"

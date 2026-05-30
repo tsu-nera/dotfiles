@@ -1,4 +1,0 @@
-#name : singleton_class()
-# key: sinc
-# --
-class << self; self end

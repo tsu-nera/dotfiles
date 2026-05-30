@@ -1,5 +1,0 @@
-#name : sort_by { |e| .. }
-#group : Enumerables
-# key: sorb
-# --
-sort_by { |${e}| $0 }

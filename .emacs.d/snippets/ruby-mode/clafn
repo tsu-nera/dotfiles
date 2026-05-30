@@ -1,4 +1,0 @@
-#name : class_from_name()
-# key: clafn
-# --
-split("::").inject(Object) { |par, const| par.const_get(const) }

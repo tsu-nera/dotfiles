@@ -1,3 +1,0 @@
-(:name org-projectile
-       :type github
-       :pkgname "IvanMalison/org-projectile")

@@ -1,3 +1,0 @@
-(:name evernote-mode
-       :type github
-       :pkgname "pymander/evernote-mode")

@@ -1,3 +1,0 @@
-(:name helm-hatena-bookmark
-       :type github
-       :pkgname "masutaka/emacs-helm-hatena-bookmark")

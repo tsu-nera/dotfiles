@@ -1,3 +1,0 @@
-(:name helm-wl-address
-       :type github
-       :pkgname "kenbeese/helm-wl-address")

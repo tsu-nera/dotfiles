@@ -1,4 +1,0 @@
-# name: ppt
-# key: ppt
-# --
-win.metafile(file="${1:}",width=${2:10},height=${3:6})

@@ -1,3 +1,0 @@
-(:name swiper-helm
-       :type github
-       :pkgname "abo-abo/swiper-helm")

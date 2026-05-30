@@ -1,3 +1,0 @@
-(:name reddit-mode
-       :type github
-       :pkgname "death/reddit-mode")
