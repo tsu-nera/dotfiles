@@ -7,8 +7,3 @@ set ALIASES_PRIVATE_FILE ~/.config/fish/aliases_private.fish
 if test -f $ALIASES_PRIVATE_FILE
     source $ALIASES_PRIVATE_FILE
 end
-
-# Google Cloud SDK
-if test -f '/home/tsu-nera/google-cloud-sdk/path.fish.inc'
-    source '/home/tsu-nera/google-cloud-sdk/path.fish.inc'
-end

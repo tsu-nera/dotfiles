@@ -20,10 +20,6 @@ alias update='sudo pacman -Syu'
 alias cleanup='sudo pacman -Rns (pacman -Qtdq)'
 alias jctl='journalctl -p 3 -xb'
 
-# SSH
-alias home='ssh -p 10022 tsu-nera@fox10225fox.ddns.net'
-
-# Emacs
 alias boot_emacs='emacs --daemon'
 alias kill_emacs='emacsclient -e "(kill-emacs)"'
 alias m='emacsclient -nw'
@@ -35,10 +31,4 @@ end
 
 function dired
     emacsclient -e "(dired \"$PWD\")"
-end
-
-function cde
-    emacsclient -e "(return-current-working-directory-to-shell)" | sed 's/^"\(.*\)"$/\1/' | read EMACS_CWD
-    echo "chdir to $EMACS_CWD"
-    cd "$EMACS_CWD"
 end
