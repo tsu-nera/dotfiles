@@ -1,23 +1,40 @@
 #!/bin/bash
 
-files=.*
+DOTFILES_DIR="${PWD}"
+SKIP=(README.org make_lnlink Rakefile Gemfile .git .gitmodules)
 
-for file in ${files}
-do
-   filepath="${PWD}/${file}"
-   homefile="${HOME}/${file}"
- 
-  # . と .. .git は抜かす
-  test $file == ".git" && continue
-  test $file == "." && continue
-  test $file == ".." && continue
-  test $file == ".gitmodules" && continue
+is_skip() {
+    local target="$1"
+    for s in "${SKIP[@]}"; do
+        [[ "$target" == "$s" ]] && return 0
+    done
+    return 1
+}
 
-  # .hogehogeが存在しなければ、シンボリックリンクを作成
-  if [ ! -e "${homefile}" ]; then
-     echo "${file} not exis, make symbolic link to ${homefile}"
-     ln -s "${filepath}" "${homefile}"
-  else
-     echo "${file} exist"
-  fi
-done
+while IFS= read -r -d '' filepath; do
+    relpath="${filepath#$DOTFILES_DIR/}"
+
+    # スキップ対象チェック
+    top="${relpath%%/*}"
+    is_skip "$top" && continue
+
+    homefile="${HOME}/${relpath}"
+    homedir="$(dirname "$homefile")"
+
+    # 親ディレクトリ作成
+    mkdir -p "$homedir"
+
+    if [ -L "$homefile" ]; then
+        current="$(readlink "$homefile")"
+        if [ "$current" = "$filepath" ]; then
+            echo "skip (already linked): $relpath"
+        else
+            echo "warning (different symlink): $homefile -> $current"
+        fi
+    elif [ -e "$homefile" ]; then
+        echo "warning (file exists): $homefile"
+    else
+        ln -s "$filepath" "$homefile"
+        echo "linked: $relpath -> $homefile"
+    fi
+done < <(find "$DOTFILES_DIR" -not -path '*/.git/*' -type f -print0)
