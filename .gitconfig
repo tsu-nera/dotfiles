@@ -48,9 +48,8 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[credential "https://github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
-[credential "https://gist.github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
+# マシン固有設定（credential helper 等）は各ホーム直下の ~/.gitconfig.local へ分離。
+# 相対パスだと symlink 自身のディレクトリ基準になるため、~ (=各 HOME) で明示する。
+# 末尾で読むことで、同じキーをローカル側が上書きできる。各マシンで個別に用意（未コミット）。
+[include]
+	path = ~/.gitconfig.local
