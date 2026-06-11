@@ -16,7 +16,7 @@ alias g git
 
 # System
 alias fault='sudo shutdown -P now'
-alias update='sudo pacman -Syu'
+alias update='paru -Syu'
 alias cleanup='sudo pacman -Rns (pacman -Qtdq)'
 alias jctl='journalctl -p 3 -xb'
 
