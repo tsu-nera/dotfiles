@@ -5,6 +5,15 @@ set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -x EDITOR "emacs -nw"
 set -x VISUAL "emacs -nw"
 
+# PATH（存在しないディレクトリは fish_add_path が無視する。先頭ほど優先）
+# -g: universal の fish_user_paths に書かず、出どころをこのファイルに限定する
+fish_add_path -g \
+    $HOME/.asdf/shims \
+    $HOME/.local/bin \
+    $HOME/.cargo/bin \
+    $HOME/.foundry/bin \
+    $HOME/.local/share/solana/install/active_release/bin
+
 # MSYS2 (Windows) 固有: Windows 実体の開発ツールを PATH 参照
 # - claude: C:\Users\fox10\.local\bin\claude.exe
 # - gh:     C:\Program Files\GitHub CLI\gh.exe（認証は Windows keyring 共有）

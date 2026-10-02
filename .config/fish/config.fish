@@ -1,17 +1,11 @@
-# CachyOS 固有設定（Arch Linux + CachyOS の場合のみ読む）
-if test -f /usr/share/cachyos-fish-config/cachyos-config.fish
-    source /usr/share/cachyos-fish-config/cachyos-config.fish
-end
+# 共通設定の入口（dotfiles 管理、全マシン共通）
+# 読み込み順: conf.d/*.fish → この config.fish → local.fish
+# - 共通: dotfiles から symlink したファイル
+# - マシン固有: ~/.config/fish/local.fish（symlink しない実ファイル、最後に読むので上書き可）
 
-# asdf version manager (go版 0.16+: shims を PATH に通す)
-if test -d $HOME/.asdf/shims
-    fish_add_path $HOME/.asdf/shims
-end
-
-source ~/.config/fish/aliases.fish
 source ~/.config/fish/env.fish
+source ~/.config/fish/aliases.fish
 
-set ALIASES_PRIVATE_FILE ~/.config/fish/aliases_private.fish
-if test -f $ALIASES_PRIVATE_FILE
-    source $ALIASES_PRIVATE_FILE
+if test -f ~/.config/fish/local.fish
+    source ~/.config/fish/local.fish
 end
