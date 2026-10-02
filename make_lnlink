@@ -1,40 +1,55 @@
 #!/bin/bash
+# リポジトリ内のファイルを $HOME の同じ相対パスへファイル単位で symlink する（冪等）。
+# 既存の実ファイルや別の symlink は上書きせず warning を出すだけ。
+#   ./make_lnlink          リンクを張る
+#   ./make_lnlink --check  何も変更せず、未リンク・競合・壊れたリンクを報告（問題があれば exit 1）
 
-DOTFILES_DIR="${PWD}"
-SKIP=(README.org make_lnlink Rakefile Gemfile .git .gitmodules)
+set -u
+DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
+CHECK=0
+[[ "${1:-}" == "--check" ]] && CHECK=1
+
+# リポジトリ管理用でホームに置かないもの（パス先頭要素 or ファイル名で一致）
+SKIP_TOP=(.git make_lnlink CLAUDE.md AGENTS.md)
+SKIP_NAME=(.gitignore)
 
 is_skip() {
-    local target="$1"
-    for s in "${SKIP[@]}"; do
-        [[ "$target" == "$s" ]] && return 0
-    done
+    local relpath="$1" s
+    for s in "${SKIP_TOP[@]}"; do [[ "${relpath%%/*}" == "$s" ]] && return 0; done
+    for s in "${SKIP_NAME[@]}"; do [[ "$(basename "$relpath")" == "$s" ]] && return 0; done
     return 1
 }
 
+problems=0
 while IFS= read -r -d '' filepath; do
-    relpath="${filepath#$DOTFILES_DIR/}"
+    relpath="${filepath#"$DOTFILES_DIR"/}"
+    is_skip "$relpath" && continue
+    homefile="$HOME/$relpath"
 
-    # スキップ対象チェック
-    top="${relpath%%/*}"
-    is_skip "$top" && continue
-
-    homefile="${HOME}/${relpath}"
-    homedir="$(dirname "$homefile")"
-
-    # 親ディレクトリ作成
-    mkdir -p "$homedir"
-
-    if [ -L "$homefile" ]; then
+    if [[ -L "$homefile" ]]; then
         current="$(readlink "$homefile")"
-        if [ "$current" = "$filepath" ]; then
-            echo "skip (already linked): $relpath"
-        else
+        if [[ "$current" != "$filepath" ]]; then
             echo "warning (different symlink): $homefile -> $current"
+            problems=1
         fi
-    elif [ -e "$homefile" ]; then
+    elif [[ -e "$homefile" ]]; then
         echo "warning (file exists): $homefile"
+        problems=1
+    elif (( CHECK )); then
+        echo "not linked: $relpath"
+        problems=1
     else
+        mkdir -p "$(dirname "$homefile")"
         ln -s "$filepath" "$homefile"
-        echo "linked: $relpath -> $homefile"
+        echo "linked: $relpath"
     fi
-done < <(find "$DOTFILES_DIR" -not -path '*/.git/*' -type f -print0)
+done < <(find "$DOTFILES_DIR" -path "$DOTFILES_DIR/.git" -prune -o -type f -print0)
+
+# リポジトリから消したファイルを指したまま残った symlink
+while IFS= read -r link; do
+    echo "dangling: $link -> $(readlink "$link")"
+    problems=1
+done < <(find "$HOME" -maxdepth 5 \( -path "$DOTFILES_DIR" -o -path "$HOME/.cache" -o -path "$HOME/.local/share" \) -prune \
+             -o -xtype l -lname "$DOTFILES_DIR/*" -print 2>/dev/null)
+
+exit $problems

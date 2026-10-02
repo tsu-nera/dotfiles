@@ -1,55 +1,27 @@
-[color]
-	ui = auto
-[gui]
-	encoding = utf-8
 [core]
+	# 日本語ファイル名を \343... にエスケープしない
 	quotepath = false
-	editor = emacsclient --no-wait --create-frame
+	# MSYS2 (Windows) でも改行を変換しない
 	autoCRLF = false
 [alias]
-        a = add .
-	c = commit -v
-	ci = commit -v	
-        b = branch
-        o = checkout
+	ci = commit -v
 	co = checkout
-        s = status
-        st = status	
-	ss = status -s
-	sh = show
-	p = pull
-	pu = push --set-upstream origin
-	alias = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\\t => \\2/' | sort
-	ta = log --graph --branches --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(green)- %an, %cr%Creset'
-	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
-	graph = log --graph -10 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset• %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
-	drag = pull --rebase
-	refresh= !git fetch origin && git remote prune origin
-	d  = diff
-	d1 = diff HEAD~
-	d2 = diff HEAD~2
-	d3 = diff HEAD~3
-	f = "!git ls-files | grep -i"
-	precommit = diff --cached --diff-algorithm=minimal -w
-	oneline = log --oneline
-	ec = !git commit --allow-empty -m \"Make PR\"
-    mkpr = !"f() { git checkout -b $1; git ec; git push -u origin $1; gh pr create -l WIP -a tsu-nera -t $1; }; f"
+	st = status
+	b = branch
 [user]
 	email = fox10225fox@gmail.com
 	name = tsu-nera
 [init]
 	defaultBranch = main
 [url "https://"]
+	# GitHub は git:// を廃止済み。古い submodule URL 対策
 	insteadOf = git://
-[github]
-	user = tsu-nera
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-# マシン固有設定（credential helper 等）は各ホーム直下の ~/.gitconfig.local へ分離。
-# 相対パスだと symlink 自身のディレクトリ基準になるため、~ (=各 HOME) で明示する。
-# 末尾で読むことで、同じキーをローカル側が上書きできる。各マシンで個別に用意（未コミット）。
+# マシン固有（credential helper 等）は各マシンの ~/.gitconfig.local（未コミット）。
+# 相対パスだと symlink 先基準になるので ~ で書く。末尾で読むのでローカル側が上書きできる。
 [include]
 	path = ~/.gitconfig.local
