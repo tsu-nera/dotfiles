@@ -22,7 +22,7 @@
 - プロンプト（pure）と autopair は fish の vendor_conf.d（パッケージ `fish-pure-prompt` `fish-autopair`）から来る。リポジトリには無い
 
 ## 削除してよい基準（確認できれば事後報告でよい）
-- 対象のツール・パス・環境（Cygwin・xmonad・zsh 等）がどのマシンにも無い
+- 対象のツール・パス・環境（Cygwin・xmonad 等。zsh は mouse の Claude Code が使うので残す）がどのマシンにも無い
 - 到達しないコード、重複定義、プラグインマネージャの残骸
 - alias / 関数で、全マシンの `~/.local/share/fish/fish_history` で使用 0 回かつ追加から1年以上
 - 上に当てはまらない「使っていなさそう」は消さずに一覧で聞く
