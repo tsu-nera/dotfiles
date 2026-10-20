@@ -5,6 +5,7 @@
 ## 対象マシン
 - `mouse`: CachyOS（主機）
 - `vaio`: EndeavourOS（`ssh vaio`。login shell は bash で対話時のみ `exec fish`、`.bashrc` は dotfiles 管理外）
+- `iiyama`: CachyOS（`ssh iiyama`。持ち歩き用、login shell は fish）
 - Windows の MSYS2（`env.fish` の `$MSYSTEM` 分岐）
 
 ## 適用
