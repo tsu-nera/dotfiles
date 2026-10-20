@@ -1,0 +1,37 @@
+    window-rule {
+        geometry-corner-radius 20 // Set every window radius to 20
+        clip-to-geometry true
+    }
+
+    // Waydroid (Android/Kindle) を常に画面半分の幅で開く
+    window-rule {
+        match app-id="Waydroid"
+        default-column-width { proportion 0.5; }
+    }
+
+     // if you use steam you will probably like these
+    window-rule {
+        match app-id="steam"
+        exclude title=r#"^[Ss]team$"#
+        open-floating true
+    }
+
+    window-rule {
+       match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
+       default-floating-position x=10 y=10 relative-to="bottom-right"
+       open-focused false
+    }
+
+    // REAPER のレンダ進捗ダイアログにフォーカスを渡さない
+    // (kita のレンダループが他の作業を邪魔しないため)
+    window-rule {
+        match app-id="REAPER" title=r#"^Rendering to file"#
+        match app-id="REAPER" title=r#"^Finished in"#
+        open-focused false
+        open-floating true
+    }
+
+    layer-rule {
+        match namespace="^noctalia-wallpaper*"
+        place-within-backdrop true
+    }

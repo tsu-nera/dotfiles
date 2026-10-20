@@ -18,6 +18,7 @@
 - symlink されたファイル = 全マシン共通。マシン固有は symlink しない実ファイルに置く:
   - fish: `~/.config/fish/local.fish`（config.fish が最後に読む）
   - git: `~/.gitconfig.local`（`[include]` で最後に読む）
+  - niri: `~/.config/niri/local.kdl`（config.kdl が最後に include。Noctalia v4/v5 のコマンド・壁紙・マシン固有の bind 等）と `monitor.kdl`（nwg-displays が書く）。どちらも無いと niri が起動時にエラーになるので、新しいマシンでは空でも作る
 - 存在チェックで済むもの（PATH 等。`fish_add_path` は存在しない dir を無視する）は共通側に書く。「このマシンではこうする」という判断だけ固有側に書く。ホスト名や OS の if 分岐を共通ファイルに増やさない
 - fish の PATH は `env.fish` の `fish_add_path -g` だけ。universal 変数（`set -U`、`fish_user_paths`）に設定を置かない
 - プロンプト（pure）と autopair は fish の vendor_conf.d（パッケージ `fish-pure-prompt` `fish-autopair`）から来る。リポジトリには無い
@@ -37,3 +38,5 @@
 - fish: `fish -i -c exit` がエラーなし（`time` で起動 0.1s 未満が目安）
 - git: `git config --list --show-origin >/dev/null`
 - tmux: `tmux -L t -f .tmux.conf new-session -d \; kill-server` がエラーなし
+- niri: `niri validate` が valid → `niri msg action load-config-file`（validate だけでは反映されない）
+- ghostty: `ghostty +validate-config`

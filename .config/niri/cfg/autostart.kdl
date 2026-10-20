@@ -1,0 +1,13 @@
+// ────────────── Startup Applications ──────────────
+// https://github.com/YaLTeR/niri/wiki/Configuration:-Miscellaneous#spawn-sh-at-startup
+
+    // fcitx5 が表示変数(WAYLAND_DISPLAY/DISPLAY)欠落で起動するのを恒久対策。
+    // niri は子プロセスへ表示変数を渡すので、それを systemd/dbus 環境へ import し
+    // fcitx5 の autostart unit を起動し直す(これで Chrome の Wayland text-input が噛む)。
+    spawn-sh-at-startup "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_SESSION_TYPE; systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_SESSION_TYPE; systemctl --user restart app-org.fcitx.Fcitx5@autostart.service"
+
+    // 親指シフト (oyainput) は niri ではなくマシンごとの仕組みで起動する（mouse は systemd user service）
+
+    // クリップボード履歴
+    spawn-sh-at-startup "wl-paste --type text --watch cliphist store"
+    spawn-sh-at-startup "wl-paste --type image --watch cliphist store"

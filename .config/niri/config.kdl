@@ -1,0 +1,14 @@
+// monitor.kdl (nwg-displays が書く) と local.kdl はマシン固有で dotfiles に入れない。
+// local.kdl を最後に読むので、そこで binds を上書き・追加できる
+include "monitor.kdl"
+
+include "./cfg/animation.kdl"
+include "./cfg/autostart.kdl"
+include "./cfg/keybinds.kdl"
+include "./cfg/input.kdl"
+include "./cfg/display.kdl"
+include "./cfg/layout.kdl"
+include "./cfg/rules.kdl"
+include "./cfg/misc.kdl"
+
+include "local.kdl"
