@@ -1,0 +1,43 @@
+# 設定リファレンス: ghostty +show-config --default --docs
+
+# HackGen Console NF: Nerd Font アイコン入りで、日本語が全角2セルにきっちり揃う（AUR の ttf-hackgen）
+font-family = "HackGen Console NF"
+font-size = 13
+window-title-font-family = "HackGen Console NF"
+
+theme = Monokai Pro
+background-opacity = 0.85
+background-blur = true
+
+window-padding-x = 8
+window-padding-y = 6
+window-save-state = always
+
+scrollback-limit = 100000
+mouse-hide-while-typing = true
+copy-on-select = clipboard
+confirm-close-surface = false
+
+shell-integration-features = cursor,sudo,title
+
+keybind = ctrl+shift+o=new_split:right
+keybind = ctrl+shift+e=new_split:down
+keybind = ctrl+shift+w=close_surface
+keybind = ctrl+shift+h=goto_split:left
+keybind = ctrl+shift+l=goto_split:right
+keybind = ctrl+shift+k=goto_split:up
+keybind = ctrl+shift+j=goto_split:down
+keybind = ctrl+shift+t=new_tab
+keybind = ctrl+tab=next_tab
+keybind = ctrl+shift+tab=previous_tab
+keybind = ctrl+plus=increase_font_size:1
+keybind = ctrl+minus=decrease_font_size:1
+keybind = ctrl+zero=reset_font_size
+
+# ノートPCのキーボードでは PageUp/Home/End が押しにくいので、スクロールは ctrl+shift に寄せる
+keybind = ctrl+shift+u=scroll_page_fractional:-0.5
+keybind = ctrl+shift+d=scroll_page_fractional:0.5
+keybind = ctrl+shift+up=scroll_page_lines:-3
+keybind = ctrl+shift+down=scroll_page_lines:3
+keybind = ctrl+shift+left=scroll_to_top
+keybind = ctrl+shift+right=scroll_to_bottom
