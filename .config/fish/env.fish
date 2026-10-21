@@ -2,8 +2,8 @@ set -x LANG ja_JP.UTF-8
 set -x MANROFFOPT "-c"
 set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
-set -x EDITOR "emacs -nw"
-set -x VISUAL "emacs -nw"
+set -x EDITOR "emacsclient -t -a ''"
+set -x VISUAL "emacsclient -t -a ''"
 
 # PATH（存在しないディレクトリは fish_add_path が無視する。先頭ほど優先）
 # -g: universal の fish_user_paths に書かず、出どころをこのファイルに限定する
