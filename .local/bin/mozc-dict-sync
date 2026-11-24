@@ -1,0 +1,83 @@
+#!/usr/bin/env python3
+# ~/.config/mozc/user_dictionary.tsv (dotfiles 管理) から user_dictionary.db を丸ごと生成し、
+# mozc_server を落として読み直させる。GUI で足した単語は消えるので TSV を正本にする。
+# db は UserDictionaryStorage (mozc/src/protocol/user_dictionary_storage.proto) の生シリアライズ。
+import os
+import subprocess
+import sys
+from pathlib import Path
+
+MOZC_DIR = Path.home() / ".config/mozc"
+TSV = MOZC_DIR / "user_dictionary.tsv"
+DB = MOZC_DIR / "user_dictionary.db"
+DICT_ID = 1
+DICT_NAME = "dotfiles"
+
+POS = {
+    "品詞なし": 0, "名詞": 1, "短縮よみ": 2, "サジェストのみ": 3, "固有名詞": 4,
+    "人名": 5, "姓": 6, "名": 7, "組織": 8, "地名": 9, "名詞サ変": 10,
+    "名詞形動": 11, "数": 12, "アルファベット": 13, "記号": 14, "顔文字": 15,
+    "副詞": 16, "連体詞": 17, "接続詞": 18, "感動詞": 19, "接頭語": 20,
+    "助数詞": 21, "接尾一般": 22, "接尾人名": 23, "接尾地名": 24,
+    "動詞ワ行五段": 25, "動詞カ行五段": 26, "動詞サ行五段": 27, "動詞タ行五段": 28,
+    "動詞ナ行五段": 29, "動詞マ行五段": 30, "動詞ラ行五段": 31, "動詞ガ行五段": 32,
+    "動詞バ行五段": 33, "動詞ハ行四段": 34, "動詞一段": 35, "動詞カ変": 36,
+    "動詞サ変": 37, "動詞ザ変": 38, "動詞ラ変": 39, "形容詞": 40, "終助詞": 41,
+    "句読点": 42, "独立語": 43, "抑制単語": 44,
+}
+
+
+def varint(n: int) -> bytes:
+    out = bytearray()
+    while True:
+        b = n & 0x7F
+        n >>= 7
+        if n:
+            out.append(b | 0x80)
+        else:
+            out.append(b)
+            return bytes(out)
+
+
+def field_varint(num: int, n: int) -> bytes:
+    return varint(num << 3) + varint(n)
+
+
+def field_bytes(num: int, data: bytes) -> bytes:
+    return varint(num << 3 | 2) + varint(len(data)) + data
+
+
+def entry(key: str, value: str, pos: int, comment: str) -> bytes:
+    b = field_bytes(1, key.encode()) + field_bytes(2, value.encode())
+    if comment:
+        b += field_bytes(4, comment.encode())
+    return b + field_varint(5, pos)
+
+
+def main() -> int:
+    entries = []
+    for lineno, line in enumerate(TSV.read_text(encoding="utf-8").splitlines(), 1):
+        if not line.strip() or line.startswith("#"):
+            continue
+        cols = line.split("\t") + [""] * 4
+        key, value, pos_name, comment = cols[:4]
+        if pos_name not in POS:
+            print(f"{TSV}:{lineno}: 未知の品詞 {pos_name!r}", file=sys.stderr)
+            return 1
+        entries.append(entry(key, value, POS[pos_name], comment))
+
+    dictionary = field_varint(1, DICT_ID) + field_bytes(3, DICT_NAME.encode())
+    dictionary += b"".join(field_bytes(4, e) for e in entries)
+    storage = field_bytes(2, dictionary)
+
+    tmp = DB.with_suffix(".db.tmp")
+    tmp.write_bytes(storage)
+    os.replace(tmp, DB)
+    # fcitx5-mozc は次の入力で mozc_server を自動起動し、db を読み直す
+    subprocess.run(["pkill", "-x", "mozc_server"], check=False)
+    print(f"{len(entries)} 語を {DB} に書き出し、mozc_server を再起動しました")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
