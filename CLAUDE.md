@@ -40,3 +40,4 @@
 - tmux: `tmux -L t -f .tmux.conf new-session -d \; kill-server` がエラーなし
 - niri: `niri validate` が valid → `niri msg action load-config-file`（validate だけでは反映されない）
 - ghostty: `ghostty +validate-config`
+- mozc: 辞書の正本は `.config/mozc/user_dictionary.tsv`（よみ\t単語\t品詞\tコメント）。`user_dictionary.db` はバイナリで Mozc が丸ごと書き換えるので管理しない。反映は `/usr/lib/mozc/mozc_tool --mode=dictionary_tool` で TSV をインポート（手動）
